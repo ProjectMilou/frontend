@@ -1,6 +1,14 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://create-react-app.dev/).
+
+## For all the frontend teams:
+
+- This is a TypeScript project, please make sure to type all your variables and don't use `any`.
+- The code style here is governed by prettier and is enforced via a pre commit hook, that formats your code when committing. Look up you editor integrations [here](https://prettier.io/docs/en/editors.html).
+- This project uses eslint to catch common mistakes, look up how to enable reporting of the results in your editor.
+- We are using the `@reach/router` to handle navigation in the app, check their [documentation](https://reach.tech/router/tutorial/01-intro) to get familiar.
+- Please make yourself familiar with writing tests and supply them in your code if you want to get it merged. There's some good starting points [here](https://create-react-app.dev/docs/running-tests).
 
 ## Available Scripts
 
@@ -28,16 +36,6 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
 ## Learn More
 
