@@ -4,6 +4,7 @@ This project was bootstrapped with [Create React App](https://create-react-app.d
 
 ## For all the frontend teams:
 
+- **You need yarn!** To install dependencies and work on the project make sure you have [yarn](https://yarnpkg.com/) installed and set up.
 - This is a TypeScript project, please make sure to type all your variables and don't use `any`.
 - The code style here is governed by prettier and is enforced via a pre commit hook, that formats your code when committing. Look up you editor integrations [here](https://prettier.io/docs/en/editors.html).
 - This project uses eslint to catch common mistakes, look up how to enable reporting of the results in your editor.
@@ -26,6 +27,11 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `yarn format`
+
+Formats all the staged code with `prettier`.\
+Make sure that the code you want to format is staged on git before running.
 
 ### `yarn build`
 
