@@ -116,3 +116,28 @@ Same as `stock` from seach page
 | `id`      | `string` | ISIN of stock|
 
 #### Repsonse
+
+
+
+### `GET /stock/news`
+
+#### Request
+
+| parameter | type     | description  |
+| --------- | -------- | ------------ |
+| `id`      | `string` | ISIN of stock|
+
+#### Repsonse
+
+| parameter | type     |
+| --------- | -------- |
+| `news`      | `news[]` |
+
+#### `news` 
+
+| parameter  | type          | description     |
+| ---------- | ------------- | --------------- |
+| `id`       | `int`         |                 |
+| `headline` | `string`      |  Headline of article   |
+| `summary`  | `string`      |  First few words or sentences   |
+| `url`      | `string`      |  URL to news source   |
