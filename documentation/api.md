@@ -16,7 +16,7 @@ search list by NAME, ISIN, WKN
 
 | parameter | type     |
 | --------- | -------- |
-| `stocks`      | `stock[]` |
+| `stocks`  | `stock[]` |
 
 
 response: list of stocks with searched name, ISIN, WKN
@@ -88,11 +88,10 @@ Same as `stock` from seach page
 | `country`  | `string`      |                 |
 | `industry` | `string`      |                 |
 | `picture`  | `string`      | Link to picture source |
-| `symbol`   | `string`      | Link to picture source |
 
 #### Errors
 
-* `STOCK_ID_INVALID`
+* `STOCK_ISIN_INVALID`
 
 
 ### `GET /stock/details`
@@ -137,7 +136,7 @@ Same as `stock` from seach page
 
 | parameter  | type          | description     |
 | ---------- | ------------- | --------------- |
-| `id`       | `int`         |                 |
+| `id`       | `number` (Int)|                 |
 | `headline` | `string`      |  Headline of article   |
 | `summary`  | `string`      |  First few words or sentences   |
 | `url`      | `string`      |  URL to news source   |
