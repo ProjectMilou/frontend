@@ -94,6 +94,7 @@ Same as `stock` from seach page
 | `wkn`      | `string`      |                 |
 | `symbol`   | `string`      | Ticker symbol   |
 | `name`     | `string`      |                 |
+| `exchange` | `string`      |                 |
 | `price`    | `number` (FP) | Last price per share |
 | `1d`       | `number` (FP) | 1 day return |
 | `7d`       | `number` (FP) | 7 day return |
@@ -126,6 +127,9 @@ Same as `stock` from seach page
 | parameter | type     | description  |
 | --------- | -------- | ------------ |
 | `intro`   | `string` | introduction of the company |
+| `founded` | `number` (Int) | the year that the company founded in |
+| `website` | `string` | the website of the company |
+| `employees` | `number` (Int) | latest number of the employees |
 
 ### `GET /stock/charts/historic
 
