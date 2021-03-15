@@ -16,19 +16,19 @@ search list by NAME, ISIN, WKN
 
 | parameter | type     |
 | --------- | -------- |
-| `id`      | `string` |
+| `stocks`      | `stock[]` |
 
 
-response: list of stocks with name, ISIN, WKN
+response: list of stocks with searched name, ISIN, WKN
 
 ### `GET /stocks/list`
 List of stocks and their data, that can be later be filtered in the fronted based on the data
 
 #### Response
 
-| parameter          | type                      | description                                                     |
-| ------------------ | ------------------------- | --------------------------------------------------------------- |
-| `stocks`           | `stock[]`                 | All positions in the portfolio                                  |
+| parameter          | type                      |description          |
+| ------------------ | ------------------------- | ------------------- |
+| `stocks`           | `stock[]`                 | List of stocks      |
 
 #### `stock`
 
@@ -55,3 +55,59 @@ List of stocks and their data, that can be later be filtered in the fronted base
 
 # Analyser Page
 
+### `GET /stock/overview`
+
+#### Request
+
+| parameter | type     | description  |
+| --------- | -------- | ------------ |
+| `id`      | `string` | ISIN of stock|
+
+#### Repsonse
+
+Same as `stock` from seach page
+
+| parameter  | type          | description     |
+| ---------- | ------------- | --------------- |
+| `isin`     | `string`      |                 |
+| `wkn`      | `string`      |                 |
+| `symbol`   | `string`      | Ticker symbol   |
+| `name`     | `string`      |                 |
+| `price`    | `number` (FP) | Last price per share |
+| `1d`       | `number` (FP) | 1 day return |
+| `7d`       | `number` (FP) | 7 day return |
+| `marketCap`| `number` (FP) | Market Capitalization in billion dollars|
+| `analysTar`| `number` (FP) | Analyst target in dollars |
+| `valuation`| `number` (FP) | Ratio comp to similar companies |
+| `growth`   | `number` (FP) | Growth target in next 3 years |
+| `div`      | `number` (FP) | Dividend yield |
+| `country`  | `string`      |                 |
+| `industry` | `string`      |                 |
+| `picture`  | `string`      | Link to picture source |
+
+#### Errors
+
+* `STOCK_ID_INVALID`
+
+
+### `GET /stock/details`
+
+#### Request
+
+| parameter | type     | description  |
+| --------- | -------- | ------------ |
+| `id`      | `string` | ISIN of stock|
+
+#### Repsonse
+
+
+
+### `GET /stock/charts`
+
+#### Request
+
+| parameter | type     | description  |
+| --------- | -------- | ------------ |
+| `id`      | `string` | ISIN of stock|
+
+#### Repsonse
