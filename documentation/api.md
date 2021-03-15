@@ -70,7 +70,7 @@ List of stocks and their data, that can be later be filtered in the fronted base
 | `country`  | `string`      |                 |
 | `industry` | `string`      |                 |
 | `picture`  | `string`      | Link to picture source |
-| `symbol`   | `string`      | Link to picture source |
+| `date`     | `number`(Int) | Date when sources where updated last |
 
 <br/><br/>
 
@@ -87,26 +87,6 @@ List of stocks and their data, that can be later be filtered in the fronted base
 #### Repsonse
 
 Same as `stock` from seach page
-
-| parameter  | type          | description     |
-| ---------- | ------------- | --------------- |
-| `isin`     | `string`      |                 |
-| `wkn`      | `string`      |                 |
-| `symbol`   | `string`      | Ticker symbol   |
-| `name`     | `string`      |                 |
-| `price`    | `number` (FP) | Last price per share |
-| `1d`       | `number` (FP) | 1 day return |
-| `7d`       | `number` (FP) | 7 day return |
-| `30d`      | `number` (FP) | 30 day return |
-| `marketCap`| `number` (FP) | Market Capitalization in billion dollars|
-| `analysTar`| `number` (FP) | Analyst target in dollars |
-| `valuation`| `number` (FP) | Ratio comp to similar companies |
-| `growth`   | `number` (FP) | Growth target in next 3 years |
-| `div`      | `number` (FP) | Dividend yield  |
-| `currency` | `string`      |                 |
-| `country`  | `string`      |                 |
-| `industry` | `string`      |                 |
-| `picture`  | `string`      | Link to picture source |
 
 #### Errors
 
@@ -125,9 +105,9 @@ Same as `stock` from seach page
 
 | parameter | type     | description  |
 | --------- | -------- | ------------ |
-| `intro`   | `string` | introduction of the company |
+| `intro`   | `string` | Couple of introduction sentences of the company |
 
-### `GET /stock/charts/historic
+### `GET /stock/charts/historic`
 
 Get the performance of the stock from beginning or last 5 years
 #### Request
@@ -176,7 +156,7 @@ Get the key figures of the stock from beginning or last 5 years
 | `eps`| `number`(FP) | Earnings per Share|
 
 
-### `GET /stock/charts/dividend
+### `GET /stock/charts/dividend`
 
 Get the dividend of the stock from beginning or last 5 years
 #### Request
@@ -224,6 +204,7 @@ Get the analysts recommendation
 | `goal`  | `number`(FP) | Stock goal in dollars|
 | `strategy`  | `string` | Either buy, hold, or sell|
 | `source`  | `string` | Link to source of rating|
+| `more Info?`  | `TBD` | More Information, e.g. Future Growth|
 
 
 ### `GET /stock/news`
@@ -248,3 +229,22 @@ Get the analysts recommendation
 | `headline` | `string`      |  Headline of article   |
 | `summary`  | `string`      |  First few words or sentences   |
 | `url`      | `string`      |  URL to news source   |
+
+
+
+### `GET /stock/risk`
+
+Get risk analysis
+#### Request
+
+| parameter | type     | description  |
+| --------- | -------- | ------------ |
+| `id`      | `string` | ISIN of stock|
+
+#### Repsonse
+
+| parameter | type     | description  |
+| --------- | -------- | ------------ |
+| `rewards`| `string[]` | List of Rewards|
+| `risks`  | `string[]` | List of Risks |
+| `risk_checks`  | `boolean[]` | A list of risk checks, as in simpy Wallstreet|
