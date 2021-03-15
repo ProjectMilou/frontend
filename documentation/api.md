@@ -125,7 +125,7 @@ Same as `stock` from seach page
 
 
 
-### `GET /stock/charts`
+### `GET /stock/charts/historicPerformance
 
 #### Request
 
@@ -135,7 +135,15 @@ Same as `stock` from seach page
 
 #### Repsonse
 
+| parameter | type     | description  |
+| --------- | -------- | ------------ |
+| `dataPoints`| `dataPoint` | list of DataPoints|
 
+`dataPoint`
+| parameter | type     | description  |
+| --------- | -------- | ------------ |
+| `date` | `number` (Int) | day        |
+| `close`| `number`(FP) | closing price of stock|
 
 ### `GET /stock/news`
 
