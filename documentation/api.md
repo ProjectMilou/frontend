@@ -21,6 +21,25 @@ search list by NAME, ISIN, WKN
 
 response: list of stocks with searched name, ISIN, WKN
 
+### `POST /filter`
+search list by filters
+
+#### Request
+
+| parameter | type     |
+| --------- | -------- |
+| `country` | `string` |
+| `currency`| `string` |
+| `industry`| `string` |
+
+#### Response
+
+| parameter | type     |
+| --------- | -------- |
+| `stocks`      | `stock[]` |
+
+response: list of stocks with searched by filters
+
 ### `GET /stocks/list`
 List of stocks and their data, that can be later be filtered in the fronted based on the data
 
@@ -133,7 +152,7 @@ Same as `stock` from seach page
 | --------- | -------- |
 | `news`      | `news[]` |
 
-#### `news` 
+#### `news`
 
 | parameter  | type          | description     |
 | ---------- | ------------- | --------------- |
