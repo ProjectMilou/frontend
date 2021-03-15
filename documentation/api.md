@@ -105,7 +105,10 @@ Same as `stock` from seach page
 
 | parameter | type     | description  |
 | --------- | -------- | ------------ |
-| `intro`   | `string` | Couple of introduction sentences of the company |
+| `intro`   | `string` | introduction of the company in some sentences |
+| `founded` | `number` (Int) | the year that the company founded in |
+| `website` | `string` | the website of the company |
+| `employees` | `number` (Int) | latest number of the employees |
 
 ### `GET /stock/charts/historic`
 
