@@ -28,9 +28,9 @@ search list by filters
 
 | parameter | type     |
 | --------- | -------- |
-| `country` | `string` |
-| `currency`| `string` |
-| `industry`| `string` |
+| `country` | `string[]` |
+| `currency`| `string[]` |
+| `industry`| `string[]` |
 
 #### Response
 
