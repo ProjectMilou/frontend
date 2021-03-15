@@ -1,0 +1,57 @@
+Orientate on Protfolio team: https://gist.github.com/an-p/3e5deef339f3eaf7d1858aa17b46301f
+
+# Search Page
+
+
+### `POST /search`
+search list by NAME, ISIN, WKN
+
+#### Request
+
+| parameter | type     |
+| --------- | -------- |
+| `id`      | `string` |
+
+#### Response
+
+| parameter | type     |
+| --------- | -------- |
+| `id`      | `string` |
+
+
+response: list of stocks with name, ISIN, WKN
+
+### `GET /stocks/list`
+List of stocks and their data, that can be later be filtered in the fronted based on the data
+
+#### Response
+
+| parameter          | type                      | description                                                     |
+| ------------------ | ------------------------- | --------------------------------------------------------------- |
+| `stocks`           | `stock[]`                 | All positions in the portfolio                                  |
+
+#### `stock`
+
+| parameter  | type          | description     |
+| ---------- | ------------- | --------------- |
+| `isin`     | `string`      |                 |
+| `wkn`      | `string`      |                 |
+| `symbol`   | `string`      | Ticker symbol   |
+| `name`     | `string`      |                 |
+| `price`    | `number` (FP) | Last price per share |
+| `1d`       | `number` (FP) | 1 day return |
+| `7d`       | `number` (FP) | 7 day return |
+| `marketCap`| `number` (FP) | Market Capitalization in billion dollars|
+| `analysTar`| `number` (FP) | Analyst target in dollars |
+| `valuation`| `number` (FP) | Ratio comp to similar companies |
+| `growth`   | `number` (FP) | Growth target in next 3 years |
+| `div`      | `number` (FP) | Dividend yield |
+| `country`  | `string`      |                 |
+| `industry` | `string`      |                 |
+| `picture`  | `string`      | Link to picture source |
+
+
+<br/><br/>
+
+# Analyser Page
+
