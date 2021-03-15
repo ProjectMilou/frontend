@@ -125,13 +125,15 @@ Same as `stock` from seach page
 
 
 
-### `GET /stock/charts/historicPerformance
+### `GET /stock/charts/historic
 
+Get the performance of the stock from beginning or last 5 years
 #### Request
 
 | parameter | type     | description  |
 | --------- | -------- | ------------ |
 | `id`      | `string` | ISIN of stock|
+| `max`      | `false` | all data points if true, else only last 5 years|
 
 #### Repsonse
 
@@ -144,6 +146,34 @@ Same as `stock` from seach page
 | --------- | -------- | ------------ |
 | `date` | `number` (Int) | day        |
 | `close`| `number`(FP) | closing price of stock|
+
+
+### `GET /stock/charts/key_figures
+
+Get the performance of the stock from beginning or last 5 years
+#### Request
+
+| parameter | type     | description  |
+| --------- | -------- | ------------ |
+| `id`      | `string` | ISIN of stock|
+| `max`      | `false` | all data points if true, else only last 5 years|
+
+#### Repsonse
+
+| parameter | type     | description  |
+| --------- | -------- | ------------ |
+| `keyfigures`| `keyFigure[]` | list of DataPoints|
+
+`keyFigure`
+| parameter | type     | description  |
+| --------- | -------- | ------------ |
+| `date` | `number` (Int) | day        |
+| `pte`| `number`(FP) | Price to Earnings Ratio|
+| `ptb`| `number`(FP) | Price to Earnings Ratio|
+| `ptg`| `number`(FP) | Price to Earning Growth Ratio|
+| `eps`| `number`(FP) | Earnings per Share|
+
+
 
 ### `GET /stock/news`
 
