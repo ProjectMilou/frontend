@@ -102,7 +102,7 @@ Same as `stock` from seach page
 | `analysTar`| `number` (FP) | Analyst target in dollars |
 | `valuation`| `number` (FP) | Ratio comp to similar companies |
 | `growth`   | `number` (FP) | Growth target in next 3 years |
-| `div`      | `number` (FP) | Dividend yield |
+| `div`      | `number` (FP) | Dividend yield  |
 | `currency` | `string`      |                 |
 | `country`  | `string`      |                 |
 | `industry` | `string`      |                 |
@@ -133,7 +133,7 @@ Get the performance of the stock from beginning or last 5 years
 | parameter | type     | description  |
 | --------- | -------- | ------------ |
 | `id`      | `string` | ISIN of stock|
-| `max`      | `false` | all data points if true, else only last 5 years|
+| `max`     | `false`  | all data points if true, else only last 5 years|
 
 #### Repsonse
 
@@ -148,31 +148,80 @@ Get the performance of the stock from beginning or last 5 years
 | `close`| `number`(FP) | closing price of stock|
 
 
-### `GET /stock/charts/key_figures
+### `GET /stock/charts/key_figures`
 
-Get the performance of the stock from beginning or last 5 years
+Get the key figures of the stock from beginning or last 5 years
 #### Request
 
 | parameter | type     | description  |
 | --------- | -------- | ------------ |
 | `id`      | `string` | ISIN of stock|
-| `max`      | `false` | all data points if true, else only last 5 years|
+| `max`     | `false`  | all data points if true, else only last 5 years|
 
 #### Repsonse
 
 | parameter | type     | description  |
 | --------- | -------- | ------------ |
-| `keyfigures`| `keyFigure[]` | list of DataPoints|
+| `keyfigures`| `keyFigure[]` | list of keyFigures|
 
 `keyFigure`
 | parameter | type     | description  |
 | --------- | -------- | ------------ |
-| `date` | `number` (Int) | day        |
+| `date` | `number`(Int)| date        |
 | `pte`| `number`(FP) | Price to Earnings Ratio|
 | `ptb`| `number`(FP) | Price to Earnings Ratio|
 | `ptg`| `number`(FP) | Price to Earning Growth Ratio|
 | `eps`| `number`(FP) | Earnings per Share|
 
+
+### `GET /stock/charts/dividend
+
+Get the dividend of the stock from beginning or last 5 years
+#### Request
+
+| parameter | type     | description  |
+| --------- | -------- | ------------ |
+| `id`      | `string` | ISIN of stock|
+| `max`     | `false` | all data points if true, else only last 5 years|
+
+#### Repsonse
+
+| parameter | type     | description  |
+| --------- | -------- | ------------ |
+| `dataPoints`| `dataPoints[]` | list of DataPoints|
+| `date`    | `number`(Int) | next date for dividends|
+| `quota`   | `number`(FP) | dividend payout ratio|
+
+`dataPoint`
+| parameter | type     | description  |
+| --------- | -------- | ------------ |
+| `date` | `number` (Int)| date        |
+| `div`  | `number`(FP) | paid out dividend in dollars|
+
+
+### `GET /stock/charts/analysts`
+
+Get the analysts recommendation 
+#### Request
+
+| parameter | type     | description  |
+| --------- | -------- | ------------ |
+| `id`      | `string` | ISIN of stock|
+
+#### Repsonse
+
+| parameter | type     | description  |
+| --------- | -------- | ------------ |
+| `rating`| `rating[]` | List of Ratings|
+| `averageGoal`| `number`(FP) | Average goal price of the stock |
+
+`rating`
+| parameter | type     | description  |
+| --------- | -------- | ------------ |
+| `date` | `number` (Int)| date when prediction was made|
+| `goal`  | `number`(FP) | Stock goal in dollars|
+| `strategy`  | `string` | Either buy, hold, or sell|
+| `source`  | `string` | Link to source of rating|
 
 
 ### `GET /stock/news`
