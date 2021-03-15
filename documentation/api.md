@@ -1,4 +1,4 @@
-Orientate on Protfolio team: https://gist.github.com/an-p/3e5deef339f3eaf7d1858aa17b46301f
+
 
 # Search Page
 
@@ -109,6 +109,8 @@ Same as `stock` from seach page
 | `founded` | `number` (Int) | the year that the company founded in |
 | `website` | `string` | the website of the company |
 | `employees` | `number` (Int) | latest number of the employees |
+| `address` | `string` | Street address|
+| `assembly` | `date`(int) | Date of the next shareholder assembly|
 
 ### `GET /stock/charts/historic`
 
