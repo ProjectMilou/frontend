@@ -26,17 +26,17 @@ search list by filters
 
 #### Request
 
-| parameter | type     |
-| --------- | -------- |
-| `country` | `string[]` |
-| `currency`| `string[]` |
-| `industry`| `string[]` |
+| parameter | type        |
+| --------- | ----------- |
+| `country` | `string[]`  |
+| `currency`| `string[]`  |
+| `industry`| `string[]`  |
 
 #### Response
 
 | parameter | type     |
 | --------- | -------- |
-| `stocks`      | `stock[]` |
+| `stocks`  | `stock[]` |
 
 response: list of stocks with searched by filters
 
@@ -51,24 +51,24 @@ List of stocks and their data, that can be later be filtered in the fronted base
 
 #### `stock`
 
-| parameter  | type          | description     |
-| ---------- | ------------- | --------------- |
-| `isin`     | `string`      |                 |
-| `wkn`      | `string`      |                 |
-| `symbol`   | `string`      | Ticker symbol   |
-| `name`     | `string`      |                 |
+| parameter  | type          | description      |
+| ---------- | ------------- | ---------------  |
+| `isin`     | `string`      |                  |
+| `wkn`      | `string`      |                  |
+| `symbol`   | `string`      | Ticker symbol    |
+| `name`     | `string`      |                  |
 | `price`    | `number` (FP) | Last price per share |
-| `1d`       | `number` (FP) | 1 day return |
-| `7d`       | `number` (FP) | 7 day return |
-| `30d`      | `number` (FP) | 30 day return |
+| `1d`       | `number` (FP) | 1 day return     |
+| `7d`       | `number` (FP) | 7 day return     |
+| `30d`      | `number` (FP) | 30 day return    |
 | `marketCap`| `number` (FP) | Market Capitalization in billion dollars|
 | `analysTar`| `number` (FP) | Analyst target in dollars |
 | `valuation`| `number` (FP) | Ratio comp to similar companies |
 | `growth`   | `number` (FP) | Growth target in next 3 years |
-| `div`      | `number` (FP) | Dividend yield |
-| `currency` | `string`      |                 |
-| `country`  | `string`      |                 |
-| `industry` | `string`      |                 |
+| `div`      | `number` (FP) | Dividend yield   |
+| `currency` | `string`      |                  |
+| `country`  | `string`      |                  |
+| `industry` | `string`      |                  |
 | `picture`  | `string`      | Link to picture source |
 | `date`     | `number`(Int) | Date when sources where updated last |
 
@@ -86,7 +86,7 @@ List of stocks and their data, that can be later be filtered in the fronted base
 
 #### Repsonse
 
-Same as `stock` from seach page
+Same as `stock` from search page
 
 #### Errors
 
@@ -103,14 +103,31 @@ Same as `stock` from seach page
 
 #### Repsonse
 
+| parameter   | type              | description  |
+| ----------- | ----------------- | ------------ |
+| `intro`     | `string`          | introduction of the company in some sentences |
+| `founded`   | `number` (Int)    | the year that the company founded in |
+| `website`   | `string`          | the website of the company |
+| `employees` | `number` (Int)    | latest number of the employees |
+| `address`   | `string`          | Street address|
+| `assembly`  | `date`(int)       | Date of the next shareholder assembly|
+
+
+### `GET /filters`
+get all countries, industries, categories, currencies, etc. so that show the user the filters
+
+#### Request
+
 | parameter | type     | description  |
 | --------- | -------- | ------------ |
-| `intro`   | `string` | introduction of the company in some sentences |
-| `founded` | `number` (Int) | the year that the company founded in |
-| `website` | `string` | the website of the company |
-| `employees` | `number` (Int) | latest number of the employees |
-| `address` | `string` | Street address|
-| `assembly` | `date`(int) | Date of the next shareholder assembly|
+| `id`      | `string` | filter name |
+
+#### Repsonse
+
+| parameter   | type              | description  |
+| ----------- | ----------------- | ------------ |
+| `filer`     | `string[]`        | list of a specific filter |
+
 
 ### `GET /stock/charts/historic`
 
@@ -124,15 +141,15 @@ Get the performance of the stock from beginning or last 5 years
 
 #### Repsonse
 
-| parameter | type     | description  |
-| --------- | -------- | ------------ |
-| `dataPoints`| `dataPoint` | list of DataPoints|
+| parameter   | type          | description  |
+| ----------- | ------------- | ------------ |
+| `dataPoints`| `dataPoint[]` | list of DataPoints|
 
 `dataPoint`
-| parameter | type     | description  |
-| --------- | -------- | ------------ |
-| `date` | `number` (Int) | day        |
-| `close`| `number`(FP) | closing price of stock|
+| parameter | type            | description  |
+| --------- | --------------- | ------------ |
+| `date`    | `number` (Int)  | day        |
+| `close`   | `number`(FP)    | closing price of stock|
 
 
 ### `GET /stock/charts/key_figures`
@@ -147,18 +164,18 @@ Get the key figures of the stock from beginning or last 5 years
 
 #### Repsonse
 
-| parameter | type     | description  |
-| --------- | -------- | ------------ |
-| `keyfigures`| `keyFigure[]` | list of keyFigures|
+| parameter   | type            | description  |
+| ----------- | --------------- | ------------ |
+| `keyfigures`| `keyFigure[]`   | list of keyFigures|
 
 `keyFigure`
-| parameter | type     | description  |
-| --------- | -------- | ------------ |
-| `date` | `number`(Int)| date        |
-| `pte`| `number`(FP) | Price to Earnings Ratio|
-| `ptb`| `number`(FP) | Price to Earnings Ratio|
-| `ptg`| `number`(FP) | Price to Earning Growth Ratio|
-| `eps`| `number`(FP) | Earnings per Share|
+| parameter | type              | description  |
+| --------- | ----------------- | ------------ |
+| `date`    | `number`(Int)     | date        |
+| `pte`     |  `number`(FP)     | Price to Earnings Ratio|
+| `ptb`     | `number`(FP)      | Price to Earnings Ratio|
+| `ptg`     | `number`(FP)      | Price to Earning Growth Ratio|
+| `eps`     |  `number`(FP)     | Earnings per Share|
 
 
 ### `GET /stock/charts/dividend`
@@ -166,29 +183,29 @@ Get the key figures of the stock from beginning or last 5 years
 Get the dividend of the stock from beginning or last 5 years
 #### Request
 
-| parameter | type     | description  |
-| --------- | -------- | ------------ |
-| `id`      | `string` | ISIN of stock|
-| `max`     | `false` | all data points if true, else only last 5 years|
+| parameter | type      | description  |
+| --------- | --------- | ------------ |
+| `id`      | `string`  | ISIN of stock|
+| `max`     | `false`   | all data points if true, else only last 5 years|
 
 #### Repsonse
 
-| parameter | type     | description  |
-| --------- | -------- | ------------ |
-| `dataPoints`| `dataPoints[]` | list of DataPoints|
-| `date`    | `number`(Int) | next date for dividends|
-| `quota`   | `number`(FP) | dividend payout ratio|
+| parameter   | type            | description  |
+| ----------- | --------------- | ------------ |
+| `dataPoints`| `dataPoints[]`  | list of DataPoints|
+| `date`      | `number`(Int)   | next date for dividends|
+| `quota`     | `number`(FP)    | dividend payout ratio|
 
 `dataPoint`
-| parameter | type     | description  |
-| --------- | -------- | ------------ |
-| `date` | `number` (Int)| date        |
-| `div`  | `number`(FP) | paid out dividend in dollars|
+| parameter | type            | description  |
+| --------- | --------------- | ------------ |
+| `date`    | `number` (Int)  | date        |
+| `div`     | `number`(FP)    | paid out dividend in dollars|
 
 
 ### `GET /stock/charts/analysts`
 
-Get the analysts recommendation 
+Get the analysts recommendation
 #### Request
 
 | parameter | type     | description  |
@@ -197,19 +214,19 @@ Get the analysts recommendation
 
 #### Repsonse
 
-| parameter | type     | description  |
-| --------- | -------- | ------------ |
-| `rating`| `rating[]` | List of Ratings|
-| `averageGoal`| `number`(FP) | Average goal price of the stock |
+| parameter     | type          | description  |
+| ------------- | ------------- | ------------ |
+| `rating`      | `rating[]`    | List of Ratings|
+| `averageGoal` | `number`(FP)  | Average goal price of the stock |
 
 `rating`
-| parameter | type     | description  |
-| --------- | -------- | ------------ |
-| `date` | `number` (Int)| date when prediction was made|
-| `goal`  | `number`(FP) | Stock goal in dollars|
-| `strategy`  | `string` | Either buy, hold, or sell|
-| `source`  | `string` | Link to source of rating|
-| `more Info?`  | `TBD` | More Information, e.g. Future Growth|
+| parameter     | type          | description  |
+| ------------- | ------------- | ------------ |
+| `date`        | `number` (Int)| date when prediction was made|
+| `goal`        | `number`(FP)  | Stock goal in dollars|
+| `strategy`    | `string`      | Either buy, hold, or sell|
+| `source`      | `string`      | Link to source of rating|
+| `more Info?`  | `TBD`         | More Information, e.g. Future Growth|
 
 
 ### `GET /stock/news`
@@ -224,7 +241,7 @@ Get the analysts recommendation
 
 | parameter | type     |
 | --------- | -------- |
-| `news`      | `news[]` |
+| `news`    | `news[]` |
 
 #### `news`
 
