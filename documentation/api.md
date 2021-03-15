@@ -123,7 +123,9 @@ Same as `stock` from seach page
 
 #### Repsonse
 
-
+| parameter | type     | description  |
+| --------- | -------- | ------------ |
+| `intro`   | `string` | introduction of the company |
 
 ### `GET /stock/charts/historic
 
