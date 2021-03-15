@@ -41,17 +41,18 @@ List of stocks and their data, that can be later be filtered in the fronted base
 | `price`    | `number` (FP) | Last price per share |
 | `1d`       | `number` (FP) | 1 day return |
 | `7d`       | `number` (FP) | 7 day return |
+| `30d`      | `number` (FP) | 30 day return |
 | `marketCap`| `number` (FP) | Market Capitalization in billion dollars|
 | `analysTar`| `number` (FP) | Analyst target in dollars |
 | `valuation`| `number` (FP) | Ratio comp to similar companies |
 | `growth`   | `number` (FP) | Growth target in next 3 years |
 | `div`      | `number` (FP) | Dividend yield |
+| `currency` | `string`      |                 |
 | `country`  | `string`      |                 |
 | `industry` | `string`      |                 |
 | `picture`  | `string`      | Link to picture source |
-
+| `symbol`   | `string`      | Link to picture source |
 
 <br/><br/>
 
 # Analyser Page
-
