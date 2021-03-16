@@ -6,6 +6,6 @@ describe('Portfolio', () => {
   // TODO: Write actual tests
   test('example test', () => {
     render(<Portfolio />);
-    expect(screen.getByText(/Portfolio component/i)).toBeInTheDocument();
+    expect(screen.getByText(/portfolio/i)).toBeInTheDocument();
   });
 });

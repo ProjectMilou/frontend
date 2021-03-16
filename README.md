@@ -69,6 +69,32 @@ const Example: React.FC = () => {
 export default Example;
 ```
 
+## i18n
+
+Locales are defined in [src/locales/en.json](./src/locales/en.json) like this:
+
+```json
+{
+  "helloworld": "Hello world!"
+}
+```
+
+Using translations:
+
+```tsx
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
+const Example: React.FC = () => {
+  const { t } = useTranslation();
+  return <div>{t('helloworld')}</div>;
+};
+
+export default Example;
+```
+
+Also see the [react-18next documentation](https://react.i18next.com/).
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
