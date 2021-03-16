@@ -35,16 +35,14 @@ const theme = createMuiTheme({
   },
 });
 
-const App: React.FC = () => {
-  return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {/* TODO: Change component hierarchy */}
-      <Shell />
-      <Analyser />
-      <Portfolio />
-    </ThemeProvider>
-  );
-};
+const App: React.FC = () => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    {/* TODO: Change component hierarchy */}
+    <Shell />
+    <Analyser />
+    <Portfolio />
+  </ThemeProvider>
+);
 
 export default App;

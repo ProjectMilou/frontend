@@ -1,13 +1,15 @@
 {
   "extends": [
+    "react-app",
+    "react-app/jest",
     "airbnb-typescript",
     "airbnb/hooks",
     "plugin:@typescript-eslint/recommended",
-    "plugin:jest/recommended",
-    "prettier",
-    "plugin:prettier/recommended"
+    "prettier"
   ],
-  "plugins": ["react", "@typescript-eslint", "jest"],
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "env": {
     "browser": true,
     "es6": true,
@@ -27,12 +29,6 @@
     "project": "./tsconfig.json"
   },
   "rules": {
-    "linebreak-style": "off",
-    "prettier/prettier": [
-      "error",
-      {
-        "endOfLine": "auto"
-      }
-    ]
+    "linebreak-style": "off"
   }
 }
