@@ -22,7 +22,7 @@ search list by NAME, ISIN, WKN
 response: list of stocks with searched name, ISIN, WKN
 
 ### `POST /filter`
-search list by filters
+search list of stocks as result of given filters
 
 #### Request
 
@@ -31,6 +31,7 @@ search list by filters
 | `country` | `string[]`  |
 | `currency`| `string[]`  |
 | `industry`| `string[]`  |
+To be discussed: More filters
 
 #### Response
 
@@ -38,10 +39,10 @@ search list by filters
 | --------- | -------- |
 | `stocks`  | `stock[]` |
 
-response: list of stocks with searched by filters
+response: list of stocks with applied filters
 
 ### `GET /stocks/list`
-List of stocks and their data, that can be later be filtered in the fronted based on the data
+List of all stocks and their data
 
 #### Response
 
