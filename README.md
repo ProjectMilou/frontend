@@ -33,6 +33,10 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 Formats all the staged code with `prettier`.\
 Make sure that the code you want to format is staged on git before running.
 
+### `yarn lint`
+
+Runs `eslint` on source and test files.
+
 ### `yarn build`
 
 Builds the app for production to the `build` folder.\
