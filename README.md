@@ -47,6 +47,28 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+## Styles
+
+The project uses Material-UI's styling solution for components (see the [documentation](https://material-ui.com/styles/basics/)).
+
+For example, a functional component can be styled using hooks:
+
+```tsx
+import React from 'react';
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles({
+  root: { 'font-weight': 'bold' },
+});
+
+const Example: React.FC = () => {
+  const classes = useStyles();
+  return <div className={classes.root}>Hello world!</div>;
+};
+
+export default Example;
+```
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
