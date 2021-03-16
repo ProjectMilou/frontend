@@ -36,7 +36,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <p>Here be an app</p>
+      <p>Analyzer Team is Superior!!!</p>
     </ThemeProvider>
   );
 }
