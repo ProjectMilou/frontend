@@ -4,7 +4,7 @@
 
 
 ### `POST /search`
-search list by NAME, ISIN, WKN
+search list by NAME, ISIN, WKN, SYMBOL
 
 #### Request
 
@@ -19,7 +19,7 @@ search list by NAME, ISIN, WKN
 | `stocks`  | `stock[]` |
 
 
-response: list of stocks with searched name, ISIN, WKN
+response: list of stocks with searched name, ISIN, WKN, SYMBOL
 
 ### `POST /filter`
 search list of stocks as result of given filters
@@ -83,7 +83,7 @@ List of all stocks and their data
 
 | parameter | type     | description  |
 | --------- | -------- | ------------ |
-| `id`      | `string` | ISIN of stock|
+| `id`      | `string` | SYMBOL of stock|
 
 #### Repsonse
 
@@ -91,7 +91,7 @@ Same as `stock` from search page
 
 #### Errors
 
-* `STOCK_ISIN_INVALID`
+* `STOCK_SYMBOL_INVALID`
 
 
 ### `GET /stock/details`
@@ -100,7 +100,7 @@ Same as `stock` from search page
 
 | parameter | type     | description  |
 | --------- | -------- | ------------ |
-| `id`      | `string` | ISIN of stock|
+| `id`      | `string` | SYMBOL of stock|
 
 #### Repsonse
 
@@ -137,7 +137,7 @@ Get the performance of the stock from beginning or last 5 years
 
 | parameter | type     | description  |
 | --------- | -------- | ------------ |
-| `id`      | `string` | ISIN of stock|
+| `id`      | `string` | SYMBOL of stock|
 | `max`     | `false`  | all data points if true, else only last 5 years|
 
 #### Repsonse
@@ -160,7 +160,7 @@ Get the key figures of the stock from beginning or last 5 years
 
 | parameter | type     | description  |
 | --------- | -------- | ------------ |
-| `id`      | `string` | ISIN of stock|
+| `id`      | `string` | SYMBOL of stock|
 | `max`     | `false`  | all data points if true, else only last 5 years|
 
 #### Repsonse
@@ -186,7 +186,7 @@ Get the dividend of the stock from beginning or last 5 years
 
 | parameter | type      | description  |
 | --------- | --------- | ------------ |
-| `id`      | `string`  | ISIN of stock|
+| `id`      | `string`  | SYMBOL of stock|
 | `max`     | `false`   | all data points if true, else only last 5 years|
 
 #### Repsonse
@@ -211,7 +211,7 @@ Get the analysts recommendation
 
 | parameter | type     | description  |
 | --------- | -------- | ------------ |
-| `id`      | `string` | ISIN of stock|
+| `id`      | `string` | SYMBOL of stock|
 
 #### Repsonse
 
@@ -236,7 +236,7 @@ Get the analysts recommendation
 
 | parameter | type     | description  |
 | --------- | -------- | ------------ |
-| `id`      | `string` | ISIN of stock|
+| `id`      | `string` | SYMBOL of stock|
 
 #### Repsonse
 
@@ -262,7 +262,7 @@ Get risk analysis
 
 | parameter | type     | description  |
 | --------- | -------- | ------------ |
-| `id`      | `string` | ISIN of stock|
+| `id`      | `string` | SYMBOL of stock|
 
 #### Repsonse
 
