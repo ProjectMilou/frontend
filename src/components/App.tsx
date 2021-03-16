@@ -1,5 +1,8 @@
 import React from 'react';
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
+import Shell from './shell/Shell';
+import Analyser from './analyser/Analyser';
+import Portfolio from './portfolio/Portfolio';
 
 const theme = createMuiTheme({
   typography: {
@@ -32,13 +35,16 @@ const theme = createMuiTheme({
   },
 });
 
-function App() {
+const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <p>Here be an app</p>
+      {/* TODO: Change component hierarchy */}
+      <Shell />
+      <Analyser />
+      <Portfolio />
     </ThemeProvider>
   );
-}
+};
 
 export default App;
