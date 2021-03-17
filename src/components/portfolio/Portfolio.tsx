@@ -1,9 +1,12 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import DashboardHeader from './DashboardHeader';
+import Dashboard from './Dashboard';
 
-const Portfolio: React.FC = () => {
-  const { t } = useTranslation();
-  return <div>{t('portfolio')}</div>;
-};
+const Portfolio: React.FC = () => (
+  <div>
+    <DashboardHeader />
+    <Dashboard token="" />
+  </div>
+);
 
 export default Portfolio;
