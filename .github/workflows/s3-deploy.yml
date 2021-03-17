@@ -54,7 +54,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           state: success
           description: Deploy preview ready!
-          url: ${{ PUBLIC_URL }}
+          url: ${{ env.PUBLIC_URL }}
           context: Deploy Preview URL
           
       - name: Set failed deployment status
