@@ -38,7 +38,7 @@ jobs:
         if: success()
         uses: jakejarvis/s3-sync-action@master
         with:
-          args: --delete
+          args: --acl public-read --follow-symlinks --delete
         env:
           AWS_S3_BUCKET: poject-milou-frontend
           AWS_ACCESS_KEY_ID: ${{ secrets.DEPLOY_PREVIEW_KEY }}
