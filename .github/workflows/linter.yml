@@ -65,7 +65,7 @@ jobs:
         uses: github/super-linter@v3
         env:
           VALIDATE_ALL_CODEBASE: false # Validate only changed code
-          DEFAULT_BRANCH: v2
+          DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           LINTER_RULES_PATH: /
           # JAVASCRIPT_DEFAULT_STYLE: prettier
