@@ -2,6 +2,7 @@ name: Deploy Preview
 on: pull_request
 jobs:
   deploy:
+    environment: S3
     runs-on: ubuntu-latest
     env:
       PUBLIC_URL: http://poject-milou-frontend.s3-website.eu-central-1.amazonaws.com/preview/${{ github.event.number }}
