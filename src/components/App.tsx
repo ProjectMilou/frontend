@@ -1,5 +1,6 @@
 import React from 'react';
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
+import { Router } from '@reach/router';
 import Shell from './shell/Shell';
 import Analyser from './analyser/Analyser';
 import Portfolio from './portfolio/Portfolio';
@@ -39,9 +40,11 @@ const App: React.FC = () => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
     {/* TODO: Change component hierarchy */}
-    <Shell />
-    <Analyser />
-    <Portfolio />
+    <Router>
+      <Shell path="/shell" />
+      <Analyser path="/analyser" />
+      <Portfolio path="/portofolio" />
+    </Router>
   </ThemeProvider>
 );
 
