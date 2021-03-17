@@ -1,11 +1,8 @@
 name: Deploy Preview
 on: pull_request
 jobs:
-  deploy:
-    environment: S3
+  setup:
     runs-on: ubuntu-latest
-    env:
-      PUBLIC_URL: http://poject-milou-frontend.s3-website.eu-central-1.amazonaws.com/preview/${{ github.event.number }}
     steps:
       - uses: actions/checkout@v1
       
@@ -32,9 +29,27 @@ jobs:
       - name: Install
         run: yarn install
         
+  build:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
       - name: Build
         run: yarn run build
         
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Run tests
+        run: yarn run test
+        
+  deploy:
+    environment: S3
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      PUBLIC_URL: http://poject-milou-frontend.s3-website.eu-central-1.amazonaws.com/preview/${{ github.event.number }}
+    steps:
       - name: Deploy
         if: success()
         uses: jakejarvis/s3-sync-action@master
