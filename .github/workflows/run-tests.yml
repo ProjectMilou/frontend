@@ -25,4 +25,9 @@ jobs:
         run: yarn run build
         
       - name: Test
-        run: yarn run test
+        uses: mattallty/jest-github-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          test-command: "yarn test"
+          coverage-comment: false
