@@ -4,6 +4,7 @@ import { Router } from '@reach/router';
 import Shell from './shell/Shell';
 import Analyser from './analyser/Analyser';
 import Portfolio from './portfolio/Portfolio';
+import Header from './header/Header';
 
 const theme = createMuiTheme({
   typography: {
@@ -40,6 +41,7 @@ const App: React.FC = () => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
     {/* TODO: Change component hierarchy */}
+    <Header />
     <Router>
       <Shell path="/shell" />
       <Analyser path="/analyser" />
