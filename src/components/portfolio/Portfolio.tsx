@@ -2,17 +2,18 @@ import { Button } from '@material-ui/core';
 import React from 'react';
 import Details from './Details';
 
-// const Portfolio: React.FC = () => <PortfolioDetailsBaseComponent/>;
+// temporary title that gets passed to the details page
+const title = 'My Portfolio';
 
 const Portfolio: React.FC = () => {
-    const [id, setId] = React.useState<string>();
+  const [id, setId] = React.useState<string>();
 
-    return(
+  return (
     <div>
-      <Button onClick = {() => setId('2')}> </Button>
-      {id ? <Details back = {() => setId(undefined)}/> : <Button/>}
+      <Button onClick={() => setId('2')}> </Button>
+      {id ? <Details back={() => setId(undefined)} name={title} /> : <Button />}
     </div>
-    );
+  );
 };
 
 export default Portfolio;
