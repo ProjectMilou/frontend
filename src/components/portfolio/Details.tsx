@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import DetailsHeader from './DetailsHeader';
+import DetailsMain from './DetailsMain';
 
 // stylesheet for the details base component
 const useStyles = makeStyles({
@@ -35,7 +36,7 @@ const Details: React.FC<DetailsProps> = ({ back, name }) => {
         <DetailsHeader back={back} name={name} />
       </section>
       <section className={classes.main}>
-        <div />
+        <DetailsMain />
       </section>
     </div>
   );
