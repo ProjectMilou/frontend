@@ -5,6 +5,7 @@ import Shell from './shell/Shell';
 import Analyser from './analyser/Analyser';
 import Portfolio from './portfolio/Portfolio';
 import Header from './header/Header';
+import Footer from './footer/Footer';
 
 const theme = createMuiTheme({
   typography: {
@@ -47,6 +48,7 @@ const App: React.FC = () => (
       <Analyser path="/analyser" />
       <Portfolio path="/portofolio" />
     </Router>
+    <Footer />
   </ThemeProvider>
 );
 

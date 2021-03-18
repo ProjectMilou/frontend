@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme: Theme) =>
             flexGrow: 1
         },
         button: {
-            color: theme.palette.primary.main,
             margin: theme.spacing(1)
         }
     })
@@ -33,7 +32,7 @@ const Header: React.FC = () => {
 
                 <div className={classes.grow} />
 
-                <Button className={classes.button} variant="outlined" >Login</Button>
+                <Button className={classes.button} variant="outlined" color="primary">Login</Button>
                 <Button variant="contained" color="primary">Register</Button>
             </Toolbar>
         </AppBar>
