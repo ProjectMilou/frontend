@@ -8,6 +8,13 @@ const useStyles = makeStyles((theme: Theme) =>
         logo: {
             maxWidth: 100,
             marginRight: '10px'
+        },
+        grow: {
+            flexGrow: 1
+        },
+        button: {
+            color: theme.palette.primary.main,
+            margin: theme.spacing(1)
         }
     })
 );
@@ -18,7 +25,16 @@ const Header: React.FC = () => {
         <AppBar position="sticky" color="inherit">
             <Toolbar>
                 <img src={logo} alt="milou-logo" className={classes.logo} />
+
                 <Button><NavLink to="/">Home</NavLink></Button>
+                <Button><NavLink to="/portofolio">Portofolio</NavLink></Button>
+                <Button><NavLink to="/analyser">Analyser</NavLink></Button>
+                <Button><NavLink to="/academy">Academy</NavLink></Button>
+
+                <div className={classes.grow} />
+
+                <Button className={classes.button} variant="outlined" >Login</Button>
+                <Button variant="contained" color="primary">Register</Button>
             </Toolbar>
         </AppBar>
     );

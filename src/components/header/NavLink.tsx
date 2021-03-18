@@ -9,7 +9,7 @@ interface NavLinkProps {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         navlink: {
-            color: "#000",
+            color: theme.palette.primary.main,
             textDecoration: "none",
             textTransform: "none"
         }
