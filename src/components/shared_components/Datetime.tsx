@@ -291,7 +291,7 @@ const state = {
         type: 'area',
         height: 350,
         zoom: {
-          enabled: false,
+          enabled: true,
           autoScaleYaxis: true
         },
         background: '#EEF1FB',
@@ -309,7 +309,7 @@ const state = {
       },
       xaxis: {
         type: 'datetime',
-        min: new Date('01 Mar 2012').getTime(),
+        min: new Date('01 MAR 2012').getTime(),
         tickAmount: 6,
       },
       tooltip: {
