@@ -201,7 +201,7 @@ Get the dividend of the stock from beginning or last 5 years
 | parameter | type            | description  |
 | --------- | --------------- | ------------ |
 | `date`    | `number` (Int)  | date        |
-| `div`     | `number`(FP)    | paid out dividend in percentage per Share|
+| `div`     | `number`(FP)    | paid out dividend in percentage per share|
 
 
 ### `GET /stock/charts/analysts`
