@@ -1,5 +1,5 @@
 import React from 'react';
-import { CircularProgress } from '@material-ui/core';
+import { LinearProgress, makeStyles } from '@material-ui/core';
 import * as API from '../../portfolio/APIClient';
 import { ErrorCode } from '../../Errors';
 import ErrorMessage from './ErrorMessage';
@@ -10,48 +10,62 @@ export type DashboardProps = {
   selectPortfolio: (id: string) => void;
 };
 
-const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
+const useStyles = makeStyles({
+  dashboard: {
+    maxWidth: '1500px',
+    margin: '25px auto',
+  },
+});
+
+const Dashboard: React.FC<DashboardProps> = ({ selectPortfolio }) => {
   const [portfolios, setPortfolios] = React.useState<API.PortfolioOverview[]>();
-  const [error, setError] = React.useState<ErrorCode>();
+  const [error] = React.useState<ErrorCode>();
   React.useEffect(() => {
     // TODO: Fetch portfolio list
-    setPortfolios([API.MockOverview, API.MockOverviewTwo]);
+    setTimeout(() => {
+      setPortfolios([API.MockOverview, API.MockOverviewTwo]);
+    }, 500);
   }, []);
+
+  const classes = useStyles();
+
   return (
-    <div>
-      {error && (
-        <ErrorMessage
-          error={error}
-          messageKey="portfolio.dashboard.errorMessage"
-          handling={
-            ErrorCode[error].startsWith('AUTH')
-              ? {
-                  buttonText: 'error.action.login',
-                  action: () => {
-                    // TODO: go back to login
-                  },
-                }
-              : {
-                  buttonText: 'error.action.retry',
-                  action: () => {
-                    // TODO: Fetch portfolio list
-                  },
-                }
-          }
-        />
-      )}
+    <>
       {!portfolios && !error && (
         <div>
-          <CircularProgress />
+          <LinearProgress color="secondary" />
         </div>
       )}
-      {portfolios && (
-        <PortfolioOverview
-          portfolios={portfolios}
-          selectPortfolio={selectPortfolio}
-        />
-      )}
-    </div>
+      <div className={classes.dashboard}>
+        {error && (
+          <ErrorMessage
+            error={error}
+            messageKey="portfolio.dashboard.errorMessage"
+            handling={
+              ErrorCode[error].startsWith('AUTH')
+                ? {
+                    buttonText: 'error.action.login',
+                    action: () => {
+                      // TODO: go back to login
+                    },
+                  }
+                : {
+                    buttonText: 'error.action.retry',
+                    action: () => {
+                      // TODO: Fetch portfolio list
+                    },
+                  }
+            }
+          />
+        )}
+        {portfolios && (
+          <PortfolioOverview
+            portfolios={portfolios}
+            selectPortfolio={selectPortfolio}
+          />
+        )}
+      </div>
+    </>
   );
 };
 

@@ -14,3 +14,7 @@ export enum ErrorCode {
 export function errorMessageKey(code: ErrorCode): string {
   return `error.message.${ErrorCode[code]}`;
 }
+
+export function errorTitleKey(code: ErrorCode): string {
+  return `error.title.${ErrorCode[code]}`;
+}

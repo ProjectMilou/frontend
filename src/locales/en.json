@@ -16,6 +16,7 @@
   "portfolio.delete": "Delete",
   "portfolio.duplicate": "Duplicate",
   "error.message.default": "An error has occurred.",
+  "error.title.AUTH_TOKEN_EXPIRED": "Login expired",
   "error.message.AUTH_TOKEN_EXPIRED": "Your login has expired. Please log in again.",
   "error.action.retry": "Retry",
   "error.action.login": "Back to login",

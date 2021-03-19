@@ -21,7 +21,7 @@ const DashboardViewSelect: React.FC<DashboardViewSelectProps> = ({
   const { t } = useTranslation();
   const theme = useTheme();
   return (
-    <div>
+    <>
       <Tooltip title={t('portfolio.dashboard.view.table').toString()}>
         <IconButton onClick={() => setView(DashboardView.Table)}>
           <TableIcon
@@ -44,7 +44,7 @@ const DashboardViewSelect: React.FC<DashboardViewSelectProps> = ({
           />
         </IconButton>
       </Tooltip>
-    </div>
+    </>
   );
 };
 
