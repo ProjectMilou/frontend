@@ -1,9 +1,19 @@
+import { Button } from '@material-ui/core';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import Details from './Details';
+
+// temporary title that gets passed to the details page
+const title = 'My Portfolio';
 
 const Portfolio: React.FC = () => {
-  const { t } = useTranslation();
-  return <div>{t('portfolio')}</div>;
+  const [id, setId] = React.useState<string>();
+
+  return (
+    <div>
+      <Button onClick={() => setId('2')}> </Button>
+      {id ? <Details back={() => setId(undefined)} name={title} /> : <Button />}
+    </div>
+  );
 };
 
 export default Portfolio;
