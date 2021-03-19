@@ -66,7 +66,7 @@ List of all stocks and their data
 | `analysTar`| `number` (FP) | Analyst target in dollars |
 | `valuation`| `number` (FP) | Ratio comp to similar companies |
 | `growth`   | `number` (FP) | Growth target in next 3 years |
-| `div`      | `number` (FP) | paid out dividend in percentage per share |
+| `div`      | `number` (FP) | Latest paid out dividend in percentage per share |
 | `currency` | `string`      |                  |
 | `country`  | `string`      |                  |
 | `industry` | `string`      |                  |
