@@ -5,7 +5,7 @@ import Dashboard from './Dashboard';
 const Portfolio: React.FC = () => (
   <div>
     <DashboardHeader />
-    <Dashboard token="" />
+    <Dashboard token="" selectPortfolio={() => {}} />
   </div>
 );
 

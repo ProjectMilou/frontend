@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
   header: {
@@ -8,21 +9,19 @@ const useStyles = makeStyles({
   },
   text: {
     'font-size': '35pt',
-    'color': '#EEF1FB',
+    color: '#EEF1FB',
     'padding-top': '5%',
-    'padding-left' : '5%',
+    'padding-left': '5%',
     width: '50%',
   },
 });
 
 const DashboardHeader: React.FC = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
   return (
     <div className={classes.header}>
-      <p className={classes.text}>
-        Diversifying and balancing your portfolio helps you to optimize the
-        ratio between risk and return.
-      </p>
+      <p className={classes.text}>{t('portfolio.dashboard.headerText')}</p>
     </div>
   );
 };

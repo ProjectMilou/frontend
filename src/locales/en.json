@@ -1,3 +1,23 @@
 {
-  "portfolio": "Portfolio component"
+  "portfolio.dashboard.headerText": "Diversifying and balancing your portfolio helps you to optimize the ratio between risk and return.",
+  "portfolio.dashboard.title": "My Portfolios",
+  "portfolio.dashboard.errorMessage": "There has been an error while loading your portfolios.",
+  "portfolio.dashboard.view.table": "Table view",
+  "portfolio.dashboard.view.cards": "Cards view",
+  "portfolio.score": "Score",
+  "portfolio.name": "Name",
+  "portfolio.type": "Type",
+  "portfolio.positionsCount": "Positions",
+  "portfolio.value": "Value",
+  "portfolio.7d": "7D",
+  "portfolio.1y": "1Y",
+  "portfolio.actions": "Actions",
+  "portfolio.rename": "Rename",
+  "portfolio.delete": "Delete",
+  "portfolio.duplicate": "Duplicate",
+  "error.message.default": "An error has occurred.",
+  "error.message.AUTH_TOKEN_EXPIRED": "Your login has expired. Please log in again.",
+  "error.action.retry": "Retry",
+  "error.action.login": "Back to login",
+  "error.action.back": "Go back"
 }
