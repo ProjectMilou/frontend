@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) => {
     const { main, light, contrastText } = theme.palette.primary;
     return createStyles({
         logo: {
-            maxWidth: 157,
+            maxWidth: 130,
             marginRight: '10px'
         },
         link: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) => {
             backgroundColor: "white"
         },
         copyrightText: {
-            color: light,
+            color: contrastText,
             fontSize: 11.5
         },
         iconGrid: {
@@ -48,7 +48,7 @@ const Footer: React.FC = () => {
                 alignItems="center"
                 justify="space-between"
                 className={classes.linkGrid}>
-                <Grid container xs={3} justify="flex-start" spacing={8}>
+                <Grid container xs={4} justify="flex-start" spacing={8}>
                     <Grid item>
                         <Link to="/aboutus" className={classes.link}>About us</Link>
                     </Grid>
@@ -56,13 +56,13 @@ const Footer: React.FC = () => {
                         <Link to="/mobileapp" className={classes.link}>Mobile App</Link>
                     </Grid>
                 </Grid>
-                <Grid container xs={3} justify="center">
+                <Grid container xs={4} justify="center">
                     <Grid item>
                         <img src={logo} alt="milou-logo" className={classes.logo} />
                     </Grid>
                 </Grid>
 
-                <Grid container xs={3} justify="flex-end" spacing={6} direction="row">
+                <Grid container xs={4} justify="flex-end" spacing={6} direction="row">
                     <Grid item>
                         <Link to="/privacy" className={classes.link}>Privacy Policy</Link>
                     </Grid>
