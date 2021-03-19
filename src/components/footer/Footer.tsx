@@ -5,7 +5,7 @@ import logo from '../../assets/images/logo2.png';
 import Ellipse from './Ellipse';
 
 const useStyles = makeStyles((theme: Theme) => {
-    const { main, light, contrastText } = theme.palette.primary;
+    const { main, contrastText } = theme.palette.primary;
     return createStyles({
         logo: {
             maxWidth: 130,
@@ -18,9 +18,9 @@ const useStyles = makeStyles((theme: Theme) => {
             fontWeight: "bold",
             fontSize: 12
         },
-        container: {
+        root: {
             backgroundColor: main,
-            padding: 50
+            padding: 50,
         },
         divider: {
             backgroundColor: "white"
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) => {
 const Footer: React.FC = () => {
     const classes = useStyles();
     return (
-        <div className={classes.container}>
+        <div className={classes.root}>
             <Grid
                 container
                 direction="row"

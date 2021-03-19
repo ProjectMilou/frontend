@@ -41,14 +41,25 @@ const theme = createMuiTheme({
 const App: React.FC = () => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
-    {/* TODO: Change component hierarchy */}
-    <Header />
-    <Router>
-      <Shell path="/shell" />
-      <Analyser path="/analyser" />
-      <Portfolio path="/portofolio" />
-    </Router>
-    <Footer />
+
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      minHeight: '100vh'
+    }} >
+      <Header />
+
+      <div style={{ flexGrow: 1 }} >
+        <Router>
+          {/* <Frontpage path="/" /> */}
+          <Shell path="/shell" />
+          <Analyser path="/analyser" />
+          <Portfolio path="/portofolio" />
+        </Router>
+      </div>
+
+      <Footer />
+    </div>
   </ThemeProvider>
 );
 
