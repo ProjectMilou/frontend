@@ -33,6 +33,10 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 Formats all the staged code with `prettier`.\
 Make sure that the code you want to format is staged on git before running.
 
+### `yarn lint`
+
+Runs `eslint` on source and test files.
+
 ### `yarn build`
 
 Builds the app for production to the `build` folder.\
@@ -42,6 +46,54 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+## Styles
+
+The project uses Material-UI's styling solution for components (see the [documentation](https://material-ui.com/styles/basics/)).
+
+For example, a functional component can be styled using hooks:
+
+```tsx
+import React from 'react';
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles({
+  root: { 'font-weight': 'bold' },
+});
+
+const Example: React.FC = () => {
+  const classes = useStyles();
+  return <div className={classes.root}>Hello world!</div>;
+};
+
+export default Example;
+```
+
+## i18n
+
+Locales are defined in [src/locales/en.json](./src/locales/en.json) like this:
+
+```json
+{
+  "helloworld": "Hello world!"
+}
+```
+
+Using translations:
+
+```tsx
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
+const Example: React.FC = () => {
+  const { t } = useTranslation();
+  return <div>{t('helloworld')}</div>;
+};
+
+export default Example;
+```
+
+Also see the [react-18next documentation](https://react.i18next.com/).
 
 ## Learn More
 
