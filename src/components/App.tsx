@@ -42,15 +42,17 @@ const App: React.FC = () => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
 
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      minHeight: '100vh'
-    }} >
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+      }}
+    >
       <Header />
 
-      <div style={{ flexGrow: 1 }} >
-        <Router>
+      <div style={{ flexGrow: 1 }}>
+        <Router basepath="%PUBLIC_URL%">
           {/* <Frontpage path="/" /> */}
           <Shell path="/shell" />
           <Analyser path="/analyser" />
