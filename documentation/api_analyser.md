@@ -174,7 +174,7 @@ Get the key figures of the stock from beginning or last 5 years
 | --------- | ----------------- | ------------ |
 | `date`    | `number`(Int)     | date        |
 | `pte`     |  `number`(FP)     | Price to Earnings Ratio|
-| `ptb`     | `number`(FP)      | Price to Earnings Ratio|
+| `ptb`     | `number`(FP)      | Price to Book Ratio|
 | `ptg`     | `number`(FP)      | Price to Earning Growth Ratio|
 | `eps`     |  `number`(FP)     | Earnings per Share|
 
@@ -195,13 +195,13 @@ Get the dividend of the stock from beginning or last 5 years
 | ----------- | --------------- | ------------ |
 | `dataPoints`| `dataPoints[]`  | list of DataPoints|
 | `date`      | `number`(Int)   | next date for dividends|
-| `quota`     | `number`(FP)    | dividend payout ratio|
+| `quota`     | `number`(FP)    | dividend payout ratio (profit vs. paid out dividend)|
 
 `dataPoint`
 | parameter | type            | description  |
 | --------- | --------------- | ------------ |
 | `date`    | `number` (Int)  | date        |
-| `div`     | `number`(FP)    | paid out dividend in dollars|
+| `div`     | `number`(FP)    | paid out dividend in percentage per Share|
 
 
 ### `GET /stock/charts/analysts`
