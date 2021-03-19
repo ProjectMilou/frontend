@@ -1,8 +1,15 @@
-import React from 'react';
-import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
+import React, { useState } from 'react';
+import {
+  Button,
+  createMuiTheme,
+  CssBaseline,
+  ThemeProvider,
+} from '@material-ui/core';
 import Shell from './shell/Shell';
 import Analyser from './analyser/Analyser';
 import Portfolio from './portfolio/Portfolio';
+import Register from './shell/register/Register';
+import Login from './shell/login/Login';
 
 const theme = createMuiTheme({
   typography: {
@@ -35,15 +42,45 @@ const theme = createMuiTheme({
   },
 });
 
-const App: React.FC = () => (
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    {/* TODO: Change component hierarchy */}
-    <p>Here be an app</p>
-    <Shell />
-    <Analyser />
-    <Portfolio />
-  </ThemeProvider>
-);
+const App: React.FC = () => {
+  const [openLogin, setOpenLogin] = useState(false);
+  const [openRegister, setOpenRegister] = useState(false);
+
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      {/* TODO: Change component hierarchy */}
+      <p>Here be an app</p>
+      <Shell />
+      <Analyser />
+      <Portfolio />
+      <Button variant="contained" onClick={() => setOpenLogin(true)}>
+        Login
+      </Button>
+      <Button variant="contained" onClick={() => setOpenRegister(true)}>
+        Register
+      </Button>
+      {openLogin && (
+        <Login
+          closePopUp={() => setOpenLogin(false)}
+          openRegisterPopUp={() => {
+            setOpenLogin(false);
+            setOpenRegister(true);
+          }}
+        />
+      )}
+
+      {openRegister && (
+        <Register
+          closePopUp={() => setOpenRegister(false)}
+          openLoginPopUp={() => {
+            setOpenRegister(false);
+            setOpenLogin(true);
+          }}
+        />
+      )}
+    </ThemeProvider>
+  );
+};
 
 export default App;
