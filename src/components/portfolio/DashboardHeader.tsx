@@ -3,12 +3,15 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
   header: {
-    height: '250px',
+    height: '350px',
+    'background-color': '#122654',
   },
   text: {
     'font-size': '35pt',
+    'color': '#EEF1FB',
+    'padding-top': '5%',
+    'padding-left' : '5%',
     width: '50%',
-    margin: '50px',
   },
 });
 
