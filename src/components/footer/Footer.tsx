@@ -4,8 +4,9 @@ import { Link } from '@reach/router';
 import logo from '../../assets/images/logo2.png';
 import Ellipse from './Ellipse';
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
+const useStyles = makeStyles((theme: Theme) => {
+    const { main, light, contrastText } = theme.palette.primary;
+    return createStyles({
         logo: {
             maxWidth: 100,
             marginRight: '10px'
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flexGrow: 1
         },
         link: {
-            color: theme.palette.primary.contrastText,
+            color: contrastText,
             textDecoration: "none",
             textTransform: "none",
             margin: 10,
@@ -24,10 +25,13 @@ const useStyles = makeStyles((theme: Theme) =>
             textAlign: 'center'
         },
         container: {
-            backgroundColor: theme.palette.primary.main
+            backgroundColor: main
+        },
+        divider: {
+            backgroundColor: light
         }
     })
-);
+});
 
 const Footer: React.FC = () => {
     const classes = useStyles();
@@ -44,12 +48,12 @@ const Footer: React.FC = () => {
                     </Grid>
                 </Grid>
 
-                <Grid item xs>
+                <Grid container xs justify="flex-end">
                     <Link to="/privacy" className={classes.link}>Privacy Policy</Link>
                     <Link to="/terms" className={classes.link}>Terms and Conditions</Link>
                 </Grid>
             </Grid>
-            <Divider color="white" />
+            <Divider className={classes.divider} />
             <Grid
                 container
                 direction="column"
