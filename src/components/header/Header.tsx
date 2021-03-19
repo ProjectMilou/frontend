@@ -23,8 +23,9 @@ const Header: React.FC = () => {
     return (
         <AppBar position="sticky" color="inherit">
             <Toolbar>
-                <img src={logo} alt="milou-logo" className={classes.logo} />
-
+                <NavLink to="/">
+                    <img src={logo} alt="milou-logo" className={classes.logo} />
+                </NavLink>
                 <Button><NavLink to="/">Home</NavLink></Button>
                 <Button><NavLink to="/portofolio">Portofolio</NavLink></Button>
                 <Button><NavLink to="/analyser">Analyser</NavLink></Button>
