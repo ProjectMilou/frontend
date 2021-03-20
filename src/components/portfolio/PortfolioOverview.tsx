@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 import * as API from '../../portfolio/APIClient';
 import DashboardViewSelect, { DashboardView } from './DashboardViewSelect';
 import DashboardTable from './DashboardTable';
@@ -31,17 +31,23 @@ const PortfolioOverview: React.FC<PortfolioOverviewProps> = ({
     <>
       <div className={classes.header}>
         <div className={classes.title}>{t('portfolio.dashboard.title')}</div>
-        <DashboardViewSelect view={view} setView={setView} />
+        {!!portfolios.length && (
+          <DashboardViewSelect view={view} setView={setView} />
+        )}
       </div>
-      {view === DashboardView.Table ? (
-        <DashboardTable
-          portfolios={portfolios}
-          selectPortfolio={selectPortfolio}
-        />
-      ) : (
-        // TODO: implement card view
-        <div>cards</div>
+      {!portfolios.length && (
+        <Typography>{t('portfolio.dashboard.noPortfolios')}</Typography>
       )}
+      {!!portfolios.length &&
+        (view === DashboardView.Table ? (
+          <DashboardTable
+            portfolios={portfolios}
+            selectPortfolio={selectPortfolio}
+          />
+        ) : (
+          // TODO: implement card view
+          <div>cards</div>
+        ))}
     </>
   );
 };

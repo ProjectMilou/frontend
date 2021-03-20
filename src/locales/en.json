@@ -4,6 +4,7 @@
   "portfolio.dashboard.errorMessage": "There has been an error while loading your portfolios.",
   "portfolio.dashboard.view.table": "Table view",
   "portfolio.dashboard.view.cards": "Cards view",
+  "portfolio.dashboard.noPortfolios": "You don't have any portfolios. To get started, create a new virtual portfolio or import an existing portfolio.",
   "portfolio.score": "Score",
   "portfolio.name": "Name",
   "portfolio.type": "Type",

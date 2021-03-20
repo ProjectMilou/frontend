@@ -2,162 +2,174 @@
 
 exports[`DashboardViewSelect change view mode: cards 1`] = `
 <div>
-  <button
-    class="MuiButtonBase-root MuiIconButton-root"
-    tabindex="0"
-    title="portfolio.dashboard.view.table"
-    type="button"
+  <div
+    class="makeStyles-dashboardViewSelect-1"
   >
-    <span
-      class="MuiIconButton-label"
+    <button
+      class="MuiButtonBase-root MuiIconButton-root"
+      tabindex="0"
+      title="portfolio.dashboard.view.table"
+      type="button"
     >
-      <svg
-        aria-hidden="true"
-        class="MuiSvgIcon-root"
-        color="#303f9f"
-        focusable="false"
-        viewBox="0 0 24 24"
+      <span
+        class="MuiIconButton-label"
       >
-        <path
-          d="M4 14h4v-4H4v4zm0 5h4v-4H4v4zM4 9h4V5H4v4zm5 5h12v-4H9v4zm0 5h12v-4H9v4zM9 5v4h12V5H9z"
-        />
-      </svg>
-    </span>
-    <span
-      class="MuiTouchRipple-root"
-    />
-  </button>
-  <button
-    class="MuiButtonBase-root MuiIconButton-root"
-    tabindex="0"
-    title="portfolio.dashboard.view.cards"
-    type="button"
-  >
-    <span
-      class="MuiIconButton-label"
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root"
+          color="#303f9f"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M4 14h4v-4H4v4zm0 5h4v-4H4v4zM4 9h4V5H4v4zm5 5h12v-4H9v4zm0 5h12v-4H9v4zM9 5v4h12V5H9z"
+          />
+        </svg>
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+    <button
+      class="MuiButtonBase-root MuiIconButton-root"
+      tabindex="0"
+      title="portfolio.dashboard.view.cards"
+      type="button"
     >
-      <svg
-        aria-hidden="true"
-        class="MuiSvgIcon-root"
-        focusable="false"
-        viewBox="0 0 24 24"
+      <span
+        class="MuiIconButton-label"
       >
-        <path
-          d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm0 14H5V8h14v10z"
-        />
-      </svg>
-    </span>
-    <span
-      class="MuiTouchRipple-root"
-    />
-  </button>
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm0 14H5V8h14v10z"
+          />
+        </svg>
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+  </div>
 </div>
 `;
 
 exports[`DashboardViewSelect change view mode: table 1`] = `
 <div>
-  <button
-    class="MuiButtonBase-root MuiIconButton-root"
-    tabindex="0"
-    title="portfolio.dashboard.view.table"
-    type="button"
+  <div
+    class="makeStyles-dashboardViewSelect-1"
   >
-    <span
-      class="MuiIconButton-label"
+    <button
+      class="MuiButtonBase-root MuiIconButton-root"
+      tabindex="0"
+      title="portfolio.dashboard.view.table"
+      type="button"
     >
-      <svg
-        aria-hidden="true"
-        class="MuiSvgIcon-root"
-        color="#303f9f"
-        focusable="false"
-        viewBox="0 0 24 24"
+      <span
+        class="MuiIconButton-label"
       >
-        <path
-          d="M4 14h4v-4H4v4zm0 5h4v-4H4v4zM4 9h4V5H4v4zm5 5h12v-4H9v4zm0 5h12v-4H9v4zM9 5v4h12V5H9z"
-        />
-      </svg>
-    </span>
-    <span
-      class="MuiTouchRipple-root"
-    />
-  </button>
-  <button
-    class="MuiButtonBase-root MuiIconButton-root"
-    tabindex="0"
-    title="portfolio.dashboard.view.cards"
-    type="button"
-  >
-    <span
-      class="MuiIconButton-label"
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root"
+          color="#303f9f"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M4 14h4v-4H4v4zm0 5h4v-4H4v4zM4 9h4V5H4v4zm5 5h12v-4H9v4zm0 5h12v-4H9v4zM9 5v4h12V5H9z"
+          />
+        </svg>
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+    <button
+      class="MuiButtonBase-root MuiIconButton-root"
+      tabindex="0"
+      title="portfolio.dashboard.view.cards"
+      type="button"
     >
-      <svg
-        aria-hidden="true"
-        class="MuiSvgIcon-root"
-        focusable="false"
-        viewBox="0 0 24 24"
+      <span
+        class="MuiIconButton-label"
       >
-        <path
-          d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm0 14H5V8h14v10z"
-        />
-      </svg>
-    </span>
-    <span
-      class="MuiTouchRipple-root"
-    />
-  </button>
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm0 14H5V8h14v10z"
+          />
+        </svg>
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+  </div>
 </div>
 `;
 
 exports[`DashboardViewSelect change view mode: table 2`] = `
 <div>
-  <button
-    class="MuiButtonBase-root MuiIconButton-root"
-    tabindex="0"
-    title="portfolio.dashboard.view.table"
-    type="button"
+  <div
+    class="makeStyles-dashboardViewSelect-1"
   >
-    <span
-      class="MuiIconButton-label"
+    <button
+      class="MuiButtonBase-root MuiIconButton-root"
+      tabindex="0"
+      title="portfolio.dashboard.view.table"
+      type="button"
     >
-      <svg
-        aria-hidden="true"
-        class="MuiSvgIcon-root"
-        color="#303f9f"
-        focusable="false"
-        viewBox="0 0 24 24"
+      <span
+        class="MuiIconButton-label"
       >
-        <path
-          d="M4 14h4v-4H4v4zm0 5h4v-4H4v4zM4 9h4V5H4v4zm5 5h12v-4H9v4zm0 5h12v-4H9v4zM9 5v4h12V5H9z"
-        />
-      </svg>
-    </span>
-    <span
-      class="MuiTouchRipple-root"
-    />
-  </button>
-  <button
-    class="MuiButtonBase-root MuiIconButton-root"
-    tabindex="0"
-    title="portfolio.dashboard.view.cards"
-    type="button"
-  >
-    <span
-      class="MuiIconButton-label"
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root"
+          color="#303f9f"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M4 14h4v-4H4v4zm0 5h4v-4H4v4zM4 9h4V5H4v4zm5 5h12v-4H9v4zm0 5h12v-4H9v4zM9 5v4h12V5H9z"
+          />
+        </svg>
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+    <button
+      class="MuiButtonBase-root MuiIconButton-root"
+      tabindex="0"
+      title="portfolio.dashboard.view.cards"
+      type="button"
     >
-      <svg
-        aria-hidden="true"
-        class="MuiSvgIcon-root"
-        focusable="false"
-        viewBox="0 0 24 24"
+      <span
+        class="MuiIconButton-label"
       >
-        <path
-          d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm0 14H5V8h14v10z"
-        />
-      </svg>
-    </span>
-    <span
-      class="MuiTouchRipple-root"
-    />
-  </button>
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm0 14H5V8h14v10z"
+          />
+        </svg>
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+  </div>
 </div>
 `;

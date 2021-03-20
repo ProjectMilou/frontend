@@ -8,6 +8,8 @@ export type PortfolioOverview = {
   modified: Date;
 };
 
+// TODO: Move mocks to test files once the APIClient is implemented
+
 export const MockOverview: PortfolioOverview = {
   id: '1',
   name: 'test',
@@ -15,8 +17,8 @@ export const MockOverview: PortfolioOverview = {
   positionCount: 3,
   value: 9,
   score: undefined,
-  modified: new Date()
-}
+  modified: new Date(),
+};
 
 export const MockOverviewTwo: PortfolioOverview = {
   id: '2',
@@ -25,5 +27,5 @@ export const MockOverviewTwo: PortfolioOverview = {
   positionCount: 4,
   value: 3,
   score: 20,
-  modified: new Date()
-}
+  modified: new Date(),
+};
