@@ -42,19 +42,21 @@ const App: React.FC = () => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
 
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      minHeight: '100vh'
-    }} >
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+      }}
+    >
       <Header />
 
-      <div style={{ flexGrow: 1 }} >
+      <div style={{ flexGrow: 1 }}>
         <Router>
           {/* <Frontpage path="/" /> */}
           <Shell path="/shell" />
           <Analyser path="/analyser" />
-          <Portfolio path="/portofolio" />
+          <Portfolio path="/portfolio" />
         </Router>
       </div>
 
