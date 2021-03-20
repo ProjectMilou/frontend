@@ -5,7 +5,6 @@ import {
   IconButton,
   Link,
   ListItemText,
-  makeStyles,
   Paper,
   Table,
   TableBody,
@@ -21,12 +20,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import * as API from '../../portfolio/APIClient';
 import { PortfolioOverview } from '../../portfolio/APIClient';
 
-const useStyles = makeStyles({
-  'table-cell': {
-    align: 'center',
-  },
-});
-
 export type DashboardTableRowProps = {
   portfolio: PortfolioOverview;
   selectPortfolio: (id: string) => void;
@@ -36,7 +29,6 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
   portfolio,
   selectPortfolio,
 }) => {
-  const classes = useStyles();
   const { t } = useTranslation();
 
   return (
@@ -91,7 +83,6 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
   portfolios,
   selectPortfolio,
 }) => {
-  const classes = useStyles();
   const { t } = useTranslation();
 
   return (
