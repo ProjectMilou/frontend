@@ -1,5 +1,5 @@
 import React from 'react';
 
-const Shell: React.FC = () => <div>Shell component</div>;
+const Shell: React.FC = () => null;
 
 export default Shell;
