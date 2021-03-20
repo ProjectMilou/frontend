@@ -39,6 +39,7 @@ const App: React.FC = () => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
     {/* TODO: Change component hierarchy */}
+    <p>Here be an app</p>
     <Shell />
     <Analyser />
     <Portfolio />

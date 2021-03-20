@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton, Tooltip, useTheme } from '@material-ui/core';
+import { IconButton, makeStyles, Tooltip, useTheme } from '@material-ui/core';
 import TableIcon from '@material-ui/icons/ViewList';
 import CardsIcon from '@material-ui/icons/WebAsset';
 
@@ -14,14 +14,21 @@ export enum DashboardView {
   Table,
 }
 
+const useStyles = makeStyles({
+  dashboardViewSelect: {
+    margin: 'auto',
+  },
+});
+
 const DashboardViewSelect: React.FC<DashboardViewSelectProps> = ({
   view,
   setView,
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
+  const classes = useStyles();
   return (
-    <div>
+    <div className={classes.dashboardViewSelect}>
       <Tooltip title={t('portfolio.dashboard.view.table').toString()}>
         <IconButton onClick={() => setView(DashboardView.Table)}>
           <TableIcon
