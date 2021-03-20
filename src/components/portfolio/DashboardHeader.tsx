@@ -4,14 +4,15 @@ import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
   header: {
-    height: '350px',
-    'background-color': '#122654',
+    height: '35vh',
+    'background-color': '#0D1B3B',
   },
   text: {
-    'font-size': '35pt',
+    'font-size': '4vh',
     color: '#EEF1FB',
     'padding-top': '5%',
     'padding-left': '5%',
+    'padding-bottom': '5%',
     width: '50%',
   },
 });

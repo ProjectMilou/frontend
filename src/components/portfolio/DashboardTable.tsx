@@ -1,6 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  ButtonGroup,
+  IconButton,
+  Link,
+  ListItemText,
+  makeStyles,
   Paper,
   Table,
   TableBody,
@@ -8,9 +13,19 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
 } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/DeleteForever';
+import DuplicateIcon from '@material-ui/icons/AddToPhotos';
+import EditIcon from '@material-ui/icons/Edit';
 import * as API from '../../portfolio/APIClient';
 import { PortfolioOverview } from '../../portfolio/APIClient';
+
+const useStyles = makeStyles({
+  'table-cell': {
+    align: 'center',
+  },
+});
 
 export type DashboardTableRowProps = {
   portfolio: PortfolioOverview;
@@ -20,24 +35,52 @@ export type DashboardTableRowProps = {
 export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
   portfolio,
   selectPortfolio,
-}) => (
-  <TableRow
-    onClick={() => {
-      selectPortfolio(portfolio.id);
-    }}
-  >
-    <TableCell>{portfolio.score}</TableCell>
-    <TableCell component="th" scope="row">
-      {portfolio.name}
-    </TableCell>
-    <TableCell>{portfolio.virtual ? 'virtual' : 'real'}</TableCell>
-    <TableCell>{portfolio.positionCount}</TableCell>
-    <TableCell>{portfolio.value}</TableCell>
-    <TableCell />
-    <TableCell />
-    <TableCell />
-  </TableRow>
-);
+}) => {
+  const classes = useStyles();
+  const { t } = useTranslation();
+
+  return (
+    <TableRow
+      onClick={() => {
+        selectPortfolio(portfolio.id);
+      }}
+    >
+      <TableCell align="center">{portfolio.score}</TableCell>
+      <TableCell align="center" component="th" scope="row">
+        <ListItemText
+          primary={<Link href="/">{portfolio.name}</Link>}
+          secondary={portfolio.virtual ? 'virtual' : 'real'}
+        />
+      </TableCell>
+      <TableCell align="center">
+        {portfolio.virtual ? 'virtual' : 'real'}
+      </TableCell>
+      <TableCell align="center">{portfolio.positionCount}</TableCell>
+      <TableCell align="center">{portfolio.value}</TableCell>
+      <TableCell align="center" />
+      <TableCell align="center" />
+      <TableCell align="center">
+        <ButtonGroup color="primary">
+          <Tooltip title={t('portfolio.rename').toString()}>
+            <IconButton>
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={t('portfolio.duplicate').toString()}>
+            <IconButton>
+              <DuplicateIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={t('portfolio.delete').toString()}>
+            <IconButton>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        </ButtonGroup>
+      </TableCell>
+    </TableRow>
+  );
+};
 
 export type DashboardTableProps = {
   portfolios: API.PortfolioOverview[];
@@ -48,20 +91,24 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
   portfolios,
   selectPortfolio,
 }) => {
+  const classes = useStyles();
   const { t } = useTranslation();
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>{t('portfolio.score')}</TableCell>
-            <TableCell>{t('portfolio.name')}</TableCell>
-            <TableCell>{t('portfolio.type')}</TableCell>
-            <TableCell>{t('portfolio.positionsCount')}</TableCell>
-            <TableCell>{t('portfolio.value')}</TableCell>
-            <TableCell>{t('portfolio.7d')}</TableCell>
-            <TableCell>{t('portfolio.1y')}</TableCell>
-            <TableCell>{t('portfolio.actions')}</TableCell>
+            <TableCell align="center">{t('portfolio.score')}</TableCell>
+            <TableCell align="center">{t('portfolio.name')}</TableCell>
+            <TableCell align="center">{t('portfolio.type')}</TableCell>
+            <TableCell align="center">
+              {t('portfolio.positionsCount')}
+            </TableCell>
+            <TableCell align="center">{t('portfolio.value')}</TableCell>
+            <TableCell align="center">{t('portfolio.7d')}</TableCell>
+            <TableCell align="center">{t('portfolio.1y')}</TableCell>
+            <TableCell align="center">{t('portfolio.actions')}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

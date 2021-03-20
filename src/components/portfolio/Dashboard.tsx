@@ -1,5 +1,6 @@
 import React from 'react';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, Button, makeStyles } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import * as API from '../../portfolio/APIClient';
 import { ErrorCode } from '../../Errors';
 import ErrorMessage from './ErrorMessage';
@@ -10,13 +11,25 @@ export type DashboardProps = {
   selectPortfolio: (id: string) => void;
 };
 
+const useStyles = makeStyles({
+  createButton: {
+    position: 'absolute',
+    bottom: '5vh',
+    left: '5vh',
+  },
+});
+
 const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
   const [portfolios, setPortfolios] = React.useState<API.PortfolioOverview[]>();
   const [error, setError] = React.useState<ErrorCode>();
+  const classes = useStyles();
+  const { t } = useTranslation();
+
   React.useEffect(() => {
     // TODO: Fetch portfolio list
     setPortfolios([API.MockOverview, API.MockOverviewTwo]);
   }, []);
+
   return (
     <div>
       {error && (
@@ -46,10 +59,21 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
         </div>
       )}
       {portfolios && (
-        <PortfolioOverview
-          portfolios={portfolios}
-          selectPortfolio={selectPortfolio}
-        />
+        <div>
+          <PortfolioOverview
+            portfolios={portfolios}
+            selectPortfolio={selectPortfolio}
+          />
+          <div>
+            <Button
+              className={classes.createButton}
+              variant="outlined"
+              color="primary"
+            >
+              {t('portfolio.dashboard.createPortfolio')}
+            </Button>
+          </div>
+        </div>
       )}
     </div>
   );
