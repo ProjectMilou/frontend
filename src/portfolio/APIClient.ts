@@ -29,3 +29,14 @@ export const MockOverviewTwo: PortfolioOverview = {
   score: 20,
   modified: new Date(),
 };
+
+export async function portfolioOverview(
+  token: string
+): Promise<PortfolioOverview[]> {
+  // TODO: implement API call
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve([MockOverview, MockOverviewTwo]);
+    }, 500)
+  );
+}

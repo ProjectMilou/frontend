@@ -21,16 +21,23 @@ const useStyles = makeStyles({
   },
 });
 
-const Dashboard: React.FC<DashboardProps> = ({ selectPortfolio }) => {
+function fetch(
+  token: string,
+  setError: (error: ErrorCode | undefined) => void,
+  setPortfolios: (portfolios: API.PortfolioOverview[] | undefined) => void
+) {
+  setError(undefined);
+  API.portfolioOverview(token).then(setPortfolios).catch(setError);
+}
+
+const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
   const [portfolios, setPortfolios] = React.useState<API.PortfolioOverview[]>();
-  const [error] = React.useState<ErrorCode>();
+  const [error, setError] = React.useState<ErrorCode | undefined>();
   const { t } = useTranslation();
+
   React.useEffect(() => {
-    // TODO: Fetch portfolio list
-    setTimeout(() => {
-      setPortfolios([API.MockOverview, API.MockOverviewTwo]);
-    }, 500);
-  }, []);
+    fetch(token, setError, setPortfolios);
+  }, [token]);
 
   const classes = useStyles();
 
@@ -50,15 +57,13 @@ const Dashboard: React.FC<DashboardProps> = ({ selectPortfolio }) => {
               ErrorCode[error].startsWith('AUTH')
                 ? {
                     buttonText: 'error.action.login',
-                    action: () => {
+                    action: async () => {
                       // TODO: go back to login
                     },
                   }
                 : {
                     buttonText: 'error.action.retry',
-                    action: () => {
-                      // TODO: Fetch portfolio list
-                    },
+                    action: () => fetch(token, setError, setPortfolios),
                   }
             }
           />
