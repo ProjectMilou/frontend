@@ -3,6 +3,8 @@ import * as React from 'react';
 import PortfolioOverview, { PortfolioOverviewProps } from './PortfolioOverview';
 import { MockOverview, MockOverviewTwo } from '../../portfolio/APIClient';
 
+jest.mock('./DashboardTable', () => () => <table />);
+
 describe('PortfolioOverview', () => {
   const defaultProps: PortfolioOverviewProps = {
     portfolios: [MockOverview, MockOverviewTwo],
