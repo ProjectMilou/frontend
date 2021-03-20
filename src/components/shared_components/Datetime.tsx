@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactApexChart from 'react-apexcharts'
 // import ChartType from 'apexcharts'
+import Box from '@material-ui/core/Box';
 
 declare let ApexCharts: any;
 
@@ -385,7 +386,7 @@ const updateData = (timeline:string) => {
 
 const Datetime: React.FC = () => 
   (
-
+    <Box m={10}>
     <div id="chart">
     <div className="toolbar">
     <button type='button' id="one_month"
@@ -423,7 +424,8 @@ const Datetime: React.FC = () =>
     <div id="chart-timeline">
     <ReactApexChart options={state.options} series={state.series} type="area" height={350} />
     </div>
-    </div>   
+    </div>  
+    </Box> 
   );     
 
 

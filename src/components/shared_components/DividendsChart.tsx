@@ -18,6 +18,9 @@ import Chart from 'react-apexcharts'
             width: 2
           }
       },
+      padding: {
+        
+      },
       series: [
         {
           name: "Dividends",
@@ -27,10 +30,10 @@ import Chart from 'react-apexcharts'
  }
 
 
- const TimsChart: React.FC = () => 
+ const DividendsChart: React.FC = () => 
  (
      <div>
-         <h1>TimsChart</h1>
+         <h1>DividendsChart</h1>
          <Chart options={options.options} 
          series={options.series} 
          type="line" 
@@ -39,4 +42,4 @@ import Chart from 'react-apexcharts'
      
  )
 
-export default TimsChart
+export default DividendsChart
