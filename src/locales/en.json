@@ -1,3 +1,15 @@
 {
-  "editPortfolio": "Edit Portfolio"
+  "editPortfolio": "Edit Portfolio",
+  "summaryHeader": "Summary",
+  "dialogHeader": "Here you can adjust the positions of your portfolio",
+  "discardChanges": "Discard changes",
+  "saveChanges": "Save changes",
+  "score": "Score",
+  "day7": "7 Day",
+  "year": "1 Year",
+  "totalValue": "Total Value",
+  "positions": "Positions",
+  "countries": "Countries",
+  "industries": "Industries",
+  "currencies": "Currencies"
 }

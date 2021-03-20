@@ -1,8 +1,13 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/Button';
+import { useTranslation } from 'react-i18next';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
+import DeleteIcon from '@material-ui/icons/Delete';
 
+// stylesheet for the list items
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -11,13 +16,38 @@ const useStyles = makeStyles((theme: Theme) =>
         width: '25ch',
       },
     },
+    listItem: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      width: '100%',
+    },
+    userFields: {
+      display: 'flex',
+    },
+    textDiv: {
+      display: 'flex',
+      width: '100%',
+    },
+    text: {
+      margin: 'auto',
+      width: '100%',
+      height: 'min-content',
+    },
   })
 );
 
+// type declerations
 type BasicTextFieldProps = {
   amount: number;
 };
 
+type ListEntryProps = {
+  name: string;
+  amount: number;
+  price: number;
+};
+
+// input text field component
 const BasicTextFields: React.FC<BasicTextFieldProps> = ({ amount }) => {
   const classes = useStyles();
 
@@ -28,32 +58,52 @@ const BasicTextFields: React.FC<BasicTextFieldProps> = ({ amount }) => {
         label="quantity"
         variant="outlined"
         defaultValue={amount}
+        size="small"
+        margin="dense"
+        // TODO: working regex to only allow digits as input
+        inputProps={{
+          maxLength: 5,
+          style: {
+            textAlign: 'center',
+            paddingRight: 0,
+            paddingLeft: '0.2rem',
+          },
+          pattern: '0-9',
+        }}
+        style={{ width: '4rem' }}
       />
     </form>
   );
 };
 
-type ListEntryProps = {
-  name: string;
-  amount: number;
-  price: number;
+// list entry component
+const ListEntry: React.FC<ListEntryProps> = ({ name, amount, price }) => {
+  const classes = useStyles();
+  const { t } = useTranslation();
+
+  return (
+    <div className={classes.listItem}>
+      <div className={classes.textDiv}>
+        <p className={classes.text}>{name}</p>
+      </div>
+      <div className={classes.textDiv}>
+        <p className={classes.text}>{`$${price}`}</p>
+      </div>
+      <div className={classes.userFields}>
+        <IconButton>
+          <RemoveIcon />
+        </IconButton>
+        <BasicTextFields amount={amount} />
+        <IconButton>
+          <AddIcon />
+        </IconButton>
+        <IconButton>
+          <DeleteIcon />
+        </IconButton>
+      </div>
+    </div>
+  );
 };
 
-const ListEntry: React.FC<ListEntryProps> = ({ name, amount, price }) => (
-  <div>
-    <div>
-      <p>{name}</p>
-    </div>
-    <div>
-      <p>{price}</p>
-    </div>
-    <div>
-      <Button>-</Button>
-      <BasicTextFields amount={amount} />
-      <Button>+</Button>
-      <Button>Delete</Button>
-    </div>
-  </div>
-);
-
+// exports
 export default ListEntry;
