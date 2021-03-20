@@ -1,8 +1,11 @@
 import React from 'react';
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
+import { Router } from '@reach/router';
 import Shell from './shell/Shell';
 import Analyser from './analyser/Analyser';
 import Portfolio from './portfolio/Portfolio';
+import Header from './header/Header';
+import Footer from './footer/Footer';
 
 const theme = createMuiTheme({
   typography: {
@@ -38,11 +41,25 @@ const theme = createMuiTheme({
 const App: React.FC = () => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
-    {/* TODO: Change component hierarchy */}
-    <p>Here be an app</p>
-    <Shell />
-    <Analyser />
-    <Portfolio />
+
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      minHeight: '100vh'
+    }} >
+      <Header />
+
+      <div style={{ flexGrow: 1 }} >
+        <Router>
+          {/* <Frontpage path="/" /> */}
+          <Shell path="/shell" />
+          <Analyser path="/analyser" />
+          <Portfolio path="/portofolio" />
+        </Router>
+      </div>
+
+      <Footer />
+    </div>
   </ThemeProvider>
 );
 
