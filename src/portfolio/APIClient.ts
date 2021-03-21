@@ -31,7 +31,7 @@ export const MockOverviewTwo: PortfolioOverview = {
 };
 
 export async function portfolioOverview(
-  token: string
+  token: string // eslint-disable-line @typescript-eslint/no-unused-vars
 ): Promise<PortfolioOverview[]> {
   // TODO: implement API call
   return new Promise((resolve) =>

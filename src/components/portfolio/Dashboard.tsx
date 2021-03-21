@@ -21,26 +21,35 @@ const useStyles = makeStyles({
   },
 });
 
-function fetch(
-  token: string,
-  setError: (error: ErrorCode | undefined) => void,
-  setPortfolios: (portfolios: API.PortfolioOverview[] | undefined) => void
-) {
-  setError(undefined);
-  API.portfolioOverview(token)
-    .then(setPortfolios)
-    .catch((e) => setError(e.message));
-}
-
 const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
   const [portfolios, setPortfolios] = React.useState<API.PortfolioOverview[]>();
   const [error, setError] = React.useState<ErrorCode | undefined>();
-  const { t } = useTranslation();
+
+  const isMounted = React.useRef(true);
+  const fetch = async () => {
+    setError(undefined);
+    try {
+      const p = await API.portfolioOverview(token);
+      if (isMounted.current) {
+        setPortfolios(p);
+      }
+    } catch (e) {
+      if (isMounted.current) {
+        setError(e.message);
+      }
+    }
+  };
 
   React.useEffect(() => {
-    fetch(token, setError, setPortfolios);
-  }, [token]);
+    fetch();
+    return () => {
+      isMounted.current = false;
+    };
+    // deps must be empty because the function should only be called on mount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
+  const { t } = useTranslation();
   const classes = useStyles();
 
   return (
@@ -56,7 +65,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
             error={error}
             messageKey="portfolio.dashboard.errorMessage"
             handling={
-              ErrorCode[error].startsWith('AUTH')
+              error.startsWith('AUTH')
                 ? {
                     buttonText: 'error.action.login',
                     action: async () => {
@@ -65,7 +74,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
                   }
                 : {
                     buttonText: 'error.action.retry',
-                    action: () => fetch(token, setError, setPortfolios),
+                    action: fetch,
                   }
             }
           />
