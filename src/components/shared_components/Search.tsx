@@ -18,17 +18,19 @@ export default function FreeSolo() {
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Search"
-            margin="normal"
-            variant="outlined"
-            placeholder='Name, ISIN or WKN'
             InputProps={{
+              ...params.InputProps,
               startAdornment: (
                 <InputAdornment position='start'>
                   <Search />
                 </InputAdornment>
               )
-            }} />
+            }}
+            label="Search"
+            margin="normal"
+            variant="outlined"
+            placeholder='Name, ISIN or WKN'
+          />
         )}
       />
     </div>
