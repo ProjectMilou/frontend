@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Button, makeStyles } from '@material-ui/core';
+import { Button, List, ListItem } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import {
   createStyles,
+  makeStyles,
   Theme,
   withStyles,
   WithStyles,
@@ -15,6 +16,49 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import ListEntry from './DetailsListEntry';
+import { Position } from './DetailsTypes';
+
+// stylesheet for the editButton component
+const useStyles = makeStyles(({ palette }: Theme) =>
+  createStyles({
+    editButton: {
+      padding: '0.25rem 1rem',
+      backgroundColor: '#3fbcf2',
+      '&:hover': {
+        backgroundColor: '#84d4f7',
+      },
+    },
+    subContainer: {
+      height: '50%',
+      display: 'flex',
+      alignItems: 'center',
+    },
+    ol: {
+      padding: 0,
+    },
+  })
+);
+
+// stylesheet for the MaterialUi components
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      margin: 0,
+      padding: theme.spacing(2),
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
+    closeButton: {
+      position: 'relative',
+      color: theme.palette.grey[500],
+    },
+    span: {
+      display: 'flex',
+    },
+    text: {
+      margin: 'auto',
+    },
+  });
 
 // type declarations
 interface DialogTitleProps extends WithStyles<typeof styles> {
@@ -23,64 +67,45 @@ interface DialogTitleProps extends WithStyles<typeof styles> {
   onClose: () => void;
 }
 
-// styles
-// stylesheet for the editButton component
-const useStyles = makeStyles({
-  editButton: {
-    padding: '0.25rem 1rem',
-    backgroundColor: '#3fbcf2',
-    '&:hover': {
-      backgroundColor: '#84d4f7',
-    },
-  },
-  subContainer: {
-    height: '50%',
-    display: 'flex',
-    alignItems: 'center',
-  },
-});
-
-const styles = (theme: Theme) =>
-  createStyles({
-    root: {
-      margin: 0,
-      padding: theme.spacing(2),
-    },
-    closeButton: {
-      position: 'absolute',
-      right: theme.spacing(1),
-      top: theme.spacing(1),
-      color: theme.palette.grey[500],
-    },
-  });
-
-// actual components
+// type declaration of the edit button props
+type DetailsEditProps = {
+  // list of positions
+  positions: Position[];
+};
 
 // ListContainer is the body inside the Edit-Popup
-const positions = [
-  { name: 'BMW', amount: 10, price: 11.5 },
-  { name: 'Mercedes', amount: 8, price: 22.4 },
-  { name: 'BMW', amount: 10, price: 5.1 },
-];
-
-const ListContainer: React.FC = () => {
+// A container that create list items from a list of stocks
+const ListContainer: React.FC<DetailsEditProps> = ({ positions }) => {
   const [posState, setPosState] = useState(positions);
+
+  const classes = useStyles();
   return (
     <div>
-      <ol>
+      <List component="ol" className={classes.ol}>
         {posState.map((p) => (
-          <ListEntry name={p.name} amount={p.amount} price={p.price} />
+          <ListItem key={p.stock.name}>
+            <ListEntry
+              name={p.stock.name}
+              amount={p.qty}
+              price={p.stock.price}
+            />
+          </ListItem>
         ))}
-      </ol>
+      </List>
     </div>
   );
 };
 
+// the header component created by MaterialUI
 const DialogTitle = withStyles(styles)((props: DialogTitleProps) => {
   const { children, classes, onClose } = props;
   return (
     <MuiDialogTitle disableTypography className={classes.root}>
-      <Typography variant="h6">{children}</Typography>
+      <span className={classes.span}>
+        <Typography variant="h6" className={classes.text}>
+          {children}
+        </Typography>
+      </span>
       {onClose ? (
         <IconButton
           aria-label="close"
@@ -94,20 +119,26 @@ const DialogTitle = withStyles(styles)((props: DialogTitleProps) => {
   );
 });
 
+// the body component created by MaterialUI
 const DialogContent = withStyles((theme: Theme) => ({
   root: {
     padding: theme.spacing(2),
   },
 }))(MuiDialogContent);
 
+// the footer component created by MaterialUI
 const DialogActions = withStyles((theme: Theme) => ({
   root: {
+    display: 'flex',
+    justifyContent: 'space-between',
     margin: 0,
     padding: theme.spacing(1),
   },
 }))(MuiDialogActions);
 
-function CustomizedDialogs() {
+// the dialog component with button logic
+// TODO: change typing
+function CustomizedDialogs(positions: Position[]) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -133,19 +164,20 @@ function CustomizedDialogs() {
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
+        style={{ minWidth: '40rem' }}
       >
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Here you can adjust the positions of your portfolio
+          {t('dialogHeader')}
         </DialogTitle>
         <DialogContent dividers>
-          <ListContainer />
+          <ListContainer positions={positions} />
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
-            Discard changes
+            {t('discardChanges')}
           </Button>
           <Button autoFocus onClick={handleClose} color="primary">
-            Save changes
+            {t('saveChanges')}
           </Button>
         </DialogActions>
       </Dialog>
@@ -153,15 +185,13 @@ function CustomizedDialogs() {
   );
 }
 
-// returns the edit button and all subcomponents
-const DetailsEdit: React.FC = () => {
+// returns the edit button and all subcomponents including the dialog window
+const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
   const classes = useStyles();
 
   return (
     <div id="subContainer" className={classes.subContainer}>
-      <div style={{ marginLeft: '3.8rem' }}>
-        <CustomizedDialogs />
-      </div>
+      <div style={{ marginLeft: '3.8rem' }}>{CustomizedDialogs(positions)}</div>
     </div>
   );
 };

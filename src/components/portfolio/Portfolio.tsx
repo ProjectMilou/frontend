@@ -11,7 +11,7 @@ const Portfolio: React.FC = () => {
   return (
     <div>
       <Button onClick={() => setId('2')}> </Button>
-      {id ? <Details back={() => setId(undefined)} name={title} /> : <Button />}
+      {id ? <Details back={() => setId(undefined)} /> : <Button />}
     </div>
   );
 };
