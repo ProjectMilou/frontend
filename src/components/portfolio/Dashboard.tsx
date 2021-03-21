@@ -13,7 +13,7 @@ export type DashboardProps = {
 
 const useStyles = makeStyles({
   createButton: {
-    top: '2.5vh',
+    top: '25px',
   },
   dashboard: {
     maxWidth: '1500px',
@@ -84,6 +84,9 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
             <PortfolioOverview
               portfolios={portfolios}
               selectPortfolio={selectPortfolio}
+              renamePortfolio={() => {}}
+              duplicatePortfolio={() => {}}
+              deletePortfolio={() => {}}
             />
             <Button
               className={classes.createButton}

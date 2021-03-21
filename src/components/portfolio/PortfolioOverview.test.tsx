@@ -9,6 +9,9 @@ describe('PortfolioOverview', () => {
   const defaultProps: PortfolioOverviewProps = {
     portfolios: [MockOverview, MockOverviewTwo],
     selectPortfolio: jest.fn(),
+    renamePortfolio: jest.fn(),
+    duplicatePortfolio: jest.fn(),
+    deletePortfolio: jest.fn(),
   };
 
   const renderComponent = (newProps?: Partial<PortfolioOverviewProps>) => {

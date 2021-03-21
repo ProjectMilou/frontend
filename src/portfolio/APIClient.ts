@@ -5,6 +5,8 @@ export type PortfolioOverview = {
   positionCount: number;
   value: number;
   score?: number;
+  perf7d: number;
+  perf1y: number;
   modified: Date;
 };
 
@@ -17,6 +19,8 @@ export const MockOverview: PortfolioOverview = {
   positionCount: 3,
   value: 9,
   score: undefined,
+  perf7d: -1.23,
+  perf1y: 13.37,
   modified: new Date(),
 };
 
@@ -27,6 +31,8 @@ export const MockOverviewTwo: PortfolioOverview = {
   positionCount: 4,
   value: 3,
   score: 20,
+  perf7d: 0,
+  perf1y: -1,
   modified: new Date(),
 };
 
