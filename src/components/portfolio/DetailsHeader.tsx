@@ -68,9 +68,12 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
     <div id="topContainer" className={classes.topContainer}>
       <div id="titleContainer" className={classes.titleContainer}>
         <div className={classes.backButtonContainer}>
-          <IconButton aria-label="back" onClick={back}>
-            {' '}
-            <ArrowBackIosIcon fontSize="large" />{' '}
+          <IconButton
+            aria-label="back"
+            onClick={back}
+            style={{ backgroundColor: 'transparent' }}
+          >
+            <ArrowBackIosIcon fontSize="large" />
           </IconButton>
         </div>
         <div>

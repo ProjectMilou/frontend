@@ -1,7 +1,8 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import DetailsMainSummary from './DetailsMainSummary';
-import { RiskAnalysis } from './DetailsTypes';
+import DetailsMainPositions from './DetailsMainPositions';
+import { RiskAnalysis, Position } from './DetailsTypes';
 
 // stylesheet for the body of the details page
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -9,6 +10,8 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     mainWrapper: {
       // TODO use theme margin
       margin: '0 6rem',
+      // TODO: use theme min-width
+      minWidth: '50rem',
     },
     sectionWrapper: {
       padding: '2rem 0',
@@ -24,6 +27,7 @@ type DetailsMainProps = {
   perf7d: number;
   perf1y: number;
   risk: RiskAnalysis;
+  positions: Position[];
 };
 
 // returns the main body of the details page and all subcomponents
@@ -34,6 +38,7 @@ const DetailsMain: React.FC<DetailsMainProps> = ({
   perf1y,
   perf7d,
   risk,
+  positions,
 }) => {
   const classes = useStyles();
 
@@ -50,7 +55,7 @@ const DetailsMain: React.FC<DetailsMainProps> = ({
         />
       </div>
       <div className={classes.sectionWrapper}>
-        <div />
+        <DetailsMainPositions positions={positions} />
       </div>
       <div className={classes.sectionWrapper}>
         <div />

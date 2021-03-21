@@ -8,7 +8,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      width: '100%',
     },
     pWrapper: {
       display: 'flex',
@@ -17,7 +16,8 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     p: {
       margin: 0,
       alignSelf: 'center',
-      color: palette.primary.contrastText,
+      // TODO: use theme color
+      color: '#EEF1FB',
       // TODO: use theme weight and size?
       fontSize: '1rem',
       fontWeight: 600,

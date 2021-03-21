@@ -1,7 +1,6 @@
 import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core';
+import { useTheme, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { useTheme } from '@material-ui/core/styles';
 import ValueOverName from './ValueOverName';
 import { RiskAnalysis } from './DetailsTypes';
 
@@ -36,7 +35,8 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       outlineStyle: 'solid',
       outlineColor: 'grey',
       outlineWidth: '0.15rem',
-      margin: '1rem 0',
+      margin: '1rem auto',
+      maxWidth: '80rem',
     },
     infoValueContainer: {
       display: 'flex',

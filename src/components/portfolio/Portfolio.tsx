@@ -2,9 +2,6 @@ import { Button } from '@material-ui/core';
 import React from 'react';
 import Details from './Details';
 
-// temporary title that gets passed to the details page
-const title = 'My Portfolio';
-
 const Portfolio: React.FC = () => {
   const [id, setId] = React.useState<string>();
 

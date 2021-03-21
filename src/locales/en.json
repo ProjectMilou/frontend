@@ -11,5 +11,7 @@
   "positions": "Positions",
   "countries": "Countries",
   "industries": "Industries",
-  "currencies": "Currencies"
+  "currencies": "Currencies",
+  "positionsTitle": "Positions",
+  "viewMore": "view more"
 }
