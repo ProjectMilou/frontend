@@ -2,12 +2,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
+import { TextField, InputAdornment } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import Search from '@material-ui/icons/Search'
 
 export default function FreeSolo() {
   return (
-    <div style={{ width: 300 }}>
+    <div style={{ width: 300 }} >
       <Autocomplete
         id="search"
         freeSolo
@@ -15,7 +16,18 @@ export default function FreeSolo() {
         getOptionLabel={(option) => option.name + option.symbol + option.ISIN + option.WKN}
         renderOption={(option) => option.name}
         renderInput={(params) => (
-          <TextField {...params} label="Name, ISIN or WKN" margin="normal" variant="outlined" />
+          <TextField
+            {...params}
+            label="Name, ISIN or WKN"
+            margin="normal"
+            variant="outlined"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position='start'>
+                  <Search />
+                </InputAdornment>
+              )
+            }} />
         )}
       />
     </div>
