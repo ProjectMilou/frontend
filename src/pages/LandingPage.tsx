@@ -1,23 +1,21 @@
 import React from 'react';
+
 import {
   Button,
   Container,
   Box,
-  CardMedia,
   Grid,
   Typography,
   createMuiTheme,
+  GridListTile,
   Icon,
   Divider,
   GridList,
-  GridListTile,
-  TextField,
-  InputLabel,
-  Input,
-  FormHelperText,
-  FormControl,
+  Input
 } from '@material-ui/core';
 import { addSyntheticLeadingComment } from 'typescript';
+import Card from './components/Card'
+import Media from './components/Media'
 
 const theme = createMuiTheme({
   typography: {
@@ -50,32 +48,29 @@ const theme = createMuiTheme({
   },
 });
 
+const styles = 
+{
+media1: {
+  maxWidth: '550px',
+  maxHeight: '600px'
+},
+media2: {
+  width: '500px',
+  height: '732px'
+},
+logos: {
+  maxWidth: '200px',
+},
+icon: {
+  width: '20px',
+  height: '20px'
+}
+} 
+
 const LandingPage: React.FC = () => (
   <Container>
-    <Box>
-      <Box
-        style={{ background: '#0c1a3a', marginLeft: 0, display: 'flex' }}
-        m={8}
-        width={1}
-        justifyContent="center"
-      >
-        <Grid container direction="column" alignItems="center" wrap="nowrap">
-          <Grid item>
-            <img
-              src="https://getmilou.de/wp-content/uploads/elementor/thumbs/2020-12-15-Logo-hell-p17eq5ztwznwc003uog4y2jecjf0xlb7ut5p5vmfus.png"
-              title="2020-12-15 Logo hell"
-              alt="2020-12-15 Logo hell"
-            />
-          </Grid>
-          <Grid item>
-            <Typography variant="h2">Empower to invest.</Typography>
-          </Grid>
-          <Grid item>
-            <Button variant="contained">Start now</Button>
-          </Grid>
-        </Grid>
-      </Box>
-
+    <Box mx="auto">
+      <Card />
       <Divider />
       <Typography variant="body1">
         Apps like Trade Republic and other direct brokers make investing easier
@@ -84,7 +79,6 @@ const LandingPage: React.FC = () => (
         informed investment decisions. Current solutions are often confusing and
         tailored to professional investors. This is exactly where we attack.
       </Typography>
-
       <Divider />
 
       <Grid
@@ -95,15 +89,7 @@ const LandingPage: React.FC = () => (
         alignItems="center"
       >
         <Grid item>
-          <img
-            width="750"
-            height="635"
-            src="https://getmilou.de/wp-content/uploads/2021/01/lernen.png"
-            className="attachment-large size-large"
-            alt=""
-            loading="lazy"
-            sizes="(max-width: 444px) 100vw, 444px"
-          />
+          <Media image="https://getmilou.de/wp-content/uploads/2021/01/lernen.png" style={styles.media1}/>
         </Grid>
 
         <Grid
@@ -113,6 +99,7 @@ const LandingPage: React.FC = () => (
           direction="column"
           spacing={2}
           alignItems="center"
+          justify-content="center"
         >
           <Typography variant="h4">LEARN</Typography>
           <Typography variant="body1" align="center">
@@ -138,6 +125,7 @@ const LandingPage: React.FC = () => (
           direction="column"
           spacing={2}
           alignItems="center"
+          justify-content="center"
         >
           <Typography variant="h4">ANALYSIS</Typography>
           <Typography variant="body1" align="center">
@@ -149,14 +137,8 @@ const LandingPage: React.FC = () => (
           </Typography>
         </Grid>
         <Grid item>
-          <img
-            width="750"
-            height="635"
-            src="https://getmilou.de/wp-content/uploads/2021/01/analyse.png"
-            className="attachment-large size-large"
-            alt=""
-            loading="lazy"
-            sizes="(max-width: 750px) 100vw, 750px"
+          <Media
+            image="https://getmilou.de/wp-content/uploads/2021/01/analyse.png" style={styles.media1}
           />
         </Grid>
       </Grid>
@@ -168,15 +150,8 @@ const LandingPage: React.FC = () => (
         alignItems="center"
       >
         <Grid item>
-          <img
-            width="750"
-            height="732"
-            src="https://getmilou.de/wp-content/uploads/2021/01/Portfolio.png"
-            className="attachment-large size-large"
-            alt=""
-            loading="lazy"
-            sizes="(max-width: 750px) 100vw, 750px"
-          />
+          <Media
+            image="https://getmilou.de/wp-content/uploads/2021/01/Portfolio.png" style={styles.media1}/>
         </Grid>
         <Grid
           item
@@ -185,6 +160,7 @@ const LandingPage: React.FC = () => (
           direction="column"
           spacing={2}
           alignItems="center"
+          justify-content="center"
         >
           <Typography variant="h4">PORTFOLIO</Typography>
           <Typography variant="body1" align="center">
@@ -197,20 +173,14 @@ const LandingPage: React.FC = () => (
       </Grid>
     </Box>
 
-    <Box maxWidth="xl">
-      <div
-        style={{
-          backgroundColor: '#0c1a3a',
-        }}
-      >
-        <Grid container spacing={4} direction="column">
-          <Grid item>
+    <Box maxWidth="xl" bgcolor="#0c1a3a" color="white" pt="26">
+        <Grid container direction="column" wrap="nowrap">
             <Typography variant="h3">Did you know...</Typography>
-          </Grid>
-          <Grid item xs={2} container>
-            <Icon className="fas fa-money-bill-alt" fontSize="large" />
-          </Grid>
-          <Grid item alignItems="center">
+            <Icon className="fas fa-money-bill-alt" fontSize="large"/>
+            <Typography variant="h5">..to be a successful investor, need you initially, no assets . You can start investing with as little as 25 euros a month.</Typography>
+            <Icon className="fas fa-hand-holding-heart" fontSize="large" />
+            <Typography variant="h5">..we only work with commission-free products , stocks and ETFs. This ensures that we pursue the same interests as you, namely to make you a successful investor.</Typography>
+          <Grid item alignItems="center" >
             <Typography variant="h2" align="center">
               Milou accompanies you on all your financial adventures.
             </Typography>
@@ -224,22 +194,12 @@ const LandingPage: React.FC = () => (
             <Button variant="contained">Start for free</Button>
           </Grid>
         </Grid>
-      </div>
     </Box>
 
     <Box>
       <Grid container direction="row" spacing={4}>
         <Grid item>
-          <img
-            width="501"
-            height="732"
-            src="https://getmilou.de/wp-content/uploads/2021/01/Mockups-Lifecycle.png"
-            className="attachment-full size-full"
-            alt=""
-            loading="lazy"
-            srcSet="https://getmilou.de/wp-content/uploads/2021/01/Mockups-Lifecycle.png 501w, https://getmilou.de/wp-content/uploads/2021/01/Mockups-Lifecycle-205x300.png 205w"
-            sizes="(max-width: 501px) 100vw, 501px"
-          />
+          <Media image="https://getmilou.de/wp-content/uploads/2021/01/Mockups-Lifecycle.png" style={styles.media2}/>
         </Grid>
         <Grid
           item
@@ -250,10 +210,8 @@ const LandingPage: React.FC = () => (
           alignItems="center"
           justify-content="center"
         >
-          <Grid item container direction="row">
-            <Grid item>
-              <Icon className="fas fa-chart-line" />
-            </Grid>
+          <Grid item container direction="row" justify="center">
+            <Icon aria-hidden="true" className="fas fa-chart-line" fontSize="large" color="primary"/>
             <Grid item xs container direction="column">
               <Typography variant="h5">LEARNING PLATFORM</Typography>
               <Typography variant="body1">
@@ -264,10 +222,8 @@ const LandingPage: React.FC = () => (
             </Grid>
           </Grid>
           <Grid item container direction="row">
-            <Grid item>
-              <Icon className="fas fa-chart-line" />
-            </Grid>
-            <Grid item xs container spacing={4} direction="column">
+              <Icon className="fas fa-chart-line" aria-hidden="true" fontSize="large" color="secondary"/>
+            <Grid item xs container direction="column">
               <Typography variant="h5">INFO BOXES</Typography>
               <Typography variant="body1">
                 With the help of our info boxes, you can also view explanations
@@ -277,9 +233,7 @@ const LandingPage: React.FC = () => (
             </Grid>
           </Grid>
           <Grid item container direction="row">
-            <Grid item>
-              <Icon className="fas fa-chart-line" />
-            </Grid>
+            <Icon className="fas fa-chart-line" aria-hidden="true" fontSize="large" color="primary"/>
             <Grid item xs container direction="column">
               <Typography variant="h5">SIMPLE VISUALIZATION</Typography>
               <Typography variant="body1">
@@ -290,10 +244,8 @@ const LandingPage: React.FC = () => (
             </Grid>
           </Grid>
           <Grid item container direction="row">
-            <Grid item>
-              <Icon aria-hidden="true" className="fas fa-chart-line" />
-            </Grid>
-            <Grid item xs container spacing={4} direction="column">
+              <Icon aria-hidden="true" className="fas fa-chart-line" fontSize="large" color="primary"/>
+            <Grid item xs container direction="column">
               <Typography variant="h5">RISK WARNING</Typography>
               <Typography variant="body1">
                 Identify risks across your entire portfolio with simple warnings
@@ -311,52 +263,22 @@ const LandingPage: React.FC = () => (
             <Typography variant="body1">Thank you for your help!</Typography>
           </Grid>
         </Grid>
-        <Grid container item>
-          <GridList cols={5} cellHeight={120}>
+        <Grid container item alignItems="center" justify="center">
+          <GridList cols={5} cellHeight={120} spacing={12}>
             <GridListTile>
-              <img
-                style={{ maxWidth: '100%', maxHeight: '80px' }}
-                src="https://getmilou.de/wp-content/uploads/2021/01/180-breit.png"
-                className="attachment-large size-large"
-                alt=""
-                loading="lazy"
-              />
+              <Media image="https://getmilou.de/wp-content/uploads/2021/01/180-breit-300x100.png" style={styles.logos}/>
             </GridListTile>
             <GridListTile>
-              <img
-                style={{ maxWidth: '100%', maxHeight: '80px' }}
-                src="https://getmilou.de/wp-content/uploads/2020/12/getThumb.gif"
-                className="attachment-large size-large"
-                alt=""
-                loading="lazy"
-              />
+              <Media image="https://getmilou.de/wp-content/uploads/2020/12/getThumb.gif" style={styles.logos}/>
             </GridListTile>
             <GridListTile>
-              <img
-                style={{ maxWidth: '100%', maxHeight: '80px' }}
-                src="https://getmilou.de/wp-content/uploads/elementor/thumbs/utum-logo-p1cihxdutlig1amolrz3ugtzva59uu0j3023656wvc.png"
-                title="utum logo"
-                alt="utum logo"
-              />
+              <Media image="https://getmilou.de/wp-content/uploads/elementor/thumbs/utum-logo-p1cihxdutlig1amolrz3ugtzva59uu0j3023656wvc.png" style={styles.logos}/>
             </GridListTile>
             <GridListTile>
-              <img
-                style={{ maxWidth: '100%', maxHeight: '80px' }}
-                src="https://getmilou.de/wp-content/uploads/2021/01/tech-talents.png"
-                className="attachment-large size-large"
-                alt=""
-                loading="lazy"
-              />
+              <Media image="https://getmilou.de/wp-content/uploads/2021/01/tech-talents.png" style={styles.logos}/>
             </GridListTile>
             <GridListTile>
-              <img
-                style={{ maxWidth: '100%', maxHeight: '80px' }}
-                src="https://getmilou.de/wp-content/uploads/2021/01/start.png"
-                className="attachment-large size-large"
-                alt=""
-                loading="lazy"
-                srcSet="https://getmilou.de/wp-content/uploads/2021/01/start.png 507w, https://getmilou.de/wp-content/uploads/2021/01/start-300x137.png 300w"
-              />
+              <Media image="https://getmilou.de/wp-content/uploads/2021/01/start.png" style={styles.logos}/>
             </GridListTile>
           </GridList>
         </Grid>
