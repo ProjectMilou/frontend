@@ -27,7 +27,9 @@ function fetch(
   setPortfolios: (portfolios: API.PortfolioOverview[] | undefined) => void
 ) {
   setError(undefined);
-  API.portfolioOverview(token).then(setPortfolios).catch(setError);
+  API.portfolioOverview(token)
+    .then(setPortfolios)
+    .catch((e) => setError(e.message));
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {

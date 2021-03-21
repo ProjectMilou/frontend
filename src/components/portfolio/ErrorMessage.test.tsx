@@ -1,7 +1,6 @@
 import { render, fireEvent } from '@testing-library/react';
 import * as React from 'react';
 import ErrorMessage, { ErrorMessageProps } from './ErrorMessage';
-import { ErrorCode } from '../../Errors';
 
 describe('ErrorMessage', () => {
   afterEach(() => {
@@ -9,7 +8,7 @@ describe('ErrorMessage', () => {
   });
 
   const defaultProps: ErrorMessageProps = {
-    error: ErrorCode.UNKNOWN,
+    error: 'UNKNOWN',
     handling: {
       buttonText: 'button',
       action: jest.fn(),
