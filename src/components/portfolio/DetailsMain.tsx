@@ -52,6 +52,7 @@ const DetailsMain: React.FC<DetailsMainProps> = ({
           perf1y={perf1y}
           perf7d={perf7d}
           risk={risk}
+          positions={positions}
         />
       </div>
       <div className={classes.sectionWrapper}>

@@ -2,7 +2,8 @@ import React from 'react';
 import { useTheme, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import ValueOverName from './ValueOverName';
-import { RiskAnalysis } from './DetailsTypes';
+import { Position, RiskAnalysis } from './DetailsTypes';
+import DetailsDonut from './DetailsDonut';
 
 // stylesheet for the Summary section
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
@@ -71,6 +72,8 @@ type DetailsMainSummaryProps = {
   positionCount: number;
   // all risk fields (country, industry, currency)
   risk: RiskAnalysis;
+  // array with all positions
+  positions: Position[];
 };
 
 // returns the details page header
@@ -81,6 +84,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
   value,
   positionCount,
   risk,
+  positions,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -98,6 +102,10 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
   function convertScoreToColor(val: number): string {
     return val < 0.5 ? '#D64745' : '#50E2A8';
   }
+
+  // these are for the DetailsDonut Chart for the company portions
+  const portions = positions.map((p) => p.qty * p.stock.price);
+  const companyNames = positions.map((p) => p.stock.name);
 
   return (
     <div>
@@ -187,7 +195,9 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
           </div>
         </div>
       </div>
-      <div>{/* Summary pie */}</div>
+      <div>
+        <DetailsDonut portions={portions} names={companyNames} />
+      </div>
       <div>{/* Summary line */}</div>
     </div>
   );
