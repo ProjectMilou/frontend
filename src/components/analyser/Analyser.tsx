@@ -9,6 +9,7 @@ import TestStyling from '../shared_components/TestStyling'
 import PriceBar from '../shared_components/PriceBar'
 import Search from '../shared_components/Search'
 import Summary from '../shared_components/Summary'
+import Filter from '../shared_components/Filter';
 
 const useStyles = makeStyles((theme) => ({
     background: {
@@ -25,6 +26,7 @@ const Analyser: React.FC = () => {
             <Datetime/>
             <DividendsChart/>
             <Search/>
+            <Filter/>
         </div>
     )
     }
