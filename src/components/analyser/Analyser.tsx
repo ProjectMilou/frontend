@@ -8,7 +8,7 @@ import DividendsChart from '../shared_components/DividendsChart'
 import TestStyling from '../shared_components/TestStyling'
 import PriceBar from '../shared_components/PriceBar'
 import Search from '../shared_components/Search'
-
+import Summary from '../shared_components/Summary'
 
 const useStyles = makeStyles((theme) => ({
     background: {
@@ -21,6 +21,7 @@ const Analyser: React.FC = () => {
     return (
         <div className={classes.background}>
             <PriceBar/>
+            <Summary/>
             <Datetime/>
             <DividendsChart/>
             <Search/>
