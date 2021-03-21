@@ -33,13 +33,17 @@ const BasicTextFields: React.FC<BasicTextFieldProps> = ({ amount }) => {
   );
 };
 
-type ListEntryProps = {
+type DetailsListEntryProps = {
   name: string;
   amount: number;
   price: number;
 };
 
-const ListEntry: React.FC<ListEntryProps> = ({ name, amount, price }) => (
+const DetailsListEntry: React.FC<DetailsListEntryProps> = ({
+  name,
+  amount,
+  price,
+}) => (
   <div>
     <div>
       <p>{name}</p>
@@ -56,4 +60,4 @@ const ListEntry: React.FC<ListEntryProps> = ({ name, amount, price }) => (
   </div>
 );
 
-export default ListEntry;
+export default DetailsListEntry;
