@@ -6,7 +6,7 @@ const testName = 'Awesome Portfolio';
 
 test('renders DetailsHeader', () => {
   const { getByText } = render(
-    <DetailsHeader back={() => null} name={testName} />
+    <DetailsHeader back={() => null} name={testName} positions={[]} />
   );
 
   getByText('Awesome Portfolio');

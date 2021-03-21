@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@material-ui/core/styles';
 import ValueOverName from './ValueOverName';
 import { RiskAnalysis } from './DetailsTypes';
+import DetailsDonut from './DetailsDonut';
 
 // stylesheet for the Summary section
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
@@ -187,7 +188,12 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
           </div>
         </div>
       </div>
-      <div>{/* Summary pie */}</div>
+      <div>
+        <DetailsDonut
+          names={['BMW', 'Mercedes', 'Audi']}
+          portions={[30, 50, 150]}
+        />
+      </div>
       <div>{/* Summary line */}</div>
     </div>
   );
