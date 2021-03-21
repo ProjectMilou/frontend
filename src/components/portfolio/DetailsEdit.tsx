@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, List, ListItem } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import {
@@ -76,7 +76,7 @@ type DetailsEditProps = {
 // ListContainer is the body inside the Edit-Popup
 // A container that create list items from a list of stocks
 const ListContainer: React.FC<DetailsEditProps> = ({ positions }) => {
-  const [posState, setPosState] = useState(positions);
+  const [posState, setPosState] = React.useState(positions);
 
   const classes = useStyles();
   return (

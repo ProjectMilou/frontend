@@ -74,6 +74,20 @@ const mockPositions: Position[] = [
     },
     qty: 3,
   },
+  {
+    stock: {
+      isin: '3',
+      symbol: 'QQQ',
+      name: 'QQQ',
+      price: 120.11,
+      perf7d: 1,
+      perf1y: 2,
+      country: 'USA',
+      industry: 'Tech',
+      score: 0.9,
+    },
+    qty: 4,
+  },
 ];
 
 const mockRisk: RiskAnalysis = {
@@ -138,6 +152,7 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
           perf7d={mock.perf7d}
           perf1y={mock.perf1y}
           risk={mock.risk}
+          positions={mock.positions}
         />
       </section>
     </div>
