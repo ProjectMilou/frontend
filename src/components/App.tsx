@@ -1,5 +1,6 @@
 import React from 'react';
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
+import LandingPage from './LandingPage';
 import Shell from './shell/Shell';
 import Analyser from './analyser/Analyser';
 import Portfolio from './portfolio/Portfolio';
@@ -40,6 +41,7 @@ const App: React.FC = () => (
     <CssBaseline />
     {/* TODO: Change component hierarchy */}
     <p>Here be an app</p>
+    <LandingPage />
     <Shell />
     <Analyser />
     <Portfolio />
