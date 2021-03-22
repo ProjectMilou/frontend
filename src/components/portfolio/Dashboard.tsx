@@ -1,10 +1,16 @@
 import React from 'react';
-import { LinearProgress, Button, makeStyles } from '@material-ui/core';
+import {
+  LinearProgress,
+  Button,
+  makeStyles,
+  Container,
+} from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../portfolio/APIClient';
 import { ErrorCode } from '../../Errors';
 import ErrorMessage from './ErrorMessage';
 import PortfolioOverview from './PortfolioOverview';
+import DashboardHeader from './DashboardHeader';
 
 export type DashboardProps = {
   token: string;
@@ -13,10 +19,9 @@ export type DashboardProps = {
 
 const useStyles = makeStyles({
   createButton: {
-    top: '25px',
+    marginTop: '25px',
   },
   dashboard: {
-    maxWidth: '1500px',
     margin: '25px auto',
   },
 });
@@ -54,12 +59,13 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
 
   return (
     <>
+      <DashboardHeader />
       {!portfolios && !error && (
         <div>
           <LinearProgress color="secondary" />
         </div>
       )}
-      <div className={classes.dashboard}>
+      <Container maxWidth="lg" className={classes.dashboard}>
         {error && (
           <ErrorMessage
             error={error}
@@ -97,7 +103,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
             </Button>
           </div>
         )}
-      </div>
+      </Container>
     </>
   );
 };
