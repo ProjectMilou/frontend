@@ -1,6 +1,8 @@
+/* eslint-disable no-param-reassign */
 import React from 'react';
 import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import { Input, InputLabel, MenuItem, FormControl, ListItemText, Select, Checkbox, Chip, Typography, Container } from '@material-ui/core';
+import { Filter } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -40,6 +42,10 @@ interface Filters {
     currency: string[],
     specialCriteria: string[],
 }
+function createNewFilter() {
+    const filter: Filters = { countries: [], industries: [], investmentCategory: [], currency: [], specialCriteria: [], }
+    return filter
+}
 const filters: Filters = {
     countries: ['United State', 'Australia', 'United Kingdom', 'Germany', 'Canada', 'India', 'China',],
     industries: [],
@@ -61,25 +67,41 @@ function getStyles(name: string, personName: string[], theme: Theme) {
 export default function MultipleSelect() {
     const classes = useStyles();
     const theme = useTheme();
-    const [filter, setFilter] = React.useState<Filters>({ countries: [], industries: [], investmentCategory: [], currency: [], specialCriteria: [], });
+    const [filter, setFilter] = React.useState<Filters>(createNewFilter)
 
     const handleChange = (event: React.ChangeEvent<{ name?: string | undefined, value: unknown }>) => {
         const temp = event.target.value as string[]
         switch (event.target.name) {
             case 'country':
-                setFilter({ ...filter, countries: temp })
+                setFilter(prevFilter => {
+                    prevFilter.countries = temp
+                    return { ...filter, countries: prevFilter.countries }
+                })
+                // setFilter({ ...filter, countries: temp })
                 break;
             case 'industry':
-                setFilter({ ...filter, industries: temp })
+                setFilter(prevFilter => {
+                    prevFilter.industries = temp
+                    return { ...filter, industries: prevFilter.industries }
+                })
                 break;
             case 'investmentCategory':
-                setFilter({ ...filter, investmentCategory: temp })
+                setFilter(prevFilter => {
+                    prevFilter.investmentCategory = temp
+                    return { ...filter, investmentCategory: prevFilter.investmentCategory }
+                })
                 break;
             case 'currency':
-                setFilter({ ...filter, currency: temp })
+                setFilter(prevFilter => {
+                    prevFilter.currency = temp
+                    return { ...filter, currency: prevFilter.currency }
+                })
                 break;
             case 'specialCriteria':
-                setFilter({ ...filter, specialCriteria: temp })
+                setFilter(prevFilter => {
+                    prevFilter.specialCriteria = temp
+                    return { ...filter, specialCriteria: prevFilter.specialCriteria }
+                })
                 break;
             default:
                 break;
