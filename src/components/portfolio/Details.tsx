@@ -31,7 +31,7 @@ function addPositions(pos: Position[]): number {
 }
 
 // all mock data that is passed down
-const mockPositions: Position[] = [
+export const mockPositions: Position[] = [
   {
     stock: {
       isin: '0',
