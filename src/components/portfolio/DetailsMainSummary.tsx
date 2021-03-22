@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import ValueOverName from './ValueOverName';
 import { Position, RiskAnalysis } from './DetailsTypes';
 import DetailsDonut from './DetailsDonut';
+import DetailsLineChart from './DetailsLineChart';
 
 // stylesheet for the Summary section
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
@@ -20,6 +21,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       // TODO use theme fontsize and weight
       fontSize: '2.25rem',
       fontWeight: 400,
+      whiteSpace: 'nowrap',
     },
     lineWrapper: {
       display: 'flex',
@@ -36,8 +38,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       outlineStyle: 'solid',
       outlineColor: 'grey',
       outlineWidth: '0.15rem',
-      margin: '1rem auto',
-      maxWidth: '80rem',
+      margin: '1rem 0',
     },
     infoValueContainer: {
       display: 'flex',
@@ -106,6 +107,23 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
   // these are for the DetailsDonut Chart for the company portions
   const portions = positions.map((p) => p.qty * p.stock.price);
   const companyNames = positions.map((p) => p.stock.name);
+  // Mock Portfolio values
+  const portfolioValue = [
+    10,
+    41,
+    35,
+    51,
+    49,
+    62,
+    69,
+    91,
+    148,
+    200,
+    123,
+    5,
+    234,
+  ];
+  // const portfolioValue = positions.reduce((sumOfPortfolio, p) => (p.qty * p.stock.price) + sumOfPortfolio, 0);
 
   return (
     <div>
@@ -197,6 +215,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
       </div>
       <div>
         <DetailsDonut portions={portions} names={companyNames} />
+        <DetailsLineChart portfolioValue={portfolioValue} />
       </div>
       <div>{/* Summary line */}</div>
     </div>

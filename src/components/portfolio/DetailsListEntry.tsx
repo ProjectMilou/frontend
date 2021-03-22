@@ -90,14 +90,14 @@ const ListEntry: React.FC<ListEntryProps> = ({ name, amount, price }) => {
         <p className={classes.text}>{`$${price}`}</p>
       </div>
       <div className={classes.userFields}>
-        <IconButton>
+        <IconButton aria-label="minus">
           <RemoveIcon />
         </IconButton>
         <BasicTextFields amount={amount} />
-        <IconButton>
+        <IconButton aria-label="plus">
           <AddIcon />
         </IconButton>
-        <IconButton>
+        <IconButton aria-label="zero">
           <DeleteIcon />
         </IconButton>
       </div>
