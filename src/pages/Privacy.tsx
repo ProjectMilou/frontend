@@ -1,7 +1,8 @@
 import React from 'react';
 import { Box, Typography } from '@material-ui/core';
+import { RouteComponentProps } from '@reach/router';
 
-const Imprint: React.FC = () => (
+const Imprint: React.FC<RouteComponentProps> = () => (
   <Box>
     <Typography variant="h2">Privacy Policy</Typography>
     <Typography variant="body1">

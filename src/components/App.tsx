@@ -6,6 +6,9 @@ import Analyser from './analyser/Analyser';
 import Portfolio from './portfolio/Portfolio';
 import Header from './header/Header';
 import Footer from './footer/Footer';
+// TODO: use @path variables in tsconfig
+import Imprint from '../pages/Imprint';
+import Privacy from '../pages/Privacy';
 
 const theme = createMuiTheme({
   typography: {
@@ -55,6 +58,8 @@ const App: React.FC = () => (
           <Shell path="/shell" />
           <Analyser path="/analyser" />
           <Portfolio path="/portofolio" />
+          <Imprint path="/imprint" />
+          <Privacy path="/privacy" />
         </Router>
       </div>
 
