@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme: Theme) =>
         navlink: {
             color: theme.palette.primary.main,
             textDecoration: "none",
-            textTransform: "none"
+            textTransform: "none",
+            padding: '8px 10px 8px 10px'
         }
     })
 );

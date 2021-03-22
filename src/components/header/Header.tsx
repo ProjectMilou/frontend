@@ -26,10 +26,10 @@ const Header: React.FC = () => {
                 <NavLink to="/">
                     <img src={logo} alt="milou-logo" className={classes.logo} />
                 </NavLink>
-                <Button><NavLink to="/">Home</NavLink></Button>
-                <Button><NavLink to="/portofolio">Portofolio</NavLink></Button>
-                <Button><NavLink to="/analyser">Analyser</NavLink></Button>
-                <Button><NavLink to="/academy">Academy</NavLink></Button>
+                <NavLink to="/">Home</NavLink>
+                <NavLink to="/portofolio">Portofolio</NavLink>
+                <NavLink to="/analyser">Analyser</NavLink>
+                <NavLink to="/academy">Academy</NavLink>
 
                 <div className={classes.grow} />
 
