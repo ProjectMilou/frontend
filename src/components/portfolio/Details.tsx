@@ -91,7 +91,13 @@ const mockPositions: Position[] = [
 ];
 
 const mockRisk: RiskAnalysis = {
-  countries: { score: 0.1, warnings: ['a', 'b'] },
+  countries: {
+    score: 0.1,
+    warnings: [
+      'Strong focus on two countries',
+      'Strong focus on western world',
+    ],
+  },
   segments: { score: 0.4, warnings: ['c', 'd'] },
   currency: { score: 0.8, warnings: ['e', 'f'] },
 };

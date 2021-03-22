@@ -21,6 +21,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       // TODO use theme fontsize and weight
       fontSize: '2.25rem',
       fontWeight: 400,
+      whiteSpace: 'nowrap',
     },
     lineWrapper: {
       display: 'flex',
@@ -37,8 +38,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       outlineStyle: 'solid',
       outlineColor: 'grey',
       outlineWidth: '0.15rem',
-      margin: '1rem auto',
-      maxWidth: '80rem',
+      margin: '1rem 0',
     },
     infoValueContainer: {
       display: 'flex',
