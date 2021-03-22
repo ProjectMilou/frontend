@@ -11,6 +11,7 @@ import Search from '../shared_components/Search'
 import Summary from '../shared_components/Summary'
 import Filter from '../shared_components/Filter';
 import StockCard from '../shared_components/SimpleCard';
+import Dividend from './Dividend';
 
 const useStyles = makeStyles((theme) => ({
     background: {
@@ -30,7 +31,7 @@ const Analyser: React.FC = () => {
             <PriceBar/>
             <Summary/>
             <Datetime/>
-            <DividendsChart/>
+            <Dividend/>
             <Search/>
             <Filter/>
             <StockCard />

@@ -38,12 +38,12 @@ import Chart from 'react-apexcharts'
  (
      <div>
         <Box  m={10}>
-         <h1>Dividends Chart</h1>
          <Chart options={options.options} 
          series={options.series} 
          type="line"
-         width= "60%"
-         height={320} />
+         width= "900px"
+         min-width="800px"
+         height={350} />
          </Box>
       </div>
      
