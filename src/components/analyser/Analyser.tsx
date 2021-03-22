@@ -10,12 +10,18 @@ import PriceBar from '../shared_components/PriceBar'
 import Search from '../shared_components/Search'
 import Summary from '../shared_components/Summary'
 import Filter from '../shared_components/Filter';
+import StockCard from '../shared_components/SimpleCard';
 
 const useStyles = makeStyles((theme) => ({
     background: {
         background: '#EEF1FB',
     }
 }));
+
+type CardProps = {
+    title: string,
+    paragraph: string
+  }
 
 const Analyser: React.FC = () => {
     const classes = useStyles();
@@ -27,6 +33,7 @@ const Analyser: React.FC = () => {
             <DividendsChart/>
             <Search/>
             <Filter/>
+            <StockCard />
         </div>
     )
     }
