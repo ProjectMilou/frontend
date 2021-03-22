@@ -35,6 +35,8 @@
   "portfolio.duplicate": "Duplicate",
   "portfolio.real": "Real",
   "portfolio.virtual": "Virtual",
+  "portfolio.dialog.rename.title": "Rename Portfolio",
+  "portfolio.dialog.rename.text": "Enter a new name for the portfolio <portfolioName>{{name}}</portfolioName>.",
   "error.message.default": "An error has occurred.",
   "error.title.AUTH_TOKEN_INVALID": "Authentication failure",
   "error.message.AUTH_TOKEN_INVALID": "Your authentication token is invalid. Please log in again.",
