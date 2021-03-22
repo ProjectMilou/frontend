@@ -46,6 +46,7 @@ function createNewFilter() {
     const filter: Filters = { countries: [], industries: [], investmentCategory: [], currency: [], specialCriteria: [], }
     return filter
 }
+
 const filters: Filters = {
     countries: ['United State', 'Australia', 'United Kingdom', 'Germany', 'Canada', 'India', 'China',],
     industries: [],
@@ -106,12 +107,19 @@ export default function MultipleSelect() {
             default:
                 break;
         }
-        // console.log(filter)
+        console.log(filter)
     };
 
     const clearFilters = () => {
-        setFilter({ countries: [], industries: [], investmentCategory: [], currency: [], specialCriteria: [], })
-        // console.log(filter)
+        setFilter((prevFilter) => {
+            prevFilter.countries = []
+            prevFilter.industries = []
+            prevFilter.investmentCategory = []
+            prevFilter.currency = []
+            prevFilter.specialCriteria = []
+            return { ...filter, countries: prevFilter.countries, industries: prevFilter.industries, investmentCategory: prevFilter.investmentCategory, currency: prevFilter.currency, specialCriteria: prevFilter.specialCriteria, }
+        })
+        console.log(filter)
     }
 
     return (
