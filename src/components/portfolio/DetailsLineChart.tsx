@@ -22,6 +22,7 @@ const DetailsLineChart: React.FC<DetailsLineChartProps> = ({
         zoom: {
           enabled: false,
         },
+        foreColor: '#fff',
       },
       dataLabels: {
         enabled: false,
@@ -32,6 +33,9 @@ const DetailsLineChart: React.FC<DetailsLineChartProps> = ({
       title: {
         text: 'Portfolio Movement',
         align: 'left',
+        style: {
+          color: '#fff',
+        },
       },
       xaxis: {
         categories: [
@@ -60,7 +64,7 @@ const DetailsLineChart: React.FC<DetailsLineChartProps> = ({
         series={state.series}
         type="line"
         height={350}
-        width="50%"
+        width="100%"
       />
     </div>
   );
