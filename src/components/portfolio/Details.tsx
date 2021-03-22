@@ -107,7 +107,7 @@ const mockFigures: KeyFigures[] = [
   },
 ];
 
-const mock: PortfolioDetails = {
+export const mock: PortfolioDetails = {
   id: '1',
   name: 'My Portfolio',
   virtual: true,
