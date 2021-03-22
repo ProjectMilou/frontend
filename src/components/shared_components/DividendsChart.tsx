@@ -1,3 +1,4 @@
+import Box from '@material-ui/core/Box'
 import React from 'react'
 import Chart from 'react-apexcharts'
 
@@ -6,7 +7,10 @@ import Chart from 'react-apexcharts'
     options: {
         colors: ['#F6AE2D','#5DE78E','#4392F1', ],
         chart: {
-          id: "line-chart"
+          id: "line-chart",
+          toolbar: {
+            show: false,
+          },
         },
         xaxis: {
           categories: [2016, 2017, 2018, 2019, 2020]
@@ -33,12 +37,15 @@ import Chart from 'react-apexcharts'
  const DividendsChart: React.FC = () => 
  (
      <div>
-         <h1>DividendsChart</h1>
+        <Box  m={10}>
+         <h1>Dividends Chart</h1>
          <Chart options={options.options} 
          series={options.series} 
-         type="line" 
-         width={500} height={320} />
-         </div>
+         type="line"
+         width= "60%"
+         height={320} />
+         </Box>
+      </div>
      
  )
 

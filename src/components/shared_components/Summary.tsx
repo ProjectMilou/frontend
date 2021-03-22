@@ -4,6 +4,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
+import Radar from './Radar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,6 +16,11 @@ const useStyles = makeStyles((theme: Theme) =>
     indented: {
         paddingLeft: theme.spacing(7),
     },
+    rowC: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: 'space-evenly'
+    }
   }),
 );
 
@@ -22,15 +28,18 @@ export default function Summary() {
   const classes = useStyles();
 
   return (
-      <div>
-          <h1 className={classes.indented}>
-              1. Summary
-            </h1>
-        <Divider />
-        <p className={classes.indented}> 
-          Daimler AG, together its subsidiaries, develops and manufactures passenger cars, trucks, vans, and buses in Germany and internationally.
+      <div className={classes.indented}>
+          <h1>1. Summary</h1>
+        
+        <div className={classes.rowC}>
+          <p> 
+            Daimler AG, together its subsidiaries, develops and manufactures passenger <br/> cars, trucks, vans, and buses in Germany and internationally.
           </p>
+          <Radar/>
+        </div>
+        <Divider />
       </div>
+    
       
       
   );

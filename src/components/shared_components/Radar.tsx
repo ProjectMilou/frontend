@@ -11,9 +11,12 @@ const state = {
       chart: {
         height: 350,
         type: 'radar',
+        toolbar: {
+          show: false,
+        },
       },
       title: {
-        text: 'Basic Radar Chart'
+        text: 'Radar Analysis'
       },
       xaxis: {
         categories: ['January', 'February', 'March', 'April', 'May', 'June']
@@ -24,7 +27,7 @@ const state = {
 const Radar: React.FC = () => 
     (
       <div id="chart">
-          <ReactApexChart options={state.options} series={state.series} type="radar" height={350} />
+          <ReactApexChart options={state.options} series={state.series} type="radar" height={350} width="20%"/>
       </div>
     )
   
