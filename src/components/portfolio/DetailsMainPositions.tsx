@@ -28,6 +28,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       // TODO use theme fontsize and weight
       fontSize: '2.25rem',
       fontWeight: 400,
+      whiteSpace: 'nowrap',
     },
     lineWrapper: {
       display: 'flex',
@@ -52,10 +53,8 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
     },
     gridList: {
       width: '100%',
-      height: '50rem',
-      margin: '0 auto',
-      // TODO: replace with theme min/max width
-      maxWidth: '80rem',
+      height: 'auto',
+      maxHeight: '50rem',
     },
     card: {
       backgroundColor: palette.primary.main,
@@ -155,6 +154,7 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
                     endIcon={
                       <ArrowRightIcon
                         style={{ marginLeft: '-8px', marginTop: '4px' }}
+                        aria-label="rightArrow"
                       />
                     }
                     className={classes.button}

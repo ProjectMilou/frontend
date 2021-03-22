@@ -13,5 +13,9 @@
   "industries": "Industries",
   "currencies": "Currencies",
   "positionsTitle": "Positions",
-  "viewMore": "view more"
+  "viewMore": "view more",
+  "port.details.risk": "Risk Analysis",
+  "port.details.countries": "Countries",
+  "port.details.segments": "Segments",
+  "port.details.currency": "Currency"
 }
