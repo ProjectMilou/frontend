@@ -53,7 +53,6 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const { t } = useTranslation();
   const classes = useStyles();
 
   return (
