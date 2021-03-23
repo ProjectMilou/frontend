@@ -64,6 +64,16 @@ function getStyles(name: string, personName: string[], theme: Theme) {
     };
 }
 
+// async function componentDidMount() {
+//     const response = await fetch('https://milou-backend.herokuapp.com/stocks')
+//     if (response.ok) {
+//         console.log('SUCCESS')
+//     } else {
+//         console.log('NOT SUCESS')
+//     }
+//     const data = await response.json()
+//     console.log(data)
+// }
 
 export default function MultipleSelect() {
     const classes = useStyles();
@@ -107,7 +117,7 @@ export default function MultipleSelect() {
             default:
                 break;
         }
-        console.log(filter)
+        // console.log(filter)
     };
 
     const clearFilters = () => {
@@ -117,11 +127,11 @@ export default function MultipleSelect() {
             prevFilter.investmentCategory = []
             prevFilter.currency = []
             prevFilter.specialCriteria = []
-            return { ...filter, countries: prevFilter.countries, industries: prevFilter.industries, investmentCategory: prevFilter.investmentCategory, currency: prevFilter.currency, specialCriteria: prevFilter.specialCriteria, }
+            return { ...prevFilter }
         })
-        console.log(filter)
+        // console.log(filter)
     }
-
+    // componentDidMount()
     return (
         <div>
             <Typography className={classes.typography} variant='h2'>
@@ -131,6 +141,7 @@ export default function MultipleSelect() {
                 Select and combine filters to find the most suitable investments for you.
             </Typography>
 
+            {/* Filter for country */}
             <FormControl className={classes.formControl}>
                 <InputLabel id="country-label">Country</InputLabel>
                 <Select
@@ -140,24 +151,32 @@ export default function MultipleSelect() {
                     multiple
                     value={filter.countries}
                     onChange={handleChange}
-                    input={<Input />}
-                    renderValue={(selected) => (selected as string[]).join(', ')}
+                    input={<Input id="select-multiple-chip" />}
+                    renderValue={(selected) => (
+                        <div className={classes.chips}>
+                            {(selected as string[]).map((value) => (
+                                <Chip key={value} label={value} className={classes.chip} />
+                            ))}
+                        </div>
+                    )}
                     MenuProps={MenuProps}
                 >
-                    {filters.countries.map((country) => (
-                        <MenuItem key={country} value={country}>
-                            <Checkbox color='primary' checked={filter.countries.indexOf(country) > -1} />
-                            <ListItemText primary={country} />
+                    {filters.countries.map((tmp) => (
+                        <MenuItem key={tmp} value={tmp} style={getStyles(tmp, filter.countries, theme)}>
+                            <Checkbox color='primary' checked={filter.countries.indexOf(tmp) > -1} />
+                            <ListItemText primary={tmp} />
                         </MenuItem>
                     ))}
                 </Select>
             </FormControl>
 
+            {/* Filter for industry */}
             <FormControl className={classes.formControl}>
                 <InputLabel id="industry-label">Industry</InputLabel>
                 <Select
                     labelId="industry-label"
                     id="industry"
+                    name='industry'
                     multiple
                     value={filter.industries}
                     onChange={handleChange}
@@ -171,14 +190,15 @@ export default function MultipleSelect() {
                     )}
                     MenuProps={MenuProps}
                 >
-                    {filters.industries.map((industry) => (
-                        <MenuItem key={industry} value={industry} style={getStyles(industry, filter.industries, theme)}>
-                            <Checkbox color='primary' checked={filter.industries.indexOf(industry) > -1} />
-                            <ListItemText primary={industry} />
+                    {filters.industries.map((tmp) => (
+                        <MenuItem key={tmp} value={tmp} style={getStyles(tmp, filter.industries, theme)}>
+                            <Checkbox color='primary' checked={filter.industries.indexOf(tmp) > -1} />
+                            <ListItemText primary={tmp} />
                         </MenuItem>
                     ))}
                 </Select>
             </FormControl>
+
             <button type='button' onClick={clearFilters}>
                 Clear filters
             </button>
