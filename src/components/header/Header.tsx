@@ -11,18 +11,18 @@ import logo from '../../assets/images/logo1.png';
 import NavLink from './NavLink';
 
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    logo: {
-      maxWidth: 100,
-      marginRight: '10px',
-    },
-    grow: {
-      flexGrow: 1,
-    },
-    button: {
-      margin: theme.spacing(1),
-    },
-  })
+    createStyles({
+        logo: {
+            maxWidth: 100,
+            marginRight: '10px'
+        },
+        grow: {
+            flexGrow: 1
+        },
+        button: {
+            margin: theme.spacing(1)
+        }
+    })
 );
 
 const Header: React.FC = () => {
@@ -30,9 +30,8 @@ const Header: React.FC = () => {
   return (
     <AppBar position="sticky" color="inherit">
       <Toolbar>
-        <NavLink to="/">
-          <img src={logo} alt="milou-logo" className={classes.logo} />
-        </NavLink>
+        <img src={logo} alt="milou-logo" className={classes.logo} />
+
         <Button>
           <NavLink to="/">Home</NavLink>
         </Button>
@@ -46,17 +45,13 @@ const Header: React.FC = () => {
           <NavLink to="/academy">Academy</NavLink>
         </Button>
 
-        <div className={classes.grow} />
+                <div className={classes.grow} />
 
-        <Button className={classes.button} variant="outlined" color="primary">
-          Login
-        </Button>
-        <Button variant="contained" color="primary">
-          Register
-        </Button>
-      </Toolbar>
-    </AppBar>
-  );
+                <Button className={classes.button} variant="outlined" color="primary">Login</Button>
+                <Button variant="contained" color="primary">Register</Button>
+            </Toolbar>
+        </AppBar>
+    );
 };
 
 export default Header;
