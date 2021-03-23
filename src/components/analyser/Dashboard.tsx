@@ -4,7 +4,6 @@ import {
   makeStyles,
   Container,
 } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
 import * as API from '../../portfolio/APIClient';
 import { ErrorCode } from '../../Errors';
 import ErrorMessage from './ErrorMessage';
