@@ -24,5 +24,12 @@
   "error.message.AUTH_TOKEN_EXPIRED": "Your login has expired. Please log in again.",
   "error.action.retry": "Retry",
   "error.action.login": "Back to login",
-  "error.action.back": "Go back"
+  "error.action.back": "Go back",
+  "analyser.dashboard.headerText": "Analyze Stocks and ETFs within different categories",
+  "analyser.dashboard.title": "Stocks",
+  "analyser.dashboard.errorMessage": "There has been an error while loading your stocks.",
+  "analyser.dashboard.view.table": "Table view",
+  "analyser.dashboard.view.cards": "Cards view",
+  "analyser.filter.title": "Filter Options",
+  "analyser.dashboard.noPortfolios": "No stocks"
 }
