@@ -5,7 +5,7 @@
   "shell.register": "Register",
   "shell.confirmPassword": "Confirm your password",
   "shell.message.forgotPassword": "Forgot password?",
-  "shell.message.noAccount": "You have no account? Then sign in ",
+  "shell.message.noAccount": "You have no account? Then register ",
   "error.invalidEmail": "Invalid email address.",
   "error.invalidPassword": "Invalid password.",
   "error.passwordRequirements": "Your password should at least be 8 characters long and should contain at least one lower-case letter, one upper-case letter, one digit and one special character.",
