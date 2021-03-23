@@ -182,9 +182,6 @@ const Login: React.FC<LoginProps> = (props) => {
       <button
         className={button}
         type="button"
-        onClick={() => {
-          alert('TODO');
-        }}
       >
         {t('shell.message.forgotPassword')}
       </button>
