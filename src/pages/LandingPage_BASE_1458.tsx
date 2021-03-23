@@ -1,32 +1,23 @@
 import React from 'react';
-
 import {
   Button,
   Container,
   Box,
+  CardMedia,
   Grid,
   Typography,
   createMuiTheme,
-  GridListTile,
   Icon,
   Divider,
   GridList,
+  GridListTile,
+  TextField,
+  InputLabel,
   Input,
+  FormHelperText,
+  FormControl,
 } from '@material-ui/core';
-
-import 'font-awesome/css/font-awesome.css';
-import Card from './components/Card';
-import Media from './components/Media';
-import img from './media/180.png';
-import img1 from './media/getThumb.gif';
-import img2 from './media/media2.png';
-import img3 from './media/start.png';
-import img4 from './media/tech-talents.png';
-import img5 from './media/tumlogo.png';
-import manage from './media/manage.png';
-import analyse from './media/analyse.png';
-import lernen from './media/lernen.png';
-import portfolio from './media/Portfolio.png';
+import { addSyntheticLeadingComment } from 'typescript';
 
 const theme = createMuiTheme({
   typography: {
@@ -59,40 +50,43 @@ const theme = createMuiTheme({
   },
 });
 
-const styles = {
-  media1: {
-    maxWidth: '389px',
-    maxHeight: '307px',
-    display: 'auto',
-  },
-  media2: {
-    width: '500px',
-    height: '732px',
-  },
-  logos: {
-    maxWidth: '200px',
-  },
-  icon: {
-    width: '20px',
-    height: '20px',
-  },
-};
-
 const LandingPage: React.FC = () => (
-  <Container disableGutters>
-    <Card />
-    <Divider />
-    <Box m={4}>
-      <Typography variant="body1" align="center">
+  <Container>
+    <Box>
+      <Box
+        style={{ background: '#0c1a3a', marginLeft: 0, display: 'flex' }}
+        m={8}
+        width={1}
+        justifyContent="center"
+      >
+        <Grid container direction="column" alignItems="center" wrap="nowrap">
+          <Grid item>
+            <img
+              src="https://getmilou.de/wp-content/uploads/elementor/thumbs/2020-12-15-Logo-hell-p17eq5ztwznwc003uog4y2jecjf0xlb7ut5p5vmfus.png"
+              title="2020-12-15 Logo hell"
+              alt="2020-12-15 Logo hell"
+            />
+          </Grid>
+          <Grid item>
+            <Typography variant="h2">Empower to invest.</Typography>
+          </Grid>
+          <Grid item>
+            <Button variant="contained">Start now</Button>
+          </Grid>
+        </Grid>
+      </Box>
+
+      <Divider />
+      <Typography variant="body1">
         Apps like Trade Republic and other direct brokers make investing easier
         and easier. The stock market is now accessible to everyone. Even so,
         many individuals do not have access to tools to make informed and
         informed investment decisions. Current solutions are often confusing and
         tailored to professional investors. This is exactly where we attack.
       </Typography>
-    </Box>
-    <Divider />
-    <Box p={18}>
+
+      <Divider />
+
       <Grid
         container
         spacing={4}
@@ -101,7 +95,15 @@ const LandingPage: React.FC = () => (
         alignItems="center"
       >
         <Grid item>
-          <Media image={lernen} style={styles.media1} />
+          <img
+            width="750"
+            height="635"
+            src="https://getmilou.de/wp-content/uploads/2021/01/lernen.png"
+            className="attachment-large size-large"
+            alt=""
+            loading="lazy"
+            sizes="(max-width: 444px) 100vw, 444px"
+          />
         </Grid>
 
         <Grid
@@ -111,7 +113,6 @@ const LandingPage: React.FC = () => (
           direction="column"
           spacing={2}
           alignItems="center"
-          justify-content="center"
         >
           <Typography variant="h4">LEARN</Typography>
           <Typography variant="body1" align="center">
@@ -137,7 +138,6 @@ const LandingPage: React.FC = () => (
           direction="column"
           spacing={2}
           alignItems="center"
-          justify-content="center"
         >
           <Typography variant="h4">ANALYSIS</Typography>
           <Typography variant="body1" align="center">
@@ -149,7 +149,15 @@ const LandingPage: React.FC = () => (
           </Typography>
         </Grid>
         <Grid item>
-          <Media image={analyse} style={styles.media1} />
+          <img
+            width="750"
+            height="635"
+            src="https://getmilou.de/wp-content/uploads/2021/01/analyse.png"
+            className="attachment-large size-large"
+            alt=""
+            loading="lazy"
+            sizes="(max-width: 750px) 100vw, 750px"
+          />
         </Grid>
       </Grid>
       <Grid
@@ -160,7 +168,15 @@ const LandingPage: React.FC = () => (
         alignItems="center"
       >
         <Grid item>
-          <Media image={portfolio} style={styles.media1} />
+          <img
+            width="750"
+            height="732"
+            src="https://getmilou.de/wp-content/uploads/2021/01/Portfolio.png"
+            className="attachment-large size-large"
+            alt=""
+            loading="lazy"
+            sizes="(max-width: 750px) 100vw, 750px"
+          />
         </Grid>
         <Grid
           item
@@ -169,7 +185,6 @@ const LandingPage: React.FC = () => (
           direction="column"
           spacing={2}
           alignItems="center"
-          justify-content="center"
         >
           <Typography variant="h4">PORTFOLIO</Typography>
           <Typography variant="body1" align="center">
@@ -182,54 +197,49 @@ const LandingPage: React.FC = () => (
       </Grid>
     </Box>
 
-    <Box maxWidth="xl" bgcolor="#0c1a3a" color="white" px={8} py={2}>
-      <Grid container direction="column" spacing={2}>
-        <Grid item>
-          <Typography variant="h3">Did you know...</Typography>
-        </Grid>
-        <Grid item container direction="row" spacing={2} alignItems="center">
+    <Box maxWidth="xl">
+      <div
+        style={{
+          backgroundColor: '#0c1a3a',
+        }}
+      >
+        <Grid container spacing={4} direction="column">
           <Grid item>
+            <Typography variant="h3">Did you know...</Typography>
+          </Grid>
+          <Grid item xs={2} container>
             <Icon className="fas fa-money-bill-alt" fontSize="large" />
           </Grid>
-          <Grid item xs>
-            <Typography variant="h6">
-              ..to be a successful investor, need you initially, no assets . You
-              can start investing with as little as 25 euros a month.
+          <Grid item alignItems="center">
+            <Typography variant="h2" align="center">
+              Milou accompanies you on all your financial adventures.
             </Typography>
           </Grid>
-        </Grid>
-        <Grid item container direction="row" spacing={2} alignItems="center">
           <Grid item>
-            <Icon className="fas fa-hand-holding-heart" fontSize="large" />
-          </Grid>
-          <Grid item xs>
-            <Typography variant="h6">
-              ..we only work with commission-free products , stocks and ETFs.
-              This ensures that we pursue the same interests as you, namely to
-              make you a successful investor.
+            <Typography variant="h6" align="center">
+              We help you to make well-founded investment decisions yourself.
             </Typography>
           </Grid>
+          <Grid item>
+            <Button variant="contained">Start for free</Button>
+          </Grid>
         </Grid>
-        <Grid item alignItems="center">
-          <Typography variant="h2" align="center">
-            Milou accompanies you on all your financial adventures.
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant="h6" align="center">
-            We help you to make well-founded investment decisions yourself.
-          </Typography>
-        </Grid>
-        <Grid item alignContent="center">
-          <Button variant="contained">Start for free</Button>
-        </Grid>
-      </Grid>
+      </div>
     </Box>
 
-    <Box p={8} mx={0}>
+    <Box>
       <Grid container direction="row" spacing={4}>
         <Grid item>
-          <Media image={img2} style={styles.media2} />
+          <img
+            width="501"
+            height="732"
+            src="https://getmilou.de/wp-content/uploads/2021/01/Mockups-Lifecycle.png"
+            className="attachment-full size-full"
+            alt=""
+            loading="lazy"
+            srcSet="https://getmilou.de/wp-content/uploads/2021/01/Mockups-Lifecycle.png 501w, https://getmilou.de/wp-content/uploads/2021/01/Mockups-Lifecycle-205x300.png 205w"
+            sizes="(max-width: 501px) 100vw, 501px"
+          />
         </Grid>
         <Grid
           item
@@ -240,13 +250,9 @@ const LandingPage: React.FC = () => (
           alignItems="center"
           justify-content="center"
         >
-          <Grid item container direction="row" alignItems="center" spacing={4}>
+          <Grid item container direction="row">
             <Grid item>
-              <Icon
-                className="fas fa-university"
-                fontSize="large"
-                style={{ color: '#3aa03a' }}
-              />
+              <Icon className="fas fa-chart-line" />
             </Grid>
             <Grid item xs container direction="column">
               <Typography variant="h5">LEARNING PLATFORM</Typography>
@@ -257,15 +263,11 @@ const LandingPage: React.FC = () => (
               </Typography>
             </Grid>
           </Grid>
-          <Grid item container direction="row" alignItems="center" spacing={4}>
+          <Grid item container direction="row">
             <Grid item>
-              <Icon
-                className="fas fa-info-circle"
-                fontSize="large"
-                style={{ color: theme.palette.secondary.main }}
-              />
+              <Icon className="fas fa-chart-line" />
             </Grid>
-            <Grid item xs container direction="column">
+            <Grid item xs container spacing={4} direction="column">
               <Typography variant="h5">INFO BOXES</Typography>
               <Typography variant="body1">
                 With the help of our info boxes, you can also view explanations
@@ -274,13 +276,9 @@ const LandingPage: React.FC = () => (
               </Typography>
             </Grid>
           </Grid>
-          <Grid item container direction="row" alignItems="center" spacing={4}>
+          <Grid item container direction="row">
             <Grid item>
-              <Icon
-                className="fas fa-chart-line"
-                fontSize="large"
-                style={{ color: '#ecec0f' }}
-              />
+              <Icon className="fas fa-chart-line" />
             </Grid>
             <Grid item xs container direction="column">
               <Typography variant="h5">SIMPLE VISUALIZATION</Typography>
@@ -291,15 +289,11 @@ const LandingPage: React.FC = () => (
               </Typography>
             </Grid>
           </Grid>
-          <Grid item container direction="row" alignItems="center" spacing={4}>
+          <Grid item container direction="row">
             <Grid item>
-              <Icon
-                className="fas fa-exclamation-triangle"
-                fontSize="large"
-                style={{ color: '#ce2020' }}
-              />
+              <Icon aria-hidden="true" className="fas fa-chart-line" />
             </Grid>
-            <Grid item xs container direction="column">
+            <Grid item xs container spacing={4} direction="column">
               <Typography variant="h5">RISK WARNING</Typography>
               <Typography variant="body1">
                 Identify risks across your entire portfolio with simple warnings
@@ -310,39 +304,62 @@ const LandingPage: React.FC = () => (
         </Grid>
       </Grid>
 
-      <Box bgcolor="#0c1a3a" color="white" my={12} p={8}>
+      <Box bgcolor="#0c1a3a" color="white">
         <Grid container>
           <Grid item xs container direction="column" alignItems="center">
             <Typography variant="h3">Our supporters</Typography>
-            <Typography variant="body1" gutterBottom>
-              Thank you for your help!
-            </Typography>
+            <Typography variant="body1">Thank you for your help!</Typography>
           </Grid>
         </Grid>
-        <Box py={8}>
-          <Grid container item alignItems="center" justify="center">
-            <GridList cols={6} cellHeight={120} spacing={18}>
-              <GridListTile>
-                <Media image={img} style={styles.logos} />
-              </GridListTile>
-              <GridListTile>
-                <Media image={img1} style={styles.logos} />
-              </GridListTile>
-              <GridListTile>
-                <Media image={img5} style={styles.logos} />
-              </GridListTile>
-              <GridListTile>
-                <Media image={manage} style={styles.logos} />
-              </GridListTile>
-              <GridListTile>
-                <Media image={img4} style={styles.logos} />
-              </GridListTile>
-              <GridListTile>
-                <Media image={img3} style={styles.logos} />
-              </GridListTile>
-            </GridList>
-          </Grid>
-        </Box>
+        <Grid container item>
+          <GridList cols={5} cellHeight={120}>
+            <GridListTile>
+              <img
+                style={{ maxWidth: '100%', maxHeight: '80px' }}
+                src="https://getmilou.de/wp-content/uploads/2021/01/180-breit.png"
+                className="attachment-large size-large"
+                alt=""
+                loading="lazy"
+              />
+            </GridListTile>
+            <GridListTile>
+              <img
+                style={{ maxWidth: '100%', maxHeight: '80px' }}
+                src="https://getmilou.de/wp-content/uploads/2020/12/getThumb.gif"
+                className="attachment-large size-large"
+                alt=""
+                loading="lazy"
+              />
+            </GridListTile>
+            <GridListTile>
+              <img
+                style={{ maxWidth: '100%', maxHeight: '80px' }}
+                src="https://getmilou.de/wp-content/uploads/elementor/thumbs/utum-logo-p1cihxdutlig1amolrz3ugtzva59uu0j3023656wvc.png"
+                title="utum logo"
+                alt="utum logo"
+              />
+            </GridListTile>
+            <GridListTile>
+              <img
+                style={{ maxWidth: '100%', maxHeight: '80px' }}
+                src="https://getmilou.de/wp-content/uploads/2021/01/tech-talents.png"
+                className="attachment-large size-large"
+                alt=""
+                loading="lazy"
+              />
+            </GridListTile>
+            <GridListTile>
+              <img
+                style={{ maxWidth: '100%', maxHeight: '80px' }}
+                src="https://getmilou.de/wp-content/uploads/2021/01/start.png"
+                className="attachment-large size-large"
+                alt=""
+                loading="lazy"
+                srcSet="https://getmilou.de/wp-content/uploads/2021/01/start.png 507w, https://getmilou.de/wp-content/uploads/2021/01/start-300x137.png 300w"
+              />
+            </GridListTile>
+          </GridList>
+        </Grid>
       </Box>
       <Box>
         <Grid container direction="row">

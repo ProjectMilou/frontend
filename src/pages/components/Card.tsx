@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Box, Grid, Typography } from '@material-ui/core';
-import { addSyntheticLeadingComment } from 'typescript';
 
 import milou from '../media/milou.png';
 

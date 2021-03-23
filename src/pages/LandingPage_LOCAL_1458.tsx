@@ -15,6 +15,8 @@ import {
 } from '@material-ui/core';
 
 import 'font-awesome/css/font-awesome.css';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { addSyntheticLeadingComment } from 'typescript';
 import Card from './components/Card';
 import Media from './components/Media';
 import img from './media/180.png';

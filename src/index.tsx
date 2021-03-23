@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/App';
 import LandingPage from './pages/LandingPage';
 import reportWebVitals from './reportWebVitals';
 import './i18n';
