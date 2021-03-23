@@ -1,138 +1,201 @@
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
+import { Container, Box, Typography } from '@material-ui/core';
 import { RouteComponentProps } from '@reach/router';
 
 const Imprint: React.FC<RouteComponentProps> = () => (
-  <Box>
-    <Typography variant="h2">Privacy Policy</Typography>
-    <Typography variant="body1">
-      We are very delighted that you have shown interest in our enterprise. Data
-      protection is of a particularly high priority for us. The use of our
-      Internet pages is possible without any indication of personal data;
-      however, if a data subject wants to use special enterprise services via
-      our website, processing of personal data could become necessary. If the
-      processing of personal data is necessary and there is no statutory basis
-      for such processing, we generally obtain consent from the data subject.
-      The processing of personal data, such as the name, address, e-mail
-      address, or telephone number of a data subject shall always be in line
-      with the General Data Protection Regulation (GDPR), and in accordance with
-      the country-specific data protection regulations. By means of this data
-      protection declaration, our enterprise would like to inform the general
-      public of the nature, scope, and purpose of the personal data we collect,
-      use and process. Furthermore, data subjects are informed, by means of this
-      data protection declaration, of the rights to which they are entitled. As
-      the controller, we have implemented numerous technical and organizational
-      measures to ensure the most complete protection of personal data processed
-      through this website. However, Internet-based data transmissions may in
-      principle have security gaps, so absolute protection may not be
-      guaranteed. For this reason, every data subject is free to transfer
-      personal data to us via alternative means, e.g. by telephone.
-    </Typography>
-
-    <Box>
-      <Typography variant="h3">1. Definitions</Typography>
-      <Typography variant="body1">
-        The data protection declaration is based on the terms used by the
-        European legislator for the adoption of the General Data Protection
-        Regulation (GDPR). Our data protection declaration should be legible and
-        understandable. To ensure this, we would like to first explain the
-        terminology used. In this data protection declaration, we use, inter
-        alia, the following terms:{' '}
-      </Typography>
-      <Typography variant="h4"> a. Personal data</Typography>
-      <Typography variant="body1">
-        Personal data means any information relating to an identified or
-        identifiable natural person (“data subject”). An identifiable natural
-        person is one who can be identified, directly or indirectly, in
-        particular by reference to an identifier such as a name, an
-        identification number, location data, an online identifier or to one or
-        more factors specific to the physical, physiological, genetic, mental,
-        economic, cultural or social identity of that natural person.{' '}
-      </Typography>
-      <Typography variant="h4">b. Data subject</Typography>
-      <Typography variant="body1">
-        Data subject is any identified or identifiable natural person, whose
-        personal data is processed by the controller responsible for the
-        processing.
-      </Typography>
-      <Typography variant="h4">c. Processing</Typography>
-      <Typography variant="body1">
-        Processing is any operation or set of operations which is performed on
-        personal data or on sets of personal data, whether or not by automated
-        means, such as collection, recording, organisation, structuring,
-        storage, adaptation or alteration, retrieval, consultation, use,
-        disclosure by transmission, dissemination or otherwise making available,
-        alignment or combination, restriction, erasure or destruction.
-      </Typography>
-      <Typography variant="h4">d. Restriction of processing</Typography>
-      <Typography variant="body1">
-        Restriction of processing is the marking of stored personal data with
-        the aim of limiting their processing in the future.
-      </Typography>
-      <Typography variant="h4">e. Profiling</Typography>
-      <Typography variant="body1">
-        Profiling means any form of automated processing of personal data
-        consisting of the use of personal data to evaluate certain personal
-        aspects relating to a natural person, in particular to analyse or
-        predict aspects concerning that natural person&apos;s performance at
-        work, economic situation, health, personal preferences, interests,
-        reliability, behaviour, location or movements.
-      </Typography>
-      <Typography variant="h4">f. Pseudonymisation</Typography>
-      <Typography variant="body1">
-        Pseudonymisation is the processing of personal data in such a manner
-        that the personal data can no longer be attributed to a specific data
-        subject without the use of additional information, provided that such
-        additional information is kept separately and is subject to technical
-        and organisational measures to ensure that the personal data are not
-        attributed to an identified or identifiable natural person.
-      </Typography>
-      <Typography variant="h4">
-        controller or controller responsible for the processing
+  <Container maxWidth="md">
+    <Box my={5}>
+      <Typography variant="h2" gutterBottom>
+        Privacy Policy
       </Typography>
       <Typography variant="body1">
-        Controller or controller responsible for the processing is the natural
-        or legal person, public authority, agency or other body which, alone or
-        jointly with others, determines the purposes and means of the processing
-        of personal data; where the purposes and means of such processing are
-        determined by Union or Member State law, the controller or the specific
-        criteria for its nomination may be provided for by Union or Member State
-        law.
-      </Typography>
-      <Typography variant="h4">h. Processor</Typography>
-      <Typography variant="body1">
-        Processor is a natural or legal person, public authority, agency or
-        other body which processes personal data on behalf of the controller.
-      </Typography>
-      <Typography variant="h4">i. Recipient</Typography>
-      <Typography variant="body1">
-        Recipient is a natural or legal person, public authority, agency or
-        another body, to which the personal data are disclosed, whether a third
-        party or not. However, public authorities which may receive personal
-        data in the framework of a particular inquiry in accordance with Union
-        or Member State law shall not be regarded as recipients; the processing
-        of those data by those public authorities shall be in compliance with
-        the applicable data protection rules according to the purposes of the
-        processing.
-      </Typography>
-      <Typography variant="h4">j. Third party</Typography>
-      <Typography variant="body1">
-        Third party is a natural or legal person, public authority, agency or
-        body other than the data subject, controller, processor and persons who,
-        under the direct authority of the controller or processor, are
-        authorised to process personal data.
-      </Typography>
-      <Typography variant="h4">k. Consent</Typography>
-      <Typography variant="body1">
-        Consent of the data subject is any freely given, specific, informed and
-        unambiguous indication of the data subject&apos;s wishes by which he or
-        she, by a statement or by a clear affirmative action, signifies
-        agreement to the processing of personal data relating to him or her.
+        We are very delighted that you have shown interest in our enterprise.
+        Data protection is of a particularly high priority for us. The use of
+        our Internet pages is possible without any indication of personal data;
+        however, if a data subject wants to use special enterprise services via
+        our website, processing of personal data could become necessary. If the
+        processing of personal data is necessary and there is no statutory basis
+        for such processing, we generally obtain consent from the data subject.
+        The processing of personal data, such as the name, address, e-mail
+        address, or telephone number of a data subject shall always be in line
+        with the General Data Protection Regulation (GDPR), and in accordance
+        with the country-specific data protection regulations. By means of this
+        data protection declaration, our enterprise would like to inform the
+        general public of the nature, scope, and purpose of the personal data we
+        collect, use and process. Furthermore, data subjects are informed, by
+        means of this data protection declaration, of the rights to which they
+        are entitled. As the controller, we have implemented numerous technical
+        and organizational measures to ensure the most complete protection of
+        personal data processed through this website. However, Internet-based
+        data transmissions may in principle have security gaps, so absolute
+        protection may not be guaranteed. For this reason, every data subject is
+        free to transfer personal data to us via alternative means, e.g. by
+        telephone.
       </Typography>
     </Box>
 
-    <Box>
-      <Typography variant="h3">
+    <Box my={5}>
+      <Box my={3}>
+        <Typography variant="h3" gutterBottom>
+          1. Definitions
+        </Typography>
+        <Typography variant="body1">
+          The data protection declaration is based on the terms used by the
+          European legislator for the adoption of the General Data Protection
+          Regulation (GDPR). Our data protection declaration should be legible
+          and understandable. To ensure this, we would like to first explain the
+          terminology used. In this data protection declaration, we use, inter
+          alia, the following terms:{' '}
+        </Typography>
+      </Box>
+
+      <Box my={3}>
+        <Typography variant="h4" gutterBottom>
+          a. Personal data
+        </Typography>
+        <Typography variant="body1">
+          Personal data means any information relating to an identified or
+          identifiable natural person (“data subject”). An identifiable natural
+          person is one who can be identified, directly or indirectly, in
+          particular by reference to an identifier such as a name, an
+          identification number, location data, an online identifier or to one
+          or more factors specific to the physical, physiological, genetic,
+          mental, economic, cultural or social identity of that natural person.{' '}
+        </Typography>
+      </Box>
+
+      <Box my={3}>
+        <Typography variant="h4" gutterBottom>
+          b. Data subject
+        </Typography>
+        <Typography variant="body1">
+          Data subject is any identified or identifiable natural person, whose
+          personal data is processed by the controller responsible for the
+          processing.
+        </Typography>
+      </Box>
+
+      <Box my={3}>
+        <Typography variant="h4" gutterBottom>
+          c. Processing
+        </Typography>
+        <Typography variant="body1">
+          Processing is any operation or set of operations which is performed on
+          personal data or on sets of personal data, whether or not by automated
+          means, such as collection, recording, organisation, structuring,
+          storage, adaptation or alteration, retrieval, consultation, use,
+          disclosure by transmission, dissemination or otherwise making
+          available, alignment or combination, restriction, erasure or
+          destruction.
+        </Typography>
+      </Box>
+
+      <Box my={3}>
+        <Typography variant="h4" gutterBottom>
+          d. Restriction of processing
+        </Typography>
+        <Typography variant="body1">
+          Restriction of processing is the marking of stored personal data with
+          the aim of limiting their processing in the future.
+        </Typography>
+      </Box>
+
+      <Box my={3}>
+        <Typography variant="h4" gutterBottom>
+          e. Profiling
+        </Typography>
+        <Typography variant="body1">
+          Profiling means any form of automated processing of personal data
+          consisting of the use of personal data to evaluate certain personal
+          aspects relating to a natural person, in particular to analyse or
+          predict aspects concerning that natural person&apos;s performance at
+          work, economic situation, health, personal preferences, interests,
+          reliability, behaviour, location or movements.
+        </Typography>
+      </Box>
+
+      <Box my={3}>
+        <Typography variant="h4" gutterBottom>
+          f. Pseudonymisation
+        </Typography>
+        <Typography variant="body1">
+          Pseudonymisation is the processing of personal data in such a manner
+          that the personal data can no longer be attributed to a specific data
+          subject without the use of additional information, provided that such
+          additional information is kept separately and is subject to technical
+          and organisational measures to ensure that the personal data are not
+          attributed to an identified or identifiable natural person.
+        </Typography>
+      </Box>
+
+      <Box my={3}>
+        <Typography variant="h4" gutterBottom>
+          g. controller or controller responsible for the processing
+        </Typography>
+        <Typography variant="body1">
+          Controller or controller responsible for the processing is the natural
+          or legal person, public authority, agency or other body which, alone
+          or jointly with others, determines the purposes and means of the
+          processing of personal data; where the purposes and means of such
+          processing are determined by Union or Member State law, the controller
+          or the specific criteria for its nomination may be provided for by
+          Union or Member State law.
+        </Typography>
+      </Box>
+
+      <Box my={3}>
+        <Typography variant="h4" gutterBottom>
+          h. Processor
+        </Typography>
+        <Typography variant="body1">
+          Processor is a natural or legal person, public authority, agency or
+          other body which processes personal data on behalf of the controller.
+        </Typography>
+      </Box>
+
+      <Box my={3}>
+        <Typography variant="h4" gutterBottom>
+          i. Recipient
+        </Typography>
+        <Typography variant="body1">
+          Recipient is a natural or legal person, public authority, agency or
+          another body, to which the personal data are disclosed, whether a
+          third party or not. However, public authorities which may receive
+          personal data in the framework of a particular inquiry in accordance
+          with Union or Member State law shall not be regarded as recipients;
+          the processing of those data by those public authorities shall be in
+          compliance with the applicable data protection rules according to the
+          purposes of the processing.
+        </Typography>
+      </Box>
+
+      <Box my={3}>
+        <Typography variant="h4" gutterBottom>
+          j. Third party
+        </Typography>
+        <Typography variant="body1">
+          Third party is a natural or legal person, public authority, agency or
+          body other than the data subject, controller, processor and persons
+          who, under the direct authority of the controller or processor, are
+          authorised to process personal data.
+        </Typography>
+      </Box>
+
+      <Box my={3}>
+        <Typography variant="h4" gutterBottom>
+          k. Consent
+        </Typography>
+        <Typography variant="body1">
+          Consent of the data subject is any freely given, specific, informed
+          and unambiguous indication of the data subject&apos;s wishes by which
+          he or she, by a statement or by a clear affirmative action, signifies
+          agreement to the processing of personal data relating to him or her.
+        </Typography>
+      </Box>
+    </Box>
+
+    <Box my={5}>
+      <Typography variant="h3" gutterBottom>
         2. Name and Address of the controller
       </Typography>
       <Typography variant="body1">
@@ -150,8 +213,10 @@ const Imprint: React.FC<RouteComponentProps> = () => (
       </Typography>
     </Box>
 
-    <Box>
-      <Typography variant="h3">3. Cookies</Typography>
+    <Box my={5}>
+      <Typography variant="h3" gutterBottom>
+        3. Cookies
+      </Typography>
       <Typography variant="body1">
         Our internet page uses cookies.Cookies are text files that are stored in
         a computer system via an Internet browser. Many Internet sites and
@@ -185,8 +250,8 @@ const Imprint: React.FC<RouteComponentProps> = () => (
       </Typography>
     </Box>
 
-    <Box>
-      <Typography variant="h3">
+    <Box my={5}>
+      <Typography variant="h3" gutterBottom>
         4. Collection of general data and information
       </Typography>
       <Typography variant="body1">
@@ -216,8 +281,8 @@ const Imprint: React.FC<RouteComponentProps> = () => (
       </Typography>
     </Box>
 
-    <Box>
-      <Typography variant="h3">
+    <Box my={5}>
+      <Typography variant="h3" gutterBottom>
         5. possibility of contact via the website
       </Typography>
       <Typography variant="body1">
@@ -233,8 +298,8 @@ const Imprint: React.FC<RouteComponentProps> = () => (
       </Typography>
     </Box>
 
-    <Box>
-      <Typography variant="h3">
+    <Box my={5}>
+      <Typography variant="h3" gutterBottom>
         6. Routine erasure and blocking of personal data
       </Typography>
       <Typography variant="body1">
@@ -249,8 +314,10 @@ const Imprint: React.FC<RouteComponentProps> = () => (
       </Typography>
     </Box>
 
-    <Box>
-      <Typography variant="h3">7. Rights of the data subject</Typography>
+    <Box my={5}>
+      <Typography variant="h3" gutterBottom>
+        7. Rights of the data subject
+      </Typography>
       <Typography variant="body1">
         Any person concerned shall have the right for information pursuant to
         Article 15 GDPR to rectification under Article 16 GDPR to cancellation
@@ -268,8 +335,8 @@ const Imprint: React.FC<RouteComponentProps> = () => (
       </Typography>
     </Box>
 
-    <Box>
-      <Typography variant="h3">
+    <Box my={5}>
+      <Typography variant="h3" gutterBottom>
         8. Data protection provisions Google Analytics(with anonymization
         function)
       </Typography>
@@ -346,8 +413,8 @@ const Imprint: React.FC<RouteComponentProps> = () => (
       </Typography>
     </Box>
 
-    <Box>
-      <Typography variant="h3">
+    <Box my={5}>
+      <Typography variant="h3" gutterBottom>
         9. Data protection provisions LinkedIn
       </Typography>
       <Typography variant="body1">
@@ -398,8 +465,10 @@ const Imprint: React.FC<RouteComponentProps> = () => (
       </Typography>
     </Box>
 
-    <Box>
-      <Typography variant="h3">10. Legal basis for the processing</Typography>
+    <Box my={5}>
+      <Typography variant="h3" gutterBottom>
+        10. Legal basis for the processing
+      </Typography>
       <Typography variant="body1">
         Art. 6(1) lit.a GDPR serves as the legal basis for processing operations
         for which we obtain consent for a specific processing purpose.If the
@@ -433,8 +502,8 @@ const Imprint: React.FC<RouteComponentProps> = () => (
       </Typography>
     </Box>
 
-    <Box>
-      <Typography variant="h3">
+    <Box my={5}>
+      <Typography variant="h3" gutterBottom>
         11. The legitimate interests pursued by the controller or by a third
         party
       </Typography>
@@ -445,8 +514,8 @@ const Imprint: React.FC<RouteComponentProps> = () => (
       </Typography>
     </Box>
 
-    <Box>
-      <Typography variant="h3">
+    <Box my={5}>
+      <Typography variant="h3" gutterBottom>
         12. Period for which the personal data will be stored
       </Typography>
       <Typography variant="body1">
@@ -458,8 +527,8 @@ const Imprint: React.FC<RouteComponentProps> = () => (
       </Typography>
     </Box>
 
-    <Box>
-      <Typography variant="h3">
+    <Box my={5}>
+      <Typography variant="h3" gutterBottom>
         13. Provision of personal data as statutory or contractual requirement;
         Requirement necessary to enter into a contract; Obligation of the data
         subject to provide the personal data; possible consequences of failure
@@ -484,8 +553,8 @@ const Imprint: React.FC<RouteComponentProps> = () => (
       </Typography>
     </Box>
 
-    <Box>
-      <Typography variant="h3">
+    <Box my={5}>
+      <Typography variant="h3" gutterBottom>
         14. Existence of automated decision - making
       </Typography>
       <Typography variant="body1">
@@ -493,7 +562,7 @@ const Imprint: React.FC<RouteComponentProps> = () => (
         profiling.
       </Typography>
     </Box>
-  </Box>
+  </Container>
 );
 
 export default Imprint;
