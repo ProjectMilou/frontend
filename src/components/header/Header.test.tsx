@@ -6,7 +6,7 @@ describe('Header', () => {
     test('Renders all links and buttons', () => {
         render(<Header />);
         expect(screen.getByText(/Home/i)).toBeInTheDocument();
-        expect(screen.getByText(/Portofolio/i)).toBeInTheDocument();
+        expect(screen.getByText(/Portfolio/i)).toBeInTheDocument();
         expect(screen.getByText(/Analyser/i)).toBeInTheDocument();
         expect(screen.getByText(/Academy/i)).toBeInTheDocument();
         expect(screen.getByText(/login/i)).toBeInTheDocument();
@@ -19,9 +19,9 @@ describe('Header', () => {
         fireEvent.click(homeLink);
         expect(location.pathname).toBe('/');
 
-        const portofolioLink = screen.getByText(/Portofolio/i);
-        fireEvent.click(portofolioLink);
-        expect(location.pathname).toBe('/portofolio');
+        const portfolioLink = screen.getByText(/Portfolio/i);
+        fireEvent.click(portfolioLink);
+        expect(location.pathname).toBe('/portfolio');
 
         const analyserLink = screen.getByText(/Analyser/i);
         fireEvent.click(analyserLink);

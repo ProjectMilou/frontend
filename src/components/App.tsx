@@ -54,7 +54,7 @@ const App: React.FC = () => (
           {/* <Frontpage path="/" /> */}
           <Shell path="/shell" />
           <Analyser path="/analyser" />
-          <Portfolio path="/portofolio" />
+          <Portfolio path="/portfolio" />
         </Router>
       </div>
 
