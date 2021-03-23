@@ -1,30 +1,42 @@
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
+import { Container, Box, Typography } from '@material-ui/core';
 import { RouteComponentProps } from '@reach/router';
 
 const Imprint: React.FC<RouteComponentProps> = () => (
-  <Box>
-    <Typography variant="h2">Imprint</Typography>
+  <Container maxWidth="md">
+    <Box my={5}>
+      <Typography variant="h2">Imprint</Typography>
 
-    <Box>
-      <Typography variant="h4">In Accordance with Section 5 TMG</Typography>
-      <Typography variant="body1">
-        Christoph Hanus
-        <br />
-        Max-Bill-Straße 67
-        <br />
-        80807 München
-      </Typography>
+      <Box my={3}>
+        <Box mb={3}>
+          <Typography variant="h4" gutterBottom>
+            In Accordance with Section 5 TMG
+          </Typography>
+          <Typography variant="body1">
+            Christoph Hanus
+            <br />
+            Max-Bill-Straße 67
+            <br />
+            80807 München
+          </Typography>
+        </Box>
 
-      <Typography variant="h4">Contact</Typography>
+        <Box>
+          <Typography variant="h4" gutterBottom>
+            Contact
+          </Typography>
 
-      <Typography variant="body1">
-        <a href="mailto:info@milou.io">info@milou.io</a>
-      </Typography>
+          <Typography variant="body1">
+            <a href="mailto:info@milou.io">info@milou.io</a>
+          </Typography>
+        </Box>
+      </Box>
     </Box>
 
-    <Box>
-      <Typography variant="h3">Accountability for Content</Typography>
+    <Box my={5}>
+      <Typography variant="h3" gutterBottom>
+        Accountability for Content
+      </Typography>
       <Typography variant="body1">
         The contents of our pages have been created with the utmost care.
         However, we cannot guarantee the content&apos;s accuracy, completeness
@@ -38,8 +50,10 @@ const Imprint: React.FC<RouteComponentProps> = () => (
       </Typography>
     </Box>
 
-    <Box>
-      <Typography variant="h3">Accountability for Links</Typography>
+    <Box my={5}>
+      <Typography variant="h3" gutterBottom>
+        Accountability for Links
+      </Typography>
       <Typography variant="body1">
         Responsibility for the content of external links (to web pages of third
         parties) lies solely with the operators of the linked pages. No
@@ -49,8 +63,10 @@ const Imprint: React.FC<RouteComponentProps> = () => (
       </Typography>
     </Box>
 
-    <Box>
-      <Typography variant="h3">Copyright</Typography>
+    <Box my={5}>
+      <Typography variant="h3" gutterBottom>
+        Copyright
+      </Typography>
       <Typography variant="body1">
         Our web pages and their contents are subject to German copyright law.
         Unless expressly permitted by law, every form of utilizing, reproducing
@@ -61,7 +77,7 @@ const Imprint: React.FC<RouteComponentProps> = () => (
         violate copyright laws.
       </Typography>
     </Box>
-  </Box>
+  </Container>
 );
 
 export default Imprint;
