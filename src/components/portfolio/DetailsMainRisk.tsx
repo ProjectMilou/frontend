@@ -206,7 +206,7 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
           // TODO: deal with overflow (too many names)
           labels={Array.from(new Set(positions.map((p) => p.stock.industry)))}
           // TODO: replace with actuall count
-          portions={[3, 1]}
+          portions={[6, 1]}
         />
         <RiskComp
           risk={risk.currency}
