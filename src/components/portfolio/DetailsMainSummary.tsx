@@ -214,7 +214,12 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
         </div>
       </div>
       <div>
-        <DetailsDonut portions={portions} names={companyNames} />
+        <DetailsDonut
+          portions={portions}
+          names={companyNames}
+          size={250}
+          graphOffsetX={0}
+        />
         <DetailsLineChart portfolioValue={portfolioValue} />
       </div>
       <div>{/* Summary line */}</div>

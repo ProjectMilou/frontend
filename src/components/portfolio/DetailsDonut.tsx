@@ -5,9 +5,16 @@ import { useTheme } from '@material-ui/core/styles';
 type DetailsDonutProps = {
   portions: number[];
   names: string[];
+  size: number;
+  graphOffsetX: number;
 };
 
-const DetailsDonut: React.FC<DetailsDonutProps> = ({ portions, names }) => {
+const DetailsDonut: React.FC<DetailsDonutProps> = ({
+  portions,
+  names,
+  size,
+  graphOffsetX,
+}) => {
   const theme = useTheme();
 
   const [state, setState] = useState({
@@ -20,6 +27,7 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({ portions, names }) => {
       chart: {
         redrawOnWindowResize: false,
         redrawOnParentResize: false,
+        offsetX: graphOffsetX,
       },
       stroke: {
         show: false,
@@ -43,8 +51,8 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({ portions, names }) => {
         width: undefined,
         height: undefined,
         tooltipHoverFormatter: undefined,
-        offsetX: 325,
-        offsetY: 80,
+        offsetX: 0,
+        offsetY: 0,
         labels: {
           colors: theme.palette.primary.contrastText,
           useSeriesColors: false,
@@ -81,7 +89,7 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({ portions, names }) => {
         options={state.options}
         series={state.series}
         type="donut"
-        height={300}
+        height={size}
         width="100%"
       />
     </div>
