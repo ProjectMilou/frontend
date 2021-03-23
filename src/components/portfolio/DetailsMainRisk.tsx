@@ -3,7 +3,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import CheckIcon from '@material-ui/icons/Check';
 import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
-import { RiskAnalysis, Risk } from './DetailsTypes';
+import DetailsDonut from './DetailsDonut';
+import { RiskAnalysis, Risk, Position } from './DetailsTypes';
 
 // stylesheet for the risk analysis section
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
@@ -48,11 +49,9 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       margin: '0 0 1rem 0',
       color: palette.primary.contrastText,
     },
-    riskPie: {
-      // TODO: change once pie chart is inserted
-      width: '90%',
-      height: '12rem',
-      backgroundColor: 'grey',
+    riskPieWrapper: {
+      margin: '1rem 0',
+      width: '100%',
       alignSelf: 'center',
     },
     statContainer: {
@@ -87,14 +86,22 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
 type RiskCompProps = {
   risk: Risk;
   title: string;
+  labels: string[];
+  portions: number[];
 };
 
 type DetailsMainRiskProps = {
   risk: RiskAnalysis;
+  positions: Position[];
 };
 
 // A component consisting of the title, chart and warnings of a given risk type
-const RiskComp: React.FC<RiskCompProps> = ({ risk, title }) => {
+const RiskComp: React.FC<RiskCompProps> = ({
+  risk,
+  title,
+  labels,
+  portions,
+}) => {
   const [riskState, setRiskState] = React.useState(risk);
   const classes = useStyles();
   const { t } = useTranslation();
@@ -127,9 +134,13 @@ const RiskComp: React.FC<RiskCompProps> = ({ risk, title }) => {
         <p className={classes.riskTitle}>{title}</p>
       </div>
       {/* body with chart */}
-      {/* TODO: insert chart */}
-      <div className={classes.riskPie}>
-        <div />
+      <div className={classes.riskPieWrapper}>
+        <DetailsDonut
+          portions={portions}
+          names={labels}
+          size={200}
+          graphOffsetX={-40}
+        />
       </div>
       {/* footer with warnings */}
       <div>
@@ -162,7 +173,10 @@ const RiskComp: React.FC<RiskCompProps> = ({ risk, title }) => {
 };
 
 // returns the details page header
-const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({ risk }) => {
+const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
+  risk,
+  positions,
+}) => {
   const [riskState, setRiskState] = React.useState(risk);
   const classes = useStyles();
   const { t } = useTranslation();
@@ -178,9 +192,31 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({ risk }) => {
         </div>
       </div>
       <div className={classes.riskContainer}>
-        <RiskComp risk={risk.countries} title={t('port.details.countries')} />
-        <RiskComp risk={risk.segments} title={t('port.details.segments')} />
-        <RiskComp risk={risk.currency} title={t('port.details.currency')} />
+        <RiskComp
+          risk={risk.countries}
+          title={t('port.details.countries')}
+          // TODO: deal with overflow (too many names)
+          labels={Array.from(new Set(positions.map((p) => p.stock.country)))}
+          // TODO: replace with actuall count
+          portions={[3, 1]}
+        />
+        <RiskComp
+          risk={risk.segments}
+          title={t('port.details.segments')}
+          // TODO: deal with overflow (too many names)
+          labels={Array.from(new Set(positions.map((p) => p.stock.industry)))}
+          // TODO: replace with actuall count
+          portions={[3, 1]}
+        />
+        <RiskComp
+          risk={risk.currency}
+          title={t('port.details.currency')}
+          // TODO: deal with overflow (too many names)
+          // TODO: replace with actuall currency
+          labels={Array.from(new Set(positions.map((p) => p.stock.country)))}
+          // TODO: replace with actuall count
+          portions={[1, 1]}
+        />
       </div>
     </div>
   );
