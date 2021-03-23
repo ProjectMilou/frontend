@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme: Theme) =>
             color: theme.palette.primary.main,
             textDecoration: "none",
             textTransform: "none",
-            padding: '8px 10px 8px 10px'
+            padding: '8px 10px 8px 10px',
+            width: 100
         }
     })
 );

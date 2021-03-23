@@ -1,4 +1,5 @@
 import { AppBar, Button, createStyles, makeStyles, Theme, Toolbar } from '@material-ui/core';
+import { Link } from '@reach/router';
 import React from 'react';
 import logo from '../../assets/images/logo1.png';
 import NavLink from './NavLink';
@@ -23,9 +24,9 @@ const Header: React.FC = () => {
     return (
         <AppBar position="sticky" color="inherit">
             <Toolbar>
-                <NavLink to="/">
+                <Link to="/">
                     <img src={logo} alt="milou-logo" className={classes.logo} />
-                </NavLink>
+                </Link>
                 <NavLink to="/">Home</NavLink>
                 <NavLink to="/portofolio">Portofolio</NavLink>
                 <NavLink to="/analyser">Analyser</NavLink>
