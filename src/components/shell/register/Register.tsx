@@ -101,7 +101,7 @@ const Register: React.FC<RegisterProps> = (props) => {
       event.target.id !== 'email' &&
       !EmailValidator.validate(login.email)
     ) {
-      setError({ ...hasError, email: t('msg-email-invalid') });
+      setError({ ...hasError, email: t('error.invalidEmail') });
     }
   };
 
@@ -109,7 +109,7 @@ const Register: React.FC<RegisterProps> = (props) => {
     if (!EmailValidator.validate(login.email)) {
       setError({
         ...hasError,
-        email: [t('msg-email-invalid'), t('msg-try-again')].join(' '),
+        email: [t('error.invalidEmail'), t('error.retry')].join(' '),
       });
       return;
     }
@@ -117,7 +117,7 @@ const Register: React.FC<RegisterProps> = (props) => {
     if (login.password !== login.confirmPassword) {
       setError({
         ...hasError,
-        confirmPassword: [t('msg-equal-pw-confirm'), t('msg-try-again')].join(
+        confirmPassword: [t('error.confirmPassword'), t('error.retry')].join(
           ' '
         ),
       });
@@ -136,15 +136,14 @@ const Register: React.FC<RegisterProps> = (props) => {
       setError({
         ...hasError,
         password: [
-          t('msg-pw-invalid'),
-          t('msg-pw-requirements'),
-          t('msg-try-again'),
+          t('error.invalidPassword'),
+          t('error.passwordRequirements'),
+          t('error.retry'),
         ].join(' '),
       });
-      return
+      // return
     }
 
-    console.log("correct")
     /*
     fetch(url.concat('/register'), {
       method: 'POST',
@@ -175,7 +174,7 @@ const Register: React.FC<RegisterProps> = (props) => {
         <TextField
           error={hasError.email !== ''}
           id="email"
-          label={t('email')}
+          label={t('shell.email')}
           onChange={handleChange}
           type="text"
           fullWidth
@@ -188,7 +187,7 @@ const Register: React.FC<RegisterProps> = (props) => {
           error={hasError.password !== ''}
           style={{ margin: '10px 0' }}
         >
-          <InputLabel htmlFor="password">{t('password')}</InputLabel>
+          <InputLabel htmlFor="password">{t('shell.password')}</InputLabel>
           <Input
             id="password"
             type={showPassword.password ? 'text' : 'password'}
@@ -219,7 +218,7 @@ const Register: React.FC<RegisterProps> = (props) => {
           error={hasError.confirmPassword !== ''}
           style={{ margin: '10px 0' }}
         >
-          <InputLabel htmlFor="password">{t('confirmPassword')}</InputLabel>
+          <InputLabel htmlFor="password">{t('shell.confirmPassword')}</InputLabel>
           <Input
             id="confirmPassword"
             type={showPassword.confirmPassword ? 'text' : 'password'}
@@ -264,7 +263,7 @@ const Register: React.FC<RegisterProps> = (props) => {
           onClick={handleSubmit}
           data-testid="register"
         >
-          {t('register')}
+          {t('shell.register')}
         </Button>
       </DialogActions>
 
@@ -272,7 +271,7 @@ const Register: React.FC<RegisterProps> = (props) => {
       <Divider style={{ margin: '10px 0' }} />
 
       <Typography variant="body1" align="center">
-        {t('msg-have-account')}{' '}
+        {t('shell.message.haveAccount')}{' '}
         <button
           className={button}
           type="button"
@@ -285,7 +284,7 @@ const Register: React.FC<RegisterProps> = (props) => {
             openLoginPopUp();
           }}
         >
-          {t('msg-link')}
+          {t('shell.link')}
         </button>
       </Typography>
     </div>

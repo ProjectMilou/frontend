@@ -144,7 +144,7 @@ const Login: React.FC<LoginProps> = (props) => {
         <TextField
           error={hasError.email !== ''}
           id="email"
-          label={t('email')}
+          label={t('shell.email')}
           onChange={handleChange}
           type="text"
           fullWidth
@@ -157,7 +157,7 @@ const Login: React.FC<LoginProps> = (props) => {
           error={hasError.password !== ''}
           style={{ margin: '10px 0' }}
         >
-          <InputLabel htmlFor="password">{t('password')}</InputLabel>
+          <InputLabel htmlFor="password">{t('shell.password')}</InputLabel>
           <Input
             id="password"
             type={showPassword ? 'text' : 'password'}
@@ -186,7 +186,7 @@ const Login: React.FC<LoginProps> = (props) => {
           alert('TODO');
         }}
       >
-        {t('msg-forgot-pw')}
+        {t('shell.message.forgotPassword')}
       </button>
 
       <DialogActions>
@@ -199,14 +199,14 @@ const Login: React.FC<LoginProps> = (props) => {
           onClick={handleSubmit}
           data-testid="login"
         >
-          {t('login')}
+          {t('shell.login')}
         </Button>
       </DialogActions>
 
       <Divider style={{ margin: '20px 0' }} />
 
       <Typography variant="body1" align="center">
-        {t('msg-no-account')}
+        {t('shell.message.noAccount')}
         <button
           type="button"
           className={button}
@@ -214,7 +214,7 @@ const Login: React.FC<LoginProps> = (props) => {
           onClick={openRegisterPopUpWindow}
           onKeyDown={openRegisterPopUpWindow}
         >
-          {t('msg-link')}
+          {t('shell.link')}
         </button>
       </Typography>
     </div>
