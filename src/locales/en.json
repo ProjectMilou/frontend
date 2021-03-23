@@ -1,5 +1,6 @@
 {
   "editPortfolio": "Edit Portfolio",
+  "helperTextAmount": "Only positive Integers allowed!",
   "summaryHeader": "Summary",
   "dialogHeader": "Here you can adjust the positions of your portfolio",
   "discardChanges": "Discard changes",

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent, ChangeEventHandler, useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/Button';
@@ -49,18 +49,19 @@ type ListEntryProps = {
 
 // input text field component
 const BasicTextFields: React.FC<BasicTextFieldProps> = ({ amount }) => {
+  const { t } = useTranslation();
   const classes = useStyles();
+  const pattern = /^[1-9]\d*$/;
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <TextField
+        defaultValue={amount}
         id="outlined-basic"
         label="quantity"
         variant="outlined"
-        defaultValue={amount}
         size="small"
         margin="dense"
-        // TODO: working regex to only allow digits as input
         inputProps={{
           maxLength: 5,
           style: {
@@ -68,7 +69,6 @@ const BasicTextFields: React.FC<BasicTextFieldProps> = ({ amount }) => {
             paddingRight: 0,
             paddingLeft: '0.2rem',
           },
-          pattern: '0-9',
         }}
         style={{ width: '4rem' }}
       />
