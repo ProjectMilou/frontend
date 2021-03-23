@@ -6,6 +6,6 @@ describe('Analyser', () => {
   // TODO: Write actual tests
   test('example test', () => {
     render(<Analyser />);
-    expect(screen.getByText(/Analyser component/i)).toBeInTheDocument();
+    expect(screen.getByText(/analyser/i)).toBeInTheDocument();
   });
 });
