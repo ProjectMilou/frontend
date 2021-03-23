@@ -29,6 +29,18 @@
     "project": "./tsconfig.json"
   },
   "rules": {
-    "linebreak-style": "off"
-  }
+    "linebreak-style": "off",
+    "react/prop-types": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.test.ts?(x)"
+      ],
+      "rules": {
+        "react/jsx-props-no-spreading": "off",
+        "@typescript-eslint/no-non-null-assertion": "off"
+      }
+    }
+  ]
 }
