@@ -1,11 +1,11 @@
 import { render, fireEvent } from '@testing-library/react';
 import * as React from 'react';
-import * as API from '../../portfolio/APIClient';
 import DashboardTable, { DashboardTableProps } from './DashboardTable';
+import { MockOverview, MockOverviewTwo } from '../../portfolio/APIMocks';
 
 describe('DashboardTable', () => {
   const defaultProps: DashboardTableProps = {
-    portfolios: [API.MockOverview, API.MockOverviewTwo],
+    portfolios: [MockOverview, MockOverviewTwo],
     selectPortfolio: jest.fn(),
     renamePortfolio: jest.fn(),
     duplicatePortfolio: jest.fn(),
