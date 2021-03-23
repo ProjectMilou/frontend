@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   LinearProgress,
-  Button,
   makeStyles,
   Container,
 } from '@material-ui/core';
@@ -90,9 +89,6 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
             <PortfolioOverview
               portfolios={portfolios}
               selectPortfolio={selectPortfolio}
-              renamePortfolio={() => {}}
-              duplicatePortfolio={() => {}}
-              deletePortfolio={() => {}}
             />
           </div>
         )}

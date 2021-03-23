@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  IconButton,
   lighten,
   ListItemText,
   makeStyles,
@@ -13,12 +12,8 @@ import {
   TableHead,
   TableRow,
   Theme,
-  Tooltip,
   Typography,
 } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/DeleteForever';
-import DuplicateIcon from '@material-ui/icons/AddToPhotos';
-import EditIcon from '@material-ui/icons/Edit';
 import classNames from 'classnames';
 import * as API from '../../portfolio/APIClient';
 import { PortfolioOverview } from '../../portfolio/APIClient';
@@ -44,17 +39,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 export type DashboardTableRowProps = {
   portfolio: PortfolioOverview;
   selectPortfolio: (id: string) => void;
-  renamePortfolio: (id: string) => void;
-  duplicatePortfolio: (id: string) => void;
-  deletePortfolio: (id: string) => void;
 };
 
 export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
   portfolio,
   selectPortfolio,
-  renamePortfolio,
-  duplicatePortfolio,
-  deletePortfolio,
 }) => {
   const [hover, setHover] = React.useState<boolean>(false);
 
@@ -101,17 +90,11 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
 export type DashboardTableProps = {
   portfolios: API.PortfolioOverview[];
   selectPortfolio: (id: string) => void;
-  renamePortfolio: (id: string) => void;
-  duplicatePortfolio: (id: string) => void;
-  deletePortfolio: (id: string) => void;
 };
 
 const DashboardTable: React.FC<DashboardTableProps> = ({
   portfolios,
   selectPortfolio,
-  renamePortfolio,
-  duplicatePortfolio,
-  deletePortfolio,
 }) => {
   const { t } = useTranslation();
 
@@ -137,9 +120,6 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
               portfolio={p}
               selectPortfolio={selectPortfolio}
               key={p.id}
-              renamePortfolio={renamePortfolio}
-              duplicatePortfolio={duplicatePortfolio}
-              deletePortfolio={deletePortfolio}
             />
           ))}
         </TableBody>

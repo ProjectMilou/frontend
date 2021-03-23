@@ -8,9 +8,6 @@ import DashboardTable from "./DashboardTable";
 export type PortfolioOverviewProps = {
   portfolios: API.PortfolioOverview[];
   selectPortfolio: (id: string) => void;
-  renamePortfolio: (id: string) => void;
-  duplicatePortfolio: (id: string) => void;
-  deletePortfolio: (id: string) => void;
 };
 
 const useStyles = makeStyles({
@@ -26,9 +23,6 @@ const useStyles = makeStyles({
 const PortfolioOverview: React.FC<PortfolioOverviewProps> = ({
   portfolios,
   selectPortfolio,
-  renamePortfolio,
-  duplicatePortfolio,
-  deletePortfolio,
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();
@@ -49,9 +43,6 @@ const PortfolioOverview: React.FC<PortfolioOverviewProps> = ({
           <DashboardTable
             portfolios={portfolios}
             selectPortfolio={selectPortfolio}
-            renamePortfolio={renamePortfolio}
-            duplicatePortfolio={duplicatePortfolio}
-            deletePortfolio={deletePortfolio}
           />
         ) : (
           // TODO: implement card view
