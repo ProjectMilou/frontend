@@ -11,18 +11,18 @@ import logo from '../../assets/images/logo1.png';
 import NavLink from './NavLink';
 
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    logo: {
-      maxWidth: 100,
-      marginRight: '10px',
-    },
-    grow: {
-      flexGrow: 1,
-    },
-    button: {
-      margin: theme.spacing(1),
-    },
-  })
+    createStyles({
+        logo: {
+            maxWidth: 100,
+            marginRight: '10px'
+        },
+        grow: {
+            flexGrow: 1
+        },
+        button: {
+            margin: theme.spacing(1)
+        }
+    })
 );
 
 const Header: React.FC = () => {
@@ -36,7 +36,7 @@ const Header: React.FC = () => {
           <NavLink to="/">Home</NavLink>
         </Button>
         <Button>
-          <NavLink to="/portofolio">Portofolio</NavLink>
+          <NavLink to="/portfolio">Portfolio</NavLink>
         </Button>
         <Button>
           <NavLink to="/analyser">Analyser</NavLink>
@@ -45,17 +45,13 @@ const Header: React.FC = () => {
           <NavLink to="/academy">Academy</NavLink>
         </Button>
 
-        <div className={classes.grow} />
+                <div className={classes.grow} />
 
-        <Button className={classes.button} variant="outlined" color="primary">
-          Login
-        </Button>
-        <Button variant="contained" color="primary">
-          Register
-        </Button>
-      </Toolbar>
-    </AppBar>
-  );
+                <Button className={classes.button} variant="outlined" color="primary">Login</Button>
+                <Button variant="contained" color="primary">Register</Button>
+            </Toolbar>
+        </AppBar>
+    );
 };
 
 export default Header;
