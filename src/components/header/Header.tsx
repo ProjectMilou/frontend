@@ -9,7 +9,6 @@ import {
   Toolbar,
 } from '@material-ui/core';
 import { Link } from '@reach/router';
-import React from 'react';
 import logo from '../../assets/images/logo1.png';
 import NavLink from './NavLink';
 import Login from '../shell/login/Login';
