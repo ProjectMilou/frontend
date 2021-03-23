@@ -5,7 +5,7 @@ import App from './App';
 describe('App', () => {
   test('renders first <p>', () => {
     render(<App />);
-    const linkElement = screen.getByText(/Here be an app/i);
+    const linkElement = screen.getByText(/Home/i);
     expect(linkElement).toBeInTheDocument();
   });
 });
