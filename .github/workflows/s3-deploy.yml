@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: S3
     env:
-      PUBLIC_URL: http://poject-milou-frontend.s3-website.eu-central-1.amazonaws.com/
+      PUBLIC_URL: http://milou.io/
     steps:
       - uses: actions/checkout@v1
       
@@ -61,8 +61,8 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           state: pending
-          description: Preparing deploy preview
-          context: Deploy Preview URL
+          description: Preparing production deploy
+          context: Deploy
           
       - name: Install
         run: yarn install
@@ -76,7 +76,7 @@ jobs:
         with:
           args: --acl public-read --follow-symlinks --delete
         env:
-          AWS_S3_BUCKET: poject-milou-frontend
+          AWS_S3_BUCKET: amazon-cloudfront-secure-static-site-s3bucketroot-1vs7fttu16h8f
           AWS_ACCESS_KEY_ID: ${{ secrets.DEPLOY_PREVIEW_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.DEPLOY_PREVIEW_SECRET }}
           AWS_REGION: "eu-central-1"
@@ -89,9 +89,9 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           state: success
-          description: Deploy preview ready!
+          description: Public deploy ready!
           url: ${{ env.PUBLIC_URL }}
-          context: Deploy Preview URL
+          context: Deploy
           
       - name: Set failed deployment status
         if: failure()
@@ -99,5 +99,5 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           state: failure
-          description: Failed to deploy preview
-          context: Deploy Preview URL
+          description: Failed to deploy code
+          context: Deploy
