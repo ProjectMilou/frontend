@@ -8,7 +8,7 @@ type DetailsLineChartProps = {
 const DetailsLineChart: React.FC<DetailsLineChartProps> = ({
   portfolioValue,
 }) => {
-  const [state, setState] = useState({
+  const [state] = useState({
     series: [
       {
         name: 'Portfolio value',

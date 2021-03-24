@@ -19,7 +19,7 @@ import ListEntry from './DetailsListEntry';
 import { Position } from './DetailsTypes';
 
 // stylesheet for the editButton component
-const useStyles = makeStyles(({ palette }: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     editButton: {
       padding: '0.25rem 1rem',
@@ -76,7 +76,7 @@ type DetailsEditProps = {
 // ListContainer is the body inside the Edit-Popup
 // A container that create list items from a list of stocks
 const ListContainer: React.FC<DetailsEditProps> = ({ positions }) => {
-  const [posState, setPosState] = React.useState(positions);
+  const [posState] = React.useState(positions);
 
   const classes = useStyles();
   return (
@@ -158,7 +158,7 @@ function CustomizedDialogs(positions: Position[]) {
         className={classes.editButton}
         onClick={handleClickOpen}
       >
-        {t('editPortfolio')}
+        {t('portfolio.details.editPortfolio')}
       </Button>
       <Dialog
         onClose={handleClose}
@@ -167,17 +167,17 @@ function CustomizedDialogs(positions: Position[]) {
         style={{ minWidth: '40rem' }}
       >
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          {t('dialogHeader')}
+          {t('portfolio.details.dialogHeader')}
         </DialogTitle>
         <DialogContent dividers>
           <ListContainer positions={positions} />
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
-            {t('discardChanges')}
+            {t('portfolio.details.discardChanges')}
           </Button>
           <Button autoFocus onClick={handleClose} color="primary">
-            {t('saveChanges')}
+            {t('portfolio.details.saveChanges')}
           </Button>
         </DialogActions>
       </Dialog>

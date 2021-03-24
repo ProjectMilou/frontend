@@ -7,6 +7,7 @@ type DetailsDonutProps = {
   names: string[];
   size: number;
   graphOffsetX: number;
+  showLegendOnScale: boolean;
 };
 
 const DetailsDonut: React.FC<DetailsDonutProps> = ({
@@ -14,10 +15,11 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({
   names,
   size,
   graphOffsetX,
+  showLegendOnScale,
 }) => {
   const theme = useTheme();
 
-  const [state, setState] = useState({
+  const [state] = useState({
     series: portions,
     options: {
       labels: names,
@@ -25,8 +27,8 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({
         // TODO use theme colors
       },
       chart: {
-        redrawOnWindowResize: false,
-        redrawOnParentResize: false,
+        // redrawOnWindowResize: false,
+        // redrawOnParentResize: false,
         offsetX: graphOffsetX,
       },
       stroke: {
@@ -80,11 +82,51 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({
           highlightDataSeries: true,
         },
       },
+      // this scales the chart at certain break points to make
+      // sure the chart stays visible at all screen sizes
+      responsive: [
+        {
+          breakpoint: 10000,
+          options: {
+            chart: {
+              height: size,
+            },
+            legend: {
+              show: true,
+              position: 'right',
+            },
+          },
+        },
+        {
+          breakpoint: 1550,
+          options: {
+            chart: {
+              height: size / 1.5,
+            },
+            legend: {
+              show: true,
+              position: 'right',
+            },
+          },
+        },
+        {
+          breakpoint: 1100,
+          options: {
+            chart: {
+              height: size / 1.5,
+            },
+            legend: {
+              show: showLegendOnScale,
+              position: 'bottom',
+            },
+          },
+        },
+      ],
     },
   });
 
   return (
-    <div>
+    <div style={{ alignSelf: 'center', width: '100%' }}>
       <Chart
         options={state.options}
         series={state.series}

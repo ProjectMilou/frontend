@@ -21,6 +21,8 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       backgroundColor: palette.primary.main,
       width: '100%',
       height: '100%',
+      // change to agreed upon minWidth
+      minWidth: '50rem',
     },
   })
 );

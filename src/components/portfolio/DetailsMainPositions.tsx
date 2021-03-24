@@ -14,10 +14,11 @@ import { Position } from './DetailsTypes';
 import ValueOverName from './ValueOverName';
 
 // stylesheet for the positions section
-const useStyles = makeStyles(({ palette, typography }: Theme) =>
+const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     titleContainer: {
       display: 'flex',
+      marginBottom: '2rem',
     },
     titleWrapper: {
       marginRight: '1rem',
@@ -49,7 +50,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
     },
     gridListWrapper: {
       width: '100%',
-      margin: '1rem -16px',
+      margin: '0 -16px',
     },
     gridList: {
       width: '100%',
@@ -93,7 +94,7 @@ type DetailsMainPositionsProps = {
 const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
   positions,
 }) => {
-  const [posState, setPosState] = React.useState(positions);
+  const [posState] = React.useState(positions);
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -107,7 +108,9 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
     <div>
       <div className={classes.titleContainer}>
         <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionTitle}>{t('positionsTitle')}</h2>
+          <h2 className={classes.sectionTitle}>
+            {t('portfolio.details.positionsTitle')}
+          </h2>
         </div>
         <div className={classes.lineWrapper}>
           <hr className={classes.line} />
@@ -138,12 +141,12 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
                   <div className={classes.cardContentLower}>
                     <ValueOverName
                       value={`${p.stock.perf7d}%`}
-                      name={t('day7')}
+                      name={t('portfolio.details.day7')}
                       valueColor={convertPercentToColor(p.stock.perf7d)}
                     />
                     <ValueOverName
                       value={`${p.stock.perf1y}%`}
-                      name={t('year')}
+                      name={t('portfolio.details.year')}
                       valueColor={convertPercentToColor(p.stock.perf1y)}
                     />
                   </div>
@@ -162,7 +165,7 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
                     // TODO: handle button click
                     onClick={() => null}
                   >
-                    {t('viewMore')}
+                    {t('portfolio.details.viewMore')}
                   </Button>
                 </CardActions>
               </Card>

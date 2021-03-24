@@ -1,8 +1,8 @@
 import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core';
+import { makeStyles, createStyles } from '@material-ui/core';
 
 // stylesheet for the valueOverName component
-const useStyles = makeStyles(({ palette }: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     compContainer: {
       display: 'flex',

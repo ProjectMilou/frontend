@@ -7,10 +7,11 @@ import DetailsDonut from './DetailsDonut';
 import DetailsLineChart from './DetailsLineChart';
 
 // stylesheet for the Summary section
-const useStyles = makeStyles(({ palette, typography }: Theme) =>
+const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     titleContainer: {
       display: 'flex',
+      marginBottom: '2rem',
     },
     titleWrapper: {
       marginRight: '1rem',
@@ -55,6 +56,22 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       alignSelf: 'center',
       // TODO: use theme color
       borderColor: 'grey',
+    },
+    chartContainer: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      marginTop: '2rem',
+    },
+    pieChartWrapper: {
+      display: 'flex',
+      width: '20rem',
+      height: '20rem',
+      flexBasis: '35%',
+    },
+    lineChartWrapper: {
+      width: '40rem',
+      height: '20rem',
+      flexBasis: '60%',
     },
   })
 );
@@ -129,7 +146,9 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
     <div>
       <div className={classes.titleContainer}>
         <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionTitle}>{t('summaryHeader')}</h2>
+          <h2 className={classes.sectionTitle}>
+            {t('portfolio.details.summaryHeader')}
+          </h2>
         </div>
         <div className={classes.lineWrapper}>
           <hr className={classes.line} />
@@ -145,7 +164,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
             {/* total score of the portfolio */}
             <ValueOverName
               value={score.toString()}
-              name={t('score')}
+              name={t('portfolio.details.score')}
               valueColor={convertScoreToColor(score)}
             />
           </div>
@@ -159,20 +178,20 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
             {/* 7 day moving average */}
             <ValueOverName
               value={`${perf7d}%`}
-              name={t('day7')}
+              name={t('portfolio.details.day7')}
               valueColor={convertPercentToColor(perf7d)}
             />
             {/* 1 year moving average */}
             <ValueOverName
               value={`${perf1y}%`}
-              name={t('year')}
+              name={t('portfolio.details.year')}
               valueColor={convertPercentToColor(perf1y)}
             />
             {/* total value */}
             <ValueOverName
               // TODO: change to euro sign
               value={`$${value}`}
-              name={t('totalValue')}
+              name={t('portfolio.details.totalValue')}
               valueColor={theme.palette.primary.contrastText}
             />
           </div>
@@ -186,43 +205,47 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
             {/* positions */}
             <ValueOverName
               value={`${positionCount}`}
-              name={t('positions')}
+              name={t('portfolio.details.positions')}
               valueColor={theme.palette.primary.contrastText}
             />
             {/* countries */}
             <ValueOverName
               // TODO: replace countries.score with correct value
               value={`${risk.countries.score}`}
-              name={t('countries')}
+              name={t('portfolio.details.countries')}
               valueColor={convertScoreToColor(risk.countries.score)}
             />
             {/* industries */}
             <ValueOverName
               // TODO: replace segments.score with correct value
               value={`${risk.segments.score}%`}
-              name={t('industries')}
+              name={t('portfolio.details.industries')}
               valueColor={convertScoreToColor(risk.segments.score)}
             />
             {/* currencies */}
             <ValueOverName
               // TODO: replace currency.score with correct value
               value={`${risk.currency.score}%`}
-              name={t('currencies')}
+              name={t('portfolio.details.currencies')}
               valueColor={convertScoreToColor(risk.currency.score)}
             />
           </div>
         </div>
       </div>
-      <div>
-        <DetailsDonut
-          portions={portions}
-          names={companyNames}
-          size={250}
-          graphOffsetX={0}
-        />
-        <DetailsLineChart portfolioValue={portfolioValue} />
+      <div className={classes.chartContainer}>
+        <div className={classes.pieChartWrapper}>
+          <DetailsDonut
+            portions={portions}
+            names={companyNames}
+            size={600}
+            graphOffsetX={0}
+            showLegendOnScale
+          />
+        </div>
+        <div className={classes.lineChartWrapper}>
+          <DetailsLineChart portfolioValue={portfolioValue} />
+        </div>
       </div>
-      <div>{/* Summary line */}</div>
     </div>
   );
 };
