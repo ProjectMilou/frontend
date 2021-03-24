@@ -18,6 +18,7 @@ import classNames from 'classnames';
 import * as API from '../../analyser/APIClient';
 import EuroCurrency from './EuroCurrency';
 import Performance from './Performance';
+import Valuation from './Valuation'
 
 const useStyles = makeStyles((theme: Theme) => ({
   action: { display: 'inline-block' },
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   rowHover: {
     backgroundColor: lighten(theme.palette.primary.light, 0.85),
   },
-  positionCount: {
+  defaultText: {
     fontSize: '24px',
   },
   disabled: {
@@ -60,29 +61,41 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
       onMouseLeave={() => setHover(false)}
       className={classNames(classes.row, hover && classes.rowHover)}
     >
-      <TableCell align="center">{stock.name}</TableCell>
       <TableCell align="center" component="th" scope="row">
         <ListItemText
-          primary={<Typography color="primary">{stock.symbol}</Typography>}
-          secondary={
-           stock['1d'] > 0 ? t('portfolio.virtual') : t('portfolio.real')
-          }
+          primary={<Typography className={classes.defaultText} color="primary">{stock.symbol}</Typography>}
+          secondary={stock.name}
           secondaryTypographyProps={{
-            color: stock['1d'] > 0 ? 'textSecondary' : 'secondary',
+            color: 'textSecondary',
           }}
         />
       </TableCell>
-      <TableCell align="center" className={classes.positionCount}>
-        {stock.analystTargetPrice}
-      </TableCell>
-      <TableCell align="center">
-        <EuroCurrency value={stock.valuation} />
+      <TableCell align="center" className={classes.defaultText}>
+        <EuroCurrency value={stock.price} />
       </TableCell>
       <TableCell align="center">
         <Performance value={stock['7d']} />
       </TableCell>
       <TableCell align="center">
         <Performance value={stock['30d']} />
+      </TableCell>
+      <TableCell align="center">
+        <EuroCurrency value={stock.marketCapitalization} />
+      </TableCell>
+      <TableCell align="center">
+        <EuroCurrency value={stock.analystTargetPrice} />
+      </TableCell>
+      <TableCell align="center">
+        <Valuation value={stock.valuation} />
+      </TableCell>
+      <TableCell align="center" >
+        <Typography color="primary" className={classes.defaultText}>{stock.growth}</Typography>
+      </TableCell>
+      <TableCell align="center">
+        <Performance value={stock.div} />
+      </TableCell>
+      <TableCell align="center" >
+        <Typography color="primary" className={classes.defaultText}>{stock.industry}</Typography>
       </TableCell>
     </TableRow>
   );
@@ -97,20 +110,21 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  // TODO: Improve portfolio score visualization
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell align="center">{t('portfolio.score')}</TableCell>
-            <TableCell align="center">{t('portfolio.name')}</TableCell>
-            <TableCell align="center">
-              {t('portfolio.positionsCount')}
-            </TableCell>
-            <TableCell align="center">{t('portfolio.value')}</TableCell>
-            <TableCell align="center">{t('portfolio.7d')}</TableCell>
-            <TableCell align="center">{t('portfolio.1y')}</TableCell>
+            <TableCell align="center">{t('stock.name')}</TableCell>
+            <TableCell align="center">{t('stock.lastPrice')}</TableCell>
+            <TableCell align="center">{t('stock.7d')}</TableCell>
+            <TableCell align="center">{t('stock.30d')}</TableCell>
+            <TableCell align="center">{t('stock.marketCap')}</TableCell>
+            <TableCell align="center">{t('stock.analystsTarget')}</TableCell>
+            <TableCell align="center">{t('stock.valuation')}</TableCell>
+            <TableCell align="center">{t('stock.growth')}</TableCell>
+            <TableCell align="center">{t('stock.div')}</TableCell>
+            <TableCell align="center">{t('stock.industry')}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

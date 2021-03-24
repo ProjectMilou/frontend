@@ -2,18 +2,18 @@ import React from 'react';
 import NumberFormat from 'react-number-format';
 import { makeStyles, Theme } from '@material-ui/core';
 
-export type EuroCurrencyProps = {
+export type ValuationProps = {
   value: number;
   size?: string;
 };
 
-const useStyles = makeStyles<Theme, EuroCurrencyProps, string>({
+const useStyles = makeStyles<Theme, ValuationProps, string>({
   euroCurrency: {
     fontSize: (props) => props.size || '24px',
   },
 });
 
-const EuroCurrency: React.FC<EuroCurrencyProps> = (props) => {
+const Valuation: React.FC<ValuationProps> = (props) => {
   const { value } = props;
   const classes = useStyles(props);
 
@@ -21,8 +21,9 @@ const EuroCurrency: React.FC<EuroCurrencyProps> = (props) => {
     <NumberFormat
       value={value}
       displayType="text"
-      prefix="€"
-      decimalScale={2}
+      prefix="P/E&nbsp;"
+      suffix="x"
+      decimalScale={1}
       fixedDecimalScale
       decimalSeparator="."
       className={classes.euroCurrency}
@@ -30,4 +31,4 @@ const EuroCurrency: React.FC<EuroCurrencyProps> = (props) => {
   );
 };
 
-export default EuroCurrency;
+export default Valuation;
