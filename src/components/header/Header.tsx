@@ -8,6 +8,7 @@ import {
   Theme,
   Toolbar,
 } from '@material-ui/core';
+import { Link } from '@reach/router';
 import logo from '../../assets/images/logo1.png';
 import NavLink from './NavLink';
 import Login from '../shell/login/Login';
@@ -41,14 +42,13 @@ const Header: React.FC = () => {
   return (
         <AppBar position="sticky" color="inherit">
             <Toolbar>
-                <NavLink to="/">
+                <Link to="/">
                     <img src={logo} alt="milou-logo" className={classes.logo} />
-                </NavLink>
-                <Button><NavLink to="/">Home</NavLink></Button>
-                <Button><NavLink to="/portfolio">Portfolio</NavLink></Button>
-                <Button><NavLink to="/analyser">Analyser</NavLink></Button>
-                <Button><NavLink to="/academy">Academy</NavLink></Button>
-
+                </Link>
+                <NavLink to="/">Home</NavLink>
+                <NavLink to="/portfolio">Portfolio</NavLink>
+                <NavLink to="/analyser">Analyser</NavLink>
+                <NavLink to="/academy">Academy</NavLink>
                 <div className={classes.grow} />
 
                 <Button className={classes.button} variant="outlined" color="primary" onClick={() => setOpenLogin(true)}>Login</Button>
