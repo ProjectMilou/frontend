@@ -1,0 +1,183 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DashboardTable display portfolio information 1`] = `
+<div>
+  <div
+    class="MuiPaper-root MuiTableContainer-root MuiPaper-elevation1 MuiPaper-rounded"
+  >
+    <table
+      aria-label="simple table"
+      class="MuiTable-root"
+    >
+      <thead
+        class="MuiTableHead-root"
+      >
+        <tr
+          class="MuiTableRow-root MuiTableRow-head"
+        >
+          <th
+            class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
+            scope="col"
+          >
+            portfolio.score
+          </th>
+          <th
+            class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
+            scope="col"
+          >
+            portfolio.name
+          </th>
+          <th
+            class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
+            scope="col"
+          >
+            portfolio.positionsCount
+          </th>
+          <th
+            class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
+            scope="col"
+          >
+            portfolio.value
+          </th>
+          <th
+            class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
+            scope="col"
+          >
+            portfolio.7d
+          </th>
+          <th
+            class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
+            scope="col"
+          >
+            portfolio.1y
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class="MuiTableBody-root"
+      >
+        <tr
+          class="MuiTableRow-root makeStyles-row-2"
+        >
+          <td
+            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+          />
+          <th
+            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+            role="cell"
+            scope="row"
+          >
+            <div
+              class="MuiListItemText-root MuiListItemText-multiline"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1 MuiTypography-colorPrimary"
+              >
+                test
+              </p>
+              <p
+                class="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary MuiTypography-displayBlock"
+              >
+                portfolio.virtual
+              </p>
+            </div>
+          </th>
+          <td
+            class="MuiTableCell-root MuiTableCell-body makeStyles-positionCount-4 MuiTableCell-alignCenter"
+          >
+            3
+          </td>
+          <td
+            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+          >
+            <span
+              class="makeStyles-euroCurrency-6 makeStyles-euroCurrency-7"
+            >
+              9,00 €
+            </span>
+          </td>
+          <td
+            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+          >
+            <span
+              class="makeStyles-performance-8 makeStyles-performance-9"
+            >
+              -1,23 %
+            </span>
+          </td>
+          <td
+            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+          >
+            <span
+              class="makeStyles-performance-8 makeStyles-performance-10"
+            >
+              13,37 %
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root makeStyles-row-2"
+        >
+          <td
+            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+          >
+            20
+          </td>
+          <th
+            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+            role="cell"
+            scope="row"
+          >
+            <div
+              class="MuiListItemText-root MuiListItemText-multiline"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1 MuiTypography-colorPrimary"
+              >
+                testTwo
+              </p>
+              <p
+                class="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorSecondary MuiTypography-displayBlock"
+              >
+                portfolio.real
+              </p>
+            </div>
+          </th>
+          <td
+            class="MuiTableCell-root MuiTableCell-body makeStyles-positionCount-4 MuiTableCell-alignCenter"
+          >
+            4
+          </td>
+          <td
+            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+          >
+            <span
+              class="makeStyles-euroCurrency-6 makeStyles-euroCurrency-11"
+            >
+              3,00 €
+            </span>
+          </td>
+          <td
+            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+          >
+            <span
+              class="makeStyles-performance-8 makeStyles-performance-12"
+            >
+              0,00 %
+            </span>
+          </td>
+          <td
+            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+          >
+            <span
+              class="makeStyles-performance-8 makeStyles-performance-13"
+            >
+              -1,00 %
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;
