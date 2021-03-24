@@ -4,7 +4,7 @@ import {
   makeStyles,
   Container,
 } from '@material-ui/core';
-import * as API from '../../portfolio/APIClient';
+import * as API from '../../analyser/APIClient';
 import { ErrorCode } from '../../Errors';
 import ErrorMessage from './ErrorMessage';
 import StockListOverview from './StockListOverview';
@@ -12,7 +12,6 @@ import DashboardHeader from './DashboardHeader';
 
 export type DashboardProps = {
   token: string;
-  selectPortfolio: (id: string) => void;
 };
 
 const useStyles = makeStyles({
@@ -24,17 +23,17 @@ const useStyles = makeStyles({
   },
 });
 
-const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
-  const [portfolios, setPortfolios] = React.useState<API.PortfolioOverview[]>();
+const Dashboard: React.FC<DashboardProps> = ({ token }) => {
+  const [stocks, setStocks] = React.useState<API.Stock[]>();
   const [error, setError] = React.useState<ErrorCode | undefined>();
 
   const isMounted = React.useRef(true);
   const fetch = async () => {
     setError(undefined);
     try {
-      const p = await API.portfolioOverview(token);
+      const s = await API.listStocks(token);
       if (isMounted.current) {
-        setPortfolios(p);
+        setStocks(s);
       }
     } catch (e) {
       if (isMounted.current) {
@@ -57,7 +56,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
   return (
     <>
       <DashboardHeader />
-      {!portfolios && !error && (
+      {!stocks && !error && (
         <div>
           <LinearProgress color="secondary" />
         </div>
@@ -82,11 +81,10 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
             }
           />
         )}
-        {portfolios && (
+        {stocks && (
           <div>
             <StockListOverview
-              portfolios={portfolios}
-              selectPortfolio={selectPortfolio}
+              stocks={stocks}
             />
           </div>
         )}

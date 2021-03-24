@@ -15,8 +15,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import classNames from 'classnames';
-import * as API from '../../portfolio/APIClient';
-import { PortfolioOverview } from '../../portfolio/APIClient';
+import * as API from '../../analyser/APIClient';
 import EuroCurrency from './EuroCurrency';
 import Performance from './Performance';
 
@@ -37,64 +36,64 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export type DashboardTableRowProps = {
-  portfolio: PortfolioOverview;
-  selectPortfolio: (id: string) => void;
+  stock: API.Stock;
 };
 
 export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
-  portfolio,
-  selectPortfolio,
+  stock
 }) => {
   const [hover, setHover] = React.useState<boolean>(false);
 
   const { t } = useTranslation();
   const classes = useStyles();
 
+  const selectStock = (symbol: API.Stock['symbol']) => {
+    console.log(symbol)
+  }
+
   return (
     <TableRow
       onClick={() => {
-        selectPortfolio(portfolio.id);
+        selectStock(stock.symbol);
       }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       className={classNames(classes.row, hover && classes.rowHover)}
     >
-      <TableCell align="center">{portfolio.score}</TableCell>
+      <TableCell align="center">{stock.name}</TableCell>
       <TableCell align="center" component="th" scope="row">
         <ListItemText
-          primary={<Typography color="primary">{portfolio.name}</Typography>}
+          primary={<Typography color="primary">{stock.symbol}</Typography>}
           secondary={
-            portfolio.virtual ? t('portfolio.virtual') : t('portfolio.real')
+           stock['1d'] > 0 ? t('portfolio.virtual') : t('portfolio.real')
           }
           secondaryTypographyProps={{
-            color: portfolio.virtual ? 'textSecondary' : 'secondary',
+            color: stock['1d'] > 0 ? 'textSecondary' : 'secondary',
           }}
         />
       </TableCell>
       <TableCell align="center" className={classes.positionCount}>
-        {portfolio.positionCount}
+        {stock.analystTargetPrice}
       </TableCell>
       <TableCell align="center">
-        <EuroCurrency value={portfolio.value} />
+        <EuroCurrency value={stock.valuation} />
       </TableCell>
       <TableCell align="center">
-        <Performance value={portfolio.perf7d} />
+        <Performance value={stock['7d']} />
       </TableCell>
       <TableCell align="center">
-        <Performance value={portfolio.perf1y} />
+        <Performance value={stock['30d']} />
       </TableCell>
     </TableRow>
   );
 };
 
 export type DashboardTableProps = {
-  portfolios: API.PortfolioOverview[];
-  selectPortfolio: (id: string) => void;
+  stocks: API.Stock[];
 };
 
 const DashboardTable: React.FC<DashboardTableProps> = ({
-  portfolios,
-  selectPortfolio,
+  stocks
 }) => {
   const { t } = useTranslation();
 
@@ -115,11 +114,10 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {portfolios.map((p) => (
+          {stocks.map((s) => (
             <DashboardTableRow
-              portfolio={p}
-              selectPortfolio={selectPortfolio}
-              key={p.id}
+              stock={s}
+              key={s.symbol}
             />
           ))}
         </TableBody>
