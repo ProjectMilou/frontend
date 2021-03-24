@@ -1,7 +1,7 @@
 import { render, fireEvent } from '@testing-library/react';
 import * as React from 'react';
-import Login from './Login';
 import userEvent from '@testing-library/user-event';
+import Login from './Login';
 
 const renderLoginForm = (closePopUp = jest.fn()) => {
   const openRegisterPopUp = () => {};

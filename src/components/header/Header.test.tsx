@@ -18,18 +18,18 @@ describe('Header', () => {
     render(<Header />);
     const homeLink = screen.getByText(/Home/i);
     fireEvent.click(homeLink);
-    expect(location.pathname).toBe('/');
+    expect(window.location.pathname).toBe('/');
 
     const portfolioLink = screen.getByText(/Portfolio/i);
     fireEvent.click(portfolioLink);
-    expect(location.pathname).toBe('/portfolio');
+    expect(window.location.pathname).toBe('/portfolio');
 
     const analyserLink = screen.getByText(/Analyser/i);
     fireEvent.click(analyserLink);
-    expect(location.pathname).toBe('/analyser');
+    expect(window.location.pathname).toBe('/analyser');
 
     const academyLink = screen.getByText(/Academy/i);
     fireEvent.click(academyLink);
-    expect(location.pathname).toBe('/academy');
+    expect(window.location.pathname).toBe('/academy');
   });
 });
