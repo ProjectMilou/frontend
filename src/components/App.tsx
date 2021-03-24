@@ -6,6 +6,7 @@ import Analyser from './analyser/Analyser';
 import Portfolio from './portfolio/Portfolio';
 import Header from './header/Header';
 import Footer from './footer/Footer';
+import Profile from './shell/profile/Profile';
 // TODO: use @path variables in tsconfig
 import Imprint from '../pages/Imprint';
 import Privacy from '../pages/Privacy';
@@ -62,6 +63,7 @@ const App: React.FC = () => (
           <Portfolio path="/portfolio" />
           <Imprint path="/imprint" />
           <Privacy path="/privacy" />
+          <Profile path="/profile" />
         </Router>
       </div>
 
