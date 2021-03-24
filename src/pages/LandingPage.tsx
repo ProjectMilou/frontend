@@ -1,4 +1,5 @@
 import React from 'react';
+import { RouteComponentProps } from '@reach/router';
 
 import {
   Button,
@@ -83,7 +84,7 @@ const styles = {
   },
 };
 
-const LandingPage: React.FC = () => (
+const LandingPage: React.FC<RouteComponentProps> = () => (
   <Container disableGutters>
     <Card />
     <Divider />

@@ -1,9 +1,11 @@
+import { RouteComponentProps } from '@reach/router';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import Dashboard from './Dashboard';
 
-const Portfolio: React.FC = () => {
-  const { t } = useTranslation();
-  return <div>{t('portfolio')}</div>;
-};
+const Portfolio: React.FC<RouteComponentProps> = () => (
+  <div>
+    <Dashboard token="" selectPortfolio={() => {}} />
+  </div>
+);
 
 export default Portfolio;
