@@ -7,7 +7,7 @@ import {
 import * as API from '../../portfolio/APIClient';
 import { ErrorCode } from '../../Errors';
 import ErrorMessage from './ErrorMessage';
-import PortfolioOverview from './StockListOverview';
+import StockListOverview from './StockListOverview';
 import DashboardHeader from './DashboardHeader';
 
 export type DashboardProps = {
@@ -84,7 +84,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
         )}
         {portfolios && (
           <div>
-            <PortfolioOverview
+            <StockListOverview
               portfolios={portfolios}
               selectPortfolio={selectPortfolio}
             />

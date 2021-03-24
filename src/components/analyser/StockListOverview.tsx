@@ -2,10 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Typography } from '@material-ui/core';
 import * as API from '../../portfolio/APIClient';
-import DashboardViewSelect, { DashboardView } from "./DashboardViewSelect";
-import DashboardTable from "./DashboardTable";
+import DashboardViewSelect, { DashboardView } from './DashboardViewSelect';
+import DashboardTable from './DashboardTable';
 
-export type PortfolioOverviewProps = {
+export type StockListOverviewProps = {
   portfolios: API.PortfolioOverview[];
   selectPortfolio: (id: string) => void;
 };
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   },
 });
 
-const PortfolioOverview: React.FC<PortfolioOverviewProps> = ({
+const StockListOverview: React.FC<StockListOverviewProps> = ({
   portfolios,
   selectPortfolio,
 }) => {
@@ -52,4 +52,4 @@ const PortfolioOverview: React.FC<PortfolioOverviewProps> = ({
   );
 };
 
-export default PortfolioOverview;
+export default StockListOverview;
