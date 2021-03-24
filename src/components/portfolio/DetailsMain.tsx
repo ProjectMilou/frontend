@@ -1,12 +1,12 @@
 import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core';
+import { makeStyles, createStyles } from '@material-ui/core';
 import DetailsMainSummary from './DetailsMainSummary';
 import DetailsMainPositions from './DetailsMainPositions';
 import DetailsMainRisk from './DetailsMainRisk';
 import { RiskAnalysis, Position } from './DetailsTypes';
 
 // stylesheet for the body of the details page
-const useStyles = makeStyles(({ palette }: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     mainWrapper: {
       // TODO use theme margin

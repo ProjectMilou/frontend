@@ -2,7 +2,6 @@ import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/Button';
-import { useTranslation } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -79,7 +78,6 @@ const BasicTextFields: React.FC<BasicTextFieldProps> = ({ amount }) => {
 // list entry component
 const ListEntry: React.FC<ListEntryProps> = ({ name, amount, price }) => {
   const classes = useStyles();
-  const { t } = useTranslation();
 
   return (
     <div className={classes.listItem}>

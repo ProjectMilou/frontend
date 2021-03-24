@@ -19,7 +19,7 @@ import ListEntry from './DetailsListEntry';
 import { Position } from './DetailsTypes';
 
 // stylesheet for the editButton component
-const useStyles = makeStyles(({ palette }: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     editButton: {
       padding: '0.25rem 1rem',
@@ -76,7 +76,7 @@ type DetailsEditProps = {
 // ListContainer is the body inside the Edit-Popup
 // A container that create list items from a list of stocks
 const ListContainer: React.FC<DetailsEditProps> = ({ positions }) => {
-  const [posState, setPosState] = React.useState(positions);
+  const [posState] = React.useState(positions);
 
   const classes = useStyles();
   return (

@@ -5,7 +5,7 @@ import DetailsEdit from './DetailsEdit';
 import { Position } from './DetailsTypes';
 
 // stylesheet for the header of the details page
-const useStyles = makeStyles(({ palette, typography }: Theme) =>
+const useStyles = makeStyles(({ typography }: Theme) =>
   createStyles({
     topContainer: {
       display: 'flex',

@@ -1,5 +1,4 @@
 import { RouteComponentProps } from '@reach/router';
-import { Button } from '@material-ui/core';
 import React from 'react';
 import Details from './Details';
 import Dashboard from './Dashboard';

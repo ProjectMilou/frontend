@@ -14,7 +14,7 @@ import { Position } from './DetailsTypes';
 import ValueOverName from './ValueOverName';
 
 // stylesheet for the positions section
-const useStyles = makeStyles(({ palette, typography }: Theme) =>
+const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     titleContainer: {
       display: 'flex',
@@ -94,7 +94,7 @@ type DetailsMainPositionsProps = {
 const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
   positions,
 }) => {
-  const [posState, setPosState] = React.useState(positions);
+  const [posState] = React.useState(positions);
   const classes = useStyles();
   const { t } = useTranslation();
 
