@@ -65,5 +65,18 @@
   "analyser.dashboard.view.table": "Table view",
   "analyser.dashboard.view.cards": "Cards view",
   "analyser.filter.title": "Filter Options",
-  "analyser.dashboard.noPortfolios": "No stocks"
+  "analyser.dashboard.noStocks": "No stocks",
+  "stock.symbol": "Symbol",
+  "stock.name": "Company",
+  "stock.lastPrice": "Last Price",
+  "stock.1d": "1D Return",
+  "stock.7d": "7D Return",
+  "stock.30d": "1M Return",
+  "stock.1y": "1Y Return",
+  "stock.marketCap": "Market Cap",
+  "stock.analystsTarget": "Analysts Target",
+  "stock.valuation": "Valuation",
+  "stock.growth": "Growth",
+  "stock.div": "Div Yield",
+  "stock.industry": "Industry"
 }
