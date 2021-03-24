@@ -49,7 +49,11 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
   const classes = useStyles();
 
   const selectStock = (symbol: API.Stock['symbol']) => {
-    console.log(symbol)
+    
+    // TODO: implement route to analyser page
+    /* eslint no-console: ["error", { allow: ["warn", "error] }] */
+    console.warn(symbol)
+    
   }
 
   return (
@@ -95,7 +99,7 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         <Performance value={stock.div} />
       </TableCell>
       <TableCell align="center" >
-        <Typography color="primary" className={classes.defaultText}>{stock.industry}</Typography>
+        <Typography color="primary" className={classes.defaultText}>{t(`${stock.industry}`)}</Typography>
       </TableCell>
     </TableRow>
   );
