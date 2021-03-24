@@ -8,13 +8,18 @@ import {
   Typography,
   createMuiTheme,
   GridListTile,
-  Icon,
   Divider,
   GridList,
   Input,
 } from '@material-ui/core';
 
-import 'font-awesome/css/font-awesome.css';
+import MoneyIcon from '@material-ui/icons/Money';
+import LoyaltyIcon from '@material-ui/icons/Loyalty';
+import CastForEducationIcon from '@material-ui/icons/CastForEducation';
+import InfoIcon from '@material-ui/icons/Info';
+import TrendingUpIcon from '@material-ui/icons/TrendingUp';
+import WarningIcon from '@material-ui/icons/Warning';
+
 import Card from './components/Card';
 import Media from './components/Media';
 import img from './media/180.png';
@@ -189,7 +194,7 @@ const LandingPage: React.FC = () => (
         </Grid>
         <Grid item container direction="row" spacing={2} alignItems="center">
           <Grid item>
-            <Icon className="fas fa-money-bill-alt" fontSize="large" />
+            <MoneyIcon />
           </Grid>
           <Grid item xs>
             <Typography variant="h6">
@@ -200,7 +205,7 @@ const LandingPage: React.FC = () => (
         </Grid>
         <Grid item container direction="row" spacing={2} alignItems="center">
           <Grid item>
-            <Icon className="fas fa-hand-holding-heart" fontSize="large" />
+            <LoyaltyIcon />
           </Grid>
           <Grid item xs>
             <Typography variant="h6">
@@ -242,11 +247,7 @@ const LandingPage: React.FC = () => (
         >
           <Grid item container direction="row" alignItems="center" spacing={4}>
             <Grid item>
-              <Icon
-                className="fas fa-university"
-                fontSize="large"
-                style={{ color: '#3aa03a' }}
-              />
+              <CastForEducationIcon style={{ color: '#3aa03a' }} />
             </Grid>
             <Grid item xs container direction="column">
               <Typography variant="h5">LEARNING PLATFORM</Typography>
@@ -259,11 +260,7 @@ const LandingPage: React.FC = () => (
           </Grid>
           <Grid item container direction="row" alignItems="center" spacing={4}>
             <Grid item>
-              <Icon
-                className="fas fa-info-circle"
-                fontSize="large"
-                style={{ color: theme.palette.secondary.main }}
-              />
+              <InfoIcon style={{ color: theme.palette.secondary.main }} />
             </Grid>
             <Grid item xs container direction="column">
               <Typography variant="h5">INFO BOXES</Typography>
@@ -276,11 +273,7 @@ const LandingPage: React.FC = () => (
           </Grid>
           <Grid item container direction="row" alignItems="center" spacing={4}>
             <Grid item>
-              <Icon
-                className="fas fa-chart-line"
-                fontSize="large"
-                style={{ color: '#ecec0f' }}
-              />
+              <TrendingUpIcon style={{ color: '#ecec0f' }} />
             </Grid>
             <Grid item xs container direction="column">
               <Typography variant="h5">SIMPLE VISUALIZATION</Typography>
@@ -293,11 +286,7 @@ const LandingPage: React.FC = () => (
           </Grid>
           <Grid item container direction="row" alignItems="center" spacing={4}>
             <Grid item>
-              <Icon
-                className="fas fa-exclamation-triangle"
-                fontSize="large"
-                style={{ color: '#ce2020' }}
-              />
+              <WarningIcon style={{ color: '#ce2020' }} />
             </Grid>
             <Grid item xs container direction="column">
               <Typography variant="h5">RISK WARNING</Typography>
