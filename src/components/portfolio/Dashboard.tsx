@@ -34,7 +34,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
   const fetch = async () => {
     setError(undefined);
     try {
-      const p = await API.portfolioOverview(token);
+      const p = await API.list(token);
       if (isMounted.current) {
         setPortfolios(p);
       }
