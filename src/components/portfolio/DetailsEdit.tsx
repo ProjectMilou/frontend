@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, List, ListItem } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import {
@@ -73,21 +73,52 @@ type DetailsEditProps = {
   positions: Position[];
 };
 
+type ListContainerProps = {
+  positions: Position[];
+  updateFlagViaIsin: (isin: string, bool: boolean) => void;
+};
+
+type IsinToAmount = {
+  [key: string]: string;
+};
+
+type FieldsAreOk = {
+  [key: string]: boolean;
+};
+
 // ListContainer is the body inside the Edit-Popup
 // A container that create list items from a list of stocks
-const ListContainer: React.FC<DetailsEditProps> = ({ positions }) => {
-  const [posState] = React.useState(positions);
+const ListContainer: React.FC<ListContainerProps> = ({
+  positions,
+  updateFlagViaIsin,
+}) => {
+  // the following 4 statements are to keep track of the amount value (string!)
+  // in the input fields as a state in this component
+  const isinToAmount: IsinToAmount = {};
+
+  positions.forEach((p) => {
+    isinToAmount[p.stock.isin] = p.qty.toString();
+  });
+
+  const [tempPos, setTempPos] = useState(isinToAmount);
+
+  const updateAmountViaIsin = (isin: string, amount: string) => {
+    setTempPos({ ...tempPos, [isin]: amount });
+  };
 
   const classes = useStyles();
   return (
     <div>
       <List component="ol" className={classes.ol}>
-        {posState.map((p) => (
+        {positions.map((p) => (
           <ListItem key={p.stock.name}>
             <ListEntry
+              isin={p.stock.isin}
               name={p.stock.name}
-              amount={p.qty}
+              amount={tempPos[p.stock.isin]}
               price={p.stock.price}
+              updateAmountViaIsin={updateAmountViaIsin}
+              updateFlagViaIsin={updateFlagViaIsin}
             />
           </ListItem>
         ))}
@@ -151,6 +182,18 @@ function CustomizedDialogs(positions: Position[]) {
   const { t } = useTranslation();
   const classes = useStyles();
 
+  // the following statements are to keep track of a global boolean flag
+  // that is true if submit can be clicked (all input fields ok)
+  // and false if it cannot be clicked
+  const fieldsAreOk: FieldsAreOk = {};
+  positions.forEach((p) => {
+    fieldsAreOk[p.stock.isin] = true;
+  });
+  const [validFields, setValidFields] = useState(fieldsAreOk);
+  const updateFlagViaIsin = (isin: string, bool: boolean) => {
+    setValidFields({ ...validFields, [isin]: bool });
+  };
+
   return (
     <div>
       <Button
@@ -170,13 +213,22 @@ function CustomizedDialogs(positions: Position[]) {
           {t('portfolio.details.dialogHeader')}
         </DialogTitle>
         <DialogContent dividers>
-          <ListContainer positions={positions} />
+          <ListContainer
+            positions={positions}
+            updateFlagViaIsin={updateFlagViaIsin}
+          />
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
             {t('portfolio.details.discardChanges')}
           </Button>
-          <Button autoFocus onClick={handleClose} color="primary">
+          <Button
+            autoFocus
+            onClick={handleClose}
+            color="primary"
+            // checks if all input fields are ok and only then lets you click the button
+            disabled={!Object.values(validFields).reduce((a, b) => a && b)}
+          >
             {t('portfolio.details.saveChanges')}
           </Button>
         </DialogActions>

@@ -37,25 +37,47 @@ const useStyles = makeStyles((theme: Theme) =>
 
 // type declerations
 type BasicTextFieldProps = {
-  amount: number;
+  isin: string;
+  amount: string;
+  updateAmountViaIsin: (isin: string, amount: string) => void;
+  updateFlagViaIsin: (isin: string, bool: boolean) => void;
 };
 
 type ListEntryProps = {
+  isin: string;
   name: string;
-  amount: number;
+  amount: string;
   price: number;
+  updateAmountViaIsin: (isin: string, amount: string) => void;
+  updateFlagViaIsin: (isin: string, bool: boolean) => void;
 };
 
 // input text field component
-const BasicTextFields: React.FC<BasicTextFieldProps> = ({ amount }) => {
-  const { t } = useTranslation();
+const BasicTextFields: React.FC<BasicTextFieldProps> = ({
+  isin,
+  amount,
+  updateAmountViaIsin,
+  updateFlagViaIsin,
+}) => {
   const classes = useStyles();
   const pattern = /^[1-9]\d*$/;
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <TextField
-        defaultValue={amount}
+        value={amount}
+        error={!amount.match(pattern)}
+        helperText={
+          amount.match(pattern) ? '' : 'Please enter positive number!'
+        }
+        onChange={(e) => {
+          if (amount.match(pattern)) {
+            updateFlagViaIsin(isin, true);
+          } else {
+            updateFlagViaIsin(isin, false);
+          }
+          updateAmountViaIsin(isin, e.target.value);
+        }}
         id="outlined-basic"
         label="quantity"
         variant="outlined"
@@ -76,7 +98,14 @@ const BasicTextFields: React.FC<BasicTextFieldProps> = ({ amount }) => {
 };
 
 // list entry component
-const ListEntry: React.FC<ListEntryProps> = ({ name, amount, price }) => {
+const ListEntry: React.FC<ListEntryProps> = ({
+  isin,
+  name,
+  amount,
+  price,
+  updateAmountViaIsin,
+  updateFlagViaIsin,
+}) => {
   const classes = useStyles();
 
   return (
@@ -91,7 +120,12 @@ const ListEntry: React.FC<ListEntryProps> = ({ name, amount, price }) => {
         <IconButton aria-label="minus">
           <RemoveIcon />
         </IconButton>
-        <BasicTextFields amount={amount} />
+        <BasicTextFields
+          amount={amount}
+          updateAmountViaIsin={updateAmountViaIsin}
+          isin={isin}
+          updateFlagViaIsin={updateFlagViaIsin}
+        />
         <IconButton aria-label="plus">
           <AddIcon />
         </IconButton>
