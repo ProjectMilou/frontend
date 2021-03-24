@@ -158,7 +158,7 @@ function CustomizedDialogs(positions: Position[]) {
         className={classes.editButton}
         onClick={handleClickOpen}
       >
-        {t('editPortfolio')}
+        {t('portfolio.details.editPortfolio')}
       </Button>
       <Dialog
         onClose={handleClose}
@@ -167,17 +167,17 @@ function CustomizedDialogs(positions: Position[]) {
         style={{ minWidth: '40rem' }}
       >
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          {t('dialogHeader')}
+          {t('portfolio.details.dialogHeader')}
         </DialogTitle>
         <DialogContent dividers>
           <ListContainer positions={positions} />
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
-            {t('discardChanges')}
+            {t('portfolio.details.discardChanges')}
           </Button>
           <Button autoFocus onClick={handleClose} color="primary">
-            {t('saveChanges')}
+            {t('portfolio.details.saveChanges')}
           </Button>
         </DialogActions>
       </Dialog>

@@ -7,10 +7,11 @@ import DetailsDonut from './DetailsDonut';
 import { RiskAnalysis, Risk, Position } from './DetailsTypes';
 
 // stylesheet for the risk analysis section
-const useStyles = makeStyles(({ palette, typography }: Theme) =>
+const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     titleContainer: {
       display: 'flex',
+      marginBottom: '2rem',
     },
     titleWrapper: {
       marginRight: '1rem',
@@ -102,7 +103,6 @@ const RiskComp: React.FC<RiskCompProps> = ({
   labels,
   portions,
 }) => {
-  const [riskState, setRiskState] = React.useState(risk);
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -140,6 +140,7 @@ const RiskComp: React.FC<RiskCompProps> = ({
           names={labels}
           size={200}
           graphOffsetX={-40}
+          showLegendOnScale={false}
         />
       </div>
       {/* footer with warnings */}
@@ -177,7 +178,6 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
   risk,
   positions,
 }) => {
-  const [riskState, setRiskState] = React.useState(risk);
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -185,7 +185,9 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
     <div>
       <div className={classes.titleContainer}>
         <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionTitle}>{t('port.details.risk')}</h2>
+          <h2 className={classes.sectionTitle}>
+            {t('portfolio.details.risk')}
+          </h2>
         </div>
         <div className={classes.lineWrapper}>
           <hr className={classes.line} />
@@ -194,7 +196,7 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
       <div className={classes.riskContainer}>
         <RiskComp
           risk={risk.countries}
-          title={t('port.details.countries')}
+          title={t('portfolio.details.countries')}
           // TODO: deal with overflow (too many names)
           labels={Array.from(new Set(positions.map((p) => p.stock.country)))}
           // TODO: replace with actuall count
@@ -202,7 +204,7 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
         />
         <RiskComp
           risk={risk.segments}
-          title={t('port.details.segments')}
+          title={t('portfolio.details.segments')}
           // TODO: deal with overflow (too many names)
           labels={Array.from(new Set(positions.map((p) => p.stock.industry)))}
           // TODO: replace with actuall count
@@ -210,7 +212,7 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
         />
         <RiskComp
           risk={risk.currency}
-          title={t('port.details.currency')}
+          title={t('portfolio.details.currency')}
           // TODO: deal with overflow (too many names)
           // TODO: replace with actuall currency
           labels={Array.from(new Set(positions.map((p) => p.stock.country)))}

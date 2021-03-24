@@ -12,8 +12,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       // TODO use theme margin
       margin: '0 auto',
       padding: '0 4rem',
-      // TODO: use theme min-width
-      minWidth: '50rem',
+      // TODO: use theme max-width
       maxWidth: '80rem',
     },
     sectionWrapper: {
