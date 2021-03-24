@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
-import LandingPage from '../pages/LandingPage';
 import { Router } from '@reach/router';
+import LandingPage from '../pages/LandingPage';
 import Shell from './shell/Shell';
 import Analyser from './analyser/Analyser';
 import Portfolio from './portfolio/Portfolio';
