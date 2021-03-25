@@ -28,7 +28,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 );
 
 // is this even useful?
-function addPositions(pos: Position[]): number {
+function sumPositions(pos: Position[]): number {
   return pos.map((p) => p.stock.price).reduce((a, b) => a + b);
 }
 
@@ -101,7 +101,7 @@ const mockRisk: RiskAnalysis = {
     ],
   },
   segments: { score: 0.4, warnings: ['c', 'd'] },
-  currency: { score: 0.8, warnings: ['e', 'f'] },
+  currency: { score: 0.8, warnings: ['e', 'f', 'g'] },
 };
 
 const mockFigures: KeyFigures[] = [
@@ -120,7 +120,7 @@ export const mock: PortfolioDetails = {
   name: 'My Portfolio',
   virtual: true,
   positionCount: 3,
-  value: addPositions(mockPositions),
+  value: sumPositions(mockPositions),
   score: 0.6,
   perf7d: -2,
   perf1y: 4,
@@ -161,6 +161,9 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
           perf1y={mock.perf1y}
           risk={mock.risk}
           positions={mock.positions}
+          figures={mock.keyFigures}
+          nextDividend={mock.nextDividend}
+          dividendPayoutRatio={mock.dividendPayoutRatio}
         />
       </section>
     </div>

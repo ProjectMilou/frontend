@@ -3,7 +3,10 @@ import { makeStyles, createStyles } from '@material-ui/core';
 import DetailsMainSummary from './DetailsMainSummary';
 import DetailsMainPositions from './DetailsMainPositions';
 import DetailsMainRisk from './DetailsMainRisk';
-import { RiskAnalysis, Position } from './DetailsTypes';
+import DetailsMainKeyFigures from './DetailsMainKeyFigures';
+import DetailsMainDividens from './DetailsMainDividends';
+import DetailsMainAnalyst from './DetailsMainAnalyst';
+import { RiskAnalysis, Position, KeyFigures } from './DetailsTypes';
 
 // stylesheet for the body of the details page
 const useStyles = makeStyles(() =>
@@ -30,6 +33,9 @@ type DetailsMainProps = {
   perf1y: number;
   risk: RiskAnalysis;
   positions: Position[];
+  figures: KeyFigures[];
+  nextDividend: number;
+  dividendPayoutRatio: number;
 };
 
 // returns the main body of the details page and all subcomponents
@@ -41,6 +47,9 @@ const DetailsMain: React.FC<DetailsMainProps> = ({
   perf7d,
   risk,
   positions,
+  figures,
+  nextDividend,
+  dividendPayoutRatio,
 }) => {
   const classes = useStyles();
 
@@ -64,7 +73,16 @@ const DetailsMain: React.FC<DetailsMainProps> = ({
         <DetailsMainRisk risk={risk} positions={positions} />
       </div>
       <div className={classes.sectionWrapper}>
-        <div />
+        <DetailsMainKeyFigures figures={figures} />
+      </div>
+      <div className={classes.sectionWrapper}>
+        <DetailsMainDividens
+          nextDividend={nextDividend}
+          dividendPayoutRatio={dividendPayoutRatio}
+        />
+      </div>
+      <div className={classes.sectionWrapper}>
+        <DetailsMainAnalyst />
       </div>
     </div>
   );
