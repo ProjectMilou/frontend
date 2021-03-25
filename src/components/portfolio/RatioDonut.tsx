@@ -13,12 +13,12 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       flexBasis: '50%',
     },
     textWrapper: {
-      position: 'relative',
-      width: 0,
-      height: '100%',
-      left: '-7rem',
-      top: '-0.2rem',
+      position: 'absolute',
+      height: '95%',
+      width: '100%',
+      top: '0',
       display: 'flex',
+      justifyContent: 'center',
       alignItems: 'center',
       color: palette.primary.contrastText,
       fontFamily: typography.fontFamily,
@@ -37,7 +37,7 @@ const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
   const classes = useStyles();
 
   const [state] = useState({
-    series: [ratio],
+    series: [ratio, 1 - ratio],
     options: {
       states: {
         normal: {
@@ -76,7 +76,6 @@ const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
       plotOptions: {
         pie: {
           expandOnClick: false,
-          endAngle: ratio * 360,
         },
       },
       dataLabels: {
@@ -98,9 +97,9 @@ const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
           height={140}
           width="100%"
         />
-      </div>
-      <div className={classes.textWrapper}>
-        <p style={{ margin: 0 }}>{`${ratio}%`}</p>
+        <div className={classes.textWrapper}>
+          <p style={{ margin: 0 }}>{`${ratio * 100}%`}</p>
+        </div>
       </div>
     </div>
   );

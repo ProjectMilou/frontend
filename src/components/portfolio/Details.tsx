@@ -129,7 +129,7 @@ export const mock: PortfolioDetails = {
   risk: mockRisk,
   keyFigures: mockFigures,
   nextDividend: 0,
-  dividendPayoutRatio: 0.8,
+  dividendPayoutRatio: 0.25,
 };
 
 // props type declaration
