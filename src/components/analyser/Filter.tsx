@@ -87,6 +87,9 @@ export const FilterBar: React.FC<FilterBarProps> = ({
                 <MenuItem disabled value="">
                     <em>{name}</em>
                 </MenuItem>
+                <MenuItem value=''>
+                    <em>None</em>
+                </MenuItem>
                 {ogFiltersList.map((tmp) => (
                     <MenuItem key={tmp} value={tmp} style={getStyles(tmp, filtersList, theme)}>
                         <Checkbox color='primary' checked={filtersList.indexOf(tmp) > -1} />
@@ -140,30 +143,55 @@ const Filteroptions: React.FC<FilterOptionsProps> = ({
 
     const handleChange = (event: React.ChangeEvent<{ name?: string | undefined, value: unknown }>) => {
         const temp = event.target.value as string[]
-        switch (event.target.name) {
-            case 'Country':
-                setFilters(prevFilter => {
-                    prevFilter.countries = temp
-                    return { ...filters, countries: prevFilter.countries }
-                })
-                break;
-            case 'Industry':
-                setFilters(prevFilter => {
-                    prevFilter.industries = temp
-                    return { ...filters, industries: prevFilter.industries }
-                })
-                break;
-            case 'Currency':
-                setFilters(prevFilter => {
-                    prevFilter.currency = temp
-                    return { ...filters, currency: prevFilter.currency }
-                })
-                break;
-            default:
-                break;
+        const name = event.target.name as string
+        if (temp.indexOf("") > -1){
+            switch (name) {
+                case 'Country':
+                    setFilters(prevFilter => {
+                        prevFilter.countries = []
+                        return { ...filters, countries: prevFilter.countries }
+                    })
+                    break;
+                case 'Industry':
+                    setFilters(prevFilter => {
+                        prevFilter.industries = []
+                        return { ...filters, industries: prevFilter.industries }
+                    })
+                    break;
+                case 'Currency':
+                    setFilters(prevFilter => {
+                        prevFilter.currency = []
+                        return { ...filters, currency: prevFilter.currency }
+                    })
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            switch (name) {
+                case 'Country':
+                    setFilters(prevFilter => {
+                        prevFilter.countries = temp
+                        return { ...filters, countries: prevFilter.countries }
+                    })
+                    break;
+                case 'Industry':
+                    setFilters(prevFilter => {
+                        prevFilter.industries = temp
+                        return { ...filters, industries: prevFilter.industries }
+                    })
+                    break;
+                case 'Currency':
+                    setFilters(prevFilter => {
+                        prevFilter.currency = temp
+                        return { ...filters, currency: prevFilter.currency }
+                    })
+                    break;
+                default:
+                    break;
+            }
         }
-        // console.log(filters)
-    };
+    }
 
     const sendRequest = () => {
         // TODO: send a filter request and tell? 
