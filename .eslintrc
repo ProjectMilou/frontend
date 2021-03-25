@@ -7,9 +7,7 @@
     "plugin:@typescript-eslint/recommended",
     "prettier"
   ],
-  "plugins": [
-    "@typescript-eslint"
-  ],
+  "plugins": ["@typescript-eslint"],
   "env": {
     "browser": true,
     "es6": true,
@@ -34,9 +32,7 @@
   },
   "overrides": [
     {
-      "files": [
-        "**/*.test.ts?(x)"
-      ],
+      "files": ["**/*.test.ts?(x)"],
       "rules": {
         "react/jsx-props-no-spreading": "off",
         "@typescript-eslint/no-non-null-assertion": "off"
