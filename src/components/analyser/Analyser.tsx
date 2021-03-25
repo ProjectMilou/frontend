@@ -12,7 +12,7 @@ const Analyser: React.FC<RouteComponentProps> = () => {
         {id ? (
           <Details back={() => setId(undefined)} />
         ) : (
-          <Dashboard token=""/>
+          <Dashboard token="" selectStock={setId} />
         )}
       </>
     );
