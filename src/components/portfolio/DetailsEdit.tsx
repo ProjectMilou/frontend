@@ -106,6 +106,26 @@ const ListContainer: React.FC<ListContainerProps> = ({
     setTempPos({ ...tempPos, [isin]: amount });
   };
 
+  // callback for the plus and minus button
+  // second parameter decides decrement or increment
+  const upOrDown = (isin: string, goUp: boolean) => {
+    const stringAmount = tempPos[isin];
+    if (Number.isNaN(parseFloat(stringAmount))) {
+      setTempPos({ ...tempPos, [isin]: '0' });
+    } else {
+      const numberAmount = Number.parseFloat(stringAmount);
+      const newStringAmount = goUp
+        ? (numberAmount + 1).toString()
+        : (numberAmount - 1).toString();
+      setTempPos({ ...tempPos, [isin]: newStringAmount });
+    }
+  };
+
+  // callback for the trash can button
+  const setToZero = (isin: string) => {
+    setTempPos({ ...tempPos, [isin]: '0' });
+  };
+
   const classes = useStyles();
   return (
     <div>
@@ -119,6 +139,8 @@ const ListContainer: React.FC<ListContainerProps> = ({
               price={p.stock.price}
               updateAmountViaIsin={updateAmountViaIsin}
               updateFlagViaIsin={updateFlagViaIsin}
+              upOrDown={upOrDown}
+              setToZero={setToZero}
             />
           </ListItem>
         ))}

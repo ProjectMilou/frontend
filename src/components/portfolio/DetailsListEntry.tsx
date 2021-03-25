@@ -50,6 +50,8 @@ type ListEntryProps = {
   price: number;
   updateAmountViaIsin: (isin: string, amount: string) => void;
   updateFlagViaIsin: (isin: string, bool: boolean) => void;
+  upOrDown: (isin: string, goUp: boolean) => void;
+  setToZero: (isin: string) => void;
 };
 
 // input text field component
@@ -60,7 +62,7 @@ const BasicTextFields: React.FC<BasicTextFieldProps> = ({
   updateFlagViaIsin,
 }) => {
   const classes = useStyles();
-  const pattern = /^[1-9]\d*$/;
+  const pattern = /^(?:[1-9]\d*|0)?(?:\.\d+)?$/;
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
@@ -105,6 +107,8 @@ const ListEntry: React.FC<ListEntryProps> = ({
   price,
   updateAmountViaIsin,
   updateFlagViaIsin,
+  upOrDown,
+  setToZero,
 }) => {
   const classes = useStyles();
 
@@ -117,7 +121,7 @@ const ListEntry: React.FC<ListEntryProps> = ({
         <p className={classes.text}>{`$${price}`}</p>
       </div>
       <div className={classes.userFields}>
-        <IconButton aria-label="minus">
+        <IconButton aria-label="minus" onClick={() => upOrDown(isin, false)}>
           <RemoveIcon />
         </IconButton>
         <BasicTextFields
@@ -126,10 +130,10 @@ const ListEntry: React.FC<ListEntryProps> = ({
           isin={isin}
           updateFlagViaIsin={updateFlagViaIsin}
         />
-        <IconButton aria-label="plus">
+        <IconButton aria-label="plus" onClick={() => upOrDown(isin, true)}>
           <AddIcon />
         </IconButton>
-        <IconButton aria-label="zero">
+        <IconButton aria-label="zero" onClick={() => setToZero(isin)}>
           <DeleteIcon />
         </IconButton>
       </div>
