@@ -12,16 +12,23 @@ const renderRegisterForm = () => {
 
 const getFields = async () => {
   const { findByTestId } = renderRegisterForm();
-  const emailInput = await findByTestId('email') as HTMLInputElement;
-  const passwordInput = await findByTestId('password') as HTMLInputElement;
-  const confirmPasswordInput = await findByTestId('confirm-password') as HTMLInputElement;
+  const emailInput = (await findByTestId('email')) as HTMLInputElement;
+  const passwordInput = (await findByTestId('password')) as HTMLInputElement;
+  const confirmPasswordInput = (await findByTestId(
+    'confirm-password'
+  )) as HTMLInputElement;
   const button = (await findByTestId('register')) as HTMLButtonElement;
-  return {emailInput, passwordInput, confirmPasswordInput, button}
-}
+  return { emailInput, passwordInput, confirmPasswordInput, button };
+};
 
 describe('Register', () => {
   test('should render input fields', async () => {
-    const {emailInput, passwordInput, confirmPasswordInput, button} = await getFields()
+    const {
+      emailInput,
+      passwordInput,
+      confirmPasswordInput,
+      button,
+    } = await getFields();
     expect(passwordInput).toBeInTheDocument();
     expect(emailInput).toBeInTheDocument();
     expect(confirmPasswordInput).toBeInTheDocument();
@@ -29,7 +36,12 @@ describe('Register', () => {
   });
 
   test('should put in text and enable submit-button', async () => {
-    const {emailInput, passwordInput, confirmPasswordInput, button} = await getFields()
+    const {
+      emailInput,
+      passwordInput,
+      confirmPasswordInput,
+      button,
+    } = await getFields();
 
     fireEvent.change(emailInput, { target: { value: 'email' } });
     expect(button).toBeDisabled();
@@ -46,22 +58,32 @@ describe('Register', () => {
   });
 
   test('should fail to submit -- invalid email address', async () => {
-    const {emailInput, passwordInput, confirmPasswordInput, button} = await getFields()
+    const {
+      emailInput,
+      passwordInput,
+      confirmPasswordInput,
+      button,
+    } = await getFields();
     fireEvent.change(emailInput, { target: { value: 'email' } });
     fireEvent.change(passwordInput, { target: { value: 'pwd' } });
     fireEvent.change(confirmPasswordInput, { target: { value: 'pwd' } });
-    fireEvent.click(button)
+    fireEvent.click(button);
     expect(emailInput.value).toBe('email');
-    expect(emailInput.getAttribute("aria-invalid")).toBe("true");
+    expect(emailInput.getAttribute('aria-invalid')).toBe('true');
   });
 
   test('should fail to submit -- pwd is not equal to confirm-pwd', async () => {
-    const {emailInput, passwordInput, confirmPasswordInput, button} = await getFields()
+    const {
+      emailInput,
+      passwordInput,
+      confirmPasswordInput,
+      button,
+    } = await getFields();
     fireEvent.change(emailInput, { target: { value: 'example@test.com' } });
     fireEvent.change(passwordInput, { target: { value: 'pwd' } });
     fireEvent.change(confirmPasswordInput, { target: { value: 'pwd2' } });
     expect(button).toBeEnabled();
-    fireEvent.click(button)
-    expect(confirmPasswordInput.getAttribute("aria-invalid")).toBe("true");
+    fireEvent.click(button);
+    expect(confirmPasswordInput.getAttribute('aria-invalid')).toBe('true');
   });
 });
