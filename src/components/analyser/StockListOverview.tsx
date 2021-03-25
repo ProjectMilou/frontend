@@ -8,6 +8,7 @@ import Filter from './Filter';
 
 export type StockListOverviewProps = {
   stocks: API.Stock[];
+  selectStock: (id: string) => void;
 };
 
 const useStyles = makeStyles({
@@ -21,7 +22,8 @@ const useStyles = makeStyles({
 });
 
 const StockListOverview: React.FC<StockListOverviewProps> = ({
-  stocks
+  stocks,
+  selectStock
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();
@@ -46,6 +48,7 @@ const StockListOverview: React.FC<StockListOverviewProps> = ({
         (view === DashboardView.Table ? (
           <DashboardTable
             stocks={stocks}
+            selectStock={selectStock}
           />
         ) : (
           // TODO: implement card view

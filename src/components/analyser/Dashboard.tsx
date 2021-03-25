@@ -12,6 +12,7 @@ import DashboardHeader from './DashboardHeader';
 
 export type DashboardProps = {
   token: string;
+  selectStock: (symbol: string) => void;
 };
 
 const useStyles = makeStyles({
@@ -23,7 +24,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Dashboard: React.FC<DashboardProps> = ({ token }) => {
+const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
   const [stocks, setStocks] = React.useState<API.Stock[]>();
   const [error, setError] = React.useState<ErrorCode | undefined>();
 
@@ -85,6 +86,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token }) => {
           <div>
             <StockListOverview
               stocks={stocks}
+              selectStock={selectStock}
             />
           </div>
         )}

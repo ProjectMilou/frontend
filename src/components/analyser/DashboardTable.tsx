@@ -38,23 +38,25 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export type DashboardTableRowProps = {
   stock: API.Stock;
+  selectStock: (id: string) => void;
 };
 
 export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
-  stock
+  stock,
+  selectStock,
 }) => {
   const [hover, setHover] = React.useState<boolean>(false);
 
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const selectStock = (symbol: API.Stock['symbol']) => {
+  // const selectedStock = (symbol: API.Stock['symbol']) => {
     
-    // TODO: implement route to analyser page
-    /* eslint no-console: ["error", { allow: ["warn", "error] }] */
-    console.warn(symbol)
+  //   // TODO: implement route to analyser page
+  //   /* eslint no-console: ["error", { allow: ["warn", "error] }] */
+  //   console.warn(symbol)
     
-  }
+  // }
 
   return (
     <TableRow
@@ -107,10 +109,12 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
 
 export type DashboardTableProps = {
   stocks: API.Stock[];
+  selectStock: (symbol: string) => void;
 };
 
 const DashboardTable: React.FC<DashboardTableProps> = ({
-  stocks
+  stocks,
+  selectStock,
 }) => {
   const { t } = useTranslation();
 
@@ -135,6 +139,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
           {stocks.map((s) => (
             <DashboardTableRow
               stock={s}
+              selectStock={selectStock}
               key={s.symbol}
             />
           ))}
