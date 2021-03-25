@@ -2,7 +2,7 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import { Input, InputLabel, MenuItem, FormControl, ListItemText, Select, Checkbox, Chip, Button, Typography, Container } from '@material-ui/core';
-import { Filter, Delete } from '@material-ui/icons';
+import { FilterList, Delete } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../analyser/APIClient';
 
@@ -167,6 +167,9 @@ const Filteroptions: React.FC<FilterOptionsProps> = ({
             <FilterBar filtersList={filters.countries} ogFiltersList={ogFilters.countries} handleChange={handleChange} name={t('stock.country')} />
             <FilterBar filtersList={filters.industries} ogFiltersList={ogFilters.industries} handleChange={handleChange} name={t('stock.industry')} />
             <FilterBar filtersList={filters.currency} ogFiltersList={ogFilters.currency} handleChange={handleChange} name={t('stock.currency')} />
+            <Button type='button' onClick={clearFilters} startIcon={<FilterList/>}>
+                Filter
+            </Button>
             <Button type='button' onClick={clearFilters} startIcon={<Delete/>}>
                 Clear filters
             </Button>

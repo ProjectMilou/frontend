@@ -9,6 +9,7 @@ import { ErrorCode } from '../../Errors';
 import ErrorMessage from './ErrorMessage';
 import StockListOverview from './StockListOverview';
 import DashboardHeader from './DashboardHeader';
+import Filter from './Filter';
 
 export type DashboardProps = {
   token: string;
@@ -62,6 +63,13 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
           <LinearProgress color="secondary" />
         </div>
       )}
+      {stocks && (
+          <div>
+            <Filter
+              stocks={stocks}
+            />
+          </div>
+        )}
       <Container maxWidth="lg" className={classes.dashboard}>
         {error && (
           <ErrorMessage

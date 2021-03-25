@@ -4,7 +4,6 @@ import { makeStyles, Typography } from '@material-ui/core';
 import * as API from '../../analyser/APIClient';
 import DashboardViewSelect, { DashboardView } from './DashboardViewSelect';
 import DashboardTable from './DashboardTable';
-import Filter from './Filter';
 
 export type StockListOverviewProps = {
   stocks: API.Stock[];
@@ -38,11 +37,6 @@ const StockListOverview: React.FC<StockListOverviewProps> = ({
       </div>
       {!stocks.length && (
         <Typography>{t('analyser.dashboard.noPortfolios')}</Typography>
-      )}
-      {!!stocks.length && (
-        <Filter
-        stocks={stocks}
-        />
       )}
       {!!stocks.length &&
         (view === DashboardView.Table ? (
