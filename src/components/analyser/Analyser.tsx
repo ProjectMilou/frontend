@@ -4,13 +4,13 @@ import Details from './Details';
 import Dashboard from './Dashboard';
 
 const Analyser: React.FC<RouteComponentProps> = () => {
-    const [id, setSymbol] = React.useState<string>();
+    const [symbol, setSymbol] = React.useState<string>();
 
-    // TODO: make sure that when a portfolio is loaded the scolling progress is reset
+    // TODO: make sure that when a analyser page is loaded the scolling progress is reset
     return (
       <>
-        {id ? (
-          <Details back={() => setSymbol(undefined)} />
+        {symbol ? (
+          <Details symbol={symbol} back={() => setSymbol(undefined)} />
         ) : (
           <Dashboard token="" selectStock={setSymbol} />
         )}

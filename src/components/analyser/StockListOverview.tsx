@@ -36,7 +36,7 @@ const StockListOverview: React.FC<StockListOverviewProps> = ({
         )}
       </div>
       {!stocks.length && (
-        <Typography>{t('analyser.dashboard.noPortfolios')}</Typography>
+        <Typography>{t('analyser.dashboard.noStocks')}</Typography>
       )}
       {!!stocks.length &&
         (view === DashboardView.Table ? (

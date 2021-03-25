@@ -77,7 +77,7 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         />
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
-        <EuroCurrency value={stock.price} />
+        <EuroCurrency value={stock.price} size="5px" />
       </TableCell>
       <TableCell align="center">
         <Performance value={stock['7d']} />
@@ -119,7 +119,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
   const { t } = useTranslation();
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} >
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
