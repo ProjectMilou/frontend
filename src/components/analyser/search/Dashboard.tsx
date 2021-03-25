@@ -4,6 +4,7 @@ import {
   makeStyles,
   Container,
   Toolbar,
+  AppBar,
 } from '@material-ui/core';
 import * as API from '../../../analyser/APIClient';
 import { ErrorCode } from '../../../Errors';
@@ -23,6 +24,11 @@ const useStyles = makeStyles({
   },
   dashboard: {
     margin: '25px auto',
+  },
+  filter: {
+    'background-color': '#EEF1FB',
+    minWidth: '50%',
+    maxWidth: '100%',
   },
 });
 
@@ -65,11 +71,13 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
         </div>
       )}
       {stocks && (
+        <AppBar position="sticky" className={classes.filter}>
           <Toolbar variant="dense" disableGutters>
             <Filter
               stocks={stocks}
             />
           </Toolbar>
+        </AppBar>
       )}
       <Container maxWidth="lg" className={classes.dashboard}>
         {error && (

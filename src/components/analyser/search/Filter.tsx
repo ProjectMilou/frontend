@@ -78,7 +78,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
                 renderValue={(selected) => (
                     <div className={classes.chips}>
                         {(selected as string[]).map((value) => (
-                            <Chip key={value} label={value} size='small' className={classes.chip} />
+                            <Chip key={value} label={value} variant='outlined' color='primary' size='small' className={classes.chip} />
                         ))}
                     </div>
                 )}
