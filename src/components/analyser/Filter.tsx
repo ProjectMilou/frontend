@@ -84,6 +84,9 @@ export const FilterBar: React.FC<FilterBarProps> = ({
                 )}
                 MenuProps={MenuProps}
             >
+                <MenuItem disabled value="">
+                    <em>{name}</em>
+                </MenuItem>
                 {ogFiltersList.map((tmp) => (
                     <MenuItem key={tmp} value={tmp} style={getStyles(tmp, filtersList, theme)}>
                         <Checkbox color='primary' checked={filtersList.indexOf(tmp) > -1} />
@@ -168,7 +171,7 @@ const Filteroptions: React.FC<FilterOptionsProps> = ({
 
     return (
         <>
-            <FilterBar filtersList={filters.countries} ogFiltersList={ogFilters.countries} handleChange={handleChange} name={t('stock.country')}/>
+            <FilterBar filtersList={filters.countries} ogFiltersList={ogFilters.countries} handleChange={handleChange} name={t('stock.country')} />
             <FilterBar filtersList={filters.industries} ogFiltersList={ogFilters.industries} handleChange={handleChange} name={t('stock.industry')} />
             <FilterBar filtersList={filters.currency} ogFiltersList={ogFilters.currency} handleChange={handleChange} name={t('stock.currency')} />
             <Button type='button' onClick={() => sendRequest} startIcon={<FilterList />}>
