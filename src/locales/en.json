@@ -78,5 +78,7 @@
   "stock.valuation": "Valuation",
   "stock.growth": "Growth",
   "stock.div": "Div Yield",
-  "stock.industry": "Industry"
+  "stock.industry": "Industry",
+  "stock.country": "Country",
+  "stock.currency": "Currency"
 }
