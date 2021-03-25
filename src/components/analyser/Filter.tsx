@@ -9,11 +9,11 @@ import * as API from '../../analyser/APIClient';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         typography: {
-            color: '#0D1B3B'
+            color: '#0D1B3B',
         },
         formControl: {
-            margin: theme.spacing(1),
-            minWidth: 120,
+            margin: theme.spacing(2),
+            minWidth: 200,
             maxWidth: 300,
         },
         chips: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flexWrap: 'wrap',
         },
         chip: {
-            margin: 2,
+            margin: 1,
         },
     }),
 );
@@ -32,15 +32,15 @@ const MenuProps = {
     PaperProps: {
         style: {
             maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
+            Width: 300,
         },
     },
 };
 
-function getStyles(name: string, personName: string[], theme: Theme) {
+function getStyles(tmp: string, list: string[], theme: Theme) {
     return {
         fontWeight:
-            personName.indexOf(name) === -1
+            list.indexOf(tmp) === -1
                 ? theme.typography.fontWeightRegular
                 : theme.typography.fontWeightMedium,
     };
@@ -80,7 +80,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
                 renderValue={(selected) => (
                     <div className={classes.chips}>
                         {(selected as string[]).map((value) => (
-                            <Chip key={value} label={value} className={classes.chip} />
+                            <Chip key={value} label={value} size='small' className={classes.chip} />
                         ))}
                     </div>
                 )}
@@ -136,6 +136,7 @@ const Filteroptions: React.FC<FilterOptionsProps> = ({
         })
     }
 
+
     const handleChange = (event: React.ChangeEvent<{ name?: string | undefined, value: unknown }>) => {
         const temp = event.target.value as string[]
         switch (event.target.name) {
@@ -160,17 +161,18 @@ const Filteroptions: React.FC<FilterOptionsProps> = ({
             default:
                 break;
         }
+        console.log(filters)
     };
 
     return (
         <>
-            <FilterBar filtersList={filters.countries} ogFiltersList={ogFilters.countries} handleChange={handleChange} name={t('stock.country')} />
+            <FilterBar filtersList={filters.countries} ogFiltersList={ogFilters.countries} handleChange={handleChange} name={t('stock.country')}/>
             <FilterBar filtersList={filters.industries} ogFiltersList={ogFilters.industries} handleChange={handleChange} name={t('stock.industry')} />
             <FilterBar filtersList={filters.currency} ogFiltersList={ogFilters.currency} handleChange={handleChange} name={t('stock.currency')} />
-            <Button type='button' onClick={clearFilters} startIcon={<FilterList/>}>
+            <Button type='button' onClick={() => clearFilters} startIcon={<FilterList />}>
                 Filter
             </Button>
-            <Button type='button' onClick={clearFilters} startIcon={<Delete/>}>
+            <Button type='button' onClick={clearFilters} startIcon={<Delete />}>
                 Clear filters
             </Button>
         </>

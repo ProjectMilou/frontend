@@ -3,6 +3,7 @@ import {
   LinearProgress,
   makeStyles,
   Container,
+  Toolbar,
 } from '@material-ui/core';
 import * as API from '../../analyser/APIClient';
 import { ErrorCode } from '../../Errors';
@@ -64,12 +65,12 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
         </div>
       )}
       {stocks && (
-          <div>
+          <Toolbar variant="dense" disableGutters>
             <Filter
               stocks={stocks}
             />
-          </div>
-        )}
+          </Toolbar>
+      )}
       <Container maxWidth="lg" className={classes.dashboard}>
         {error && (
           <ErrorMessage
@@ -78,15 +79,15 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
             handling={
               error.startsWith('AUTH')
                 ? {
-                    buttonText: 'error.action.login',
-                    action: async () => {
-                      // TODO: go back to login
-                    },
-                  }
+                  buttonText: 'error.action.login',
+                  action: async () => {
+                    // TODO: go back to login
+                  },
+                }
                 : {
-                    buttonText: 'error.action.retry',
-                    action: fetch,
-                  }
+                  buttonText: 'error.action.retry',
+                  action: fetch,
+                }
             }
           />
         )}
