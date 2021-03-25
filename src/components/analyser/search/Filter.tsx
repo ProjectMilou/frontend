@@ -4,7 +4,7 @@ import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/sty
 import { Input, InputLabel, MenuItem, FormControl, ListItemText, Select, Checkbox, Chip, Button, Typography, Container } from '@material-ui/core';
 import { FilterList, Delete } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import * as API from '../../analyser/APIClient';
+import * as API from '../../../analyser/APIClient';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
