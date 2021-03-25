@@ -70,8 +70,6 @@ export const FilterBar: React.FC<FilterBarProps> = ({
         <FormControl className={classes.formControl}>
             <InputLabel id="id-label">{name}</InputLabel>
             <Select
-                // labelId=""
-                // id=""
                 name={name}
                 multiple
                 value={filtersList}
@@ -125,7 +123,8 @@ const Filteroptions: React.FC<FilterOptionsProps> = ({
 }) => {
     const { t } = useTranslation();
     const ogFilters = setOriginalFilters(stocks)
-    const [filters, setFilters] = React.useState<Filters>(ogFilters)
+    const emptyFilters: Filters = { countries: [], industries: [], currency: [], }
+    const [filters, setFilters] = React.useState<Filters>(emptyFilters)
 
     const clearFilters = () => {
         setFilters((prevFilters) => {
@@ -135,7 +134,6 @@ const Filteroptions: React.FC<FilterOptionsProps> = ({
             return { ...prevFilters }
         })
     }
-
 
     const handleChange = (event: React.ChangeEvent<{ name?: string | undefined, value: unknown }>) => {
         const temp = event.target.value as string[]
@@ -161,15 +159,19 @@ const Filteroptions: React.FC<FilterOptionsProps> = ({
             default:
                 break;
         }
-        console.log(filters)
+        // console.log(filters)
     };
+
+    const sendRequest = () => {
+        // TODO: send a filter request and tell? 
+    }
 
     return (
         <>
             <FilterBar filtersList={filters.countries} ogFiltersList={ogFilters.countries} handleChange={handleChange} name={t('stock.country')}/>
             <FilterBar filtersList={filters.industries} ogFiltersList={ogFilters.industries} handleChange={handleChange} name={t('stock.industry')} />
             <FilterBar filtersList={filters.currency} ogFiltersList={ogFilters.currency} handleChange={handleChange} name={t('stock.currency')} />
-            <Button type='button' onClick={() => clearFilters} startIcon={<FilterList />}>
+            <Button type='button' onClick={() => sendRequest} startIcon={<FilterList />}>
                 Filter
             </Button>
             <Button type='button' onClick={clearFilters} startIcon={<Delete />}>
