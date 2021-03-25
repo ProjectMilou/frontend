@@ -15,10 +15,10 @@ import {
   Typography,
 } from '@material-ui/core';
 import classNames from 'classnames';
-import * as API from '../../analyser/APIClient';
-import EuroCurrency from './EuroCurrency';
-import Performance from './Performance';
-import Valuation from './Valuation'
+import * as API from '../../../analyser/APIClient';
+import EuroCurrency from '../EuroCurrency';
+import Performance from '../Performance';
+import Valuation from '../Valuation'
 
 const useStyles = makeStyles((theme: Theme) => ({
   action: { display: 'inline-block' },
@@ -77,7 +77,7 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         />
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
-        <EuroCurrency value={stock.price} size="5px" />
+        <EuroCurrency value={stock.price} />
       </TableCell>
       <TableCell align="center">
         <Performance value={stock['7d']} />

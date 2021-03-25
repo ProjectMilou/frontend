@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Typography } from '@material-ui/core';
-import * as API from '../../analyser/APIClient';
+import * as API from '../../../analyser/APIClient';
 import DashboardViewSelect, { DashboardView } from './DashboardViewSelect';
 import DashboardTable from './DashboardTable';
 

@@ -1,7 +1,7 @@
 import { RouteComponentProps } from '@reach/router';
 import React from 'react';
-import Details from './Details';
-import Dashboard from './Dashboard';
+import Details from './details/Details';
+import Dashboard from './search/Dashboard';
 
 const Analyser: React.FC<RouteComponentProps> = () => {
     const [symbol, setSymbol] = React.useState<string>();
