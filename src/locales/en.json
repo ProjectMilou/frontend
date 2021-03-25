@@ -65,7 +65,7 @@
   "analyser.dashboard.view.table": "Table view",
   "analyser.dashboard.view.cards": "Cards view",
   "analyser.filter.title": "Filter Options",
-  "analyser.dashboard.noStocks": "No stocks",
+  "analyser.dashboard.noStocks": "We can't show you any stoks right now :(",
   "stock.symbol": "Symbol",
   "stock.name": "Company",
   "stock.lastPrice": "Last Price",

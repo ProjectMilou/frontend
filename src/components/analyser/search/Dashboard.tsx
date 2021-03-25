@@ -5,9 +5,9 @@ import {
   Container,
   Toolbar,
 } from '@material-ui/core';
-import * as API from '../../analyser/APIClient';
-import { ErrorCode } from '../../Errors';
-import ErrorMessage from './ErrorMessage';
+import * as API from '../../../analyser/APIClient';
+import { ErrorCode } from '../../../Errors';
+import ErrorMessage from '../ErrorMessage';
 import StockListOverview from './StockListOverview';
 import DashboardHeader from './DashboardHeader';
 import Filter from './Filter';
