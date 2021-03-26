@@ -1,6 +1,7 @@
 // TODO: Change to production URL when available
 // TODO: Use a common base URL for shell, analyser and portfolio instead of 3 URLs
-export const baseURL = 'https://milou-backend.herokuapp.com/stocks';
+
+export const baseURL = 'https://api.milou.io/stocks';
 
 const headers = { 'Content-Type': 'application/json' };
 
