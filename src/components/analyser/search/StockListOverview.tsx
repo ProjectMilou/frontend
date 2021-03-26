@@ -46,10 +46,12 @@ const StockListOverview: React.FC<StockListOverviewProps> = ({
             selectStock={selectStock}
           />
         ) : (
+          <div>
             <DashboardCards
               stocks={stocks}
               selectStock={selectStock}
-            />            
+            />  
+          </div>
         ))}
     </>
   );

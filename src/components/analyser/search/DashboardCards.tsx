@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Card,
   CardContent,
@@ -67,11 +68,12 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
 }) => {
   const [hover, setHover] = React.useState<boolean>(false);
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
-    <Card className={classes.card} style={{width: 300, height: 450}}>
+    <Card className={classes.card} style={{width: 280, height: 450, margin: 10}}>
         <CardMedia
-          style={{height: 200, width: 280, placeItems: "center", alignItems: "center", objectFit: "scale-down", margin: 10}}
+          style={{height: 200, width: 260, placeItems: "center", alignItems: "center", objectFit: "scale-down", margin: 10}}
           component="img"
           image={stock.picture.toString()}
         />
@@ -98,7 +100,7 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
             onMouseLeave={() => setHover(false)}
             className={classNames(classes.row, hover && classes.rowHover)}
           >
-            Go to details
+            {t('analyser.detail.text')}
           </Button>
         </CardContent>
       </Card>
