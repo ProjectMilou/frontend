@@ -1,12 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Typography } from '@material-ui/core';
-import * as API from '../../analyser/APIClient';
+import * as API from '../../../analyser/APIClient';
 import DashboardViewSelect, { DashboardView } from './DashboardViewSelect';
 import DashboardTable from './DashboardTable';
 
 export type StockListOverviewProps = {
   stocks: API.Stock[];
+  selectStock: (id: string) => void;
 };
 
 const useStyles = makeStyles({
@@ -20,7 +21,8 @@ const useStyles = makeStyles({
 });
 
 const StockListOverview: React.FC<StockListOverviewProps> = ({
-  stocks
+  stocks,
+  selectStock,
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();
@@ -34,13 +36,11 @@ const StockListOverview: React.FC<StockListOverviewProps> = ({
         )}
       </div>
       {!stocks.length && (
-        <Typography>{t('analyser.dashboard.noPortfolios')}</Typography>
+        <Typography>{t('analyser.dashboard.noStocks')}</Typography>
       )}
       {!!stocks.length &&
         (view === DashboardView.Table ? (
-          <DashboardTable
-            stocks={stocks}
-          />
+          <DashboardTable stocks={stocks} selectStock={selectStock} />
         ) : (
           // TODO: implement card view
           <div>cards</div>

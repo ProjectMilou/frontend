@@ -4,11 +4,13 @@ import React from 'react';
 export type DetailsProps = {
   // function to return to the dashboard
   back: () => void;
+  symbol: string;
 };
 
-const Details: React.FC<DetailsProps> = () => (
+const Details: React.FC<DetailsProps> = ({symbol}) => (
   <div>
     details will be here
+    <p>{symbol}</p>
   </div>
 );
 

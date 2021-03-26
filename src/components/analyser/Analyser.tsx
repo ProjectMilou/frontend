@@ -1,21 +1,21 @@
 import { RouteComponentProps } from '@reach/router';
 import React from 'react';
-import Details from './Details';
-import Dashboard from './Dashboard';
+import Details from './details/Details';
+import Dashboard from './search/Dashboard';
 
 const Analyser: React.FC<RouteComponentProps> = () => {
-    const [id, setId] = React.useState<string>();
+  const [symbol, setSymbol] = React.useState<string>();
 
-    // TODO: make sure that when a portfolio is loaded the scolling progress is reset
-    return (
-      <>
-        {id ? (
-          <Details back={() => setId(undefined)} />
-        ) : (
-          <Dashboard token=""/>
-        )}
-      </>
-    );
+  // TODO: make sure that when a analyser page is loaded the scolling progress is reset
+  return (
+    <>
+      {symbol ? (
+        <Details symbol={symbol} back={() => setSymbol(undefined)} />
+      ) : (
+        <Dashboard token="" selectStock={setSymbol} />
+      )}
+    </>
+  );
 };
 
 export default Analyser;

@@ -3,15 +3,19 @@ import {
   LinearProgress,
   makeStyles,
   Container,
+  Toolbar,
+  AppBar,
 } from '@material-ui/core';
-import * as API from '../../analyser/APIClient';
-import { ErrorCode } from '../../Errors';
-import ErrorMessage from './ErrorMessage';
+import * as API from '../../../analyser/APIClient';
+import { ErrorCode } from '../../../Errors';
+import ErrorMessage from '../ErrorMessage';
 import StockListOverview from './StockListOverview';
 import DashboardHeader from './DashboardHeader';
+import Filter from './Filter';
 
 export type DashboardProps = {
   token: string;
+  selectStock: (symbol: string) => void;
 };
 
 const useStyles = makeStyles({
@@ -21,9 +25,14 @@ const useStyles = makeStyles({
   dashboard: {
     margin: '25px auto',
   },
+  filter: {
+    'background-color': '#EEF1FB',
+    minWidth: '50%',
+    maxWidth: '100%',
+  },
 });
 
-const Dashboard: React.FC<DashboardProps> = ({ token }) => {
+const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
   const [stocks, setStocks] = React.useState<API.Stock[]>();
   const [error, setError] = React.useState<ErrorCode | undefined>();
 
@@ -61,6 +70,13 @@ const Dashboard: React.FC<DashboardProps> = ({ token }) => {
           <LinearProgress color="secondary" />
         </div>
       )}
+      {stocks && (
+        <AppBar position="sticky" className={classes.filter}>
+          <Toolbar variant="dense" disableGutters>
+            <Filter stocks={stocks} />
+          </Toolbar>
+        </AppBar>
+      )}
       <Container maxWidth="lg" className={classes.dashboard}>
         {error && (
           <ErrorMessage
@@ -83,9 +99,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token }) => {
         )}
         {stocks && (
           <div>
-            <StockListOverview
-              stocks={stocks}
-            />
+            <StockListOverview stocks={stocks} selectStock={selectStock} />
           </div>
         )}
       </Container>

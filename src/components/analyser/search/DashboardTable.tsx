@@ -15,10 +15,10 @@ import {
   Typography,
 } from '@material-ui/core';
 import classNames from 'classnames';
-import * as API from '../../analyser/APIClient';
-import EuroCurrency from './EuroCurrency';
-import Performance from './Performance';
-import Valuation from './Valuation'
+import * as API from '../../../analyser/APIClient';
+import EuroCurrency from '../EuroCurrency';
+import Performance from '../Performance';
+import Valuation from '../Valuation';
 
 const useStyles = makeStyles((theme: Theme) => ({
   action: { display: 'inline-block' },
@@ -38,23 +38,25 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export type DashboardTableRowProps = {
   stock: API.Stock;
+  selectStock: (id: string) => void;
 };
 
 export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
-  stock
+  stock,
+  selectStock,
 }) => {
   const [hover, setHover] = React.useState<boolean>(false);
 
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const selectStock = (symbol: API.Stock['symbol']) => {
-    
-    // TODO: implement route to analyser page
-    /* eslint no-console: ["error", { allow: ["warn", "error] }] */
-    console.warn(symbol)
-    
-  }
+  // const selectedStock = (symbol: API.Stock['symbol']) => {
+
+  //   // TODO: implement route to analyser page
+  //   /* eslint no-console: ["error", { allow: ["warn", "error] }] */
+  //   console.warn(symbol)
+
+  // }
 
   return (
     <TableRow
@@ -67,7 +69,11 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
     >
       <TableCell align="center" component="th" scope="row">
         <ListItemText
-          primary={<Typography className={classes.defaultText} color="primary">{stock.symbol}</Typography>}
+          primary={
+            <Typography className={classes.defaultText} color="primary">
+              {stock.symbol}
+            </Typography>
+          }
           secondary={stock.name}
           secondaryTypographyProps={{
             color: 'textSecondary',
@@ -92,14 +98,18 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
       <TableCell align="center">
         <Valuation value={stock.valuation} />
       </TableCell>
-      <TableCell align="center" >
-        <Typography color="primary" className={classes.defaultText}>{stock.growth}</Typography>
+      <TableCell align="center">
+        <Typography color="primary" className={classes.defaultText}>
+          {stock.growth}
+        </Typography>
       </TableCell>
       <TableCell align="center">
         <Performance value={stock.div} />
       </TableCell>
-      <TableCell align="center" >
-        <Typography color="primary" className={classes.defaultText}>{t(`${stock.industry}`)}</Typography>
+      <TableCell align="center">
+        <Typography color="primary" className={classes.defaultText}>
+          {t(`${stock.industry}`)}
+        </Typography>
       </TableCell>
     </TableRow>
   );
@@ -107,10 +117,12 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
 
 export type DashboardTableProps = {
   stocks: API.Stock[];
+  selectStock: (symbol: string) => void;
 };
 
 const DashboardTable: React.FC<DashboardTableProps> = ({
-  stocks
+  stocks,
+  selectStock,
 }) => {
   const { t } = useTranslation();
 
@@ -135,6 +147,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
           {stocks.map((s) => (
             <DashboardTableRow
               stock={s}
+              selectStock={selectStock}
               key={s.symbol}
             />
           ))}
