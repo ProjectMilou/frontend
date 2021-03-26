@@ -1,9 +1,6 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Card,
-  CardActions,
-  CardActionArea,
   CardContent,
   CardMedia,
   Grid,
@@ -69,14 +66,12 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
   selectStock,
 }) => {
   const [hover, setHover] = React.useState<boolean>(false);
-
-  const { t } = useTranslation();
   const classes = useStyles();
 
   return (
-    <Card className={classes.card} style={{width: 300, height: 400}}>
+    <Card className={classes.card} style={{width: 300, height: 450}}>
         <CardMedia
-          style={{height: 200, placeItems: "center", alignItems: "center"}}
+          style={{height: 200, width: 280, placeItems: "center", alignItems: "center", objectFit: "scale-down", margin: 10}}
           component="img"
           image={stock.picture.toString()}
         />
@@ -107,37 +102,6 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
           </Button>
         </CardContent>
       </Card>
-    // <Card>
-    //   <CardActionArea>
-    //     <CardMedia
-    //       component="img"
-    //       alt="Contemplative Reptile"
-    //       height="140"
-    //       image={stock.picture.toString()}
-    //       title="Contemplative Reptile"
-    //     />
-    //     <CardContent>
-    //       <Typography gutterBottom variant="h5" component="h2">
-    //         {stock.symbol}
-    //       </Typography>
-    //       <Typography variant="body2" color="textSecondary" component="p">
-    //         {stock.name}
-    //       </Typography>
-    //     </CardContent>
-    //   </CardActionArea>
-    //   <CardActions>
-    //     <Button size="small" color="primary"
-    //       onClick={() => {
-    //         selectStock(stock.symbol);
-    //       }}
-    //       onMouseEnter={() => setHover(true)}
-    //       onMouseLeave={() => setHover(false)}
-    //       className={classNames(classes.row, hover && classes.rowHover)}
-    //     >
-    //       Go to details
-    //     </Button>
-    //   </CardActions>
-    // </Card>
   );
 };
 
@@ -149,11 +113,8 @@ export type DashboardCardsProps = {
 const DashboardCards: React.FC<DashboardCardsProps> = ({
   stocks,
   selectStock,
-}) => {
-  const { t } = useTranslation();
-
-  return (
-    <Grid>
+}) => (
+  <Grid>
       <GridList>
         {stocks.map((s) => (
           <DashboardCardsRow
@@ -163,9 +124,8 @@ const DashboardCards: React.FC<DashboardCardsProps> = ({
           />
         ))}
       </GridList>
-        
     </Grid>
-  );
-};
+    )
+  
 
 export default DashboardCards;
