@@ -61,19 +61,5 @@ jobs:
       ################################
       # Run Linter against code base #
       ################################
-      - name: Lint Code Base
-        uses: github/super-linter@v3
-        env:
-          VALIDATE_ALL_CODEBASE: false # Validate only changed code
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          LINTER_RULES_PATH: /
-          # JAVASCRIPT_DEFAULT_STYLE: prettier
-          # JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json
-          TYPESCRIPT_ES_CONFIG_FILE: .eslintrc
-          # EDITORCONFIG_FILE_NAME: .editorconfig
-          VALIDATE_TYPESCRIPT_ES: true
-          #VALIDATE_EDITORCONFIG: true
-          #VALIDATE_HTML: true
-          #VALIDATE_JSON: true
-          #VALIDATE_MARKDOWN: true
+      - name: Run ESLint
+        run: yarn run lint
