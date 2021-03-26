@@ -80,5 +80,13 @@
   "stock.div": "Div Yield",
   "stock.industry": "Industry",
   "stock.country": "Country",
-  "stock.currency": "Currency"
+  "stock.currency": "Currency",
+  "analyser.detail.keyfigure.PER.title": "Price to Earnings Ratio",
+  "analyser.detail.keyfigure.PER.definition": "The P/E ratio relates a company's share price to its earnings per share. A high P/E ratio could mean that a company's stock is over-valued, or else that investors are expecting high growth rates in the future.",
+  "analyser.detail.keyfigure.PBR.title": "Price to Book Ratio",
+  "analyser.detail.keyfigure.PBR.definition": "The P/B ratio measures the market's valuation of a company relative to its book value. P/B ratios under 1 are typically considered solid investments. P/B ratio is used by value investors to identify potential investments.",
+  "analyser.detail.keyfigure.PEGR.title": "Price to Earnings Growth Ratio",
+  "analyser.detail.keyfigure.PEGR.definition": "The PEG ratio enhances the P/E ratio by adding in expected earnings growth into the calculation. The PEG ratio is considered to be an indicator of a stock's true value, and similar to the P/E ratio, a lower PEG may indicate that a stock is undervalued.",
+  "analyser.detail.keyfigure.EPS.title": "Earnings per Share",
+  "analyser.detail.keyfigure.EPS.definition": "EPS indicates how much money a company makes for each share of its stock, and is a widely used metric to estimate corporate value. A higher EPS indicates greater value because investors will pay more for a company's shares if they think the company has higher profits relative to its share price."
 }

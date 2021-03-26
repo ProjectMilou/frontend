@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { InfoOutlined } from '@material-ui/icons';
 import { Checkbox, Toolbar, Typography, Tooltip } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,26 +20,6 @@ export type KeyFigure = {
   definition: string;
   // value?: number;
 };
-
-const KeyFigures: KeyFigure[] = [
-  {
-    title: 'Price to Earnings Ratio',
-    definition:
-      'The ratio for valuing a company that measures its current share price relative to its per-share earnings (EPS).',
-  },
-  {
-    title: 'Price to Book Ratio',
-    definition: 'definition of PBR',
-  },
-  {
-    title: 'Price to Earnings Growth Ratio',
-    definition: 'definition of PEGR',
-  },
-  {
-    title: 'Earnings per Share',
-    definition: 'definition of EPS',
-  },
-];
 
 export const OneKeyFigure: React.FC<KeyFigure> = (oneKeyFigureProp) => {
   const classes = useStyles();
@@ -69,12 +50,27 @@ export const OneKeyFigure: React.FC<KeyFigure> = (oneKeyFigureProp) => {
 
 const KeyFiguresBar: React.FC = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
+
   return (
     <div>
       <Toolbar>
-        {KeyFigures.map((tmp) => (
-          <OneKeyFigure title={tmp.title} definition={tmp.definition} />
-        ))}
+        <OneKeyFigure
+          title={t('analyser.detail.keyfigure.PER.title')}
+          definition={t('analyser.detail.keyfigure.PER.definition')}
+        />
+        <OneKeyFigure
+          title={t('analyser.detail.keyfigure.PBR.title')}
+          definition={t('analyser.detail.keyfigure.PBR.definition')}
+        />
+        <OneKeyFigure
+          title={t('analyser.detail.keyfigure.PEGR.title')}
+          definition={t('analyser.detail.keyfigure.PEGR.definition')}
+        />
+        <OneKeyFigure
+          title={t('analyser.detail.keyfigure.EPS.title')}
+          definition={t('analyser.detail.keyfigure.EPS.definition')}
+        />
       </Toolbar>
     </div>
   );
