@@ -1,4 +1,5 @@
 import React from 'react';
+import KeyFiguresBar from './KeyFiguresBar';
 
 // props type declaration
 export type DetailsProps = {
@@ -7,10 +8,11 @@ export type DetailsProps = {
   symbol: string;
 };
 
-const Details: React.FC<DetailsProps> = ({symbol}) => (
+const Details: React.FC<DetailsProps> = ({ symbol }) => (
   <div>
     details will be here
     <p>{symbol}</p>
+    <KeyFiguresBar />
   </div>
 );
 
