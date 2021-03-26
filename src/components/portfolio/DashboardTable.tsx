@@ -14,7 +14,7 @@ import {
   TableRow,
   Theme,
   Tooltip,
-  Typography,
+  Typography
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/DeleteForever';
 import DuplicateIcon from '@material-ui/icons/AddToPhotos';
@@ -148,6 +148,30 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
   );
 };
 
+export type DashboardTableHeadProps = {
+};
+
+
+export const DashboardTableHead: React.FC<DashboardTableHeadProps> = () => {
+  const { t } = useTranslation();
+
+  return (
+    <TableHead>
+      <TableRow>
+        <TableCell align="center">{t('portfolio.score')}</TableCell>
+        <TableCell align="center">{t('portfolio.name')}</TableCell>
+        <TableCell align="center">
+          {t('portfolio.positionsCount')}
+        </TableCell>
+        <TableCell align="center">{t('portfolio.value')}</TableCell>
+        <TableCell align="center">{t('portfolio.7d')}</TableCell>
+        <TableCell align="center">{t('portfolio.1y')}</TableCell>
+        <TableCell align="center">{t('portfolio.actions')}</TableCell>
+      </TableRow>
+    </TableHead>
+  );
+};
+
 export type DashboardTableProps = {
   portfolios: API.PortfolioOverview[];
   selectPortfolio: (id: string) => void;
@@ -169,19 +193,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">{t('portfolio.score')}</TableCell>
-            <TableCell align="center">{t('portfolio.name')}</TableCell>
-            <TableCell align="center">
-              {t('portfolio.positionsCount')}
-            </TableCell>
-            <TableCell align="center">{t('portfolio.value')}</TableCell>
-            <TableCell align="center">{t('portfolio.7d')}</TableCell>
-            <TableCell align="center">{t('portfolio.1y')}</TableCell>
-            <TableCell align="center">{t('portfolio.actions')}</TableCell>
-          </TableRow>
-        </TableHead>
+        <DashboardTableHead />
         <TableBody>
           {portfolios.map((p) => (
             <DashboardTableRow
