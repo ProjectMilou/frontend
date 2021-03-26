@@ -55,22 +55,13 @@ const Filteroptions: React.FC<FilterOptionsProps> = ({ stocks }) => {
     if (temp.indexOf('') > -1) {
       switch (name) {
         case 'Country':
-          setFilters((prevFilter) => {
-            prevFilter.countries = [];
-            return { ...filters, countries: prevFilter.countries };
-          });
+          setFilters({ ...filters, countries: [] });
           break;
         case 'Industry':
-          setFilters((prevFilter) => {
-            prevFilter.industries = [];
-            return { ...filters, industries: prevFilter.industries };
-          });
+          setFilters({ ...filters, industries: [] });
           break;
         case 'Currency':
-          setFilters((prevFilter) => {
-            prevFilter.currency = [];
-            return { ...filters, currency: prevFilter.currency };
-          });
+          setFilters({ ...filters, currency: [] });
           break;
         default:
           break;
@@ -78,22 +69,13 @@ const Filteroptions: React.FC<FilterOptionsProps> = ({ stocks }) => {
     } else {
       switch (name) {
         case 'Country':
-          setFilters((prevFilter) => {
-            prevFilter.countries = temp;
-            return { ...filters, countries: prevFilter.countries };
-          });
+          setFilters({ ...filters, countries: temp });
           break;
         case 'Industry':
-          setFilters((prevFilter) => {
-            prevFilter.industries = temp;
-            return { ...filters, industries: prevFilter.industries };
-          });
+          setFilters({ ...filters, industries: temp });
           break;
         case 'Currency':
-          setFilters((prevFilter) => {
-            prevFilter.currency = temp;
-            return { ...filters, currency: prevFilter.currency };
-          });
+          setFilters({ ...filters, currency: temp });
           break;
         default:
           break;
