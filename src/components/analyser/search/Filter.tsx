@@ -4,12 +4,12 @@ import {
   ButtonGroup,
   makeStyles,
   Container,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import { FilterList, Delete } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
-import { FilterBar } from './FilterBar'
+import { FilterBar } from './FilterBar';
 
 type Filters = {
   countries: string[];
@@ -22,13 +22,13 @@ const useStyles = makeStyles({
     'background-color': '#EEF1FB',
     minWidth: '50%',
     maxWidth: 'sm',
-    minHeight: "90px"
+    minHeight: '90px',
   },
   buttonGroup: {
-    marginTop: "20px",
-    marginBottom: "20px",
-    marginLeft: "20px"
-  }
+    marginTop: '20px',
+    marginBottom: '20px',
+    marginLeft: '20px',
+  },
 });
 
 function setOriginalFilters(stocks: API.Stock[]) {
@@ -126,7 +126,11 @@ const Filter: React.FC<FilterProps> = ({ stocks }) => {
         handleChange={handleChange}
         name={t('stock.currency')}
       />
-      <ButtonGroup className={classes.buttonGroup} variant="contained" color="primary">
+      <ButtonGroup
+        className={classes.buttonGroup}
+        variant="contained"
+        color="primary"
+      >
         <Button
           type="button"
           onClick={() => sendRequest}
@@ -134,7 +138,7 @@ const Filter: React.FC<FilterProps> = ({ stocks }) => {
         >
           Adapt
         </Button>
-        <Button type="button" onClick={clearFilters} startIcon={<Delete/>}>
+        <Button type="button" onClick={clearFilters} startIcon={<Delete />}>
           <Typography>{t('analyser.filter.clear')}</Typography>
         </Button>
       </ButtonGroup>

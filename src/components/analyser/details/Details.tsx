@@ -7,7 +7,7 @@ export type DetailsProps = {
   symbol: string;
 };
 
-const Details: React.FC<DetailsProps> = ({symbol}) => (
+const Details: React.FC<DetailsProps> = ({ symbol }) => (
   <div>
     details will be here
     <p>{symbol}</p>
