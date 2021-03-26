@@ -13,6 +13,7 @@ import logo from '../../assets/images/logo1.png';
 import NavLink from './NavLink';
 import Login from '../shell/login/Login';
 import Register from '../shell/register/Register';
+import BankSearch from '../shell/bankSearch/BankSearch';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,6 +52,7 @@ const Header: React.FC = () => {
         <NavLink to="/academy">Academy</NavLink>
         <div className={classes.grow} />
 
+        <BankSearch />
         <Button
           className={classes.button}
           variant="outlined"
