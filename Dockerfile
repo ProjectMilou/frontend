@@ -14,5 +14,5 @@ COPY . .
 # Building app
 RUN ["yarn", "build"]
 
-# Running the app
+# Running the app with yarn
 CMD [ "yarn", "serve" ]
