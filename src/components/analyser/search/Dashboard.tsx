@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  LinearProgress,
-  makeStyles,
-  Container,
-} from '@material-ui/core';
+import { LinearProgress, makeStyles, Container } from '@material-ui/core';
 import * as API from '../../../analyser/APIClient';
 import { ErrorCode } from '../../../Errors';
 import ErrorMessage from '../ErrorMessage';
@@ -84,10 +80,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
         )}
         {stocks && (
           <div>
-            <StockListOverview
-              stocks={stocks}
-              selectStock={selectStock}
-            />
+            <StockListOverview stocks={stocks} selectStock={selectStock} />
           </div>
         )}
       </Container>
