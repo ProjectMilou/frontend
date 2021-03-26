@@ -4,6 +4,7 @@ import { makeStyles, Typography } from '@material-ui/core';
 import * as API from '../../../analyser/APIClient';
 import DashboardViewSelect, { DashboardView } from './DashboardViewSelect';
 import DashboardTable from './DashboardTable';
+import DashboardCards from './DashboardCards';
 
 export type StockListOverviewProps = {
   stocks: API.Stock[];
@@ -46,7 +47,13 @@ const StockListOverview: React.FC<StockListOverviewProps> = ({
           />
         ) : (
           // TODO: implement card view
-          <div>cards</div>
+          <div>cards
+            <DashboardCards
+              stocks={stocks}
+              selectStock={selectStock}
+            />  
+          </div>
+          
         ))}
     </>
   );
