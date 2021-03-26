@@ -2,6 +2,9 @@ import React from 'react';
 import {
   Button,
   ButtonGroup,
+  makeStyles,
+  Container,
+  Typography
 } from '@material-ui/core';
 import { FilterList, Delete } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +16,20 @@ type Filters = {
   industries: string[];
   currency: string[];
 };
+
+const useStyles = makeStyles({
+  filterContainer: {
+    'background-color': '#EEF1FB',
+    minWidth: '50%',
+    maxWidth: 'sm',
+    minHeight: "90px"
+  },
+  buttonGroup: {
+    marginTop: "20px",
+    marginBottom: "20px",
+    marginLeft: "20px"
+  }
+});
 
 function setOriginalFilters(stocks: API.Stock[]) {
   const ogFilters: Filters = { countries: [], industries: [], currency: [] };
@@ -33,12 +50,14 @@ function setOriginalFilters(stocks: API.Stock[]) {
   return ogFilters;
 }
 
-export type FilterOptionsProps = {
+export type FilterProps = {
   stocks: API.Stock[];
 };
 
-const Filteroptions: React.FC<FilterOptionsProps> = ({ stocks }) => {
+const Filter: React.FC<FilterProps> = ({ stocks }) => {
   const { t } = useTranslation();
+  const classes = useStyles();
+
   const ogFilters = setOriginalFilters(stocks);
   const emptyFilters: Filters = { countries: [], industries: [], currency: [] };
   const [filters, setFilters] = React.useState<Filters>(emptyFilters);
@@ -88,7 +107,7 @@ const Filteroptions: React.FC<FilterOptionsProps> = ({ stocks }) => {
   };
 
   return (
-    <>
+    <Container className={classes.filterContainer}>
       <FilterBar
         filtersList={filters.countries}
         ogFiltersList={ogFilters.countries}
@@ -107,7 +126,7 @@ const Filteroptions: React.FC<FilterOptionsProps> = ({ stocks }) => {
         handleChange={handleChange}
         name={t('stock.currency')}
       />
-      <ButtonGroup variant="contained" color="primary">
+      <ButtonGroup className={classes.buttonGroup} variant="contained" color="primary">
         <Button
           type="button"
           onClick={() => sendRequest}
@@ -116,11 +135,11 @@ const Filteroptions: React.FC<FilterOptionsProps> = ({ stocks }) => {
           Adapt
         </Button>
         <Button type="button" onClick={clearFilters} startIcon={<Delete/>}>
-          Clear All
+          <Typography>{t('analyser.filter.clear')}</Typography>
         </Button>
       </ButtonGroup>
-    </>
+    </Container>
   );
 };
 
-export default Filteroptions;
+export default Filter;

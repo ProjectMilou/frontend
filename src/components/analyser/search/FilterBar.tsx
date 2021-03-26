@@ -32,8 +32,8 @@ export type FilterBarProps = {
     },
     formControl: {
       margin: theme.spacing(2),
-      minWidth: 200,
-      maxWidth: 300,
+      minWidth: "200px",
+      maxWidth: "200px",
     },
     chips: {
       display: 'flex',
@@ -41,7 +41,7 @@ export type FilterBarProps = {
     },
     chip: {
       margin: 1,
-    },
+    }
   })
 );
 
@@ -54,6 +54,7 @@ const MenuProps = {
       Width: 300,
     },
   },
+  getContentAnchorEl: null
 };
 
 function getStyles(tmp: string, list: string[], theme: Theme) {
