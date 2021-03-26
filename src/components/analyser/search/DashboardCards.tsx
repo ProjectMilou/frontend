@@ -32,28 +32,28 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   card: {
     maxWidth: 300,
-    margin: "auto",
-    transition: "0.3s",
-    boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
-    "&:hover": {
-      boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)"
-    }
+    margin: 'auto',
+    transition: '0.3s',
+    boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
+    '&:hover': {
+      boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
+    },
   },
   media: {
-    paddingTop: "56.25%"
+    paddingTop: '56.25%',
   },
   content: {
-    textAlign: "left",
-    padding: 30
+    textAlign: 'left',
+    padding: 30,
   },
   divider: {
-    margin: `${30}px 0`
+    margin: `${30}px 0`,
   },
   heading: {
-    fontWeight: "bold"
+    fontWeight: 'bold',
   },
   subheading: {
-    lineHeight: 1.8
+    lineHeight: 1.8,
   },
 }));
 
@@ -71,39 +71,48 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
   const { t } = useTranslation();
 
   return (
-    <Card className={classes.card} style={{width: 280, height: 450, margin: 10}}>
-        <CardMedia
-          style={{height: 200, width: 260, placeItems: "center", alignItems: "center", objectFit: "scale-down", margin: 10}}
-          component="img"
-          image={stock.picture.toString()}
-        />
-        <CardContent className={classes.content}>
-          <Typography
-            className="MuiTypography--heading"
-            variant="h6"
-            gutterBottom
-          >
-            {stock.symbol}
-          </Typography>
-          <Typography
-            className="MuiTypography--subheading"
-            variant="caption"
-          >
-            {stock.name}
-          </Typography>
-          <Divider className={classes.divider} light />
-          <Button size="small" color="primary"
-            onClick={() => {
-              selectStock(stock.symbol);
-            }}
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
-            className={classNames(classes.row, hover && classes.rowHover)}
-          >
-            {t('analyser.detail.text')}
-          </Button>
-        </CardContent>
-      </Card>
+    <Card
+      className={classes.card}
+      style={{ width: 280, height: 450, margin: 10 }}
+    >
+      <CardMedia
+        style={{
+          height: 200,
+          width: 260,
+          placeItems: 'center',
+          alignItems: 'center',
+          objectFit: 'scale-down',
+          margin: 10,
+        }}
+        component="img"
+        image={stock.picture.toString()}
+      />
+      <CardContent className={classes.content}>
+        <Typography
+          className="MuiTypography--heading"
+          variant="h6"
+          gutterBottom
+        >
+          {stock.symbol}
+        </Typography>
+        <Typography className="MuiTypography--subheading" variant="caption">
+          {stock.name}
+        </Typography>
+        <Divider className={classes.divider} light />
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => {
+            selectStock(stock.symbol);
+          }}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          className={classNames(classes.row, hover && classes.rowHover)}
+        >
+          {t('analyser.detail.text')}
+        </Button>
+      </CardContent>
+    </Card>
   );
 };
 
@@ -117,17 +126,12 @@ const DashboardCards: React.FC<DashboardCardsProps> = ({
   selectStock,
 }) => (
   <Grid>
-      <GridList>
-        {stocks.map((s) => (
-          <DashboardCardsRow
-            stock={s}
-            selectStock={selectStock}
-            key={s.symbol}
-          />
-        ))}
-      </GridList>
-    </Grid>
-    )
-  
+    <GridList>
+      {stocks.map((s) => (
+        <DashboardCardsRow stock={s} selectStock={selectStock} key={s.symbol} />
+      ))}
+    </GridList>
+  </Grid>
+);
 
 export default DashboardCards;

@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 
 const StockListOverview: React.FC<StockListOverviewProps> = ({
   stocks,
-  selectStock
+  selectStock,
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();
@@ -41,17 +41,9 @@ const StockListOverview: React.FC<StockListOverviewProps> = ({
       )}
       {!!stocks.length &&
         (view === DashboardView.Table ? (
-          <DashboardTable
-            stocks={stocks}
-            selectStock={selectStock}
-          />
+          <DashboardTable stocks={stocks} selectStock={selectStock} />
         ) : (
-          <div>
-            <DashboardCards
-              stocks={stocks}
-              selectStock={selectStock}
-            />  
-          </div>
+          <DashboardCards stocks={stocks} selectStock={selectStock} />
         ))}
     </>
   );
