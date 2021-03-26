@@ -73,9 +73,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
       {stocks && (
         <AppBar position="sticky" className={classes.filter}>
           <Toolbar variant="dense" disableGutters>
-            <Filter
-              stocks={stocks}
-            />
+            <Filter stocks={stocks} />
           </Toolbar>
         </AppBar>
       )}
@@ -87,24 +85,21 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
             handling={
               error.startsWith('AUTH')
                 ? {
-                  buttonText: 'error.action.login',
-                  action: async () => {
-                    // TODO: go back to login
-                  },
-                }
+                    buttonText: 'error.action.login',
+                    action: async () => {
+                      // TODO: go back to login
+                    },
+                  }
                 : {
-                  buttonText: 'error.action.retry',
-                  action: fetch,
-                }
+                    buttonText: 'error.action.retry',
+                    action: fetch,
+                  }
             }
           />
         )}
         {stocks && (
           <div>
-            <StockListOverview
-              stocks={stocks}
-              selectStock={selectStock}
-            />
+            <StockListOverview stocks={stocks} selectStock={selectStock} />
           </div>
         )}
       </Container>
