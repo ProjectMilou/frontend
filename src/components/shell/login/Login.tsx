@@ -10,7 +10,9 @@ import {
   Input,
   InputAdornment,
   IconButton,
-  FormHelperText, DialogActions, DialogContent
+  FormHelperText,
+  DialogActions,
+  DialogContent,
 } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import Divider from '@material-ui/core/Divider';
@@ -54,7 +56,7 @@ const useStyles = makeStyles({
     lineHeight: '1.5',
     margin: '10px auto',
     display: 'block',
-  }
+  },
 });
 
 interface LoginProps {
@@ -150,7 +152,7 @@ const Login: React.FC<LoginProps> = (props) => {
           fullWidth
           helperText={hasError.email}
           style={{ margin: '10px 0' }}
-          inputProps={{ "data-testid": "email" }}
+          inputProps={{ 'data-testid': 'email' }}
         />
         <FormControl
           fullWidth
@@ -163,7 +165,7 @@ const Login: React.FC<LoginProps> = (props) => {
             type={showPassword ? 'text' : 'password'}
             value={login.password}
             onChange={handleChange}
-            inputProps={{ "data-testid": "password" }}
+            inputProps={{ 'data-testid': 'password' }}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -179,10 +181,7 @@ const Login: React.FC<LoginProps> = (props) => {
         </FormControl>
       </DialogContent>
 
-      <button
-        className={button}
-        type="button"
-      >
+      <button className={button} type="button">
         {t('shell.message.forgotPassword')}
       </button>
 

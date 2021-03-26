@@ -10,7 +10,9 @@ import {
   Input,
   InputAdornment,
   IconButton,
-  FormHelperText, DialogContent, DialogActions
+  FormHelperText,
+  DialogContent,
+  DialogActions,
 } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import Divider from '@material-ui/core/Divider';
@@ -132,7 +134,6 @@ const Register: React.FC<RegisterProps> = (props) => {
       !/[^a-zA-Z][^0-9]{1}/.test(login.password) ||
       !(login.password.length > 7)
     ) {
-
       setError({
         ...hasError,
         password: [
@@ -168,7 +169,12 @@ const Register: React.FC<RegisterProps> = (props) => {
 
   return (
     <div className={dialog}>
-      <ClearIcon className={iconClear} color="primary" onClick={closePopUp} tabIndex={0}/>
+      <ClearIcon
+        className={iconClear}
+        color="primary"
+        onClick={closePopUp}
+        tabIndex={0}
+      />
       <img src={logo} alt="milou-logo" className={iconLogo} />
       <DialogContent>
         <TextField
@@ -180,7 +186,7 @@ const Register: React.FC<RegisterProps> = (props) => {
           fullWidth
           helperText={hasError.email}
           style={{ margin: '10px 0' }}
-          inputProps={{ "data-testid": "email" }}
+          inputProps={{ 'data-testid': 'email' }}
         />
         <FormControl
           fullWidth
@@ -193,7 +199,7 @@ const Register: React.FC<RegisterProps> = (props) => {
             type={showPassword.password ? 'text' : 'password'}
             value={login.password}
             onChange={handleChange}
-            inputProps={{ "data-testid": "password" }}
+            inputProps={{ 'data-testid': 'password' }}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -218,13 +224,15 @@ const Register: React.FC<RegisterProps> = (props) => {
           error={hasError.confirmPassword !== ''}
           style={{ margin: '10px 0' }}
         >
-          <InputLabel htmlFor="password">{t('shell.confirmPassword')}</InputLabel>
+          <InputLabel htmlFor="password">
+            {t('shell.confirmPassword')}
+          </InputLabel>
           <Input
             id="confirmPassword"
             type={showPassword.confirmPassword ? 'text' : 'password'}
             value={login.confirmPassword}
             onChange={handleChange}
-            inputProps={{ "data-testid": "confirm-password" }}
+            inputProps={{ 'data-testid': 'confirm-password' }}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -266,7 +274,6 @@ const Register: React.FC<RegisterProps> = (props) => {
           {t('shell.register')}
         </Button>
       </DialogActions>
-
 
       <Divider style={{ margin: '10px 0' }} />
 
