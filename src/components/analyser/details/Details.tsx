@@ -9,6 +9,7 @@ import * as API from '../../../analyser/APIClient';
 import ErrorMessage from '../ErrorMessage';
 import DetailsHeader from './DetailsHeader';
 import KeyFigures from './KeyFigures';
+import DetailsOverview from './DetailsOverview';
 
 // props type declaration
 export type DetailsProps = {
@@ -90,6 +91,13 @@ const Details: React.FC<DetailsProps> = ({token, symbol}) => {
             <DetailsHeader
               details={details}
             />
+            <DetailsOverview
+              positionCount={2}
+              value={2}
+              score={3}
+              perf1y={0.02}
+              perf7d={0.02}
+              />
             <KeyFigures/>
           </div>
         )}
