@@ -18,6 +18,8 @@ import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { useTranslation } from 'react-i18next';
+import { List, ListItem } from '@material-ui/core';
 import { Position } from './DetailsTypes';
 
 const styles = (theme: Theme) =>
@@ -25,12 +27,18 @@ const styles = (theme: Theme) =>
     root: {
       margin: 0,
       padding: theme.spacing(2),
+      display: 'flex',
+      justifyContent: 'space-between',
     },
     closeButton: {
-      position: 'absolute',
-      right: theme.spacing(1),
-      top: theme.spacing(1),
+      position: 'relative',
       color: theme.palette.grey[500],
+    },
+    span: {
+      display: 'flex',
+    },
+    text: {
+      margin: 'auto',
     },
   });
 
@@ -59,6 +67,21 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       height: 'min-content',
     },
+    editButton: {
+      padding: '0.25rem 1rem',
+      backgroundColor: '#3fbcf2',
+      '&:hover': {
+        backgroundColor: '#84d4f7',
+      },
+    },
+    subContainer: {
+      height: '50%',
+      display: 'flex',
+      alignItems: 'center',
+    },
+    ol: {
+      padding: 0,
+    },
   })
 );
 
@@ -81,7 +104,11 @@ const DialogTitle = withStyles(styles)((props: DialogTitleProps) => {
   const { children, classes, onClose, ...other } = props;
   return (
     <MuiDialogTitle disableTypography className={classes.root}>
-      <Typography variant="h6">{children}</Typography>
+      <span className={classes.span}>
+        <Typography variant="h6" className={classes.text}>
+          {children}
+        </Typography>
+      </span>
       {onClose ? (
         <IconButton
           aria-label="close"
@@ -120,6 +147,7 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
   };
 
   const classes = useStyles();
+  const { t } = useTranslation();
 
   // the following tracks the temporary state of the amount for each position that the user enters
   // the amount is formatted as string because the user might enter NaN values
@@ -173,9 +201,13 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
   };
 
   return (
-    <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open dialog
+    <div className={classes.subContainer}>
+      <Button
+        variant="contained"
+        className={classes.editButton}
+        onClick={handleClickOpen}
+      >
+        {t('portfolio.details.editPortfolio')}
       </Button>
       <Dialog
         onClose={handleClose}
@@ -191,63 +223,69 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
           <p>Stock</p>
           <p>Price</p>
           <p>Amount</p>
-          {/* the following map statement represents each position line (formerly "DetailsListEntry.tsx) */}
-          {positions.map((position) => (
-            <div className={classes.listItem}>
-              <p>{position.stock.name}</p>
-              <p>{position.stock.price}</p>
-              <div className={classes.userFields}>
-                <IconButton
-                  aria-label="minus"
-                  onClick={() => decrement(position.stock.isin)}
-                >
-                  <RemoveIcon />
-                </IconButton>
-                {/* the value in the text field below needs to take the amount from tempPos - NOT position - so the sate updates correctly */}
-                {/* TODO add translation for helper text */}
-                <TextField
-                  variant="outlined"
-                  value={tempPos[position.stock.isin]}
-                  error={!pattern.test(tempPos[position.stock.isin])}
-                  helperText={
-                    pattern.test(tempPos[position.stock.isin])
-                      ? ''
-                      : 'Please enter positive number!'
-                  }
-                  onChange={(e) => {
-                    // when a user changes the input field the tempPos state gets updated
-                    setTempPos({
-                      ...tempPos,
-                      [position.stock.isin]: e.target.value,
-                    });
-                  }}
-                  size="small"
-                  margin="dense"
-                  inputProps={{
-                    maxLength: 5,
-                    style: {
-                      textAlign: 'center',
-                      paddingRight: 0,
-                      paddingLeft: '0.2rem',
-                    },
-                  }}
-                  style={{ width: '4rem' }}
-                />
-                <IconButton
-                  aria-label="plus"
-                  onClick={() => increment(position.stock.isin)}
-                >
-                  <AddIcon />
-                </IconButton>
-                <IconButton
-                  aria-label="zero"
-                  onClick={() => setToZero(position.stock.isin)}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </div>
-            </div>
-          ))}
+          <List component="ol" className={classes.ol}>
+            {/* the following map statement represents each position line (formerly "DetailsListEntry.tsx) */}
+            {positions.map((position) => (
+              <ListItem key={position.stock.isin} className={classes.listItem}>
+                <div className={classes.textDiv}>
+                  <p className={classes.text}>{position.stock.name}</p>
+                </div>
+                <div className={classes.textDiv}>
+                  <p className={classes.text}>{position.stock.price}</p>
+                </div>
+                <div className={classes.userFields}>
+                  <IconButton
+                    aria-label="minus"
+                    onClick={() => decrement(position.stock.isin)}
+                  >
+                    <RemoveIcon />
+                  </IconButton>
+                  {/* the value in the text field below needs to take the amount from tempPos - NOT position - so the sate updates correctly */}
+                  {/* TODO add translation for helper text */}
+                  <TextField
+                    variant="outlined"
+                    value={tempPos[position.stock.isin]}
+                    error={!pattern.test(tempPos[position.stock.isin])}
+                    helperText={
+                      pattern.test(tempPos[position.stock.isin])
+                        ? ''
+                        : 'Please enter positive number!'
+                    }
+                    onChange={(e) => {
+                      // when a user changes the input field the tempPos state gets updated
+                      setTempPos({
+                        ...tempPos,
+                        [position.stock.isin]: e.target.value,
+                      });
+                    }}
+                    size="small"
+                    margin="dense"
+                    inputProps={{
+                      maxLength: 5,
+                      style: {
+                        textAlign: 'center',
+                        paddingRight: 0,
+                        paddingLeft: '0.2rem',
+                      },
+                    }}
+                    style={{ width: '4rem' }}
+                  />
+                  <IconButton
+                    aria-label="plus"
+                    onClick={() => increment(position.stock.isin)}
+                  >
+                    <AddIcon />
+                  </IconButton>
+                  <IconButton
+                    aria-label="zero"
+                    onClick={() => setToZero(position.stock.isin)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </div>
+              </ListItem>
+            ))}
+          </List>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
