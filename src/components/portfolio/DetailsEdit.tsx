@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { Button, List, ListItem } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
 import {
   createStyles,
   makeStyles,
@@ -8,6 +6,7 @@ import {
   withStyles,
   WithStyles,
 } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
@@ -15,150 +14,74 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import ListEntry from './DetailsListEntry';
+import TextField from '@material-ui/core/TextField';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { Position } from './DetailsTypes';
 
-// stylesheet for the editButton component
-const useStyles = makeStyles(() =>
-  createStyles({
-    editButton: {
-      padding: '0.25rem 1rem',
-      backgroundColor: '#3fbcf2',
-      '&:hover': {
-        backgroundColor: '#84d4f7',
-      },
-    },
-    subContainer: {
-      height: '50%',
-      display: 'flex',
-      alignItems: 'center',
-    },
-    ol: {
-      padding: 0,
-    },
-  })
-);
-
-// stylesheet for the MaterialUi components
 const styles = (theme: Theme) =>
   createStyles({
     root: {
       margin: 0,
       padding: theme.spacing(2),
-      display: 'flex',
-      justifyContent: 'space-between',
     },
     closeButton: {
-      position: 'relative',
+      position: 'absolute',
+      right: theme.spacing(1),
+      top: theme.spacing(1),
       color: theme.palette.grey[500],
-    },
-    span: {
-      display: 'flex',
-    },
-    text: {
-      margin: 'auto',
     },
   });
 
-// type declarations
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+        width: '25ch',
+      },
+    },
+    listItem: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      width: '100%',
+    },
+    userFields: {
+      display: 'flex',
+    },
+    textDiv: {
+      display: 'flex',
+      width: '100%',
+    },
+    text: {
+      margin: 'auto',
+      width: '100%',
+      height: 'min-content',
+    },
+  })
+);
+
 interface DialogTitleProps extends WithStyles<typeof styles> {
   id: string;
   children: React.ReactNode;
   onClose: () => void;
 }
 
-// type declaration of the edit button props
 type DetailsEditProps = {
-  // list of positions
   positions: Position[];
 };
 
-type ListContainerProps = {
-  positions: Position[];
-  updateFlagViaIsin: (isin: string, bool: boolean) => void;
-};
-
+// needed for tempPos (tracking user input to the amount text fields)
 type IsinToAmount = {
   [key: string]: string;
 };
 
-type FieldsAreOk = {
-  [key: string]: boolean;
-};
-
-// ListContainer is the body inside the Edit-Popup
-// A container that create list items from a list of stocks
-const ListContainer: React.FC<ListContainerProps> = ({
-  positions,
-  updateFlagViaIsin,
-}) => {
-  // the following 4 statements are to keep track of the amount value (string!)
-  // in the input fields as a state in this component
-  const isinToAmount: IsinToAmount = {};
-
-  positions.forEach((p) => {
-    isinToAmount[p.stock.isin] = p.qty.toString();
-  });
-
-  const [tempPos, setTempPos] = useState(isinToAmount);
-
-  const updateAmountViaIsin = (isin: string, amount: string) => {
-    setTempPos({ ...tempPos, [isin]: amount });
-  };
-
-  // callback for the plus and minus button
-  // second parameter decides decrement or increment
-  const upOrDown = (isin: string, goUp: boolean) => {
-    const stringAmount = tempPos[isin];
-    if (Number.isNaN(parseFloat(stringAmount))) {
-      setTempPos({ ...tempPos, [isin]: '0' });
-    } else {
-      const numberAmount = Number.parseFloat(stringAmount);
-      const newStringAmount = goUp
-        ? (numberAmount + 1).toString()
-        : (numberAmount - 1).toString();
-      setTempPos({ ...tempPos, [isin]: newStringAmount });
-    }
-  };
-
-  // callback for the trash can button
-  const setToZero = (isin: string) => {
-    setTempPos({ ...tempPos, [isin]: '0' });
-  };
-
-  const classes = useStyles();
-  return (
-    <div>
-      <List component="ol" className={classes.ol}>
-        {positions.map((p) => (
-          <ListItem key={p.stock.name}>
-            <ListEntry
-              isin={p.stock.isin}
-              name={p.stock.name}
-              amount={tempPos[p.stock.isin]}
-              price={p.stock.price}
-              updateAmountViaIsin={updateAmountViaIsin}
-              updateFlagViaIsin={updateFlagViaIsin}
-              upOrDown={upOrDown}
-              setToZero={setToZero}
-            />
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
-};
-
-// the header component created by MaterialUI
 const DialogTitle = withStyles(styles)((props: DialogTitleProps) => {
-  const { children, classes, onClose } = props;
+  const { children, classes, onClose, ...other } = props;
   return (
     <MuiDialogTitle disableTypography className={classes.root}>
-      <span className={classes.span}>
-        <Typography variant="h6" className={classes.text}>
-          {children}
-        </Typography>
-      </span>
+      <Typography variant="h6">{children}</Typography>
       {onClose ? (
         <IconButton
           aria-label="close"
@@ -172,26 +95,21 @@ const DialogTitle = withStyles(styles)((props: DialogTitleProps) => {
   );
 });
 
-// the body component created by MaterialUI
 const DialogContent = withStyles((theme: Theme) => ({
   root: {
     padding: theme.spacing(2),
   },
 }))(MuiDialogContent);
 
-// the footer component created by MaterialUI
 const DialogActions = withStyles((theme: Theme) => ({
   root: {
-    display: 'flex',
-    justifyContent: 'space-between',
     margin: 0,
     padding: theme.spacing(1),
   },
 }))(MuiDialogActions);
 
-// the dialog component with button logic
-// TODO: change typing
-function CustomizedDialogs(positions: Position[]) {
+const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
+  // TODO delete the open state and handlers if we do not need them
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -201,74 +119,156 @@ function CustomizedDialogs(positions: Position[]) {
     setOpen(false);
   };
 
-  const { t } = useTranslation();
   const classes = useStyles();
 
-  // the following statements are to keep track of a global boolean flag
-  // that is true if submit can be clicked (all input fields ok)
-  // and false if it cannot be clicked
-  const fieldsAreOk: FieldsAreOk = {};
+  // the following tracks the temporary state of the amount for each position that the user enters
+  // the amount is formatted as string because the user might enter NaN values
+  const isinToAmount: IsinToAmount = {};
   positions.forEach((p) => {
-    fieldsAreOk[p.stock.isin] = true;
+    isinToAmount[p.stock.isin] = p.qty.toString();
   });
-  const [validFields, setValidFields] = useState(fieldsAreOk);
-  const updateFlagViaIsin = (isin: string, bool: boolean) => {
-    setValidFields({ ...validFields, [isin]: bool });
+  const [tempPos, setTempPos] = useState(isinToAmount);
+
+  // helper function for minus button
+  const decrement = (isin: string) => {
+    const stringAmount = tempPos[isin];
+    if (Number.isNaN(parseFloat(stringAmount))) {
+      setTempPos({ ...tempPos, [isin]: '0' });
+    } else {
+      const numberAmount = Number.parseFloat(stringAmount);
+      const newStringAmount = (numberAmount - 1).toString();
+      setTempPos({ ...tempPos, [isin]: newStringAmount });
+    }
+  };
+
+  // helper function for plus button
+  const increment = (isin: string) => {
+    const stringAmount = tempPos[isin];
+    if (Number.isNaN(parseFloat(stringAmount))) {
+      setTempPos({ ...tempPos, [isin]: '0' });
+    } else {
+      const numberAmount = Number.parseFloat(stringAmount);
+      const newStringAmount = (numberAmount + 1).toString();
+      setTempPos({ ...tempPos, [isin]: newStringAmount });
+    }
+  };
+
+  // helper function for trash can button
+  const setToZero = (isin: string) => {
+    setTempPos({ ...tempPos, [isin]: '0' });
+  };
+
+  // pattern for testing input fields
+  const pattern = /^(?:[1-9]\d*|0)?(?:\.\d+)?$/;
+
+  const handleSaveChanges = () => {
+    // TODO implement logic for api call and updating the global positions in details
+    // TODO watch out right now empty input is also allowed ("")
+    console.log(tempPos);
+  };
+
+  const handleDiscardChanges = () => {
+    // TODO implement logic for properly closing the dialog.
+    // each time it is rendered from scratch it should take the start values from positions again
   };
 
   return (
     <div>
-      <Button
-        variant="contained"
-        className={classes.editButton}
-        onClick={handleClickOpen}
-      >
-        {t('portfolio.details.editPortfolio')}
+      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+        Open dialog
       </Button>
       <Dialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
-        style={{ minWidth: '40rem' }}
       >
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          {t('portfolio.details.dialogHeader')}
+          Modal title
         </DialogTitle>
         <DialogContent dividers>
-          <ListContainer
-            positions={positions}
-            updateFlagViaIsin={updateFlagViaIsin}
-          />
+          {/* Legend for the positions */}
+          {/* TODO add translation for legend */}
+          <p>Stock</p>
+          <p>Price</p>
+          <p>Amount</p>
+          {/* the following map statement represents each position line (formerly "DetailsListEntry.tsx) */}
+          {positions.map((position) => (
+            <div className={classes.listItem}>
+              <p>{position.stock.name}</p>
+              <p>{position.stock.price}</p>
+              <div className={classes.userFields}>
+                <IconButton
+                  aria-label="minus"
+                  onClick={() => decrement(position.stock.isin)}
+                >
+                  <RemoveIcon />
+                </IconButton>
+                {/* the value in the text field below needs to take the amount from tempPos - NOT position - so the sate updates correctly */}
+                {/* TODO add translation for helper text */}
+                <TextField
+                  variant="outlined"
+                  value={tempPos[position.stock.isin]}
+                  error={!pattern.test(tempPos[position.stock.isin])}
+                  helperText={
+                    pattern.test(tempPos[position.stock.isin])
+                      ? ''
+                      : 'Please enter positive number!'
+                  }
+                  onChange={(e) => {
+                    // when a user changes the input field the tempPos state gets updated
+                    setTempPos({
+                      ...tempPos,
+                      [position.stock.isin]: e.target.value,
+                    });
+                  }}
+                  size="small"
+                  margin="dense"
+                  inputProps={{
+                    maxLength: 5,
+                    style: {
+                      textAlign: 'center',
+                      paddingRight: 0,
+                      paddingLeft: '0.2rem',
+                    },
+                  }}
+                  style={{ width: '4rem' }}
+                />
+                <IconButton
+                  aria-label="plus"
+                  onClick={() => increment(position.stock.isin)}
+                >
+                  <AddIcon />
+                </IconButton>
+                <IconButton
+                  aria-label="zero"
+                  onClick={() => setToZero(position.stock.isin)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </div>
+            </div>
+          ))}
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
-            {t('portfolio.details.discardChanges')}
+            Discard changes
           </Button>
           <Button
             autoFocus
-            onClick={handleClose}
+            onClick={handleSaveChanges}
             color="primary"
-            // checks if all input fields are ok and only then lets you click the button
-            disabled={!Object.values(validFields).reduce((a, b) => a && b)}
+            disabled={
+              !Object.values(tempPos)
+                .map((stringAmount) => pattern.test(stringAmount))
+                .every((v) => v)
+            }
           >
-            {t('portfolio.details.saveChanges')}
+            Save changes
           </Button>
         </DialogActions>
       </Dialog>
     </div>
   );
-}
-
-// returns the edit button and all subcomponents including the dialog window
-const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
-  const classes = useStyles();
-
-  return (
-    <div id="subContainer" className={classes.subContainer}>
-      <div style={{ marginLeft: '3.8rem' }}>{CustomizedDialogs(positions)}</div>
-    </div>
-  );
 };
 
-// exports
 export default DetailsEdit;
