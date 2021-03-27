@@ -8,8 +8,8 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
-import { RouteComponentProps } from '@reach/router';
-import React from 'react';
+import { navigate, RouteComponentProps } from '@reach/router';
+import React, { useEffect, useState } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,7 +32,36 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Profile: React.FC<RouteComponentProps> = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const classes = useStyles();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/');
+      return;
+    }
+
+    fetch('https://api.milou.io/user/profile', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (response.ok) return response.json();
+
+        navigate('/');
+        return undefined;
+      })
+      .then((data) => {
+        if (!data) return;
+        if (data.firstName) setFirstName(data.firstName);
+        if (data.lastName) setLastName(data.lastName);
+      });
+  }, []);
+
   return (
     <div className={classes.root}>
       <Paper square>
@@ -54,7 +83,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
             <Typography className={classes.label}>First Name</Typography>
             <TextField
               variant="outlined"
-              defaultValue="Test"
+              value={firstName}
               size="small"
               fullWidth
             />
@@ -63,7 +92,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
             <Typography className={classes.label}>Last Name</Typography>
             <TextField
               variant="outlined"
-              defaultValue="Milou"
+              value={lastName}
               size="small"
               fullWidth
             />
