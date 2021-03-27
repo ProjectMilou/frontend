@@ -120,7 +120,7 @@ export async function stockOverview(
   token: string,
   symbol: string
 ): Promise<Stock> {
-  const response = (await request(token, 'GET', `${symbol}/details`)) as Stock;
+  const response = (await request(token, 'GET', `${symbol}`)) as Stock;
   return response;
 }
 
@@ -135,6 +135,6 @@ export async function stockDetails(
   token: string,
   symbol: string
 ): Promise<StockDetails> {
-  const response = (await request(token, 'GET', symbol)) as StockDetails;
+  const response = (await request(token, 'GET', `${symbol}/details`)) as StockDetails;
   return response;
 }
