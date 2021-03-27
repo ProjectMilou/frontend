@@ -26,6 +26,9 @@ const useStyles = makeStyles({
   dashboard: {
     margin: '25px auto',
   },
+  mainContent: {
+    margin: '25px auto',
+  }
 });
 
 const Details: React.FC<DetailsProps> = ({token, symbol}) => {
@@ -70,8 +73,9 @@ const Details: React.FC<DetailsProps> = ({token, symbol}) => {
           <LinearProgress color="secondary" />
         </div>
       )}
-      <Container maxWidth="lg" className={classes.dashboard}>
+      
         {error && (
+          <Container maxWidth="lg" className={classes.dashboard}>
           <ErrorMessage
             error={error}
             messageKey="analyser.dashboard.errorMessage"
@@ -89,20 +93,22 @@ const Details: React.FC<DetailsProps> = ({token, symbol}) => {
                   }
             }
           />
+          </Container>
         )}
         {stockOverview && stockDetails && (
           <div>
             <DetailsHeader
               details={stockOverview}
             />
-            <DetailsOverview
-              stockOverview={stockOverview}
-              stockDetails={stockDetails}
-              />
-            <KeyFigures/>
+            <Container className={classes.mainContent}>
+              <DetailsOverview
+                stockOverview={stockOverview}
+                stockDetails={stockDetails}
+                />
+              <KeyFigures/>
+            </Container>
           </div>
         )}
-      </Container>
     </>
   );
         };
