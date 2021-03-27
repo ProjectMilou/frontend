@@ -26,6 +26,9 @@ const useStyles = makeStyles({
   dashboard: {
     margin: '25px auto',
   },
+  mainContent: {
+    margin: '25px auto',
+  }
 });
 
 const Details: React.FC<DetailsProps> = ({token, symbol}) => {
@@ -97,11 +100,13 @@ const Details: React.FC<DetailsProps> = ({token, symbol}) => {
             <DetailsHeader
               details={stockOverview}
             />
-            <DetailsOverview
-              stockOverview={stockOverview}
-              stockDetails={stockDetails}
-              />
-            <KeyFigures/>
+            <Container className={classes.mainContent}>
+              <DetailsOverview
+                stockOverview={stockOverview}
+                stockDetails={stockDetails}
+                />
+              <KeyFigures/>
+            </Container>
           </div>
         )}
     </>
