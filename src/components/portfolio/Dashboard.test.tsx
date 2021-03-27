@@ -1,7 +1,14 @@
-import { render, fireEvent, act, waitFor } from '@testing-library/react';
+import {
+  render,
+  fireEvent,
+  act,
+  waitFor,
+  screen,
+} from '@testing-library/react';
 import * as React from 'react';
 import * as API from '../../portfolio/APIClient';
 import Dashboard, { DashboardProps } from './Dashboard';
+import { MockOverview, MockOverviewTwo } from '../../portfolio/APIMocks';
 
 jest.mock('../../portfolio/APIClient');
 const mockAPI = API as jest.Mocked<typeof API>;
@@ -22,9 +29,7 @@ describe('Dashboard', () => {
 
   test('shows loading indicator', async () => {
     // keep loading forever
-    mockAPI.portfolioOverview.mockImplementation(
-      async () => new Promise(() => {})
-    );
+    mockAPI.list.mockImplementation(async () => new Promise(() => {}));
     const { container, queryByText } = renderComponent();
 
     // only the loading indeicator should be visible
@@ -34,9 +39,9 @@ describe('Dashboard', () => {
   });
 
   test('shows portfolios', async () => {
-    const mockPortfolioOverview = mockAPI.portfolioOverview.mockResolvedValue([
-      API.MockOverview,
-      API.MockOverviewTwo,
+    const mockPortfolioOverview = mockAPI.list.mockResolvedValue([
+      MockOverview,
+      MockOverviewTwo,
     ]);
     const { container, queryByText } = renderComponent();
     await act(async () => {
@@ -49,13 +54,13 @@ describe('Dashboard', () => {
     // the portfolio overview should be visible
     expect(queryByText('portfolio.dashboard.title')).toBeInTheDocument();
     expect(container.querySelector('.MuiLinearProgress-bar')).toBeNull();
-    expect(queryByText(API.MockOverview.name)).toBeInTheDocument();
-    expect(queryByText(API.MockOverviewTwo.name)).toBeInTheDocument();
+    expect(queryByText(MockOverview.name)).toBeInTheDocument();
+    expect(queryByText(MockOverviewTwo.name)).toBeInTheDocument();
     expect(queryByText('portfolio.dashboard.createPortfolio')).not.toBeNull();
   });
 
   test('shows error message and loads portfolios again on retry', async () => {
-    let mockPortfolioOverview = mockAPI.portfolioOverview.mockRejectedValue(
+    let mockPortfolioOverview = mockAPI.list.mockRejectedValue(
       new Error('UNKNOWN')
     );
     const { container, queryByText, getByText } = renderComponent();
@@ -73,9 +78,9 @@ describe('Dashboard', () => {
     expect(queryByText('error.message.UNKNOWN')).toBeInTheDocument();
 
     // click retry
-    mockPortfolioOverview = mockAPI.portfolioOverview.mockResolvedValue([
-      API.MockOverview,
-      API.MockOverviewTwo,
+    mockPortfolioOverview = mockAPI.list.mockResolvedValue([
+      MockOverview,
+      MockOverviewTwo,
     ]);
     fireEvent.click(getByText('error.action.retry'));
     await act(async () => {
@@ -89,8 +94,52 @@ describe('Dashboard', () => {
     expect(queryByText('error.message.UNKNOWN')).toBeNull();
     expect(queryByText('portfolio.dashboard.title')).toBeInTheDocument();
     expect(container.querySelector('.MuiLinearProgress-bar')).toBeNull();
-    expect(queryByText(API.MockOverview.name)).toBeInTheDocument();
-    expect(queryByText(API.MockOverviewTwo.name)).toBeInTheDocument();
+    expect(queryByText(MockOverview.name)).toBeInTheDocument();
+    expect(queryByText(MockOverviewTwo.name)).toBeInTheDocument();
     expect(queryByText('portfolio.dashboard.createPortfolio')).not.toBeNull();
+  });
+
+  test('rename popup renames the portfolio', async () => {
+    const mockPortfolioOverview = mockAPI.list.mockResolvedValue([
+      MockOverview,
+      MockOverviewTwo,
+    ]);
+    mockAPI.rename.mockResolvedValue();
+    const { container } = renderComponent();
+    await act(async () => {
+      // wait until the component is rendered
+      await waitFor(() => {
+        expect(mockPortfolioOverview).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    // no popup visible yet
+    expect(screen.queryByText('portfolio.dialog.rename.title')).toBeNull();
+
+    // popup opens on click and shows the correct name
+    fireEvent.click(container.querySelectorAll('button svg')[2]);
+    expect(
+      screen.queryByText('portfolio.dialog.rename.title')
+    ).toBeInTheDocument();
+    expect(document.querySelector('input')).toHaveValue(MockOverview.name);
+
+    // rename the portfolio and close the popup
+    fireEvent.change(document.querySelector('input')!, {
+      target: { value: 'new name' },
+    });
+    fireEvent.click(screen.getByText('portfolio.rename'));
+    await waitFor(() => {
+      expect(screen.queryByText('portfolio.dialog.rename.title')).toBeNull();
+    });
+    expect(screen.queryByText(MockOverview.name)).toBeNull();
+    expect(screen.queryByText('new name')).toBeInTheDocument();
+
+    // popup shows the correct name for a different portfolio
+    // popup opens on click and shows the correct name
+    fireEvent.click(container.querySelectorAll('button svg')[5]);
+    expect(
+      screen.queryByText('portfolio.dialog.rename.title')
+    ).toBeInTheDocument();
+    expect(document.querySelector('input')).toHaveValue(MockOverviewTwo.name);
   });
 });

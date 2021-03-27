@@ -1,7 +1,7 @@
 import { render, fireEvent } from '@testing-library/react';
 import * as React from 'react';
 import PortfolioOverview, { PortfolioOverviewProps } from './PortfolioOverview';
-import { MockOverview, MockOverviewTwo } from '../../portfolio/APIClient';
+import { MockOverview, MockOverviewTwo } from '../../portfolio/APIMocks';
 
 jest.mock('./DashboardTable', () => () => <table />);
 
