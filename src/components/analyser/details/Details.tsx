@@ -8,6 +8,7 @@ import { ErrorCode } from '../../../Errors';
 import * as API from '../../../analyser/APIClient';
 import ErrorMessage from '../ErrorMessage';
 import DetailsHeader from './DetailsHeader';
+import KeyFigures from './KeyFigures';
 
 // props type declaration
 export type DetailsProps = {
@@ -89,12 +90,12 @@ const Details: React.FC<DetailsProps> = ({token, symbol}) => {
             <DetailsHeader
               details={details}
             />
+            <KeyFigures/>
           </div>
         )}
       </Container>
     </>
   );
         };
-
 
 export default Details;
