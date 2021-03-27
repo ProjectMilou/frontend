@@ -67,6 +67,7 @@
   "analyser.dashboard.view.table": "Table view",
   "analyser.dashboard.view.cards": "Cards view",
   "analyser.filter.title": "Filter Options",
+  "analyser.filter.clear": "Clear filters",
   "analyser.dashboard.noStocks": "We can't show you any stoks right now :(",
   "analyser.detail.text": "Go to details",
   "stock.symbol": "Symbol",
