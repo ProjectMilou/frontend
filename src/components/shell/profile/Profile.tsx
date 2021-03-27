@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const Profile: React.FC<RouteComponentProps> = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
   const classes = useStyles();
 
   useEffect(() => {
@@ -57,6 +58,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
       })
       .then((data) => {
         if (!data) return;
+        if (data.user && data.user.id) setEmail(data.user.id);
         if (data.firstName) setFirstName(data.firstName);
         if (data.lastName) setLastName(data.lastName);
       });
@@ -73,7 +75,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
             <Typography className={classes.label}>Email</Typography>
             <TextField
               variant="outlined"
-              defaultValue="test@getmilou.de"
+              value={email}
               disabled
               size="small"
               fullWidth
@@ -84,6 +86,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
             <TextField
               variant="outlined"
               value={firstName}
+              onChange={e => setFirstName(e.target.value)}
               size="small"
               fullWidth
             />
@@ -93,6 +96,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
             <TextField
               variant="outlined"
               value={lastName}
+              onChange={e => setLastName(e.target.value)}
               size="small"
               fullWidth
             />
