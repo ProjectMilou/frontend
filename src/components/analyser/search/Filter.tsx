@@ -1,66 +1,15 @@
-/* eslint-disable no-param-reassign */
 import React from 'react';
 import {
-  createStyles,
-  makeStyles,
-  Theme,
-  useTheme,
-} from '@material-ui/core/styles';
-import {
-  Input,
-  InputLabel,
-  MenuItem,
-  FormControl,
-  ListItemText,
-  Select,
-  Checkbox,
-  Chip,
   Button,
   ButtonGroup,
+  makeStyles,
+  Container,
+  Typography,
 } from '@material-ui/core';
 import { FilterList, Delete } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    typography: {
-      color: '#0D1B3B',
-    },
-    formControl: {
-      margin: theme.spacing(2),
-      minWidth: 200,
-      maxWidth: 300,
-    },
-    chips: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    chip: {
-      margin: 1,
-    },
-  })
-);
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      Width: 300,
-    },
-  },
-};
-
-function getStyles(tmp: string, list: string[], theme: Theme) {
-  return {
-    fontWeight:
-      list.indexOf(tmp) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
+import { FilterBar } from './FilterBar';
 
 type Filters = {
   countries: string[];
@@ -68,68 +17,19 @@ type Filters = {
   currency: string[];
 };
 
-export type FilterBarProps = {
-  filtersList: string[];
-  ogFiltersList: string[];
-  handleChange: (
-    event: React.ChangeEvent<{ name?: string | undefined; value: unknown }>
-  ) => void;
-  name: string;
-};
-export const FilterBar: React.FC<FilterBarProps> = ({
-  filtersList,
-  ogFiltersList,
-  handleChange,
-  name,
-}) => {
-  const classes = useStyles();
-  const theme = useTheme();
-
-  return (
-    <FormControl className={classes.formControl}>
-      <InputLabel id="id-label">{name}</InputLabel>
-      <Select
-        name={name}
-        multiple
-        value={filtersList}
-        onChange={handleChange}
-        input={<Input id="select-multiple-chip" />}
-        renderValue={(selected) => (
-          <div className={classes.chips}>
-            {(selected as string[]).map((value) => (
-              <Chip
-                key={value}
-                label={value}
-                variant="outlined"
-                color="primary"
-                size="small"
-                className={classes.chip}
-              />
-            ))}
-          </div>
-        )}
-        MenuProps={MenuProps}
-      >
-        <MenuItem disabled value="">
-          <em>{name}</em>
-        </MenuItem>
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        {ogFiltersList.map((tmp) => (
-          <MenuItem
-            key={tmp}
-            value={tmp}
-            style={getStyles(tmp, filtersList, theme)}
-          >
-            <Checkbox color="primary" checked={filtersList.indexOf(tmp) > -1} />
-            <ListItemText primary={tmp} />
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-  );
-};
+const useStyles = makeStyles({
+  filterContainer: {
+    'background-color': '#EEF1FB',
+    minWidth: '50%',
+    maxWidth: 'sm',
+    minHeight: '90px',
+  },
+  buttonGroup: {
+    marginTop: '20px',
+    marginBottom: '20px',
+    marginLeft: '20px',
+  },
+});
 
 function setOriginalFilters(stocks: API.Stock[]) {
   const ogFilters: Filters = { countries: [], industries: [], currency: [] };
@@ -150,23 +50,20 @@ function setOriginalFilters(stocks: API.Stock[]) {
   return ogFilters;
 }
 
-export type FilterOptionsProps = {
+export type FilterProps = {
   stocks: API.Stock[];
 };
 
-const Filteroptions: React.FC<FilterOptionsProps> = ({ stocks }) => {
+const Filter: React.FC<FilterProps> = ({ stocks }) => {
   const { t } = useTranslation();
+  const classes = useStyles();
+
   const ogFilters = setOriginalFilters(stocks);
   const emptyFilters: Filters = { countries: [], industries: [], currency: [] };
   const [filters, setFilters] = React.useState<Filters>(emptyFilters);
 
   const clearFilters = () => {
-    setFilters((prevFilters) => {
-      prevFilters.countries = [];
-      prevFilters.industries = [];
-      prevFilters.currency = [];
-      return { ...prevFilters };
-    });
+    setFilters({ countries: [], industries: [], currency: [] });
   };
 
   const handleChange = (
@@ -177,22 +74,13 @@ const Filteroptions: React.FC<FilterOptionsProps> = ({ stocks }) => {
     if (temp.indexOf('') > -1) {
       switch (name) {
         case 'Country':
-          setFilters((prevFilter) => {
-            prevFilter.countries = [];
-            return { ...filters, countries: prevFilter.countries };
-          });
+          setFilters({ ...filters, countries: [] });
           break;
         case 'Industry':
-          setFilters((prevFilter) => {
-            prevFilter.industries = [];
-            return { ...filters, industries: prevFilter.industries };
-          });
+          setFilters({ ...filters, industries: [] });
           break;
         case 'Currency':
-          setFilters((prevFilter) => {
-            prevFilter.currency = [];
-            return { ...filters, currency: prevFilter.currency };
-          });
+          setFilters({ ...filters, currency: [] });
           break;
         default:
           break;
@@ -200,22 +88,13 @@ const Filteroptions: React.FC<FilterOptionsProps> = ({ stocks }) => {
     } else {
       switch (name) {
         case 'Country':
-          setFilters((prevFilter) => {
-            prevFilter.countries = temp;
-            return { ...filters, countries: prevFilter.countries };
-          });
+          setFilters({ ...filters, countries: temp });
           break;
         case 'Industry':
-          setFilters((prevFilter) => {
-            prevFilter.industries = temp;
-            return { ...filters, industries: prevFilter.industries };
-          });
+          setFilters({ ...filters, industries: temp });
           break;
         case 'Currency':
-          setFilters((prevFilter) => {
-            prevFilter.currency = temp;
-            return { ...filters, currency: prevFilter.currency };
-          });
+          setFilters({ ...filters, currency: temp });
           break;
         default:
           break;
@@ -228,7 +107,7 @@ const Filteroptions: React.FC<FilterOptionsProps> = ({ stocks }) => {
   };
 
   return (
-    <>
+    <Container className={classes.filterContainer}>
       <FilterBar
         filtersList={filters.countries}
         ogFiltersList={ogFilters.countries}
@@ -247,7 +126,11 @@ const Filteroptions: React.FC<FilterOptionsProps> = ({ stocks }) => {
         handleChange={handleChange}
         name={t('stock.currency')}
       />
-      <ButtonGroup variant="contained" color="primary">
+      <ButtonGroup
+        className={classes.buttonGroup}
+        variant="contained"
+        color="primary"
+      >
         <Button
           type="button"
           onClick={() => sendRequest}
@@ -256,11 +139,11 @@ const Filteroptions: React.FC<FilterOptionsProps> = ({ stocks }) => {
           Adapt
         </Button>
         <Button type="button" onClick={clearFilters} startIcon={<Delete />}>
-          Clear All
+          <Typography>{t('analyser.filter.clear')}</Typography>
         </Button>
       </ButtonGroup>
-    </>
+    </Container>
   );
 };
 
-export default Filteroptions;
+export default Filter;
