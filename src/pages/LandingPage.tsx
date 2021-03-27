@@ -85,7 +85,7 @@ const styles = {
 };
 
 const LandingPage: React.FC<RouteComponentProps> = () => (
-  <Container disableGutters>
+  <Box>
     <Card />
     <Divider />
     <Box m={4}>
@@ -188,7 +188,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => (
       </Grid>
     </Box>
 
-    <Box maxWidth="xl" bgcolor="#0c1a3a" color="white" px={8} py={2}>
+    <Box bgcolor="#0c1a3a" color="white" px={8} py={2}>
       <Grid container direction="column" spacing={2}>
         <Grid item>
           <Typography variant="h3">Did you know...</Typography>
@@ -232,7 +232,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => (
       </Grid>
     </Box>
 
-    <Box p={8} mx={0}>
+    <Box py={8}>
       <Grid container direction="row" spacing={4}>
         <Grid item>
           <Media image={img2} style={styles.media2} />
@@ -300,7 +300,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => (
         </Grid>
       </Grid>
 
-      <Box bgcolor="#0c1a3a" color="white" my={12} p={8}>
+      <Box bgcolor="#0c1a3a" color="white" my={12} py={8}>
         <Grid container>
           <Grid item xs container direction="column" alignItems="center">
             <Typography variant="h3">Our supporters</Typography>
@@ -360,7 +360,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => (
         </Grid>
       </Box>
     </Box>
-  </Container>
+  </Box>
 );
 
 export default LandingPage;
