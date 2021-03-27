@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
         margin: '25px auto',
         minWidth: '50%',
-        maxWidth: '1000px',
       },
   })
 );
