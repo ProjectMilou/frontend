@@ -17,18 +17,18 @@ const useStyles = makeStyles({
   },
 });
 
-const getSearchResultData = (search: string) => {
-  if (search === '') return [];
-  return search.split('').map((x) => search + x);
-};
-
 const BankSearch: React.FC = () => {
   const theme = useTheme();
   const style = useStyles(theme);
   const [searchResultData, setSearchResultData] = useState<string[]>([]);
 
   const handleSearch = (search: string) => {
-    setSearchResultData(getSearchResultData(search));
+    let currentSearchResultData: string[];
+
+    if (search === '') currentSearchResultData = [];
+    else currentSearchResultData = search.split('').map((x) => search + x);
+
+    setSearchResultData(currentSearchResultData);
   };
 
   return (
