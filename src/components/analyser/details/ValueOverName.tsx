@@ -1,8 +1,8 @@
 import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core';
+import { makeStyles, createStyles } from '@material-ui/core';
 
 // stylesheet for the valueOverName component
-const useStyles = makeStyles(({ palette }: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     compContainer: {
       display: 'flex',
@@ -13,19 +13,13 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       display: 'flex',
       justifyContent: 'center',
     },
-    name: {
+    p: {
       margin: 0,
       alignSelf: 'center',
-      color: palette.primary.dark,
+      // TODO: use theme color
+      color: '#000',
       // TODO: use theme weight and size?
-      fontSize: '0.8rem',
-      fontWeight: 600,
-    },
-    value: {
-      margin: 0,
-      alignSelf: 'center',
-      // TODO: use theme weight and size?
-      fontSize: '1.2rem',
+      fontSize: '1rem',
       fontWeight: 600,
     },
   })
@@ -36,6 +30,7 @@ type ValueOverNameProps = {
   value: string;
   name: string;
   valueColor: string;
+  textColor: string;
 };
 
 // this is a small component that displays a value above the name of the value
@@ -43,18 +38,21 @@ const ValueOverName: React.FC<ValueOverNameProps> = ({
   value,
   name,
   valueColor,
+  textColor,
 }) => {
   const classes = useStyles(valueColor);
 
   return (
     <div className={classes.compContainer}>
       <div className={classes.pWrapper}>
-        <p className={classes.value} style={{ color: valueColor }}>
+        <p className={classes.p} style={{ color: valueColor }}>
           {value}
         </p>
       </div>
       <div className={classes.pWrapper}>
-        <p className={classes.name}>{name}</p>
+        <p className={classes.p} style={{ color: textColor }}>
+          {name}
+        </p>
       </div>
     </div>
   );

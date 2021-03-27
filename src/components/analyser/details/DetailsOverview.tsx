@@ -1,5 +1,13 @@
 import React from 'react';
-import { useTheme, makeStyles, createStyles, Theme, Card, CardMedia, Typography } from '@material-ui/core';
+import {
+  useTheme,
+  makeStyles,
+  createStyles,
+  Theme,
+  Card,
+  CardMedia,
+  Typography,
+} from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import SummaryValueOverName from './SummaryValueOverName';
 import { Stock, StockDetails } from '../../../analyser/APIClient';
@@ -72,22 +80,22 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       alignItems: 'center',
       margin: 'auto',
       maxWidth: '90%',
-      maxHeight: '90%'
+      maxHeight: '90%',
     },
     lineChartWrapper: {
       width: '40rem',
       height: '20rem',
       flexBasis: '60%',
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
       // border: '2px dashed #f69c55',
     },
     intro: {
       textAlign: 'left',
       fontSize: '24px',
-      marginTop: '10px'
-    }
+      marginTop: '10px',
+    },
   })
 );
 
@@ -118,7 +126,6 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
     return `${(Math.round(num * 1000) / 10).toString()}%`;
   }
 
-
   return (
     <div>
       <div className={classes.titleContainer}>
@@ -144,7 +151,7 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
               valueColor={theme.palette.primary.light}
             />
           </div>
-          
+
           {/* devider 2 */}
           <hr className={classes.vl} />
           {/* box section 3 */}
@@ -159,7 +166,7 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
               valueColor={theme.palette.primary.light}
             />
           </div>
-          
+
           {/* devider 2 */}
           <hr className={classes.vl} />
           {/* box section 3 */}
@@ -173,9 +180,8 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
               name={t('stock.industry')}
               valueColor={theme.palette.primary.light}
             />
-            
           </div>
-          
+
           {/* devider 2 */}
           <hr className={classes.vl} />
           {/* box section 3 */}
@@ -183,26 +189,38 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
             className={classes.infoValueWrapper}
             style={{ flexBasis: '55%' }}
           >
-          {/* dividend */}
-          <SummaryValueOverName
-            value={convertToPercent(stockOverview.div)}
-            name={t('stock.div')}
-            valueColor={convertPerformanceToColor(stockOverview.div)}
-          />
+            {/* dividend */}
+            <SummaryValueOverName
+              value={convertToPercent(stockOverview.div)}
+              name={t('stock.div')}
+              valueColor={convertPerformanceToColor(stockOverview.div)}
+            />
           </div>
         </div>
       </div>
       {/* Picture and description of company */}
       <div className={classes.chartContainer}>
         <div className={classes.imageWrapper}>
-          <img className={classes.imageContainer} alt="Company Pictrue" src={stockOverview.picture.toString()}/>
+          <img
+            className={classes.imageContainer}
+            alt="Company Pictrue"
+            src={stockOverview.picture.toString()}
+          />
         </div>
         <div className={classes.lineChartWrapper}>
           {/* Nier format */}
-          <Typography className={classes.intro}>{stockDetails.intro}</Typography>
-          <Typography className={classes.intro}>{t('stock.founded')}: {stockDetails.founded}</Typography>
-          <Typography className={classes.intro}>{t('stock.fullTimeEmployees')}: {stockDetails.fullTimeEmployees}</Typography>
-          <Typography className={classes.intro}>{t('stock.address')}: {stockDetails.address}</Typography>
+          <Typography className={classes.intro}>
+            {stockDetails.intro}
+          </Typography>
+          <Typography className={classes.intro}>
+            {t('stock.founded')}: {stockDetails.founded}
+          </Typography>
+          <Typography className={classes.intro}>
+            {t('stock.fullTimeEmployees')}: {stockDetails.fullTimeEmployees}
+          </Typography>
+          <Typography className={classes.intro}>
+            {t('stock.address')}: {stockDetails.address}
+          </Typography>
         </div>
       </div>
     </div>

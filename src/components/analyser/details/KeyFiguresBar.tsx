@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { Toolbar} from '@material-ui/core';
+import { Toolbar } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { OneKeyFigure } from './OneKeyFigure';
 
@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-
 
 const KeyFiguresBar: React.FC = () => {
   const classes = useStyles();

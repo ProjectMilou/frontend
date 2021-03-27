@@ -25,8 +25,6 @@ const useStyles = makeStyles({
   },
 });
 
-
-
 const SectionCard = () => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
@@ -34,7 +32,11 @@ const SectionCard = () => {
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
+        <Typography
+          className={classes.title}
+          color="textSecondary"
+          gutterBottom
+        >
           Word of the Day
         </Typography>
         <Typography variant="h5" component="h2">
@@ -45,8 +47,7 @@ const SectionCard = () => {
         </Typography>
         <Typography variant="body2" component="p">
           well meaning and kindly.
-          <br />
-          a benevolent smile
+          <br />a benevolent smile
         </Typography>
       </CardContent>
       <CardActions>
@@ -54,6 +55,6 @@ const SectionCard = () => {
       </CardActions>
     </Card>
   );
-}
+};
 
 export default SectionCard;

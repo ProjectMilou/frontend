@@ -13,9 +13,9 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: 500,
     },
     root: {
-        margin: '25px auto',
-        minWidth: '50%',
-      },
+      margin: '25px auto',
+      minWidth: '50%',
+    },
   })
 );
 
@@ -25,14 +25,13 @@ export type KeyFigure = {
   // value?: number;
 };
 
-
 const KeyFigures: React.FC = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
   return (
     <Card className={classes.root}>
-        <KeyFiguresBar/>
+      <KeyFiguresBar />
     </Card>
   );
 };

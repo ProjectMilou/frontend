@@ -1,15 +1,12 @@
 import React from 'react';
-import {
-  LinearProgress,
-  makeStyles,
-  Container,
-} from '@material-ui/core';
+import { LinearProgress, makeStyles, Container } from '@material-ui/core';
 import { ErrorCode } from '../../../Errors';
 import * as API from '../../../analyser/APIClient';
 import ErrorMessage from '../ErrorMessage';
 import DetailsHeader from './DetailsHeader';
 import KeyFigures from './KeyFigures';
 import DetailsOverview from './DetailsOverview';
+import StockChart from './StockChart';
 
 // props type declaration
 export type DetailsProps = {
@@ -27,21 +24,21 @@ const useStyles = makeStyles({
   },
   mainContent: {
     margin: '25px auto',
-  }
+  },
 });
 
-const Details: React.FC<DetailsProps> = ({token, symbol}) => {
+const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
   const [stockOverview, setStockOverview] = React.useState<API.Stock>();
   const [stockDetails, setStockDetails] = React.useState<API.StockDetails>();
   const [error, setError] = React.useState<ErrorCode | undefined>();
 
-  const isMounted = React.useRef(true); 
+  const isMounted = React.useRef(true);
   const fetch = async () => {
     setError(undefined);
     try {
       const sO = await API.stockOverview(token, symbol);
-      const sD = await API.stockDetails(token, symbol)
-      
+      const sD = await API.stockDetails(token, symbol);
+
       if (isMounted.current) {
         setStockOverview(sO);
         setStockDetails(sD);
@@ -66,15 +63,15 @@ const Details: React.FC<DetailsProps> = ({token, symbol}) => {
 
   return (
     <>
-      
-      {!stockOverview || !stockDetails && !error && (
-        <div>
-          <LinearProgress color="secondary" />
-        </div>
-      )}
-      
-        {error && (
-          <Container maxWidth="lg" className={classes.mainContent}>
+      {!stockOverview ||
+        (!stockDetails && !error && (
+          <div>
+            <LinearProgress color="secondary" />
+          </div>
+        ))}
+
+      {error && (
+        <Container maxWidth="lg" className={classes.mainContent}>
           <ErrorMessage
             error={error}
             messageKey="analyser.dashboard.errorMessage"
@@ -92,24 +89,23 @@ const Details: React.FC<DetailsProps> = ({token, symbol}) => {
                   }
             }
           />
-          </Container>
-        )}
-        {stockOverview && stockDetails && (
-          <div>
-            <DetailsHeader
-              details={stockOverview}
+        </Container>
+      )}
+      {stockOverview && stockDetails && (
+        <div>
+          <DetailsHeader details={stockOverview} />
+          <Container className={classes.mainContent}>
+            <DetailsOverview
+              stockOverview={stockOverview}
+              stockDetails={stockDetails}
             />
-            <Container className={classes.mainContent}>
-              <DetailsOverview
-                stockOverview={stockOverview}
-                stockDetails={stockDetails}
-                />
-              <KeyFigures/>
-            </Container>
-          </div>
-        )}
+            <StockChart />
+            <KeyFigures />
+          </Container>
+        </div>
+      )}
     </>
   );
-        };
+};
 
 export default Details;

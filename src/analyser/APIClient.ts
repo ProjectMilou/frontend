@@ -123,7 +123,6 @@ export async function stockOverview(
   return response;
 }
 
-
 /**
  * Gets a details over a single stock with an authenticated user.
  *
@@ -134,6 +133,10 @@ export async function stockDetails(
   token: string,
   symbol: string
 ): Promise<StockDetails> {
-  const response = (await request(token, 'GET', `${symbol}/details`)) as StockDetails;
+  const response = (await request(
+    token,
+    'GET',
+    `${symbol}/details`
+  )) as StockDetails;
   return response;
 }
