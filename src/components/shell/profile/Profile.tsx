@@ -32,10 +32,21 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Profile: React.FC<RouteComponentProps> = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
+  const [user, setUser] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+  });
   const classes = useStyles();
+
+  function handleData(data: any) {
+    if (!data) return;
+    setUser({
+      firstName: data.firstName || '',
+      lastName: data.lastName || '',
+      email: (data.user && data.user.id) || '',
+    });
+  }
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -56,13 +67,34 @@ const Profile: React.FC<RouteComponentProps> = () => {
         navigate('/');
         return undefined;
       })
-      .then((data) => {
-        if (!data) return;
-        if (data.user && data.user.id) setEmail(data.user.id);
-        if (data.firstName) setFirstName(data.firstName);
-        if (data.lastName) setLastName(data.lastName);
-      });
+      .then(handleData);
   }, []);
+
+  const onEdit = () => {
+    const token = localStorage.getItem('token');
+    fetch('https://api.milou.io/user/edit', {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        firstName: user.firstName,
+        lastName: user.lastName,
+      }),
+    })
+      .then((r) => r.json())
+      .then(handleData);
+  };
+
+  const onDelete = () => {
+    const token = localStorage.getItem('token');
+    fetch('https://api.milou.io/user/profile', {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((r) => navigate('/'));
+  };
 
   return (
     <div className={classes.root}>
@@ -75,7 +107,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
             <Typography className={classes.label}>Email</Typography>
             <TextField
               variant="outlined"
-              value={email}
+              value={user.email}
               disabled
               size="small"
               fullWidth
@@ -85,8 +117,8 @@ const Profile: React.FC<RouteComponentProps> = () => {
             <Typography className={classes.label}>First Name</Typography>
             <TextField
               variant="outlined"
-              value={firstName}
-              onChange={e => setFirstName(e.target.value)}
+              value={user.firstName}
+              onChange={(e) => setUser({ ...user, firstName: e.target.value })}
               size="small"
               fullWidth
             />
@@ -95,17 +127,17 @@ const Profile: React.FC<RouteComponentProps> = () => {
             <Typography className={classes.label}>Last Name</Typography>
             <TextField
               variant="outlined"
-              value={lastName}
-              onChange={e => setLastName(e.target.value)}
+              value={user.lastName}
+              onChange={(e) => setUser({ ...user, lastName: e.target.value })}
               size="small"
               fullWidth
             />
             <br />
             <br />
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={onEdit}>
               Update Details
             </Button>{' '}
-            <Button variant="outlined" color="primary">
+            <Button variant="outlined" color="primary" onClick={onDelete}>
               Delete Account
             </Button>
           </div>
