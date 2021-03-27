@@ -17,7 +17,7 @@ const useStyles = makeStyles(() =>
       margin: 0,
       alignSelf: 'center',
       // TODO: use theme color
-      color: '#EEF1FB',
+      color: '#000',
       // TODO: use theme weight and size?
       fontSize: '1rem',
       fontWeight: 600,

@@ -31,7 +31,7 @@ export type Stock = {
 };
 
 // Stock details
-type StockDetails = {
+export type StockDetails = {
   symbol: string;
   intro: string;
   founded: number;

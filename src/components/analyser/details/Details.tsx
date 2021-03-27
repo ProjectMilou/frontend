@@ -29,16 +29,20 @@ const useStyles = makeStyles({
 });
 
 const Details: React.FC<DetailsProps> = ({token, symbol}) => {
-  const [details, setDetails] = React.useState<API.Stock>();
+  const [stockOverview, setStockOverview] = React.useState<API.Stock>();
+  const [stockDetails, setStockDetails] = React.useState<API.StockDetails>();
   const [error, setError] = React.useState<ErrorCode | undefined>();
 
   const isMounted = React.useRef(true); 
   const fetch = async () => {
     setError(undefined);
     try {
-      const s = await API.stockOverview(token, symbol);
+      const sO = await API.stockOverview(token, symbol);
+      const sD = await API.stockDetails(token, symbol)
+      
       if (isMounted.current) {
-        setDetails(s);
+        setStockOverview(sO);
+        setStockDetails(sD);
       }
     } catch (e) {
       if (isMounted.current) {
@@ -61,7 +65,7 @@ const Details: React.FC<DetailsProps> = ({token, symbol}) => {
   return (
     <>
       
-      {!details && !error && (
+      {!stockOverview || !stockDetails && !error && (
         <div>
           <LinearProgress color="secondary" />
         </div>
@@ -88,17 +92,14 @@ const Details: React.FC<DetailsProps> = ({token, symbol}) => {
           />
           </Container>
         )}
-        {details && (
+        {stockOverview && stockDetails && (
           <div>
             <DetailsHeader
-              details={details}
+              details={stockOverview}
             />
             <DetailsOverview
-              positionCount={2}
-              value={2}
-              score={3}
-              perf1y={0.02}
-              perf7d={0.02}
+              stockOverview={stockOverview}
+              stockDetails={stockDetails}
               />
             <KeyFigures/>
           </div>

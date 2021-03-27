@@ -94,6 +94,7 @@
   "analyser.filter.clear": "Clear filters",
   "analyser.dashboard.noStocks": "We can't show you any stoks right now :(",
   "analyser.detail.text": "Go to details",
+  "analyser.details.summaryHeader": "Executive Summary",
   "stock.symbol": "Symbol",
   "stock.name": "Company",
   "stock.lastPrice": "Last Price",
