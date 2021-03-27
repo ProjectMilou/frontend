@@ -23,12 +23,23 @@ const BankSearch: React.FC = () => {
   const [searchResultData, setSearchResultData] = useState<string[]>([]);
 
   const handleSearch = (search: string) => {
-    let currentSearchResultData: string[];
-
-    if (search === '') currentSearchResultData = [];
-    else currentSearchResultData = search.split('').map((x) => search + x);
-
-    setSearchResultData(currentSearchResultData);
+    if (search === '') setSearchResultData([]);
+    else {
+      /* Maybe a local pattern matching is preferable?
+      fetch('https://api.milou.io/user/bank', {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setSearchResultData(data.banks.map((x: any) => x.name));
+        });
+        */
+      setSearchResultData(search.split('').map((x) => x.concat('bank')));
+    }
   };
 
   return (
