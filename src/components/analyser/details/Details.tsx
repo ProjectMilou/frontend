@@ -1,5 +1,7 @@
 import React from 'react';
+import KeyFigures from './KeyFigures';
 import KeyFiguresBar from './KeyFiguresBar';
+import SectionCard from './SectionCard';
 
 // props type declaration
 export type DetailsProps = {
@@ -12,7 +14,7 @@ const Details: React.FC<DetailsProps> = ({ symbol }) => (
   <div>
     details will be here
     <p>{symbol}</p>
-    <KeyFiguresBar />
+    <KeyFigures/>
   </div>
 );
 
