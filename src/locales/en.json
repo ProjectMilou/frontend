@@ -48,5 +48,7 @@
   "error.message.AUTH_TOKEN_EXPIRED": "Your login has expired. Please log in again.",
   "error.action.retry": "Retry",
   "error.action.login": "Back to login",
-  "error.action.back": "Go back"
+  "error.action.back": "Go back",
+  "analyzer.addToPortfolio": "Add To Portfolio",
+  "analyzer.dialogHeader": "Select the portfolios you want to add to"
 }

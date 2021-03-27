@@ -3,6 +3,8 @@ import { IconButton, makeStyles, createStyles, Theme } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import DetailsEdit from './DetailsEdit';
 import { Position } from './DetailsTypes';
+// TODO: remove after testing
+import AddToPortfolioButton from './AddToPortfolioButton';
 
 // stylesheet for the header of the details page
 const useStyles = makeStyles(({ typography }: Theme) =>
@@ -81,6 +83,8 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
         </div>
       </div>
       <DetailsEdit positions={positions} />
+      {/* TODO: remove after testing */}
+      <AddToPortfolioButton />
     </div>
   );
 };
