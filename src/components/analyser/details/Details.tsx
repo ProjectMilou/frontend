@@ -37,6 +37,7 @@ const Details: React.FC<DetailsProps> = ({token, symbol}) => {
       const s = await API.stockOverview(token, symbol);
       if (isMounted.current) {
         setDetails(s);
+        console.log(details)
       }
     } catch (e) {
       if (isMounted.current) {
@@ -93,6 +94,7 @@ const Details: React.FC<DetailsProps> = ({token, symbol}) => {
             {details.symbol}
           </div>
         )}
+        {console.log(details)}
       </Container>
     </>
   );

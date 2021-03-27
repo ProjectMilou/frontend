@@ -118,9 +118,10 @@ export async function listStocks(token: string): Promise<Stock[]> {
  * @param symbol - Stock Symbol to search for
  */
  export async function stockOverview(token: string, symbol: string): Promise<Stock> {
-  const response = (await request(token, 'GET', `${symbol}/details`)) as Stock ;
+  const response = (await request(token, 'GET', symbol)) as Stock ;
   return response
 }
+
 
 /**
  * Gets a details over a single stock with an authenticated user.
@@ -129,6 +130,6 @@ export async function listStocks(token: string): Promise<Stock[]> {
  * @param symbol - Stock Symbol to search for
  */
  export async function stockDetails(token: string, symbol: string): Promise<StockDetails> {
-  const response = (await request(token, 'GET', symbol)) as StockDetails ;
+  const response = (await request(token, 'GET', `${symbol}/details`)) as StockDetails ;
   return response
 }
