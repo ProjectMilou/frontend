@@ -89,7 +89,7 @@ async function request(
   const response = await fetch(`${baseURL}/${url}`, {
     method,
     headers: { ...headers, ...additionalHeaders },
-    body
+    body,
   }).catch(() => Promise.reject(new Error('UNKNOWN'))); // network error etc.
   if (response.ok) {
     return Promise.resolve(response.json()); // valid response
