@@ -1,6 +1,7 @@
 # Milou Frontend
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/781c3fd7-2a90-420c-8139-0f7abaad5b95/deploy-status)](https://kind-clarke-29dd44.netlify.app/)
-[![Deployment](https://github.com/ProjectMilou/frontend/actions/workflows/s3-deploy.yml/badge.svg?branch=main)](http://poject-milou-frontend.s3-website.eu-central-1.amazonaws.com/)   
+[![Deployment](https://github.com/ProjectMilou/frontend/actions/workflows/s3-deploy.yml/badge.svg?branch=main)](http://poject-milou-frontend.s3-website.eu-central-1.amazonaws.com/)  
 [![Lint Code Base](https://github.com/ProjectMilou/frontend/actions/workflows/linter.yml/badge.svg)](https://github.com/ProjectMilou/frontend/actions/workflows/linter.yml)
 [![Test code](https://github.com/ProjectMilou/frontend/actions/workflows/run-tests.yml/badge.svg)](https://github.com/ProjectMilou/frontend/actions/workflows/run-tests.yml)
 
@@ -40,6 +41,14 @@ Make sure that the code you want to format is staged on git before running.
 ### `yarn lint`
 
 Runs `eslint` on source and test files.
+
+### `yarn prettier-check`
+
+Runs `prettier` to check for code style violations.
+
+### `yarn prettier-fix`
+
+Runs `prettier` to fix code style.
 
 ### `yarn build`
 
