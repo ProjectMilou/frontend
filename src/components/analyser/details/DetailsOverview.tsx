@@ -1,10 +1,10 @@
 import React from 'react';
-import { useTheme, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { useTheme, makeStyles, createStyles, Theme, Card, CardMedia, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import ValueOverName from './ValueOverName';
-import { Position, RiskAnalysis } from './DetailsTypes';
-import DetailsDonut from './DetailsDonut';
 import DetailsLineChart from './DetailsLineChart';
+import { Stock, StockDetails } from '../../../analyser/APIClient';
+import StockListOverview from '../search/StockListOverview';
 
 // stylesheet for the Summary section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -18,7 +18,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     },
     sectionTitle: {
       margin: 0,
-      color: palette.primary.contrastText,
+      color: palette.primary.main,
       // TODO use theme fontsize and weight
       fontSize: '2.25rem',
       fontWeight: 400,
@@ -68,6 +68,19 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       height: '20rem',
       flexBasis: '35%',
     },
+    // TODO center image vertically
+    imageContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      margin: 'auto',
+      maxWidth: '90%',
+      maxHeight: '90%'
+    },
+    imageCard: {
+      height: "20rem",
+      width: "20rem",
+    
+    },
     lineChartWrapper: {
       width: '40rem',
       height: '20rem',
@@ -78,31 +91,22 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 
 // type declarations
 type DetailsOverviewProps = {
-  // total score of the portfolio
-  score: number;
-  // seven day moving average of the portfolio
-  perf7d: number;
-  // one year moving average of the portfolio
-  perf1y: number;
-  // total value of the portfolio
-  value: number;
-  // number of positions
-  positionCount: number;
-  // all risk fields (country, industry, currency)
+  // overview of stock
+  stockOverview: Stock;
+  // details of stock
+  stockDetails: StockDetails;
 };
 
 // returns the details page header
 const DetailsOverview: React.FC<DetailsOverviewProps> = ({
-  score,
-  perf7d,
-  perf1y,
-  value,
-  positionCount,
+  stockOverview,
+  stockDetails,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
   const { t } = useTranslation();
 
+  const score = stockOverview.valuation
   // TODO: no hard coded colors
   // takes a percent value and converts it to a color
   function convertPercentToColor(val: number): string {
@@ -142,7 +146,7 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
       <div className={classes.titleContainer}>
         <div className={classes.titleWrapper}>
           <h2 className={classes.sectionTitle}>
-            {t('portfolio.details.summaryHeader')}
+            {t('analyser.details.summaryHeader')}
           </h2>
         </div>
         <div className={classes.lineWrapper}>
@@ -159,7 +163,7 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
             {/* total score of the portfolio */}
             <ValueOverName
               value={score.toString()}
-              name={t('portfolio.details.score')}
+              name={t('stock.symbol')}
               valueColor={convertScoreToColor(score)}
             />
           </div>
@@ -170,23 +174,29 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
             className={classes.infoValueWrapper}
             style={{ flexBasis: '35%' }}
           >
+            {/* last price */}
+            <ValueOverName
+              value={`${stockOverview['1d']}%`}
+              name={t('stock.lastPrice')}
+              valueColor={convertPercentToColor(stockOverview['1d'])}
+            />
             {/* 7 day moving average */}
             <ValueOverName
-              value={`${perf7d}%`}
-              name={t('portfolio.details.day7')}
-              valueColor={convertPercentToColor(perf7d)}
+              value={`${stockOverview['7d']}%`}
+              name={t('stock.7d')}
+              valueColor={convertPercentToColor(stockOverview['7d'])}
             />
-            {/* 1 year moving average */}
+            {/* 30d year moving average */}
             <ValueOverName
-              value={`${perf1y}%`}
-              name={t('portfolio.details.year')}
-              valueColor={convertPercentToColor(perf1y)}
+              value={`${stockOverview['30d']}%`}
+              name={t('stock.30d')}
+              valueColor={convertPercentToColor(stockOverview['30d'])}
             />
-            {/* total value */}
+            {/* total markte cap */}
             <ValueOverName
               // TODO: change to euro sign
-              value={`$${value}`}
-              name={t('portfolio.details.totalValue')}
+              value={`$${stockOverview.marketCapitalization}`}
+              name={t('stock.marketCap')}
               valueColor={theme.palette.primary.contrastText}
             />
           </div>
@@ -197,31 +207,34 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
             className={classes.infoValueWrapper}
             style={{ flexBasis: '55%' }}
           >
-            {/* positions */}
+            {/* analyst target */}
             <ValueOverName
-              value={`${positionCount}`}
-              name={t('portfolio.details.positions')}
+              value={`${stockOverview.analystTargetPrice}`}
+              name={t('stock.analystsTarget')}
               valueColor={theme.palette.primary.contrastText}
             />
-            {/* countries */}
+            {/* valuation */}
             <ValueOverName
-              // TODO: replace countries.score with correct value
-              value={`${positionCount}`}
-              name={t('portfolio.details.countries')}
+              value={`${stockOverview.valuation}`}
+              name={t('stock.valuation')}
               valueColor={theme.palette.primary.contrastText}
             />
-            {/* industries */}
+            {/* growth */}
             <ValueOverName
-              // TODO: replace segments.score with correct value
-              value={`${positionCount}`}
-              name={t('portfolio.details.industries')}
+              value={`${stockOverview.growth}`}
+              name={t('stock.growth')}
               valueColor={theme.palette.primary.contrastText}
             />
-            {/* currencies */}
+            {/* dividend */}
             <ValueOverName
-              // TODO: replace segments.score with correct value
-              value={`${positionCount}`}
-              name={t('portfolio.details.industries')}
+              value={`${stockOverview.div}`}
+              name={t('stock.div')}
+              valueColor={theme.palette.primary.contrastText}
+            />
+            {/* industry */}
+            <ValueOverName
+              value={`${stockOverview.industry}`}
+              name={t('stock.industry')}
               valueColor={theme.palette.primary.contrastText}
             />
           </div>
@@ -229,16 +242,16 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
       </div>
       <div className={classes.chartContainer}>
         <div className={classes.pieChartWrapper}>
-          <DetailsDonut
-            portions={portions}
-            names={companyNames}
-            size={600}
-            graphOffsetX={0}
-            showLegendOnScale
-          />
+          <Card className={classes.imageCard}>
+              <CardMedia
+                className={classes.imageContainer}
+                component="img"
+                image= {stockOverview.picture.toString()}
+              />
+          </Card>
         </div>
         <div className={classes.lineChartWrapper}>
-          <DetailsLineChart portfolioValue={portfolioValue} />
+          <Typography>{stockDetails.intro}</Typography>
         </div>
       </div>
     </div>
