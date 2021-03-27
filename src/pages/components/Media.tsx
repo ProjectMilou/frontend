@@ -1,9 +1,9 @@
 import React from 'react';
 import { CardMedia } from '@material-ui/core';
 
-const Media: React.FC<{ image: string; style: Record<string, unknown> }> = ({
+const Media: React.FC<{ image: string; className: string }> = ({
   image,
-  style,
-}) => <CardMedia component="img" src={image} style={style} />;
+  className,
+}) => <CardMedia component="img" src={image} className={className} />;
 
 export default Media;
