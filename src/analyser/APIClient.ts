@@ -35,10 +35,9 @@ export type StockDetails = {
   symbol: string;
   intro: string;
   founded: number;
-  positionCount: number;
   website: URL;
-  fullTimeEmplyees: number;
-  adress: string;
+  fullTimeEmployees: number;
+  address: string;
   assenmbly: Date;
 };
 

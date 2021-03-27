@@ -50,14 +50,6 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
   const { t } = useTranslation();
   const classes = useStyles();
 
-  // const selectedStock = (symbol: API.Stock['symbol']) => {
-
-  //   // TODO: implement route to analyser page
-  //   /* eslint no-console: ["error", { allow: ["warn", "error] }] */
-  //   console.warn(symbol)
-
-  // }
-
   return (
     <TableRow
       onClick={() => {

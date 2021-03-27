@@ -13,18 +13,17 @@ import DetailsOverview from './DetailsOverview';
 
 // props type declaration
 export type DetailsProps = {
-  // function to return to the dashboard
+  // API token
   token: string;
+  // function to return to the dashboard
   back: () => void;
+  // symbol
   symbol: string;
 };
 
 const useStyles = makeStyles({
   createButton: {
     marginTop: '25px',
-  },
-  dashboard: {
-    margin: '25px auto',
   },
   mainContent: {
     margin: '25px auto',
@@ -75,7 +74,7 @@ const Details: React.FC<DetailsProps> = ({token, symbol}) => {
       )}
       
         {error && (
-          <Container maxWidth="lg" className={classes.dashboard}>
+          <Container maxWidth="lg" className={classes.mainContent}>
           <ErrorMessage
             error={error}
             messageKey="analyser.dashboard.errorMessage"

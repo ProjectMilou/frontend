@@ -1,10 +1,8 @@
 import React from 'react';
 import { useTheme, makeStyles, createStyles, Theme, Card, CardMedia, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import ValueOverName from './ValueOverName';
-import DetailsLineChart from './DetailsLineChart';
+import SummaryValueOverName from './SummaryValueOverName';
 import { Stock, StockDetails } from '../../../analyser/APIClient';
-import StockListOverview from '../search/StockListOverview';
 
 // stylesheet for the Summary section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -62,7 +60,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       justifyContent: 'space-between',
       marginTop: '2rem',
     },
-    pieChartWrapper: {
+    imageWrapper: {
       display: 'flex',
       width: '20rem',
       height: '20rem',
@@ -76,16 +74,20 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       maxWidth: '90%',
       maxHeight: '90%'
     },
-    imageCard: {
-      height: "20rem",
-      width: "20rem",
-    
-    },
     lineChartWrapper: {
       width: '40rem',
       height: '20rem',
       flexBasis: '60%',
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      // border: '2px dashed #f69c55',
     },
+    intro: {
+      textAlign: 'left',
+      fontSize: '24px',
+      marginTop: '10px'
+    }
   })
 );
 
@@ -106,40 +108,16 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const score = stockOverview.valuation
-  // TODO: no hard coded colors
-  // takes a percent value and converts it to a color
-  function convertPercentToColor(val: number): string {
-    return val < 0 ? '#D64745' : '#50E2A8';
-  }
-
   // TODO: no hard coded colors
   // TODO: update range to fit data from analytics
   // convert a score to a color
-  function convertScoreToColor(val: number): string {
-    return val < 0.5 ? '#D64745' : '#50E2A8';
+  function convertPerformanceToColor(num: number): string {
+    return num <= 0 ? '#D64745' : '#50E2A8';
+  }
+  function convertToPercent(num: number): string {
+    return `${(Math.round(num * 1000) / 10).toString()}%`;
   }
 
-  // these are for the DetailsDonut Chart for the company portions
-  const portions = [2,4];
-  const companyNames = ["APPL", "MSFT"];
-  // Mock Portfolio values
-  const portfolioValue = [
-    10,
-    41,
-    35,
-    51,
-    49,
-    62,
-    69,
-    91,
-    148,
-    200,
-    123,
-    5,
-    234,
-  ];
-  // const portfolioValue = positions.reduce((sumOfPortfolio, p) => (p.qty * p.stock.price) + sumOfPortfolio, 0);
 
   return (
     <div>
@@ -155,51 +133,18 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
       </div>
       <div className={classes.infoBox}>
         <div className={classes.infoValueContainer}>
-          {/* box section 1 */}
           <div
             className={classes.infoValueWrapper}
-            style={{ flexBasis: '10%' }}
+            style={{ flexBasis: '55%' }}
           >
-            {/* total score of the portfolio */}
-            <ValueOverName
-              value={score.toString()}
-              name={t('stock.symbol')}
-              valueColor={convertScoreToColor(score)}
+            {/* country */}
+            <SummaryValueOverName
+              value={`${stockOverview.country}`}
+              name={t('stock.country')}
+              valueColor={theme.palette.primary.light}
             />
           </div>
-          {/* devider 1 */}
-          <hr className={classes.vl} />
-          {/* box section 2 */}
-          <div
-            className={classes.infoValueWrapper}
-            style={{ flexBasis: '35%' }}
-          >
-            {/* last price */}
-            <ValueOverName
-              value={`${stockOverview['1d']}%`}
-              name={t('stock.lastPrice')}
-              valueColor={convertPercentToColor(stockOverview['1d'])}
-            />
-            {/* 7 day moving average */}
-            <ValueOverName
-              value={`${stockOverview['7d']}%`}
-              name={t('stock.7d')}
-              valueColor={convertPercentToColor(stockOverview['7d'])}
-            />
-            {/* 30d year moving average */}
-            <ValueOverName
-              value={`${stockOverview['30d']}%`}
-              name={t('stock.30d')}
-              valueColor={convertPercentToColor(stockOverview['30d'])}
-            />
-            {/* total markte cap */}
-            <ValueOverName
-              // TODO: change to euro sign
-              value={`$${stockOverview.marketCapitalization}`}
-              name={t('stock.marketCap')}
-              valueColor={theme.palette.primary.contrastText}
-            />
-          </div>
+          
           {/* devider 2 */}
           <hr className={classes.vl} />
           {/* box section 3 */}
@@ -207,51 +152,57 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
             className={classes.infoValueWrapper}
             style={{ flexBasis: '55%' }}
           >
-            {/* analyst target */}
-            <ValueOverName
-              value={`${stockOverview.analystTargetPrice}`}
-              name={t('stock.analystsTarget')}
-              valueColor={theme.palette.primary.contrastText}
+            {/* currency */}
+            <SummaryValueOverName
+              value={`${stockOverview.currency}`}
+              name={t('stock.currency')}
+              valueColor={theme.palette.primary.light}
             />
-            {/* valuation */}
-            <ValueOverName
-              value={`${stockOverview.valuation}`}
-              name={t('stock.valuation')}
-              valueColor={theme.palette.primary.contrastText}
-            />
-            {/* growth */}
-            <ValueOverName
-              value={`${stockOverview.growth}`}
-              name={t('stock.growth')}
-              valueColor={theme.palette.primary.contrastText}
-            />
-            {/* dividend */}
-            <ValueOverName
-              value={`${stockOverview.div}`}
-              name={t('stock.div')}
-              valueColor={theme.palette.primary.contrastText}
-            />
+          </div>
+          
+          {/* devider 2 */}
+          <hr className={classes.vl} />
+          {/* box section 3 */}
+          <div
+            className={classes.infoValueWrapper}
+            style={{ flexBasis: '55%' }}
+          >
             {/* industry */}
-            <ValueOverName
+            <SummaryValueOverName
               value={`${stockOverview.industry}`}
               name={t('stock.industry')}
-              valueColor={theme.palette.primary.contrastText}
+              valueColor={theme.palette.primary.light}
             />
+            
+          </div>
+          
+          {/* devider 2 */}
+          <hr className={classes.vl} />
+          {/* box section 3 */}
+          <div
+            className={classes.infoValueWrapper}
+            style={{ flexBasis: '55%' }}
+          >
+          {/* dividend */}
+          <SummaryValueOverName
+            value={convertToPercent(stockOverview.div)}
+            name={t('stock.div')}
+            valueColor={convertPerformanceToColor(stockOverview.div)}
+          />
           </div>
         </div>
       </div>
+      {/* Picture and description of company */}
       <div className={classes.chartContainer}>
-        <div className={classes.pieChartWrapper}>
-          <Card className={classes.imageCard}>
-              <CardMedia
-                className={classes.imageContainer}
-                component="img"
-                image= {stockOverview.picture.toString()}
-              />
-          </Card>
+        <div className={classes.imageWrapper}>
+          <img className={classes.imageContainer} alt="Company Pictrue" src={stockOverview.picture.toString()}/>
         </div>
         <div className={classes.lineChartWrapper}>
-          <Typography>{stockDetails.intro}</Typography>
+          {/* Nier format */}
+          <Typography className={classes.intro}>{stockDetails.intro}</Typography>
+          <Typography className={classes.intro}>{t('stock.founded')}: {stockDetails.founded}</Typography>
+          <Typography className={classes.intro}>{t('stock.fullTimeEmployees')}: {stockDetails.fullTimeEmployees}</Typography>
+          <Typography className={classes.intro}>{t('stock.address')}: {stockDetails.address}</Typography>
         </div>
       </div>
     </div>
