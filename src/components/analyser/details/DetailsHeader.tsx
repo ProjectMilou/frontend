@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, makeStyles, Typography } from '@material-ui/core';
 import { symbol } from 'prop-types';
 import * as API from '../../../analyser/APIClient';
-
+import EuroCurrency from '../EuroCurrency';
 
 export type DetailsProps = {
     details: API.Stock;
@@ -11,15 +11,17 @@ export type DetailsProps = {
 const useStyles = makeStyles({
     header: {
       'background-color': '#0D1B3B',
-      minWidth: '100%',
     },
     text: {
-      'font-size': '48px',
+      'font-size': '35px',
       color: '#EEF1FB',
       padding: '50px 0',
       minWidth: '50%',
       maxWidth: '1000px',
     },
+    price: {
+      paddingLeft: '6'
+    }
   });
 
   const DetailsHeader: React.FC<DetailsProps> = ({details}) => {
@@ -28,10 +30,10 @@ const useStyles = makeStyles({
       <div className={classes.header}>
         <Container maxWidth="lg">
           <Typography className={classes.text}>
-          {details.name} 
+          {details.name}
+           <EuroCurrency value={details.price} size='35px'/>
           </Typography>
         </Container>
-        
       </div>
       
     );

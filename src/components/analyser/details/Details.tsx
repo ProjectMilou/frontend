@@ -65,8 +65,9 @@ const Details: React.FC<DetailsProps> = ({token, symbol}) => {
           <LinearProgress color="secondary" />
         </div>
       )}
-      <Container maxWidth="lg" className={classes.dashboard}>
+      
         {error && (
+          <Container maxWidth="lg" className={classes.dashboard}>
           <ErrorMessage
             error={error}
             messageKey="analyser.dashboard.errorMessage"
@@ -84,6 +85,7 @@ const Details: React.FC<DetailsProps> = ({token, symbol}) => {
                   }
             }
           />
+          </Container>
         )}
         {details && (
           <div>
@@ -93,7 +95,6 @@ const Details: React.FC<DetailsProps> = ({token, symbol}) => {
             <KeyFigures/>
           </div>
         )}
-      </Container>
     </>
   );
         };
