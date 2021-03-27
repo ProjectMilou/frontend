@@ -30,6 +30,7 @@ type ValueOverNameProps = {
   value: string;
   name: string;
   valueColor: string;
+  textColor: string;
 };
 
 // this is a small component that displays a value above the name of the value
@@ -37,6 +38,7 @@ const ValueOverName: React.FC<ValueOverNameProps> = ({
   value,
   name,
   valueColor,
+  textColor,
 }) => {
   const classes = useStyles(valueColor);
 
@@ -47,8 +49,8 @@ const ValueOverName: React.FC<ValueOverNameProps> = ({
           {value}
         </p>
       </div>
-      <div className={classes.pWrapper}>
-        <p className={classes.p}>{name}</p>
+      <div className={classes.pWrapper} >
+        <p className={classes.p} style={{ color: textColor }}>{name}</p>
       </div>
     </div>
   );

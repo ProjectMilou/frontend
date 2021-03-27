@@ -165,6 +165,7 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
               value={score.toString()}
               name={t('stock.symbol')}
               valueColor={convertScoreToColor(score)}
+              textColor='#000'
             />
           </div>
           {/* devider 1 */}
@@ -179,18 +180,21 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
               value={`${stockOverview['1d']}%`}
               name={t('stock.lastPrice')}
               valueColor={convertPercentToColor(stockOverview['1d'])}
+              textColor='#000'
             />
             {/* 7 day moving average */}
             <ValueOverName
               value={`${stockOverview['7d']}%`}
               name={t('stock.7d')}
               valueColor={convertPercentToColor(stockOverview['7d'])}
+              textColor='#000'
             />
             {/* 30d year moving average */}
             <ValueOverName
               value={`${stockOverview['30d']}%`}
               name={t('stock.30d')}
               valueColor={convertPercentToColor(stockOverview['30d'])}
+              textColor='#000'
             />
             {/* total markte cap */}
             <ValueOverName
@@ -198,6 +202,7 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
               value={`$${stockOverview.marketCapitalization}`}
               name={t('stock.marketCap')}
               valueColor={theme.palette.primary.contrastText}
+              textColor='#000'
             />
           </div>
           {/* devider 2 */}
@@ -212,30 +217,35 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
               value={`${stockOverview.analystTargetPrice}`}
               name={t('stock.analystsTarget')}
               valueColor={theme.palette.primary.contrastText}
+              textColor='#000'
             />
             {/* valuation */}
             <ValueOverName
               value={`${stockOverview.valuation}`}
               name={t('stock.valuation')}
               valueColor={theme.palette.primary.contrastText}
+              textColor='#000'
             />
             {/* growth */}
             <ValueOverName
               value={`${stockOverview.growth}`}
               name={t('stock.growth')}
               valueColor={theme.palette.primary.contrastText}
+              textColor='#000'
             />
             {/* dividend */}
             <ValueOverName
               value={`${stockOverview.div}`}
               name={t('stock.div')}
               valueColor={theme.palette.primary.contrastText}
+              textColor='#000'
             />
             {/* industry */}
             <ValueOverName
               value={`${stockOverview.industry}`}
               name={t('stock.industry')}
               valueColor={theme.palette.primary.contrastText}
+              textColor='#000'
             />
           </div>
         </div>
@@ -257,5 +267,6 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
     </div>
   );
 };
+
 
 export default DetailsOverview;
