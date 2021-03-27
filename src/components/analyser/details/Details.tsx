@@ -10,6 +10,7 @@ import ErrorMessage from '../ErrorMessage';
 import DetailsHeader from './DetailsHeader';
 import KeyFigures from './KeyFigures';
 import DetailsOverview from './DetailsOverview';
+import StockChart from './StockChart';
 
 // props type declaration
 export type DetailsProps = {
@@ -105,7 +106,9 @@ const Details: React.FC<DetailsProps> = ({token, symbol}) => {
                 stockOverview={stockOverview}
                 stockDetails={stockDetails}
                 />
+                <StockChart/>
               <KeyFigures/>
+              
             </Container>
           </div>
         )}
