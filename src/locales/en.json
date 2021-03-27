@@ -1,4 +1,5 @@
 {
+  "cancel": "Cancel",
   "shell.email": "Email",
   "shell.password": "Password",
   "shell.login": "Login",
@@ -14,7 +15,6 @@
   "error.retry": "Please try again!",
   "shell.message.haveAccount": "You already have an account? Then log in ",
   "shell.link": "here",
-  "portfolio": "Portfolio component",
   "portfolio.dashboard.headerText": "Diversifying and balancing your portfolio helps you to optimize the ratio between risk and return.",
   "portfolio.dashboard.title": "My Portfolios",
   "portfolio.dashboard.errorMessage": "There has been an error while loading your portfolios.",
@@ -35,6 +35,8 @@
   "portfolio.duplicate": "Duplicate",
   "portfolio.real": "Real",
   "portfolio.virtual": "Virtual",
+  "portfolio.dialog.rename.title": "Rename Portfolio",
+  "portfolio.dialog.rename.text": "Enter a new name for the portfolio <portfolioName>{{name}}</portfolioName>.",
   "error.message.default": "An error has occurred.",
   "error.title.AUTH_TOKEN_INVALID": "Authentication failure",
   "error.message.AUTH_TOKEN_INVALID": "Your authentication token is invalid. Please log in again.",
@@ -65,7 +67,9 @@
   "analyser.dashboard.view.table": "Table view",
   "analyser.dashboard.view.cards": "Cards view",
   "analyser.filter.title": "Filter Options",
+  "analyser.filter.clear": "Clear filters",
   "analyser.dashboard.noStocks": "We can't show you any stoks right now :(",
+  "analyser.detail.text": "Go to details",
   "stock.symbol": "Symbol",
   "stock.name": "Company",
   "stock.lastPrice": "Last Price",
@@ -78,5 +82,7 @@
   "stock.valuation": "Valuation",
   "stock.growth": "Growth",
   "stock.div": "Div Yield",
-  "stock.industry": "Industry"
+  "stock.industry": "Industry",
+  "stock.country": "Country",
+  "stock.currency": "Currency"
 }

@@ -18,7 +18,7 @@ import classNames from 'classnames';
 import * as API from '../../../analyser/APIClient';
 import EuroCurrency from '../EuroCurrency';
 import Performance from '../Performance';
-import Valuation from '../Valuation'
+import Valuation from '../Valuation';
 
 const useStyles = makeStyles((theme: Theme) => ({
   action: { display: 'inline-block' },
@@ -51,11 +51,11 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
   const classes = useStyles();
 
   // const selectedStock = (symbol: API.Stock['symbol']) => {
-    
+
   //   // TODO: implement route to analyser page
   //   /* eslint no-console: ["error", { allow: ["warn", "error] }] */
   //   console.warn(symbol)
-    
+
   // }
 
   return (
@@ -69,7 +69,11 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
     >
       <TableCell align="center" component="th" scope="row">
         <ListItemText
-          primary={<Typography className={classes.defaultText} color="primary">{stock.symbol}</Typography>}
+          primary={
+            <Typography className={classes.defaultText} color="primary">
+              {stock.symbol}
+            </Typography>
+          }
           secondary={stock.name}
           secondaryTypographyProps={{
             color: 'textSecondary',
@@ -94,14 +98,18 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
       <TableCell align="center">
         <Valuation value={stock.valuation} />
       </TableCell>
-      <TableCell align="center" >
-        <Typography color="primary" className={classes.defaultText}>{stock.growth}</Typography>
+      <TableCell align="center">
+        <Typography color="primary" className={classes.defaultText}>
+          {stock.growth}
+        </Typography>
       </TableCell>
       <TableCell align="center">
         <Performance value={stock.div} />
       </TableCell>
-      <TableCell align="center" >
-        <Typography color="primary" className={classes.defaultText}>{t(`${stock.industry}`)}</Typography>
+      <TableCell align="center">
+        <Typography color="primary" className={classes.defaultText}>
+          {t(`${stock.industry}`)}
+        </Typography>
       </TableCell>
     </TableRow>
   );
@@ -119,7 +127,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
   const { t } = useTranslation();
 
   return (
-    <TableContainer component={Paper} >
+    <TableContainer component={Paper}>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>

@@ -1,7 +1,7 @@
 // TODO: Change to production URL when available
 // TODO: Use a common base URL for shell, analyser and portfolio instead of 3 URLs
-export const baseURL =
-  'https://milou-backend.herokuapp.com/stocks';
+
+export const baseURL = 'https://api.milou.io/stocks';
 
 const headers = { 'Content-Type': 'application/json' };
 
@@ -15,9 +15,9 @@ export type Stock = {
   WKN: string;
   name: string;
   price: number;
-  "1d": number;
-  "7d": number;
-  "30d": number;
+  '1d': number;
+  '7d': number;
+  '30d': number;
   marketCapitalization: number;
   analystTargetPrice: number;
   valuation: number;
@@ -29,7 +29,6 @@ export type Stock = {
   picture: URL;
   date: Date;
 };
-
 
 // Stock details
 type StockDetails = {
@@ -51,9 +50,9 @@ type StockList = {
     WKN: string;
     name: string;
     price: number;
-    "1d": number;
-    "7d": number;
-    "30d": number;
+    '1d': number;
+    '7d': number;
+    '30d': number;
     marketCapitalization: number;
     analystTargetPrice: number;
     valuation: number;
@@ -108,7 +107,7 @@ async function request(
  */
 export async function listStocks(token: string): Promise<Stock[]> {
   const response = (await request(token, 'GET', '')) as StockList;
-  return response.stocks
+  return response.stocks;
 }
 
 /**
@@ -117,9 +116,12 @@ export async function listStocks(token: string): Promise<Stock[]> {
  * @param token - Authentication token
  * @param symbol - Stock Symbol to search for
  */
- export async function stockOverview(token: string, symbol: string): Promise<Stock> {
-  const response = (await request(token, 'GET', symbol)) as Stock ;
-  return response
+export async function stockOverview(
+  token: string,
+  symbol: string
+): Promise<Stock> {
+  const response = (await request(token, 'GET', `${symbol}/details`)) as Stock;
+  return response;
 }
 
 
@@ -129,7 +131,10 @@ export async function listStocks(token: string): Promise<Stock[]> {
  * @param token - Authentication token
  * @param symbol - Stock Symbol to search for
  */
- export async function stockDetails(token: string, symbol: string): Promise<StockDetails> {
-  const response = (await request(token, 'GET', `${symbol}/details`)) as StockDetails ;
-  return response
+export async function stockDetails(
+  token: string,
+  symbol: string
+): Promise<StockDetails> {
+  const response = (await request(token, 'GET', symbol)) as StockDetails;
+  return response;
 }
