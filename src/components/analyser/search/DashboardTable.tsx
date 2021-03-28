@@ -41,6 +41,25 @@ export type DashboardTableRowProps = {
   selectStock: (id: string) => void;
 };
 
+function MoneyFormat(val: number): string
+  {
+    let round = '';
+        if(Math.abs(val) >= 1.0e+9){
+          round=`${Math.round(Math.abs(val) / 1.0e+9)}B€`
+        }
+        else if(Math.abs(val) >= 1.0e+6){
+          round=`${Math.round(Math.abs(val) / 1.0e+6)}M€`
+        }
+        else if (Math.abs(val) >= 1.0e+3){
+          round=`${Math.round(Math.abs(val) / 1.0e+3)}K€`
+        }
+        else{
+          round=`${Math.abs(val)}`;
+        };
+        return round;
+ }
+
+
 export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
   stock,
   selectStock,
@@ -82,7 +101,9 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         <Performance value={stock['30d']} />
       </TableCell>
       <TableCell align="center">
-        <EuroCurrency value={stock.marketCapitalization} />
+        <Typography color="primary" className={classes.defaultText}>
+          {MoneyFormat(stock.marketCapitalization)}
+        </Typography>  
       </TableCell>
       <TableCell align="center">
         <EuroCurrency value={stock.analystTargetPrice} />
