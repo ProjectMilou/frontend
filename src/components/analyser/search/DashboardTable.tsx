@@ -41,6 +41,7 @@ export type DashboardTableRowProps = {
   selectStock: (id: string) => void;
 };
 
+// Rounds and adds M=Million, B=Billion and K=Thousand --> American System!!!
 function MoneyFormat(val: number): string
   {
     let round = '';
@@ -59,7 +60,7 @@ function MoneyFormat(val: number): string
         return round;
  }
 
-
+// Numbers are output in different colors need clear approach!
 export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
   stock,
   selectStock,
