@@ -3,8 +3,6 @@ import { IconButton, makeStyles, createStyles, Theme } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import DetailsEdit from './DetailsEdit';
 import { Position } from './DetailsTypes';
-// TODO: remove after testing
-import AddToPortfolioButton from './AddToPortfolioButton';
 
 // stylesheet for the header of the details page
 const useStyles = makeStyles(({ typography }: Theme) =>
@@ -28,22 +26,11 @@ const useStyles = makeStyles(({ typography }: Theme) =>
       alignItems: 'center',
       height: '100%',
     },
-    editButton: {
-      padding: '0.25rem 1rem',
-      backgroundColor: '#3fbcf2',
-      '&:hover': {
-        backgroundColor: '#84d4f7',
-      },
-    },
-    subContainer: {
-      height: '50%',
-      display: 'flex',
-      alignItems: 'center',
-    },
     title: {
       // TODO: use theme font size
       fontSize: '2.5rem',
       fontFamily: typography.fontFamily,
+      whiteSpace: 'nowrap',
     },
   })
 );
@@ -83,8 +70,6 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
         </div>
       </div>
       <DetailsEdit positions={positions} />
-      {/* TODO: remove after testing */}
-      <AddToPortfolioButton />
     </div>
   );
 };
