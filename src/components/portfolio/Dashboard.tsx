@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Reducer } from 'react';
 import {
   LinearProgress,
   Button,
@@ -11,11 +11,127 @@ import { ErrorCode } from '../../Errors';
 import ErrorMessage from './ErrorMessage';
 import PortfolioOverview from './PortfolioOverview';
 import DashboardHeader from './DashboardHeader';
+import RenameDialog from './RenameDialog';
 
 export type DashboardProps = {
   token: string;
   selectPortfolio: (id: string) => void;
 };
+
+enum DialogType {
+  None,
+  CreatePortfolio,
+  RenamePortfolio,
+  DuplicatePortfolio,
+  DeletePortfolio,
+}
+
+type Dialog = {
+  type: DialogType;
+  portfolioId?: string;
+};
+
+function portfolioName(
+  portfolios?: API.PortfolioOverview[],
+  id?: string
+): string | undefined {
+  return portfolios && id
+    ? portfolios.find((p) => p.id === id)?.name
+    : undefined;
+}
+
+/* A reducer is used to manage this component's state (portfolios, errors, open
+ * dialog). The state should only be modified by dispatch calls, never directly.
+ * Actions are not async, so API calls are made before dispatching.
+ */
+
+type State = {
+  portfolios?: API.PortfolioOverview[];
+  error?: ErrorCode;
+  dialog: Dialog;
+};
+
+const initialState = { dialog: { type: DialogType.None } };
+
+type SetPortfoliosAction = {
+  type: 'setPortfolios';
+  payload: API.PortfolioOverview[];
+};
+type RenameAction = {
+  type: 'rename';
+  payload: { id: string; name: string };
+};
+type SetErrorAction = {
+  type: 'setError';
+  payload: ErrorCode;
+};
+type ClearErrorAction = {
+  type: 'clearError';
+};
+type OpenDialogAction = {
+  type: 'openDialog';
+  payload: Dialog;
+};
+type CloseDialogAction = {
+  type: 'closeDialog';
+};
+type Actions =
+  | SetPortfoliosAction
+  | RenameAction
+  | SetErrorAction
+  | ClearErrorAction
+  | OpenDialogAction
+  | CloseDialogAction;
+
+function renamePortfolioAction(
+  portfolios: API.PortfolioOverview[] | undefined,
+  { id, name }: RenameAction['payload']
+) {
+  return (
+    portfolios &&
+    portfolios.map((p) => ({
+      ...p,
+      name: p.id === id ? name : p.name,
+    }))
+  );
+}
+
+function reducer(state: State, action: Actions) {
+  switch (action.type) {
+    case 'setPortfolios':
+      return {
+        ...state,
+        portfolios: action.payload,
+      };
+    case 'rename':
+      return {
+        ...state,
+        portfolios: renamePortfolioAction(state.portfolios, action.payload),
+      };
+    case 'setError':
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case 'clearError':
+      return {
+        ...state,
+        error: undefined,
+      };
+    case 'openDialog':
+      return {
+        ...state,
+        dialog: action.payload,
+      };
+    case 'closeDialog':
+      return {
+        ...state,
+        dialog: initialState.dialog,
+      };
+    default:
+      throw new Error();
+  }
+}
 
 const useStyles = makeStyles({
   createButton: {
@@ -27,20 +143,22 @@ const useStyles = makeStyles({
 });
 
 const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
-  const [portfolios, setPortfolios] = React.useState<API.PortfolioOverview[]>();
-  const [error, setError] = React.useState<ErrorCode | undefined>();
+  const [state, dispatch] = React.useReducer<Reducer<State, Actions>>(
+    reducer,
+    initialState
+  );
 
   const isMounted = React.useRef(true);
   const fetch = async () => {
-    setError(undefined);
+    dispatch({ type: 'clearError' });
     try {
-      const p = await API.portfolioOverview(token);
+      const p = await API.list(token);
       if (isMounted.current) {
-        setPortfolios(p);
+        dispatch({ type: 'setPortfolios', payload: p });
       }
     } catch (e) {
       if (isMounted.current) {
-        setError(e.message);
+        dispatch({ type: 'setError', payload: e.message });
       }
     }
   };
@@ -60,18 +178,18 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
   return (
     <>
       <DashboardHeader />
-      {!portfolios && !error && (
+      {!state.portfolios && !state.error && (
         <div>
           <LinearProgress color="secondary" />
         </div>
       )}
       <Container maxWidth="lg" className={classes.dashboard}>
-        {error && (
+        {state.error && (
           <ErrorMessage
-            error={error}
+            error={state.error}
             messageKey="portfolio.dashboard.errorMessage"
             handling={
-              error.startsWith('AUTH')
+              state.error.startsWith('AUTH')
                 ? {
                     buttonText: 'error.action.login',
                     action: async () => {
@@ -85,12 +203,17 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
             }
           />
         )}
-        {portfolios && (
+        {state.portfolios && (
           <div>
             <PortfolioOverview
-              portfolios={portfolios}
+              portfolios={state.portfolios}
               selectPortfolio={selectPortfolio}
-              renamePortfolio={() => {}}
+              renamePortfolio={(portfolioId) =>
+                dispatch({
+                  type: 'openDialog',
+                  payload: { type: DialogType.RenamePortfolio, portfolioId },
+                })
+              }
               duplicatePortfolio={() => {}}
               deletePortfolio={() => {}}
             />
@@ -104,6 +227,20 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
           </div>
         )}
       </Container>
+      <RenameDialog
+        initialName={portfolioName(state.portfolios, state.dialog.portfolioId)}
+        open={state.dialog.type === DialogType.RenamePortfolio}
+        handleClose={() => dispatch({ type: 'closeDialog' })}
+        rename={async (name) => {
+          if (state.dialog.portfolioId) {
+            await API.rename(token, state.dialog.portfolioId, name);
+            dispatch({
+              type: 'rename',
+              payload: { id: state.dialog.portfolioId, name },
+            });
+          }
+        }}
+      />
     </>
   );
 };
