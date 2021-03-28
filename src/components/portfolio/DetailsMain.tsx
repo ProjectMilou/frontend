@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core';
 import DetailsMainSummary from './DetailsMainSummary';
 import DetailsMainPositions from './DetailsMainPositions';
-import DetailsMainRisk from './DetailsMainRisk';
 import DetailsMainKeyFigures from './DetailsMainKeyFigures';
 import DetailsMainDividens from './DetailsMainDividends';
 import DetailsMainAnalyst from './DetailsMainAnalyst';
@@ -68,9 +67,6 @@ const DetailsMain: React.FC<DetailsMainProps> = ({
       </div>
       <div className={classes.sectionWrapper}>
         <DetailsMainPositions positions={positions} />
-      </div>
-      <div className={classes.sectionWrapper}>
-        <DetailsMainRisk risk={risk} positions={positions} />
       </div>
       <div className={classes.sectionWrapper}>
         <DetailsMainKeyFigures figures={figures} />
