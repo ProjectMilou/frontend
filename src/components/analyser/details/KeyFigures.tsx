@@ -16,6 +16,40 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: '25px auto',
       minWidth: '50%',
     },
+    titleContainer: {
+      display: 'flex',
+      marginBottom: '2rem',
+    },
+    titleWrapper: {
+      marginRight: '1rem',
+    },
+    sectionTitle: {
+      margin: 0,
+      color: 'primary',
+      // TODO use theme fontsize and weight
+      fontSize: '2.25rem',
+      fontWeight: 400,
+      whiteSpace: 'nowrap',
+    },
+    sectionSubTitle: {
+      margin: 0,
+      color: 'primary',
+      // TODO use theme fontsize and weight
+      fontSize: '2rem',
+      fontWeight: 400,
+      whiteSpace: 'nowrap',
+    },
+    lineWrapper: {
+      display: 'flex',
+      width: '100%',
+      // TODO: use theme color
+      borderColor: 'grey',
+    },
+    line: {
+      width: '100%',
+      alignSelf: 'center',
+      paddingLeft: '2%',
+    },
   })
 );
 
@@ -30,9 +64,28 @@ const KeyFigures: React.FC = () => {
   const { t } = useTranslation();
 
   return (
+    <div>
+    <div className={classes.titleContainer}>
+        <div className={classes.titleWrapper}>
+          <h2 className={classes.sectionTitle}>
+            {t('analyser.details.KeyFiguresHeader')}
+          </h2>
+        </div>
+        <div className={classes.lineWrapper}>
+          <hr className={classes.line} />
+        </div>
+      </div>
+      <div className={classes.titleContainer}>
+         <div className={classes.titleWrapper}>
+         <h2 className={classes.sectionSubTitle}>
+            {t('analyser.details.KeyFiguresHeader.KeyFigures')}
+          </h2>
+         </div>
+      </div>
     <Card className={classes.root}>
       <KeyFiguresBar />
     </Card>
+    </div>
   );
 };
 export default KeyFigures;
