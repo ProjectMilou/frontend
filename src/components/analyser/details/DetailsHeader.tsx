@@ -1,11 +1,9 @@
 import React from 'react';
 import { Container, makeStyles, Typography } from '@material-ui/core';
-import { symbol } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import ValueOverName from './ValueOverName';
 import * as API from '../../../analyser/APIClient';
 import EuroCurrency from '../EuroCurrency';
-import Performance from '../Performance';
 
 export type DetailsProps = {
   details: API.Stock;
@@ -44,6 +42,10 @@ function convertPercentToColor(val: number): string {
   return val < 0 ? '#D64745' : '#50E2A8';
 }
 
+function chooseSymbol(val: API.Stock): string {
+  return val.name.length>25 ? val.symbol : val.name;
+}
+
 const DetailsHeader: React.FC<DetailsProps> = ({ details }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -55,7 +57,7 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details }) => {
             className={classes.infoValueWrapper}
             style={{ flexBasis: '35%' }}
           >
-            {details.name}
+            {chooseSymbol(details)}
             <>&emsp;&emsp;&emsp;</>
             <EuroCurrency value={details.price} size="35px" />
             <>&emsp;&emsp;</>
