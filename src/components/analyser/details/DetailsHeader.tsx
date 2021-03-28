@@ -43,7 +43,7 @@ function convertPercentToColor(val: number): string {
 }
 
 function chooseSymbol(val: API.Stock): string {
-  return val.name.length>25 ? val.symbol : val.name;
+  return val.name.length > 25 ? val.symbol : val.name;
 }
 
 const DetailsHeader: React.FC<DetailsProps> = ({ details }) => {

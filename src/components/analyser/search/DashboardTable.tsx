@@ -42,23 +42,19 @@ export type DashboardTableRowProps = {
 };
 
 // Rounds and adds M=Million, B=Billion and K=Thousand --> American System!!!
-function moneyFormat(val: number): string
-  {
-    let round = '';
-        if(Math.abs(val) >= 1.0e+9){
-          round=`€${Math.round(Math.abs(val) / 1.0e+9)}B`
-        }
-        else if(Math.abs(val) >= 1.0e+6){
-          round=`€${Math.round(Math.abs(val) / 1.0e+6)}M`
-        }
-        else if (Math.abs(val) >= 1.0e+3){
-          round=`€${Math.round(Math.abs(val) / 1.0e+3)}K`
-        }
-        else{
-          round=`€${Math.abs(val)}`;
-        };
-        return round;
- }
+function moneyFormat(val: number): string {
+  let round = '';
+  if (Math.abs(val) >= 1.0e9) {
+    round = `€${Math.round(Math.abs(val) / 1.0e9)}B`;
+  } else if (Math.abs(val) >= 1.0e6) {
+    round = `€${Math.round(Math.abs(val) / 1.0e6)}M`;
+  } else if (Math.abs(val) >= 1.0e3) {
+    round = `€${Math.round(Math.abs(val) / 1.0e3)}K`;
+  } else {
+    round = `€${Math.abs(val)}`;
+  }
+  return round;
+}
 
 // Numbers are output in different colors need clear approach!
 export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
@@ -104,7 +100,7 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>
           {moneyFormat(stock.marketCapitalization)}
-        </Typography>  
+        </Typography>
       </TableCell>
       <TableCell align="center">
         <EuroCurrency value={stock.analystTargetPrice} />

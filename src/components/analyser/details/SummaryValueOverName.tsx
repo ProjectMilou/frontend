@@ -16,6 +16,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     name: {
       margin: 0,
       alignSelf: 'center',
+      textAlign: 'center',
       color: palette.primary.dark,
       // TODO: use theme weight and size?
       fontSize: '0.8rem',
@@ -24,6 +25,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     value: {
       margin: 0,
       alignSelf: 'center',
+      textAlign: 'center',
       // TODO: use theme weight and size?
       fontSize: '1.2rem',
       fontWeight: 600,

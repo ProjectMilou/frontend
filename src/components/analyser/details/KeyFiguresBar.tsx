@@ -21,24 +21,23 @@ const KeyFiguresBar: React.FC = () => {
   const { t } = useTranslation();
 
   const [seriesArray, setSeriesArray] = React.useState([
-
     {
-      name: "PE",
-      data: [30, 40, 45, 50, 50]
+      name: 'PE',
+      data: [30, 40, 45, 50, 50],
     },
     {
-      name: "PB",
-      data: [50, 25, 35, 80, 20]
+      name: 'PB',
+      data: [50, 25, 35, 80, 20],
     },
     {
-      name: "PEG",
-      data: [30, 50, 15, 40, 10]
+      name: 'PEG',
+      data: [30, 50, 15, 40, 10],
     },
     {
-      name: "ES",
-      data: [10, 20, 25, 10, 90]
-    } 
-  ])
+      name: 'ES',
+      data: [10, 20, 25, 10, 90],
+    },
+  ]);
 
   return (
     <div>
@@ -60,9 +59,7 @@ const KeyFiguresBar: React.FC = () => {
           definition={t('analyser.detail.keyfigure.EPS.definition')}
         />
       </Toolbar>
-      <KeyFiguresChart 
-        series= {seriesArray}
-      />
+      <KeyFiguresChart series={seriesArray} />
     </div>
   );
 };

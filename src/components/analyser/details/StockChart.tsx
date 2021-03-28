@@ -386,7 +386,7 @@ const updateData = (timeline: string) => {
 };
 
 const Datetime: React.FC = () => (
-  <Box m={10}>
+  <Box style={{ marginTop: '20px', marginBottom: '80px' }}>
     <div id="chart">
       <div className="toolbar">
         <Button
@@ -450,7 +450,8 @@ const Datetime: React.FC = () => (
           options={state.options}
           series={state.series}
           type="area"
-          height={350}
+          height={450}
+          width="100%"
         />
       </div>
     </div>

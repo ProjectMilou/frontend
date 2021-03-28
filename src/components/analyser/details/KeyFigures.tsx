@@ -65,7 +65,7 @@ const KeyFigures: React.FC = () => {
 
   return (
     <div>
-    <div className={classes.titleContainer}>
+      <div className={classes.titleContainer}>
         <div className={classes.titleWrapper}>
           <h2 className={classes.sectionTitle}>
             {t('analyser.details.KeyFiguresHeader')}
@@ -76,15 +76,16 @@ const KeyFigures: React.FC = () => {
         </div>
       </div>
       <div className={classes.titleContainer}>
-         <div className={classes.titleWrapper}>
-         <h2 className={classes.sectionSubTitle}>
+        <div className={classes.titleWrapper}>
+          <h2 className={classes.sectionSubTitle}>
             {t('analyser.details.KeyFiguresHeader.KeyFigures')}
           </h2>
-         </div>
+        </div>
       </div>
-    <Card className={classes.root}>
       <KeyFiguresBar />
-    </Card>
+      {/* <Card className={classes.root}>
+      
+    </Card> */}
     </div>
   );
 };
