@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import ValueOverName from './ValueOverName';
 import { Position, RiskAnalysis } from './DetailsTypes';
 import DetailsDonut from './DetailsDonut';
-import DetailsLineChart from './DetailsLineChart';
 
 // stylesheet for the Summary section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -124,23 +123,6 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
   // these are for the DetailsDonut Chart for the company portions
   const portions = positions.map((p) => p.qty * p.stock.price);
   const companyNames = positions.map((p) => p.stock.name);
-  // Mock Portfolio values
-  const portfolioValue = [
-    10,
-    41,
-    35,
-    51,
-    49,
-    62,
-    69,
-    91,
-    148,
-    200,
-    123,
-    5,
-    234,
-  ];
-  // const portfolioValue = positions.reduce((sumOfPortfolio, p) => (p.qty * p.stock.price) + sumOfPortfolio, 0);
 
   return (
     <div>
