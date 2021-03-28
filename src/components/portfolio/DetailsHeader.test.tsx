@@ -20,7 +20,7 @@ test('Details header renders correctly', async () => {
   expect(mockBack).toHaveBeenCalled();
 
   // testing edit button
-  const editButton = screen.getByText('editPortfolio');
+  const editButton = screen.getByText('portfolio.details.editPortfolio');
   await userEvent.click(editButton);
-  await screen.findByText('dialogHeader');
+  await screen.findByText('portfolio.details.dialogHeader');
 });

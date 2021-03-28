@@ -243,7 +243,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
           />
         </div>
         <div className={classes.lineChartWrapper}>
-          <DetailsLineChart portfolioValue={portfolioValue} />
+          <p>Placeholder for the LineChart by Analyzer Team</p>
         </div>
       </div>
     </div>
