@@ -101,7 +101,7 @@ type IsinToAmount = {
 };
 
 const DialogTitle = withStyles(styles)((props: DialogTitleProps) => {
-  const { children, classes, onClose, ...other } = props;
+  const { children, classes, onClose } = props;
   return (
     <MuiDialogTitle disableTypography className={classes.root}>
       <span className={classes.span}>
@@ -192,12 +192,6 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
   const handleSaveChanges = () => {
     // TODO implement logic for api call and updating the global positions in details
     // TODO watch out right now empty input is also allowed ("")
-    console.log(tempPos);
-  };
-
-  const handleDiscardChanges = () => {
-    // TODO implement logic for properly closing the dialog.
-    // each time it is rendered from scratch it should take the start values from positions again
   };
 
   return (

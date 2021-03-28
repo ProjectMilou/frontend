@@ -4,6 +4,8 @@ import ReactApexChart from 'react-apexcharts';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
+// TODO  findt type
+// eslint-disable-next-line
 declare let ApexCharts: any;
 
 const state = {

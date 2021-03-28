@@ -1,23 +1,10 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Toolbar } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { OneKeyFigure } from './OneKeyFigure';
 import KeyFiguresChart from './KeyFiguresChart';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    button: {
-      margin: theme.spacing(1),
-    },
-    customSize: {
-      maxWidth: 500,
-    },
-  })
-);
-
 const KeyFiguresBar: React.FC = () => {
-  const classes = useStyles();
   const { t } = useTranslation();
 
   const [seriesArray, setSeriesArray] = React.useState([
@@ -45,18 +32,22 @@ const KeyFiguresBar: React.FC = () => {
         <OneKeyFigure
           title={t('analyser.detail.keyfigure.PER.title')}
           definition={t('analyser.detail.keyfigure.PER.definition')}
+          setSeries={setSeriesArray}
         />
         <OneKeyFigure
           title={t('analyser.detail.keyfigure.PBR.title')}
           definition={t('analyser.detail.keyfigure.PBR.definition')}
+          setSeries={setSeriesArray}
         />
         <OneKeyFigure
           title={t('analyser.detail.keyfigure.PEGR.title')}
           definition={t('analyser.detail.keyfigure.PEGR.definition')}
+          setSeries={setSeriesArray}
         />
         <OneKeyFigure
           title={t('analyser.detail.keyfigure.EPS.title')}
           definition={t('analyser.detail.keyfigure.EPS.definition')}
+          setSeries={setSeriesArray}
         />
       </Toolbar>
       <KeyFiguresChart series={seriesArray} />

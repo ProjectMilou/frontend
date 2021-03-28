@@ -6,7 +6,14 @@ import { Checkbox, Toolbar, Typography, Tooltip } from '@material-ui/core';
 export type KeyFigure = {
   title: string;
   definition: string;
-  // value?: number;
+  setSeries: React.Dispatch<
+    React.SetStateAction<
+      {
+        name: string;
+        data: number[];
+      }[]
+    >
+  >;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
