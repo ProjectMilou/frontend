@@ -41,6 +41,22 @@ export type DashboardTableRowProps = {
   selectStock: (id: string) => void;
 };
 
+// Rounds and adds M=Million, B=Billion and K=Thousand --> American System!!!
+function moneyFormat(val: number): string {
+  let round = '';
+  if (Math.abs(val) >= 1.0e9) {
+    round = `€${Math.round(Math.abs(val) / 1.0e9)}B`;
+  } else if (Math.abs(val) >= 1.0e6) {
+    round = `€${Math.round(Math.abs(val) / 1.0e6)}M`;
+  } else if (Math.abs(val) >= 1.0e3) {
+    round = `€${Math.round(Math.abs(val) / 1.0e3)}K`;
+  } else {
+    round = `€${Math.abs(val)}`;
+  }
+  return round;
+}
+
+// Numbers are output in different colors need clear approach!
 export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
   stock,
   selectStock,
@@ -49,14 +65,6 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
 
   const { t } = useTranslation();
   const classes = useStyles();
-
-  // const selectedStock = (symbol: API.Stock['symbol']) => {
-
-  //   // TODO: implement route to analyser page
-  //   /* eslint no-console: ["error", { allow: ["warn", "error] }] */
-  //   console.warn(symbol)
-
-  // }
 
   return (
     <TableRow
@@ -90,7 +98,9 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         <Performance value={stock['30d']} />
       </TableCell>
       <TableCell align="center">
-        <EuroCurrency value={stock.marketCapitalization} />
+        <Typography color="primary" className={classes.defaultText}>
+          {moneyFormat(stock.marketCapitalization)}
+        </Typography>
       </TableCell>
       <TableCell align="center">
         <EuroCurrency value={stock.analystTargetPrice} />
