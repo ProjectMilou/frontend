@@ -42,20 +42,20 @@ export type DashboardTableRowProps = {
 };
 
 // Rounds and adds M=Million, B=Billion and K=Thousand --> American System!!!
-function MoneyFormat(val: number): string
+function moneyFormat(val: number): string
   {
     let round = '';
         if(Math.abs(val) >= 1.0e+9){
-          round=`${Math.round(Math.abs(val) / 1.0e+9)}B€`
+          round=`€${Math.round(Math.abs(val) / 1.0e+9)}B`
         }
         else if(Math.abs(val) >= 1.0e+6){
-          round=`${Math.round(Math.abs(val) / 1.0e+6)}M€`
+          round=`€${Math.round(Math.abs(val) / 1.0e+6)}M`
         }
         else if (Math.abs(val) >= 1.0e+3){
-          round=`${Math.round(Math.abs(val) / 1.0e+3)}K€`
+          round=`€${Math.round(Math.abs(val) / 1.0e+3)}K`
         }
         else{
-          round=`${Math.abs(val)}`;
+          round=`€${Math.abs(val)}`;
         };
         return round;
  }
@@ -103,7 +103,7 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>
-          {MoneyFormat(stock.marketCapitalization)}
+          {moneyFormat(stock.marketCapitalization)}
         </Typography>  
       </TableCell>
       <TableCell align="center">
