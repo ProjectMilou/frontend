@@ -2,7 +2,6 @@ import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 
 import {
-  Container,
   Button,
   Box,
   Grid,
@@ -40,15 +39,17 @@ import portfolio from './media/Portfolio.png';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     media1: {
-      maxWidth: '400px',
-      maxHeight: '350px',
+      maxWidth: '450px',
+      maxHeight: '390px',
       display: 'auto',
       objectFit: 'scale-down',
-      padding: '20px',
+      padding: '10px',
     },
     media2: {
       width: '500px',
       height: '732px',
+      padding: '50px',
+      objectFit: 'scale-down',
     },
     logos: {
       maxWidth: '200px',
@@ -72,7 +73,10 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '24px',
     },
     boxMain: {
-      padding: '150px',
+      paddingLeft: '300px',
+      paddingRight: '300px',
+      paddingTop: '100px',
+      paddingBottom: '100px',
       backgroundColor: '#e6e6e6',
     },
     gridItem: {
@@ -132,14 +136,19 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
         </Box>
       </Box>
 
-      <Box bgcolor="#0c1a3a" color="white" px={8} py={2}>
+      <Box bgcolor="#0c1a3a" color="white" px={8} pt={4} pb={18}>
         <Grid container direction="column" spacing={2}>
           <Grid item>
             <Typography variant="h3">Did you know...</Typography>
           </Grid>
           <Grid item container direction="row" spacing={2} alignItems="center">
             <Grid item>
-              <MoneyIcon />
+              <MoneyIcon
+                style={{
+                  fontSize: '54px',
+                  color: '#D72483',
+                }}
+              />
             </Grid>
             <Grid item xs>
               <Typography variant="h6">
@@ -150,7 +159,12 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
           </Grid>
           <Grid item container direction="row" spacing={2} alignItems="center">
             <Grid item>
-              <LoyaltyIcon />
+              <LoyaltyIcon
+                style={{
+                  fontSize: '54px',
+                  color: '#D72483',
+                }}
+              />
             </Grid>
             <Grid item xs>
               <Typography variant="h6">
@@ -161,23 +175,38 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             </Grid>
           </Grid>
           <Grid item alignItems="center">
-            <Typography variant="h2" align="center">
+            <Typography
+              variant="h3"
+              align="center"
+              style={{ fontWeight: 'bold', marginTop: '64px' }}
+            >
               Milou accompanies you on all your financial adventures.
             </Typography>
           </Grid>
-          <Grid item>
-            <Typography variant="h6" align="center">
+          <Grid item container direction="column">
+            <Typography
+              variant="h6"
+              align="center"
+              style={{ marginTop: '16px', marginBottom: '32px' }}
+            >
               We help you to make well-founded investment decisions yourself.
             </Typography>
-          </Grid>
-          <Grid item alignContent="center">
-            <Button variant="contained">Start for free</Button>
+            <div style={{ margin: 'auto' }}>
+              <Button
+                style={{
+                  backgroundColor: '#d8a842',
+                  color: 'white',
+                }}
+              >
+                Start for free
+              </Button>
+            </div>
           </Grid>
         </Grid>
       </Box>
 
-      <Box className={classes.boxMain}>
-        <Grid container direction="row" spacing={4}>
+      <Box className={classes.boxMain} display="flex">
+        <Grid container direction="row" spacing={4} alignItems="center">
           <Grid item>
             <Media image={img2} className={classes.media2} />
           </Grid>
@@ -198,7 +227,9 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
               spacing={4}
             >
               <Grid item>
-                <CastForEducationIcon style={{ color: '#3aa03a' }} />
+                <CastForEducationIcon
+                  style={{ color: '#3aa03a', fontSize: '54px' }}
+                />
               </Grid>
               <Grid item xs container direction="column">
                 <Typography variant="h5">LEARNING PLATFORM</Typography>
@@ -217,7 +248,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
               spacing={4}
             >
               <Grid item>
-                <InfoIcon style={{ color: 'secondary' }} />
+                <InfoIcon style={{ color: 'secondary', fontSize: '54px' }} />
               </Grid>
               <Grid item xs container direction="column">
                 <Typography variant="h5">INFO BOXES</Typography>
@@ -236,7 +267,9 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
               spacing={4}
             >
               <Grid item>
-                <TrendingUpIcon style={{ color: '#ecec0f' }} />
+                <TrendingUpIcon
+                  style={{ color: '#ecec0f', fontSize: '54px' }}
+                />
               </Grid>
               <Grid item xs container direction="column">
                 <Typography variant="h5">SIMPLE VISUALIZATION</Typography>
@@ -255,7 +288,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
               spacing={4}
             >
               <Grid item>
-                <WarningIcon style={{ color: '#ce2020' }} />
+                <WarningIcon style={{ color: '#ce2020', fontSize: '54px' }} />
               </Grid>
               <Grid item xs container direction="column">
                 <Typography variant="h5">RISK WARNING</Typography>
@@ -268,7 +301,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
           </Grid>
         </Grid>
       </Box>
-      <Box bgcolor="#0c1a3a" color="white" my={12} py={8}>
+      <Box bgcolor="#0c1a3a" color="white" py={8}>
         <Grid container>
           <Grid item xs container direction="column" alignItems="center">
             <Typography variant="h3">Our supporters</Typography>
@@ -302,9 +335,9 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
           </Grid>
         </Box>
       </Box>
-      <Box>
+      <Box py={16} px={8}>
         <Grid container direction="row">
-          <Grid item xs container direction="column">
+          <Grid item xs={6} container direction="column">
             <Typography variant="h4">Stay informed.</Typography>
             <Typography variant="body1">
               Sign-up for our newsletter to get more information and stay in
@@ -318,7 +351,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
               <div>
                 <Input placeholder="Email Address" required />
               </div>
-              <div>
+              <div style={{ marginTop: '2px' }}>
                 <Button variant="contained" color="primary">
                   Submit
                 </Button>
