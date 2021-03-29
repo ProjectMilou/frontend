@@ -12,7 +12,8 @@ type Series = {
 
 const options = {
   options: {
-    colors: ['#F6AE2D', '#5DE78E', '#4392F1'],
+    // Todo change hard coded colors and toggle for charts
+    colors: ['#F6AE2D', '#5DE78E', '#4392F1', '#415176'],
     chart: {
       id: 'line-chart',
       toolbar: {
