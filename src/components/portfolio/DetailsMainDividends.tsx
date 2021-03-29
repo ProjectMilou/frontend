@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 // TODO: change to shared directory
-import RatioDonut from './RatioDonut';
+import RatioDonut from '../charts/RatioDonut';
 
 // stylesheet for the dividend section
 const useStyles = makeStyles(({ palette }: Theme) =>

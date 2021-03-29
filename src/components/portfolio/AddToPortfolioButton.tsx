@@ -62,7 +62,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     listItem: {
       width: '100%',
-      margin: '1rem 0',
+      margin: '0.75rem 0',
+      height: '3.25rem',
     },
     // error helper text
     helperText: {

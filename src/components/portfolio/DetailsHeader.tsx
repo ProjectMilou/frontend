@@ -2,6 +2,7 @@ import React from 'react';
 import { IconButton, makeStyles, createStyles, Theme } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import DetailsEdit from './DetailsEdit';
+import AddToPortfolioButton from './AddToPortfolioButton';
 import { Position } from './DetailsTypes';
 
 // stylesheet for the header of the details page
@@ -70,6 +71,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
         </div>
       </div>
       <DetailsEdit positions={positions} />
+      <AddToPortfolioButton />
     </div>
   );
 };
