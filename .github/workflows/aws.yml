@@ -79,5 +79,5 @@ jobs:
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
         service: milou-frontend-service
-        cluster: milou-frontend
+        cluster: milou-frontend-ecs-cluster
         wait-for-service-stability: true
