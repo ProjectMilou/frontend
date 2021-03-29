@@ -105,11 +105,11 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
             {stock.name}
           </Typography>
           <Divider className={classes.divider} light />
-          <Typography className="MuiTypography--subheading" variant="caption">
+          <Typography className="MuiTypography-body1" variant="caption">
             {t('stock.lastPrice')} : {stock.price}
           </Typography>
           <Divider className={classes.divider} light />
-          <Typography className="MuiTypography--subheading" variant="caption">
+          <Typography className="MuiTypography-body1" variant="caption">
             {t('stock.30d')} : {stock['30d']}
           </Typography>
         </CardContent>
