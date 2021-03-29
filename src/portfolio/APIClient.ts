@@ -6,6 +6,7 @@ const headers = { 'Content-Type': 'application/json' };
 
 // Types used by the frontend
 
+// TODO: Use a dictionary object instead of an array to make searching by id easier
 export type PortfolioOverview = {
   // TODO: Change id to number to be consistent with backend
   id: string;
@@ -35,6 +36,10 @@ type ListResponse = {
     /** UNIX timestamp */
     modified: number;
   }[];
+};
+
+type DuplicateResponse = {
+  id: string;
 };
 
 /**
@@ -98,4 +103,26 @@ export async function rename(
   name: string
 ): Promise<void> {
   await request(token, 'PUT', `rename/${id}`, JSON.stringify({ name }));
+}
+
+/**
+ * Duplicates a portfolio.
+ *
+ * @param token - Authentication token
+ * @param id - ID of the portfolio to be duplicated
+ * @param name - Name of the duplicate
+ * @return ID of the duplicate
+ */
+export async function duplicate(
+  token: string,
+  id: string,
+  name: string
+): Promise<string> {
+  const response = (await request(
+    token,
+    'POST',
+    `duplicate/${id}`,
+    JSON.stringify({ name })
+  )) as DuplicateResponse;
+  return response.id;
 }

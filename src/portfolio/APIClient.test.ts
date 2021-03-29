@@ -1,4 +1,4 @@
-import { list, rename } from './APIClient';
+import { duplicate, list, rename } from './APIClient';
 import { MockOverview, MockOverviewTwo } from './APIMocks';
 
 describe('Portfolio API client', () => {
@@ -78,6 +78,17 @@ describe('Portfolio API client', () => {
     test('resolves on success', async () => {
       fetchMock.mockResponseOnce(JSON.stringify({}));
       await expect(apiCall()).resolves.toBeUndefined();
+    });
+
+    errorHandlingTests(apiCall);
+  });
+
+  describe('duplicate', () => {
+    const apiCall = () => duplicate('', '0', 'newName');
+
+    test('resolves on success', async () => {
+      fetchMock.mockResponseOnce(JSON.stringify({ id: '1' }));
+      await expect(apiCall()).resolves.toEqual('1');
     });
 
     errorHandlingTests(apiCall);

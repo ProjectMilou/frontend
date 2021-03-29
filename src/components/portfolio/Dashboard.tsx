@@ -12,6 +12,7 @@ import ErrorMessage from './ErrorMessage';
 import PortfolioOverview from './PortfolioOverview';
 import DashboardHeader from './DashboardHeader';
 import RenameDialog from './RenameDialog';
+import DuplicateDialog from './DuplicateDialog';
 
 export type DashboardProps = {
   token: string;
@@ -61,6 +62,10 @@ type RenameAction = {
   type: 'rename';
   payload: { id: string; name: string };
 };
+type DuplicateAction = {
+  type: 'duplicate';
+  payload: { id: string; newId: string; newName: string };
+};
 type SetErrorAction = {
   type: 'setError';
   payload: ErrorCode;
@@ -78,6 +83,7 @@ type CloseDialogAction = {
 type Actions =
   | SetPortfoliosAction
   | RenameAction
+  | DuplicateAction
   | SetErrorAction
   | ClearErrorAction
   | OpenDialogAction
@@ -96,6 +102,23 @@ function renamePortfolioAction(
   );
 }
 
+function duplicatePortfolioAction(
+  portfolios: API.PortfolioOverview[] | undefined,
+  { id, newId, newName }: DuplicateAction['payload']
+) {
+  return (
+    portfolios && [
+      ...portfolios,
+      {
+        ...(portfolios.find((p) => p.id === id) as API.PortfolioOverview),
+        id: newId,
+        name: newName,
+        virtual: true,
+      },
+    ]
+  );
+}
+
 function reducer(state: State, action: Actions) {
   switch (action.type) {
     case 'setPortfolios':
@@ -107,6 +130,11 @@ function reducer(state: State, action: Actions) {
       return {
         ...state,
         portfolios: renamePortfolioAction(state.portfolios, action.payload),
+      };
+    case 'duplicate':
+      return {
+        ...state,
+        portfolios: duplicatePortfolioAction(state.portfolios, action.payload),
       };
     case 'setError':
       return {
@@ -214,7 +242,12 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
                   payload: { type: DialogType.RenamePortfolio, portfolioId },
                 })
               }
-              duplicatePortfolio={() => {}}
+              duplicatePortfolio={(portfolioId) =>
+                dispatch({
+                  type: 'openDialog',
+                  payload: { type: DialogType.DuplicatePortfolio, portfolioId },
+                })
+              }
               deletePortfolio={() => {}}
             />
             <Button
@@ -237,6 +270,28 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
             dispatch({
               type: 'rename',
               payload: { id: state.dialog.portfolioId, name },
+            });
+          }
+        }}
+      />
+      <DuplicateDialog
+        initialName={portfolioName(state.portfolios, state.dialog.portfolioId)}
+        open={state.dialog.type === DialogType.DuplicatePortfolio}
+        handleClose={() => dispatch({ type: 'closeDialog' })}
+        duplicate={async (name) => {
+          if (state.dialog.portfolioId) {
+            const id = await API.duplicate(
+              token,
+              state.dialog.portfolioId,
+              name
+            );
+            dispatch({
+              type: 'duplicate',
+              payload: {
+                id: state.dialog.portfolioId,
+                newId: id,
+                newName: name,
+              },
             });
           }
         }}
