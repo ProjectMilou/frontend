@@ -1,4 +1,4 @@
-import { duplicate, list, rename } from './APIClient';
+import { deletePortfolio, duplicate, list, rename } from './APIClient';
 import { MockOverview, MockOverviewTwo } from './APIMocks';
 
 describe('Portfolio API client', () => {
@@ -89,6 +89,17 @@ describe('Portfolio API client', () => {
     test('resolves on success', async () => {
       fetchMock.mockResponseOnce(JSON.stringify({ id: '1' }));
       await expect(apiCall()).resolves.toEqual('1');
+    });
+
+    errorHandlingTests(apiCall);
+  });
+
+  describe('delete', () => {
+    const apiCall = () => deletePortfolio('', '0');
+
+    test('resolves on success', async () => {
+      fetchMock.mockResponseOnce(JSON.stringify({}));
+      await expect(apiCall()).resolves.toBeUndefined();
     });
 
     errorHandlingTests(apiCall);

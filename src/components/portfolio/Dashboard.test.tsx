@@ -180,4 +180,36 @@ describe('Dashboard', () => {
     expect(screen.queryByText(MockOverview.name)).toBeInTheDocument();
     expect(screen.queryByText('new name')).toBeInTheDocument();
   });
+
+  test('delete popup deletes the portfolio', async () => {
+    const mockPortfolioOverview = mockAPI.list.mockResolvedValue([
+      MockOverview,
+      MockOverviewTwo,
+    ]);
+    mockAPI.deletePortfolio.mockResolvedValue(undefined);
+    const { container } = renderComponent();
+    await act(async () => {
+      // wait until the component is rendered
+      await waitFor(() => {
+        expect(mockPortfolioOverview).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    // no popup visible yet
+    expect(screen.queryByText('portfolio.dialog.delete.title')).toBeNull();
+
+    // popup opens on click and shows the correct name
+    fireEvent.click(container.querySelectorAll('button svg')[4]);
+    expect(
+      screen.queryByText('portfolio.dialog.delete.title')
+    ).toBeInTheDocument();
+    expect(screen.queryAllByText(MockOverview.name)[0]).toBeInTheDocument();
+
+    // delete the portfolio and close the popup
+    fireEvent.click(screen.getByText('portfolio.delete'));
+    await waitFor(() => {
+      expect(screen.queryByText('portfolio.dialog.delete.title')).toBeNull();
+    });
+    expect(screen.queryByText(MockOverview.name)).toBeNull();
+  });
 });

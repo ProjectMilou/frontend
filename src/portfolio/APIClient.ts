@@ -126,3 +126,16 @@ export async function duplicate(
   )) as DuplicateResponse;
   return response.id;
 }
+
+/**
+ * Deletes a portfolio.
+ *
+ * @param token - Authentication token
+ * @param id - ID of the portfolio to be deleted
+ */
+export async function deletePortfolio(
+  token: string,
+  id: string
+): Promise<void> {
+  await request(token, 'DELETE', id);
+}

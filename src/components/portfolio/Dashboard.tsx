@@ -13,6 +13,7 @@ import PortfolioOverview from './PortfolioOverview';
 import DashboardHeader from './DashboardHeader';
 import RenameDialog from './RenameDialog';
 import DuplicateDialog from './DuplicateDialog';
+import DeleteDialog from './DeleteDialog';
 
 export type DashboardProps = {
   token: string;
@@ -66,6 +67,10 @@ type DuplicateAction = {
   type: 'duplicate';
   payload: { id: string; newId: string; newName: string };
 };
+type DeleteAction = {
+  type: 'delete';
+  payload: { id: string };
+};
 type SetErrorAction = {
   type: 'setError';
   payload: ErrorCode;
@@ -84,6 +89,7 @@ type Actions =
   | SetPortfoliosAction
   | RenameAction
   | DuplicateAction
+  | DeleteAction
   | SetErrorAction
   | ClearErrorAction
   | OpenDialogAction
@@ -119,6 +125,13 @@ function duplicatePortfolioAction(
   );
 }
 
+function deletePortfolioAction(
+  portfolios: API.PortfolioOverview[] | undefined,
+  { id }: DeleteAction['payload']
+) {
+  return portfolios && portfolios.filter((p) => p.id !== id);
+}
+
 function reducer(state: State, action: Actions) {
   switch (action.type) {
     case 'setPortfolios':
@@ -135,6 +148,11 @@ function reducer(state: State, action: Actions) {
       return {
         ...state,
         portfolios: duplicatePortfolioAction(state.portfolios, action.payload),
+      };
+    case 'delete':
+      return {
+        ...state,
+        portfolios: deletePortfolioAction(state.portfolios, action.payload),
       };
     case 'setError':
       return {
@@ -248,7 +266,12 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
                   payload: { type: DialogType.DuplicatePortfolio, portfolioId },
                 })
               }
-              deletePortfolio={() => {}}
+              deletePortfolio={(portfolioId) => {
+                dispatch({
+                  type: 'openDialog',
+                  payload: { type: DialogType.DeletePortfolio, portfolioId },
+                });
+              }}
             />
             <Button
               className={classes.createButton}
@@ -292,6 +315,20 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
                 newId: id,
                 newName: name,
               },
+            });
+          }
+        }}
+      />
+      <DeleteDialog
+        initialName={portfolioName(state.portfolios, state.dialog.portfolioId)}
+        open={state.dialog.type === DialogType.DeletePortfolio}
+        handleClose={() => dispatch({ type: 'closeDialog' })}
+        deletePortfolio={async () => {
+          if (state.dialog.portfolioId) {
+            await API.deletePortfolio(token, state.dialog.portfolioId);
+            dispatch({
+              type: 'delete',
+              payload: { id: state.dialog.portfolioId },
             });
           }
         }}
