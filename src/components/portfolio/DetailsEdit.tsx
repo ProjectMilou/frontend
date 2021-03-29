@@ -186,7 +186,6 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
       </Button>
       <Dialog
         onClose={() => setOpen(false)}
-        aria-labelledby="customized-dialog-title"
         open={open}
         className={classes.Dialog}
       >
@@ -195,11 +194,9 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
           disableTypography
           className={classes.dialogHeaderFooter}
         >
-          <span className={classes.span}>
-            <Typography variant="h6" className={classes.text}>
-              {t('portfolio.details.dialogHeader')}
-            </Typography>
-          </span>
+          <Typography variant="h6" className={classes.text}>
+            {t('portfolio.details.dialogHeader')}
+          </Typography>
           <IconButton
             aria-label="close"
             className={classes.headerCloseButton}
@@ -209,8 +206,6 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
           </IconButton>
         </MuiDialogTitle>
         <MuiDialogContent dividers className={classes.DialogContent}>
-          {/* Legend for the positions */}
-          {/* TODO add translation for legend */}
           <div className={classes.legendWrapper}>
             <p className={classes.legendItem}>{t('portfolio.details.stock')}</p>
             <p className={classes.legendItem}>{t('portfolio.details.price')}</p>
@@ -235,15 +230,13 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
                   >
                     <RemoveIcon />
                   </IconButton>
-                  {/* the value in the text field below needs to take the amount from tempPos - NOT position - so the sate updates correctly */}
-                  {/* TODO add translation for helper text */}
                   <TextField
                     variant="outlined"
                     value={tempPos[position.stock.isin]}
                     error={!pattern.test(tempPos[position.stock.isin])}
                     helperText={
                       pattern.test(tempPos[position.stock.isin])
-                        ? ''
+                        ? undefined
                         : 'Please enter a positive number!'
                     }
                     FormHelperTextProps={{
@@ -286,11 +279,10 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
           </List>
         </MuiDialogContent>
         <MuiDialogActions className={classes.dialogHeaderFooter}>
-          <Button autoFocus onClick={handleDiscardChanges} color="primary">
+          <Button onClick={handleDiscardChanges} color="primary">
             {t('portfolio.details.discardChanges')}
           </Button>
           <Button
-            autoFocus
             onClick={handleSaveChanges}
             color="primary"
             disabled={
