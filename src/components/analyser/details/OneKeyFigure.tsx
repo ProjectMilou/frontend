@@ -6,14 +6,7 @@ import { Checkbox, Toolbar, Typography, Tooltip } from '@material-ui/core';
 export type KeyFigure = {
   title: string;
   definition: string;
-  setSeries: React.Dispatch<
-    React.SetStateAction<
-      {
-        name: string;
-        data: number[];
-      }[]
-    >
-  >;
+  toggleFilter: (filter: string) => void;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -31,23 +24,26 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const OneKeyFigure: React.FC<KeyFigure> = (oneKeyFigureProp) => {
+export const OneKeyFigure: React.FC<KeyFigure> = ({
+  title,
+  definition,
+  toggleFilter,
+}) => {
   const classes = useStyles();
   const [visible, setVisible] = React.useState<boolean>(true);
 
   const handleClick = () => {
-    // TODO: change the chart
     setVisible(!visible);
-    // console.log(visible)
+    toggleFilter(title);
   };
 
   return (
     <div>
       <Toolbar>
         <Checkbox color="primary" checked={visible} onChange={handleClick} />
-        <Typography>{oneKeyFigureProp.title}</Typography>
+        <Typography>{title}</Typography>
         <Tooltip
-          title={oneKeyFigureProp.definition}
+          title={definition}
           placement="top-start"
           classes={{ tooltip: classes.customSize }}
         >
