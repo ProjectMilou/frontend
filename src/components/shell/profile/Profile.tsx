@@ -2,6 +2,7 @@ import {
   Button,
   createStyles,
   Divider,
+  Grid,
   makeStyles,
   Paper,
   TextField,
@@ -13,9 +14,6 @@ import React, { useEffect, useState } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      padding: '10px 300px 10px 300px',
-    },
     heading1: {
       margin: 0,
     },
@@ -31,6 +29,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+interface UserProfile {
+  firstName?: string;
+  lastName?: string;
+  user?: {
+    id?: string;
+  };
+}
+
 const Profile: React.FC<RouteComponentProps> = () => {
   const [user, setUser] = useState({
     firstName: '',
@@ -39,7 +45,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
   });
   const classes = useStyles();
 
-  function handleData(data: any) {
+  function handleData(data: UserProfile) {
     if (!data) return;
     setUser({
       firstName: data.firstName || '',
@@ -93,57 +99,61 @@ const Profile: React.FC<RouteComponentProps> = () => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }).then((r) => navigate('/'));
+    }).then(() => navigate('/'));
   };
 
   return (
-    <div className={classes.root}>
-      <Paper square>
-        <div className={classes.subpaper}>
-          <h1 className={classes.heading1}>Profile</h1>
-          <Divider />
-          <h2>Account Details</h2>
-          <div className={classes.details}>
-            <Typography className={classes.label}>Email</Typography>
-            <TextField
-              variant="outlined"
-              value={user.email}
-              disabled
-              size="small"
-              fullWidth
-            />
-            <br />
-            <br />
-            <Typography className={classes.label}>First Name</Typography>
-            <TextField
-              variant="outlined"
-              value={user.firstName}
-              onChange={(e) => setUser({ ...user, firstName: e.target.value })}
-              size="small"
-              fullWidth
-            />
-            <br />
-            <br />
-            <Typography className={classes.label}>Last Name</Typography>
-            <TextField
-              variant="outlined"
-              value={user.lastName}
-              onChange={(e) => setUser({ ...user, lastName: e.target.value })}
-              size="small"
-              fullWidth
-            />
-            <br />
-            <br />
-            <Button variant="contained" color="primary" onClick={onEdit}>
-              Update Details
-            </Button>{' '}
-            <Button variant="outlined" color="primary" onClick={onDelete}>
-              Delete Account
-            </Button>
+    <Grid container justify="center">
+      <Grid item xs={8}>
+        <Paper square>
+          <div className={classes.subpaper}>
+            <h1 className={classes.heading1}>Profile</h1>
+            <Divider />
+            <h2>Account Details</h2>
+            <div className={classes.details}>
+              <Typography className={classes.label}>Email</Typography>
+              <TextField
+                variant="outlined"
+                value={user.email}
+                disabled
+                size="small"
+                fullWidth
+              />
+              <br />
+              <br />
+              <Typography className={classes.label}>First Name</Typography>
+              <TextField
+                variant="outlined"
+                value={user.firstName}
+                onChange={(e) =>
+                  setUser({ ...user, firstName: e.target.value })
+                }
+                size="small"
+                fullWidth
+              />
+              <br />
+              <br />
+              <Typography className={classes.label}>Last Name</Typography>
+              <TextField
+                variant="outlined"
+                value={user.lastName}
+                onChange={(e) => setUser({ ...user, lastName: e.target.value })}
+                size="small"
+                fullWidth
+              />
+              <br />
+              <br />
+              <Button variant="contained" color="primary" onClick={onEdit}>
+                Update Details
+              </Button>{' '}
+              <Button variant="outlined" color="primary" onClick={onDelete}>
+                Delete Account
+              </Button>
+            </div>
           </div>
-        </div>
-      </Paper>
-    </div>
+        </Paper>
+      </Grid>
+    </Grid>
   );
 };
 
