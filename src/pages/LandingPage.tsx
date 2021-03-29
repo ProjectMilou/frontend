@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingRight: '300px',
       paddingTop: '100px',
       paddingBottom: '100px',
-      backgroundColor: '#e6e6e6',
+      backgroundColor: '#EEF1FB',
     },
     gridItem: {
       paddingInline: '100px',
