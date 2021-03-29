@@ -13,6 +13,7 @@ import logo from '../../assets/images/logo1.png';
 import NavLink from './NavLink';
 import Login from '../shell/login/Login';
 import Register from '../shell/register/Register';
+import ForgotPassword from '../shell/forgotPassword/ForgotPassword';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,6 +39,7 @@ const Header: React.FC = () => {
   const classes = useStyles();
   const [openLogin, setOpenLogin] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
+  const [openForgotPassword, setOpenForgotPassword] = useState(false);
 
   return (
     <AppBar position="sticky" color="inherit">
@@ -77,6 +79,10 @@ const Header: React.FC = () => {
               setOpenLogin(false);
               setOpenRegister(true);
             }}
+            openForgotPasswordPopUp={() => {
+              setOpenLogin(false);
+              setOpenForgotPassword(true);
+            }}
           />
         </Dialog>
         <Dialog
@@ -91,6 +97,13 @@ const Header: React.FC = () => {
               setOpenLogin(true);
             }}
           />
+        </Dialog>
+        <Dialog
+          open={openForgotPassword}
+          onClose={() => setOpenForgotPassword(false)}
+          className={classes.dialog}
+        >
+          <ForgotPassword closePopUp={() => setOpenForgotPassword(false)} />
         </Dialog>
       </Toolbar>
     </AppBar>

@@ -62,10 +62,11 @@ const useStyles = makeStyles({
 interface LoginProps {
   closePopUp: () => void;
   openRegisterPopUp: () => void;
+  openForgotPasswordPopUp: () => void;
 }
 
 const Login: React.FC<LoginProps> = (props) => {
-  const { closePopUp, openRegisterPopUp } = props;
+  const { closePopUp, openRegisterPopUp, openForgotPasswordPopUp } = props;
   const theme = useTheme();
   const { t } = useTranslation();
   const { dialog, iconLogo, iconClear, button } = useStyles(theme);
@@ -181,7 +182,12 @@ const Login: React.FC<LoginProps> = (props) => {
         </FormControl>
       </DialogContent>
 
-      <button className={button} type="button">
+      <button
+        className={button}
+        type="button"
+        onClick={openForgotPasswordPopUp}
+        onKeyDown={openForgotPasswordPopUp}
+      >
         {t('shell.message.forgotPassword')}
       </button>
 
@@ -220,6 +226,7 @@ const Login: React.FC<LoginProps> = (props) => {
 Login.propTypes = {
   closePopUp: PropTypes.func.isRequired,
   openRegisterPopUp: PropTypes.func.isRequired,
+  openForgotPasswordPopUp: PropTypes.func.isRequired,
 };
 
 export default Login;

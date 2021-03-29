@@ -6,6 +6,8 @@
   "shell.register": "Register",
   "shell.confirmPassword": "Confirm your password",
   "shell.message.forgotPassword": "Forgot password?",
+  "shell.forgotPassword.reset": "Enter your email so we can send you an authentication token",
+  "shell.forgotPassword.submit": "Send token",
   "shell.message.noAccount": "You have no account? Then register ",
   "error.invalidEmail": "Invalid email address.",
   "error.invalidPassword": "Invalid password.",
