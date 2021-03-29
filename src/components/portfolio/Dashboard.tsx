@@ -14,6 +14,7 @@ import DashboardHeader from './DashboardHeader';
 import RenameDialog from './RenameDialog';
 import DuplicateDialog from './DuplicateDialog';
 import DeleteDialog from './DeleteDialog';
+import CreateDialog from './CreateDialog';
 
 export type DashboardProps = {
   token: string;
@@ -59,6 +60,10 @@ type SetPortfoliosAction = {
   type: 'setPortfolios';
   payload: API.PortfolioOverview[];
 };
+type CreateAction = {
+  type: 'create';
+  payload: { id: string; name: string };
+};
 type RenameAction = {
   type: 'rename';
   payload: { id: string; name: string };
@@ -87,6 +92,7 @@ type CloseDialogAction = {
 };
 type Actions =
   | SetPortfoliosAction
+  | CreateAction
   | RenameAction
   | DuplicateAction
   | DeleteAction
@@ -94,6 +100,27 @@ type Actions =
   | ClearErrorAction
   | OpenDialogAction
   | CloseDialogAction;
+
+function createPortfolioAction(
+  portfolios: API.PortfolioOverview[] | undefined,
+  { id, name }: CreateAction['payload']
+) {
+  return (
+    portfolios && [
+      ...portfolios,
+      {
+        id,
+        name,
+        virtual: true,
+        positionCount: 0,
+        value: 0,
+        perf7d: 0,
+        perf1y: 0,
+        modified: new Date(),
+      },
+    ]
+  );
+}
 
 function renamePortfolioAction(
   portfolios: API.PortfolioOverview[] | undefined,
@@ -138,6 +165,11 @@ function reducer(state: State, action: Actions) {
       return {
         ...state,
         portfolios: action.payload,
+      };
+    case 'create':
+      return {
+        ...state,
+        portfolios: createPortfolioAction(state.portfolios, action.payload),
       };
     case 'rename':
       return {
@@ -277,12 +309,26 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
               className={classes.createButton}
               variant="outlined"
               color="primary"
+              onClick={() => {
+                dispatch({
+                  type: 'openDialog',
+                  payload: { type: DialogType.CreatePortfolio },
+                });
+              }}
             >
               {t('portfolio.dashboard.createPortfolio')}
             </Button>
           </div>
         )}
       </Container>
+      <CreateDialog
+        open={state.dialog.type === DialogType.CreatePortfolio}
+        handleClose={() => dispatch({ type: 'closeDialog' })}
+        create={async (name) => {
+          const id = await API.create(token, name);
+          dispatch({ type: 'create', payload: { id, name } });
+        }}
+      />
       <RenameDialog
         initialName={portfolioName(state.portfolios, state.dialog.portfolioId)}
         open={state.dialog.type === DialogType.RenamePortfolio}
