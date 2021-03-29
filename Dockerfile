@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 # Installing dependencies
 COPY package.json ./
 COPY yarn.lock ./
-RUN ["yarn", "install"]
+RUN ["yarn", "install", "--network-timeout 100000"]
 
 # Copying source files
 COPY . .

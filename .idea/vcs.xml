@@ -10,6 +10,7 @@
     <option name="branchProtectionPatterns">
       <list>
         <option value="main" />
+        <option value="analyser" />
       </list>
     </option>
   </component>
