@@ -5,15 +5,14 @@ import {
   CardContent,
   CardMedia,
   Grid,
-  Button,
   Divider,
   lighten,
   makeStyles,
   Theme,
   Typography,
   GridList,
+  ButtonBase,
 } from '@material-ui/core';
-import classNames from 'classnames';
 import * as API from '../../../analyser/APIClient';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -55,6 +54,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   subheading: {
     lineHeight: 1.8,
   },
+  cardAction: {
+    display: 'block',
+    textAlign: 'initial',
+  },
 }));
 
 export type DashboardCardsRowProps = {
@@ -66,52 +69,51 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
   stock,
   selectStock,
 }) => {
-  const [hover, setHover] = React.useState<boolean>(false);
   const classes = useStyles();
   const { t } = useTranslation();
 
   return (
-    <Card
-      className={classes.card}
-      style={{ width: 280, height: 450, margin: 10 }}
-    >
-      <CardMedia
-        style={{
-          height: 200,
-          width: 260,
-          placeItems: 'center',
-          alignItems: 'center',
-          objectFit: 'scale-down',
-          margin: 10,
+    <Card className={classes.card} style={{ width: 280, margin: 10 }}>
+      <ButtonBase
+        className={classes.cardAction}
+        onClick={() => {
+          selectStock(stock.symbol);
         }}
-        component="img"
-        image={stock.picture.toString()}
-      />
-      <CardContent className={classes.content}>
-        <Typography
-          className="MuiTypography--heading"
-          variant="h6"
-          gutterBottom
-        >
-          {stock.symbol}
-        </Typography>
-        <Typography className="MuiTypography--subheading" variant="caption">
-          {stock.name}
-        </Typography>
-        <Divider className={classes.divider} light />
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => {
-            selectStock(stock.symbol);
+      >
+        <CardMedia
+          style={{
+            height: 200,
+            width: 260,
+            placeItems: 'center',
+            alignItems: 'center',
+            objectFit: 'scale-down',
+            margin: 10,
           }}
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-          className={classNames(classes.row, hover && classes.rowHover)}
-        >
-          {t('analyser.detail.text')}
-        </Button>
-      </CardContent>
+          component="img"
+          image={stock.picture.toString()}
+        />
+        <CardContent className={classes.content}>
+          <Typography
+            className="MuiTypography--heading"
+            variant="h6"
+            gutterBottom
+          >
+            {stock.symbol}
+          </Typography>
+          <Divider className={classes.divider} light />
+          <Typography className="MuiTypography-body1" variant="caption">
+            {stock.name}
+          </Typography>
+          <Divider className={classes.divider} light />
+          <Typography className="MuiTypography--subheading" variant="caption">
+            {t('stock.lastPrice')} : {stock.price}
+          </Typography>
+          <Divider className={classes.divider} light />
+          <Typography className="MuiTypography--subheading" variant="caption">
+            {t('stock.30d')} : {stock['30d']}
+          </Typography>
+        </CardContent>
+      </ButtonBase>
     </Card>
   );
 };
