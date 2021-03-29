@@ -8,7 +8,7 @@
       "image": "936573022103.dkr.ecr.eu-central-1.amazonaws.com/milou-frontend:latest",
       "portMappings": [
         {
-          "containerPort": 5000,
+          "containerPort": 80,
           "hostPort": 80
         }
       ],

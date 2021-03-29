@@ -6,7 +6,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "serve": "serve -s -C -n build",
+    "serve": "serve -s -C -n -l 80 build",
     "eject": "react-scripts eject",
     "format": "lint-staged",
     "lint": "tsc --noEmit && eslint .",
