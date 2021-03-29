@@ -78,6 +78,6 @@ jobs:
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: milou-frontend-ecs-service
+        service: milou-frontend-service
         cluster: milou-frontend
         wait-for-service-stability: true
