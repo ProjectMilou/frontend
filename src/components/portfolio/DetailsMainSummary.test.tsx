@@ -23,5 +23,5 @@ test('DetailsMainSummary renders correctly', () => {
   screen.getAllByText(mock.perf1y, { exact: false });
   screen.getAllByText(mock.value, { exact: false });
   screen.getAllByText(mock.positionCount, { exact: false });
-  // TODO add tests for number of countries, industries and currencies when the correct values are being displayed
+  // TODO add tests for number of countries, industries and currencies when the correct values are being displayed.
 });

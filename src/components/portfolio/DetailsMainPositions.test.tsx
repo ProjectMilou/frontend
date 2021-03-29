@@ -8,6 +8,6 @@ test('DetailsMainPositions render correctly', () => {
 
   screen.getByText('BMW');
   screen.getByText(/23.25/);
-  screen.getAllByText('day7');
-  screen.getAllByText('year');
+  screen.getAllByText('portfolio.details.day7');
+  screen.getAllByText('portfolio.details.year');
 });
