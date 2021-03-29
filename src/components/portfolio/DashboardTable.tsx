@@ -11,7 +11,7 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow,
+  TableRow, TableSortLabel,
   Theme,
   Tooltip,
   Typography
@@ -148,24 +148,53 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
   );
 };
 
+interface SortableHeadCell {
+  id: keyof PortfolioOverview;
+  label: string;
+  numeric: boolean;
+}
+type Order = 'asc' | 'desc';
+
 export type DashboardTableHeadProps = {
+  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof PortfolioOverview) => void;
+  order: Order;
+  orderBy: keyof PortfolioOverview;
 };
 
-
-export const DashboardTableHead: React.FC<DashboardTableHeadProps> = () => {
+export const DashboardTableHead: React.FC<DashboardTableHeadProps> = ({
+  onRequestSort, order, orderBy,
+                                                                      }) => {
   const { t } = useTranslation();
+  const headCells: SortableHeadCell[] = [
+    { id: 'score', numeric: true, label: t('portfolio.score') },
+    { id: 'name', numeric: false, label: t('portfolio.name') },
+    { id: 'positionCount', numeric: true, label: t('portfolio.positionsCount') },
+    { id: 'value', numeric: true, label: t('portfolio.value') },
+    { id: 'perf7d', numeric: true, label: t('portfolio.7d') },
+    { id: 'perf1y', numeric: true, label: t('portfolio.1y') },
+  ];
+  const createSortHandler = (property: keyof PortfolioOverview) => (event: React.MouseEvent<unknown>) => {
+    onRequestSort(event, property);
+  };
 
   return (
     <TableHead>
       <TableRow>
-        <TableCell align="center">{t('portfolio.score')}</TableCell>
-        <TableCell align="center">{t('portfolio.name')}</TableCell>
-        <TableCell align="center">
-          {t('portfolio.positionsCount')}
-        </TableCell>
-        <TableCell align="center">{t('portfolio.value')}</TableCell>
-        <TableCell align="center">{t('portfolio.7d')}</TableCell>
-        <TableCell align="center">{t('portfolio.1y')}</TableCell>
+        {headCells.map((headCell) => (
+          <TableCell
+            align = 'center'
+            key={headCell.id}
+            sortDirection = {orderBy === headCell.id ? order : false}
+          >
+            <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={createSortHandler(headCell.id)}
+            >
+              {headCell.label}
+            </TableSortLabel>
+          </TableCell>
+        ))}
         <TableCell align="center">{t('portfolio.actions')}</TableCell>
       </TableRow>
     </TableHead>
@@ -180,6 +209,38 @@ export type DashboardTableProps = {
   deletePortfolio: (id: string) => void;
 };
 
+function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
+  const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) return order;
+    return a[1] - b[1];
+  });
+  return stabilizedThis.map((el) => el[0]);
+}
+
+function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+}
+
+function getComparator<Key extends keyof any>(
+  order: Order,
+  orderBy: Key
+): (
+  a: { [key in Key]: number | string },
+  b: { [key in Key]: number | string }
+) => number {
+  return order === "desc"
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
 const DashboardTable: React.FC<DashboardTableProps> = ({
   portfolios,
   selectPortfolio,
@@ -188,12 +249,25 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
   deletePortfolio,
 }) => {
   const { t } = useTranslation();
+  const sortedPortfolios = [...portfolios];
+  const [order, setOrder] = React.useState<Order>('asc');
+  const [orderBy, setOrderBy] = React.useState<keyof PortfolioOverview>('score');
+
+  const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof PortfolioOverview) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
 
   // TODO: Improve portfolio score visualization
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
-        <DashboardTableHead />
+        <DashboardTableHead
+          onRequestSort={handleRequestSort}
+          order = {order}
+          orderBy = {orderBy}
+        />
         <TableBody>
           {portfolios.map((p) => (
             <DashboardTableRow
