@@ -82,7 +82,7 @@ const theme = createMuiTheme({
       main: '#D64745',
     },
     lightBlue: {
-      main: '#0D1B3B',
+      main: '#3FBCF2',
     },
     teal: {
       main: '#34CFB2',
