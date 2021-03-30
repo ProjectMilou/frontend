@@ -9,32 +9,6 @@ import { RiskAnalysis, Risk, Position } from './DetailsTypes';
 // stylesheet for the risk analysis section
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
-    titleContainer: {
-      display: 'flex',
-      marginBottom: '2rem',
-    },
-    titleWrapper: {
-      marginRight: '1rem',
-    },
-    sectionTitle: {
-      margin: 0,
-      color: palette.primary.contrastText,
-      // TODO use theme fontsize and weight
-      fontSize: '2.25rem',
-      fontWeight: 400,
-      whiteSpace: 'nowrap',
-    },
-    lineWrapper: {
-      display: 'flex',
-      width: '100%',
-      // TODO: use theme color
-      borderColor: '#EEF1FB',
-    },
-    line: {
-      width: '100%',
-      alignSelf: 'center',
-      paddingLeft: '2%',
-    },
     riskContainer: {
       display: 'flex',
       justifyContent: 'space-between',
@@ -182,44 +156,32 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div>
-      <div className={classes.titleContainer}>
-        <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionTitle}>
-            {t('portfolio.details.risk')}
-          </h2>
-        </div>
-        <div className={classes.lineWrapper}>
-          <hr className={classes.line} />
-        </div>
-      </div>
-      <div className={classes.riskContainer}>
-        <RiskComp
-          risk={risk.countries}
-          title={t('portfolio.details.countries')}
-          // TODO: deal with overflow (too many names)
-          labels={Array.from(new Set(positions.map((p) => p.stock.country)))}
-          // TODO: replace with actuall count
-          portions={[3, 1]}
-        />
-        <RiskComp
-          risk={risk.segments}
-          title={t('portfolio.details.segments')}
-          // TODO: deal with overflow (too many names)
-          labels={Array.from(new Set(positions.map((p) => p.stock.industry)))}
-          // TODO: replace with actuall count
-          portions={[6, 1]}
-        />
-        <RiskComp
-          risk={risk.currency}
-          title={t('portfolio.details.currency')}
-          // TODO: deal with overflow (too many names)
-          // TODO: replace with actuall currency
-          labels={Array.from(new Set(positions.map((p) => p.stock.country)))}
-          // TODO: replace with actuall count
-          portions={[1, 1]}
-        />
-      </div>
+    <div className={classes.riskContainer}>
+      <RiskComp
+        risk={risk.countries}
+        title={t('portfolio.details.countries')}
+        // TODO: deal with overflow (too many names)
+        labels={Array.from(new Set(positions.map((p) => p.stock.country)))}
+        // TODO: replace with actuall count
+        portions={[3, 1]}
+      />
+      <RiskComp
+        risk={risk.segments}
+        title={t('portfolio.details.segments')}
+        // TODO: deal with overflow (too many names)
+        labels={Array.from(new Set(positions.map((p) => p.stock.industry)))}
+        // TODO: replace with actuall count
+        portions={[6, 1]}
+      />
+      <RiskComp
+        risk={risk.currency}
+        title={t('portfolio.details.currency')}
+        // TODO: deal with overflow (too many names)
+        // TODO: replace with actuall currency
+        labels={Array.from(new Set(positions.map((p) => p.stock.country)))}
+        // TODO: replace with actuall count
+        portions={[1, 1]}
+      />
     </div>
   );
 };

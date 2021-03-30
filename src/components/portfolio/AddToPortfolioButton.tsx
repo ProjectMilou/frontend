@@ -171,8 +171,12 @@ type CheckedType = {
   [key: number]: string;
 };
 
+type AddToPortfolioButtonType = {
+  isin: string;
+};
+
 // returns the add to portfolio button and all subcomponents including the dialog window
-const AddToPortfolioButton: React.FC = () => {
+const AddToPortfolioButton: React.FC<AddToPortfolioButtonType> = () => {
   // style and translation hooks
   const classes = useStyles();
   const { t } = useTranslation();

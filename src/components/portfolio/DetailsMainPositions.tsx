@@ -15,32 +15,6 @@ import ValueOverName from './ValueOverName';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
-    titleContainer: {
-      display: 'flex',
-      marginBottom: '2rem',
-    },
-    titleWrapper: {
-      marginRight: '1rem',
-    },
-    sectionTitle: {
-      margin: 0,
-      color: palette.primary.contrastText,
-      // TODO use theme fontsize and weight
-      fontSize: '2.25rem',
-      fontWeight: 400,
-      whiteSpace: 'nowrap',
-    },
-    lineWrapper: {
-      display: 'flex',
-      width: '100%',
-      // TODO: use theme color
-      borderColor: '#EEF1FB',
-    },
-    line: {
-      width: '100%',
-      alignSelf: 'center',
-      paddingLeft: '2%',
-    },
     button: {
       textTransform: 'none',
       // TODO: use theme color
@@ -101,74 +75,62 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
   }
 
   return (
-    <div>
-      <div className={classes.titleContainer}>
-        <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionTitle}>
-            {t('portfolio.details.positionsTitle')}
-          </h2>
-        </div>
-        <div className={classes.lineWrapper}>
-          <hr className={classes.line} />
-        </div>
-      </div>
-      <div className={classes.gridListWrapper}>
-        <GridList
-          cellHeight="auto"
-          cols={4}
-          spacing={32}
-          className={classes.gridList}
-          style={{ margin: '0 auto' }}
-        >
-          {positions.map((p) => (
-            <GridListTile key={p.stock.isin}>
-              <Card
-                variant="outlined"
-                className={classes.card}
-                style={{ borderColor: convertPercentToColor(p.stock.perf7d) }}
-              >
-                <CardContent>
-                  <div className={classes.cardContentUpper}>
-                    <div className={classes.cardTitle}>{p.stock.name}</div>
-                    <div
-                      className={classes.cardSubtitle}
-                    >{`$${p.stock.price}`}</div>
-                  </div>
-                  <div className={classes.cardContentLower}>
-                    <ValueOverName
-                      value={`${p.stock.perf7d}%`}
-                      name={t('portfolio.details.day7')}
-                      valueColor={convertPercentToColor(p.stock.perf7d)}
+    <div className={classes.gridListWrapper}>
+      <GridList
+        cellHeight="auto"
+        cols={4}
+        spacing={32}
+        className={classes.gridList}
+        style={{ margin: '0 auto' }}
+      >
+        {positions.map((p) => (
+          <GridListTile key={p.stock.isin}>
+            <Card
+              variant="outlined"
+              className={classes.card}
+              style={{ borderColor: convertPercentToColor(p.stock.perf7d) }}
+            >
+              <CardContent>
+                <div className={classes.cardContentUpper}>
+                  <div className={classes.cardTitle}>{p.stock.name}</div>
+                  <div
+                    className={classes.cardSubtitle}
+                  >{`$${p.stock.price}`}</div>
+                </div>
+                <div className={classes.cardContentLower}>
+                  <ValueOverName
+                    value={`${p.stock.perf7d}%`}
+                    name={t('portfolio.details.day7')}
+                    valueColor={convertPercentToColor(p.stock.perf7d)}
+                  />
+                  <ValueOverName
+                    value={`${p.stock.perf1y}%`}
+                    name={t('portfolio.details.year')}
+                    valueColor={convertPercentToColor(p.stock.perf1y)}
+                  />
+                </div>
+              </CardContent>
+              <CardActions className={classes.cardAction}>
+                <Button
+                  size="small"
+                  endIcon={
+                    <ArrowRightIcon
+                      style={{ marginLeft: '-8px', marginTop: '4px' }}
+                      aria-label="rightArrow"
                     />
-                    <ValueOverName
-                      value={`${p.stock.perf1y}%`}
-                      name={t('portfolio.details.year')}
-                      valueColor={convertPercentToColor(p.stock.perf1y)}
-                    />
-                  </div>
-                </CardContent>
-                <CardActions className={classes.cardAction}>
-                  <Button
-                    size="small"
-                    endIcon={
-                      <ArrowRightIcon
-                        style={{ marginLeft: '-8px', marginTop: '4px' }}
-                        aria-label="rightArrow"
-                      />
-                    }
-                    className={classes.button}
-                    style={{ backgroundColor: 'transparent' }}
-                    // TODO: handle button click
-                    onClick={() => null}
-                  >
-                    {t('portfolio.details.viewMore')}
-                  </Button>
-                </CardActions>
-              </Card>
-            </GridListTile>
-          ))}
-        </GridList>
-      </div>
+                  }
+                  className={classes.button}
+                  style={{ backgroundColor: 'transparent' }}
+                  // TODO: handle button click
+                  onClick={() => null}
+                >
+                  {t('portfolio.details.viewMore')}
+                </Button>
+              </CardActions>
+            </Card>
+          </GridListTile>
+        ))}
+      </GridList>
     </div>
   );
 };

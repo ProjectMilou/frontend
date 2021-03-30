@@ -1,39 +1,13 @@
 import React from 'react';
-import { useTheme, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { useTheme, makeStyles, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import ValueOverName from './ValueOverName';
 import { Position, RiskAnalysis } from './DetailsTypes';
 import DetailsDonut from './DetailsDonut';
 
 // stylesheet for the Summary section
-const useStyles = makeStyles(({ palette }: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
-    titleContainer: {
-      display: 'flex',
-      marginBottom: '2rem',
-    },
-    titleWrapper: {
-      marginRight: '1rem',
-    },
-    sectionTitle: {
-      margin: 0,
-      color: palette.primary.contrastText,
-      // TODO use theme fontsize and weight
-      fontSize: '2.25rem',
-      fontWeight: 400,
-      whiteSpace: 'nowrap',
-    },
-    lineWrapper: {
-      display: 'flex',
-      width: '100%',
-      // TODO: use theme color
-      borderColor: 'grey',
-    },
-    line: {
-      width: '100%',
-      alignSelf: 'center',
-      paddingLeft: '2%',
-    },
     infoBox: {
       outlineStyle: 'solid',
       outlineColor: 'grey',
@@ -124,17 +98,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
   const companyNames = positions.map((p) => p.stock.name);
 
   return (
-    <div>
-      <div className={classes.titleContainer}>
-        <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionTitle}>
-            {t('portfolio.details.summaryHeader')}
-          </h2>
-        </div>
-        <div className={classes.lineWrapper}>
-          <hr className={classes.line} />
-        </div>
-      </div>
+    <>
       <div className={classes.infoBox}>
         <div className={classes.infoValueContainer}>
           {/* box section 1 */}
@@ -227,7 +191,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
           <p>Placeholder for the LineChart by Analyzer Team</p>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
