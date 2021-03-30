@@ -19,8 +19,8 @@ declare module '@material-ui/core/styles/createPalette' {
   }
 
   interface PaletteOptions {
-    lightBlue: PaletteOptions['primary'];
-    teal: PaletteOptions['primary'];
+    lightBlue?: PaletteOptions['primary'];
+    teal?: PaletteOptions['primary'];
   }
 }
 
