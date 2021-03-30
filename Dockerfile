@@ -1,7 +1,7 @@
-FROM node:14
+FROM node:14 AS builder
 
 # Setting working directory. All the path will be relative to WORKDIR
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Installing dependencies
 COPY package.json ./
@@ -14,5 +14,10 @@ COPY . .
 # Building app
 RUN ["yarn", "build"]
 
+FROM nginx:1.16.0-alpine AS server
+COPY --from=builder /app/public /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+
 # Running the app with yarn
-CMD [ "yarn", "serve" ]
+# CMD [ "yarn", "serve" ]
