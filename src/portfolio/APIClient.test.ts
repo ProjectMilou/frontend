@@ -1,4 +1,4 @@
-import { list, rename } from './APIClient';
+import { create, deletePortfolio, duplicate, list, rename } from './APIClient';
 import { MockOverview, MockOverviewTwo } from './APIMocks';
 
 describe('Portfolio API client', () => {
@@ -78,6 +78,39 @@ describe('Portfolio API client', () => {
     test('resolves on success', async () => {
       fetchMock.mockResponseOnce(JSON.stringify({}));
       await expect(apiCall()).resolves.toBeUndefined();
+    });
+
+    errorHandlingTests(apiCall);
+  });
+
+  describe('duplicate', () => {
+    const apiCall = () => duplicate('', '0', 'newName');
+
+    test('resolves on success', async () => {
+      fetchMock.mockResponseOnce(JSON.stringify({ id: '1' }));
+      await expect(apiCall()).resolves.toEqual('1');
+    });
+
+    errorHandlingTests(apiCall);
+  });
+
+  describe('delete', () => {
+    const apiCall = () => deletePortfolio('', '0');
+
+    test('resolves on success', async () => {
+      fetchMock.mockResponseOnce(JSON.stringify({}));
+      await expect(apiCall()).resolves.toBeUndefined();
+    });
+
+    errorHandlingTests(apiCall);
+  });
+
+  describe('create', () => {
+    const apiCall = () => create('', 'name');
+
+    test('resolves on success', async () => {
+      fetchMock.mockResponseOnce(JSON.stringify({ id: '0' }));
+      await expect(apiCall()).resolves.toEqual('0');
     });
 
     errorHandlingTests(apiCall);
