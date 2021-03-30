@@ -29,7 +29,7 @@ const DashboardViewSelect: React.FC<DashboardViewSelectProps> = ({
   const classes = useStyles();
   return (
     <div className={classes.dashboardViewSelect}>
-      <Tooltip title={t('portfolio.dashboard.view.table').toString()}>
+      <Tooltip title={t('analyser.dashboard.view.table').toString()}>
         <IconButton onClick={() => setView(DashboardView.Table)}>
           <TableIcon
             htmlColor={
@@ -40,7 +40,7 @@ const DashboardViewSelect: React.FC<DashboardViewSelectProps> = ({
           />
         </IconButton>
       </Tooltip>
-      <Tooltip title={t('portfolio.dashboard.view.cards').toString()}>
+      <Tooltip title={t('analyser.dashboard.view.cards').toString()}>
         <IconButton onClick={() => setView(DashboardView.Cards)}>
           <CardsIcon
             htmlColor={
