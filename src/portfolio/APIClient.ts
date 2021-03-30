@@ -6,6 +6,7 @@ const headers = { 'Content-Type': 'application/json' };
 
 // Types used by the frontend
 
+// TODO: Use a dictionary object instead of an array to make searching by id easier
 export type PortfolioOverview = {
   // TODO: Change id to number to be consistent with backend
   id: string;
@@ -35,6 +36,14 @@ type ListResponse = {
     /** UNIX timestamp */
     modified: number;
   }[];
+};
+
+type DuplicateResponse = {
+  id: string;
+};
+
+type CreateResponse = {
+  id: string;
 };
 
 /**
@@ -98,4 +107,56 @@ export async function rename(
   name: string
 ): Promise<void> {
   await request(token, 'PUT', `rename/${id}`, JSON.stringify({ name }));
+}
+
+/**
+ * Duplicates a portfolio.
+ *
+ * @param token - Authentication token
+ * @param id - ID of the portfolio to be duplicated
+ * @param name - Name of the duplicate
+ * @return ID of the duplicate
+ */
+export async function duplicate(
+  token: string,
+  id: string,
+  name: string
+): Promise<string> {
+  const response = (await request(
+    token,
+    'POST',
+    `duplicate/${id}`,
+    JSON.stringify({ name })
+  )) as DuplicateResponse;
+  return response.id;
+}
+
+/**
+ * Deletes a portfolio.
+ *
+ * @param token - Authentication token
+ * @param id - ID of the portfolio to be deleted
+ */
+export async function deletePortfolio(
+  token: string,
+  id: string
+): Promise<void> {
+  await request(token, 'DELETE', id);
+}
+
+/**
+ * Creates a new portfolio.
+ *
+ * @param token - Authentication token
+ * @param name - Name of the new portfolio
+ * @return ID of the new portfolio
+ */
+export async function create(token: string, name: string): Promise<string> {
+  const response = (await request(
+    token,
+    'POST',
+    'create',
+    JSON.stringify({ name })
+  )) as CreateResponse;
+  return response.id;
 }
