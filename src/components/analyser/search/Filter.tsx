@@ -15,6 +15,7 @@ type Filters = {
   countries: string[];
   industries: string[];
   currency: string[];
+  marketCapitalization: string[];
 };
 
 const useStyles = makeStyles({
@@ -32,7 +33,18 @@ const useStyles = makeStyles({
 });
 
 function setOriginalFilters(stocks: API.Stock[]) {
-  const ogFilters: Filters = { countries: [], industries: [], currency: [] };
+  const ogFilters: Filters = {
+    countries: [],
+    industries: [],
+    currency: [],
+    marketCapitalization: ['Mega', 'Large', 'Mid', 'Small', 'Micro'],
+  };
+  // Mega: More than $200 billion
+  // Large: $10 billion to $200 billion
+  // Mid: $2 billion to $10 billion
+  // Small: $300 million to $2 billion
+  // Micro: $50 million to $300 million
+
   stocks.forEach((s) => {
     if (!ogFilters.countries.includes(s.country)) {
       ogFilters.countries.push(s.country);
@@ -59,11 +71,21 @@ const Filter: React.FC<FilterProps> = ({ stocks }) => {
   const classes = useStyles();
 
   const ogFilters = setOriginalFilters(stocks);
-  const emptyFilters: Filters = { countries: [], industries: [], currency: [] };
+  const emptyFilters: Filters = {
+    countries: [],
+    industries: [],
+    currency: [],
+    marketCapitalization: [],
+  };
   const [filters, setFilters] = React.useState<Filters>(emptyFilters);
 
   const clearFilters = () => {
-    setFilters({ countries: [], industries: [], currency: [] });
+    setFilters({
+      countries: [],
+      industries: [],
+      currency: [],
+      marketCapitalization: [],
+    });
   };
 
   const handleChange = (
@@ -82,6 +104,9 @@ const Filter: React.FC<FilterProps> = ({ stocks }) => {
         case 'Currency':
           setFilters({ ...filters, currency: [] });
           break;
+        case 'MC':
+          setFilters({ ...filters, marketCapitalization: [] });
+          break;
         default:
           break;
       }
@@ -95,6 +120,9 @@ const Filter: React.FC<FilterProps> = ({ stocks }) => {
           break;
         case 'Currency':
           setFilters({ ...filters, currency: temp });
+          break;
+        case 'MC':
+          setFilters({ ...filters, marketCapitalization: temp });
           break;
         default:
           break;
@@ -125,6 +153,12 @@ const Filter: React.FC<FilterProps> = ({ stocks }) => {
         ogFiltersList={ogFilters.currency}
         handleChange={handleChange}
         name={t('stock.currency')}
+      />
+      <FilterBar
+        filtersList={filters.marketCapitalization}
+        ogFiltersList={ogFilters.marketCapitalization}
+        handleChange={handleChange}
+        name="MC"
       />
       <ButtonGroup
         className={classes.buttonGroup}
