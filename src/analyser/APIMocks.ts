@@ -37,7 +37,7 @@ export const MockOverviewTwo: Stock = {
   symbol: 'AAPL',
   ISIN: 'US0378331005',
   WKN: '865985',
-  name: 'Apple Incn',
+  name: 'Apple Inc',
   price: 252.19,
   '1d': 1.79,
   '7d': 1.52,
