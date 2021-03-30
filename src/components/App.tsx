@@ -1,6 +1,7 @@
 import React from 'react';
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import { Router } from '@reach/router';
+import LandingPage from '../pages/LandingPage';
 import Shell from './shell/Shell';
 import Analyser from './analyser/Analyser';
 import Portfolio from './portfolio/Portfolio';
@@ -18,8 +19,8 @@ declare module '@material-ui/core/styles/createPalette' {
   }
 
   interface PaletteOptions {
-    lightBlue: PaletteOptions['primary'];
-    teal: PaletteOptions['primary'];
+    lightBlue?: PaletteOptions['primary'];
+    teal?: PaletteOptions['primary'];
   }
 }
 
@@ -95,7 +96,6 @@ const theme = createMuiTheme({
 const App: React.FC = () => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
-
     <div
       style={{
         display: 'flex',
@@ -107,7 +107,7 @@ const App: React.FC = () => (
 
       <div style={{ flexGrow: 1 }}>
         <Router>
-          {/* <Frontpage path="/" /> */}
+          <LandingPage path="/" />
           <Shell path="/shell" />
           <Analyser path="/analyser" />
           <Portfolio path="/portfolio" />
