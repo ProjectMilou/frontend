@@ -29,7 +29,12 @@ const useStyles = makeStyles((theme: Theme) =>
     dialog: {
       borderRadius: '10px',
       maxWidth: '450px',
-      margin: 'auto',
+      width: '100%',
+      margin: ' 100px auto',
+      height: 'min-content',
+    },
+    paper: {
+      minWidth: '350px',
     },
   })
 );
@@ -38,6 +43,7 @@ const Header: React.FC = () => {
   const classes = useStyles();
   const [openLogin, setOpenLogin] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('token'));
 
   return (
     <AppBar position="sticky" color="inherit">
@@ -51,47 +57,73 @@ const Header: React.FC = () => {
         <NavLink to="/academy">Academy</NavLink>
         <div className={classes.grow} />
 
-        <Button
-          className={classes.button}
-          variant="outlined"
-          color="primary"
-          onClick={() => setOpenLogin(true)}
-        >
-          Login
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => setOpenRegister(true)}
-        >
-          Register
-        </Button>
-        <Dialog
-          open={openLogin}
-          onClose={() => setOpenLogin(false)}
-          className={classes.dialog}
-        >
-          <Login
-            closePopUp={() => setOpenLogin(false)}
-            openRegisterPopUp={() => {
-              setOpenLogin(false);
-              setOpenRegister(true);
-            }}
-          />
-        </Dialog>
-        <Dialog
-          open={openRegister}
-          onClose={() => setOpenRegister(false)}
-          className={classes.dialog}
-        >
-          <Register
-            closePopUp={() => setOpenRegister(false)}
-            openLoginPopUp={() => {
-              setOpenRegister(false);
-              setOpenLogin(true);
-            }}
-          />
-        </Dialog>
+        {loggedIn ? (
+          <>
+            <Button
+              className={classes.button}
+              variant="outlined"
+              color="primary"
+              onClick={() => {
+                localStorage.removeItem('token');
+                setLoggedIn(null);
+              }}
+            >
+              Logout
+            </Button>
+            <Button variant="contained" color="primary" onClick={() => {}}>
+              Profile
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button
+              className={classes.button}
+              variant="outlined"
+              color="primary"
+              onClick={() => setOpenLogin(true)}
+            >
+              Login
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => setOpenRegister(true)}
+            >
+              Register
+            </Button>
+            <Dialog
+              open={openLogin}
+              onClose={() => setOpenLogin(false)}
+              className={classes.dialog}
+              classes={{ paper: classes.paper }}
+            >
+              <Login
+                closePopUp={() => {
+                  setOpenLogin(false);
+                  setLoggedIn(localStorage.getItem('token'));
+                }}
+                openRegisterPopUp={() => {
+                  setOpenLogin(false);
+                  setOpenRegister(true);
+                }}
+              />
+            </Dialog>
+            <Dialog
+              open={openRegister}
+              onClose={() => setOpenRegister(false)}
+              className={classes.dialog}
+              classes={{ paper: classes.paper }}
+            >
+              <Register
+                closePopUp={() => setOpenRegister(false)}
+                openLoginPopUp={() => {
+                  setOpenRegister(false);
+                  setOpenLogin(true);
+                }}
+              />
+            </Dialog>
+          </>
+        )}
       </Toolbar>
     </AppBar>
   );
