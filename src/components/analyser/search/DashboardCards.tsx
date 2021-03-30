@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Card,
   CardContent,
@@ -75,7 +74,6 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
   selectStock,
 }) => {
   const classes = useStyles();
-  const { t } = useTranslation();
 
   return (
     <Card className={classes.card}>
