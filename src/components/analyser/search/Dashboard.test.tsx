@@ -3,7 +3,6 @@ import {
   fireEvent,
   act,
   waitFor,
-  screen,
 } from '@testing-library/react';
 import * as React from 'react';
 import * as API from '../../../analyser/APIClient';
@@ -30,7 +29,7 @@ describe('Dashboard', () => {
   test('shows loading indicator', async () => {
     // keep loading forever
     mockAPI.listStocks.mockImplementation(async () => new Promise(() => {}));
-    const { container, queryByText } = renderComponent();
+    const { queryByText } = renderComponent();
 
     // only the loading indeicator should be visible
     expect(queryByText('analyser.dashboard.title')).toBeNull();
@@ -41,7 +40,7 @@ describe('Dashboard', () => {
       MockOverview,
       MockOverviewTwo,
     ]);
-    const { container, queryByText } = renderComponent();
+    const { queryByText } = renderComponent();
     await act(async () => {
       // wait until the component is rendered
       await waitFor(() => {

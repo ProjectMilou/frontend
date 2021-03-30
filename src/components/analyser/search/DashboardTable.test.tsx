@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import * as React from 'react';
 import DashboardTable, { DashboardTableProps } from './DashboardTable';
 import { MockOverview, MockOverviewTwo } from '../../../analyser/APIMocks';
@@ -22,11 +22,12 @@ describe('DashboardTable', () => {
     expect(container).toMatchSnapshot();
   });
 
-  test('select stock on click', () => {
-    const { props, getByText } = renderComponent();
-    // fireEvent.click(getByText(props.stocks[0].name));
-    // expect(props.selectStock).toHaveBeenCalledWith(props.stocks[0].symbol);
-    // fireEvent.click(getByText(props.stocks[1].name));
-    // expect(props.selectStock).toHaveBeenCalledWith(props.stocks[1].symbol);
-  });
+  //   TODO
+  // test('select stock on click', () => {
+  //   const { props, getByText } = renderComponent();
+  //   fireEvent.click(getByText(props.stocks[0].name));
+  //   expect(props.selectStock).toHaveBeenCalledWith(props.stocks[0].symbol);
+  //   fireEvent.click(getByText(props.stocks[1].name));
+  //   expect(props.selectStock).toHaveBeenCalledWith(props.stocks[1].symbol);
+  // });
 });
