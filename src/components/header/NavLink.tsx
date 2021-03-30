@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'center',
       padding: '8px 10px 8px 10px',
       width: 100,
+      fontSize: theme.typography.body1.fontSize,
     },
   })
 );
