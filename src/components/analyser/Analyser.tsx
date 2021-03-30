@@ -10,7 +10,7 @@ const Analyser: React.FC<RouteComponentProps> = () => {
   return (
     <>
       {symbol ? (
-        <Details symbol={symbol} back={() => setSymbol(undefined)} />
+        <Details token="" symbol={symbol} back={() => setSymbol(undefined)} />
       ) : (
         <Dashboard token="" selectStock={setSymbol} />
       )}
