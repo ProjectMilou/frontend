@@ -10,6 +10,17 @@ import Footer from './footer/Footer';
 import Imprint from '../pages/Imprint';
 import Privacy from '../pages/Privacy';
 
+declare module '@material-ui/core/styles/createPalette' {
+  interface Palette {
+    lightBlue: Palette['primary'];
+    teal: Palette['primary'];
+  }
+  interface PaletteOptions {
+    lightBlue: PaletteOptions['primary'];
+    teal: PaletteOptions['primary'];
+  }
+}
+
 const theme = createMuiTheme({
   typography: {
     fontFamily: [
@@ -24,19 +35,57 @@ const theme = createMuiTheme({
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
     ].join(','),
+    h1: {
+      fontSize: 56,
+      lineHeight: 80,
+    },
+    h2: {
+      fontSize: 48,
+      lineHeight: 72,
+    },
+    h4: {
+      fontSize: 24,
+      lineHeight: 36,
+    },
+    body1: {
+      fontSize: 18,
+      lineHeight: 30,
+    },
+    body2: {
+      fontSize: 36,
+      lineHeight: 50,
+    },
   },
   palette: {
+    background: {
+      default: '#E5E5E5',
+    },
     primary: {
       light: '#415176',
       main: '#122654',
       dark: '#0c1a3a',
-      contrastText: '#fff',
+      contrastText: '#EEF1FB',
     },
     secondary: {
       light: '#df4f9b',
       main: '#D72483',
       dark: '#96195b',
       contrastText: '#000',
+    },
+    success: {
+      main: '#50E2A8',
+    },
+    warning: {
+      main: '#FFC43B',
+    },
+    error: {
+      main: '#D64745',
+    },
+    lightBlue: {
+      main: '#3FBCF2',
+    },
+    teal: {
+      main: '#34CFB2',
     },
   },
 });
