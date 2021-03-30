@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     cursor: 'not-allowed',
   },
   card: {
-    maxWidth: 300,
-    margin: 'auto',
+    width: 300,
+    margin: 20,
     transition: '0.3s',
     boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
     '&:hover': {
@@ -39,7 +39,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   media: {
-    paddingTop: '56.25%',
+    height: 200,
+    width: 260,
+    placeItems: 'center',
+    alignItems: 'center',
+    objectFit: 'scale-down',
+    margin: 10,
   },
   content: {
     textAlign: 'left',
@@ -73,7 +78,7 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
   const { t } = useTranslation();
 
   return (
-    <Card className={classes.card} style={{ width: 280, margin: 10 }}>
+    <Card className={classes.card}>
       <ButtonBase
         className={classes.cardAction}
         onClick={() => {
@@ -81,14 +86,7 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
         }}
       >
         <CardMedia
-          style={{
-            height: 200,
-            width: 260,
-            placeItems: 'center',
-            alignItems: 'center',
-            objectFit: 'scale-down',
-            margin: 10,
-          }}
+          className={classes.media}
           component="img"
           image={stock.picture.toString()}
         />
