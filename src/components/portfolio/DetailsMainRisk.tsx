@@ -137,7 +137,7 @@ const RiskComp: React.FC<RiskCompProps> = ({
       <div className={classes.riskPieWrapper}>
         <DetailsDonut
           portions={portions}
-          names={labels}
+          labels={labels}
           size={200}
           graphOffsetX={-40}
           showLegendOnScale={false}

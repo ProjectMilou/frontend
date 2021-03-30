@@ -8,7 +8,6 @@ import DetailsMainDividens from './DetailsMainDividends';
 import DetailsMainAnalyst from './DetailsMainAnalyst';
 import { RiskAnalysis, Position, KeyFigures } from './DetailsTypes';
 
-// stylesheet for the body of the details page
 const useStyles = makeStyles(() =>
   createStyles({
     mainWrapper: {
@@ -24,7 +23,6 @@ const useStyles = makeStyles(() =>
   })
 );
 
-// type declarations
 type DetailsMainProps = {
   positionCount: number;
   value: number;
@@ -38,7 +36,6 @@ type DetailsMainProps = {
   dividendPayoutRatio: number;
 };
 
-// returns the main body of the details page and all subcomponents
 const DetailsMain: React.FC<DetailsMainProps> = ({
   positionCount,
   value,

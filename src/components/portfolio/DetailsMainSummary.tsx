@@ -120,7 +120,6 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
     return val < 0.5 ? '#D64745' : '#50E2A8';
   }
 
-  // these are for the DetailsDonut Chart for the company portions
   const portions = positions.map((p) => p.qty * p.stock.price);
   const companyNames = positions.map((p) => p.stock.name);
 
@@ -218,7 +217,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
         <div className={classes.pieChartWrapper}>
           <DetailsDonut
             portions={portions}
-            names={companyNames}
+            labels={companyNames}
             size={600}
             graphOffsetX={0}
             showLegendOnScale

@@ -13,7 +13,6 @@ import { useTranslation } from 'react-i18next';
 import { Position } from './DetailsTypes';
 import ValueOverName from './ValueOverName';
 
-// stylesheet for the positions section
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     titleContainer: {
@@ -85,16 +84,13 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
-// type declarations
 type DetailsMainPositionsProps = {
   positions: Position[];
 };
 
-// returns the details page header
 const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
   positions,
 }) => {
-  const [posState] = React.useState(positions);
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -124,7 +120,7 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
           className={classes.gridList}
           style={{ margin: '0 auto' }}
         >
-          {posState.map((p) => (
+          {positions.map((p) => (
             <GridListTile key={p.stock.isin}>
               <Card
                 variant="outlined"
