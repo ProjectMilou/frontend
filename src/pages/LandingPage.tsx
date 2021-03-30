@@ -82,6 +82,10 @@ const useStyles = makeStyles((theme: Theme) =>
     gridItem: {
       paddingInline: '100px',
     },
+    smallIcon: {
+      fontSize: '54px',
+      color: theme.palette.secondary.light,
+    },
   })
 );
 
@@ -136,19 +140,14 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
         </Box>
       </Box>
 
-      <Box bgcolor="#0c1a3a" color="white" px={8} pt={4} pb={18}>
+      <Box bgcolor="#0c1a3a" color="white" px={16} pt={4} pb={18}>
         <Grid container direction="column" spacing={2}>
           <Grid item>
             <Typography variant="h3">Did you know...</Typography>
           </Grid>
           <Grid item container direction="row" spacing={2} alignItems="center">
             <Grid item>
-              <MoneyIcon
-                style={{
-                  fontSize: '54px',
-                  color: '#D72483',
-                }}
-              />
+              <MoneyIcon className={classes.smallIcon} />
             </Grid>
             <Grid item xs>
               <Typography variant="h6">
@@ -159,12 +158,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
           </Grid>
           <Grid item container direction="row" spacing={2} alignItems="center">
             <Grid item>
-              <LoyaltyIcon
-                style={{
-                  fontSize: '54px',
-                  color: '#D72483',
-                }}
-              />
+              <LoyaltyIcon className={classes.smallIcon} />
             </Grid>
             <Grid item xs>
               <Typography variant="h6">
