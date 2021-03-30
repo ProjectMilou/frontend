@@ -34,24 +34,24 @@ export const MockOverview: Stock = {
 };
 
 export const MockOverviewTwo: Stock = {
-  symbol: 'IBM',
-  ISIN: 'US4592001014',
-  WKN: '851399',
-  name: 'International Business Machines Corporation',
-  price: 175.29,
-  '1d': 2.25,
+  symbol: 'AAPL',
+  ISIN: 'US0378331005',
+  WKN: '865985',
+  name: 'Apple Incn',
+  price: 252.19,
+  '1d': 1.79,
   '7d': 1.52,
   '30d': 0.92,
-  marketCapitalization: 114263867392,
-  analystTargetPrice: 137,
-  valuation: 20.6803,
-  growth: 1.5,
-  div: 0.0508,
+  marketCapitalization: 172637867392,
+  analystTargetPrice: 290.24,
+  valuation: 27.6803,
+  growth: 3.2,
+  div: 0.1208,
   currency: 'USD',
   country: 'USA',
-  industry: 'Consumer Electronics',
+  industry: 'Information Technology Services',
   picture: new URL(
-    'https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg'
+    'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg'
   ),
   date: new Date('2021-03-23T18:25:43.511Z'),
 };

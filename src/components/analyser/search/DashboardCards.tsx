@@ -104,11 +104,11 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
           </Typography>
           <Divider className={classes.divider} light />
           <Typography className="MuiTypography-body1" variant="caption">
-            {t('stock.lastPrice')} : {stock.price}
+            {stock.price}
           </Typography>
           <Divider className={classes.divider} light />
           <Typography className="MuiTypography-body1" variant="caption">
-            {t('stock.30d')} : {stock['30d']}
+            {stock['30d']}
           </Typography>
         </CardContent>
       </ButtonBase>

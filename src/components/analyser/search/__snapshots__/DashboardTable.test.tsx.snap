@@ -199,12 +199,12 @@ exports[`DashboardTable display stock information 1`] = `
               <p
                 class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
               >
-                IBM
+                AAPL
               </p>
               <p
                 class="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary MuiTypography-displayBlock"
               >
-                International Business Machines Corporation
+                Apple Incn
               </p>
             </div>
           </th>
@@ -214,7 +214,7 @@ exports[`DashboardTable display stock information 1`] = `
             <span
               class="makeStyles-euroCurrency-6 makeStyles-euroCurrency-15"
             >
-              €175.29
+              €252.19
             </span>
           </td>
           <td
@@ -241,7 +241,7 @@ exports[`DashboardTable display stock information 1`] = `
             <p
               class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
             >
-              €114B
+              €173B
             </p>
           </td>
           <td
@@ -250,7 +250,7 @@ exports[`DashboardTable display stock information 1`] = `
             <span
               class="makeStyles-euroCurrency-6 makeStyles-euroCurrency-18"
             >
-              €137.00
+              €290.24
             </span>
           </td>
           <td
@@ -259,7 +259,7 @@ exports[`DashboardTable display stock information 1`] = `
             <span
               class="makeStyles-euroCurrency-12 makeStyles-euroCurrency-19"
             >
-              P/E 20.7x
+              P/E 27.7x
             </span>
           </td>
           <td
@@ -268,7 +268,7 @@ exports[`DashboardTable display stock information 1`] = `
             <p
               class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
             >
-              1.5
+              3.2
             </p>
           </td>
           <td
@@ -277,7 +277,7 @@ exports[`DashboardTable display stock information 1`] = `
             <span
               class="makeStyles-performance-8 makeStyles-performance-20"
             >
-              0.05%
+              0.12%
             </span>
           </td>
           <td
@@ -286,7 +286,7 @@ exports[`DashboardTable display stock information 1`] = `
             <p
               class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
             >
-              Consumer Electronics
+              Information Technology Services
             </p>
           </td>
         </tr>
