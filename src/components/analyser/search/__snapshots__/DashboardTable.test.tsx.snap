@@ -204,7 +204,7 @@ exports[`DashboardTable display stock information 1`] = `
               <p
                 class="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary MuiTypography-displayBlock"
               >
-                Apple Incn
+                Apple Inc
               </p>
             </div>
           </th>
