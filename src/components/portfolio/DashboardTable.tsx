@@ -148,12 +148,13 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
   );
 };
 
+type Order = 'asc' | 'desc'
+
 interface SortableHeadCell {
   id: keyof PortfolioOverview;
   label: string;
   numeric: boolean;
 }
-type Order = 'asc' | 'desc';
 
 export type DashboardTableHeadProps = {
   onRequestSort: (event: React.MouseEvent<unknown>, property: keyof PortfolioOverview) => void;
@@ -184,7 +185,8 @@ export const DashboardTableHead: React.FC<DashboardTableHeadProps> = ({
           <TableCell
             align = 'center'
             key={headCell.id}
-            sortDirection = {orderBy === headCell.id ? order : false}
+            sortDirection ={
+              orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -209,36 +211,28 @@ export type DashboardTableProps = {
   deletePortfolio: (id: string) => void;
 };
 
-function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
-  const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-}
-
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
+function comparatorTable(a: number | string, b: number | string) {
+  if (a < b) {
     return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
+  } if (a > b) {
     return 1;
   }
   return 0;
 }
 
-function getComparator<Key extends keyof any>(
-  order: Order,
-  orderBy: Key
-): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string }
-) => number {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
+function sortingTableEntry(portfolios: PortfolioOverview[], orderBy: keyof PortfolioOverview, order: Order) {
+  const sortingArray = portfolios
+  if (orderBy === 'name') {
+    // order = true = asc | order = false = desc
+    return order === 'asc' ?
+      sortingArray.sort((a, b) => comparatorTable(a[orderBy] as string, b[orderBy] as string)) :
+      sortingArray.sort((a, b) => comparatorTable(b[orderBy] as string, a[orderBy] as string));
+  }
+    const sortingArrayWithoutUndefined = sortingArray.filter((values) => typeof values[orderBy] !== ('undefined'));
+   const sortedArrayWithoutUndefined = order === 'asc' ?
+      sortingArrayWithoutUndefined.sort((a, b)=> comparatorTable(a[orderBy] as number, b[orderBy] as number)) :
+      sortingArrayWithoutUndefined.sort((a, b)=> comparatorTable(b[orderBy] as number, a[orderBy] as number));
+   return sortedArrayWithoutUndefined.concat(portfolios.filter((values) => typeof values[orderBy] === ('undefined')))
 }
 
 const DashboardTable: React.FC<DashboardTableProps> = ({
@@ -248,8 +242,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
   duplicatePortfolio,
   deletePortfolio,
 }) => {
-  const { t } = useTranslation();
-  const sortedPortfolios = [...portfolios];
+  // order == true == asc | order == false == desc
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof PortfolioOverview>('score');
 
@@ -258,7 +251,6 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
-
   // TODO: Improve portfolio score visualization
   return (
     <TableContainer component={Paper}>
@@ -269,7 +261,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
           orderBy = {orderBy}
         />
         <TableBody>
-          {portfolios.map((p) => (
+          {sortingTableEntry(portfolios, orderBy, order).map((p) => (
             <DashboardTableRow
               portfolio={p}
               selectPortfolio={selectPortfolio}
