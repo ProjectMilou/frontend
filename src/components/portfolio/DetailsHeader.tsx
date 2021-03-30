@@ -26,22 +26,11 @@ const useStyles = makeStyles(({ typography }: Theme) =>
       alignItems: 'center',
       height: '100%',
     },
-    editButton: {
-      padding: '0.25rem 1rem',
-      backgroundColor: '#3fbcf2',
-      '&:hover': {
-        backgroundColor: '#84d4f7',
-      },
-    },
-    subContainer: {
-      height: '50%',
-      display: 'flex',
-      alignItems: 'center',
-    },
     title: {
       // TODO: use theme font size
       fontSize: '2.5rem',
       fontFamily: typography.fontFamily,
+      whiteSpace: 'nowrap',
     },
   })
 );
@@ -77,7 +66,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
           </IconButton>
         </div>
         <div>
-          <p className={classes.title}>{name}</p>
+          <span className={classes.title}>{name}</span>
         </div>
       </div>
       <DetailsEdit positions={positions} />
