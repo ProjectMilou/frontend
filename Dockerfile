@@ -15,7 +15,9 @@ COPY . .
 RUN ["yarn", "build"]
 
 FROM nginx:1.16.0-alpine AS server
-COPY --from=builder /app/public /usr/share/nginx/html
+ENV PUBLIC_URL=/
+COPY --from=builder /app/build /usr/share/nginx/html
+COPY nginx.config /etc/nginx/conf.d/default.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 
