@@ -70,7 +70,12 @@ const Header: React.FC = () => {
             >
               Logout
             </Button>
-            <Button variant="contained" color="primary" onClick={() => {}}>
+            <Button
+              variant="contained"
+              color="primary"
+              component={Link}
+              to="/profile"
+            >
               Profile
             </Button>
           </>
