@@ -1,9 +1,4 @@
-import {
-  render,
-  fireEvent,
-  act,
-  waitFor,
-} from '@testing-library/react';
+import { render, fireEvent, act, waitFor } from '@testing-library/react';
 import * as React from 'react';
 import * as API from '../../../analyser/APIClient';
 import Dashboard, { DashboardProps } from './Dashboard';
