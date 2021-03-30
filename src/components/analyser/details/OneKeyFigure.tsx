@@ -1,7 +1,12 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { InfoOutlined } from '@material-ui/icons';
-import { Checkbox, Toolbar, Typography, Tooltip } from '@material-ui/core';
+import {
+  Checkbox,
+  Toolbar,
+  FormControlLabel,
+  Tooltip,
+} from '@material-ui/core';
 
 export type KeyFigure = {
   title: string;
@@ -40,8 +45,16 @@ export const OneKeyFigure: React.FC<KeyFigure> = ({
   return (
     <div>
       <Toolbar>
-        <Checkbox color="primary" checked={visible} onChange={handleClick} />
-        <Typography>{title}</Typography>
+        <FormControlLabel
+          control={
+            <Checkbox
+              color="primary"
+              checked={visible}
+              onChange={handleClick}
+            />
+          }
+          label={title}
+        />
         <Tooltip
           title={definition}
           placement="top-start"
