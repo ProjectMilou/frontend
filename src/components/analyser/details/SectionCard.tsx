@@ -25,7 +25,8 @@ const useStyles = makeStyles({
   },
 });
 
-const SectionCard = () => {
+export type SectionCardProps = {};
+const SectionCard: React.FC<SectionCardProps> = () => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
