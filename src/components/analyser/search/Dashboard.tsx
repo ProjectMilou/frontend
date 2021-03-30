@@ -12,6 +12,7 @@ import ErrorMessage from '../ErrorMessage';
 import StockListOverview from './StockListOverview';
 import DashboardHeader from './DashboardHeader';
 import Filter from './Filter';
+import SearchBar from './SearchBar';
 
 export type DashboardProps = {
   token: string;
@@ -74,6 +75,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
         <AppBar position="sticky" className={classes.filter}>
           <Toolbar variant="dense" disableGutters>
             <Filter stocks={stocks} />
+            <SearchBar stocks={stocks} />
           </Toolbar>
         </AppBar>
       )}
