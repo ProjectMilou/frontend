@@ -93,7 +93,6 @@
   "analyser.filter.title": "Filter Options",
   "analyser.filter.clear": "Clear filters",
   "analyser.dashboard.noStocks": "We can't show you any stoks right now :(",
-  "analyser.detail.text": "Go to details",
   "analyser.details.summaryHeader": "1. Summary",
   "analyser.details.KeyFiguresHeader": "2. Return",
   "analyser.details.KeyFiguresHeader.KeyFigures": "2.1 Key Figures",
