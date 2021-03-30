@@ -1,31 +1,13 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  FormControl,
-  InputLabel,
-  makeStyles,
-  TextField,
-  Typography,
-  useTheme,
-  Input,
-  InputAdornment,
-  IconButton,
-  FormHelperText,
-  DialogContent,
-  DialogActions,
-} from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
-import Divider from '@material-ui/core/Divider';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import * as EmailValidator from 'email-validator';
 import logo from '../../../assets/images/logo1.png';
-
-/* const url = process.env.URL_API
-  if(!url){
-    throw new Error("URL_API is missing")
-  } */
+import RegisterForm from './RegisterForm';
+import RegisterFailedWindow from './RegisterFailedWindow';
+import RegisterConfirmWindow from './RegisterConfirmWindow';
+import { UserInput } from '../utils';
+import WelcomeWindow from '../login/WelcomeWindow';
 
 const useStyles = makeStyles({
   dialog: {
@@ -45,17 +27,6 @@ const useStyles = makeStyles({
     top: '20px',
     cursor: 'pointer',
   },
-  button: {
-    textDecoration: 'underline',
-    cursor: 'pointer',
-    backgroundColor: 'white',
-    border: 'none',
-    padding: '0px',
-    fontSize: '16px',
-    lineHeight: '1.5',
-    margin: '10px auto',
-    display: 'block',
-  },
 });
 
 interface RegisterProps {
@@ -66,105 +37,24 @@ interface RegisterProps {
 const Register: React.FC<RegisterProps> = (props) => {
   const { closePopUp, openLoginPopUp } = props;
   const theme = useTheme();
-  const { t } = useTranslation();
-  const { dialog, iconClear, iconLogo, button } = useStyles(theme);
+  const { dialog, iconClear, iconLogo } = useStyles(theme);
 
-  const [login, setLogin] = useState({
+  type State =
+    | 'registerForm'
+    | 'registerSuccess'
+    | 'registerFail'
+    | 'registerConfirm';
+  const [registerState, setRegisterState] = useState<State>('registerForm');
+
+  const [login, setLogin] = useState<UserInput>({
     email: '',
     password: '',
     confirmPassword: '',
   });
-  const [showPassword, setShowPassword] = useState({
-    password: false,
-    confirmPassword: false,
-  });
 
-  interface ErrorState {
-    email: string;
-    password: string;
-    confirmPassword: string;
-  }
-
-  const [hasError, setError] = useState({
-    email: '',
-    password: '',
-    confirmPassword: '',
-  } as ErrorState);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLogin((prevState) => ({
-      ...prevState,
-      [event.target.id]: event.target.value,
-    }));
-    if (hasError[event.target.id as keyof ErrorState])
-      setError({ ...hasError, [event.target.id]: '' });
-    if (
-      login.email !== '' &&
-      event.target.id !== 'email' &&
-      !EmailValidator.validate(login.email)
-    ) {
-      setError({ ...hasError, email: t('error.invalidEmail') });
-    }
-  };
-
-  const handleSubmit = () => {
-    if (!EmailValidator.validate(login.email)) {
-      setError({
-        ...hasError,
-        email: [t('error.invalidEmail'), t('error.retry')].join(' '),
-      });
-      return;
-    }
-
-    if (login.password !== login.confirmPassword) {
-      setError({
-        ...hasError,
-        confirmPassword: [t('error.confirmPassword'), t('error.retry')].join(
-          ' '
-        ),
-      });
-      setLogin({ ...login, confirmPassword: '' });
-      return;
-    }
-
-    if (
-      !/[a-z]{1}/.test(login.password) ||
-      !/[A-Z]{1}/.test(login.password) ||
-      !/[0-9]{1}/.test(login.password) ||
-      !/[^a-zA-Z][^0-9]{1}/.test(login.password) ||
-      !(login.password.length > 7)
-    ) {
-      setError({
-        ...hasError,
-        password: [
-          t('error.invalidPassword'),
-          t('error.passwordRequirements'),
-          t('error.retry'),
-        ].join(' '),
-      });
-      // return
-    }
-
-    /*
-    fetch(url.concat('/register'), {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ ...login }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if(data.error){
-          setError({...login, email: [t("msg-email-invalid"), t("msg-try-again")].join(" ")})
-          // or: setError({...login, password: [t("msg-pw-invalid"), t("msg-try-again")].join(" ")})
-        }
-        else{
-          closePopUp()
-        }
-      });
-      */
+  const goToLogin = () => {
+    closePopUp();
+    openLoginPopUp();
   };
 
   return (
@@ -176,124 +66,42 @@ const Register: React.FC<RegisterProps> = (props) => {
         tabIndex={0}
       />
       <img src={logo} alt="milou-logo" className={iconLogo} />
-      <DialogContent>
-        <TextField
-          error={hasError.email !== ''}
-          id="email"
-          label={t('shell.email')}
-          onChange={handleChange}
-          type="text"
-          fullWidth
-          helperText={hasError.email}
-          style={{ margin: '10px 0' }}
-          inputProps={{ 'data-testid': 'email' }}
+      {registerState === 'registerForm' && (
+        <RegisterForm
+          onSuccess={() => {
+            setRegisterState('registerConfirm');
+          }}
+          onFail={() => {
+            setRegisterState('registerFail');
+          }}
+          goToLogin={goToLogin}
+          login={login}
+          setLogin={setLogin}
         />
-        <FormControl
-          fullWidth
-          error={hasError.password !== ''}
-          style={{ margin: '10px 0' }}
-        >
-          <InputLabel htmlFor="password">{t('shell.password')}</InputLabel>
-          <Input
-            id="password"
-            type={showPassword.password ? 'text' : 'password'}
-            value={login.password}
-            onChange={handleChange}
-            inputProps={{ 'data-testid': 'password' }}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={() =>
-                    setShowPassword({
-                      ...showPassword,
-                      password: !showPassword.password,
-                    })
-                  }
-                >
-                  {showPassword.password ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-          <FormHelperText>{hasError.password}</FormHelperText>
-        </FormControl>
+      )}
 
-        <FormControl
-          fullWidth
-          error={hasError.confirmPassword !== ''}
-          style={{ margin: '10px 0' }}
-        >
-          <InputLabel htmlFor="password">
-            {t('shell.confirmPassword')}
-          </InputLabel>
-          <Input
-            id="confirmPassword"
-            type={showPassword.confirmPassword ? 'text' : 'password'}
-            value={login.confirmPassword}
-            onChange={handleChange}
-            inputProps={{ 'data-testid': 'confirm-password' }}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={() =>
-                    setShowPassword({
-                      ...showPassword,
-                      confirmPassword: !showPassword.confirmPassword,
-                    })
-                  }
-                >
-                  {showPassword.confirmPassword ? (
-                    <Visibility />
-                  ) : (
-                    <VisibilityOff />
-                  )}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-          <FormHelperText>{hasError.confirmPassword}</FormHelperText>
-        </FormControl>
-      </DialogContent>
-
-      <DialogActions>
-        <Button
-          type="button"
-          disabled={
-            login.email === '' ||
-            login.password === '' ||
-            login.confirmPassword === ''
-          }
-          variant="contained"
-          color="primary"
-          fullWidth
-          onClick={handleSubmit}
-          data-testid="register"
-        >
-          {t('shell.register')}
-        </Button>
-      </DialogActions>
-
-      <Divider style={{ margin: '10px 0' }} />
-
-      <Typography variant="body1" align="center">
-        {t('shell.message.haveAccount')}{' '}
-        <button
-          className={button}
-          type="button"
-          onClick={() => {
-            closePopUp();
-            openLoginPopUp();
+      {registerState === 'registerConfirm' && (
+        <RegisterConfirmWindow
+          login={login}
+          onFail={() => {
+            setRegisterState('registerFail');
           }}
-          onKeyDown={() => {
-            closePopUp();
-            openLoginPopUp();
+          registerConfirmed={() => {
+            setRegisterState('registerSuccess');
           }}
-        >
-          {t('shell.link')}
-        </button>
-      </Typography>
+        />
+      )}
+
+      {registerState === 'registerFail' && (
+        <RegisterFailedWindow goToLogin={goToLogin} />
+      )}
+
+      {registerState === 'registerSuccess' && (
+        <WelcomeWindow
+          closePopUp={closePopUp}
+          text={['Welcome to Milou!', 'You are registered.']}
+        />
+      )}
     </div>
   );
 };
