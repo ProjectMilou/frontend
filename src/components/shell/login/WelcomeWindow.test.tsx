@@ -19,8 +19,8 @@ describe('WelcomeWindow', () => {
     const text = ['test', 'test2'];
 
     render(<WelcomeWindow closePopUp={closePopUp} text={text} />);
-    for (let t of text) {
-      screen.getByText(t);
-    }
+
+    expect(screen.getByText(text[0])).toBeInTheDocument();
+    expect(screen.getByText(text[1])).toBeInTheDocument();
   });
 });

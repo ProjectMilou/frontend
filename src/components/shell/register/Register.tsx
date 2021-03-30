@@ -64,6 +64,7 @@ const Register: React.FC<RegisterProps> = (props) => {
         color="primary"
         onClick={closePopUp}
         tabIndex={0}
+        data-testid="icon"
       />
       <img src={logo} alt="milou-logo" className={iconLogo} />
       {registerState === 'registerForm' && (

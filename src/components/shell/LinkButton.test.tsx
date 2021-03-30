@@ -10,7 +10,7 @@ describe('LinkButton', () => {
     expect(screen.getByText(text)).toBeInTheDocument();
   });
 
-  test('should render given text', async () => {
+  test('should handle event', async () => {
     const handleEvent = jest.fn();
     const text = 'Button';
     const { getByRole } = render(
