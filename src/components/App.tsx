@@ -38,7 +38,7 @@ const theme = createMuiTheme({
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
     ].join(','),
-    h1: {
+    /*h1: {
       fontSize: 56,
       lineHeight: '80px',
     },
@@ -58,7 +58,7 @@ const theme = createMuiTheme({
       fontSize: 36,
       lineHeight: '50px',
     },
-  },
+  },*/
   palette: {
     background: {
       default: '#E5E5E5',
