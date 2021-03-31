@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     formControl: {
       margin: theme.spacing(2),
-      minWidth: '200px',
+      minWidth: '170px',
       maxWidth: '200px',
     },
     chips: {
