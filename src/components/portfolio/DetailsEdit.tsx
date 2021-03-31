@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  withStyles,
-  WithStyles,
-} from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
@@ -22,33 +16,47 @@ import { useTranslation } from 'react-i18next';
 import { List, ListItem } from '@material-ui/core';
 import { Position } from './DetailsTypes';
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
+    subContainer: {
+      height: '50%',
+      display: 'flex',
+      alignItems: 'center',
+    },
+    editButton: {
+      position: 'absolute',
+      left: '6rem',
+      padding: '0.25rem 1rem',
+      backgroundColor: '#3fbcf2',
+      '&:hover': {
+        backgroundColor: '#84d4f7',
+      },
+      whiteSpace: 'nowrap',
+    },
+    Dialog: {
+      minWidth: '80rem',
+    },
+    dialogHeaderFooter: {
       margin: 0,
       padding: theme.spacing(2),
       display: 'flex',
       justifyContent: 'space-between',
     },
-    closeButton: {
+    // dialog header
+    headerCloseButton: {
       position: 'relative',
       color: theme.palette.grey[500],
     },
     span: {
       display: 'flex',
     },
-    text: {
-      margin: 'auto',
-    },
-  });
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-        width: '25ch',
-      },
+    // dialog body
+    DialogContent: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      flexDirection: 'column',
+      margin: 0,
+      padding: theme.spacing(1),
     },
     listItem: {
       display: 'flex',
@@ -62,34 +70,39 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       width: '100%',
     },
+    textDivPrice: {
+      display: 'flex',
+      width: '100%',
+      justifyContent: 'end',
+      paddingRight: '15%',
+    },
+    textPrice: {
+      width: 'min-content',
+    },
     text: {
       margin: 'auto',
       width: '100%',
       height: 'min-content',
     },
-    editButton: {
-      padding: '0.25rem 1rem',
-      backgroundColor: '#3fbcf2',
-      '&:hover': {
-        backgroundColor: '#84d4f7',
-      },
-    },
-    subContainer: {
-      height: '50%',
-      display: 'flex',
-      alignItems: 'center',
-    },
     ol: {
       padding: 0,
     },
+    helperText: {
+      position: 'absolute',
+      top: '75%',
+      right: '-100%',
+      whiteSpace: 'nowrap',
+    },
+    // legend
+    legendWrapper: {
+      display: 'flex',
+      padding: '0 16px',
+    },
+    legendItem: {
+      width: '100%',
+    },
   })
 );
-
-interface DialogTitleProps extends WithStyles<typeof styles> {
-  id: string;
-  children: React.ReactNode;
-  onClose: () => void;
-}
 
 type DetailsEditProps = {
   positions: Position[];
@@ -100,54 +113,12 @@ type IsinToAmount = {
   [key: string]: string;
 };
 
-const DialogTitle = withStyles(styles)((props: DialogTitleProps) => {
-  const { children, classes, onClose } = props;
-  return (
-    <MuiDialogTitle disableTypography className={classes.root}>
-      <span className={classes.span}>
-        <Typography variant="h6" className={classes.text}>
-          {children}
-        </Typography>
-      </span>
-      {onClose ? (
-        <IconButton
-          aria-label="close"
-          className={classes.closeButton}
-          onClick={onClose}
-        >
-          <CloseIcon />
-        </IconButton>
-      ) : null}
-    </MuiDialogTitle>
-  );
-});
-
-const DialogContent = withStyles((theme: Theme) => ({
-  root: {
-    padding: theme.spacing(2),
-  },
-}))(MuiDialogContent);
-
-const DialogActions = withStyles((theme: Theme) => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(1),
-  },
-}))(MuiDialogActions);
-
 const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
-  // TODO delete the open state and handlers if we do not need them
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const classes = useStyles();
   const { t } = useTranslation();
+
+  // A state that controls whether the dialog window is open or closed
+  const [open, setOpen] = React.useState(false);
 
   // the following tracks the temporary state of the amount for each position that the user enters
   // the amount is formatted as string because the user might enter NaN values
@@ -164,8 +135,10 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
       setTempPos({ ...tempPos, [isin]: '0' });
     } else {
       const numberAmount = Number.parseFloat(stringAmount);
-      const newStringAmount = (numberAmount - 1).toString();
-      setTempPos({ ...tempPos, [isin]: newStringAmount });
+      setTempPos({
+        ...tempPos,
+        [isin]: numberAmount === 0 ? '0' : (numberAmount - 1).toString(),
+      });
     }
   };
 
@@ -192,6 +165,14 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
   const handleSaveChanges = () => {
     // TODO implement logic for api call and updating the global positions in details
     // TODO watch out right now empty input is also allowed ("")
+    // console.log(tempPos);
+    setOpen(false);
+  };
+
+  const handleDiscardChanges = () => {
+    // TODO implement logic for properly closing the dialog.
+    // each time it is rendered from scratch it should take the start values from positions again
+    setOpen(false);
   };
 
   return (
@@ -199,24 +180,39 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
       <Button
         variant="contained"
         className={classes.editButton}
-        onClick={handleClickOpen}
+        onClick={() => setOpen(true)}
       >
         {t('portfolio.details.editPortfolio')}
       </Button>
       <Dialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
+        onClose={() => setOpen(false)}
         open={open}
+        className={classes.Dialog}
       >
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Modal title
-        </DialogTitle>
-        <DialogContent dividers>
-          {/* Legend for the positions */}
-          {/* TODO add translation for legend */}
-          <p>Stock</p>
-          <p>Price</p>
-          <p>Amount</p>
+        {/* The header of the dialog window */}
+        <MuiDialogTitle
+          disableTypography
+          className={classes.dialogHeaderFooter}
+        >
+          <Typography variant="h6" className={classes.text}>
+            {t('portfolio.details.dialogHeader')}
+          </Typography>
+          <IconButton
+            aria-label="close"
+            className={classes.headerCloseButton}
+            onClick={handleDiscardChanges}
+          >
+            <CloseIcon />
+          </IconButton>
+        </MuiDialogTitle>
+        <MuiDialogContent dividers className={classes.DialogContent}>
+          <div className={classes.legendWrapper}>
+            <p className={classes.legendItem}>{t('portfolio.details.stock')}</p>
+            <p className={classes.legendItem}>{t('portfolio.details.price')}</p>
+            <p className={classes.legendItem}>
+              {t('portfolio.details.amount')}
+            </p>
+          </div>
           <List component="ol" className={classes.ol}>
             {/* the following map statement represents each position line (formerly "DetailsListEntry.tsx) */}
             {positions.map((position) => (
@@ -224,8 +220,8 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
                 <div className={classes.textDiv}>
                   <p className={classes.text}>{position.stock.name}</p>
                 </div>
-                <div className={classes.textDiv}>
-                  <p className={classes.text}>{position.stock.price}</p>
+                <div className={classes.textDivPrice}>
+                  <p className={classes.textPrice}>{position.stock.price}</p>
                 </div>
                 <div className={classes.userFields}>
                   <IconButton
@@ -234,17 +230,18 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
                   >
                     <RemoveIcon />
                   </IconButton>
-                  {/* the value in the text field below needs to take the amount from tempPos - NOT position - so the sate updates correctly */}
-                  {/* TODO add translation for helper text */}
                   <TextField
                     variant="outlined"
                     value={tempPos[position.stock.isin]}
                     error={!pattern.test(tempPos[position.stock.isin])}
                     helperText={
                       pattern.test(tempPos[position.stock.isin])
-                        ? ''
-                        : 'Please enter positive number!'
+                        ? undefined
+                        : 'Please enter a positive number!'
                     }
+                    FormHelperTextProps={{
+                      className: classes.helperText,
+                    }}
                     onChange={(e) => {
                       // when a user changes the input field the tempPos state gets updated
                       setTempPos({
@@ -280,13 +277,12 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
               </ListItem>
             ))}
           </List>
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Discard changes
+        </MuiDialogContent>
+        <MuiDialogActions className={classes.dialogHeaderFooter}>
+          <Button onClick={handleDiscardChanges} color="primary">
+            {t('portfolio.details.discardChanges')}
           </Button>
           <Button
-            autoFocus
             onClick={handleSaveChanges}
             color="primary"
             disabled={
@@ -295,9 +291,9 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
                 .every((v) => v)
             }
           >
-            Save changes
+            {t('portfolio.details.saveChanges')}
           </Button>
-        </DialogActions>
+        </MuiDialogActions>
       </Dialog>
     </div>
   );
