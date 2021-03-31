@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import DetailsMainSummary from './DetailsMainSummary';
-import { mock } from './Details';
+import { mock, mockPerformance } from './Details';
 
 jest.mock('./DetailsDonut', () => 'p');
 
@@ -15,6 +15,7 @@ test('DetailsMainSummary renders correctly', () => {
       positionCount={mock.positionCount}
       risk={mock.risk}
       positions={mock.positions}
+      performance={mockPerformance}
     />
   );
 

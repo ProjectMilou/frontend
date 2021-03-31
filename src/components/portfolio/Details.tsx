@@ -135,7 +135,7 @@ export const mock: PortfolioDetails = {
   dividendPayoutRatio: 0.25,
 };
 
-const mockPerformance = [
+export const mockPerformance = [
   [1327359600000, 30.95],
   [1327446000000, 31.34],
   [1327532400000, 31.18],
