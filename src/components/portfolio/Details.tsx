@@ -29,7 +29,10 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 
 // is this even useful?
 function sumPositions(pos: Position[]): number {
-  return pos.map((p) => p.stock.price).reduce((a, b) => a + b);
+  return (
+    Math.round(pos.map((p) => p.stock.price).reduce((a, b) => a + b) * 100) /
+    100
+  );
 }
 
 // all mock data that is passed down
@@ -53,7 +56,7 @@ export const mockPositions: Position[] = [
       isin: '1',
       symbol: 'MRC',
       name: 'Mercedes',
-      price: 19.5,
+      price: 19.51,
       perf7d: 3,
       perf1y: -15,
       country: 'Germany',

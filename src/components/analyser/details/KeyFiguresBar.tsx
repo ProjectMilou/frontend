@@ -2,7 +2,7 @@ import React from 'react';
 import { Toolbar } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { OneKeyFigure } from './OneKeyFigure';
-import KeyFiguresChart from './KeyFiguresChart';
+import KeyFiguresChart from '../../charts/KeyFiguresChart';
 
 const KeyFiguresBar: React.FC = () => {
   const { t } = useTranslation();

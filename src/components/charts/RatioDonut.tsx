@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Chart from 'react-apexcharts';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-// import { useTheme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
   createStyles({
@@ -29,70 +28,68 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
 );
 
 type RatioDonutProps = {
+  // decimal between 0 and 1
   ratio: number;
 };
 
 const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
-  // const theme = useTheme();
   const classes = useStyles();
 
-  const [state] = useState({
-    series: [ratio, 1 - ratio],
-    options: {
-      states: {
-        normal: {
-          filter: {
-            type: 'none',
-            value: 0,
-          },
-        },
-        hover: {
-          filter: {
-            type: 'none',
-            value: 0,
-          },
-        },
-        active: {
-          allowMultipleDataPointsSelection: false,
-          filter: {
-            type: 'none',
-            value: 0,
-          },
+  const series = [ratio, 1 - ratio];
+  const options = {
+    states: {
+      normal: {
+        filter: {
+          type: 'none',
+          value: 0,
         },
       },
-      tooltip: {
-        enabled: false,
-      },
-      fill: {
-        colors: ['#00e396', '#008ffb'],
-      },
-      chart: {
-        redrawOnWindowResize: false,
-        redrawOnParentResize: false,
-      },
-      stroke: {
-        show: false,
-      },
-      plotOptions: {
-        pie: {
-          expandOnClick: false,
+      hover: {
+        filter: {
+          type: 'none',
+          value: 0,
         },
       },
-      dataLabels: {
-        enabled: false,
-      },
-      legend: {
-        show: false,
+      active: {
+        allowMultipleDataPointsSelection: false,
+        filter: {
+          type: 'none',
+          value: 0,
+        },
       },
     },
-  });
+    tooltip: {
+      enabled: false,
+    },
+    fill: {
+      colors: ['#00e396', '#008ffb'],
+    },
+    chart: {
+      redrawOnWindowResize: false,
+      redrawOnParentResize: false,
+    },
+    stroke: {
+      show: false,
+    },
+    plotOptions: {
+      pie: {
+        expandOnClick: false,
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    legend: {
+      show: false,
+    },
+  };
 
   return (
     <div className={classes.chartContainer}>
       <div className={classes.chartWrapper}>
         <Chart
-          options={state.options}
-          series={state.series}
+          options={options}
+          series={series}
           type="donut"
           height={140}
           width="100%"
