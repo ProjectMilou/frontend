@@ -41,6 +41,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ token }) => {
 
   return (
     <div style={{ width: 280 }}>
+      {/* Error handle */}
       {stocks && (
         <Autocomplete
           id="search"
