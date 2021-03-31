@@ -12,6 +12,9 @@ import ErrorMessage from './ErrorMessage';
 import PortfolioOverview from './PortfolioOverview';
 import DashboardHeader from './DashboardHeader';
 import RenameDialog from './RenameDialog';
+import DuplicateDialog from './DuplicateDialog';
+import DeleteDialog from './DeleteDialog';
+import CreateDialog from './CreateDialog';
 
 export type DashboardProps = {
   token: string;
@@ -57,9 +60,21 @@ type SetPortfoliosAction = {
   type: 'setPortfolios';
   payload: API.PortfolioOverview[];
 };
+type CreateAction = {
+  type: 'create';
+  payload: { id: string; name: string };
+};
 type RenameAction = {
   type: 'rename';
   payload: { id: string; name: string };
+};
+type DuplicateAction = {
+  type: 'duplicate';
+  payload: { id: string; newId: string; newName: string };
+};
+type DeleteAction = {
+  type: 'delete';
+  payload: { id: string };
 };
 type SetErrorAction = {
   type: 'setError';
@@ -77,11 +92,35 @@ type CloseDialogAction = {
 };
 type Actions =
   | SetPortfoliosAction
+  | CreateAction
   | RenameAction
+  | DuplicateAction
+  | DeleteAction
   | SetErrorAction
   | ClearErrorAction
   | OpenDialogAction
   | CloseDialogAction;
+
+function createPortfolioAction(
+  portfolios: API.PortfolioOverview[] | undefined,
+  { id, name }: CreateAction['payload']
+) {
+  return (
+    portfolios && [
+      ...portfolios,
+      {
+        id,
+        name,
+        virtual: true,
+        positionCount: 0,
+        value: 0,
+        perf7d: 0,
+        perf1y: 0,
+        modified: new Date(),
+      },
+    ]
+  );
+}
 
 function renamePortfolioAction(
   portfolios: API.PortfolioOverview[] | undefined,
@@ -96,6 +135,30 @@ function renamePortfolioAction(
   );
 }
 
+function duplicatePortfolioAction(
+  portfolios: API.PortfolioOverview[] | undefined,
+  { id, newId, newName }: DuplicateAction['payload']
+) {
+  return (
+    portfolios && [
+      ...portfolios,
+      {
+        ...(portfolios.find((p) => p.id === id) as API.PortfolioOverview),
+        id: newId,
+        name: newName,
+        virtual: true,
+      },
+    ]
+  );
+}
+
+function deletePortfolioAction(
+  portfolios: API.PortfolioOverview[] | undefined,
+  { id }: DeleteAction['payload']
+) {
+  return portfolios && portfolios.filter((p) => p.id !== id);
+}
+
 function reducer(state: State, action: Actions) {
   switch (action.type) {
     case 'setPortfolios':
@@ -103,10 +166,25 @@ function reducer(state: State, action: Actions) {
         ...state,
         portfolios: action.payload,
       };
+    case 'create':
+      return {
+        ...state,
+        portfolios: createPortfolioAction(state.portfolios, action.payload),
+      };
     case 'rename':
       return {
         ...state,
         portfolios: renamePortfolioAction(state.portfolios, action.payload),
+      };
+    case 'duplicate':
+      return {
+        ...state,
+        portfolios: duplicatePortfolioAction(state.portfolios, action.payload),
+      };
+    case 'delete':
+      return {
+        ...state,
+        portfolios: deletePortfolioAction(state.portfolios, action.payload),
       };
     case 'setError':
       return {
@@ -214,19 +292,43 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
                   payload: { type: DialogType.RenamePortfolio, portfolioId },
                 })
               }
-              duplicatePortfolio={() => {}}
-              deletePortfolio={() => {}}
+              duplicatePortfolio={(portfolioId) =>
+                dispatch({
+                  type: 'openDialog',
+                  payload: { type: DialogType.DuplicatePortfolio, portfolioId },
+                })
+              }
+              deletePortfolio={(portfolioId) => {
+                dispatch({
+                  type: 'openDialog',
+                  payload: { type: DialogType.DeletePortfolio, portfolioId },
+                });
+              }}
             />
             <Button
               className={classes.createButton}
               variant="outlined"
               color="primary"
+              onClick={() => {
+                dispatch({
+                  type: 'openDialog',
+                  payload: { type: DialogType.CreatePortfolio },
+                });
+              }}
             >
               {t('portfolio.dashboard.createPortfolio')}
             </Button>
           </div>
         )}
       </Container>
+      <CreateDialog
+        open={state.dialog.type === DialogType.CreatePortfolio}
+        handleClose={() => dispatch({ type: 'closeDialog' })}
+        create={async (name) => {
+          const id = await API.create(token, name);
+          dispatch({ type: 'create', payload: { id, name } });
+        }}
+      />
       <RenameDialog
         initialName={portfolioName(state.portfolios, state.dialog.portfolioId)}
         open={state.dialog.type === DialogType.RenamePortfolio}
@@ -237,6 +339,42 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
             dispatch({
               type: 'rename',
               payload: { id: state.dialog.portfolioId, name },
+            });
+          }
+        }}
+      />
+      <DuplicateDialog
+        initialName={portfolioName(state.portfolios, state.dialog.portfolioId)}
+        open={state.dialog.type === DialogType.DuplicatePortfolio}
+        handleClose={() => dispatch({ type: 'closeDialog' })}
+        duplicate={async (name) => {
+          if (state.dialog.portfolioId) {
+            const id = await API.duplicate(
+              token,
+              state.dialog.portfolioId,
+              name
+            );
+            dispatch({
+              type: 'duplicate',
+              payload: {
+                id: state.dialog.portfolioId,
+                newId: id,
+                newName: name,
+              },
+            });
+          }
+        }}
+      />
+      <DeleteDialog
+        initialName={portfolioName(state.portfolios, state.dialog.portfolioId)}
+        open={state.dialog.type === DialogType.DeletePortfolio}
+        handleClose={() => dispatch({ type: 'closeDialog' })}
+        deletePortfolio={async () => {
+          if (state.dialog.portfolioId) {
+            await API.deletePortfolio(token, state.dialog.portfolioId);
+            dispatch({
+              type: 'delete',
+              payload: { id: state.dialog.portfolioId },
             });
           }
         }}
