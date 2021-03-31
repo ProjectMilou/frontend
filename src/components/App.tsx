@@ -57,8 +57,8 @@ const theme = createMuiTheme({
     body2: {
       fontSize: 36,
       lineHeight: '50px',
-    },
-  },*/
+    },*/
+  },
   palette: {
     background: {
       default: '#E5E5E5',
