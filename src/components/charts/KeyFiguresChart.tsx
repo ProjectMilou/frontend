@@ -1,17 +1,28 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
 
-type KeyFiguresChartProps = {
-  series: Series[];
-};
-
-type Series = {
+export type Series = {
   name: string;
   data: number[];
 };
 
-const options = {
-  options: {
+type KeyFiguresChartProps = {
+  series: Series[];
+  textColor: string;
+  height: number;
+};
+
+const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({
+  series,
+  textColor,
+  height,
+}) => {
+  const options = {
+    legend: {
+      labels: {
+        colors: textColor,
+      },
+    },
     // Todo change hard coded colors and toggle for charts
     colors: ['#F6AE2D', '#5DE78E', '#4392F1', '#415176'],
     chart: {
@@ -22,6 +33,18 @@ const options = {
     },
     xaxis: {
       categories: [2016, 2017, 2018, 2019, 2020],
+      labels: {
+        style: {
+          colors: textColor,
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: textColor,
+        },
+      },
     },
     markers: {
       size: 5,
@@ -29,21 +52,19 @@ const options = {
     stroke: {
       width: 2,
     },
-  },
-  padding: {},
+  };
+  return (
+    <div>
+      <Chart
+        options={options}
+        series={series}
+        type="line"
+        width="100%"
+        min-width="800px"
+        height={height}
+      />
+    </div>
+  );
 };
-
-const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({ series }) => (
-  <div>
-    <Chart
-      options={options.options}
-      series={series}
-      type="line"
-      width="100%"
-      min-width="800px"
-      height={350}
-    />
-  </div>
-);
 
 export default KeyFiguresChart;
