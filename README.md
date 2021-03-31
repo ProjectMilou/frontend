@@ -1,7 +1,6 @@
 # Milou Frontend
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/781c3fd7-2a90-420c-8139-0f7abaad5b95/deploy-status)](https://kind-clarke-29dd44.netlify.app/)
-[![Deployment](https://github.com/ProjectMilou/frontend/actions/workflows/s3-deploy.yml/badge.svg?branch=main)](http://poject-milou-frontend.s3-website.eu-central-1.amazonaws.com/)  
+[![Deploy to Amazon ECS](https://github.com/ProjectMilou/frontend/actions/workflows/aws.yml/badge.svg)](https://milou.io/)
 [![Lint Code Base](https://github.com/ProjectMilou/frontend/actions/workflows/linter.yml/badge.svg)](https://github.com/ProjectMilou/frontend/actions/workflows/linter.yml)
 [![Test code](https://github.com/ProjectMilou/frontend/actions/workflows/run-tests.yml/badge.svg)](https://github.com/ProjectMilou/frontend/actions/workflows/run-tests.yml)
 
