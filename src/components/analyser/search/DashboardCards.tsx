@@ -12,7 +12,10 @@ import {
   GridList,
   ButtonBase,
 } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
+import ValueOverName from '../ValueOverName';
+
 
 const useStyles = makeStyles((theme: Theme) => ({
   action: { display: 'inline-block' },
@@ -32,7 +35,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: 280,
     margin: 10,
     transition: '0.3s',
-    boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
     '&:hover': {
       boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
     },
@@ -62,6 +64,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'block',
     textAlign: 'initial',
   },
+  rightBound:{
+    float: 'right',
+  }
 }));
 
 export type DashboardCardsRowProps = {
@@ -69,11 +74,16 @@ export type DashboardCardsRowProps = {
   selectStock: (id: string) => void;
 };
 
+function convertPercentToColor(val: number): string {
+  return val < 0 ? '#D64745' : '#50E2A8';
+}
+
 export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
   stock,
   selectStock,
 }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Card className={classes.card}>
@@ -95,6 +105,14 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
             gutterBottom
           >
             {stock.symbol}
+            <div className={classes.rightBound}>
+            <ValueOverName
+              value={`${stock['30d']}%`}
+              name={t('stock.30d')}
+              valueColor={convertPercentToColor(stock['30d'])}
+              textColor="#primary"
+            />
+            </div>
           </Typography>
           <Divider className={classes.divider} light />
           <Typography className="MuiTypography-body1" variant="caption">
@@ -104,10 +122,7 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
           <Typography className="MuiTypography-body1" variant="caption">
             {stock.price}
           </Typography>
-          <Divider className={classes.divider} light />
-          <Typography className="MuiTypography-body1" variant="caption">
-            {stock['30d']}
-          </Typography>
+          
         </CardContent>
       </ButtonBase>
     </Card>

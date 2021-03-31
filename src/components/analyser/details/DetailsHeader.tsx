@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import ValueOverName from './ValueOverName';
+import ValueOverName from '../ValueOverName';
 import * as API from '../../../analyser/APIClient';
 import EuroCurrency from '../EuroCurrency';
 
