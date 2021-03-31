@@ -1,5 +1,10 @@
 import React from 'react';
-import { LinearProgress, makeStyles, Container } from '@material-ui/core';
+import {
+  LinearProgress,
+  makeStyles,
+  Container,
+  useTheme,
+} from '@material-ui/core';
 import { ErrorCode } from '../../../Errors';
 import * as API from '../../../analyser/APIClient';
 import ErrorMessage from '../ErrorMessage';
@@ -339,6 +344,8 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
     [1361919600000, 39.6],
   ];
 
+  const theme = useTheme();
+
   return (
     <>
       {!stockOverview ||
@@ -377,7 +384,13 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
               stockOverview={stockOverview}
               stockDetails={stockDetails}
             />
-            <StockChart series={chartSeries} />
+            <StockChart
+              series={chartSeries}
+              axisColor={theme.palette.secondary.contrastText}
+              buttonBackgroundColor={theme.palette.primary.main}
+              buttonTextColor={theme.palette.primary.contrastText}
+              height={450}
+            />
             <KeyFigures />
           </Container>
         </div>

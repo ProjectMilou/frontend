@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import ValueOverName from './ValueOverName';
 import { Position, RiskAnalysis } from './DetailsTypes';
 import DetailsDonut from './DetailsDonut';
+import StockChart from '../charts/StockChart';
 
 // stylesheet for the Summary section
 const useStyles = makeStyles(() =>
@@ -65,6 +66,8 @@ type DetailsMainSummaryProps = {
   risk: RiskAnalysis;
   // array with all positions
   positions: Position[];
+  // performance values for the total value of the portfolio over time with unix timestamp
+  performance: number[][];
 };
 
 // returns the details page header
@@ -76,6 +79,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
   positionCount,
   risk,
   positions,
+  performance,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -188,7 +192,13 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
           />
         </div>
         <div className={classes.lineChartWrapper}>
-          <p>Placeholder for the LineChart by Analyzer Team</p>
+          <StockChart
+            series={performance}
+            axisColor={theme.palette.primary.contrastText}
+            buttonBackgroundColor={theme.palette.lightBlue.main}
+            buttonTextColor={theme.palette.primary.contrastText}
+            height={300}
+          />
         </div>
       </div>
     </>

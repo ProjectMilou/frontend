@@ -11,60 +11,16 @@ declare let ApexCharts: any;
 type StockChartProps = {
   // series array with unix timestamp and value
   series: number[][];
+  buttonBackgroundColor: string;
+  buttonTextColor: string;
+  axisColor: string;
+  height: number;
 };
 
-const state = {
-  options: {
-    colors: ['#4392F1'],
-    chart: {
-      id: 'area-datetime',
-      type: 'area',
-      height: 350,
-      zoom: {
-        enabled: true,
-        autoScaleYaxis: true,
-      },
-      color: '#0000',
-      toolbar: {
-        show: false,
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    markers: {
-      size: 0,
-      style: 'hollow',
-    },
-    xaxis: {
-      type: 'datetime',
-      min: new Date('01 MAR 2012').getTime(),
-      tickAmount: 6,
-    },
-    tooltip: {
-      x: {
-        format: 'dd MMM yyyy',
-      },
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        shadeIntensity: 1,
-        opacityFrom: 0.7,
-        opacityTo: 0.9,
-        stops: [0, 100],
-      },
-    },
-    noData: {
-      text: 'Loading...',
-    },
-  },
-
-  selection: 'one_year',
-};
+let selection = 'one_year';
 
 const updateData = (timeline: string) => {
-  state.selection = timeline;
+  selection = timeline;
 
   switch (timeline) {
     case 'one_month':
@@ -111,77 +67,158 @@ const updateData = (timeline: string) => {
   }
 };
 
-const Datetime: React.FC<StockChartProps> = ({ series }) => (
-  <Box style={{ marginTop: '20px', marginBottom: '80px' }}>
-    <div id="chart">
-      <div className="toolbar">
-        <Button
-          type="button"
-          id="one_month"
-          variant="contained"
-          color="primary"
-          onClick={() => updateData('one_month')}
-          className={state.selection === 'one_month' ? 'active' : ''}
-        >
-          1M
-        </Button>
-        &nbsp;
-        <Button
-          type="button"
-          id="six_months"
-          variant="contained"
-          color="primary"
-          onClick={() => updateData('six_months')}
-          className={state.selection === 'six_months' ? 'active' : ''}
-        >
-          6M
-        </Button>
-        &nbsp;
-        <Button
-          type="button"
-          id="one_year"
-          variant="contained"
-          color="primary"
-          onClick={() => updateData('one_year')}
-          className={state.selection === 'one_year' ? 'active' : ''}
-        >
-          1Y
-        </Button>
-        &nbsp;
-        <Button
-          type="button"
-          id="ytd"
-          variant="contained"
-          color="primary"
-          onClick={() => updateData('ytd')}
-          className={state.selection === 'ytd' ? 'active' : ''}
-        >
-          YTD
-        </Button>
-        &nbsp;
-        <Button
-          type="button"
-          id="all"
-          variant="contained"
-          color="primary"
-          onClick={() => updateData('all')}
-          className={state.selection === 'all' ? 'active' : ''}
-        >
-          ALL
-        </Button>
-      </div>
+const Datetime: React.FC<StockChartProps> = ({
+  series,
+  buttonBackgroundColor,
+  buttonTextColor,
+  axisColor,
+  height,
+}) => {
+  const options = {
+    colors: ['#4392F1'],
+    chart: {
+      id: 'area-datetime',
+      type: 'area',
+      height: 350,
+      zoom: {
+        enabled: true,
+        autoScaleYaxis: true,
+      },
+      color: '#00000',
+      toolbar: {
+        show: false,
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    markers: {
+      size: 0,
+      style: 'hollow',
+    },
+    xaxis: {
+      type: 'datetime',
+      min: new Date('01 MAR 2012').getTime(),
+      tickAmount: 6,
+      labels: {
+        style: {
+          colors: axisColor,
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: axisColor,
+        },
+      },
+    },
+    tooltip: {
+      x: {
+        format: 'dd MMM yyyy',
+      },
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        shadeIntensity: 1,
+        opacityFrom: 0.7,
+        opacityTo: 0.9,
+        stops: [0, 100],
+      },
+    },
+    noData: {
+      text: 'Loading...',
+    },
+  };
 
-      <div id="chart-timeline">
-        <ReactApexChart
-          options={state.options}
-          series={[{ data: series }]}
-          type="area"
-          height={450}
-          width="100%"
-        />
+  return (
+    <Box style={{ marginTop: '20px', marginBottom: '80px' }}>
+      <div id="chart">
+        <div className="toolbar">
+          <Button
+            type="button"
+            id="one_month"
+            variant="contained"
+            style={{
+              backgroundColor: buttonBackgroundColor,
+              color: buttonTextColor,
+            }}
+            onClick={() => updateData('one_month')}
+            className={selection === 'one_month' ? 'active' : ''}
+          >
+            1M
+          </Button>
+          &nbsp;
+          <Button
+            type="button"
+            id="six_months"
+            variant="contained"
+            style={{
+              backgroundColor: buttonBackgroundColor,
+              color: buttonTextColor,
+            }}
+            onClick={() => updateData('six_months')}
+            className={selection === 'six_months' ? 'active' : ''}
+          >
+            6M
+          </Button>
+          &nbsp;
+          <Button
+            type="button"
+            id="one_year"
+            variant="contained"
+            style={{
+              backgroundColor: buttonBackgroundColor,
+              color: buttonTextColor,
+            }}
+            onClick={() => updateData('one_year')}
+            className={selection === 'one_year' ? 'active' : ''}
+          >
+            1Y
+          </Button>
+          &nbsp;
+          <Button
+            type="button"
+            id="ytd"
+            variant="contained"
+            style={{
+              backgroundColor: buttonBackgroundColor,
+              color: buttonTextColor,
+            }}
+            onClick={() => updateData('ytd')}
+            className={selection === 'ytd' ? 'active' : ''}
+          >
+            YTD
+          </Button>
+          &nbsp;
+          <Button
+            type="button"
+            id="all"
+            variant="contained"
+            style={{
+              backgroundColor: buttonBackgroundColor,
+              color: buttonTextColor,
+            }}
+            onClick={() => updateData('all')}
+            className={selection === 'all' ? 'active' : ''}
+          >
+            ALL
+          </Button>
+        </div>
+
+        <div id="chart-timeline">
+          <ReactApexChart
+            options={options}
+            series={[{ data: series }]}
+            type="area"
+            height={height}
+            width="100%"
+          />
+        </div>
       </div>
-    </div>
-  </Box>
-);
+    </Box>
+  );
+};
 
 export default Datetime;
