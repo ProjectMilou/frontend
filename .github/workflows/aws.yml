@@ -27,7 +27,6 @@ on:
   push:
     branches:
       - main
-      - refactor/new-aws-deployment # For testing only
 
 name: Deploy to Amazon ECS
 
