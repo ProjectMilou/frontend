@@ -59,7 +59,7 @@ const KeyFiguresBar: React.FC<KeyFiguresBarProps> = ({
       </Toolbar>
       <KeyFiguresChart
         height={chartHeight}
-        series={series}
+        series={series.filter((s) => !filteredNames.includes(s.name))}
         textColor={textColor}
       />
     </div>
