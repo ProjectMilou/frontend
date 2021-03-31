@@ -132,6 +132,11 @@ const Datetime: React.FC<StockChartProps> = ({
     },
   };
 
+  const buttonStyling = {
+    backgroundColor: buttonBackgroundColor,
+    color: buttonTextColor,
+  };
+
   return (
     <Box style={{ marginTop: '20px', marginBottom: '80px' }}>
       <div id="chart">
@@ -140,10 +145,7 @@ const Datetime: React.FC<StockChartProps> = ({
             type="button"
             id="one_month"
             variant="contained"
-            style={{
-              backgroundColor: buttonBackgroundColor,
-              color: buttonTextColor,
-            }}
+            style={buttonStyling}
             onClick={() => updateData('one_month')}
             className={selection === 'one_month' ? 'active' : ''}
           >
@@ -154,10 +156,7 @@ const Datetime: React.FC<StockChartProps> = ({
             type="button"
             id="six_months"
             variant="contained"
-            style={{
-              backgroundColor: buttonBackgroundColor,
-              color: buttonTextColor,
-            }}
+            style={buttonStyling}
             onClick={() => updateData('six_months')}
             className={selection === 'six_months' ? 'active' : ''}
           >
@@ -168,10 +167,7 @@ const Datetime: React.FC<StockChartProps> = ({
             type="button"
             id="one_year"
             variant="contained"
-            style={{
-              backgroundColor: buttonBackgroundColor,
-              color: buttonTextColor,
-            }}
+            style={buttonStyling}
             onClick={() => updateData('one_year')}
             className={selection === 'one_year' ? 'active' : ''}
           >
@@ -182,10 +178,7 @@ const Datetime: React.FC<StockChartProps> = ({
             type="button"
             id="ytd"
             variant="contained"
-            style={{
-              backgroundColor: buttonBackgroundColor,
-              color: buttonTextColor,
-            }}
+            style={buttonStyling}
             onClick={() => updateData('ytd')}
             className={selection === 'ytd' ? 'active' : ''}
           >
@@ -196,10 +189,7 @@ const Datetime: React.FC<StockChartProps> = ({
             type="button"
             id="all"
             variant="contained"
-            style={{
-              backgroundColor: buttonBackgroundColor,
-              color: buttonTextColor,
-            }}
+            style={buttonStyling}
             onClick={() => updateData('all')}
             className={selection === 'all' ? 'active' : ''}
           >

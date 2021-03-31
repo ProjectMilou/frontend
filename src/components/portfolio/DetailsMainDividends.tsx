@@ -1,5 +1,10 @@
 import React, { ReactElement } from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  createStyles,
+  Theme,
+  useTheme,
+} from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import RatioDonut from '../charts/RatioDonut';
 
@@ -87,6 +92,7 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
   dividendPayoutRatio,
 }) => {
   const classes = useStyles();
+  const theme = useTheme();
   const { t } = useTranslation();
 
   return (
@@ -100,7 +106,12 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
         />
         <InfoBlock
           title={t('portfolio.details.payout')}
-          body={<RatioDonut ratio={dividendPayoutRatio} />}
+          body={
+            <RatioDonut
+              ratio={dividendPayoutRatio}
+              textColor={theme.palette.primary.contrastText}
+            />
+          }
         />
         <InfoBlock
           title={t('portfolio.details.nextDate')}
