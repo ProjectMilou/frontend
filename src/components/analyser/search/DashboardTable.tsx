@@ -109,11 +109,6 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         <Valuation value={stock.valuation} />
       </TableCell>
       <TableCell align="center">
-        <Typography color="primary" className={classes.defaultText}>
-          {stock.growth}
-        </Typography>
-      </TableCell>
-      <TableCell align="center">
         <Performance value={stock.div} />
       </TableCell>
       <TableCell align="center">
@@ -148,7 +143,6 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
             <TableCell align="center">{t('stock.marketCap')}</TableCell>
             <TableCell align="center">{t('stock.analystsTarget')}</TableCell>
             <TableCell align="center">{t('stock.valuation')}</TableCell>
-            <TableCell align="center">{t('stock.growth')}</TableCell>
             <TableCell align="center">{t('stock.div')}</TableCell>
             <TableCell align="center">{t('stock.industry')}</TableCell>
           </TableRow>
