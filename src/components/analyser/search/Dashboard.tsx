@@ -5,6 +5,8 @@ import {
   Container,
   Toolbar,
   AppBar,
+  Theme,
+  Paper
 } from '@material-ui/core';
 import * as API from '../../../analyser/APIClient';
 import { ErrorCode } from '../../../Errors';
@@ -18,7 +20,7 @@ export type DashboardProps = {
   selectStock: (symbol: string) => void;
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   createButton: {
     marginTop: '25px',
   },
@@ -30,7 +32,10 @@ const useStyles = makeStyles({
     minWidth: '50%',
     maxWidth: '100%',
   },
-});
+  background: {
+    'background-color': '#EEF1FB',
+  }
+}));
 
 const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
   const [stocks, setStocks] = React.useState<API.Stock[]>();
@@ -64,6 +69,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
 
   return (
     <>
+    <Paper className={classes.background}>
       <DashboardHeader />
       {!stocks && !error && (
         <div>
@@ -103,6 +109,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
           </div>
         )}
       </Container>
+      </Paper>
     </>
   );
 };
