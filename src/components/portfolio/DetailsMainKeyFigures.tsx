@@ -3,7 +3,7 @@ import { makeStyles, createStyles, useTheme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { KeyFigures } from './DetailsTypes';
 // TODO put into shared folder instead of importing from analyzer
-import KeyFiguresBar from '../analyser/details/KeyFiguresBar';
+import KeyFiguresBar from '../shared/KeyFiguresBar';
 
 // stylesheet for the key figure section
 const useStyles = makeStyles(() =>

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import ValueOverName from './ValueOverName';
 import { Position, RiskAnalysis } from './DetailsTypes';
 import DetailsDonut from './DetailsDonut';
-import StockChart from '../charts/StockChart';
+import StockChart from '../shared/StockChart';
 
 // stylesheet for the Summary section
 const useStyles = makeStyles(() =>

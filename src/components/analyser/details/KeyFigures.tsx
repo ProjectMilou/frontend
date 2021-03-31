@@ -6,7 +6,7 @@ import {
   useTheme,
 } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import KeyFiguresBar from './KeyFiguresBar';
+import KeyFiguresBar from '../../shared/KeyFiguresBar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

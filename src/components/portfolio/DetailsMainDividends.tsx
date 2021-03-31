@@ -6,8 +6,8 @@ import {
   useTheme,
 } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import RatioDonut from '../charts/RatioDonut';
-import KeyFiguresChart from '../charts/KeyFiguresChart';
+import RatioDonut from '../shared/RatioDonut';
+import KeyFiguresChart from '../shared/KeyFiguresChart';
 
 // stylesheet for the dividend section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -96,20 +96,8 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
 
   const mockSeries = [
     {
-      name: t('analyser.detail.keyfigure.PER.title'),
+      name: 'Dividend Yield',
       data: [30, 40, 45, 50, 50],
-    },
-    {
-      name: t('analyser.detail.keyfigure.PBR.title'),
-      data: [50, 25, 35, 80, 20],
-    },
-    {
-      name: t('analyser.detail.keyfigure.PEGR.title'),
-      data: [30, 50, 15, 40, 10],
-    },
-    {
-      name: t('analyser.detail.keyfigure.EPS.title'),
-      data: [10, 20, 25, 10, 90],
     },
   ];
 
