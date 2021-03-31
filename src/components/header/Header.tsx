@@ -13,6 +13,7 @@ import logo from '../../assets/images/logo1.png';
 import NavLink from './NavLink';
 import Login from '../shell/login/Login';
 import Register from '../shell/register/Register';
+import SearchBar from '../analyser/search/SearchBar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,6 +58,7 @@ const Header: React.FC = () => {
         <NavLink to="/academy">Academy</NavLink>
         <div className={classes.grow} />
 
+        <SearchBar token="" />
         {loggedIn ? (
           <>
             <Button
