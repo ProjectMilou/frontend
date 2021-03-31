@@ -21,7 +21,6 @@ const Valuation: React.FC<ValuationProps> = (props) => {
     <NumberFormat
       value={value}
       displayType="text"
-      prefix="P/E&nbsp;"
       suffix="x"
       decimalScale={1}
       fixedDecimalScale
