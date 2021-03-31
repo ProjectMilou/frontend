@@ -24,7 +24,7 @@ const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({
       },
     },
     // Todo change hard coded colors and toggle for charts
-    colors: ['#F6AE2D', '#5DE78E', '#4392F1', '#415176'],
+    colors: ['#F6AE2D', '#5DE78E', '#99ffff', '#bf80ff'],
     chart: {
       id: 'line-chart',
       toolbar: {

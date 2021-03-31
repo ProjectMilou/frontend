@@ -7,6 +7,7 @@ import {
 } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import RatioDonut from '../charts/RatioDonut';
+import KeyFiguresChart from '../charts/KeyFiguresChart';
 
 // stylesheet for the dividend section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -19,8 +20,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       height: '30rem',
     },
     chartContainer: {
-      // TODO: remove backround color
-      backgroundColor: 'olive',
       height: '100%',
       width: '100%',
       flexBasis: '65%',
@@ -95,9 +94,35 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
   const theme = useTheme();
   const { t } = useTranslation();
 
+  const mockSeries = [
+    {
+      name: t('analyser.detail.keyfigure.PER.title'),
+      data: [30, 40, 45, 50, 50],
+    },
+    {
+      name: t('analyser.detail.keyfigure.PBR.title'),
+      data: [50, 25, 35, 80, 20],
+    },
+    {
+      name: t('analyser.detail.keyfigure.PEGR.title'),
+      data: [30, 50, 15, 40, 10],
+    },
+    {
+      name: t('analyser.detail.keyfigure.EPS.title'),
+      data: [10, 20, 25, 10, 90],
+    },
+  ];
+
   return (
     <div className={classes.dividendsWrapper}>
-      <div className={classes.chartContainer}>{/* left side with graph */}</div>
+      <div className={classes.chartContainer}>
+        {/* left side with graph */}
+        <KeyFiguresChart
+          series={mockSeries}
+          height={450}
+          textColor={theme.palette.primary.contrastText}
+        />
+      </div>
       <div className={classes.infoContainer}>
         {/* right side with info */}
         <InfoBlock
