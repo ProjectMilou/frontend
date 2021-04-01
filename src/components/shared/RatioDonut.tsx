@@ -2,7 +2,7 @@ import React from 'react';
 import Chart from 'react-apexcharts';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(({ palette, typography }: Theme) =>
+const useStyles = makeStyles(({ typography }: Theme) =>
   createStyles({
     chartContainer: {
       display: 'flex',
@@ -19,7 +19,6 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      color: palette.primary.contrastText,
       fontFamily: typography.fontFamily,
       fontSize: '1.25rem',
       fontWeight: 600,
@@ -30,9 +29,10 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
 type RatioDonutProps = {
   // decimal between 0 and 1
   ratio: number;
+  textColor: string;
 };
 
-const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
+const RatioDonut: React.FC<RatioDonutProps> = ({ ratio, textColor }) => {
   const classes = useStyles();
 
   const series = [ratio, 1 - ratio];
@@ -95,7 +95,7 @@ const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
           width="100%"
         />
         <div className={classes.textWrapper}>
-          <p style={{ margin: 0 }}>{`${ratio * 100}%`}</p>
+          <p style={{ margin: 0, color: textColor }}>{`${ratio * 100}%`}</p>
         </div>
       </div>
     </div>

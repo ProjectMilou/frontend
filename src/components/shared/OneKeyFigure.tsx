@@ -12,6 +12,7 @@ export type KeyFigure = {
   title: string;
   definition: string;
   toggleFilter: (filter: string) => void;
+  textColor: string;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -33,6 +34,7 @@ export const OneKeyFigure: React.FC<KeyFigure> = ({
   title,
   definition,
   toggleFilter,
+  textColor,
 }) => {
   const classes = useStyles();
   const [visible, setVisible] = React.useState<boolean>(true);
@@ -46,9 +48,14 @@ export const OneKeyFigure: React.FC<KeyFigure> = ({
     <div>
       <Toolbar>
         <FormControlLabel
+          style={{
+            color: textColor,
+          }}
           control={
             <Checkbox
-              color="primary"
+              style={{
+                color: textColor,
+              }}
               checked={visible}
               onChange={handleClick}
             />
@@ -60,7 +67,12 @@ export const OneKeyFigure: React.FC<KeyFigure> = ({
           placement="top-start"
           classes={{ tooltip: classes.customSize }}
         >
-          <InfoOutlined fontSize="small" />
+          <InfoOutlined
+            fontSize="small"
+            style={{
+              color: textColor,
+            }}
+          />
         </Tooltip>
       </Toolbar>
     </div>
