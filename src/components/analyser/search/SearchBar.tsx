@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { TextField, InputAdornment } from '@material-ui/core';
+import {
+  TextField,
+  InputAdornment,
+  makeStyles,
+  createStyles,
+  Theme,
+} from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Search from '@material-ui/icons/Search';
 import * as API from '../../../analyser/APIClient';
@@ -11,9 +17,20 @@ import ErrorMessage from '../ErrorMessage';
 //   token: string;
 // };
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    textField: {
+      margin: theme.spacing(2),
+      minWidth: 10,
+      maxWidth: 280,
+    },
+  })
+);
+
 const SearchBar: React.FC = () => {
   const [stocks, setStocks] = React.useState<API.Stock[]>();
   const [error, setError] = React.useState<ErrorCode | undefined>();
+  const classes = useStyles();
 
   const isMounted = React.useRef(true);
   const fetch = async () => {
@@ -41,7 +58,7 @@ const SearchBar: React.FC = () => {
 
   const [open, setOpen] = useState(false);
   return (
-    <div style={{ width: 280 }}>
+    <div style={{ width: 300 }}>
       {error && (
         <ErrorMessage
           error={error}
@@ -68,6 +85,7 @@ const SearchBar: React.FC = () => {
           renderOption={(option) => <SearchOption stock={option} />}
           renderInput={(params) => (
             <TextField
+              className={classes.textField}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...params}
               InputProps={{
