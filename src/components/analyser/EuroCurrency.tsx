@@ -5,11 +5,15 @@ import { makeStyles, Theme } from '@material-ui/core';
 export type EuroCurrencyProps = {
   value: number;
   size?: string;
+  fontWeight?: number;
+  color?: string;
 };
 
 const useStyles = makeStyles<Theme, EuroCurrencyProps, string>({
   euroCurrency: {
     fontSize: (props) => props.size || '24px',
+    fontWeight: (props)=> props.fontWeight || 400,
+    color: (props)=> props.color || "#122654",
   },
 });
 

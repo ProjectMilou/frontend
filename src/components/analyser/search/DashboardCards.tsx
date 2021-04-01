@@ -15,6 +15,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import ValueOverName from '../ValueOverName';
+import EuroCurrency from '../EuroCurrency'
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     cursor: 'not-allowed',
   },
   card: {
-    width: 280,
+    width: 289,
     margin: 10,
     transition: '0.3s',
     '&:hover': {
@@ -41,15 +42,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   media: {
     height: 200,
-    width: 260,
+    width: 289,
     placeItems: 'center',
     alignItems: 'center',
     objectFit: 'scale-down',
-    margin: 10,
+    padding: 20
+
   },
   content: {
     textAlign: 'left',
-    padding: 30,
+    margin: 10,
+    paddingBottom: 30
   },
   divider: {
     margin: `${30}px 0`,
@@ -104,26 +107,27 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
             variant="h6"
             gutterBottom
           >
-            {stock.symbol}
+            <ValueOverName
+              value={`${stock.symbol}`}
+              name={`${stock.name}`}
+              valueColor="#68696b"
+              textColor="#122654"
+              textSize='1.3rem'
+            />
+          </Typography>
+          <Divider className={classes.divider} light />
+          <EuroCurrency value={stock.price} fontWeight={600} size='1.3rem'/>
+
             <div className={classes.rightBound}>
             <ValueOverName
-              value={`${stock['30d']}%`}
-              name={t('stock.30d')}
-              valueColor={convertPercentToColor(stock['30d'])}
-              textColor="#primary"
+              value={t('stock.30d')}
+              name={`${stock['30d']}%`}
+              valueColor="#68696b"
+              textColor={convertPercentToColor(stock['30d'])}
+              textSize='1.3rem'
             />
             </div>
-          </Typography>
-          <Divider className={classes.divider} light />
-          <Typography className="MuiTypography-body1" variant="caption">
-            {stock.name}
-          </Typography>
-          <Divider className={classes.divider} light />
-          <Typography className="MuiTypography-body1" variant="caption">
-            {stock.price}
-          </Typography>
-          
-        </CardContent>
+          </CardContent>
       </ButtonBase>
     </Card>
   );

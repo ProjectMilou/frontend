@@ -103,7 +103,7 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         </Typography>
       </TableCell>
       <TableCell align="center">
-        <EuroCurrency value={stock.analystTargetPrice} />
+        <EuroCurrency value={stock.analystTargetPrice}/>
       </TableCell>
       <TableCell align="center">
         <Valuation value={stock.valuation} />

@@ -59,13 +59,14 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details }) => {
           >
             {chooseSymbol(details)}
             <>&emsp;&emsp;&emsp;</>
-            <EuroCurrency value={details.price} size="35px" />
+            <EuroCurrency value={details.price} size="35px" color="#EEF1FB"/>
             <>&emsp;&emsp;</>
             <ValueOverName
               value={`${details['1d']}%`}
               name={t('stock.1d')}
               valueColor={convertPercentToColor(details['1d'])}
               textColor="#EEF1FB"
+              textSize='1rem'
             />
             <>&emsp;&emsp;</>
             <ValueOverName
@@ -73,6 +74,7 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details }) => {
               name={t('stock.7d')}
               valueColor={convertPercentToColor(details['7d'])}
               textColor="#EEF1FB"
+              textSize='1rem'
             />
             <>&emsp;&emsp;</>
             <ValueOverName
@@ -80,6 +82,7 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details }) => {
               name={t('stock.30d')}
               valueColor={convertPercentToColor(details['30d'])}
               textColor="#EEF1FB"
+              textSize='1rem'
             />
           </div>
           <Typography className={classes.wknIsin}>

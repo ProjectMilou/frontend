@@ -5,7 +5,6 @@ import {
   Container,
   Toolbar,
   AppBar,
-  Theme,
   Paper
 } from '@material-ui/core';
 import * as API from '../../../analyser/APIClient';
@@ -20,7 +19,7 @@ export type DashboardProps = {
   selectStock: (symbol: string) => void;
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   createButton: {
     marginTop: '25px',
   },
