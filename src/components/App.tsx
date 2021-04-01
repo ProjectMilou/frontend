@@ -37,27 +37,7 @@ const theme = createMuiTheme({
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
-    ].join(','),
-    h1: {
-      fontSize: 56,
-      lineHeight: '80px',
-    },
-    h2: {
-      fontSize: 48,
-      lineHeight: '72px',
-    },
-    h4: {
-      fontSize: 24,
-      lineHeight: '36px',
-    },
-    body1: {
-      fontSize: 18,
-      lineHeight: '30px',
-    },
-    body2: {
-      fontSize: 36,
-      lineHeight: '50px',
-    },
+    ].join(',')
   },
   palette: {
     background: {
