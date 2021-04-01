@@ -75,7 +75,7 @@ const SearchBar: React.FC = () => {
             `${option.symbol} ${option.name}${option.ISIN}${option.WKN}`
           }
           onInputChange={(e, v, r) => {
-            if (r.startsWith('input')) {
+            if (r.startsWith('input') && !!v) {
               setOpen(true);
             } else {
               setOpen(false);
