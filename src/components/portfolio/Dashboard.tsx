@@ -10,7 +10,7 @@ import * as API from '../../portfolio/APIClient';
 import { ErrorCode } from '../../Errors';
 import ErrorMessage from '../shared/ErrorMessage';
 import PortfolioOverview from './PortfolioOverview';
-import DashboardHeader from './DashboardHeader';
+import DashboardHeader from '../shared/DashboardHeader';
 import RenameDialog from './RenameDialog';
 import DuplicateDialog from './DuplicateDialog';
 import DeleteDialog from './DeleteDialog';
@@ -255,7 +255,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
 
   return (
     <>
-      <DashboardHeader />
+      <DashboardHeader>{t('portfolio.dashboard.headerText')}</DashboardHeader>
       {!state.portfolios && !state.error && (
         <div>
           <LinearProgress color="secondary" />
