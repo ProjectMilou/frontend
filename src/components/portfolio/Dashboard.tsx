@@ -8,7 +8,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import * as API from '../../portfolio/APIClient';
 import { ErrorCode } from '../../Errors';
-import ErrorMessage from './ErrorMessage';
+import ErrorMessage from '../shared/ErrorMessage';
 import PortfolioOverview from './PortfolioOverview';
 import DashboardHeader from './DashboardHeader';
 import RenameDialog from './RenameDialog';
