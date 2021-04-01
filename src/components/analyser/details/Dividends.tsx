@@ -4,11 +4,8 @@ import { useTranslation } from 'react-i18next';
 import DividendRatioDonut from '../../charts/DividendRatioDonut';
 import DividendLineChart from '../../charts/DividendLineChart';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(({ palette, typography }: Theme) =>
   createStyles({
-    button: {
-      margin: theme.spacing(1),
-    },
     customSize: {
       maxWidth: 500,
     },
@@ -25,10 +22,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     sectionTitle: {
       margin: 0,
-      color: 'primary',
+      color: palette.primary.main,
+      fontFamily: typography.fontFamily,
       // TODO use theme fontsize and weight
-      fontSize: '2.25rem',
-      fontWeight: 400,
+      fontWeight: typography.fontWeightMedium,
       whiteSpace: 'nowrap',
     },
     sectionSubTitle: {
@@ -39,11 +36,13 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: 400,
       whiteSpace: 'nowrap',
     },
-    lineWrapper: {
-      display: 'flex',
-      width: '100%',
-      // TODO: use theme color
-      borderColor: 'grey',
+    sectionSmallTitle:{
+      margin: 0,
+      color: palette.primary.main,
+      // TODO use theme fontsize and weight
+      fontSize: '1.25rem',
+      fontWeight: typography.fontWeightBold,
+      whiteSpace: 'nowrap',
     },
     line: {
       width: '100%',
@@ -65,6 +64,21 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '40rem',
       height: '20rem',
       flexBasis: '60%',
+    },
+    contentText:{
+      margin: 10,
+      color: palette.primary.main,
+      fontSize: '1.75rem',
+      fontWeight: typography.fontWeightRegular,
+      whiteSpace: 'nowrap',
+      textAlign: 'center',
+    },
+    dateText:{
+      margin: 10,
+      color: palette.primary.main,
+      fontSize: '1.75rem',
+      fontWeight: typography.fontWeightRegular,
+      whiteSpace: 'nowrap',
     },
   })
 );
@@ -104,16 +118,22 @@ const Dividends: React.FC = () => {
           <DividendLineChart series={seriesArray} />
         </div>
         <div>
-          <body>Dividend Yield</body>
-          <h3 className={classes.sectionSubTitle}>
+          <h2 className={classes.sectionSmallTitle}>
+            {t('analyser.details.DividendYield')}
+          </h2>
+          <h3 className={classes.contentText}>
             {(dividendYield * 100).toFixed(2)}%
           </h3>
-          <body>Dividend Payout Ratio</body>
+          <h2 className={classes.sectionSmallTitle}>
+            {t('analyser.details.DividendPayoutRatio')}
+          </h2>
           <div className={classes.pieChartWrapper}>
             <DividendRatioDonut ratio={ratio} />
           </div>
-          <body>Next Date:</body>
-          <h3 className={classes.sectionSubTitle}>14.04.2021</h3>
+          <h2 className={classes.sectionSmallTitle}>
+            {t('analyser.details.NextDate')}
+          </h2>
+          <h3 className={classes.dateText}>14.04.2021</h3>
         </div>
       </div>
     </div>
