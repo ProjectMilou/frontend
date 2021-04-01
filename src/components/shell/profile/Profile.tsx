@@ -1,5 +1,6 @@
 import {
   Button,
+  Dialog,
   createStyles,
   Divider,
   Grid,
@@ -11,6 +12,7 @@ import {
 } from '@material-ui/core';
 import { navigate, RouteComponentProps } from '@reach/router';
 import React, { useEffect, useState } from 'react';
+import BankSearch from '../bankSearch/BankSearch';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,6 +27,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     details: {
       maxWidth: '50%',
+    },
+    dialog: {
+      borderRadius: '10px',
+      maxWidth: '450px',
+      width: '100%',
+      margin: ' 100px auto',
+      height: 'min-content',
+    },
+    paper: {
+      minWidth: '350px',
     },
   })
 );
@@ -43,6 +55,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
     lastName: '',
     email: '',
   });
+  const [addBankIsOpen, setAddBankIsOpen] = useState(false);
   const classes = useStyles();
 
   function handleData(data: UserProfile) {
@@ -143,9 +156,26 @@ const Profile: React.FC<RouteComponentProps> = () => {
               />
               <br />
               <br />
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => setAddBankIsOpen(true)}
+              >
+                Add bank connection
+              </Button>
+              <Dialog
+                open={addBankIsOpen}
+                onClose={() => setAddBankIsOpen(false)}
+                className={classes.dialog}
+                classes={{ paper: classes.paper }}
+              >
+                <BankSearch />
+              </Dialog>
+              <br />
+              <br />
               <Button variant="contained" color="primary" onClick={onEdit}>
                 Update Details
-              </Button>{' '}
+              </Button>
               <Button variant="outlined" color="primary" onClick={onDelete}>
                 Delete Account
               </Button>
