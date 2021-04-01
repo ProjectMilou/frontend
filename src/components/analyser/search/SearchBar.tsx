@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TextField, InputAdornment } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Search from '@material-ui/icons/Search';
@@ -39,6 +39,7 @@ const SearchBar: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const [open, setOpen] = useState(false);
   return (
     <div style={{ width: 280 }}>
       {error && (
@@ -51,10 +52,19 @@ const SearchBar: React.FC = () => {
         <Autocomplete
           id="search"
           freeSolo
+          open={open}
           options={stocks}
           getOptionLabel={(option) =>
             `${option.symbol} ${option.name}${option.ISIN}${option.WKN}`
           }
+          onInputChange={(e, v, r) => {
+            if (r.startsWith('input')) {
+              setOpen(true);
+            } else {
+              setOpen(false);
+            }
+          }}
+          onChange={() => setOpen(false)}
           renderOption={(option) => <SearchOption stock={option} />}
           renderInput={(params) => (
             <TextField
