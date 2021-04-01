@@ -142,6 +142,7 @@
   "analyser.details.summaryHeader": "1. Summary",
   "analyser.details.KeyFiguresHeader": "2. Return",
   "analyser.details.KeyFiguresHeader.KeyFigures": "2.1 Key Figures",
+  "analyser.details.DividendsHeader": "2.2 Dividends",
   "stock.symbol": "Symbol",
   "stock.name": "Company",
   "stock.lastPrice": "Last Price",
