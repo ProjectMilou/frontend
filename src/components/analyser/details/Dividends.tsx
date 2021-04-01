@@ -1,7 +1,8 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import KeyFiguresBar from './KeyFiguresBar';
+import DividendRatioDonut from '../../charts/DividendRatioDonut';
+import DividendLineChart from '../../charts/DividendLineChart';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -72,6 +73,23 @@ const Dividends: React.FC = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
+  // TODO fetch data from backend
+  // eslint-disable-next-line
+  const [seriesArray, setSeriesArray] = React.useState([
+    {
+      name: t('analyser.detail.dividend.payoutratio'),
+      type: 'column',
+      data: [25.0, 20.35, 18.72, 21.9, 23.11],
+    },
+    {
+      name: t('analyser.detail.dividend.yield'),
+      type: 'line',
+      data: [0.58, 0.71, 0.8, 1.12, 0.97],
+    },
+  ]);
+
+  const ratio = 0.25;
+  const dividendYield = 0.017;
   return (
     <div>
       <div className={classes.titleContainer}>
@@ -83,16 +101,17 @@ const Dividends: React.FC = () => {
       </div>
       <div className={classes.chartContainer}>
         <div className={classes.lineChartWrapper}>
-          <p>Placeholder for the LineChart</p>
+          <DividendLineChart series={seriesArray} />
         </div>
-        <div className={classes.pieChartWrapper}>
-          <DetailsDonut
-            portions={portions}
-            labels={companyNames}
-            size={600}
-            graphOffsetX={0}
-            showLegendOnScale
-          />
+        <div>
+          <body>Dividend Yield</body>
+          <h3 className={classes.sectionSubTitle}>{dividendYield * 100}%</h3>
+          <body>Dividend Payout Ratio</body>
+          <div className={classes.pieChartWrapper}>
+            <DividendRatioDonut ratio={ratio} />
+          </div>
+          <body>Next Date:</body>
+          <h3 className={classes.sectionSubTitle}>14.04.2021</h3>
         </div>
       </div>
     </div>

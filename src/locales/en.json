@@ -173,5 +173,7 @@
   "analyser.detail.keyfigure.EPS.title": "Earnings per Share",
   "analyser.detail.keyfigure.EPS.definition": "EPS indicates how much money a company makes for each share of its stock, and is a widely used metric to estimate corporate value. A higher EPS indicates greater value because investors will pay more for a company's shares if they think the company has higher profits relative to its share price.",
   "analyzer.addToPortfolio": "Add To Portfolio",
-  "analyzer.dialogHeader": "Select the portfolios you want to add to"
+  "analyzer.dialogHeader": "Select the portfolios you want to add to",
+  "analyser.detail.dividend.payoutratio": "Dividend Payout Ratio",
+  "analyser.detail.dividend.yield": "Dividend Yield"
 }
