@@ -195,7 +195,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
           <StockChart
             series={performance}
             axisColor={theme.palette.primary.contrastText}
-            buttonBackgroundColor={theme.palette.lightBlue.main}
+            buttonBackgroundColor={theme.palette.primary.light}
             buttonTextColor={theme.palette.primary.contrastText}
             height={300}
           />

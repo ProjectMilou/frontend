@@ -4,6 +4,7 @@ import DetailsMainSummary from './DetailsMainSummary';
 import { mock, mockPerformance } from './Details';
 
 jest.mock('./DetailsDonut', () => 'p');
+jest.mock('../shared/StockChart', () => 'p');
 
 test('DetailsMainSummary renders correctly', () => {
   render(
