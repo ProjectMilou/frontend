@@ -105,7 +105,9 @@ const Dividends: React.FC = () => {
         </div>
         <div>
           <body>Dividend Yield</body>
-          <h3 className={classes.sectionSubTitle}>{dividendYield * 100}%</h3>
+          <h3 className={classes.sectionSubTitle}>
+            {(dividendYield * 100).toFixed(2)}%
+          </h3>
           <body>Dividend Payout Ratio</body>
           <div className={classes.pieChartWrapper}>
             <DividendRatioDonut ratio={ratio} />
