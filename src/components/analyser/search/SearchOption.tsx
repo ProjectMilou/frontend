@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
       textDecoration: 'none',
       textTransform: 'none',
       textAlign: 'left',
-      padding: '8px 10px 8px 10px',
+      padding: 0,
       width: 100,
       fontSize: theme.typography.body1.fontSize,
     },

@@ -7,11 +7,11 @@ import SearchOption from './SearchOption';
 import { ErrorCode } from '../../../Errors';
 import ErrorMessage from '../ErrorMessage';
 
-export type SearchBarProps = {
-  token: string;
-};
+// export type SearchBarProps = {
+//   token: string;
+// };
 
-const SearchBar: React.FC<SearchBarProps> = ({ token }) => {
+const SearchBar: React.FC = () => {
   const [stocks, setStocks] = React.useState<API.Stock[]>();
   const [error, setError] = React.useState<ErrorCode | undefined>();
 
@@ -19,7 +19,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ token }) => {
   const fetch = async () => {
     setError(undefined);
     try {
-      const s = await API.listStocks(token);
+      const s = await API.listStocks('');
       if (isMounted.current) {
         setStocks(s);
       }

@@ -58,7 +58,7 @@ const Header: React.FC = () => {
         <NavLink to="/academy">Academy</NavLink>
         <div className={classes.grow} />
 
-        <SearchBar token="" />
+        <SearchBar />
         {loggedIn ? (
           <>
             <Button
