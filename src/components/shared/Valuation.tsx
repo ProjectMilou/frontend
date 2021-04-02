@@ -10,6 +10,7 @@ export type ValuationProps = {
 const useStyles = makeStyles<Theme, ValuationProps, string>({
   euroCurrency: {
     fontSize: (props) => props.size || '24px',
+    color: '#122654',
   },
 });
 
@@ -21,7 +22,6 @@ const Valuation: React.FC<ValuationProps> = (props) => {
     <NumberFormat
       value={value}
       displayType="text"
-      prefix="P/E&nbsp;"
       suffix="x"
       decimalScale={1}
       fixedDecimalScale

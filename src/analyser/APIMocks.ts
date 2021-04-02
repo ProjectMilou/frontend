@@ -8,7 +8,7 @@
  * the tests multiple times.
  *
  * TL;DR: Never import this file, except for tests.
- * Framwork similar to portfolio teasm
+ * Framwork similar to portfolio team
  */
 
 import { Stock } from './APIClient';

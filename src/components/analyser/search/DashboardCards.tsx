@@ -5,62 +5,49 @@ import {
   CardMedia,
   Grid,
   Divider,
-  lighten,
   makeStyles,
-  Theme,
-  Typography,
   GridList,
   ButtonBase,
 } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
+import TextOverText from '../TextOverText';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  action: { display: 'inline-block' },
-  row: {
-    cursor: 'pointer',
-  },
-  rowHover: {
-    backgroundColor: lighten(theme.palette.primary.light, 0.85),
-  },
-  defaultText: {
-    fontSize: '24px',
-  },
-  disabled: {
-    cursor: 'not-allowed',
-  },
+const useStyles = makeStyles(() => ({
   card: {
-    width: 280,
+    width: 289,
     margin: 10,
     transition: '0.3s',
-    boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
     '&:hover': {
       boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
     },
   },
   media: {
     height: 200,
-    width: 260,
+    width: 289,
     placeItems: 'center',
     alignItems: 'center',
     objectFit: 'scale-down',
-    margin: 10,
+    padding: 20,
   },
   content: {
-    textAlign: 'left',
-    padding: 30,
+    margin: 10,
   },
   divider: {
     margin: `${30}px 0`,
   },
-  heading: {
-    fontWeight: 'bold',
-  },
-  subheading: {
-    lineHeight: 1.8,
-  },
   cardAction: {
     display: 'block',
     textAlign: 'initial',
+  },
+  rightBound: {
+    float: 'right',
+  },
+  leftBound: {
+    float: 'left',
+  },
+  paddingBottom: {
+    paddingBottom: 40,
   },
 }));
 
@@ -69,11 +56,16 @@ export type DashboardCardsRowProps = {
   selectStock: (id: string) => void;
 };
 
+function convertPercentToColor(val: number): string {
+  return val < 0 ? '#D64745' : '#50E2A8';
+}
+
 export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
   stock,
   selectStock,
 }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Card className={classes.card}>
@@ -89,25 +81,34 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
           image={stock.picture.toString()}
         />
         <CardContent className={classes.content}>
-          <Typography
-            className="MuiTypography--heading"
-            variant="h6"
-            gutterBottom
-          >
-            {stock.symbol}
-          </Typography>
+          <TextOverText
+            top={`${stock.symbol}`}
+            bottom={`${stock.name}`}
+            colorTop="#68696b"
+            colorBottom="#122654"
+            sizeBottom="1.3rem"
+            alignment="left"
+          />
           <Divider className={classes.divider} light />
-          <Typography className="MuiTypography-body1" variant="caption">
-            {stock.name}
-          </Typography>
-          <Divider className={classes.divider} light />
-          <Typography className="MuiTypography-body1" variant="caption">
-            {stock.price}
-          </Typography>
-          <Divider className={classes.divider} light />
-          <Typography className="MuiTypography-body1" variant="caption">
-            {stock['30d']}
-          </Typography>
+          <div className={classes.paddingBottom}>
+            <div className={classes.leftBound}>
+              <TextOverText
+                top="Last Price"
+                colorTop="#68696b"
+                bottom={`${stock.price}`}
+                euro
+              />
+            </div>
+            <div className={classes.rightBound}>
+              <TextOverText
+                top={t('stock.30d')}
+                bottom={`${stock['30d']}%`}
+                colorTop="#68696b"
+                colorBottom={convertPercentToColor(stock['30d'])}
+                sizeBottom="1.3rem"
+              />
+            </div>
+          </div>
         </CardContent>
       </ButtonBase>
     </Card>

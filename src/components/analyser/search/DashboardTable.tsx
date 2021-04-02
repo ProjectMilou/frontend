@@ -15,6 +15,7 @@ import {
   TableRow,
   Theme,
   Typography,
+  createStyles,
 } from '@material-ui/core';
 import classNames from 'classnames';
 import * as API from '../../../analyser/APIClient';
@@ -22,21 +23,24 @@ import EuroCurrency from '../../shared/EuroCurrency';
 import Performance from '../../shared/Performance';
 import Valuation from '../../shared/Valuation';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  action: { display: 'inline-block' },
-  row: {
-    cursor: 'pointer',
-  },
-  rowHover: {
-    backgroundColor: lighten(theme.palette.primary.light, 0.85),
-  },
-  defaultText: {
-    fontSize: '24px',
-  },
-  disabled: {
-    cursor: 'not-allowed',
-  },
-}));
+const useStyles = makeStyles(({ palette }: Theme) =>
+  createStyles({
+    action: { display: 'inline-block' },
+    row: {
+      cursor: 'pointer',
+    },
+    rowHover: {
+      backgroundColor: lighten(palette.primary.light, 0.85),
+    },
+    defaultText: {
+      fontSize: '24px',
+      color: palette.primary.main,
+    },
+    disabled: {
+      cursor: 'not-allowed',
+    },
+  })
+);
 
 export type DashboardTableRowProps = {
   stock: API.Stock;
@@ -127,11 +131,6 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         <Valuation value={stock.valuation} />
       </TableCell>
       <TableCell align="center">
-        <Typography color="primary" className={classes.defaultText}>
-          {stock.growth}
-        </Typography>
-      </TableCell>
-      <TableCell align="center">
         <Performance
           value={stock.div}
           decimalSeperator="."
@@ -170,7 +169,6 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
             <TableCell align="center">{t('stock.marketCap')}</TableCell>
             <TableCell align="center">{t('stock.analystsTarget')}</TableCell>
             <TableCell align="center">{t('stock.valuation')}</TableCell>
-            <TableCell align="center">{t('stock.growth')}</TableCell>
             <TableCell align="center">{t('stock.div')}</TableCell>
             <TableCell align="center">{t('stock.industry')}</TableCell>
           </TableRow>
