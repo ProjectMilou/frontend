@@ -22,8 +22,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import classNames from 'classnames';
 import * as API from '../../portfolio/APIClient';
 import { PortfolioOverview } from '../../portfolio/APIClient';
-import EuroCurrency from './EuroCurrency';
-import Performance from './Performance';
+import EuroCurrency from '../shared/EuroCurrency';
+import Performance from '../shared/Performance';
 
 const useStyles = makeStyles((theme: Theme) => ({
   action: { display: 'inline-block' },
