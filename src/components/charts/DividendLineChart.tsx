@@ -2,7 +2,7 @@ import React from 'react';
 import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
 
-type KeyFiguresChartProps = {
+type DividendsChartProps = {
   series: Series[];
 };
 
@@ -11,7 +11,7 @@ type Series = {
   data: number[];
 };
 
-const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({ series }) => {
+const KeyFiguresChart: React.FC<DividendsChartProps> = ({ series }) => {
   const { t } = useTranslation();
 
   const options = {
@@ -34,9 +34,9 @@ const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({ series }) => {
       enabled: true,
       enabledOnSeries: [1],
     },
+    labels: [2016, 2017, 2018, 2019, 2020],
     xaxis: {
-      type: 'datetime',
-      categories: [2016, 2017, 2018, 2019, 2020],
+      type: 'year',
     },
     yaxis: [
       {
