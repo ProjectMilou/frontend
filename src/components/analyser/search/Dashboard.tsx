@@ -6,12 +6,15 @@ import {
   Toolbar,
   AppBar,
 } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import { ErrorCode } from '../../../Errors';
 import ErrorMessage from '../../shared/ErrorMessage';
 import StockListOverview from './StockListOverview';
-import DashboardHeader from './DashboardHeader';
+import DashboardHeader from '../../shared/DashboardHeader';
 import Filter from './Filter';
+
+
 
 export type DashboardProps = {
   token: string;
@@ -33,6 +36,8 @@ const useStyles = makeStyles({
 });
 
 const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
+  const { t } = useTranslation();
+
   const [stocks, setStocks] = React.useState<API.Stock[]>();
   const [error, setError] = React.useState<ErrorCode | undefined>();
 
@@ -64,7 +69,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
 
   return (
     <>
-      <DashboardHeader />
+      <DashboardHeader>{t('analyser.dashboard.headerText')}</DashboardHeader>
       {!stocks && !error && (
         <div>
           <LinearProgress color="secondary" />
