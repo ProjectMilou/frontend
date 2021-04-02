@@ -24,10 +24,11 @@ describe('Dashboard', () => {
   test('shows loading indicator', async () => {
     // keep loading forever
     mockAPI.listStocks.mockImplementation(async () => new Promise(() => {}));
-    const { queryByText } = renderComponent();
+    const { container, queryByText } = renderComponent();
 
     // only the loading indeicator should be visible
     expect(queryByText('analyser.dashboard.title')).toBeNull();
+    expect(container.querySelector('.MuiLinearProgress-bar')).not.toBeNull();
   });
 
   test('shows stocks', async () => {
@@ -35,7 +36,7 @@ describe('Dashboard', () => {
       MockOverview,
       MockOverviewTwo,
     ]);
-    const { queryByText } = renderComponent();
+    const { container, queryByText } = renderComponent();
     await act(async () => {
       // wait until the component is rendered
       await waitFor(() => {
@@ -45,9 +46,9 @@ describe('Dashboard', () => {
 
     // the Stock overview should be visible
     expect(queryByText('analyser.dashboard.title')).toBeInTheDocument();
-    // todo
-    // expect(queryByText(MockOverview.symbol)).toBeInTheDocument();
-    // expect(queryByText(MockOverviewTwo.symbol)).toBeInTheDocument();
+    expect(container.querySelector('.MuiLinearProgress-bar')).toBeNull();
+    expect(queryByText(MockOverview.symbol)).toBeInTheDocument();
+    expect(queryByText(MockOverviewTwo.symbol)).toBeInTheDocument();
   });
 
   test('shows error message and loads Stocks again on retry', async () => {
@@ -83,8 +84,7 @@ describe('Dashboard', () => {
     // the stock overview should be visible
     expect(queryByText('error.message.UNKNOWN')).toBeNull();
     expect(queryByText('analyser.dashboard.title')).toBeInTheDocument();
-    // todo
-    // expect(queryByText(MockOverview.symbol)).toBeInTheDocument();
-    // expect(queryByText(MockOverviewTwo.symbol)).toBeInTheDocument();
+    expect(queryByText(MockOverview.symbol)).toBeInTheDocument();
+    expect(queryByText(MockOverviewTwo.symbol)).toBeInTheDocument();
   });
 });
