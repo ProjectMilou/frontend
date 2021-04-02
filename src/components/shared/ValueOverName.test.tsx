@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import ValueOverName from '../shared/ValueOverName';
+import ValueOverName from './ValueOverName';
 
 const testValue = '15%';
 const testName = 'Total Return';
