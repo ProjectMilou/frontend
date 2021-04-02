@@ -19,7 +19,7 @@ const useStyles = makeStyles<Theme, EuroCurrencyProps, string>({
     color: (props) => {
       // priority: first check specific color, if not check doPaint (red/green, positive negative)
       // if none just inherit from parent
-      if (props.color) return props.color
+      if (props.color) return props.color;
       if (props.doPaint) {
         switch (Math.sign(props.value)) {
           case -1:
