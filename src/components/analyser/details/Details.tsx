@@ -1,12 +1,21 @@
 import React from 'react';
-import { LinearProgress, makeStyles, Container } from '@material-ui/core';
+import {
+  LinearProgress,
+  makeStyles,
+  Container,
+  useTheme,
+} from '@material-ui/core';
 import { ErrorCode } from '../../../Errors';
 import * as API from '../../../analyser/APIClient';
 import ErrorMessage from '../ErrorMessage';
 import DetailsHeader from './DetailsHeader';
 import KeyFigures from './KeyFigures';
 import DetailsOverview from './DetailsOverview';
+<<<<<<< HEAD
 import StockChart from '../../charts/StockChart';
+=======
+import StockChart from '../../shared/StockChart';
+>>>>>>> analyser
 
 // props type declaration
 export type DetailsProps = {
@@ -339,6 +348,11 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
     [1361919600000, 39.6],
   ];
 
+<<<<<<< HEAD
+=======
+  const theme = useTheme();
+
+>>>>>>> analyser
   return (
     <>
       {!stockOverview ||
@@ -377,7 +391,17 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
               stockOverview={stockOverview}
               stockDetails={stockDetails}
             />
+<<<<<<< HEAD
             <StockChart series={chartSeries} />
+=======
+            <StockChart
+              series={chartSeries}
+              axisColor={theme.palette.secondary.contrastText}
+              buttonBackgroundColor={theme.palette.primary.main}
+              buttonTextColor={theme.palette.primary.contrastText}
+              height={450}
+            />
+>>>>>>> analyser
             <KeyFigures />
           </Container>
         </div>

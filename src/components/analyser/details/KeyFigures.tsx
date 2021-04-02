@@ -1,7 +1,12 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  Theme,
+  createStyles,
+  useTheme,
+} from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import KeyFiguresBar from './KeyFiguresBar';
+import KeyFiguresBar from '../../shared/KeyFiguresBar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -61,6 +66,28 @@ export type KeyFigure = {
 const KeyFigures: React.FC = () => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const theme = useTheme();
+
+  // portfolio team moved this mock value up from the chart
+  // change this to the real api data whenever you need
+  const mockSeries = [
+    {
+      name: t('analyser.detail.keyfigure.PER.title'),
+      data: [30, 40, 45, 50, 50],
+    },
+    {
+      name: t('analyser.detail.keyfigure.PBR.title'),
+      data: [50, 25, 35, 80, 20],
+    },
+    {
+      name: t('analyser.detail.keyfigure.PEGR.title'),
+      data: [30, 50, 15, 40, 10],
+    },
+    {
+      name: t('analyser.detail.keyfigure.EPS.title'),
+      data: [10, 20, 25, 10, 90],
+    },
+  ];
 
   return (
     <div>
@@ -81,10 +108,11 @@ const KeyFigures: React.FC = () => {
           </h2>
         </div>
       </div>
-      <KeyFiguresBar />
-      {/* <Card className={classes.root}>
-      
-    </Card> */}
+      <KeyFiguresBar
+        chartHeight={350}
+        series={mockSeries}
+        textColor={theme.palette.secondary.contrastText}
+      />
     </div>
   );
 };
