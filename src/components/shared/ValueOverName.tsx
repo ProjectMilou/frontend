@@ -50,7 +50,9 @@ const ValueOverName: React.FC<ValueOverNameProps> = ({
         </p>
       </div>
       <div className={classes.pWrapper}>
-        <p className={classes.p} style={{ color: nameColor }}>{name}</p>
+        <p className={classes.p} style={{ color: nameColor }}>
+          {name}
+        </p>
       </div>
     </div>
   );

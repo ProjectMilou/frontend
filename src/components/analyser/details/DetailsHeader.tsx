@@ -59,7 +59,12 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details }) => {
           >
             {chooseSymbol(details)}
             <>&emsp;&emsp;&emsp;</>
-            <EuroCurrency value={details.price} size="35px" decimalSeperator="." thousandSeperator=","/>
+            <EuroCurrency
+              value={details.price}
+              size="35px"
+              decimalSeperator="."
+              thousandSeperator=","
+            />
             <>&emsp;&emsp;</>
             <ValueOverName
               value={`${details['1d']}%`}

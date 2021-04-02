@@ -89,13 +89,25 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         />
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
-        <EuroCurrency value={stock.price} decimalSeperator="." thousandSeperator=","/>
+        <EuroCurrency
+          value={stock.price}
+          decimalSeperator="."
+          thousandSeperator=","
+        />
       </TableCell>
       <TableCell align="center">
-        <Performance value={stock['7d']} decimalSeperator="." thousandSeperator=","/>
+        <Performance
+          value={stock['7d']}
+          decimalSeperator="."
+          thousandSeperator=","
+        />
       </TableCell>
       <TableCell align="center">
-        <Performance value={stock['30d']} decimalSeperator="." thousandSeperator="," />
+        <Performance
+          value={stock['30d']}
+          decimalSeperator="."
+          thousandSeperator=","
+        />
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>
@@ -103,7 +115,11 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         </Typography>
       </TableCell>
       <TableCell align="center">
-        <EuroCurrency value={stock.analystTargetPrice} decimalSeperator="." thousandSeperator=","/>
+        <EuroCurrency
+          value={stock.analystTargetPrice}
+          decimalSeperator="."
+          thousandSeperator=","
+        />
       </TableCell>
       <TableCell align="center">
         <Valuation value={stock.valuation} />
@@ -114,7 +130,11 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         </Typography>
       </TableCell>
       <TableCell align="center">
-        <Performance value={stock.div} decimalSeperator="." thousandSeperator=","/>
+        <Performance
+          value={stock.div}
+          decimalSeperator="."
+          thousandSeperator=","
+        />
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>

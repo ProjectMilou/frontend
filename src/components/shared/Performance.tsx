@@ -33,11 +33,11 @@ const Performance: React.FC<PerformanceProps> = (props) => {
     <NumberFormat
       value={value}
       displayType="text"
-      thousandSeparator={thousandSeperator || "."}
+      thousandSeparator={thousandSeperator || '.'}
       suffix="&nbsp;%"
       decimalScale={2}
       fixedDecimalScale
-      decimalSeparator={decimalSeperator || ","}
+      decimalSeparator={decimalSeperator || ','}
       className={classes.performance}
     />
   );

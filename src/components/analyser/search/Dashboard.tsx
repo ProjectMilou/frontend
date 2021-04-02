@@ -14,8 +14,6 @@ import StockListOverview from './StockListOverview';
 import DashboardHeader from '../../shared/DashboardHeader';
 import Filter from './Filter';
 
-
-
 export type DashboardProps = {
   token: string;
   selectStock: (symbol: string) => void;
