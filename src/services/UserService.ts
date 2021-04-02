@@ -1,6 +1,6 @@
 import { BaseService, MethodType } from './BaseService';
 
-export interface UserProfile {
+export interface IUserProfile {
   firstName?: string;
   lastName?: string;
   user?: {
@@ -8,16 +8,20 @@ export interface UserProfile {
   };
 }
 
-export class UserService extends BaseService {
-  static profileEndpoint = 'user/profile';
-  static loginEndpoint = 'user/login';
-  static localStorageTokenID = 'token';
+enum Endpoints {
+  Edit = 'user/edit',
+  Profile = 'user/profile',
+  Login = 'user/login',
+}
 
-  static getToken() {
+export class UserService extends BaseService {
+  private static localStorageTokenID = 'token';
+
+  private static getToken() {
     return localStorage.getItem(this.localStorageTokenID);
   }
 
-  static setToken(token: string) {
+  private static setToken(token: string) {
     localStorage.setItem(this.localStorageTokenID, token);
   }
 
@@ -28,25 +32,26 @@ export class UserService extends BaseService {
   ): Promise<Response> {
     const token = this.getToken();
     if (!token) {
-      throw 'User is not logged in!';
+      throw new Error('User is not logged in!');
     }
 
     return this.request(
       method,
       endpoint,
       {
-        Authorizatioin: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body
     );
   }
 
-  public static async getProfile(): Promise<UserProfile> {
-    const response = await this.authenticatedRequest(
-      'GET',
-      this.profileEndpoint
-    );
-    return await response.json();
+  public static async getProfile(): Promise<IUserProfile> {
+    const response = await this.authenticatedRequest('GET', Endpoints.Profile);
+
+    if (!response.ok) throw new Error('Could not get profile!');
+
+    const userProfile = await response.json();
+    return userProfile;
   }
 
   public static async editProfile(
@@ -54,14 +59,10 @@ export class UserService extends BaseService {
     lastName: string
   ): Promise<boolean> {
     try {
-      const response = await this.authenticatedRequest(
-        'PUT',
-        this.profileEndpoint,
-        {
-          firstName,
-          lastName,
-        }
-      );
+      const response = await this.authenticatedRequest('PUT', Endpoints.Edit, {
+        firstName,
+        lastName,
+      });
 
       return response.ok;
     } catch {
@@ -73,7 +74,7 @@ export class UserService extends BaseService {
     try {
       const response = await this.authenticatedRequest(
         'DELETE',
-        this.profileEndpoint
+        Endpoints.Profile
       );
       return response.ok;
     } catch {
@@ -84,7 +85,7 @@ export class UserService extends BaseService {
   public static async login(email: string, password: string): Promise<boolean> {
     const response = await this.request(
       'POST',
-      this.loginEndpoint,
+      Endpoints.Login,
       {
         Accept: 'application/json',
         'Content-Type': 'application/json',

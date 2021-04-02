@@ -17,6 +17,7 @@ import {
 import { navigate, RouteComponentProps } from '@reach/router';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { IUserProfile, UserService } from '../../../services/UserService';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,14 +36,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface UserProfile {
-  firstName?: string;
-  lastName?: string;
-  user?: {
-    id?: string;
-  };
-}
-
 const Profile: React.FC<RouteComponentProps> = () => {
   const [user, setUser] = useState({
     firstName: '',
@@ -54,7 +47,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  function handleData(data: UserProfile) {
+  function handleData(data: IUserProfile) {
     if (!data) return;
     setUser({
       firstName: data.firstName || '',
@@ -64,53 +57,22 @@ const Profile: React.FC<RouteComponentProps> = () => {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/');
-      return;
-    }
-
-    fetch('https://api.milou.io/user/profile', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (response.ok) return response.json();
-
-        navigate('/');
-        return undefined;
-      })
-      .then(handleData);
+    UserService.getProfile()
+      .then(handleData)
+      .catch(() => navigate('/'));
   }, []);
 
   const onEdit = () => {
-    const token = localStorage.getItem('token');
-    fetch('https://api.milou.io/user/edit', {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        firstName: user.firstName,
-        lastName: user.lastName,
-      }),
-    }).then((r) => setEdit(false));
+    UserService.editProfile(user.firstName, user.lastName).finally(() =>
+      setEdit(false)
+    );
   };
 
   const handleDialogClose = () => setDialogOpen(false);
 
   const onDelete = () => {
-    const token = localStorage.getItem('token');
-    fetch('https://api.milou.io/user/profile', {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then(() => {
-      handleDialogClose();
-      navigate('/');
+    UserService.deleteProfile().then((ok) => {
+      if (ok) navigate('/');
     });
   };
 
@@ -175,7 +137,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
                 >
                   {t(
                     `shell.profile.account-details.${
-                      edit ? 'edit' : 'update'
+                      edit ? 'update' : 'edit'
                     }-details`
                   )}
                 </Button>{' '}
