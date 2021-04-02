@@ -13,7 +13,47 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       height: '30rem',
     },
     subtitle: {
+      display: 'flex',
+      alignItems: 'center',
       color: palette.primary.contrastText,
+      fontSize: '1.25rem',
+      margin: 0,
+    },
+    datePicker: {
+      marginTop: '2rem',
+    },
+    form: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+    },
+    textField: {
+      marginLeft: '1rem',
+      marginRight: '2rem',
+      width: 180,
+      color: palette.primary.contrastText,
+      '& .MuiInputBase-root.Mui-disabled': {
+        color: palette.primary.contrastText,
+        opacity: 0.6,
+      },
+      '& .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline': {
+        borderColor: palette.primary.contrastText,
+      },
+    },
+    innerText: {
+      color: palette.primary.contrastText,
+      opacity: 0.9,
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: palette.primary.contrastText,
+        opacity: 0.9,
+      },
+      '&:hover': {
+        opacity: 1,
+        '& .MuiOutlinedInput-notchedOutline': {
+          borderColor: palette.primary.contrastText,
+          opacity: 1,
+        },
+      },
     },
   })
 );
@@ -27,9 +67,8 @@ type DetailsMainBacktestingProps = {
 const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = () => {
   const classes = useStyles();
 
-  const [selectedDate, setSelectedDate] = React.useState<Date | null>(
-    new Date('2014-08-18')
-  );
+  const [selectedFrom, setSelectedFrom] = React.useState<string>('');
+  const [selectedTo, setSelectedTo] = React.useState<string>('');
 
   return (
     <div className={classes.backtestingWrapper}>
@@ -37,17 +76,40 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = () => {
         {/* TODO: use translation */}
         Here you can see how your portfolio would have performed in the past
       </p>
-      <div>
+      <div className={classes.datePicker}>
         {/* TODO: use translation */}
-        <form noValidate>
+        <form className={classes.form} noValidate>
+          <p className={classes.subtitle}>From:</p>
           <TextField
-            id="date"
-            label="From"
+            disabled
+            id="dateFrom"
             type="date"
-            value={selectedDate}
-            style={{ width: 220 }}
+            value={selectedFrom}
+            variant="outlined"
+            onChange={(e) => setSelectedFrom(e.target.value)}
+            className={classes.textField}
             InputLabelProps={{
               shrink: true,
+              className: classes.innerText,
+            }}
+            InputProps={{
+              className: classes.innerText,
+            }}
+          />
+          <p className={classes.subtitle}>To:</p>
+          <TextField
+            id="dateTo"
+            type="date"
+            value={selectedTo}
+            variant="outlined"
+            onChange={(e) => setSelectedTo(e.target.value)}
+            className={classes.textField}
+            InputLabelProps={{
+              shrink: true,
+              className: classes.innerText,
+            }}
+            InputProps={{
+              className: classes.innerText,
             }}
           />
         </form>
