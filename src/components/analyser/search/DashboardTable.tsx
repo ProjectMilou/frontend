@@ -13,6 +13,7 @@ import {
   TableRow,
   Theme,
   Typography,
+  createStyles
 } from '@material-ui/core';
 import classNames from 'classnames';
 import * as API from '../../../analyser/APIClient';
@@ -20,21 +21,25 @@ import EuroCurrency from '../EuroCurrency';
 import Performance from '../Performance';
 import Valuation from '../Valuation';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(({ palette }: Theme) =>
+createStyles({
   action: { display: 'inline-block' },
   row: {
     cursor: 'pointer',
   },
   rowHover: {
-    backgroundColor: lighten(theme.palette.primary.light, 0.85),
+    backgroundColor: lighten(palette.primary.light, 0.85),
   },
   defaultText: {
     fontSize: '24px',
+    color: palette.primary.main
   },
   disabled: {
     cursor: 'not-allowed',
   },
-}));
+
+})
+);
 
 export type DashboardTableRowProps = {
   stock: API.Stock;
