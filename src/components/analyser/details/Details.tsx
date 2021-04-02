@@ -11,11 +11,7 @@ import ErrorMessage from '../ErrorMessage';
 import DetailsHeader from './DetailsHeader';
 import KeyFigures from './KeyFigures';
 import DetailsOverview from './DetailsOverview';
-<<<<<<< HEAD
-import StockChart from '../../charts/StockChart';
-=======
 import StockChart from '../../shared/StockChart';
->>>>>>> analyser
 
 // props type declaration
 export type DetailsProps = {
