@@ -5,7 +5,6 @@ import {
   Container,
   Toolbar,
   AppBar,
-  Paper
 } from '@material-ui/core';
 import * as API from '../../../analyser/APIClient';
 import { ErrorCode } from '../../../Errors';
@@ -67,8 +66,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
   const classes = useStyles();
 
   return (
-    <>
-    <Paper className={classes.background}>
+    <div className={classes.background}>
       <DashboardHeader />
       {!stocks && !error && (
         <div>
@@ -108,8 +106,8 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
           </div>
         )}
       </Container>
-      </Paper>
-    </>
+      </div>
+    
   );
 };
 
