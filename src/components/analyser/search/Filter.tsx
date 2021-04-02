@@ -37,7 +37,13 @@ function setOriginalFilters(stocks: API.Stock[]) {
     countries: [],
     industries: [],
     currency: [],
-    marketCapitalization: ['Mega', 'Large', 'Mid', 'Small', 'Micro'],
+    marketCapitalization: [
+      'Mega (over €200 bn)',
+      'Large (€10 bn - €200 bn)',
+      'Mid (€2 bn - €10 bn)',
+      'Small (€300 m - €2 bn)',
+      'Micro (€50 m - €300 m)',
+    ],
   };
   // Mega: More than $200 billion
   // Large: $10 billion to $200 billion
@@ -104,7 +110,7 @@ const Filter: React.FC<FilterProps> = ({ stocks }) => {
         case 'Currency':
           setFilters({ ...filters, currency: [] });
           break;
-        case 'MC':
+        case 'Market Cap':
           setFilters({ ...filters, marketCapitalization: [] });
           break;
         default:
@@ -121,7 +127,7 @@ const Filter: React.FC<FilterProps> = ({ stocks }) => {
         case 'Currency':
           setFilters({ ...filters, currency: temp });
           break;
-        case 'MC':
+        case 'Market Cap':
           setFilters({ ...filters, marketCapitalization: temp });
           break;
         default:
@@ -158,7 +164,7 @@ const Filter: React.FC<FilterProps> = ({ stocks }) => {
         filtersList={filters.marketCapitalization}
         ogFiltersList={ogFilters.marketCapitalization}
         handleChange={handleChange}
-        name="MC"
+        name="Market Cap"
       />
       <ButtonGroup
         className={classes.buttonGroup}
