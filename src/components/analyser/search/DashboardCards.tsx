@@ -82,11 +82,6 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
           image={stock.picture.toString()}
         />
         <CardContent className={classes.content}>
-          <Typography
-            className="MuiTypography--heading"
-            variant="h6"
-            gutterBottom
-          >
             <TextOverText
               top={`${stock.symbol}`}
               bottom={`${stock.name}`}
@@ -95,7 +90,6 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
               sizeBottom="1.3rem"
               alignment="left"
             />
-          </Typography>
           <Divider className={classes.divider} light />
           <div className={classes.paddingBottom}>
           <div className={classes.leftBound}>
