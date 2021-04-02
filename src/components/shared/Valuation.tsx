@@ -10,7 +10,7 @@ export type ValuationProps = {
 const useStyles = makeStyles<Theme, ValuationProps, string>({
   euroCurrency: {
     fontSize: (props) => props.size || '24px',
-    color: "#122654",
+    color: '#122654',
   },
 });
 

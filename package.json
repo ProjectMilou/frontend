@@ -23,7 +23,7 @@
     "apexcharts": "^3.26.0",
     "classnames": "^2.2.6",
     "email-validator": "^2.0.4",
-    "eslint": "^7.23.0",
+    "eslint": "^7.11.0",
     "font-awesome": "^4.7.0",
     "i18next": "^19.9.2",
     "prop-types": "^15.7.2",

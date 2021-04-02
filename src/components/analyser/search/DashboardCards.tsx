@@ -17,8 +17,6 @@ import * as API from '../../../analyser/APIClient';
 import TextOverText from '../TextOverText';
 import EuroCurrency from '../../shared/EuroCurrency';
 
-
-
 const useStyles = makeStyles((theme: Theme) => ({
   action: { display: 'inline-block' },
   row: {
@@ -47,13 +45,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     placeItems: 'center',
     alignItems: 'center',
     objectFit: 'scale-down',
-    padding: 20
-
+    padding: 20,
   },
   content: {
     textAlign: 'left',
     margin: 10,
-    paddingBottom: 30
+    paddingBottom: 30,
   },
   divider: {
     margin: `${30}px 0`,
@@ -68,9 +65,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'block',
     textAlign: 'initial',
   },
-  rightBound:{
+  rightBound: {
     float: 'right',
-  }
+  },
 }));
 
 export type DashboardCardsRowProps = {
@@ -113,22 +110,28 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
               bottom={`${stock.name}`}
               colorTop="#68696b"
               colorBottom="#122654"
-              sizeBottom='1.3rem'
-              alignment='left'
+              sizeBottom="1.3rem"
+              alignment="left"
             />
           </Typography>
           <Divider className={classes.divider} light />
-          <EuroCurrency value={stock.price} fontWeight={600} size='1.3rem'/>
-            <div className={classes.rightBound}>
+          <EuroCurrency
+            value={stock.price}
+            fontWeight={600}
+            size="1.3rem"
+            decimalSeperator="."
+            thousandSeperator=","
+          />
+          <div className={classes.rightBound}>
             <TextOverText
               top={t('stock.30d')}
               bottom={`${stock['30d']}%`}
               colorTop="#68696b"
               colorBottom={convertPercentToColor(stock['30d'])}
-              sizeBottom='1.3rem'
+              sizeBottom="1.3rem"
             />
-            </div>
-          </CardContent>
+          </div>
+        </CardContent>
       </ButtonBase>
     </Card>
   );

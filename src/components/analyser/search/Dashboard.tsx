@@ -20,7 +20,7 @@ export type DashboardProps = {
   selectStock: (symbol: string) => void;
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles({
   createButton: {
     marginTop: '25px',
   },
@@ -32,7 +32,7 @@ const useStyles = makeStyles(() => ({
     minWidth: '50%',
     maxWidth: '100%',
   },
-}));
+});
 
 const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
   const { t } = useTranslation();
@@ -107,8 +107,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
           </div>
         )}
       </Container>
-      </>
-    
+    </>
   );
 };
 
