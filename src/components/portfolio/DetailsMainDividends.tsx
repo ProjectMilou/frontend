@@ -1,7 +1,13 @@
 import React, { ReactElement } from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  createStyles,
+  Theme,
+  useTheme,
+} from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import RatioDonut from '../charts/RatioDonut';
+import RatioDonut from '../shared/RatioDonut';
+import KeyFiguresChart from '../shared/KeyFiguresChart';
 
 // stylesheet for the dividend section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -14,8 +20,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       height: '30rem',
     },
     chartContainer: {
-      // TODO: remove backround color
-      backgroundColor: 'olive',
       height: '100%',
       width: '100%',
       flexBasis: '65%',
@@ -87,11 +91,26 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
   dividendPayoutRatio,
 }) => {
   const classes = useStyles();
+  const theme = useTheme();
   const { t } = useTranslation();
+
+  const mockSeries = [
+    {
+      name: 'Dividend Yield',
+      data: [30, 40, 45, 50, 50],
+    },
+  ];
 
   return (
     <div className={classes.dividendsWrapper}>
-      <div className={classes.chartContainer}>{/* left side with graph */}</div>
+      <div className={classes.chartContainer}>
+        {/* left side with graph */}
+        <KeyFiguresChart
+          series={mockSeries}
+          height={450}
+          textColor={theme.palette.primary.contrastText}
+        />
+      </div>
       <div className={classes.infoContainer}>
         {/* right side with info */}
         <InfoBlock
@@ -100,7 +119,12 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
         />
         <InfoBlock
           title={t('portfolio.details.payout')}
-          body={<RatioDonut ratio={dividendPayoutRatio} />}
+          body={
+            <RatioDonut
+              ratio={dividendPayoutRatio}
+              textColor={theme.palette.primary.contrastText}
+            />
+          }
         />
         <InfoBlock
           title={t('portfolio.details.nextDate')}
