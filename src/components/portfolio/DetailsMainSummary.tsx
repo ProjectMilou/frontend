@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme, makeStyles, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import ValueOverName from './ValueOverName';
+import ValueOverName from '../shared/ValueOverName';
 import { Position, RiskAnalysis } from './DetailsTypes';
 import DetailsDonut from './DetailsDonut';
 import StockChart from '../shared/StockChart';
