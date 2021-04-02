@@ -20,8 +20,6 @@ import { useTranslation } from 'react-i18next';
 import LinkButton from '../LinkButton';
 import { UserService } from '../../../services/UserService';
 
-const url = 'https://api.milou.io';
-
 const useStyles = makeStyles({
   errorMessage: {
     color: 'red',
@@ -136,7 +134,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
       </DialogContent>
 
       <LinkButton
-        handleEvent={() => {}}
+        handleEvent={() => { }}
         text={t('shell.message.forgotPassword')}
         style={{ display: 'block', margin: '10px auto' }}
       />
