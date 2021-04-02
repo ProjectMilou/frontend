@@ -3,7 +3,7 @@ import { Container, makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import ValueOverName from './ValueOverName';
 import * as API from '../../../analyser/APIClient';
-import EuroCurrency from '../EuroCurrency';
+import EuroCurrency from '../../shared/EuroCurrency';
 
 export type DetailsProps = {
   details: API.Stock;
@@ -59,7 +59,7 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details }) => {
           >
             {chooseSymbol(details)}
             <>&emsp;&emsp;&emsp;</>
-            <EuroCurrency value={details.price} size="35px" />
+            <EuroCurrency value={details.price} size="35px" decimalSeperator="." thousandSeperator=","/>
             <>&emsp;&emsp;</>
             <ValueOverName
               value={`${details['1d']}%`}

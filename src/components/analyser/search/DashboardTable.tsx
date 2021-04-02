@@ -16,7 +16,7 @@ import {
 } from '@material-ui/core';
 import classNames from 'classnames';
 import * as API from '../../../analyser/APIClient';
-import EuroCurrency from '../EuroCurrency';
+import EuroCurrency from '../../shared/EuroCurrency';
 import Performance from '../../shared/Performance';
 import Valuation from '../Valuation';
 
@@ -89,7 +89,7 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         />
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
-        <EuroCurrency value={stock.price} />
+        <EuroCurrency value={stock.price} decimalSeperator="." thousandSeperator=","/>
       </TableCell>
       <TableCell align="center">
         <Performance value={stock['7d']} decimalSeperator="." thousandSeperator=","/>
@@ -103,7 +103,7 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         </Typography>
       </TableCell>
       <TableCell align="center">
-        <EuroCurrency value={stock.analystTargetPrice} />
+        <EuroCurrency value={stock.analystTargetPrice} decimalSeperator="." thousandSeperator=","/>
       </TableCell>
       <TableCell align="center">
         <Valuation value={stock.valuation} />
