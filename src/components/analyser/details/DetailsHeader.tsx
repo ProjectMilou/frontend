@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container, makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import ValueOverName from './ValueOverName';
+import TextOverText from '../TextOverText';
 import * as API from '../../../analyser/APIClient';
-import EuroCurrency from '../EuroCurrency';
+import EuroCurrency from '../../shared/EuroCurrency';
 
 export type DetailsProps = {
   details: API.Stock;
@@ -59,27 +59,33 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details }) => {
           >
             {chooseSymbol(details)}
             <>&emsp;&emsp;&emsp;</>
-            <EuroCurrency value={details.price} size="35px" />
-            <>&emsp;&emsp;</>
-            <ValueOverName
-              value={`${details['1d']}%`}
-              name={t('stock.1d')}
-              valueColor={convertPercentToColor(details['1d'])}
-              textColor="#EEF1FB"
+            <EuroCurrency
+              value={details.price}
+              size="35px"
+              color="#EEF1FB"
+              decimalSeperator="."
+              thousandSeperator=","
             />
             <>&emsp;&emsp;</>
-            <ValueOverName
-              value={`${details['7d']}%`}
-              name={t('stock.7d')}
-              valueColor={convertPercentToColor(details['7d'])}
-              textColor="#EEF1FB"
+            <TextOverText
+              top={`${details['1d']}%`}
+              bottom={t('stock.1d')}
+              colorTop={convertPercentToColor(details['1d'])}
+              colorBottom="#EEF1FB"
             />
             <>&emsp;&emsp;</>
-            <ValueOverName
-              value={`${details['30d']}%`}
-              name={t('stock.30d')}
-              valueColor={convertPercentToColor(details['30d'])}
-              textColor="#EEF1FB"
+            <TextOverText
+              top={`${details['7d']}%`}
+              bottom={t('stock.7d')}
+              colorTop={convertPercentToColor(details['7d'])}
+              colorBottom="#EEF1FB"
+            />
+            <>&emsp;&emsp;</>
+            <TextOverText
+              top={`${details['30d']}%`}
+              bottom={t('stock.30d')}
+              colorTop={convertPercentToColor(details['30d'])}
+              colorBottom="#EEF1FB"
             />
           </div>
           <Typography className={classes.wknIsin}>
