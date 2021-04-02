@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core';
 import { navigate, RouteComponentProps } from '@reach/router';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,6 +52,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [edit, setEdit] = useState(false);
   const classes = useStyles();
+  const { t } = useTranslation();
 
   function handleData(data: UserProfile) {
     if (!data) return;
@@ -118,11 +120,15 @@ const Profile: React.FC<RouteComponentProps> = () => {
         <Grid item xs={8}>
           <Paper square>
             <div className={classes.subpaper}>
-              <h1 className={classes.heading1}>Profile</h1>
+              <h1 className={classes.heading1}>
+                {t('shell.profile.profile-header')}
+              </h1>
               <Divider />
-              <h2>Account Details</h2>
+              <h2>{t('shell.profile.account-details.header')}</h2>
               <div className={classes.details}>
-                <Typography className={classes.label}>Email</Typography>
+                <Typography className={classes.label}>
+                  {t('shell.profile.account-details.email')}
+                </Typography>
                 <TextField
                   variant="outlined"
                   value={user.email}
@@ -132,7 +138,9 @@ const Profile: React.FC<RouteComponentProps> = () => {
                 />
                 <br />
                 <br />
-                <Typography className={classes.label}>First Name</Typography>
+                <Typography className={classes.label}>
+                  {t('shell.profile.account-details.first-name')}
+                </Typography>
                 <TextField
                   variant="outlined"
                   value={user.firstName}
@@ -145,7 +153,9 @@ const Profile: React.FC<RouteComponentProps> = () => {
                 />
                 <br />
                 <br />
-                <Typography className={classes.label}>Last Name</Typography>
+                <Typography className={classes.label}>
+                  {t('shell.profile.account-details.last-name')}
+                </Typography>
                 <TextField
                   variant="outlined"
                   value={user.lastName}
@@ -163,14 +173,18 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   color="primary"
                   onClick={edit ? onEdit : () => setEdit(true)}
                 >
-                  {edit ? 'Update Details' : 'Edit Details'}
+                  {t(
+                    `shell.profile.account-details.${
+                      edit ? 'edit' : 'update'
+                    }-details`
+                  )}
                 </Button>{' '}
                 <Button
                   variant="outlined"
                   color="primary"
                   onClick={() => setDialogOpen(true)}
                 >
-                  Delete Account
+                  {t('shell.profile.account-details.delete-account')}
                 </Button>
               </div>
             </div>
@@ -184,20 +198,19 @@ const Profile: React.FC<RouteComponentProps> = () => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          Are you sure you want to delete your account?
+          {t('shell.profile.account-details.delete-dialog.title')}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Deleting your account is irreversible. All your data will be
-            deleted!
+            {t('shell.profile.account-details.delete-dialog.description')}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={onDelete} color="primary">
-            OK
+            {t('shell.profile.account-details.delete-dialog.ok')}
           </Button>
           <Button onClick={handleDialogClose} color="primary">
-            Cancel
+            {t('shell.profile.account-details.delete-dialog.cancel')}
           </Button>
         </DialogActions>
       </Dialog>
