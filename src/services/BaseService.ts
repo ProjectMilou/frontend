@@ -12,6 +12,14 @@ export type MethodType =
 export class BaseService {
   static baseUrl = 'https://api.milou.io/';
 
+  /**
+   * Basic request to the milou api.
+   * @param method Request method.
+   * @param endpoint Request endpoint.
+   * @param headers Request headers.
+   * @param body Request body.
+   * @returns Response
+   */
   public static async request(
     method: MethodType,
     endpoint: string,
