@@ -115,8 +115,13 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
             />
           </Typography>
           <Divider className={classes.divider} light />
-          <EuroCurrency value={stock.price} fontWeight={600} size="1.3rem" decimalSeperator="."
-          thousandSeperator="," />
+          <EuroCurrency
+            value={stock.price}
+            fontWeight={600}
+            size="1.3rem"
+            decimalSeperator="."
+            thousandSeperator=","
+          />
           <div className={classes.rightBound}>
             <TextOverText
               top={t('stock.30d')}
