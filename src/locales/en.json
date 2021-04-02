@@ -143,6 +143,7 @@
   "analyser.details.KeyFiguresHeader": "2. Return",
   "analyser.details.KeyFiguresHeader.KeyFigures": "2.1 Key Figures",
   "analyser.details.DividendsHeader": "2.2 Dividends",
+  "analyser.details.DividendsHistory": "Dividends History",
   "analyser.details.DividendYield": "Dividend Yield",
   "analyser.details.DividendPayoutRatio": "Dividend Payout Ratio",
   "analyser.details.NextDate": "Next Date:",

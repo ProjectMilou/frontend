@@ -27,7 +27,8 @@ const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({ series }) => {
       width: [0, 4],
     },
     title: {
-      text: 'Dividends',
+      text: `${t('analyser.details.DividendsHistory')}`,
+      align: 'center',
     },
     dataLabels: {
       enabled: true,

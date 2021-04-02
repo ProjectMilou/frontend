@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import DividendRatioDonut from '../../charts/DividendRatioDonut';
@@ -20,28 +20,12 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
     titleWrapper: {
       marginRight: '1rem',
     },
-    sectionTitle: {
-      margin: 0,
-      color: palette.primary.main,
-      fontFamily: typography.fontFamily,
-      // TODO use theme fontsize and weight
-      fontWeight: typography.fontWeightMedium,
-      whiteSpace: 'nowrap',
-    },
     sectionSubTitle: {
       margin: 0,
       color: 'primary',
       // TODO use theme fontsize and weight
       fontSize: '2rem',
       fontWeight: 400,
-      whiteSpace: 'nowrap',
-    },
-    sectionSmallTitle: {
-      margin: 0,
-      color: palette.primary.main,
-      // TODO use theme fontsize and weight
-      fontSize: '1.25rem',
-      fontWeight: typography.fontWeightBold,
       whiteSpace: 'nowrap',
     },
     line: {
@@ -54,34 +38,68 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       justifyContent: 'space-between',
       marginTop: '2rem',
     },
-    pieChartWrapper: {
-      display: 'flex',
-      width: '20rem',
-      height: '20rem',
-      flexBasis: '35%',
-    },
     lineChartWrapper: {
       width: '40rem',
       height: '20rem',
       flexBasis: '60%',
     },
-    contentText: {
-      margin: 10,
-      color: palette.primary.main,
-      fontSize: '1.75rem',
-      fontWeight: typography.fontWeightRegular,
-      whiteSpace: 'nowrap',
-      textAlign: 'center',
+    infoContainer: {
+      height: '100%',
+      width: '100%',
+      flexBasis: '35%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
+      padding: '1rem',
     },
-    dateText: {
-      margin: 10,
+    infoWrapper: {
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'left',
+    },
+    infoBody: {
+      display: 'flex',
+      alignSelf: 'center',
+      width: '100%',
+      justifyContent: 'center',
       color: palette.primary.main,
-      fontSize: '1.75rem',
       fontWeight: typography.fontWeightRegular,
+      fontSize: '1.15rem',
+    },
+    infoTitle: {
+      color: palette.primary.main,
+      fontWeight: typography.fontWeightBold,
+      fontSize: '1.25rem',
+      margin: 0,
       whiteSpace: 'nowrap',
+    },
+    infoTitleP: {
+      margin: '0.5rem 0',
     },
   })
 );
+
+// type declarations
+type InfoBlockProps = {
+  title: string;
+  body: ReactElement;
+};
+
+// returns the details page header
+const InfoBlock: React.FC<InfoBlockProps> = ({ title, body }) => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.infoWrapper}>
+      <div className={classes.infoTitle}>
+        <p className={classes.infoTitleP}>{title}</p>
+      </div>
+      <div className={classes.infoBody}>{body}</div>
+    </div>
+  );
+};
 
 const Dividends: React.FC = () => {
   const classes = useStyles();
@@ -117,23 +135,20 @@ const Dividends: React.FC = () => {
         <div className={classes.lineChartWrapper}>
           <DividendLineChart series={seriesArray} />
         </div>
-        <div>
-          <h2 className={classes.sectionSmallTitle}>
-            {t('analyser.details.DividendYield')}
-          </h2>
-          <h3 className={classes.contentText}>
-            {(dividendYield * 100).toFixed(2)}%
-          </h3>
-          <h2 className={classes.sectionSmallTitle}>
-            {t('analyser.details.DividendPayoutRatio')}
-          </h2>
-          <div className={classes.pieChartWrapper}>
-            <DividendRatioDonut ratio={ratio} />
-          </div>
-          <h2 className={classes.sectionSmallTitle}>
-            {t('analyser.details.NextDate')}
-          </h2>
-          <h3 className={classes.dateText}>14.04.2021</h3>
+        <div className={classes.infoContainer}>
+          {/* right side with info */}
+          <InfoBlock
+            title={t('analyser.details.DividendYield')}
+            body={<p style={{ margin: 0 }}>{(dividendYield * 100).toFixed(2)}%</p>}
+          />
+          <InfoBlock
+            title={t('analyser.details.DividendPayoutRatio')}
+            body={<DividendRatioDonut ratio={ratio} />}
+          />
+          <InfoBlock
+            title={t('analyser.details.NextDate')}
+            body={<p style={{ margin: 0 }}>14.04.2021</p>}
+          />
         </div>
       </div>
     </div>
