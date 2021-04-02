@@ -1,3 +1,4 @@
+import { navigate } from '@reach/router';
 import { BaseService, MethodType } from './BaseService';
 
 export interface IUserProfile {
@@ -104,5 +105,16 @@ export class UserService extends BaseService {
 
     this.setToken(data.token);
     return true;
+  }
+
+  public static logout(): void {
+    localStorage.removeItem(this.localStorageTokenID);
+    if (window.location.pathname === '/profile') {
+      navigate('/');
+    }
+  }
+
+  public static isLoggedIn(): boolean {
+    return Boolean(this.getToken());
   }
 }
