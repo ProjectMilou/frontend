@@ -5,9 +5,7 @@ import {
   CardMedia,
   Grid,
   Divider,
-  lighten,
   makeStyles,
-  Theme,
   Typography,
   GridList,
   ButtonBase,
@@ -15,22 +13,8 @@ import {
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import TextOverText from '../TextOverText';
-import EuroCurrency from '../../shared/EuroCurrency';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  action: { display: 'inline-block' },
-  row: {
-    cursor: 'pointer',
-  },
-  rowHover: {
-    backgroundColor: lighten(theme.palette.primary.light, 0.85),
-  },
-  defaultText: {
-    fontSize: '24px',
-  },
-  disabled: {
-    cursor: 'not-allowed',
-  },
+const useStyles = makeStyles(() => ({
   card: {
     width: 289,
     margin: 10,
@@ -48,17 +32,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: 20,
   },
   content: {
-    textAlign: 'left',
     margin: 10,
   },
   divider: {
     margin: `${30}px 0`,
-  },
-  heading: {
-    fontWeight: 'bold',
-  },
-  subheading: {
-    lineHeight: 1.8,
   },
   cardAction: {
     display: 'block',
