@@ -11,6 +11,8 @@
   "portfolio.details.day7": "7 Day",
   "portfolio.details.year": "1 Year",
   "portfolio.details.totalValue": "Total Value",
+  "portfolio.details.totalReturn": "Total",
+  "portfolio.details.holding": "Holding",
   "portfolio.details.positions": "Positions",
   "portfolio.details.countries": "Countries",
   "portfolio.details.industries": "Industries",
