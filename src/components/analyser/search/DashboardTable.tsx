@@ -17,7 +17,7 @@ import {
 import classNames from 'classnames';
 import * as API from '../../../analyser/APIClient';
 import EuroCurrency from '../EuroCurrency';
-import Performance from '../Performance';
+import Performance from '../../shared/Performance';
 import Valuation from '../Valuation';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -92,10 +92,10 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         <EuroCurrency value={stock.price} />
       </TableCell>
       <TableCell align="center">
-        <Performance value={stock['7d']} />
+        <Performance value={stock['7d']} decimalSeperator="." thousandSeperator=","/>
       </TableCell>
       <TableCell align="center">
-        <Performance value={stock['30d']} />
+        <Performance value={stock['30d']} decimalSeperator="." thousandSeperator="," />
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>
@@ -114,7 +114,7 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         </Typography>
       </TableCell>
       <TableCell align="center">
-        <Performance value={stock.div} />
+        <Performance value={stock.div} decimalSeperator="." thousandSeperator=","/>
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>
