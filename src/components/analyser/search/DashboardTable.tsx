@@ -1,3 +1,5 @@
+// Based on Portfolio's DashboardTable.tsx Will be later either replaced by Material-UI list or refactored
+
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {

@@ -1,12 +1,7 @@
-// TODO: Change to production URL when available
-// TODO: Use a common base URL for shell, analyser and portfolio instead of 3 URLs
+// Based on Portfolio API Client, credits to Andreas
 
 export const baseURL = 'https://api.milou.io/stocks';
-
 const headers = { 'Content-Type': 'application/json' };
-
-// Types describing the JSON response of API calls.
-// The correctness of these types is assumed, no checks are performed.
 
 // Stock type
 export type Stock = {
@@ -69,6 +64,7 @@ type StockList = {
  * Makes an API call. Resolves to the JSON response if the call is successful,
  * otherwise rejects with an error that has an {@link ErrorCode} as message.
  *
+ * TODO: Error handeling.
  * @param token - Authentication token
  * @param method - Request method (GET, POST, etc.)
  * @param url - An URL relative to {@link baseURL}
