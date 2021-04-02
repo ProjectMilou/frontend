@@ -4,7 +4,9 @@ import DashboardHeader from './DashboardHeader';
 
 describe('DashboardHeader', () => {
   test('display header text', () => {
-    const { getByText } = render(<DashboardHeader />);
-    expect(getByText('portfolio.dashboard.headerText')).toBeInTheDocument();
+    const { getByText } = render(
+      <DashboardHeader>Header text</DashboardHeader>
+    );
+    expect(getByText('Header text')).toBeInTheDocument();
   });
 });
