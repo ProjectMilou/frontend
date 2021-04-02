@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
-import EuroCurrency from '../shared/EuroCurrency'
+import EuroCurrency from '../shared/EuroCurrency';
 
 export type TextOverTextProps = {
   top: string;
@@ -42,7 +42,7 @@ const useStyles = makeStyles<Theme, TextOverTextProps, string>(
 );
 
 const TextOverText: React.FC<TextOverTextProps> = (props) => {
-  const { top, bottom, euro} = props;
+  const { top, bottom, euro } = props;
   const classes = useStyles(props);
 
   return (
@@ -50,23 +50,23 @@ const TextOverText: React.FC<TextOverTextProps> = (props) => {
       <div className={classes.pWrapper}>
         <p className={classes.top}>{top}</p>
       </div>
-      {!euro &&(
+      {!euro && (
         <div className={classes.pWrapper}>
-        <p className={classes.bottom}>{bottom}</p>
-      </div>
+          <p className={classes.bottom}>{bottom}</p>
+        </div>
       )}
-      {euro &&(
+      {euro && (
         <div className={classes.pWrapper}>
-        <p className={classes.bottom}>
-          <EuroCurrency 
-          value={parseInt(bottom,10)}
-          fontWeight={600}
-          size="1.3rem"
-          decimalSeperator="."
-          thousandSeperator=","
-          />
+          <p className={classes.bottom}>
+            <EuroCurrency
+              value={parseInt(bottom, 10)}
+              fontWeight={600}
+              size="1.3rem"
+              decimalSeperator="."
+              thousandSeperator=","
+            />
           </p>
-      </div>
+        </div>
       )}
     </div>
   );
