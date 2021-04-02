@@ -2,11 +2,7 @@ import React from 'react';
 import { Toolbar } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { OneKeyFigure } from './OneKeyFigure';
-<<<<<<< HEAD:src/components/analyser/details/KeyFiguresBar.tsx
-import KeyFiguresChart from '../../charts/KeyFiguresChart';
-=======
 import KeyFiguresChart, { Series } from './KeyFiguresChart';
->>>>>>> analyser:src/components/shared/KeyFiguresBar.tsx
 
 type KeyFiguresBarProps = {
   series: Series[];

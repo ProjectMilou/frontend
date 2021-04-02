@@ -348,11 +348,8 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
     [1361919600000, 39.6],
   ];
 
-<<<<<<< HEAD
-=======
   const theme = useTheme();
 
->>>>>>> analyser
   return (
     <>
       {!stockOverview ||
@@ -391,9 +388,6 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
               stockOverview={stockOverview}
               stockDetails={stockDetails}
             />
-<<<<<<< HEAD
-            <StockChart series={chartSeries} />
-=======
             <StockChart
               series={chartSeries}
               axisColor={theme.palette.secondary.contrastText}
@@ -401,7 +395,6 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
               buttonTextColor={theme.palette.primary.contrastText}
               height={450}
             />
->>>>>>> analyser
             <KeyFigures />
           </Container>
         </div>
