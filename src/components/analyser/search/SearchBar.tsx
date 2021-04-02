@@ -5,6 +5,7 @@ import {
   makeStyles,
   createStyles,
   Theme,
+  TextFieldProps,
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Search from '@material-ui/icons/Search';
@@ -50,7 +51,7 @@ const SearchBar: React.FC = () => {
           freeSolo
           open={open}
           options={stocks}
-          getOptionLabel={(option) =>
+          getOptionLabel={(option: API.Stock) =>
             `${option.symbol} ${option.name}${option.ISIN}${option.WKN}`
           }
           onInputChange={(e, v, r) => {
@@ -61,8 +62,8 @@ const SearchBar: React.FC = () => {
             }
           }}
           onChange={() => setOpen(false)}
-          renderOption={(option) => <SearchOption stock={option} />}
-          renderInput={(params) => (
+          renderOption={(option: API.Stock) => <SearchOption stock={option} />}
+          renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (
             <TextField
               variant="outlined"
               className={classes.textField}
