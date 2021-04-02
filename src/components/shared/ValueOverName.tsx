@@ -11,7 +11,7 @@ const useStyles = makeStyles(() =>
     },
     pWrapper: {
       display: 'flex',
-      justifyContent: 'left',
+      justifyContent: 'center',
     },
     p: {
       margin: 0,
