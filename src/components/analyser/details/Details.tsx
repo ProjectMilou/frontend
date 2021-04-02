@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import { ErrorCode } from '../../../Errors';
 import * as API from '../../../analyser/APIClient';
-import ErrorMessage from '../ErrorMessage';
+import ErrorMessage from '../../shared/ErrorMessage';
 import DetailsHeader from './DetailsHeader';
 import KeyFigures from './KeyFigures';
 import DetailsOverview from './DetailsOverview';
