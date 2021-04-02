@@ -107,8 +107,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
           </div>
         )}
       </Container>
-      </>
-    
+    </>
   );
 };
 

@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     input: {
       height: theme.spacing(6),
+      color: theme.palette.primary.main,
     },
   })
 );

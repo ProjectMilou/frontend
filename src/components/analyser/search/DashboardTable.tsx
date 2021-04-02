@@ -15,7 +15,7 @@ import {
   TableRow,
   Theme,
   Typography,
-  createStyles
+  createStyles,
 } from '@material-ui/core';
 import classNames from 'classnames';
 import * as API from '../../../analyser/APIClient';
@@ -24,23 +24,22 @@ import Performance from '../../shared/Performance';
 import Valuation from '../../shared/Valuation';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
-createStyles({
-  action: { display: 'inline-block' },
-  row: {
-    cursor: 'pointer',
-  },
-  rowHover: {
-    backgroundColor: lighten(palette.primary.light, 0.85),
-  },
-  defaultText: {
-    fontSize: '24px',
-    color: palette.primary.main
-  },
-  disabled: {
-    cursor: 'not-allowed',
-  },
-
-})
+  createStyles({
+    action: { display: 'inline-block' },
+    row: {
+      cursor: 'pointer',
+    },
+    rowHover: {
+      backgroundColor: lighten(palette.primary.light, 0.85),
+    },
+    defaultText: {
+      fontSize: '24px',
+      color: palette.primary.main,
+    },
+    disabled: {
+      cursor: 'not-allowed',
+    },
+  })
 );
 
 export type DashboardTableRowProps = {
@@ -132,7 +131,11 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         <Valuation value={stock.valuation} />
       </TableCell>
       <TableCell align="center">
-        <Performance value={stock.div} />
+        <Performance
+          value={stock.div}
+          decimalSeperator="."
+          thousandSeperator=","
+        />
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>

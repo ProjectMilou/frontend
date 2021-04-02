@@ -5,11 +5,11 @@ import Details from './details/Details';
 import Dashboard from './search/Dashboard';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
-createStyles({
-  background: {
-    'background-color': palette.background,
-  }
-})
+  createStyles({
+    background: {
+      'background-color': palette.background,
+    },
+  })
 );
 
 const Analyser: React.FC<RouteComponentProps> = () => {
@@ -24,7 +24,7 @@ const Analyser: React.FC<RouteComponentProps> = () => {
       ) : (
         <Dashboard token="" selectStock={setSymbol} />
       )}
-      </div>
+    </div>
   );
 };
 

@@ -14,8 +14,8 @@ export type EuroCurrencyProps = {
 const useStyles = makeStyles<Theme, EuroCurrencyProps, string>({
   euroCurrency: {
     fontSize: (props) => props.size || '24px',
-    fontWeight: (props)=> props.fontWeight || 400,
-    color: (props)=> props.color || "#122654",
+    fontWeight: (props) => props.fontWeight || 400,
+    color: (props) => props.color || '#122654',
   },
 });
 
