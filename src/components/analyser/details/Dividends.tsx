@@ -36,7 +36,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       fontWeight: 400,
       whiteSpace: 'nowrap',
     },
-    sectionSmallTitle:{
+    sectionSmallTitle: {
       margin: 0,
       color: palette.primary.main,
       // TODO use theme fontsize and weight
@@ -65,7 +65,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       height: '20rem',
       flexBasis: '60%',
     },
-    contentText:{
+    contentText: {
       margin: 10,
       color: palette.primary.main,
       fontSize: '1.75rem',
@@ -73,7 +73,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       whiteSpace: 'nowrap',
       textAlign: 'center',
     },
-    dateText:{
+    dateText: {
       margin: 10,
       color: palette.primary.main,
       fontSize: '1.75rem',
