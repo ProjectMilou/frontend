@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import {
   makeStyles,
   createStyles,
@@ -68,11 +68,10 @@ type DetailsMainDividendsProps = {
 // type declarations
 type InfoBlockProps = {
   title: string;
-  body: ReactElement;
 };
 
 // returns the details page header
-const InfoBlock: React.FC<InfoBlockProps> = ({ title, body }) => {
+const InfoBlock: React.FC<InfoBlockProps> = ({ title, children }) => {
   const classes = useStyles();
 
   return (
@@ -80,7 +79,7 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, body }) => {
       <div className={classes.infoTitle}>
         <p className={classes.infoTitleP}>{title}</p>
       </div>
-      <div className={classes.infoBody}>{body}</div>
+      <div className={classes.infoBody}>{children}</div>
     </div>
   );
 };
@@ -113,23 +112,20 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
       </div>
       <div className={classes.infoContainer}>
         {/* right side with info */}
-        <InfoBlock
-          title={t('portfolio.details.divYield')}
-          body={<p style={{ margin: 0 }}>tmp</p>}
-        />
-        <InfoBlock
-          title={t('portfolio.details.payout')}
-          body={
-            <RatioDonut
-              ratio={dividendPayoutRatio}
-              textColor={theme.palette.primary.contrastText}
-            />
-          }
-        />
-        <InfoBlock
-          title={t('portfolio.details.nextDate')}
-          body={<p style={{ margin: 0 }}>{nextDividend}</p>}
-        />
+        <InfoBlock title={t('portfolio.details.divYield')}>
+          <p style={{ margin: 0 }}>tmp</p>
+        </InfoBlock>
+        <InfoBlock title={t('portfolio.details.payout')}>
+          <RatioDonut
+            ratio={dividendPayoutRatio}
+            textColor={theme.palette.primary.contrastText}
+          />
+        </InfoBlock>
+        <InfoBlock title={t('portfolio.details.nextDate')}>
+          <p style={{ margin: 0 }}>
+            {new Date(nextDividend * 1000).toDateString()}
+          </p>
+        </InfoBlock>
       </div>
     </div>
   );
