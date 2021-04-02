@@ -18,7 +18,7 @@ import classNames from 'classnames';
 import * as API from '../../../analyser/APIClient';
 import EuroCurrency from '../../shared/EuroCurrency';
 import Performance from '../../shared/Performance';
-import Valuation from '../Valuation';
+import Valuation from '../../shared/Valuation';
 
 const useStyles = makeStyles((theme: Theme) => ({
   action: { display: 'inline-block' },
