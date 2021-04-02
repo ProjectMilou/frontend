@@ -26,11 +26,11 @@ const useStyles = makeStyles(() =>
 );
 
 type ValueOverNameProps = {
-  value: string;
+  value: string | JSX.Element;
   name: string;
   valueColor: string;
   // below are needed for positions
-  secondValue?: string;
+  secondValue?: string | JSX.Element;
   secondColor?: string;
 };
 

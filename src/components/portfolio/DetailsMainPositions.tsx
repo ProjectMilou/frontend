@@ -11,6 +11,8 @@ import {
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import { useTranslation } from 'react-i18next';
 import { Position } from './DetailsTypes';
+import EuroCurrency from '../shared/EuroCurrency';
+import Performance from '../shared/Performance';
 import ValueOverName from './ValueOverName';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -103,29 +105,38 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
                 <div className={classes.cardContentUpper}>
                   <div className={classes.cardTitle}>{p.stock.name}</div>
                   <div className={classes.cardSubtitle}>
-                    {`${t('portfolio.details.holding')}: ${totalValuePosition}`}
+                    <span>{`${t('portfolio.details.holding')}: `}</span>
+                    <EuroCurrency value={totalValuePosition} size="1em" />
                   </div>
                 </div>
                 <div className={classes.cardContentLower}>
                   <ValueOverName
-                    value={`${p.stock.perf7d}%`}
+                    value={<Performance value={p.stock.perf7d} size="1em" />}
                     name={t('portfolio.details.day7')}
                     valueColor={convertPercentToColor(p.stock.perf7d)}
-                    secondValue={sevDayAbsolute.toString()}
+                    secondValue={
+                      <EuroCurrency value={sevDayAbsolute} size="1em" />
+                    }
                     secondColor={convertPercentToColor(sevDayAbsolute)}
                   />
                   <ValueOverName
-                    value={`${p.stock.perf1y}%`}
+                    value={<Performance value={p.stock.perf1y} size="1em" />}
                     name={t('portfolio.details.year')}
                     valueColor={convertPercentToColor(p.stock.perf1y)}
-                    secondValue={oneYearAbsolute.toString()}
+                    secondValue={
+                      <EuroCurrency value={oneYearAbsolute} size="1em" />
+                    }
                     secondColor={convertPercentToColor(oneYearAbsolute)}
                   />
                   <ValueOverName
-                    value={totalReturnPerCent.toString()}
+                    value={
+                      <Performance value={totalReturnPerCent} size="1em" />
+                    }
                     name={t('portfolio.details.totalReturn')}
                     valueColor={convertPercentToColor(totalReturnPerCent)}
-                    secondValue={totalReturnAbsolute.toString()}
+                    secondValue={
+                      <EuroCurrency value={totalReturnAbsolute} size="1em" />
+                    }
                     secondColor={convertPercentToColor(totalReturnAbsolute)}
                   />
                 </div>
