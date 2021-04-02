@@ -1,10 +1,12 @@
 import React from 'react';
 import { useTheme, makeStyles, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import ValueOverName from '../shared/ValueOverName';
+import ValueOverName from './ValueOverName';
 import { Position, RiskAnalysis } from './DetailsTypes';
 import DetailsDonut from './DetailsDonut';
 import StockChart from '../shared/StockChart';
+import Performance from '../shared/Performance';
+import EuroCurrency from '../shared/EuroCurrency';
 
 // stylesheet for the Summary section
 const useStyles = makeStyles(() =>
@@ -111,18 +113,17 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
           >
             {/* 7 day moving average */}
             <ValueOverName
-              value={`${perf7d}%`}
+              value={<Performance value={perf7d} size="1em" />}
               name={t('portfolio.details.day7')}
             />
             {/* 1 year moving average */}
             <ValueOverName
-              value={`${perf1y}%`}
+              value={<Performance value={perf1y} size="1em" />}
               name={t('portfolio.details.year')}
             />
             {/* total value */}
             <ValueOverName
-              // TODO: change to euro sign
-              value={`$${value}`}
+              value={<EuroCurrency value={value} size="1em" />}
               name={t('portfolio.details.totalValue')}
             />
           </div>
