@@ -15,7 +15,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import TextOverText from '../TextOverText';
-import EuroCurrency from '../EuroCurrency';
+import EuroCurrency from '../../shared/EuroCurrency';
 
 
 
