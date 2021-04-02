@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import DividendRatioDonut from '../../charts/DividendRatioDonut';
-import DividendLineChart from '../../charts/DividendLineChart';
+import DividendRatioDonut from '../../shared/DividendRatioDonut';
+import DividendLineChart from '../../shared/DividendLineChart';
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
   createStyles({
@@ -139,7 +139,9 @@ const Dividends: React.FC = () => {
           {/* right side with info */}
           <InfoBlock
             title={t('analyser.details.DividendYield')}
-            body={<p style={{ margin: 0 }}>{(dividendYield * 100).toFixed(2)}%</p>}
+            body={
+              <p style={{ margin: 0 }}>{(dividendYield * 100).toFixed(2)}%</p>
+            }
           />
           <InfoBlock
             title={t('analyser.details.DividendPayoutRatio')}

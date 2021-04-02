@@ -1,12 +1,17 @@
 import React from 'react';
-import { LinearProgress, makeStyles, Container } from '@material-ui/core';
+import {
+  LinearProgress,
+  makeStyles,
+  Container,
+  useTheme,
+} from '@material-ui/core';
 import { ErrorCode } from '../../../Errors';
 import * as API from '../../../analyser/APIClient';
 import ErrorMessage from '../ErrorMessage';
 import DetailsHeader from './DetailsHeader';
 import KeyFigures from './KeyFigures';
 import DetailsOverview from './DetailsOverview';
-import StockChart from '../../charts/StockChart';
+import StockChart from '../../shared/StockChart';
 import Dividends from './Dividends';
 
 // props type declaration
@@ -340,6 +345,8 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
     [1361919600000, 39.6],
   ];
 
+  const theme = useTheme();
+
   return (
     <>
       {!stockOverview ||
@@ -378,7 +385,13 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
               stockOverview={stockOverview}
               stockDetails={stockDetails}
             />
-            <StockChart series={chartSeries} />
+            <StockChart
+              series={chartSeries}
+              axisColor={theme.palette.secondary.contrastText}
+              buttonBackgroundColor={theme.palette.primary.main}
+              buttonTextColor={theme.palette.primary.contrastText}
+              height={450}
+            />
             <KeyFigures />
             <Dividends />
           </Container>
