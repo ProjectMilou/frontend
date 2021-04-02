@@ -17,7 +17,7 @@ const useStyles = makeStyles(() =>
       margin: 0,
       alignSelf: 'center',
       // TODO: use theme color
-      color: '#000',
+      color: '#EEF1FB',
       // TODO: use theme weight and size?
       fontSize: '1rem',
       fontWeight: 600,
@@ -30,8 +30,7 @@ type ValueOverNameProps = {
   value: string;
   name: string;
   valueColor: string;
-  textColor: string;
-  textSize: string;
+  nameColor?: string;
 };
 
 // this is a small component that displays a value above the name of the value
@@ -39,8 +38,7 @@ const ValueOverName: React.FC<ValueOverNameProps> = ({
   value,
   name,
   valueColor,
-  textColor,
-  textSize
+  nameColor,
 }) => {
   const classes = useStyles(valueColor);
 
@@ -52,7 +50,7 @@ const ValueOverName: React.FC<ValueOverNameProps> = ({
         </p>
       </div>
       <div className={classes.pWrapper}>
-        <p className={classes.p} style={{ color: textColor, fontSize:  textSize} }>
+        <p className={classes.p} style={{ color: nameColor }}>
           {name}
         </p>
       </div>

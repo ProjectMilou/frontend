@@ -1,3 +1,5 @@
+// Based on Portfolio's DashboardTable.tsx Will be later either replaced by Material-UI list or refactored
+
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -17,9 +19,9 @@ import {
 } from '@material-ui/core';
 import classNames from 'classnames';
 import * as API from '../../../analyser/APIClient';
-import EuroCurrency from '../EuroCurrency';
-import Performance from '../Performance';
-import Valuation from '../Valuation';
+import EuroCurrency from '../../shared/EuroCurrency';
+import Performance from '../../shared/Performance';
+import Valuation from '../../shared/Valuation';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
 createStyles({
@@ -94,13 +96,25 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         />
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
-        <EuroCurrency value={stock.price} />
+        <EuroCurrency
+          value={stock.price}
+          decimalSeperator="."
+          thousandSeperator=","
+        />
       </TableCell>
       <TableCell align="center">
-        <Performance value={stock['7d']} />
+        <Performance
+          value={stock['7d']}
+          decimalSeperator="."
+          thousandSeperator=","
+        />
       </TableCell>
       <TableCell align="center">
-        <Performance value={stock['30d']} />
+        <Performance
+          value={stock['30d']}
+          decimalSeperator="."
+          thousandSeperator=","
+        />
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>
@@ -108,7 +122,11 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         </Typography>
       </TableCell>
       <TableCell align="center">
-        <EuroCurrency value={stock.analystTargetPrice}/>
+        <EuroCurrency
+          value={stock.analystTargetPrice}
+          decimalSeperator="."
+          thousandSeperator=","
+        />
       </TableCell>
       <TableCell align="center">
         <Valuation value={stock.valuation} />

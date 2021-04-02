@@ -83,6 +83,7 @@ type DetailsMainProps = {
   figures: KeyFigures[];
   nextDividend: number;
   dividendPayoutRatio: number;
+  performance: number[][];
 };
 
 const DetailsMain: React.FC<DetailsMainProps> = ({
@@ -96,6 +97,7 @@ const DetailsMain: React.FC<DetailsMainProps> = ({
   figures,
   nextDividend,
   dividendPayoutRatio,
+  performance,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -111,6 +113,7 @@ const DetailsMain: React.FC<DetailsMainProps> = ({
           perf7d={perf7d}
           risk={risk}
           positions={positions}
+          performance={performance}
         />
       </Section>
       <Section title={t('portfolio.details.positionsTitle')}>

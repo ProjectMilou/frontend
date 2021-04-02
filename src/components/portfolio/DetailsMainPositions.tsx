@@ -11,7 +11,7 @@ import {
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import { useTranslation } from 'react-i18next';
 import { Position } from './DetailsTypes';
-import ValueOverName from './ValueOverName';
+import ValueOverName from '../shared/ValueOverName';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({

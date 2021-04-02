@@ -3,7 +3,7 @@ import { Container, makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import TextOverText from '../TextOverText';
 import * as API from '../../../analyser/APIClient';
-import EuroCurrency from '../EuroCurrency';
+import EuroCurrency from '../../shared/EuroCurrency';
 
 export type DetailsProps = {
   details: API.Stock;
