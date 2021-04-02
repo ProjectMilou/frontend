@@ -14,8 +14,9 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
-import ValueOverName from '../ValueOverName';
-import EuroCurrency from '../EuroCurrency'
+import TextOverText from '../TextOverText';
+import EuroCurrency from '../EuroCurrency';
+
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -107,24 +108,24 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
             variant="h6"
             gutterBottom
           >
-            <ValueOverName
-              value={`${stock.symbol}`}
-              name={`${stock.name}`}
-              valueColor="#68696b"
-              textColor="#122654"
-              textSize='1.3rem'
+            <TextOverText
+              top={`${stock.symbol}`}
+              bottom={`${stock.name}`}
+              colorTop="#68696b"
+              colorBottom="#122654"
+              sizeBottom='1.3rem'
+              alignment='left'
             />
           </Typography>
           <Divider className={classes.divider} light />
           <EuroCurrency value={stock.price} fontWeight={600} size='1.3rem'/>
-
             <div className={classes.rightBound}>
-            <ValueOverName
-              value={t('stock.30d')}
-              name={`${stock['30d']}%`}
-              valueColor="#68696b"
-              textColor={convertPercentToColor(stock['30d'])}
-              textSize='1.3rem'
+            <TextOverText
+              top={t('stock.30d')}
+              bottom={`${stock['30d']}%`}
+              colorTop="#68696b"
+              colorBottom={convertPercentToColor(stock['30d'])}
+              sizeBottom='1.3rem'
             />
             </div>
           </CardContent>
