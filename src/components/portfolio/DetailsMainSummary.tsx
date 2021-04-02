@@ -4,10 +4,7 @@ import { useTranslation } from 'react-i18next';
 import ValueOverName from './ValueOverName';
 import { Position, RiskAnalysis } from './DetailsTypes';
 import DetailsDonut from './DetailsDonut';
-<<<<<<< HEAD
-=======
 import StockChart from '../shared/StockChart';
->>>>>>> analyser
 
 // stylesheet for the Summary section
 const useStyles = makeStyles(() =>
@@ -195,9 +192,6 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
           />
         </div>
         <div className={classes.lineChartWrapper}>
-<<<<<<< HEAD
-          <p>Placeholder for the LineChart by Analyzer Team</p>
-=======
           <StockChart
             series={performance}
             axisColor={theme.palette.primary.contrastText}
@@ -205,7 +199,6 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
             buttonTextColor={theme.palette.primary.contrastText}
             height={300}
           />
->>>>>>> analyser
         </div>
       </div>
     </>

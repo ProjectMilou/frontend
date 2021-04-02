@@ -1,10 +1,6 @@
 import React from 'react';
-<<<<<<< HEAD
-import { makeStyles, createStyles } from '@material-ui/core/styles';
-=======
 import { makeStyles, createStyles, useTheme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
->>>>>>> analyser
 import { KeyFigures } from './DetailsTypes';
 // TODO put into shared folder instead of importing from analyzer
 import KeyFiguresBar from '../shared/KeyFiguresBar';
@@ -35,11 +31,8 @@ type DetailsMainKeyFiguresProps = {
 // returns the details page header
 const DetailsMainKeyFigures: React.FC<DetailsMainKeyFiguresProps> = () => {
   const classes = useStyles();
-<<<<<<< HEAD
-=======
   const theme = useTheme();
   const { t } = useTranslation();
->>>>>>> analyser
 
   const mockSeries = [
     {
@@ -62,16 +55,11 @@ const DetailsMainKeyFigures: React.FC<DetailsMainKeyFiguresProps> = () => {
 
   return (
     <div className={classes.figureWrapper}>
-<<<<<<< HEAD
-      {/* body placeholder */}
-      <div />
-=======
       <KeyFiguresBar
         chartHeight={350}
         series={mockSeries}
         textColor={theme.palette.primary.contrastText}
       />
->>>>>>> analyser
     </div>
   );
 };

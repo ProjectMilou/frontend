@@ -6,12 +6,8 @@ import {
   useTheme,
 } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-<<<<<<< HEAD
-import RatioDonut from '../charts/RatioDonut';
-=======
 import RatioDonut from '../shared/RatioDonut';
 import KeyFiguresChart from '../shared/KeyFiguresChart';
->>>>>>> analyser
 
 // stylesheet for the dividend section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -107,9 +103,6 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
 
   return (
     <div className={classes.dividendsWrapper}>
-<<<<<<< HEAD
-      <div className={classes.chartContainer}>{/* left side with graph */}</div>
-=======
       <div className={classes.chartContainer}>
         {/* left side with graph */}
         <KeyFiguresChart
@@ -118,7 +111,6 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
           textColor={theme.palette.primary.contrastText}
         />
       </div>
->>>>>>> analyser
       <div className={classes.infoContainer}>
         {/* right side with info */}
         <InfoBlock
@@ -127,16 +119,12 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
         />
         <InfoBlock
           title={t('portfolio.details.payout')}
-<<<<<<< HEAD
-          body={<RatioDonut ratio={dividendPayoutRatio} />}
-=======
           body={
             <RatioDonut
               ratio={dividendPayoutRatio}
               textColor={theme.palette.primary.contrastText}
             />
           }
->>>>>>> analyser
         />
         <InfoBlock
           title={t('portfolio.details.nextDate')}
