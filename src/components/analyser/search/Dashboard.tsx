@@ -32,9 +32,6 @@ const useStyles = makeStyles(() => ({
     minWidth: '50%',
     maxWidth: '100%',
   },
-  background: {
-    'background-color': '#EEF1FB',
-  }
 }));
 
 const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
@@ -70,7 +67,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.background}>
+    <>
       <DashboardHeader>{t('analyser.dashboard.headerText')}</DashboardHeader>
       {!stocks && !error && (
         <div>
@@ -110,7 +107,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
           </div>
         )}
       </Container>
-      </div>
+      </>
     
   );
 };
