@@ -1,4 +1,4 @@
-// Based on Portfolio API Client
+// Based on Portfolio API Client, credits to Andreas
 
 export const baseURL = 'https://api.milou.io/stocks';
 const headers = { 'Content-Type': 'application/json' };

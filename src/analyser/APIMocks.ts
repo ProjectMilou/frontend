@@ -1,5 +1,5 @@
 /**
- * Credits to Portfolio team for introducing MockOverviews.
+ * Credits to Andreas from Portfolio team for introducing MockOverviews
  *
  * This module contains mocks for objects that are usually fetched from the API
  * for use in tests. These mocks are required by multiple tests, but should not
