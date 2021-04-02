@@ -45,7 +45,7 @@ export class UserService extends BaseService {
   public static async authenticatedRequest(
     method: MethodType,
     endpoint: string,
-    body?: Record<string, any>
+    body?: Record<string, unknown>
   ): Promise<Response> {
     const token = this.getToken();
     if (!token) {

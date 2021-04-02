@@ -24,7 +24,7 @@ export class BaseService {
     method: MethodType,
     endpoint: string,
     headers?: HeadersInit,
-    body?: Record<string, any>
+    body?: Record<string, unknown>
   ): Promise<Response> {
     const absoluteUrl = new URL(endpoint, this.baseUrl).toString();
     return fetch(absoluteUrl, {
