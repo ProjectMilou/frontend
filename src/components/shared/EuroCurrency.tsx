@@ -5,6 +5,8 @@ import { makeStyles, Theme } from '@material-ui/core';
 export type EuroCurrencyProps = {
   value: number;
   size?: string;
+  decimalSeperator?: string;
+  thousandSeperator?: string;
 };
 
 const useStyles = makeStyles<Theme, EuroCurrencyProps, string>({
@@ -14,17 +16,18 @@ const useStyles = makeStyles<Theme, EuroCurrencyProps, string>({
 });
 
 const EuroCurrency: React.FC<EuroCurrencyProps> = (props) => {
-  const { value } = props;
+  const { value, decimalSeperator, thousandSeperator } = props;
   const classes = useStyles(props);
 
   return (
     <NumberFormat
       value={value}
       displayType="text"
-      prefix="€"
+      thousandSeparator={thousandSeperator || '.'}
+      suffix="&nbsp;€"
       decimalScale={2}
       fixedDecimalScale
-      decimalSeparator="."
+      decimalSeparator={decimalSeperator || ','}
       className={classes.euroCurrency}
     />
   );

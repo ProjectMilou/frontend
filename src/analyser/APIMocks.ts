@@ -1,4 +1,6 @@
 /**
+ * Credits to Portfolio team for introducing MockOverviews.
+ *
  * This module contains mocks for objects that are usually fetched from the API
  * for use in tests. These mocks are required by multiple tests, but should not
  * be used outside of tests. Ideally, the mocks would be in 'APIClient.test.ts',
@@ -6,6 +8,7 @@
  * the tests multiple times.
  *
  * TL;DR: Never import this file, except for tests.
+ * Framwork similar to portfolio teasm
  */
 
 import { Stock } from './APIClient';
