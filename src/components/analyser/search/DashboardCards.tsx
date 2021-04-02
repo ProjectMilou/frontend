@@ -6,7 +6,6 @@ import {
   Grid,
   Divider,
   makeStyles,
-  Typography,
   GridList,
   ButtonBase,
 } from '@material-ui/core';
