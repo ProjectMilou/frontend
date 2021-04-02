@@ -1,40 +1,14 @@
 import React from 'react';
-import { useTheme, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { useTheme, makeStyles, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import ValueOverName from './ValueOverName';
 import { Position, RiskAnalysis } from './DetailsTypes';
 import DetailsDonut from './DetailsDonut';
-import DetailsLineChart from './DetailsLineChart';
+import StockChart from '../shared/StockChart';
 
 // stylesheet for the Summary section
-const useStyles = makeStyles(({ palette }: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
-    titleContainer: {
-      display: 'flex',
-      marginBottom: '2rem',
-    },
-    titleWrapper: {
-      marginRight: '1rem',
-    },
-    sectionTitle: {
-      margin: 0,
-      color: palette.primary.contrastText,
-      // TODO use theme fontsize and weight
-      fontSize: '2.25rem',
-      fontWeight: 400,
-      whiteSpace: 'nowrap',
-    },
-    lineWrapper: {
-      display: 'flex',
-      width: '100%',
-      // TODO: use theme color
-      borderColor: 'grey',
-    },
-    line: {
-      width: '100%',
-      alignSelf: 'center',
-      paddingLeft: '2%',
-    },
     infoBox: {
       outlineStyle: 'solid',
       outlineColor: 'grey',
@@ -92,6 +66,8 @@ type DetailsMainSummaryProps = {
   risk: RiskAnalysis;
   // array with all positions
   positions: Position[];
+  // performance values for the total value of the portfolio over time with unix timestamp
+  performance: number[][];
 };
 
 // returns the details page header
@@ -103,6 +79,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
   positionCount,
   risk,
   positions,
+  performance,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -121,39 +98,11 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
     return val < 0.5 ? '#D64745' : '#50E2A8';
   }
 
-  // these are for the DetailsDonut Chart for the company portions
   const portions = positions.map((p) => p.qty * p.stock.price);
   const companyNames = positions.map((p) => p.stock.name);
-  // Mock Portfolio values
-  const portfolioValue = [
-    10,
-    41,
-    35,
-    51,
-    49,
-    62,
-    69,
-    91,
-    148,
-    200,
-    123,
-    5,
-    234,
-  ];
-  // const portfolioValue = positions.reduce((sumOfPortfolio, p) => (p.qty * p.stock.price) + sumOfPortfolio, 0);
 
   return (
-    <div>
-      <div className={classes.titleContainer}>
-        <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionTitle}>
-            {t('portfolio.details.summaryHeader')}
-          </h2>
-        </div>
-        <div className={classes.lineWrapper}>
-          <hr className={classes.line} />
-        </div>
-      </div>
+    <>
       <div className={classes.infoBox}>
         <div className={classes.infoValueContainer}>
           {/* box section 1 */}
@@ -236,17 +185,23 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
         <div className={classes.pieChartWrapper}>
           <DetailsDonut
             portions={portions}
-            names={companyNames}
+            labels={companyNames}
             size={600}
             graphOffsetX={0}
             showLegendOnScale
           />
         </div>
         <div className={classes.lineChartWrapper}>
-          <DetailsLineChart portfolioValue={portfolioValue} />
+          <StockChart
+            series={performance}
+            axisColor={theme.palette.primary.contrastText}
+            buttonBackgroundColor={theme.palette.primary.light}
+            buttonTextColor={theme.palette.primary.contrastText}
+            height={300}
+          />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

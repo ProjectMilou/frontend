@@ -1,14 +1,28 @@
 import React from 'react';
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import { Router } from '@reach/router';
+import LandingPage from '../pages/LandingPage';
 import Shell from './shell/Shell';
 import Analyser from './analyser/Analyser';
 import Portfolio from './portfolio/Portfolio';
 import Header from './header/Header';
 import Footer from './footer/Footer';
+import Profile from './shell/profile/Profile';
 // TODO: use @path variables in tsconfig
 import Imprint from '../pages/Imprint';
 import Privacy from '../pages/Privacy';
+
+declare module '@material-ui/core/styles/createPalette' {
+  interface Palette {
+    lightBlue: Palette['primary'];
+    teal: Palette['primary'];
+  }
+
+  interface PaletteOptions {
+    lightBlue?: PaletteOptions['primary'];
+    teal?: PaletteOptions['primary'];
+  }
+}
 
 const theme = createMuiTheme({
   typography: {
@@ -26,11 +40,14 @@ const theme = createMuiTheme({
     ].join(','),
   },
   palette: {
+    background: {
+      default: '#E5E5E5',
+    },
     primary: {
       light: '#415176',
       main: '#122654',
       dark: '#0c1a3a',
-      contrastText: '#fff',
+      contrastText: '#EEF1FB',
     },
     secondary: {
       light: '#df4f9b',
@@ -38,13 +55,27 @@ const theme = createMuiTheme({
       dark: '#96195b',
       contrastText: '#000',
     },
+    success: {
+      main: '#50E2A8',
+    },
+    warning: {
+      main: '#FFC43B',
+    },
+    error: {
+      main: '#D64745',
+    },
+    lightBlue: {
+      main: '#3FBCF2',
+    },
+    teal: {
+      main: '#34CFB2',
+    },
   },
 });
 
 const App: React.FC = () => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
-
     <div
       style={{
         display: 'flex',
@@ -56,12 +87,13 @@ const App: React.FC = () => (
 
       <div style={{ flexGrow: 1 }}>
         <Router>
-          {/* <Frontpage path="/" /> */}
+          <LandingPage path="/" />
           <Shell path="/shell" />
           <Analyser path="/analyser" />
           <Portfolio path="/portfolio" />
           <Imprint path="/imprint" />
           <Privacy path="/privacy" />
+          <Profile path="/profile" />
         </Router>
       </div>
 

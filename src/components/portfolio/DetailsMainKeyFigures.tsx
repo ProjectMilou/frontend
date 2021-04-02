@@ -1,37 +1,13 @@
 import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles, useTheme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { KeyFigures } from './DetailsTypes';
+// TODO put into shared folder instead of importing from analyzer
+import KeyFiguresBar from '../shared/KeyFiguresBar';
 
 // stylesheet for the key figure section
-const useStyles = makeStyles(({ palette }: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
-    titleContainer: {
-      display: 'flex',
-      marginBottom: '2rem',
-    },
-    titleWrapper: {
-      marginRight: '1rem',
-    },
-    sectionTitle: {
-      margin: 0,
-      color: palette.primary.contrastText,
-      // TODO use theme fontsize and weight
-      fontSize: '2.25rem',
-      fontWeight: 400,
-      whiteSpace: 'nowrap',
-    },
-    lineWrapper: {
-      display: 'flex',
-      width: '100%',
-      // TODO: use theme color
-      borderColor: '#EEF1FB',
-    },
-    line: {
-      width: '100%',
-      alignSelf: 'center',
-      paddingLeft: '2%',
-    },
     riskContainer: {
       display: 'flex',
       justifyContent: 'space-between',
@@ -55,21 +31,35 @@ type DetailsMainKeyFiguresProps = {
 // returns the details page header
 const DetailsMainKeyFigures: React.FC<DetailsMainKeyFiguresProps> = () => {
   const classes = useStyles();
+  const theme = useTheme();
   const { t } = useTranslation();
 
+  const mockSeries = [
+    {
+      name: t('analyser.detail.keyfigure.PER.title'),
+      data: [30, 40, 45, 50, 50],
+    },
+    {
+      name: t('analyser.detail.keyfigure.PBR.title'),
+      data: [50, 25, 35, 80, 20],
+    },
+    {
+      name: t('analyser.detail.keyfigure.PEGR.title'),
+      data: [30, 50, 15, 40, 10],
+    },
+    {
+      name: t('analyser.detail.keyfigure.EPS.title'),
+      data: [10, 20, 25, 10, 90],
+    },
+  ];
+
   return (
-    <div>
-      <div className={classes.titleContainer}>
-        <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionTitle}>
-            {t('portfolio.details.keyfigures')}
-          </h2>
-        </div>
-        <div className={classes.lineWrapper}>
-          <hr className={classes.line} />
-        </div>
-      </div>
-      <div className={classes.figureWrapper}>{/* body */}</div>
+    <div className={classes.figureWrapper}>
+      <KeyFiguresBar
+        chartHeight={350}
+        series={mockSeries}
+        textColor={theme.palette.primary.contrastText}
+      />
     </div>
   );
 };
