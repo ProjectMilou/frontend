@@ -6,7 +6,7 @@ export type PerformanceProps = {
   value: number;
   size?: string;
 };
-
+// TODO change hard coded colors to palette
 const useStyles = makeStyles<Theme, PerformanceProps, string>({
   performance: {
     fontSize: (props) => props.size || '24px',

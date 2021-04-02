@@ -108,36 +108,40 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
                     <span>{`${t('portfolio.details.holding')}: `}</span>
                     <EuroCurrency value={totalValuePosition} size="1em" />
                   </div>
+                  <div className={classes.cardSubtitle}>({p.stock.symbol}/</div>
+                  <EuroCurrency value={p.stock.price} size="1em" />)
                 </div>
                 <div className={classes.cardContentLower}>
                   <ValueOverName
                     value={<Performance value={p.stock.perf7d} size="1em" />}
                     name={t('portfolio.details.day7')}
-                    valueColor={convertPercentToColor(p.stock.perf7d)}
                     secondValue={
-                      <EuroCurrency value={sevDayAbsolute} size="1em" />
+                      <EuroCurrency value={sevDayAbsolute} size="1em" doPaint />
                     }
-                    secondColor={convertPercentToColor(sevDayAbsolute)}
                   />
                   <ValueOverName
                     value={<Performance value={p.stock.perf1y} size="1em" />}
                     name={t('portfolio.details.year')}
-                    valueColor={convertPercentToColor(p.stock.perf1y)}
                     secondValue={
-                      <EuroCurrency value={oneYearAbsolute} size="1em" />
+                      <EuroCurrency
+                        value={oneYearAbsolute}
+                        size="1em"
+                        doPaint
+                      />
                     }
-                    secondColor={convertPercentToColor(oneYearAbsolute)}
                   />
                   <ValueOverName
                     value={
                       <Performance value={totalReturnPerCent} size="1em" />
                     }
                     name={t('portfolio.details.totalReturn')}
-                    valueColor={convertPercentToColor(totalReturnPerCent)}
                     secondValue={
-                      <EuroCurrency value={totalReturnAbsolute} size="1em" />
+                      <EuroCurrency
+                        value={totalReturnAbsolute}
+                        size="1em"
+                        doPaint
+                      />
                     }
-                    secondColor={convertPercentToColor(totalReturnAbsolute)}
                   />
                 </div>
               </CardContent>
