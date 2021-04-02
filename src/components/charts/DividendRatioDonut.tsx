@@ -6,6 +6,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
   createStyles({
     chartContainer: {
       display: 'flex',
+      zoom: '200%',
       alignItems: 'center',
     },
     chartWrapper: {
