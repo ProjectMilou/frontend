@@ -50,7 +50,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-evenly',
-      alignItems: 'center',
+      alignItems: 'left',
       padding: '1rem',
     },
     infoWrapper: {
@@ -63,7 +63,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       display: 'flex',
       alignSelf: 'center',
       width: '100%',
-      justifyContent: 'center',
+      justifyContent: 'left',
       color: palette.primary.main,
       fontWeight: typography.fontWeightRegular,
       fontSize: '1.15rem',
