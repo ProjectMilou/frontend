@@ -50,7 +50,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   content: {
     textAlign: 'left',
     margin: 10,
-    paddingBottom: 30,
   },
   divider: {
     margin: `${30}px 0`,
@@ -68,6 +67,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   rightBound: {
     float: 'right',
   },
+  leftBound: {
+    float: 'left',
+  },
+  paddingBottom:{
+    paddingBottom: 40
+  }
 }));
 
 export type DashboardCardsRowProps = {
@@ -115,13 +120,15 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
             />
           </Typography>
           <Divider className={classes.divider} light />
-          <EuroCurrency
-            value={stock.price}
-            fontWeight={600}
-            size="1.3rem"
-            decimalSeperator="."
-            thousandSeperator=","
+          <div className={classes.paddingBottom}>
+          <div className={classes.leftBound}>
+          <TextOverText
+            top='Last Price'
+            colorTop="#68696b"
+            bottom={`${stock.price}`}
+            euro 
           />
+          </div>
           <div className={classes.rightBound}>
             <TextOverText
               top={t('stock.30d')}
@@ -130,6 +137,7 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
               colorBottom={convertPercentToColor(stock['30d'])}
               sizeBottom="1.3rem"
             />
+          </div>
           </div>
         </CardContent>
       </ButtonBase>
