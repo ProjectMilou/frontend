@@ -107,9 +107,10 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
                   <div className={classes.cardSubtitle}>
                     <span>{`${t('portfolio.details.holding')}: `}</span>
                     <EuroCurrency value={totalValuePosition} size="1em" />
+                    <br />
+                    <span>{`${t('portfolio.details.perShare')}: `}</span>
+                    <EuroCurrency value={p.stock.price} size="1em" />
                   </div>
-                  <div className={classes.cardSubtitle}>({p.stock.symbol}/</div>
-                  <EuroCurrency value={p.stock.price} size="1em" />)
                 </div>
                 <div className={classes.cardContentLower}>
                   <ValueOverName

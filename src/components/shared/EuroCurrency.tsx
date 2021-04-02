@@ -7,18 +7,23 @@ export type EuroCurrencyProps = {
   size?: string;
   doPaint?: boolean;
 };
+
 // TODO change hard coded colors to palette
 const useStyles = makeStyles<Theme, EuroCurrencyProps, string>({
   euroCurrency: {
     fontSize: (props) => props.size || '24px',
     color: (props) => {
-      switch (Math.sign(props.value)) {
-        case -1:
-          return '#B80C09';
-        case 1:
-          return '#3da97e';
-        default:
-          return '#b2b2b2';
+      if (props.doPaint) {
+        switch (Math.sign(props.value)) {
+          case -1:
+            return '#B80C09';
+          case 1:
+            return '#3da97e';
+          default:
+            return '#b2b2b2';
+        }
+      } else {
+        return 'inherit';
       }
     },
   },
