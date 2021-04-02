@@ -49,6 +49,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
     email: '',
   });
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [edit, setEdit] = useState(false);
   const classes = useStyles();
 
   function handleData(data: UserProfile) {
@@ -93,9 +94,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
         firstName: user.firstName,
         lastName: user.lastName,
       }),
-    })
-      .then((r) => r.json())
-      .then(handleData);
+    }).then((r) => setEdit(false));
   };
 
   const handleDialogClose = () => setDialogOpen(false);
@@ -142,6 +141,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   }
                   size="small"
                   fullWidth
+                  disabled={!edit}
                 />
                 <br />
                 <br />
@@ -154,11 +154,16 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   }
                   size="small"
                   fullWidth
+                  disabled={!edit}
                 />
                 <br />
                 <br />
-                <Button variant="contained" color="primary" onClick={onEdit}>
-                  Update Details
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={edit ? onEdit : () => setEdit(true)}
+                >
+                  {edit ? 'Update Details' : 'Edit Details'}
                 </Button>{' '}
                 <Button
                   variant="outlined"
