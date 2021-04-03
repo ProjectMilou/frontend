@@ -1,7 +1,9 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
 import DetailsMainBacktestingTimeline from './DetailsMainBacktestingTimeline';
+import DetailsMainBacktestingList from './DetailsMainBacktestingList';
 
 // stylesheet for the backtesting section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -56,10 +58,15 @@ const useStyles = makeStyles(({ palette }: Theme) =>
         },
       },
     },
+    timelineListWrapper: {
+      display: 'flex',
+      marginTop: '1em',
+    },
   })
 );
 
 // TODO delete and replace with actual api data
+// mock for timeline
 const mockStartDate = new Date('01.01.2020');
 const mockStartValue = 840.56;
 const mockMinDate = new Date('03.04.2020');
@@ -68,6 +75,14 @@ const mockMaxDate = new Date('10.02.2020');
 const mockMaxValue = 1250.55;
 const mockEndDate = new Date('12.31.2020');
 const mockEndValue = 970.43;
+
+// mock for list
+const mockChangeBest = 210.5;
+const mockChangeWorst = -70.56;
+const mockMddMaxToMin = 65;
+const mockStandardDeviation = 12.1;
+const mockSharpeRatio = 0.65;
+const mockCagr = 5.42;
 
 // type declarations
 type DetailsMainBacktestingProps = {
@@ -125,16 +140,26 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = () => {
           />
         </form>
         {/* TODO: use translation */}
-        <DetailsMainBacktestingTimeline
-          startDate={mockStartDate}
-          startValue={mockStartValue}
-          minDate={mockMinDate}
-          minVale={mockMinValue}
-          maxDate={mockMaxDate}
-          maxValue={mockMaxValue}
-          endDate={mockEndDate}
-          endValue={mockEndValue}
-        />
+        <div className={classes.timelineListWrapper}>
+          <DetailsMainBacktestingTimeline
+            startDate={mockStartDate}
+            startValue={mockStartValue}
+            minDate={mockMinDate}
+            minVale={mockMinValue}
+            maxDate={mockMaxDate}
+            maxValue={mockMaxValue}
+            endDate={mockEndDate}
+            endValue={mockEndValue}
+          />
+          <DetailsMainBacktestingList
+            changeBest={mockChangeBest}
+            changeWorst={mockChangeWorst}
+            mddMaxToMin={mockMddMaxToMin}
+            standardDeviation={mockStandardDeviation}
+            sharpeRatio={mockSharpeRatio}
+            cagr={mockCagr}
+          />
+        </div>
       </div>
     </div>
   );
