@@ -66,9 +66,6 @@ type DetailsMainPositionsProps = {
 };
 
 // TODO delete mock and replace with value from refactored props object in map statement
-const totalValuePosition = 362.42;
-const totalReturnPerCent = 18;
-const totalReturnAbsolute = 78.67;
 const sevDayAbsolute = -8.1;
 const oneYearAbsolute = 35.6;
 
@@ -98,7 +95,9 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
             <Card
               variant="outlined"
               className={classes.card}
-              style={{ borderColor: convertPercentToColor(totalReturnPerCent) }}
+              style={{
+                borderColor: convertPercentToColor(p.totalReturnPercent),
+              }}
             >
               {/* TODO replace mock primary and secondary value and color with correct values from props */}
               <CardContent>
@@ -106,7 +105,7 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
                   <div className={classes.cardTitle}>{p.stock.name}</div>
                   <div className={classes.cardSubtitle}>
                     <span>{`${t('portfolio.details.holding')}: `}</span>
-                    <EuroCurrency value={totalValuePosition} size="1em" />
+                    <EuroCurrency value={p.stock.price * p.qty} size="1em" />
                     <br />
                     <span>{`${t('portfolio.details.perShare')}: `}</span>
                     <EuroCurrency value={p.stock.price} size="1em" />
@@ -133,15 +132,11 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
                   />
                   <ValueOverName
                     value={
-                      <Performance value={totalReturnPerCent} size="1em" />
+                      <Performance value={p.totalReturnPercent} size="1em" />
                     }
                     name={t('portfolio.details.totalReturn')}
                     secondValue={
-                      <EuroCurrency
-                        value={totalReturnAbsolute}
-                        size="1em"
-                        doPaint
-                      />
+                      <EuroCurrency value={p.totalReturn} size="1em" doPaint />
                     }
                   />
                 </div>

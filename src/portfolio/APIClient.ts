@@ -34,6 +34,8 @@ export type Stock = {
   symbol: string;
   name: string;
   price: number;
+  perf7d: number;
+  perf1y: number;
   country: string;
   industry: string;
   currency: string;
@@ -43,6 +45,8 @@ export type Stock = {
 export type Position = {
   stock: Stock;
   qty: number;
+  totalReturn: number;
+  totalReturnPercent: number;
 };
 
 export type Risk = {
@@ -78,6 +82,8 @@ export type NonEmptyPortfolioDetails = {
   keyFigures: KeyFigures[];
   nextDividend: Date;
   dividendPayoutRatio: number;
+  totalReturn: number;
+  totalReturnPercent: number;
 };
 
 export type PortfolioDetails = EmptyPortfolioDetails | NonEmptyPortfolioDetails;
@@ -113,6 +119,8 @@ type NonEmptyDetailsResponse = {
   /** UNIX timestamp */
   nextDividend: number;
   dividendPayoutRatio: number;
+  totalReturn: number;
+  totalReturnPercent: number;
 };
 
 type DetailsResponse = EmptyDetailsResponse | NonEmptyDetailsResponse;
@@ -159,6 +167,8 @@ function convertPortfolioDetails(response: DetailsResponse): PortfolioDetails {
       positions: r.positions.map((p) => ({
         ...p,
         stock: { ...p.stock, currency: p.stock.currency || '???' },
+        totalReturn: p.totalReturn || 0,
+        totalReturnPercent: p.totalReturnPercent || 0,
       })),
     };
   }

@@ -56,6 +56,8 @@ export const MockPositions: Position[] = [
       score: 0.7,
     },
     qty: 1,
+    totalReturn: 6.5,
+    totalReturnPercent: 25,
   },
   {
     stock: {
@@ -71,6 +73,8 @@ export const MockPositions: Position[] = [
       score: 0.4,
     },
     qty: 2,
+    totalReturn: -2.21,
+    totalReturnPercent: -10.03,
   },
   {
     stock: {
@@ -86,6 +90,8 @@ export const MockPositions: Position[] = [
       score: 0.8,
     },
     qty: 3,
+    totalReturn: 3.21,
+    totalReturnPercent: 34.32,
   },
   {
     stock: {
@@ -101,6 +107,8 @@ export const MockPositions: Position[] = [
       score: 0.9,
     },
     qty: 4,
+    totalReturn: -1.23,
+    totalReturnPercent: -0.97,
   },
 ];
 
@@ -135,4 +143,6 @@ export const MockDetails: NonEmptyPortfolioDetails = {
   keyFigures: MockFigures,
   nextDividend: new Date(0),
   dividendPayoutRatio: 0.25,
+  totalReturn: 75.43,
+  totalReturnPercent: 12.34,
 };

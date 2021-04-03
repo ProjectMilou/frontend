@@ -2,8 +2,9 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import DetailsEdit from './DetailsEdit';
+import { Position } from '../../portfolio/APIClient';
 
-const mockPositions = [
+const mockPositions: Position[] = [
   {
     stock: {
       isin: '0',
@@ -18,6 +19,8 @@ const mockPositions = [
       score: 0.7,
     },
     qty: 5,
+    totalReturn: 6.5,
+    totalReturnPercent: 25,
   },
 ];
 
