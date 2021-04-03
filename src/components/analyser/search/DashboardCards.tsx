@@ -6,7 +6,6 @@ import {
   Grid,
   Divider,
   makeStyles,
-  Typography,
   GridList,
   ButtonBase,
 } from '@material-ui/core';
@@ -82,14 +81,14 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
           image={stock.picture.toString()}
         />
         <CardContent className={classes.content}>
-            <TextOverText
-              top={`${stock.symbol}`}
-              bottom={`${stock.name}`}
-              colorTop="#68696b"
-              colorBottom="#122654"
-              sizeBottom="1.3rem"
-              alignment="left"
-            />
+          <TextOverText
+            top={`${stock.symbol}`}
+            bottom={`${stock.name}`}
+            colorTop="#68696b"
+            colorBottom="#122654"
+            sizeBottom="1.3rem"
+            alignment="left"
+          />
           <Divider className={classes.divider} light />
           <div className={classes.paddingBottom}>
             <div className={classes.leftBound}>
