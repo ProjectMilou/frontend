@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.contrastText,
   },
   timelineItem: {
-    marginTop: '20px',
-    marginBottom: '20px',
+    marginTop: '10px',
+    marginBottom: '10px',
   },
   textDate: {
     color: theme.palette.primary.contrastText,
@@ -80,7 +80,6 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
           <TimelineDot color="primary">
             <TodayIcon className={classes.startAndEnd} />
           </TimelineDot>
-          <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent>
           <Paper elevation={3} className={classes.paper}>
@@ -103,7 +102,6 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
           <TimelineDot color="primary">
             <EuroSymbolIcon className={classes.euroMin} />
           </TimelineDot>
-          <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent>
           <Paper elevation={3} className={classes.paper}>
@@ -126,7 +124,6 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
           <TimelineDot color="primary">
             <EuroSymbolIcon className={classes.euroMax} />
           </TimelineDot>
-          <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent>
           <Paper elevation={3} className={classes.paper}>
