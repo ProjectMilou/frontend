@@ -1,3 +1,5 @@
+// Based on Portfolio DetailsOverview
+
 import React from 'react';
 import {
   useTheme,
@@ -7,8 +9,8 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import ValueOverName from '../../shared/ValueOverName';
 import { Stock, StockDetails } from '../../../analyser/APIClient';
+import TextOverText from '../TextOverText';
 
 // stylesheet for the Summary section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -143,11 +145,11 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
             style={{ flexBasis: '55%' }}
           >
             {/* country */}
-            <ValueOverName
-              value={`${stockOverview.country}`}
-              name={t('stock.country')}
-              valueColor={theme.palette.primary.dark}
-              nameColor={theme.palette.primary.dark}
+            <TextOverText
+              top={`${stockOverview.country}`}
+              bottom={t('stock.country')}
+              colorTop={theme.palette.primary.dark}
+              colorBottom={theme.palette.primary.dark}
             />
           </div>
 
@@ -159,11 +161,11 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
             style={{ flexBasis: '55%' }}
           >
             {/* currency */}
-            <ValueOverName
-              value={`${stockOverview.currency}`}
-              name={t('stock.currency')}
-              valueColor={theme.palette.primary.light}
-              nameColor={theme.palette.primary.dark}
+            <TextOverText
+              top={`${stockOverview.currency}`}
+              bottom={t('stock.currency')}
+              colorTop={theme.palette.primary.light}
+              colorBottom={theme.palette.primary.dark}
             />
           </div>
 
@@ -175,11 +177,11 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
             style={{ flexBasis: '55%' }}
           >
             {/* industry */}
-            <ValueOverName
-              value={`${stockOverview.industry}`}
-              name={t('stock.industry')}
-              valueColor={theme.palette.primary.light}
-              nameColor={theme.palette.primary.dark}
+            <TextOverText
+              top={`${stockOverview.industry}`}
+              bottom={t('stock.industry')}
+              colorTop={theme.palette.primary.light}
+              colorBottom={theme.palette.primary.dark}
             />
           </div>
 
@@ -191,11 +193,11 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
             style={{ flexBasis: '55%' }}
           >
             {/* dividend */}
-            <ValueOverName
-              value={convertToPercent(stockOverview.div)}
-              name={t('stock.div')}
-              valueColor={convertPerformanceToColor(stockOverview.div)}
-              nameColor={theme.palette.primary.dark}
+            <TextOverText
+              top={convertToPercent(stockOverview.div)}
+              bottom={t('stock.div')}
+              colorTop={convertPerformanceToColor(stockOverview.div)}
+              colorBottom={theme.palette.primary.dark}
             />
           </div>
         </div>
