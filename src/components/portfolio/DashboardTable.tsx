@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  Button,
   IconButton,
   lighten,
   ListItemText,
@@ -39,7 +40,80 @@ const useStyles = makeStyles((theme: Theme) => ({
   disabled: {
     cursor: 'not-allowed',
   },
+  createButton: {
+    marginTop: '25px',
+  },
 }));
+
+type DashboardTableActionsProps = {
+  portfolio: PortfolioOverview;
+  renamePortfolio: (id: string) => void;
+  duplicatePortfolio: (id: string) => void;
+  deletePortfolio: (id: string) => void;
+};
+
+export const DashboardTableActions: React.FC<DashboardTableActionsProps> = ({
+  portfolio,
+  renamePortfolio,
+  duplicatePortfolio,
+  deletePortfolio,
+}) => {
+  const { t } = useTranslation();
+  const classes = useStyles();
+
+  return (
+    <>
+      <Tooltip title={t('portfolio.rename').toString()}>
+        <div className={classes.action}>
+          <IconButton
+            onClick={(e) => {
+              renamePortfolio(portfolio.id);
+              e.stopPropagation();
+            }}
+          >
+            <EditIcon />
+          </IconButton>
+        </div>
+      </Tooltip>
+      <Tooltip title={t('portfolio.duplicate').toString()}>
+        <div className={classes.action}>
+          <IconButton
+            onClick={(e) => {
+              duplicatePortfolio(portfolio.id);
+              e.stopPropagation();
+            }}
+          >
+            <DuplicateIcon />
+          </IconButton>
+        </div>
+      </Tooltip>
+      <Tooltip
+        title={(portfolio.virtual
+          ? t('portfolio.delete')
+          : t('portfolio.deleteReal')
+        ).toString()}
+        // stop click event propagation here because the delete button can be disabled
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div
+          className={classNames(
+            classes.action,
+            !portfolio.virtual && classes.disabled
+          )}
+        >
+          <IconButton
+            disabled={!portfolio.virtual}
+            onClick={() => {
+              deletePortfolio(portfolio.id);
+            }}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </div>
+      </Tooltip>
+    </>
+  );
+};
 
 export type DashboardTableRowProps = {
   portfolio: PortfolioOverview;
@@ -95,54 +169,12 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         <Performance value={portfolio.perf1y} />
       </TableCell>
       <TableCell align="center">
-        <Tooltip title={t('portfolio.rename').toString()}>
-          <div className={classes.action}>
-            <IconButton
-              onClick={(e) => {
-                renamePortfolio(portfolio.id);
-                e.stopPropagation();
-              }}
-            >
-              <EditIcon />
-            </IconButton>
-          </div>
-        </Tooltip>
-        <Tooltip title={t('portfolio.duplicate').toString()}>
-          <div className={classes.action}>
-            <IconButton
-              onClick={(e) => {
-                duplicatePortfolio(portfolio.id);
-                e.stopPropagation();
-              }}
-            >
-              <DuplicateIcon />
-            </IconButton>
-          </div>
-        </Tooltip>
-        <Tooltip
-          title={(portfolio.virtual
-            ? t('portfolio.delete')
-            : t('portfolio.deleteReal')
-          ).toString()}
-          // stop click event propagation here because the delete button can be disabled
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div
-            className={classNames(
-              classes.action,
-              !portfolio.virtual && classes.disabled
-            )}
-          >
-            <IconButton
-              disabled={!portfolio.virtual}
-              onClick={() => {
-                deletePortfolio(portfolio.id);
-              }}
-            >
-              <DeleteIcon />
-            </IconButton>
-          </div>
-        </Tooltip>
+        <DashboardTableActions
+          portfolio={portfolio}
+          renamePortfolio={renamePortfolio}
+          duplicatePortfolio={duplicatePortfolio}
+          deletePortfolio={deletePortfolio}
+        />
       </TableCell>
     </TableRow>
   );
@@ -154,6 +186,7 @@ export type DashboardTableProps = {
   renamePortfolio: (id: string) => void;
   duplicatePortfolio: (id: string) => void;
   deletePortfolio: (id: string) => void;
+  createPortfolio: () => void;
 };
 
 const DashboardTable: React.FC<DashboardTableProps> = ({
@@ -162,40 +195,52 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
   renamePortfolio,
   duplicatePortfolio,
   deletePortfolio,
+  createPortfolio,
 }) => {
+  const classes = useStyles();
   const { t } = useTranslation();
 
   // TODO: Improve portfolio score visualization
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">{t('portfolio.score')}</TableCell>
-            <TableCell align="center">{t('portfolio.name')}</TableCell>
-            <TableCell align="center">
-              {t('portfolio.positionsCount')}
-            </TableCell>
-            <TableCell align="center">{t('portfolio.value')}</TableCell>
-            <TableCell align="center">{t('portfolio.7d')}</TableCell>
-            <TableCell align="center">{t('portfolio.1y')}</TableCell>
-            <TableCell align="center">{t('portfolio.actions')}</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {portfolios.map((p) => (
-            <DashboardTableRow
-              portfolio={p}
-              selectPortfolio={selectPortfolio}
-              key={p.id}
-              renamePortfolio={renamePortfolio}
-              duplicatePortfolio={duplicatePortfolio}
-              deletePortfolio={deletePortfolio}
-            />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <TableContainer component={Paper}>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="center">{t('portfolio.score')}</TableCell>
+              <TableCell align="center">{t('portfolio.name')}</TableCell>
+              <TableCell align="center">
+                {t('portfolio.positionsCount')}
+              </TableCell>
+              <TableCell align="center">{t('portfolio.value')}</TableCell>
+              <TableCell align="center">{t('portfolio.7d')}</TableCell>
+              <TableCell align="center">{t('portfolio.1y')}</TableCell>
+              <TableCell align="center">{t('portfolio.actions')}</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {portfolios.map((p) => (
+              <DashboardTableRow
+                portfolio={p}
+                selectPortfolio={selectPortfolio}
+                key={p.id}
+                renamePortfolio={renamePortfolio}
+                duplicatePortfolio={duplicatePortfolio}
+                deletePortfolio={deletePortfolio}
+              />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Button
+        className={classes.createButton}
+        variant="outlined"
+        color="primary"
+        onClick={() => createPortfolio()}
+      >
+        {t('portfolio.dashboard.createPortfolio')}
+      </Button>
+    </>
   );
 };
 

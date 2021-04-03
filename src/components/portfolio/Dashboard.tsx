@@ -1,10 +1,5 @@
 import React, { Reducer } from 'react';
-import {
-  LinearProgress,
-  Button,
-  makeStyles,
-  Container,
-} from '@material-ui/core';
+import { LinearProgress, makeStyles, Container } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../portfolio/APIClient';
 import { ErrorCode } from '../../Errors';
@@ -212,9 +207,6 @@ function reducer(state: State, action: Actions) {
 }
 
 const useStyles = makeStyles({
-  createButton: {
-    marginTop: '25px',
-  },
   dashboard: {
     margin: '25px auto',
   },
@@ -304,20 +296,13 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
                   payload: { type: DialogType.DeletePortfolio, portfolioId },
                 });
               }}
-            />
-            <Button
-              className={classes.createButton}
-              variant="outlined"
-              color="primary"
-              onClick={() => {
+              createPortfolio={() => {
                 dispatch({
                   type: 'openDialog',
                   payload: { type: DialogType.CreatePortfolio },
                 });
               }}
-            >
-              {t('portfolio.dashboard.createPortfolio')}
-            </Button>
+            />
           </div>
         )}
       </Container>
