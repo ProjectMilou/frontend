@@ -7,6 +7,7 @@ import DetailsMainRisk from './DetailsMainRisk';
 import DetailsMainKeyFigures from './DetailsMainKeyFigures';
 import DetailsMainDividens from './DetailsMainDividends';
 import DetailsMainAnalyst from './DetailsMainAnalyst';
+import DetailMainBacktesting from './DetailsMainBacktesting';
 import { RiskAnalysis, Position, KeyFigures } from './DetailsTypes';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -133,6 +134,9 @@ const DetailsMain: React.FC<DetailsMainProps> = ({
       </Section>
       <Section title={t('portfolio.details.analyst')}>
         <DetailsMainAnalyst />
+      </Section>
+      <Section title={t('portfolio.details.backtesting')}>
+        <DetailMainBacktesting />
       </Section>
     </div>
   );
