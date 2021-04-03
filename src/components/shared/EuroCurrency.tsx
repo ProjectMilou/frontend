@@ -5,17 +5,34 @@ import { makeStyles, Theme } from '@material-ui/core';
 export type EuroCurrencyProps = {
   value: number;
   size?: string;
+  doPaint?: boolean;
   fontWeight?: number;
   color?: string;
   decimalSeperator?: string;
   thousandSeperator?: string;
 };
 
+// TODO change hard coded colors to palette
 const useStyles = makeStyles<Theme, EuroCurrencyProps, string>({
   euroCurrency: {
     fontSize: (props) => props.size || '24px',
-    fontWeight: (props) => props.fontWeight || 400,
-    color: (props) => props.color || '#122654',
+    color: (props) => {
+      // priority: first check specific color, if not check doPaint (red/green, positive negative)
+      // if none just inherit from parent
+      if (props.color) return props.color;
+      if (props.doPaint) {
+        switch (Math.sign(props.value)) {
+          case -1:
+            return '#B80C09';
+          case 1:
+            return '#3da97e';
+          default:
+            return '#b2b2b2';
+        }
+      } else {
+        return 'inherit';
+      }
+    },
   },
 });
 

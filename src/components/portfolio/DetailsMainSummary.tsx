@@ -1,10 +1,12 @@
 import React from 'react';
 import { useTheme, makeStyles, createStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import ValueOverName from '../shared/ValueOverName';
+import ValueOverName from './ValueOverName';
 import { Position, RiskAnalysis } from './DetailsTypes';
 import DetailsDonut from './DetailsDonut';
 import StockChart from '../shared/StockChart';
+import Performance from '../shared/Performance';
+import EuroCurrency from '../shared/EuroCurrency';
 
 // stylesheet for the Summary section
 const useStyles = makeStyles(() =>
@@ -84,20 +86,6 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
   const classes = useStyles();
   const theme = useTheme();
   const { t } = useTranslation();
-
-  // TODO: no hard coded colors
-  // takes a percent value and converts it to a color
-  function convertPercentToColor(val: number): string {
-    return val < 0 ? '#D64745' : '#50E2A8';
-  }
-
-  // TODO: no hard coded colors
-  // TODO: update range to fit data from analytics
-  // convert a score to a color
-  function convertScoreToColor(val: number): string {
-    return val < 0.5 ? '#D64745' : '#50E2A8';
-  }
-
   const portions = positions.map((p) => p.qty * p.stock.price);
   const companyNames = positions.map((p) => p.stock.name);
 
@@ -114,7 +102,6 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
             <ValueOverName
               value={score.toString()}
               name={t('portfolio.details.score')}
-              valueColor={convertScoreToColor(score)}
             />
           </div>
           {/* devider 1 */}
@@ -126,22 +113,18 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
           >
             {/* 7 day moving average */}
             <ValueOverName
-              value={`${perf7d}%`}
+              value={<Performance value={perf7d} size="1em" />}
               name={t('portfolio.details.day7')}
-              valueColor={convertPercentToColor(perf7d)}
             />
             {/* 1 year moving average */}
             <ValueOverName
-              value={`${perf1y}%`}
+              value={<Performance value={perf1y} size="1em" />}
               name={t('portfolio.details.year')}
-              valueColor={convertPercentToColor(perf1y)}
             />
             {/* total value */}
             <ValueOverName
-              // TODO: change to euro sign
-              value={`$${value}`}
+              value={<EuroCurrency value={value} size="1em" />}
               name={t('portfolio.details.totalValue')}
-              valueColor={theme.palette.primary.contrastText}
             />
           </div>
           {/* devider 2 */}
@@ -155,28 +138,24 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
             <ValueOverName
               value={`${positionCount}`}
               name={t('portfolio.details.positions')}
-              valueColor={theme.palette.primary.contrastText}
             />
             {/* countries */}
             <ValueOverName
               // TODO: replace countries.score with correct value
               value={`${risk.countries.score}`}
               name={t('portfolio.details.countries')}
-              valueColor={convertScoreToColor(risk.countries.score)}
             />
             {/* industries */}
             <ValueOverName
               // TODO: replace segments.score with correct value
               value={`${risk.segments.score}%`}
               name={t('portfolio.details.industries')}
-              valueColor={convertScoreToColor(risk.segments.score)}
             />
             {/* currencies */}
             <ValueOverName
               // TODO: replace currency.score with correct value
               value={`${risk.currency.score}%`}
               name={t('portfolio.details.currencies')}
-              valueColor={convertScoreToColor(risk.currency.score)}
             />
           </div>
         </div>

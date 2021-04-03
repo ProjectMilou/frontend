@@ -23,7 +23,9 @@ test('DetailsMainSummary renders correctly', () => {
   screen.getAllByText(mock.score, { exact: false });
   screen.getAllByText(mock.perf7d, { exact: false });
   screen.getAllByText(mock.perf1y, { exact: false });
-  screen.getAllByText(mock.value, { exact: false });
+  // due to the use of EuroCurrency the decimal separator is changed.
+  // TODO use regex instead of hard coding the expected text
+  screen.getAllByText('174,98', { exact: false });
   screen.getAllByText(mock.positionCount, { exact: false });
   // TODO add tests for number of countries, industries and currencies when the correct values are being displayed.
 });
