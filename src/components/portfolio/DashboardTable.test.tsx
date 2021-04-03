@@ -10,6 +10,7 @@ describe('DashboardTable', () => {
     renamePortfolio: jest.fn(),
     duplicatePortfolio: jest.fn(),
     deletePortfolio: jest.fn(),
+    createPortfolio: jest.fn(),
   };
 
   const renderComponent = (newProps?: Partial<DashboardTableProps>) => {
