@@ -14,6 +14,7 @@ const mockPositions = [
       perf1y: 5,
       country: 'Germany',
       industry: 'Auto',
+      currency: 'EUR',
       score: 0.7,
     },
     qty: 5,
