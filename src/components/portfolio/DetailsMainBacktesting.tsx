@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import DetailsMainBacktestingTimeline from './DetailsMainBacktestingTimeline';
 
 // stylesheet for the backtesting section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -58,6 +59,16 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
+// TODO delete and replace with actual api data
+const mockStartDate = new Date('01.01.2020');
+const mockStartValue = 840.56;
+const mockMinDate = new Date('03.04.2020');
+const mockMinValue = 512.67;
+const mockMaxDate = new Date('10.02.2020');
+const mockMaxValue = 1250.55;
+const mockEndDate = new Date('12.31.2020');
+const mockEndValue = 970.43;
+
 // type declarations
 type DetailsMainBacktestingProps = {
   // props
@@ -114,6 +125,16 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = () => {
           />
         </form>
         {/* TODO: use translation */}
+        <DetailsMainBacktestingTimeline
+          startDate={mockStartDate}
+          startValue={mockStartValue}
+          minDate={mockMinDate}
+          minVale={mockMinValue}
+          maxDate={mockMaxDate}
+          maxValue={mockMaxValue}
+          endDate={mockEndDate}
+          endValue={mockEndValue}
+        />
       </div>
     </div>
   );
