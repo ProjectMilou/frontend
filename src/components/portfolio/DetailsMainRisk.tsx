@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import CheckIcon from '@material-ui/icons/Check';
 import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 import DetailsDonut from './DetailsDonut';
-import { RiskAnalysis, Risk, Position } from './DetailsTypes';
+import { Position, Risk, RiskAnalysis } from '../../portfolio/APIClient';
 
 // stylesheet for the risk analysis section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -125,10 +125,9 @@ const RiskComp: React.FC<RiskCompProps> = ({
             {convertScoreToIcon(risk.score)}
           </div>
           <div className={classes.countWrapper}>
-            {/* TODO: change to actuall count, not score */}
-            <p style={{ color: convertScoreToColor(risk.score), margin: 0 }}>
-              {risk.score}
-            </p>
+            <div style={{ color: convertScoreToColor(risk.score) }}>
+              {risk.count}
+            </div>
           </div>
           <div className={classes.subtitleWrapper}>
             <p>{title}</p>

@@ -10,10 +10,10 @@ import {
 } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import { useTranslation } from 'react-i18next';
-import { Position } from './DetailsTypes';
 import EuroCurrency from '../shared/EuroCurrency';
 import Performance from '../shared/Performance';
 import ValueOverName from './ValueOverName';
+import { Position } from '../../portfolio/APIClient';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({

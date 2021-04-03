@@ -6,37 +6,115 @@ const headers = { 'Content-Type': 'application/json' };
 
 // Types used by the frontend
 
+type Performance = {
+  perf7d: number;
+  perf1y: number;
+};
+
 // TODO: Use a dictionary object instead of an array to make searching by id easier
-export type PortfolioOverview = {
-  // TODO: Change id to number to be consistent with backend
+export type EmptyPortfolioOverview = {
   id: string;
   name: string;
   virtual: boolean;
   positionCount: number;
   value: number;
-  score?: number;
-  perf7d: number;
-  perf1y: number;
   modified: Date;
+} & Performance;
+
+export type NonEmptyPortfolioOverview = EmptyPortfolioOverview & {
+  score: number;
 };
+
+export type PortfolioOverview =
+  | EmptyPortfolioOverview
+  | NonEmptyPortfolioOverview;
+
+export type Stock = {
+  isin: string;
+  symbol: string;
+  name: string;
+  price: number;
+  country: string;
+  industry: string;
+  score: number;
+} & Performance;
+
+export type Position = {
+  stock: Stock;
+  qty: number;
+};
+
+export type Risk = {
+  count: number;
+  score: number;
+  warnings: string[];
+};
+
+export type RiskAnalysis = {
+  countries: Risk;
+  segments: Risk;
+  currency: Risk;
+};
+
+export type KeyFigures = {
+  year: number;
+  pte: number;
+  ptb: number;
+  ptg: number;
+  eps: number;
+  div: number;
+};
+
+export type EmptyPortfolioDetails = {
+  overview: EmptyPortfolioOverview;
+  positions: [];
+};
+
+export type NonEmptyPortfolioDetails = {
+  overview: NonEmptyPortfolioOverview;
+  positions: Position[];
+  risk: RiskAnalysis;
+  keyFigures: KeyFigures[];
+  nextDividend: Date;
+  dividendPayoutRatio: number;
+};
+
+export type PortfolioDetails = EmptyPortfolioDetails | NonEmptyPortfolioDetails;
 
 // Types describing the JSON response of API calls.
 // The correctness of these types is assumed, no checks are performed.
 
+type PortfolioOverviewResponse = {
+  id: number;
+  name: string;
+  virtual: boolean;
+  positionCount: number;
+  value: number;
+  score?: number;
+  /** UNIX timestamp */
+  modified: number;
+} & Performance;
+
 type ListResponse = {
-  portfolios: {
-    id: number;
-    name: string;
-    virtual: boolean;
-    positionCount: number;
-    value: number;
-    score?: number;
-    perf7d: number;
-    perf1y: number;
-    /** UNIX timestamp */
-    modified: number;
-  }[];
+  portfolios: PortfolioOverviewResponse[];
 };
+
+type EmptyDetailsResponse = {
+  overview: PortfolioOverviewResponse;
+  positions: [];
+};
+
+type NonEmptyDetailsResponse = {
+  overview: PortfolioOverviewResponse;
+  positions: Position[];
+  risk: RiskAnalysis;
+  keyFigures: KeyFigures[];
+  /** UNIX timestamp */
+  nextDividend: number;
+  dividendPayoutRatio: number;
+};
+
+type DetailsResponse = EmptyDetailsResponse | NonEmptyDetailsResponse;
 
 type DuplicateResponse = {
   id: string;
@@ -45,6 +123,46 @@ type DuplicateResponse = {
 type CreateResponse = {
   id: string;
 };
+
+/**
+ * Converts a {@link PortfolioOverviewResponse} object as received from the API
+ * to a {@link PortfolioOverview} object for use by the application.
+ */
+function convertPortfolioOverview(
+  response: PortfolioOverviewResponse
+): PortfolioOverview {
+  return {
+    ...response,
+    id: response.id.toString(),
+    modified: new Date(response.modified),
+  };
+}
+
+/**
+ * Converts a {@link DetailsResponse} object as received from the API to a
+ * {@link PortfolioDetails} object for use by the application. If the portfolio
+ * is empty, the returned object is of type {@link EmptyPortfolioDetails},
+ * otherwise {@link NonEmptyPortfolioDetails}.
+ */
+function convertPortfolioDetails(response: DetailsResponse): PortfolioDetails {
+  if (response.positions) {
+    // portfolio is not empty
+    const r = response as NonEmptyDetailsResponse;
+    return {
+      ...r,
+      overview: convertPortfolioOverview(
+        r.overview
+      ) as NonEmptyPortfolioOverview,
+      nextDividend: new Date(r.nextDividend),
+    };
+  }
+  // portfolio is empty
+  const r = response as EmptyDetailsResponse;
+  return {
+    ...r,
+    overview: convertPortfolioOverview(r.overview),
+  };
+}
 
 /**
  * Makes an API call. Resolves to the JSON response if the call is successful,
@@ -87,11 +205,19 @@ async function request(
  */
 export async function list(token: string): Promise<PortfolioOverview[]> {
   const response = (await request(token, 'GET', 'list')) as ListResponse;
-  return response.portfolios.map((p) => ({
-    ...p,
-    id: p.id.toString(),
-    modified: new Date(p.modified),
-  }));
+  return response.portfolios.map(convertPortfolioOverview);
+}
+
+export async function details(
+  token: string,
+  id: string
+): Promise<PortfolioDetails> {
+  const response = (await request(
+    token,
+    'GET',
+    `details/${id}`
+  )) as DetailsResponse;
+  return convertPortfolioDetails(response);
 }
 
 /**

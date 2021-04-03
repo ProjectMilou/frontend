@@ -1,5 +1,12 @@
-import { create, deletePortfolio, duplicate, list, rename } from './APIClient';
-import { MockOverview, MockOverviewTwo } from './APIMocks';
+import {
+  create,
+  deletePortfolio,
+  details,
+  duplicate,
+  list,
+  rename,
+} from './APIClient';
+import { MockDetails, MockOverview, MockOverviewTwo } from './APIMocks';
 
 describe('Portfolio API client', () => {
   beforeEach(() => {
@@ -43,30 +50,37 @@ describe('Portfolio API client', () => {
         JSON.stringify({
           portfolios: [
             {
-              id: 1,
-              name: 'test',
-              virtual: true,
-              positionCount: 3,
-              value: 9,
-              perf7d: -1.23,
-              perf1y: 13.37,
+              ...MockOverview,
               modified: 0,
             },
             {
-              id: 2,
-              name: 'testTwo',
-              virtual: false,
-              positionCount: 4,
-              value: 3,
-              score: 20,
-              perf7d: 0,
-              perf1y: -1,
+              ...MockOverviewTwo,
               modified: 1616086585,
             },
           ],
         })
       );
       await expect(apiCall()).resolves.toEqual([MockOverview, MockOverviewTwo]);
+    });
+
+    errorHandlingTests(apiCall);
+  });
+
+  describe('details', () => {
+    const apiCall = () => details('', '0');
+
+    test('resolves on success', async () => {
+      fetchMock.mockResponseOnce(
+        JSON.stringify({
+          ...MockDetails,
+          overview: {
+            ...MockDetails.overview,
+            modified: 1616086585,
+          },
+          nextDividend: 0,
+        })
+      );
+      await expect(apiCall()).resolves.toEqual(MockDetails);
     });
 
     errorHandlingTests(apiCall);
