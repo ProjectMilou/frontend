@@ -98,10 +98,7 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio }) => {
         <DetailsMainKeyFigures figures={portfolio.keyFigures} />
       </Section>
       <Section title={t('portfolio.details.dividends')}>
-        <DetailsMainDividens
-          nextDividend={portfolio.nextDividend}
-          dividendPayoutRatio={portfolio.dividendPayoutRatio / 100}
-        />
+        <DetailsMainDividens portfolio={portfolio} />
       </Section>
       <Section title={t('portfolio.details.analyst')}>
         <DetailsMainAnalyst />

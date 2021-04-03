@@ -8,6 +8,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import RatioDonut from '../shared/RatioDonut';
 import KeyFiguresChart from '../shared/KeyFiguresChart';
+import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 
 // stylesheet for the dividend section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -61,8 +62,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 
 // type declarations
 type DetailsMainDividendsProps = {
-  nextDividend: Date;
-  dividendPayoutRatio: number;
+  portfolio: NonEmptyPortfolioDetails;
 };
 
 // type declarations
@@ -86,17 +86,16 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, children }) => {
 
 // returns the details page header
 const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
-  nextDividend,
-  dividendPayoutRatio,
+  portfolio,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const mockSeries = [
+  const series = [
     {
       name: 'Dividend Yield',
-      data: [30, 40, 45, 50, 50],
+      data: portfolio.keyFigures.map((f) => f.div),
     },
   ];
 
@@ -105,22 +104,24 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
       <div className={classes.chartContainer}>
         {/* left side with graph */}
         <KeyFiguresChart
-          series={mockSeries}
+          series={series}
           height={450}
           textColor={theme.palette.primary.contrastText}
         />
       </div>
       <div className={classes.infoContainer}>
         {/* right side with info */}
-        <InfoBlock title={t('portfolio.details.divYield')}>tmp</InfoBlock>
+        <InfoBlock title={t('portfolio.details.divYield')}>
+          {portfolio.keyFigures[portfolio.keyFigures.length - 1].div}
+        </InfoBlock>
         <InfoBlock title={t('portfolio.details.payout')}>
           <RatioDonut
-            ratio={dividendPayoutRatio}
+            ratio={portfolio.dividendPayoutRatio / 100}
             textColor={theme.palette.primary.contrastText}
           />
         </InfoBlock>
         <InfoBlock title={t('portfolio.details.nextDate')}>
-          {nextDividend.toLocaleDateString()}
+          {portfolio.nextDividend.toLocaleDateString()}
         </InfoBlock>
       </div>
     </div>
