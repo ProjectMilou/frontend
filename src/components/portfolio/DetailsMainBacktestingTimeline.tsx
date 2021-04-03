@@ -8,11 +8,9 @@ import TimelineConnector from '@material-ui/lab/TimelineConnector';
 import TimelineContent from '@material-ui/lab/TimelineContent';
 import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
 import TimelineDot from '@material-ui/lab/TimelineDot';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-import LaptopMacIcon from '@material-ui/icons/LaptopMac';
-import HotelIcon from '@material-ui/icons/Hotel';
-import RepeatIcon from '@material-ui/icons/Repeat';
+import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
+import TodayIcon from '@material-ui/icons/Today';
+import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import EuroCurrency from '../shared/EuroCurrency';
@@ -21,11 +19,27 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: '6px 16px',
     backgroundColor: theme.palette.primary.light,
+    color: theme.palette.primary.contrastText,
+  },
+  timelineItem: {
+    marginTop: '20px',
+    marginBottom: '20px',
   },
   textDate: {
     color: theme.palette.primary.contrastText,
   },
   minValue: {
+    color: theme.palette.success.light,
+  },
+  startAndEnd: {
+    fontSize: '2.5em',
+  },
+  euroMin: {
+    fontSize: '2.5em',
+    color: theme.palette.error.light,
+  },
+  euroMax: {
+    fontSize: '2.5em',
     color: theme.palette.success.light,
   },
 }));
@@ -56,14 +70,16 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
 
   return (
     <Timeline align="left">
-      <TimelineItem>
+      <TimelineItem className={classes.timelineItem}>
         <TimelineOppositeContent>
           <Typography className={classes.textDate}>
             {startDate.toLocaleDateString()}
           </Typography>
         </TimelineOppositeContent>
         <TimelineSeparator>
-          <TimelineDot />
+          <TimelineDot color="primary">
+            <TodayIcon className={classes.startAndEnd} />
+          </TimelineDot>
           <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent>
@@ -77,7 +93,7 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
           </Paper>
         </TimelineContent>
       </TimelineItem>
-      <TimelineItem>
+      <TimelineItem className={classes.timelineItem}>
         <TimelineOppositeContent>
           <Typography className={classes.textDate}>
             {minDate.toLocaleDateString()}
@@ -85,7 +101,7 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineDot color="primary">
-            <ThumbDownIcon />
+            <EuroSymbolIcon className={classes.euroMin} />
           </TimelineDot>
           <TimelineConnector />
         </TimelineSeparator>
@@ -100,7 +116,7 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
           </Paper>
         </TimelineContent>
       </TimelineItem>
-      <TimelineItem>
+      <TimelineItem className={classes.timelineItem}>
         <TimelineOppositeContent>
           <Typography className={classes.textDate}>
             {maxDate.toLocaleDateString()}
@@ -108,7 +124,7 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineDot color="primary">
-            <ThumbUpIcon />
+            <EuroSymbolIcon className={classes.euroMax} />
           </TimelineDot>
           <TimelineConnector />
         </TimelineSeparator>
@@ -123,14 +139,16 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
           </Paper>
         </TimelineContent>
       </TimelineItem>
-      <TimelineItem>
+      <TimelineItem className={classes.timelineItem}>
         <TimelineOppositeContent>
           <Typography className={classes.textDate}>
             {endDate.toLocaleDateString()}
           </Typography>
         </TimelineOppositeContent>
         <TimelineSeparator>
-          <TimelineDot />
+          <TimelineDot color="primary">
+            <EventAvailableIcon className={classes.startAndEnd} />
+          </TimelineDot>
         </TimelineSeparator>
         <TimelineContent>
           <Paper elevation={3} className={classes.paper}>
