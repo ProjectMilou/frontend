@@ -1,6 +1,6 @@
 # Search Page
 
-### `POST /search`
+### `GET /search`
 
 search list by NAME, ISIN, WKN, SYMBOL
 
@@ -18,31 +18,18 @@ search list by NAME, ISIN, WKN, SYMBOL
 
 response: list of stocks with searched name, ISIN, WKN, SYMBOL
 
-### `POST /filter`
+### `GET /stocks/list`
 
-search list of stocks as result of given filters
+List of all stocks and their data. It should be possible, but not required, to send filters as paramters with this request and only receive stocks as response that match the filters.
 
 #### Request
 
-| parameter  | type       |
-| ---------- | ---------- |
-| `country`  | `string[]` |
-| `currency` | `string[]` |
-| `industry` | `string[]` |
-
-To be discussed: More filters
-
-#### Response
-
-| parameter | type      |
-| --------- | --------- |
-| `stocks`  | `stock[]` |
-
-response: list of stocks with applied filters
-
-### `GET /stocks/list`
-
-List of all stocks and their data
+| parameter   | type       | description                                         |
+| ----------- | ---------- | --------------------------------------------------- |
+| `country?`  | `string[]` | possible filter of countries                        |
+| `currency?` | `string[]` | possible filter of currencies                       |
+| `industry?` | `string[]` | possible filter of industry                         |
+| `mc?`       | `string`   | either small, medium or large market capitalization |
 
 #### Response
 
@@ -59,9 +46,10 @@ List of all stocks and their data
 | `symbol`    | `string`      | Ticker symbol                                    |
 | `name`      | `string`      |                                                  |
 | `price`     | `number` (FP) | Last price per share                             |
-| `1d`        | `number` (FP) | 1 day return                                     |
-| `7d`        | `number` (FP) | 7 day return                                     |
-| `30d`       | `number` (FP) | 30 day return                                    |
+| `per1d`     | `number` (FP) | 1 day performance                                |
+| `per7d`     | `number` (FP) | 7 days performance                               |
+| `per30d`    | `number` (FP) | 30 days performance                              |
+| `per365d`   | `number` (FP) | 1 year performance                               |
 | `marketCap` | `number` (FP) | Market Capitalization in billion dollars         |
 | `analysTar` | `number` (FP) | Analyst target in dollars                        |
 | `valuation` | `number` (FP) | Ratio comp to similar companies                  |
@@ -111,22 +99,6 @@ Same as `stock` from search page
 | `employees` | `number` (Int) | latest number of the employees                |
 | `address`   | `string`       | Street address                                |
 | `assembly`  | `date`(int)    | Date of the next shareholder assembly         |
-
-### `GET /filters`
-
-get all countries, industries, categories, currencies, etc. so that show the user the filters
-
-#### Request
-
-| parameter | type     | description |
-| --------- | -------- | ----------- |
-| `id`      | `string` | filter name |
-
-#### Repsonse
-
-| parameter | type       | description               |
-| --------- | ---------- | ------------------------- |
-| `filer`   | `string[]` | list of a specific filter |
 
 ### `GET /stock/charts/historic`
 
@@ -225,7 +197,7 @@ Get the analysts recommendation
 | `date` | `number` (Int)| date when prediction was made|
 | `goal` | `number`(FP) | Stock goal in dollars|
 | `strategy` | `string` | Either buy, hold, or sell|
-| `source` | `string` | Link to source of rating|
+| `source` | `URL` | Link to source of rating agency|
 | `more Info?` | `TBD` | More Information, e.g. Future Growth|
 
 ### `GET /stock/news`
