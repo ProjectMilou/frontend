@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
+import TimelineConnector from '@material-ui/lab/TimelineConnector';
 import TimelineContent from '@material-ui/lab/TimelineContent';
 import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
 import TimelineDot from '@material-ui/lab/TimelineDot';
@@ -15,6 +16,10 @@ import Typography from '@material-ui/core/Typography';
 import EuroCurrency from '../shared/EuroCurrency';
 
 const useStyles = makeStyles((theme) => ({
+  timeline: {
+    flexGrow: 0,
+    flexBasis: '50%',
+  },
   paper: {
     padding: '6px 16px',
     backgroundColor: theme.palette.primary.light,
@@ -23,9 +28,25 @@ const useStyles = makeStyles((theme) => ({
   timelineItem: {
     marginTop: '10px',
     marginBottom: '10px',
+    display: 'flex',
+    justifyContent: 'center',
   },
-  textDate: {
+  oppositeContent: {
     color: theme.palette.primary.contrastText,
+    flexGrow: 0,
+    margin: 0,
+    flexBasis: '30%',
+    whiteSpace: 'nowrap',
+  },
+  timelineContent: {
+    flexGrow: 0,
+    flexBasis: '30%',
+    whiteSpace: 'nowrap',
+  },
+  timelineConnector: {
+    position: 'absolute',
+    height: '2.5rem',
+    top: '80%',
   },
   minValue: {
     color: theme.palette.success.light,
@@ -68,19 +89,18 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
   const { t } = useTranslation();
 
   return (
-    <Timeline align="left">
+    <Timeline align="left" className={classes.timeline}>
       <TimelineItem className={classes.timelineItem}>
-        <TimelineOppositeContent>
-          <Typography className={classes.textDate}>
-            {startDate.toLocaleDateString()}
-          </Typography>
+        <TimelineOppositeContent className={classes.oppositeContent}>
+          <Typography>{startDate.toLocaleDateString()}</Typography>
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineDot color="primary">
             <TodayIcon className={classes.startAndEnd} />
           </TimelineDot>
+          <TimelineConnector className={classes.timelineConnector} />
         </TimelineSeparator>
-        <TimelineContent>
+        <TimelineContent className={classes.timelineContent}>
           <Paper elevation={3} className={classes.paper}>
             <Typography variant="h6" component="h1">
               {t('portfolio.details.backtesting.start')}
@@ -92,17 +112,16 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
         </TimelineContent>
       </TimelineItem>
       <TimelineItem className={classes.timelineItem}>
-        <TimelineOppositeContent>
-          <Typography className={classes.textDate}>
-            {minDate.toLocaleDateString()}
-          </Typography>
+        <TimelineOppositeContent className={classes.oppositeContent}>
+          <Typography>{minDate.toLocaleDateString()}</Typography>
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineDot color="primary">
             <EuroSymbolIcon className={classes.euroMin} />
           </TimelineDot>
+          <TimelineConnector className={classes.timelineConnector} />
         </TimelineSeparator>
-        <TimelineContent>
+        <TimelineContent className={classes.timelineContent}>
           <Paper elevation={3} className={classes.paper}>
             <Typography variant="h6" component="h1">
               {t('portfolio.details.backtesting.min')}
@@ -114,17 +133,16 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
         </TimelineContent>
       </TimelineItem>
       <TimelineItem className={classes.timelineItem}>
-        <TimelineOppositeContent>
-          <Typography className={classes.textDate}>
-            {maxDate.toLocaleDateString()}
-          </Typography>
+        <TimelineOppositeContent className={classes.oppositeContent}>
+          <Typography>{maxDate.toLocaleDateString()}</Typography>
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineDot color="primary">
             <EuroSymbolIcon className={classes.euroMax} />
           </TimelineDot>
+          <TimelineConnector className={classes.timelineConnector} />
         </TimelineSeparator>
-        <TimelineContent>
+        <TimelineContent className={classes.timelineContent}>
           <Paper elevation={3} className={classes.paper}>
             <Typography variant="h6" component="h1">
               {t('portfolio.details.backtesting.max')}
@@ -136,17 +154,15 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
         </TimelineContent>
       </TimelineItem>
       <TimelineItem className={classes.timelineItem}>
-        <TimelineOppositeContent>
-          <Typography className={classes.textDate}>
-            {endDate.toLocaleDateString()}
-          </Typography>
+        <TimelineOppositeContent className={classes.oppositeContent}>
+          <Typography>{endDate.toLocaleDateString()}</Typography>
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineDot color="primary">
             <EventAvailableIcon className={classes.startAndEnd} />
           </TimelineDot>
         </TimelineSeparator>
-        <TimelineContent>
+        <TimelineContent className={classes.timelineContent}>
           <Paper elevation={3} className={classes.paper}>
             <Typography variant="h6" component="h1">
               {t('portfolio.details.backtesting.end')}

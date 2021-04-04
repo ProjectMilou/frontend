@@ -12,8 +12,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       width: '100%',
-      // TODO: delete fixed height
-      height: '30rem',
     },
     subtitle: {
       display: 'flex',
@@ -164,26 +162,26 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = () => {
             }}
           />
         </form>
-        <div className={classes.timelineListWrapper}>
-          <DetailsMainBacktestingTimeline
-            startDate={mockStartDate}
-            startValue={mockStartValue}
-            minDate={mockMinDate}
-            minVale={mockMinValue}
-            maxDate={mockMaxDate}
-            maxValue={mockMaxValue}
-            endDate={mockEndDate}
-            endValue={mockEndValue}
-          />
-          <DetailsMainBacktestingList
-            changeBest={mockChangeBest}
-            changeWorst={mockChangeWorst}
-            mddMaxToMin={mockMddMaxToMin}
-            standardDeviation={mockStandardDeviation}
-            sharpeRatio={mockSharpeRatio}
-            cagr={mockCagr}
-          />
-        </div>
+      </div>
+      <div className={classes.timelineListWrapper}>
+        <DetailsMainBacktestingTimeline
+          startDate={mockStartDate}
+          startValue={mockStartValue}
+          minDate={mockMinDate}
+          minVale={mockMinValue}
+          maxDate={mockMaxDate}
+          maxValue={mockMaxValue}
+          endDate={mockEndDate}
+          endValue={mockEndValue}
+        />
+        <DetailsMainBacktestingList
+          changeBest={mockChangeBest}
+          changeWorst={mockChangeWorst}
+          mddMaxToMin={mockMddMaxToMin}
+          standardDeviation={mockStandardDeviation}
+          sharpeRatio={mockSharpeRatio}
+          cagr={mockCagr}
+        />
       </div>
     </div>
   );
