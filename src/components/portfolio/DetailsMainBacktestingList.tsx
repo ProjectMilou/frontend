@@ -3,6 +3,10 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import TrendingDownIcon from '@material-ui/icons/TrendingDown';
 import WarningIcon from '@material-ui/icons/Warning';
@@ -15,6 +19,12 @@ import EuroCurrency from '../shared/EuroCurrency';
 import Performance from '../shared/Performance';
 
 const useStyles = makeStyles((theme) => ({
+  accordion: {
+    backgroundColor: theme.palette.primary.light,
+  },
+  expandButton: {
+    color: theme.palette.primary.contrastText,
+  },
   valueText: {
     color: theme.palette.primary.contrastText,
     fontSize: '1em',
@@ -64,15 +74,23 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
     <div>
       <List>
         <ListItem>
-          <ListItemText className={classes.valueText}>
-            {t('portfolio.details.backtesting.bestChange')}
-          </ListItemText>
-          <ListItemIcon>
-            <TrendingUpIcon className={classes.trendUp} />
-          </ListItemIcon>
-          <ListItemText className={classes.valueText}>
-            <EuroCurrency value={changeBest} size="1em" />
-          </ListItemText>
+          <Accordion className={classes.accordion}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon className={classes.expandButton} />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <ListItemIcon>
+                <TrendingUpIcon className={classes.trendUp} />
+              </ListItemIcon>
+              <ListItemText className={classes.valueText}>
+                <EuroCurrency value={changeBest} size="1em" />
+              </ListItemText>
+            </AccordionSummary>
+            <AccordionDetails className={classes.valueText}>
+              {t('portfolio.details.backtesting.bestChange')}
+            </AccordionDetails>
+          </Accordion>
         </ListItem>
         <ListItem>
           <ListItemText className={classes.valueText}>
