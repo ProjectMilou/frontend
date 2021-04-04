@@ -133,6 +133,7 @@ const MockFigures: KeyFigures[] = [
     ptg: 2,
     eps: 1,
     div: 5,
+    dividendPayoutRatio: 25,
   },
 ];
 

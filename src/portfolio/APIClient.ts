@@ -68,6 +68,7 @@ export type KeyFigures = {
   ptg: number;
   eps: number;
   div: number;
+  dividendPayoutRatio: number;
 };
 
 export type EmptyPortfolioDetails = {
@@ -167,8 +168,6 @@ function convertPortfolioDetails(response: DetailsResponse): PortfolioDetails {
       positions: r.positions.map((p) => ({
         ...p,
         stock: { ...p.stock, currency: p.stock.currency || '???' },
-        totalReturn: p.totalReturn || 0,
-        totalReturnPercent: p.totalReturnPercent || 0,
       })),
     };
   }
