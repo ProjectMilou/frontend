@@ -46,29 +46,25 @@ const PortfolioOverview: React.FC<PortfolioOverviewProps> = ({
           <DashboardViewSelect view={view} setView={setView} />
         )}
       </div>
-      {!portfolios.length && (
-        <Typography>{t('portfolio.dashboard.noPortfolios')}</Typography>
+      {view === DashboardView.Table ? (
+        <DashboardTable
+          portfolios={portfolios}
+          selectPortfolio={selectPortfolio}
+          renamePortfolio={renamePortfolio}
+          duplicatePortfolio={duplicatePortfolio}
+          deletePortfolio={deletePortfolio}
+          createPortfolio={createPortfolio}
+        />
+      ) : (
+        <DashboardCards
+          portfolios={portfolios}
+          selectPortfolio={selectPortfolio}
+          renamePortfolio={renamePortfolio}
+          duplicatePortfolio={duplicatePortfolio}
+          deletePortfolio={deletePortfolio}
+          createPortfolio={createPortfolio}
+        />
       )}
-      {!!portfolios.length &&
-        (view === DashboardView.Table ? (
-          <DashboardTable
-            portfolios={portfolios}
-            selectPortfolio={selectPortfolio}
-            renamePortfolio={renamePortfolio}
-            duplicatePortfolio={duplicatePortfolio}
-            deletePortfolio={deletePortfolio}
-            createPortfolio={createPortfolio}
-          />
-        ) : (
-          <DashboardCards
-            portfolios={portfolios}
-            selectPortfolio={selectPortfolio}
-            renamePortfolio={renamePortfolio}
-            duplicatePortfolio={duplicatePortfolio}
-            deletePortfolio={deletePortfolio}
-            createPortfolio={createPortfolio}
-          />
-        ))}
     </>
   );
 };

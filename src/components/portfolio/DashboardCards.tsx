@@ -12,12 +12,9 @@ import {
   Typography,
 } from '@material-ui/core';
 import AddBoxIcon from '@material-ui/icons/AddBox';
-// TODO: possible rename of shared props types
-import {
-  DashboardTableProps,
-  DashboardTableRowProps,
-  DashboardTableActions,
-} from './DashboardTable';
+import * as API from '../../portfolio/APIClient';
+import { PortfolioOverview } from '../../portfolio/APIClient';
+import DashboardActions from './DashboardActions';
 import EuroCurrency from '../shared/EuroCurrency';
 
 const useStyles = makeStyles(() => ({
@@ -57,7 +54,15 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const CardComponent: React.FC<DashboardTableRowProps> = ({
+type CardComponentProps = {
+  portfolio: PortfolioOverview;
+  selectPortfolio: (id: string) => void;
+  renamePortfolio: (id: string) => void;
+  duplicatePortfolio: (id: string) => void;
+  deletePortfolio: (id: string) => void;
+};
+
+const CardComponent: React.FC<CardComponentProps> = ({
   portfolio,
   renamePortfolio,
   duplicatePortfolio,
@@ -78,7 +83,7 @@ const CardComponent: React.FC<DashboardTableRowProps> = ({
         </div>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <DashboardTableActions
+        <DashboardActions
           portfolio={portfolio}
           renamePortfolio={renamePortfolio}
           duplicatePortfolio={duplicatePortfolio}
@@ -89,7 +94,16 @@ const CardComponent: React.FC<DashboardTableRowProps> = ({
   );
 };
 
-const DashboardCards: React.FC<DashboardTableProps> = ({
+export type DashboardCardsProps = {
+  portfolios: API.PortfolioOverview[];
+  selectPortfolio: (id: string) => void;
+  renamePortfolio: (id: string) => void;
+  duplicatePortfolio: (id: string) => void;
+  deletePortfolio: (id: string) => void;
+  createPortfolio: () => void;
+};
+
+const DashboardCards: React.FC<DashboardCardsProps> = ({
   portfolios,
   selectPortfolio,
   renamePortfolio,

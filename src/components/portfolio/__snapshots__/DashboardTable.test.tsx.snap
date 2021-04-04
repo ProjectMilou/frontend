@@ -63,7 +63,7 @@ exports[`DashboardTable display portfolio information 1`] = `
         class="MuiTableBody-root"
       >
         <tr
-          class="MuiTableRow-root makeStyles-row-2"
+          class="MuiTableRow-root makeStyles-row-8"
         >
           <td
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
@@ -89,7 +89,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             </div>
           </th>
           <td
-            class="MuiTableCell-root MuiTableCell-body makeStyles-positionCount-4 MuiTableCell-alignCenter"
+            class="MuiTableCell-root MuiTableCell-body makeStyles-positionCount-10 MuiTableCell-alignCenter"
           >
             3
           </td>
@@ -97,7 +97,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
             <span
-              class="makeStyles-euroCurrency-7 makeStyles-euroCurrency-8"
+              class="makeStyles-euroCurrency-13 makeStyles-euroCurrency-14"
             >
               9,00 €
             </span>
@@ -106,7 +106,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
             <span
-              class="makeStyles-performance-9 makeStyles-performance-10"
+              class="makeStyles-performance-15 makeStyles-performance-16"
             >
               -1,23 %
             </span>
@@ -115,7 +115,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
             <span
-              class="makeStyles-performance-9 makeStyles-performance-11"
+              class="makeStyles-performance-15 makeStyles-performance-17"
             >
               13,37 %
             </span>
@@ -124,7 +124,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
             <div
-              class="makeStyles-action-1"
+              class="makeStyles-action-18"
               title="portfolio.rename"
             >
               <button
@@ -152,7 +152,7 @@ exports[`DashboardTable display portfolio information 1`] = `
               </button>
             </div>
             <div
-              class="makeStyles-action-1"
+              class="makeStyles-action-18"
               title="portfolio.duplicate"
             >
               <button
@@ -180,7 +180,7 @@ exports[`DashboardTable display portfolio information 1`] = `
               </button>
             </div>
             <div
-              class="makeStyles-action-1"
+              class="makeStyles-action-18"
               title="portfolio.delete"
             >
               <button
@@ -210,7 +210,7 @@ exports[`DashboardTable display portfolio information 1`] = `
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root makeStyles-row-2"
+          class="MuiTableRow-root makeStyles-row-8"
         >
           <td
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
@@ -238,7 +238,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             </div>
           </th>
           <td
-            class="MuiTableCell-root MuiTableCell-body makeStyles-positionCount-4 MuiTableCell-alignCenter"
+            class="MuiTableCell-root MuiTableCell-body makeStyles-positionCount-10 MuiTableCell-alignCenter"
           >
             4
           </td>
@@ -246,7 +246,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
             <span
-              class="makeStyles-euroCurrency-7 makeStyles-euroCurrency-12"
+              class="makeStyles-euroCurrency-13 makeStyles-euroCurrency-20"
             >
               3,00 €
             </span>
@@ -255,7 +255,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
             <span
-              class="makeStyles-performance-9 makeStyles-performance-13"
+              class="makeStyles-performance-15 makeStyles-performance-21"
             >
               0,00 %
             </span>
@@ -264,7 +264,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
             <span
-              class="makeStyles-performance-9 makeStyles-performance-14"
+              class="makeStyles-performance-15 makeStyles-performance-22"
             >
               -1,00 %
             </span>
@@ -273,7 +273,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
             <div
-              class="makeStyles-action-1"
+              class="makeStyles-action-18"
               title="portfolio.rename"
             >
               <button
@@ -301,7 +301,7 @@ exports[`DashboardTable display portfolio information 1`] = `
               </button>
             </div>
             <div
-              class="makeStyles-action-1"
+              class="makeStyles-action-18"
               title="portfolio.duplicate"
             >
               <button
@@ -329,7 +329,7 @@ exports[`DashboardTable display portfolio information 1`] = `
               </button>
             </div>
             <div
-              class="makeStyles-action-1 makeStyles-disabled-5"
+              class="makeStyles-action-18 makeStyles-disabled-19"
               title="portfolio.deleteReal"
             >
               <button
@@ -360,7 +360,7 @@ exports[`DashboardTable display portfolio information 1`] = `
     </table>
   </div>
   <button
-    class="MuiButtonBase-root MuiButton-root MuiButton-outlined makeStyles-createButton-6 MuiButton-outlinedPrimary"
+    class="MuiButtonBase-root MuiButton-root MuiButton-outlined makeStyles-createButton-12 MuiButton-outlinedPrimary"
     tabindex="0"
     type="button"
   >
