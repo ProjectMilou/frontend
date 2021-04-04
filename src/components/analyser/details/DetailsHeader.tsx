@@ -1,5 +1,6 @@
 import React from 'react';
-import { Container, makeStyles, Typography } from '@material-ui/core';
+import { IconButton, Container, makeStyles, Typography } from '@material-ui/core';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useTranslation } from 'react-i18next';
 import TextOverText from '../TextOverText';
 import * as API from '../../../analyser/APIClient';
@@ -7,6 +8,8 @@ import EuroCurrency from '../../shared/EuroCurrency';
 
 export type DetailsProps = {
   details: API.Stock;
+    // function to return to the dashboard
+    back: () => void;
 };
 
 const useStyles = makeStyles({
@@ -28,11 +31,17 @@ const useStyles = makeStyles({
     color: '#EEF1FB',
     minWidth: '50%',
     maxWidth: '1000px',
+    marginLeft: '100px',
   },
   infoValueWrapper: {
     display: 'flex',
     justifyContent: 'space-around',
     width: '100%',
+  },
+  backButtonContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    height: '100%',
   },
 });
 
@@ -46,7 +55,10 @@ function chooseSymbol(val: API.Stock): string {
   return val.name.length > 25 ? val.symbol : val.name;
 }
 
-const DetailsHeader: React.FC<DetailsProps> = ({ details }) => {
+const DetailsHeader: React.FC<DetailsProps> = ({ 
+  details,
+  back,
+ }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   return (
@@ -57,6 +69,15 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details }) => {
             className={classes.infoValueWrapper}
             style={{ flexBasis: '35%' }}
           >
+            <div className={classes.backButtonContainer}>
+              <IconButton
+                aria-label="back"
+                onClick={back}
+                style={{ backgroundColor: 'transparent' }}
+              >
+                <ArrowBackIosIcon fontSize="large" style={{ color: '#EEF1FB' }} />
+              </IconButton>
+            </div>
             {chooseSymbol(details)}
             <>&emsp;&emsp;&emsp;</>
             <EuroCurrency
