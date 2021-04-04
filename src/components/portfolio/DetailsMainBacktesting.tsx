@@ -93,10 +93,19 @@ type DetailsMainBacktestingProps = {
 const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-  // TODO do these have to be strings? otherwise use date
-  const [selectedFrom, setSelectedFrom] = React.useState<string>('');
-  const [selectedTo, setSelectedTo] = React.useState<string>('');
+  const today = Date.now();
+  const twoYearsBack = new Date(today - 63113904000);
+  const oneYearBack = new Date(today - 31556952000);
+
+  // have to be string because native input, mui does not provide date picker in this version
+  const [selectedFrom, setSelectedFrom] = React.useState<string>(
+    twoYearsBack.toISOString().split('T')[0]
+  );
+  const [selectedTo, setSelectedTo] = React.useState<string>(
+    oneYearBack.toISOString().split('T')[0]
+  );
   const [helperText, setHelperText] = React.useState<string>('');
+  const [disabled, setDisabled] = React.useState<boolean>(false);
 
   useEffect(() => {
     const from = Date.parse(selectedFrom);
@@ -105,7 +114,9 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = () => {
       setHelperText(t('portfolio.details.backtesting.dateHelperText'));
     } else {
       setHelperText('');
-      // TODO api call and update info
+      setDisabled(true);
+      // TODO api call and update info, wait for the update
+      setTimeout(() => setDisabled(false), 3000);
     }
   }, [selectedFrom, selectedTo, t]);
 
@@ -120,6 +131,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = () => {
           <TextField
             id="dateFrom"
             type="date"
+            disabled={disabled}
             value={selectedFrom}
             variant="outlined"
             onChange={(e) => setSelectedFrom(e.target.value)}
@@ -136,6 +148,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = () => {
           <TextField
             id="dateTo"
             type="date"
+            disabled={disabled}
             helperText={helperText}
             error={!(helperText === '')}
             value={selectedTo}
