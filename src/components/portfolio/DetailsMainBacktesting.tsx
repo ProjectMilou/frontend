@@ -79,7 +79,7 @@ const mockEndValue = 970.43;
 // mock for list
 const mockChangeBest = 210.5;
 const mockChangeWorst = -70.56;
-const mockMddMaxToMin = 65;
+const mockMddMaxToMin = -65;
 const mockStandardDeviation = 12.1;
 const mockSharpeRatio = 0.65;
 const mockCagr = 5.42;

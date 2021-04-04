@@ -93,7 +93,7 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
             <HeightIcon />
           </ListItemIcon>
           <ListItemText className={classes.valueText}>
-            <EuroCurrency value={mddMaxToMin} size="1em" />
+            <Performance value={mddMaxToMin} size="1em" noPaint />
           </ListItemText>
         </ListItem>
         <ListItem>
@@ -104,7 +104,7 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
             <WarningIcon />
           </ListItemIcon>
           <ListItemText className={classes.valueText}>
-            <Performance value={standardDeviation} size="1em" />
+            <Performance value={standardDeviation} size="1em" noPaint />
           </ListItemText>
         </ListItem>
         <ListItem>
@@ -125,7 +125,7 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
           <SpeedIcon />
         </ListItemIcon>
         <ListItemText className={classes.valueText}>
-          <Performance value={cagr} size="1em" />
+          <Performance value={cagr} size="1em" noPaint />
         </ListItemText>
       </ListItem>
     </div>

@@ -5,6 +5,7 @@ import { makeStyles, Theme } from '@material-ui/core';
 export type PerformanceProps = {
   value: number;
   size?: string;
+  noPaint?: boolean;
   thousandSeperator?: string;
   decimalSeperator?: string;
 };
@@ -13,6 +14,7 @@ const useStyles = makeStyles<Theme, PerformanceProps, string>({
   performance: {
     fontSize: (props) => props.size || '24px',
     color: (props) => {
+      if (props.noPaint) return 'inherit';
       switch (Math.sign(props.value)) {
         case -1:
           return '#B80C09';
