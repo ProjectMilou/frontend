@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
@@ -92,22 +92,32 @@ type DetailsMainBacktestingProps = {
 // returns the details page header
 const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = () => {
   const classes = useStyles();
-
+  const { t } = useTranslation();
+  // TODO do these have to be strings? otherwise use date
   const [selectedFrom, setSelectedFrom] = React.useState<string>('');
   const [selectedTo, setSelectedTo] = React.useState<string>('');
+  const [helperText, setHelperText] = React.useState<string>('');
+
+  useEffect(() => {
+    const from = Date.parse(selectedFrom);
+    const to = Date.parse(selectedTo);
+    if (to < from || Date.now() < to) {
+      setHelperText(t('portfolio.details.backtesting.dateHelperText'));
+    } else {
+      setHelperText('');
+      // TODO api call and update info
+    }
+  }, [selectedFrom, selectedTo, t]);
 
   return (
     <div className={classes.backtestingWrapper}>
       <p className={classes.subtitle}>
-        {/* TODO: use translation */}
-        Here you can see how your portfolio would have performed in the past
+        {t('portfolio.details.backtesting.subheading')}
       </p>
       <div className={classes.datePicker}>
-        {/* TODO: use translation */}
         <form className={classes.form} noValidate>
-          <p className={classes.subtitle}>From:</p>
+          <p className={classes.subtitle}>{t('portfolio.details.from')}:</p>
           <TextField
-            disabled
             id="dateFrom"
             type="date"
             value={selectedFrom}
@@ -122,10 +132,12 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = () => {
               className: classes.innerText,
             }}
           />
-          <p className={classes.subtitle}>To:</p>
+          <p className={classes.subtitle}>{t('portfolio.details.to')}:</p>
           <TextField
             id="dateTo"
             type="date"
+            helperText={helperText}
+            error={!(helperText === '')}
             value={selectedTo}
             variant="outlined"
             onChange={(e) => setSelectedTo(e.target.value)}
@@ -139,7 +151,6 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = () => {
             }}
           />
         </form>
-        {/* TODO: use translation */}
         <div className={classes.timelineListWrapper}>
           <DetailsMainBacktestingTimeline
             startDate={mockStartDate}
