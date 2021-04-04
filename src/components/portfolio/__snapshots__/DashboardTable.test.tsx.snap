@@ -97,7 +97,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
             <span
-              class="makeStyles-euroCurrency-6 makeStyles-euroCurrency-7"
+              class="makeStyles-euroCurrency-7 makeStyles-euroCurrency-8"
             >
               9,00 €
             </span>
@@ -106,7 +106,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
             <span
-              class="makeStyles-performance-8 makeStyles-performance-9"
+              class="makeStyles-performance-9 makeStyles-performance-10"
             >
               -1,23 %
             </span>
@@ -115,7 +115,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
             <span
-              class="makeStyles-performance-8 makeStyles-performance-10"
+              class="makeStyles-performance-9 makeStyles-performance-11"
             >
               13,37 %
             </span>
@@ -246,7 +246,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
             <span
-              class="makeStyles-euroCurrency-6 makeStyles-euroCurrency-11"
+              class="makeStyles-euroCurrency-7 makeStyles-euroCurrency-12"
             >
               3,00 €
             </span>
@@ -255,7 +255,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
             <span
-              class="makeStyles-performance-8 makeStyles-performance-12"
+              class="makeStyles-performance-9 makeStyles-performance-13"
             >
               0,00 %
             </span>
@@ -264,7 +264,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
             <span
-              class="makeStyles-performance-8 makeStyles-performance-13"
+              class="makeStyles-performance-9 makeStyles-performance-14"
             >
               -1,00 %
             </span>
@@ -359,5 +359,19 @@ exports[`DashboardTable display portfolio information 1`] = `
       </tbody>
     </table>
   </div>
+  <button
+    class="MuiButtonBase-root MuiButton-root MuiButton-outlined makeStyles-createButton-6 MuiButton-outlinedPrimary"
+    tabindex="0"
+    type="button"
+  >
+    <span
+      class="MuiButton-label"
+    >
+      portfolio.dashboard.createPortfolio
+    </span>
+    <span
+      class="MuiTouchRipple-root"
+    />
+  </button>
 </div>
 `;
