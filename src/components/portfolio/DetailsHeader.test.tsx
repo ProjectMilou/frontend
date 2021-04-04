@@ -9,7 +9,12 @@ const mockBack = jest.fn();
 
 test('Details header renders correctly', async () => {
   render(
-    <DetailsHeader back={mockBack} name={testName} positions={MockPositions} />
+    <DetailsHeader
+      back={mockBack}
+      name={testName}
+      positions={MockPositions}
+      editPositions={jest.fn()}
+    />
   );
 
   screen.getByText(testName);

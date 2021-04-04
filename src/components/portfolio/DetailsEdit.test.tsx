@@ -26,7 +26,7 @@ const mockPositions: Position[] = [
 
 describe('Details Edit', () => {
   test('renders and the buttons work', () => {
-    render(<DetailsEdit positions={mockPositions} />);
+    render(<DetailsEdit positions={mockPositions} edit={jest.fn()} />);
     const editButton = screen.getByText('portfolio.details.editPortfolio');
     userEvent.click(editButton);
     screen.getByText('portfolio.details.dialogHeader');

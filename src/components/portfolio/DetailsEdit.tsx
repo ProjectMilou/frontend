@@ -14,7 +14,9 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useTranslation } from 'react-i18next';
 import { List, ListItem } from '@material-ui/core';
-import { Position } from '../../portfolio/APIClient';
+import { Position, PositionQty } from '../../portfolio/APIClient';
+import ProgressButton from './ProgressButton';
+import { ErrorCode, errorMessageKey, errorTitleKey } from '../../Errors';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -106,6 +108,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type DetailsEditProps = {
   positions?: Position[];
+  edit: (modifications: PositionQty[]) => Promise<void>;
 };
 
 // needed for tempPos (tracking user input to the amount text fields)
@@ -113,18 +116,29 @@ type IsinToAmount = {
   [key: string]: string;
 };
 
-const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
+const DetailsEdit: React.FC<DetailsEditProps> = ({ positions, edit }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
+  // TODO: refactor state hooks to a reducer
   // A state that controls whether the dialog window is open or closed
   const [open, setOpen] = React.useState(false);
+  // true when waiting for an API response
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [error, setError] = React.useState<ErrorCode | undefined>();
 
   // the following tracks the temporary state of the amount for each position that the user enters
   // the amount is formatted as string because the user might enter NaN values
   // TODO: fix this mess
   const [tempPos, setTempPos] = useState<IsinToAmount>({});
-  React.useEffect(() => {
+
+  const closeDialog = () => setOpen(false);
+  const openDialog = () => {
+    // reset the dialog's state on (re-)open
+    setLoading(false);
+    setError(undefined);
+    setOpen(true);
+
     const isinToAmount: IsinToAmount = {};
     if (positions) {
       positions.forEach((p) => {
@@ -132,7 +146,7 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
       });
     }
     setTempPos(isinToAmount);
-  }, [positions]);
+  };
 
   // helper function for minus button
   const decrement = (isin: string) => {
@@ -168,33 +182,23 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
   // pattern for testing input fields
   const pattern = /^(?:[1-9]\d*|0)?(?:\.\d+)?$/;
 
-  const handleSaveChanges = () => {
-    // TODO implement logic for api call and updating the global positions in details
-    // TODO watch out right now empty input is also allowed ("")
-    // console.log(tempPos);
-    setOpen(false);
-  };
-
-  const handleDiscardChanges = () => {
-    // TODO implement logic for properly closing the dialog.
-    // each time it is rendered from scratch it should take the start values from positions again
-    setOpen(false);
-  };
-
   return (
     <div className={classes.subContainer}>
       <Button
         variant="contained"
         className={classes.editButton}
-        onClick={() => setOpen(true)}
+        onClick={() => openDialog()}
         disabled={!positions?.length}
       >
         {t('portfolio.details.editPortfolio')}
       </Button>
       <Dialog
-        onClose={() => setOpen(false)}
+        onClose={() => closeDialog()}
         open={open}
         className={classes.Dialog}
+        // prevent closing the dialog while loading
+        disableBackdropClick={loading}
+        disableEscapeKeyDown={loading}
       >
         {/* The header of the dialog window */}
         <MuiDialogTitle
@@ -207,7 +211,7 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
           <IconButton
             aria-label="close"
             className={classes.headerCloseButton}
-            onClick={handleDiscardChanges}
+            onClick={() => closeDialog()}
           >
             <CloseIcon />
           </IconButton>
@@ -294,22 +298,48 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
                 </ListItem>
               ))}
           </List>
+          {error && (
+            <Typography color="error">
+              <b>{t(errorTitleKey(error))}</b>: {t(errorMessageKey(error))}
+            </Typography>
+          )}
         </MuiDialogContent>
         <MuiDialogActions className={classes.dialogHeaderFooter}>
-          <Button onClick={handleDiscardChanges} color="primary">
+          <Button
+            disabled={loading}
+            onClick={() => closeDialog()}
+            color="primary"
+          >
             {t('portfolio.details.discardChanges')}
           </Button>
-          <Button
-            onClick={handleSaveChanges}
+          <ProgressButton
+            onClick={async () => {
+              setLoading(true);
+              try {
+                await edit(
+                  Object.entries(tempPos).map(([isin, qty]) => ({
+                    isin,
+                    // TODO: use react-number-format for validation,
+                    //  store numbers instead of strings, avoid converting
+                    qty: Number.parseFloat(qty),
+                  }))
+                );
+                closeDialog();
+              } catch (e) {
+                setLoading(false);
+                setError(e.message);
+              }
+            }}
             color="primary"
             disabled={
               !Object.values(tempPos)
                 .map((stringAmount) => pattern.test(stringAmount))
                 .every((v) => v)
             }
+            loading={loading}
           >
             {t('portfolio.details.saveChanges')}
-          </Button>
+          </ProgressButton>
         </MuiDialogActions>
       </Dialog>
     </div>

@@ -89,6 +89,11 @@ export type NonEmptyPortfolioDetails = {
 
 export type PortfolioDetails = EmptyPortfolioDetails | NonEmptyPortfolioDetails;
 
+export type PositionQty = {
+  isin: string;
+  qty: number;
+};
+
 // Types describing the JSON response of API calls.
 // The correctness of these types is assumed, no checks are performed.
 
@@ -300,4 +305,17 @@ export async function create(token: string, name: string): Promise<string> {
     JSON.stringify({ name })
   )) as CreateResponse;
   return response.id;
+}
+
+export async function modify(
+  token: string,
+  id: string,
+  modifications: PositionQty[]
+): Promise<void> {
+  await request(
+    token,
+    'PUT',
+    `modify/${id}`,
+    JSON.stringify({ modifications })
+  );
 }

@@ -87,6 +87,11 @@ const Details: React.FC<DetailsProps> = ({ token, id, back }) => {
           back={back}
           name={portfolioDetails?.overview.name}
           positions={portfolioDetails?.positions}
+          editPositions={async (modifications) => {
+            await API.modify(token, id, modifications);
+            // reload portfolio details after successful edit
+            await fetch();
+          }}
         />
       </div>
       {!portfolioDetails && !error && <LinearProgress color="secondary" />}

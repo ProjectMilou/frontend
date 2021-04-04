@@ -4,6 +4,7 @@ import {
   details,
   duplicate,
   list,
+  modify,
   rename,
 } from './APIClient';
 import { MockDetails, MockOverview, MockOverviewTwo } from './APIMocks';
@@ -125,6 +126,17 @@ describe('Portfolio API client', () => {
     test('resolves on success', async () => {
       fetchMock.mockResponseOnce(JSON.stringify({ id: '0' }));
       await expect(apiCall()).resolves.toEqual('0');
+    });
+
+    errorHandlingTests(apiCall);
+  });
+
+  describe('modify', () => {
+    const apiCall = () => modify('', '0', [{ isin: '0', qty: 5 }]);
+
+    test('resolves on success', async () => {
+      fetchMock.mockResponseOnce(JSON.stringify({}));
+      await expect(apiCall()).resolves.toBeUndefined();
     });
 
     errorHandlingTests(apiCall);

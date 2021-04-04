@@ -2,7 +2,7 @@ import React from 'react';
 import { IconButton, makeStyles, createStyles, Theme } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import DetailsEdit from './DetailsEdit';
-import { Position } from '../../portfolio/APIClient';
+import { Position, PositionQty } from '../../portfolio/APIClient';
 
 // stylesheet for the header of the details page
 const useStyles = makeStyles(({ typography }: Theme) =>
@@ -43,6 +43,8 @@ export type DetailsHeaderProps = {
   name?: string;
   // list of positions
   positions?: Position[];
+  // function to save modifications to portfolio positions
+  editPositions: (modifications: PositionQty[]) => Promise<void>;
 };
 
 // returns the details page header
@@ -50,6 +52,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
   back,
   name,
   positions,
+  editPositions,
 }) => {
   const classes = useStyles();
 
@@ -67,7 +70,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
         </div>
         <div>{name && <span className={classes.title}>{name}</span>}</div>
       </div>
-      <DetailsEdit positions={positions} />
+      <DetailsEdit positions={positions} edit={editPositions} />
     </div>
   );
 };
