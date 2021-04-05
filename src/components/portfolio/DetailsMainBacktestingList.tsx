@@ -30,9 +30,14 @@ const useStyles = makeStyles((theme) => ({
   expandButton: {
     color: theme.palette.primary.contrastText,
   },
+  labelText: {
+    color: theme.palette.primary.contrastText,
+    fontSize: '1em',
+  },
   valueText: {
     color: theme.palette.primary.contrastText,
     fontSize: '1em',
+    textAlign: 'right',
   },
   listIcon: {
     justifyContent: 'center',
@@ -79,6 +84,7 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
   const classes = useStyles();
   const { t } = useTranslation();
 
+  // TODO replace description placeholder with actual description
   return (
     <List className={classes.list}>
       <ListItem>
@@ -90,13 +96,16 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
           >
             <ListItemIcon className={classes.listIcon}>
               <TrendingUpIcon className={classes.trendUp} />
-            </ListItemIcon>
+            </ListItemIcon>{' '}
+            <ListItemText className={classes.labelText}>
+              {t('portfolio.details.backtesting.bestChange')}
+            </ListItemText>
             <ListItemText className={classes.valueText}>
               <EuroCurrency value={changeBest} size="1em" />
             </ListItemText>
           </AccordionSummary>
-          <AccordionDetails className={classes.valueText}>
-            {t('portfolio.details.backtesting.bestChange')}
+          <AccordionDetails className={classes.labelText}>
+            Description placeholder
           </AccordionDetails>
         </Accordion>
       </ListItem>
@@ -110,12 +119,15 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
             <ListItemIcon className={classes.listIcon}>
               <TrendingDownIcon className={classes.trendDown} />
             </ListItemIcon>
+            <ListItemText className={classes.labelText}>
+              {t('portfolio.details.backtesting.worstChange')}
+            </ListItemText>
             <ListItemText className={classes.valueText}>
               <EuroCurrency value={changeWorst} size="1em" />
             </ListItemText>
           </AccordionSummary>
-          <AccordionDetails className={classes.valueText}>
-            {t('portfolio.details.backtesting.worstChange')}
+          <AccordionDetails className={classes.labelText}>
+            Description placeholder
           </AccordionDetails>
         </Accordion>
       </ListItem>
@@ -129,12 +141,15 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
             <ListItemIcon className={classes.listIcon}>
               <HeightIcon className={classes.mdd} />
             </ListItemIcon>
+            <ListItemText className={classes.labelText}>
+              {t('portfolio.details.backtesting.mddMinMax')}
+            </ListItemText>
             <ListItemText className={classes.valueText}>
               <Performance value={mddMaxToMin} size="1em" noPaint />
             </ListItemText>
           </AccordionSummary>
-          <AccordionDetails className={classes.valueText}>
-            {t('portfolio.details.backtesting.mddMinMax')}
+          <AccordionDetails className={classes.labelText}>
+            Description placeholder
           </AccordionDetails>
         </Accordion>
       </ListItem>
@@ -148,12 +163,15 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
             <ListItemIcon className={classes.listIcon}>
               <WarningIcon className={classes.beta} />
             </ListItemIcon>
+            <ListItemText className={classes.labelText}>
+              {t('portfolio.details.backtesting.standardDeviation')}
+            </ListItemText>
             <ListItemText className={classes.valueText}>
               <Performance value={standardDeviation} size="1em" noPaint />
             </ListItemText>
           </AccordionSummary>
-          <AccordionDetails className={classes.valueText}>
-            {t('portfolio.details.backtesting.standardDeviation')}
+          <AccordionDetails className={classes.labelText}>
+            Description placeholder
           </AccordionDetails>
         </Accordion>
       </ListItem>
@@ -167,12 +185,15 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
             <ListItemIcon className={classes.listIcon}>
               <NewReleasesIcon className={classes.sharpe} />
             </ListItemIcon>
+            <ListItemText className={classes.labelText}>
+              {t('portfolio.details.backtesting.sharpeRatio')}
+            </ListItemText>
             <ListItemText className={classes.valueText}>
               {sharpeRatio}
             </ListItemText>
           </AccordionSummary>
-          <AccordionDetails className={classes.valueText}>
-            {t('portfolio.details.backtesting.sharpeRatio')}
+          <AccordionDetails className={classes.labelText}>
+            Description placeholder
           </AccordionDetails>
         </Accordion>
       </ListItem>
@@ -186,12 +207,15 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
             <ListItemIcon className={classes.listIcon}>
               <SpeedIcon className={classes.cagr} />
             </ListItemIcon>
+            <ListItemText className={classes.labelText}>
+              {t('portfolio.details.backtesting.cagr')}
+            </ListItemText>
             <ListItemText className={classes.valueText}>
               <Performance value={cagr} size="1em" noPaint />
             </ListItemText>
           </AccordionSummary>
-          <AccordionDetails className={classes.valueText}>
-            {t('portfolio.details.backtesting.cagr')}
+          <AccordionDetails className={classes.labelText}>
+            Description placeholder
           </AccordionDetails>
         </Accordion>
       </ListItem>
