@@ -70,7 +70,9 @@ const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
       onMouseLeave={() => setHover(false)}
       className={classNames(classes.row, hover && classes.rowHover)}
     >
-      <TableCell align="center">{portfolio.score}</TableCell>
+      <TableCell align="center">
+        {'score' in portfolio && portfolio.score}
+      </TableCell>
       <TableCell align="center" component="th" scope="row">
         <ListItemText
           primary={<Typography color="primary">{portfolio.name}</Typography>}

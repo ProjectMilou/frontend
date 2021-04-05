@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 import CheckIcon from '@material-ui/icons/Check';
 import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 import DetailsDonut from './DetailsDonut';
-import { RiskAnalysis, Risk, Position } from './DetailsTypes';
+import { Position, Risk, RiskAnalysis } from '../../portfolio/APIClient';
+import { riskPortions } from '../../portfolio/Risk';
 
 // stylesheet for the risk analysis section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -125,10 +126,9 @@ const RiskComp: React.FC<RiskCompProps> = ({
             {convertScoreToIcon(risk.score)}
           </div>
           <div className={classes.countWrapper}>
-            {/* TODO: change to actuall count, not score */}
-            <p style={{ color: convertScoreToColor(risk.score), margin: 0 }}>
-              {risk.score}
-            </p>
+            <div style={{ color: convertScoreToColor(risk.score) }}>
+              {risk.count}
+            </div>
           </div>
           <div className={classes.subtitleWrapper}>
             <p>{title}</p>
@@ -155,32 +155,43 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
   const classes = useStyles();
   const { t } = useTranslation();
 
+  const countriesRisk = React.useMemo(
+    () => riskPortions(positions, (p) => p.stock.country),
+    [positions]
+  );
+
+  const segmentsRisk = React.useMemo(
+    () => riskPortions(positions, (p) => p.stock.industry),
+    [positions]
+  );
+
+  const currencyRisk = React.useMemo(
+    () => riskPortions(positions, (p) => p.stock.currency),
+    [positions]
+  );
+
   return (
     <div className={classes.riskContainer}>
       <RiskComp
         risk={risk.countries}
         title={t('portfolio.details.countries')}
         // TODO: deal with overflow (too many names)
-        labels={Array.from(new Set(positions.map((p) => p.stock.country)))}
-        // TODO: replace with actuall count
-        portions={[3, 1]}
+        labels={Object.keys(countriesRisk)}
+        portions={Object.values(countriesRisk)}
       />
       <RiskComp
         risk={risk.segments}
         title={t('portfolio.details.segments')}
         // TODO: deal with overflow (too many names)
-        labels={Array.from(new Set(positions.map((p) => p.stock.industry)))}
-        // TODO: replace with actuall count
-        portions={[6, 1]}
+        labels={Object.keys(segmentsRisk)}
+        portions={Object.values(segmentsRisk)}
       />
       <RiskComp
         risk={risk.currency}
         title={t('portfolio.details.currency')}
         // TODO: deal with overflow (too many names)
-        // TODO: replace with actuall currency
-        labels={Array.from(new Set(positions.map((p) => p.stock.country)))}
-        // TODO: replace with actuall count
-        portions={[1, 1]}
+        labels={Object.keys(currencyRisk)}
+        portions={Object.values(currencyRisk)}
       />
     </div>
   );

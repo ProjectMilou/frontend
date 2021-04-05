@@ -14,7 +14,9 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useTranslation } from 'react-i18next';
 import { List, ListItem } from '@material-ui/core';
-import { Position } from './DetailsTypes';
+import { Position, PositionQty } from '../../portfolio/APIClient';
+import ProgressButton from './ProgressButton';
+import { ErrorCode, errorMessageKey, errorTitleKey } from '../../Errors';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -105,7 +107,8 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type DetailsEditProps = {
-  positions: Position[];
+  positions?: Position[];
+  edit: (modifications: PositionQty[]) => Promise<void>;
 };
 
 // needed for tempPos (tracking user input to the amount text fields)
@@ -113,20 +116,37 @@ type IsinToAmount = {
   [key: string]: string;
 };
 
-const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
+const DetailsEdit: React.FC<DetailsEditProps> = ({ positions, edit }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
+  // TODO: refactor state hooks to a reducer
   // A state that controls whether the dialog window is open or closed
   const [open, setOpen] = React.useState(false);
+  // true when waiting for an API response
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [error, setError] = React.useState<ErrorCode | undefined>();
 
   // the following tracks the temporary state of the amount for each position that the user enters
   // the amount is formatted as string because the user might enter NaN values
-  const isinToAmount: IsinToAmount = {};
-  positions.forEach((p) => {
-    isinToAmount[p.stock.isin] = p.qty.toString();
-  });
-  const [tempPos, setTempPos] = useState(isinToAmount);
+  // TODO: fix this mess
+  const [tempPos, setTempPos] = useState<IsinToAmount>({});
+
+  const closeDialog = () => setOpen(false);
+  const openDialog = () => {
+    // reset the dialog's state on (re-)open
+    setLoading(false);
+    setError(undefined);
+    setOpen(true);
+
+    const isinToAmount: IsinToAmount = {};
+    if (positions) {
+      positions.forEach((p) => {
+        isinToAmount[p.stock.isin] = p.qty.toString();
+      });
+    }
+    setTempPos(isinToAmount);
+  };
 
   // helper function for minus button
   const decrement = (isin: string) => {
@@ -162,32 +182,23 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
   // pattern for testing input fields
   const pattern = /^(?:[1-9]\d*|0)?(?:\.\d+)?$/;
 
-  const handleSaveChanges = () => {
-    // TODO implement logic for api call and updating the global positions in details
-    // TODO watch out right now empty input is also allowed ("")
-    // console.log(tempPos);
-    setOpen(false);
-  };
-
-  const handleDiscardChanges = () => {
-    // TODO implement logic for properly closing the dialog.
-    // each time it is rendered from scratch it should take the start values from positions again
-    setOpen(false);
-  };
-
   return (
     <div className={classes.subContainer}>
       <Button
         variant="contained"
         className={classes.editButton}
-        onClick={() => setOpen(true)}
+        onClick={() => openDialog()}
+        disabled={!positions?.length}
       >
         {t('portfolio.details.editPortfolio')}
       </Button>
       <Dialog
-        onClose={() => setOpen(false)}
+        onClose={() => closeDialog()}
         open={open}
         className={classes.Dialog}
+        // prevent closing the dialog while loading
+        disableBackdropClick={loading}
+        disableEscapeKeyDown={loading}
       >
         {/* The header of the dialog window */}
         <MuiDialogTitle
@@ -200,99 +211,135 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions }) => {
           <IconButton
             aria-label="close"
             className={classes.headerCloseButton}
-            onClick={handleDiscardChanges}
+            onClick={() => closeDialog()}
           >
             <CloseIcon />
           </IconButton>
         </MuiDialogTitle>
         <MuiDialogContent dividers className={classes.DialogContent}>
           <div className={classes.legendWrapper}>
-            <p className={classes.legendItem}>{t('portfolio.details.stock')}</p>
-            <p className={classes.legendItem}>{t('portfolio.details.price')}</p>
-            <p className={classes.legendItem}>
+            <span className={classes.legendItem}>
+              {t('portfolio.details.stock')}
+            </span>
+            <span className={classes.legendItem}>
+              {t('portfolio.details.price')}
+            </span>
+            <span className={classes.legendItem}>
               {t('portfolio.details.amount')}
-            </p>
+            </span>
           </div>
-          <List component="ol" className={classes.ol}>
+          <List className={classes.ol}>
             {/* the following map statement represents each position line (formerly "DetailsListEntry.tsx) */}
-            {positions.map((position) => (
-              <ListItem key={position.stock.isin} className={classes.listItem}>
-                <div className={classes.textDiv}>
-                  <p className={classes.text}>{position.stock.name}</p>
-                </div>
-                <div className={classes.textDivPrice}>
-                  <p className={classes.textPrice}>{position.stock.price}</p>
-                </div>
-                <div className={classes.userFields}>
-                  <IconButton
-                    aria-label="minus"
-                    onClick={() => decrement(position.stock.isin)}
-                  >
-                    <RemoveIcon />
-                  </IconButton>
-                  <TextField
-                    variant="outlined"
-                    value={tempPos[position.stock.isin]}
-                    error={!pattern.test(tempPos[position.stock.isin])}
-                    helperText={
-                      pattern.test(tempPos[position.stock.isin])
-                        ? undefined
-                        : 'Please enter a positive number!'
-                    }
-                    FormHelperTextProps={{
-                      className: classes.helperText,
-                    }}
-                    onChange={(e) => {
-                      // when a user changes the input field the tempPos state gets updated
-                      setTempPos({
-                        ...tempPos,
-                        [position.stock.isin]: e.target.value,
-                      });
-                    }}
-                    size="small"
-                    margin="dense"
-                    inputProps={{
-                      maxLength: 5,
-                      style: {
-                        textAlign: 'center',
-                        paddingRight: 0,
-                        paddingLeft: '0.2rem',
-                      },
-                    }}
-                    style={{ width: '4rem' }}
-                  />
-                  <IconButton
-                    aria-label="plus"
-                    onClick={() => increment(position.stock.isin)}
-                  >
-                    <AddIcon />
-                  </IconButton>
-                  <IconButton
-                    aria-label="zero"
-                    onClick={() => setToZero(position.stock.isin)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </div>
-              </ListItem>
-            ))}
+            {positions &&
+              positions.map((position) => (
+                <ListItem
+                  key={position.stock.isin}
+                  className={classes.listItem}
+                >
+                  <div className={classes.textDiv}>
+                    <span className={classes.text}>{position.stock.name}</span>
+                  </div>
+                  <div className={classes.textDivPrice}>
+                    <span className={classes.textPrice}>
+                      {position.stock.price}
+                    </span>
+                  </div>
+                  <div className={classes.userFields}>
+                    <IconButton
+                      aria-label="minus"
+                      onClick={() => decrement(position.stock.isin)}
+                    >
+                      <RemoveIcon />
+                    </IconButton>
+                    <TextField
+                      variant="outlined"
+                      value={tempPos[position.stock.isin]}
+                      error={!pattern.test(tempPos[position.stock.isin])}
+                      helperText={
+                        pattern.test(tempPos[position.stock.isin])
+                          ? undefined
+                          : 'Please enter a positive number!'
+                      }
+                      FormHelperTextProps={{
+                        className: classes.helperText,
+                      }}
+                      onChange={(e) => {
+                        // when a user changes the input field the tempPos state gets updated
+                        setTempPos({
+                          ...tempPos,
+                          [position.stock.isin]: e.target.value,
+                        });
+                      }}
+                      size="small"
+                      margin="dense"
+                      inputProps={{
+                        maxLength: 5,
+                        style: {
+                          textAlign: 'center',
+                          paddingRight: 0,
+                          paddingLeft: '0.2rem',
+                        },
+                      }}
+                      style={{ width: '4rem' }}
+                    />
+                    <IconButton
+                      aria-label="plus"
+                      onClick={() => increment(position.stock.isin)}
+                    >
+                      <AddIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="zero"
+                      onClick={() => setToZero(position.stock.isin)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </div>
+                </ListItem>
+              ))}
           </List>
+          {error && (
+            <Typography color="error">
+              <b>{t(errorTitleKey(error))}</b>: {t(errorMessageKey(error))}
+            </Typography>
+          )}
         </MuiDialogContent>
         <MuiDialogActions className={classes.dialogHeaderFooter}>
-          <Button onClick={handleDiscardChanges} color="primary">
+          <Button
+            disabled={loading}
+            onClick={() => closeDialog()}
+            color="primary"
+          >
             {t('portfolio.details.discardChanges')}
           </Button>
-          <Button
-            onClick={handleSaveChanges}
+          <ProgressButton
+            onClick={async () => {
+              setLoading(true);
+              try {
+                await edit(
+                  Object.entries(tempPos).map(([isin, qty]) => ({
+                    isin,
+                    // TODO: use react-number-format for validation,
+                    //  store numbers instead of strings, avoid converting
+                    qty: Number.parseFloat(qty),
+                  }))
+                );
+                closeDialog();
+              } catch (e) {
+                setLoading(false);
+                setError(e.message);
+              }
+            }}
             color="primary"
             disabled={
               !Object.values(tempPos)
                 .map((stringAmount) => pattern.test(stringAmount))
                 .every((v) => v)
             }
+            loading={loading}
           >
             {t('portfolio.details.saveChanges')}
-          </Button>
+          </ProgressButton>
         </MuiDialogActions>
       </Dialog>
     </div>

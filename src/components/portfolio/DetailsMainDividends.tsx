@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import {
   makeStyles,
   createStyles,
@@ -8,6 +8,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import RatioDonut from '../shared/RatioDonut';
 import KeyFiguresChart from '../shared/KeyFiguresChart';
+import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 
 // stylesheet for the dividend section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -61,18 +62,16 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 
 // type declarations
 type DetailsMainDividendsProps = {
-  nextDividend: number;
-  dividendPayoutRatio: number;
+  portfolio: NonEmptyPortfolioDetails;
 };
 
 // type declarations
 type InfoBlockProps = {
   title: string;
-  body: ReactElement;
 };
 
 // returns the details page header
-const InfoBlock: React.FC<InfoBlockProps> = ({ title, body }) => {
+const InfoBlock: React.FC<InfoBlockProps> = ({ title, children }) => {
   const classes = useStyles();
 
   return (
@@ -80,24 +79,23 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, body }) => {
       <div className={classes.infoTitle}>
         <p className={classes.infoTitleP}>{title}</p>
       </div>
-      <div className={classes.infoBody}>{body}</div>
+      <div className={classes.infoBody}>{children}</div>
     </div>
   );
 };
 
 // returns the details page header
 const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
-  nextDividend,
-  dividendPayoutRatio,
+  portfolio,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const mockSeries = [
+  const series = [
     {
-      name: 'Dividend Yield',
-      data: [30, 40, 45, 50, 50],
+      name: t('portfolio.details.divYield'),
+      data: portfolio.keyFigures.map((f) => f.div),
     },
   ];
 
@@ -106,30 +104,25 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
       <div className={classes.chartContainer}>
         {/* left side with graph */}
         <KeyFiguresChart
-          series={mockSeries}
+          series={series}
           height={450}
           textColor={theme.palette.primary.contrastText}
         />
       </div>
       <div className={classes.infoContainer}>
         {/* right side with info */}
-        <InfoBlock
-          title={t('portfolio.details.divYield')}
-          body={<p style={{ margin: 0 }}>tmp</p>}
-        />
-        <InfoBlock
-          title={t('portfolio.details.payout')}
-          body={
-            <RatioDonut
-              ratio={dividendPayoutRatio}
-              textColor={theme.palette.primary.contrastText}
-            />
-          }
-        />
-        <InfoBlock
-          title={t('portfolio.details.nextDate')}
-          body={<p style={{ margin: 0 }}>{nextDividend}</p>}
-        />
+        <InfoBlock title={t('portfolio.details.divYield')}>
+          {portfolio.keyFigures[portfolio.keyFigures.length - 1].div}
+        </InfoBlock>
+        <InfoBlock title={t('portfolio.details.payout')}>
+          <RatioDonut
+            ratio={portfolio.dividendPayoutRatio / 100}
+            textColor={theme.palette.primary.contrastText}
+          />
+        </InfoBlock>
+        <InfoBlock title={t('portfolio.details.nextDate')}>
+          {portfolio.nextDividend.toLocaleDateString()}
+        </InfoBlock>
       </div>
     </div>
   );
