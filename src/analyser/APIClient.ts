@@ -6,13 +6,14 @@ const headers = { 'Content-Type': 'application/json' };
 // Stock type
 export type Stock = {
   symbol: string;
-  ISIN: string;
-  WKN: string;
+  isin: string;
+  wkn: string;
   name: string;
   price: number;
-  '1d': number;
-  '7d': number;
-  '30d': number;
+  per1d: number;
+  per7d: number;
+  per30d: number;
+  per365d: number;
   marketCapitalization: number;
   analystTargetPrice: number;
   valuation: number;
@@ -38,26 +39,7 @@ export type StockDetails = {
 
 // List of stocks
 type StockList = {
-  stocks: {
-    symbol: string;
-    ISIN: string;
-    WKN: string;
-    name: string;
-    price: number;
-    '1d': number;
-    '7d': number;
-    '30d': number;
-    marketCapitalization: number;
-    analystTargetPrice: number;
-    valuation: number;
-    growth: number;
-    div: number;
-    currency: string;
-    country: string;
-    industry: string;
-    picture: URL;
-    date: Date;
-  }[];
+  stocks: Stock[];
 };
 
 /**
@@ -115,8 +97,8 @@ export async function stockOverview(
   token: string,
   symbol: string
 ): Promise<Stock> {
-  const response = (await request(token, 'GET', `/search?id=${symbol}`)) as Stock;
-  return response;
+  const response = (await request(token, 'GET', `/search?id=${symbol}`)) as StockList;
+  return response.stocks[0] as Stock;
 }
 
 /**

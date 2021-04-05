@@ -60,7 +60,7 @@ const SearchBar: React.FC = () => {
           open={open}
           options={stocks}
           getOptionLabel={(option: API.Stock) =>
-            `${option.symbol} ${option.name}${option.ISIN}${option.WKN}`
+            `${option.symbol} ${option.name}${option.isin}${option.wkn}`
           }
           onInputChange={(e, v, r) => {
             if (r.startsWith('input') && !!v) {
