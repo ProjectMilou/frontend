@@ -42,9 +42,7 @@ const Details: React.FC<DetailsProps> = ({ token, symbol, back }) => {
     setError(undefined);
     try {
       const sO = await API.stockOverview(token, symbol);
-      console.log(sO)
       const sD = await API.stockDetails(token, symbol);
-      console.log(sD)
 
       if (isMounted.current) {
         setStockOverview(sO);

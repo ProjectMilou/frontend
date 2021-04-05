@@ -97,7 +97,11 @@ export async function stockOverview(
   token: string,
   symbol: string
 ): Promise<Stock> {
-  const response = (await request(token, 'GET', `/search?id=${symbol}`)) as StockList;
+  const response = (await request(
+    token,
+    'GET',
+    `/search?id=${symbol}`
+  )) as StockList;
   return response.stocks[0] as Stock;
 }
 
