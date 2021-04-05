@@ -40,7 +40,6 @@ const SearchBar: React.FC = () => {
       setStocks(s);
     } catch (err) {
       setStocks(undefined);
-      console.log('uncaught error when requesting listStocks!');
     }
   };
 
