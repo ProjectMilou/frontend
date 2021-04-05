@@ -1,5 +1,10 @@
 import React from 'react';
-import { IconButton, Container, makeStyles, Typography } from '@material-ui/core';
+import {
+  IconButton,
+  Container,
+  makeStyles,
+  Typography,
+} from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useTranslation } from 'react-i18next';
 import TextOverText from '../TextOverText';
@@ -8,8 +13,8 @@ import EuroCurrency from '../../shared/EuroCurrency';
 
 export type DetailsProps = {
   details: API.Stock;
-    // function to return to the dashboard
-    back: () => void;
+  // function to return to the dashboard
+  back: () => void;
 };
 
 const useStyles = makeStyles({
@@ -55,10 +60,7 @@ function chooseSymbol(val: API.Stock): string {
   return val.name.length > 25 ? val.symbol : val.name;
 }
 
-const DetailsHeader: React.FC<DetailsProps> = ({ 
-  details,
-  back,
- }) => {
+const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   return (
@@ -75,7 +77,10 @@ const DetailsHeader: React.FC<DetailsProps> = ({
                 onClick={back}
                 style={{ backgroundColor: 'transparent' }}
               >
-                <ArrowBackIosIcon fontSize="large" style={{ color: '#EEF1FB' }} />
+                <ArrowBackIosIcon
+                  fontSize="large"
+                  style={{ color: '#EEF1FB' }}
+                />
               </IconButton>
             </div>
             {chooseSymbol(details)}
