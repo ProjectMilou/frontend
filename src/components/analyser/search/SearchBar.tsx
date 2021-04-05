@@ -35,8 +35,13 @@ const SearchBar: React.FC = () => {
   const classes = useStyles();
 
   const fetch = async () => {
-    const s = await API.listStocks('');
-    setStocks(s);
+    try {
+      const s = await API.listStocks('');
+      setStocks(s);
+    } catch (err) {
+      setStocks(undefined);
+      console.log('uncaught error when requesting listStocks!');
+    }
   };
 
   React.useEffect(() => {
