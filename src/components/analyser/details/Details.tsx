@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import { ErrorCode } from '../../../Errors';
 import * as API from '../../../analyser/APIClient';
-import ErrorMessage from '../ErrorMessage';
+import ErrorMessage from '../../shared/ErrorMessage';
 import DetailsHeader from './DetailsHeader';
 import KeyFigures from './KeyFigures';
 import DetailsOverview from './DetailsOverview';
@@ -32,7 +32,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
+const Details: React.FC<DetailsProps> = ({ token, symbol, back }) => {
   const [stockOverview, setStockOverview] = React.useState<API.Stock>();
   const [stockDetails, setStockDetails] = React.useState<API.StockDetails>();
   const [error, setError] = React.useState<ErrorCode | undefined>();
@@ -64,6 +64,10 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // window.history.pushState('', null, './');
+  //   $(window).on('popstate', function() {
+  //   location.reload(true);
+  // });
   const classes = useStyles();
 
   const chartSeries = [
@@ -378,7 +382,10 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
       )}
       {stockOverview && stockDetails && (
         <div>
-          <DetailsHeader details={stockOverview} />
+          <DetailsHeader           
+            back={back}
+            details={stockOverview}
+          />
           <Container className={classes.mainContent}>
             <DetailsOverview
               stockOverview={stockOverview}

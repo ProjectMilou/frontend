@@ -1,3 +1,5 @@
+// Based on Portfolio DetailsOverview
+
 import React from 'react';
 import {
   useTheme,
@@ -7,7 +9,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import SummaryValueOverName from './SummaryValueOverName';
+import ValueOverName from '../../shared/ValueOverName';
 import { Stock, StockDetails } from '../../../analyser/APIClient';
 
 // stylesheet for the Summary section
@@ -143,10 +145,11 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
             style={{ flexBasis: '55%' }}
           >
             {/* country */}
-            <SummaryValueOverName
+            <ValueOverName
               value={`${stockOverview.country}`}
               name={t('stock.country')}
-              valueColor={theme.palette.primary.light}
+              valueColor={theme.palette.primary.dark}
+              nameColor={theme.palette.primary.dark}
             />
           </div>
 
@@ -158,10 +161,11 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
             style={{ flexBasis: '55%' }}
           >
             {/* currency */}
-            <SummaryValueOverName
+            <ValueOverName
               value={`${stockOverview.currency}`}
               name={t('stock.currency')}
               valueColor={theme.palette.primary.light}
+              nameColor={theme.palette.primary.dark}
             />
           </div>
 
@@ -173,10 +177,11 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
             style={{ flexBasis: '55%' }}
           >
             {/* industry */}
-            <SummaryValueOverName
+            <ValueOverName
               value={`${stockOverview.industry}`}
               name={t('stock.industry')}
               valueColor={theme.palette.primary.light}
+              nameColor={theme.palette.primary.dark}
             />
           </div>
 
@@ -188,10 +193,11 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
             style={{ flexBasis: '55%' }}
           >
             {/* dividend */}
-            <SummaryValueOverName
+            <ValueOverName
               value={convertToPercent(stockOverview.div)}
               name={t('stock.div')}
               valueColor={convertPerformanceToColor(stockOverview.div)}
+              nameColor={theme.palette.primary.dark}
             />
           </div>
         </div>

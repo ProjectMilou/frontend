@@ -13,6 +13,7 @@ import logo from '../../assets/images/logo1.png';
 import NavLink from './NavLink';
 import Login from '../shell/login/Login';
 import Register from '../shell/register/Register';
+import SearchBar from '../analyser/search/SearchBar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,7 +25,8 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     button: {
-      margin: theme.spacing(1),
+      margin: theme.spacing(0.5),
+      height: theme.spacing(6),
     },
     dialog: {
       borderRadius: '10px',
@@ -57,6 +59,7 @@ const Header: React.FC = () => {
         <NavLink to="/academy">Academy</NavLink>
         <div className={classes.grow} />
 
+        <SearchBar />
         {loggedIn ? (
           <>
             <Button
@@ -71,6 +74,7 @@ const Header: React.FC = () => {
               Logout
             </Button>
             <Button
+              className={classes.button}
               variant="contained"
               color="primary"
               component={Link}
@@ -90,6 +94,7 @@ const Header: React.FC = () => {
               Login
             </Button>
             <Button
+              className={classes.button}
               variant="contained"
               color="primary"
               onClick={() => setOpenRegister(true)}
