@@ -1,3 +1,5 @@
+import { AppError } from '../Errors';
+
 // TODO: Change to production URL when available
 // TODO: Use a common base URL for shell, analyser and portfolio instead of 3 URLs
 export const baseURL = 'https://api.milou.io/portfolio';
@@ -358,14 +360,14 @@ async function request(
     method,
     headers: { ...headers, ...additionalHeaders },
     body,
-  }).catch(() => Promise.reject(new Error('UNKNOWN'))); // network error etc.
+  }).catch(() => Promise.reject(new AppError('UNKNOWN'))); // network error etc.
   if (response.ok) {
     return Promise.resolve(response.json()); // valid response
   }
   const json = await response
     .json()
-    .catch(() => Promise.reject(new Error('UNKNOWN'))); // server error without JSON response
-  return Promise.reject(new Error(json.error)); // JSON error
+    .catch(() => Promise.reject(new AppError('UNKNOWN'))); // server error without JSON response
+  return Promise.reject(new AppError(json.error)); // JSON error
 }
 
 /**

@@ -3,6 +3,7 @@ import * as React from 'react';
 import * as API from '../../../analyser/APIClient';
 import Dashboard, { DashboardProps } from './Dashboard';
 import { MockOverview, MockOverviewTwo } from '../../../analyser/APIMocks';
+import { AppError } from '../../../Errors';
 
 jest.mock('../../../analyser/APIClient');
 const mockAPI = API as jest.Mocked<typeof API>;
@@ -52,7 +53,7 @@ describe('Dashboard', () => {
 
   test('shows error message and loads Stocks again on retry', async () => {
     let mockStockOverview = mockAPI.listStocks.mockRejectedValue(
-      new Error('UNKNOWN')
+      new AppError('UNKNOWN')
     );
     const { container, queryByText, getByText } = renderComponent();
     await act(async () => {
