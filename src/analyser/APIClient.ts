@@ -101,7 +101,7 @@ async function request(
  * @param token - Authentication token
  */
 export async function listStocks(token: string): Promise<Stock[]> {
-  const response = (await request(token, 'GET', '')) as StockList;
+  const response = (await request(token, 'GET', '/list')) as StockList;
   return response.stocks;
 }
 
@@ -115,7 +115,7 @@ export async function stockOverview(
   token: string,
   symbol: string
 ): Promise<Stock> {
-  const response = (await request(token, 'GET', `${symbol}`)) as Stock;
+  const response = (await request(token, 'GET', `/search?id=${symbol}`)) as Stock;
   return response;
 }
 
@@ -132,7 +132,7 @@ export async function stockDetails(
   const response = (await request(
     token,
     'GET',
-    `${symbol}/details`
+    `/details/search?id=${symbol}`
   )) as StockDetails;
   return response;
 }
