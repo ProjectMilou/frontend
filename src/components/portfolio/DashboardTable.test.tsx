@@ -21,13 +21,10 @@ describe('DashboardTable', () => {
     };
   };
 
-  test('show message if no portfolios exist', () => {
-    const { container, getByText } = renderComponent({ portfolios: [] });
-    expect(getByText('portfolio.dashboard.noPortfolios')).toBeInTheDocument();
+  test('show no table if no portfolios exist', () => {
+    const { container } = renderComponent({ portfolios: [] });
     // no table
     expect(container.querySelector('table')).toBeNull();
-    // no view selection
-    expect(container.querySelectorAll('button svg')).toHaveLength(0);
   });
 
   test('display portfolio information', () => {

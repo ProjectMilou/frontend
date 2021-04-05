@@ -131,9 +131,6 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
   // TODO: Improve portfolio score visualization
   return (
     <>
-      {!portfolios.length && (
-        <Typography>{t('portfolio.dashboard.noPortfolios')}</Typography>
-      )}
       {!!portfolios.length && (
         <TableContainer component={Paper}>
           <Table aria-label="simple table">

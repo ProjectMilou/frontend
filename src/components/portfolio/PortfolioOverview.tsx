@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 import * as API from '../../portfolio/APIClient';
 import DashboardViewSelect, {
   DashboardView,
@@ -25,6 +25,9 @@ const useStyles = makeStyles({
     lineHeight: '72px',
     letterSpacing: '-0.015em',
   },
+  subtext: {
+    margin: '2rem 0',
+  },
 });
 
 const PortfolioOverview: React.FC<PortfolioOverviewProps> = ({
@@ -42,10 +45,13 @@ const PortfolioOverview: React.FC<PortfolioOverviewProps> = ({
     <>
       <div className={classes.header}>
         <div className={classes.title}>{t('portfolio.dashboard.title')}</div>
-        {!!portfolios.length && (
-          <DashboardViewSelect view={view} setView={setView} />
-        )}
+        <DashboardViewSelect view={view} setView={setView} />
       </div>
+      {!portfolios.length && (
+        <Typography className={classes.subtext}>
+          {t('portfolio.dashboard.noPortfolios')}
+        </Typography>
+      )}
       {view === DashboardView.Table ? (
         <DashboardTable
           portfolios={portfolios}

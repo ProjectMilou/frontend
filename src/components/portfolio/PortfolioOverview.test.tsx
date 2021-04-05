@@ -24,12 +24,19 @@ describe('PortfolioOverview', () => {
     };
   };
 
+  test('show message if no portfolios exist', () => {
+    const { container, getByText } = renderComponent({ portfolios: [] });
+    expect(getByText('portfolio.dashboard.noPortfolios')).toBeInTheDocument();
+    // view selection
+    expect(container.querySelectorAll('button svg')).toHaveLength(2);
+  });
+
   test('switch between table and cards view', () => {
     const { container, queryByText } = renderComponent();
     expect(queryByText('portfolio.dashboard.title')).toBeInTheDocument();
     expect(queryByText('portfolio.dashboard.noPortfolios')).toBeNull();
     expect(container.querySelectorAll('table')).toHaveLength(1);
-    expect(container.querySelectorAll('cards')).toHaveLength(0);
+    expect(container.querySelectorAll('ul')).toHaveLength(0);
     // buttons to change view
     const buttons = container.querySelectorAll('button svg');
     expect(buttons).toHaveLength(2);
