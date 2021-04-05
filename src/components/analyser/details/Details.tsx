@@ -12,6 +12,7 @@ import DetailsHeader from './DetailsHeader';
 import KeyFigures from './KeyFigures';
 import DetailsOverview from './DetailsOverview';
 import StockChart from '../../shared/StockChart';
+import AnalysisChart from './AnalysisChart';
 
 // props type declaration
 export type DetailsProps = {
@@ -345,6 +346,13 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
   ];
 
   const theme = useTheme();
+  const series = [ {
+    name: 'Bucket Slope',
+    data: [9]
+  }, {
+    name: 'Reborn Kid',
+    data: [25]
+  }];
 
   return (
     <>
@@ -392,6 +400,7 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
               height={450}
             />
             <KeyFigures />
+            <AnalysisChart series ={series} textColor={theme.palette.primary.main} height={350}/>
           </Container>
         </div>
       )}
