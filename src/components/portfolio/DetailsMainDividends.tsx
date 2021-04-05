@@ -94,7 +94,7 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
 
   const series = [
     {
-      name: 'Dividend Yield',
+      name: t('portfolio.details.divYield'),
       data: portfolio.keyFigures.map((f) => f.div),
     },
   ];
