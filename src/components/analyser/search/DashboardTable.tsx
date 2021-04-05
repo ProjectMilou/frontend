@@ -103,14 +103,14 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
       </TableCell>
       <TableCell align="center">
         <Performance
-          value={stock['7d']}
+          value={stock.per7d}
           decimalSeperator="."
           thousandSeperator=","
         />
       </TableCell>
       <TableCell align="center">
         <Performance
-          value={stock['30d']}
+          value={stock.per30d}
           decimalSeperator="."
           thousandSeperator=","
         />
