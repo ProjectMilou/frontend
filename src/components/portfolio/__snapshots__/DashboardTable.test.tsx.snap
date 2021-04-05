@@ -67,7 +67,9 @@ exports[`DashboardTable display portfolio information 1`] = `
         >
           <td
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-          />
+          >
+            0.3
+          </td>
           <th
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
             role="cell"
@@ -215,7 +217,7 @@ exports[`DashboardTable display portfolio information 1`] = `
           <td
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
-            20
+            0.6
           </td>
           <th
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
@@ -248,7 +250,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             <span
               class="makeStyles-euroCurrency-6 makeStyles-euroCurrency-11"
             >
-              3,00 €
+              174,98 €
             </span>
           </td>
           <td
