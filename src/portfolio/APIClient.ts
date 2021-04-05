@@ -1,5 +1,7 @@
 // TODO: Change to production URL when available
 // TODO: Use a common base URL for shell, analyser and portfolio instead of 3 URLs
+import { number } from 'prop-types';
+
 export const baseURL = 'https://api.milou.io/portfolio';
 
 const headers = { 'Content-Type': 'application/json' };
@@ -18,6 +20,30 @@ export type PortfolioOverview = {
   perf7d: number;
   perf1y: number;
   modified: Date;
+};
+
+export type Backtesting = {
+  MDDMaxToMin: number;
+  MDDInitialToMin: number;
+  dateMax: string;
+  dateMin: string;
+  maxValue: number;
+  minValue: number;
+  initialValue: number;
+  bestYear: {
+    changeBest: number;
+    yearBest: string;
+    growthRateBest: number;
+  };
+  worstYear: {
+    changeWorst: number;
+    yearWorst: string;
+    growthRateWorst: number;
+  };
+  finalPortfolioBalance: number;
+  CAGR: number;
+  standardDeviation: number;
+  sharpeRatio: number;
 };
 
 // Types describing the JSON response of API calls.

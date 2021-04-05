@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
 import DetailsMainBacktestingTimeline from './DetailsMainBacktestingTimeline';
+import { Backtesting } from '../../portfolio/APIClient';
 import DetailsMainBacktestingList from './DetailsMainBacktestingList';
 
 // stylesheet for the backtesting section
@@ -63,39 +64,15 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
-// TODO delete and replace with actual api data
-// mock for timeline
-const mockStartDate = new Date('01.01.2020');
-const mockStartValue = 840.56;
-const mockMinDate = new Date('03.04.2020');
-const mockMinValue = 512.67;
-const mockMaxDate = new Date('10.02.2020');
-const mockMaxValue = 1250.55;
-const mockEndDate = new Date('12.31.2020');
-const mockEndValue = 970.43;
-
-// mock for list
-const mockChangeBest = 210.5;
-const mockChangeWorst = -70.56;
-const mockMddMaxToMin = -65;
-const mockStandardDeviation = 12.1;
-const mockSharpeRatio = 0.65;
-const mockCagr = 5.42;
-
-// type declarations
-type DetailsMainBacktestingProps = {
-  // props
-};
-
 // returns the details page header
-const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = () => {
+const DetailsMainBacktesting: React.FC = () => {
   const classes = useStyles();
   const { t } = useTranslation();
+
+  // default range is from two years back to one year back
   const today = Date.now();
   const twoYearsBack = new Date(today - 63113904000);
   const oneYearBack = new Date(today - 31556952000);
-
-  // have to be string because native input, mui does not provide date picker in this version
   const [selectedFrom, setSelectedFrom] = React.useState<string>(
     twoYearsBack.toISOString().split('T')[0]
   );
@@ -104,6 +81,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = () => {
   );
   const [helperText, setHelperText] = React.useState<string>('');
   const [disabled, setDisabled] = React.useState<boolean>(false);
+  const [backtesting, setBacktesting] = React.useState<Backtesting>();
 
   useEffect(() => {
     const from = Date.parse(selectedFrom);
@@ -113,7 +91,32 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = () => {
     } else {
       setHelperText('');
       setDisabled(true);
-      // TODO api call and update info, wait for the update
+      // TODO do API call, call setBacktesting and then enable fields again
+      // TODO replace mock with actual api call
+      const backtestingInit: Backtesting = {
+        MDDMaxToMin: -65,
+        MDDInitialToMin: -65,
+        dateMax: '10.02.2019',
+        dateMin: '03.04.2020',
+        maxValue: 1250.55,
+        minValue: 512.67,
+        initialValue: 840.56,
+        bestYear: {
+          changeBest: 210.5,
+          yearBest: '2020',
+          growthRateBest: 10.5,
+        },
+        worstYear: {
+          changeWorst: -70.56,
+          yearWorst: '2019',
+          growthRateWorst: -5.6,
+        },
+        finalPortfolioBalance: 970.43,
+        CAGR: 5.42,
+        standardDeviation: 12.1,
+        sharpeRatio: 0.65,
+      };
+      setBacktesting(backtestingInit);
       setTimeout(() => setDisabled(false), 3000);
     }
   }, [selectedFrom, selectedTo, t]);
@@ -163,26 +166,30 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = () => {
           />
         </form>
       </div>
-      <div className={classes.timelineListWrapper}>
-        <DetailsMainBacktestingTimeline
-          startDate={mockStartDate}
-          startValue={mockStartValue}
-          minDate={mockMinDate}
-          minVale={mockMinValue}
-          maxDate={mockMaxDate}
-          maxValue={mockMaxValue}
-          endDate={mockEndDate}
-          endValue={mockEndValue}
-        />
-        <DetailsMainBacktestingList
-          changeBest={mockChangeBest}
-          changeWorst={mockChangeWorst}
-          mddMaxToMin={mockMddMaxToMin}
-          standardDeviation={mockStandardDeviation}
-          sharpeRatio={mockSharpeRatio}
-          cagr={mockCagr}
-        />
-      </div>
+      {backtesting ? (
+        <div className={classes.timelineListWrapper}>
+          <DetailsMainBacktestingTimeline
+            startDate={selectedFrom}
+            startValue={backtesting.initialValue}
+            minDate={backtesting.dateMin}
+            minVale={backtesting.minValue}
+            maxDate={backtesting.dateMax}
+            maxValue={backtesting.maxValue}
+            endDate={selectedTo}
+            endValue={backtesting.finalPortfolioBalance}
+          />
+          <DetailsMainBacktestingList
+            changeBest={backtesting.bestYear.changeBest}
+            changeWorst={backtesting.worstYear.changeWorst}
+            mddMaxToMin={backtesting.MDDMaxToMin}
+            standardDeviation={backtesting.standardDeviation}
+            sharpeRatio={backtesting.sharpeRatio}
+            cagr={backtesting.CAGR}
+          />
+        </div>
+      ) : (
+        <p>LOADING...</p>
+      )}
     </div>
   );
 };

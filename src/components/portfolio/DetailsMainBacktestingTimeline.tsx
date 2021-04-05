@@ -65,13 +65,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type DetailsMainBacktestingTimelineProps = {
-  startDate: Date;
+  startDate: string;
   startValue: number;
-  minDate: Date;
+  minDate: string;
   minVale: number;
-  maxDate: Date;
+  maxDate: string;
   maxValue: number;
-  endDate: Date;
+  endDate: string;
   endValue: number;
 };
 
@@ -92,7 +92,7 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
     <Timeline align="left" className={classes.timeline}>
       <TimelineItem className={classes.timelineItem}>
         <TimelineOppositeContent className={classes.oppositeContent}>
-          <Typography>{startDate.toLocaleDateString()}</Typography>
+          <Typography>{startDate}</Typography>
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineDot color="primary">
@@ -113,7 +113,7 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
       </TimelineItem>
       <TimelineItem className={classes.timelineItem}>
         <TimelineOppositeContent className={classes.oppositeContent}>
-          <Typography>{minDate.toLocaleDateString()}</Typography>
+          <Typography>{minDate}</Typography>
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineDot color="primary">
@@ -134,7 +134,7 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
       </TimelineItem>
       <TimelineItem className={classes.timelineItem}>
         <TimelineOppositeContent className={classes.oppositeContent}>
-          <Typography>{maxDate.toLocaleDateString()}</Typography>
+          <Typography>{maxDate}</Typography>
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineDot color="primary">
@@ -155,7 +155,7 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
       </TimelineItem>
       <TimelineItem className={classes.timelineItem}>
         <TimelineOppositeContent className={classes.oppositeContent}>
-          <Typography>{endDate.toLocaleDateString()}</Typography>
+          <Typography>{endDate}</Typography>
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineDot color="primary">
