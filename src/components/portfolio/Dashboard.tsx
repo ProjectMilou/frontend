@@ -1,4 +1,5 @@
 import React, { Reducer } from 'react';
+import { RouteComponentProps } from '@reach/router';
 import { LinearProgress, makeStyles, Container } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../portfolio/APIClient';
@@ -11,7 +12,7 @@ import DeleteDialog from './DeleteDialog';
 import CreateDialog from './CreateDialog';
 import { isAuthenticationError } from '../../Errors';
 
-export type DashboardProps = {
+export interface DashboardProps extends RouteComponentProps {
   token: string;
   selectPortfolio: (id: string) => void;
 };
@@ -261,15 +262,15 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
             handling={
               isAuthenticationError(state.error)
                 ? {
-                    buttonText: 'error.action.login',
-                    action: async () => {
-                      // TODO: go back to login
-                    },
-                  }
+                  buttonText: 'error.action.login',
+                  action: async () => {
+                    // TODO: go back to login
+                  },
+                }
                 : {
-                    buttonText: 'error.action.retry',
-                    action: fetch,
-                  }
+                  buttonText: 'error.action.retry',
+                  action: fetch,
+                }
             }
           />
         )}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { navigate } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import {
   Button,
@@ -65,9 +66,7 @@ const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
 
   return (
     <TableRow
-      onClick={() => {
-        selectPortfolio(portfolio.id);
-      }}
+      onClick={() => navigate(`portfolio/${portfolio.id}`)}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       className={classNames(classes.row, hover && classes.rowHover)}
