@@ -83,7 +83,7 @@ const AnalysisChart: React.FC<AnalysisChartProps> = ({
     },
     fill: {
       type: 'gradient',
-      colors: '#3da97e',
+      colors: '#00e396',
     },
     plotOptions: {
       radialBar: {
@@ -97,25 +97,13 @@ const AnalysisChart: React.FC<AnalysisChartProps> = ({
           imageOffsetX: 0,
           imageOffsetY: 0,
           position: 'front',
-          dropShadow: {
-            enabled: true,
-            top: 3,
-            left: 0,
-            blur: 4,
-            opacity: 0.24
-          }
+          
         },
         track: {
           background: '#EEF1FB',
           strokeWidth: '67%',
           margin: 0, // margin is in pixels
-          dropShadow: {
-            enabled: true,
-            top: -3,
-            left: 0,
-            blur: 4,
-            opacity: 0.35
-          }
+          pacity: 0.35
         },
     
         dataLabels: {
