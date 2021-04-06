@@ -46,21 +46,19 @@ export type StockDetails = {
 
 // Filter object
 export type Filters = {
-  [key: string]: string[]
-  country: string[],
-  currency: string[],
-  industry: string[]
-  mc: string[]
-}
-
-
+  [key: string]: string[];
+  country: string[];
+  currency: string[];
+  industry: string[];
+  mc: string[];
+};
 
 /**
  * Makes an API call. Resolves to the JSON response if the call is successful,
  * otherwise rejects with an error that has an {@link ErrorCode} as message.
- *  
+ *
  * TODO: Merge with portfolio requet
- * 
+ *
  * @param token - Authentication token
  * @param method - Request method (GET, POST, etc.)
  * @param url - An URL relative to {@link baseURL}
@@ -96,19 +94,24 @@ async function request(
  *
  * @param token - Authentication token
  * @param filters - Object including all filters
- * 
+ *
  */
-export async function listStocks(token: string, filters: Filters): Promise<Stock[]> {
-  let base = '/list'
+export async function listStocks(
+  token: string,
+  filters: Filters
+): Promise<Stock[]> {
+  const base = '/list';
+  let params = '';
   Object.keys(filters).forEach((key) => {
-    if(filters[key].length > 0) {
-      base += `?${key}=${filters[key].toString().replace(' ','%20')}`
+    if (filters[key].length > 0) {
+      if (params.length === 0) {
+        params += `?${key}=${filters[key].toString().replace(' ', '%20')}`;
+      } else {
+        params += `&${key}=${filters[key].toString().replace(' ', '%20')}`;
+      }
     }
-  })
-  console.log(filters)
-  console.log(base)
-
-  const response = (await request(token, 'GET', base)) as StockList;
+  });
+  const response = (await request(token, 'GET', base + params)) as StockList;
   return response.stocks;
 }
 

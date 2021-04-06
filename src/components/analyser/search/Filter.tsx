@@ -6,7 +6,7 @@ import {
   Container,
   Typography,
 } from '@material-ui/core';
-import { FilterList, Delete } from '@material-ui/icons';
+import { Delete } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import { FilterBar } from './FilterBar';
@@ -25,45 +25,56 @@ const useStyles = makeStyles({
   },
 });
 
-function setOriginalFilters(stocks: API.Stock[]) {
-  const ogFilters: API.Filters = { country: [], industry: [], currency: [], mc: [] };
-  stocks.forEach((s) => {
-    if (!ogFilters.country.includes(s.country)) {
-      ogFilters.country.push(s.country);
-    }
-    if (!ogFilters.industry.includes(s.country)) {
-      ogFilters.industry.push(s.industry);
-    }
-    if (!ogFilters.currency.includes(s.currency)) {
-      ogFilters.currency.push(s.currency);
-    }
-  });
-  ogFilters.country.sort();
-  ogFilters.industry.sort();
-  ogFilters.currency.sort();
-  return ogFilters;
-}
-
 export type FilterProps = {
   stocks: API.Stock[];
   filters: API.Filters;
-  setFilters: React.Dispatch<React.SetStateAction<API.Filters>>
-  updateStockList: () => Promise<void>
+  setFilters: React.Dispatch<React.SetStateAction<API.Filters>>;
 };
 
-const Filter: React.FC<FilterProps> = ({ stocks, filters, setFilters, updateStockList }) => {
+const Filter: React.FC<FilterProps> = ({ stocks, filters, setFilters }) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const ogFilters = setOriginalFilters(stocks);
-  const emptyFilters: API.Filters = { country: [], industry: [], currency: [], mc: [] };
+  const emptyFilters: API.Filters = {
+    country: [],
+    industry: [],
+    currency: [],
+    mc: [],
+  };
+  const [ogFilters, setOgFilters] = React.useState<API.Filters>(emptyFilters);
 
-  const clearFilters = () => {
-    setFilters(emptyFilters)
-    updateStockList()
-   
+  // add all found filters to og filters, never remove
+  const setOriginalFilters = () => {
+    const contries: Set<string> = new Set(ogFilters.country);
+    const industries: Set<string> = new Set(ogFilters.industry);
+    const currencies: Set<string> = new Set(ogFilters.currency);
+    const mc: Set<string> = new Set(ogFilters.mc);
+    stocks.forEach((s) => {
+      contries.add(s.country);
+      industries.add(s.industry);
+      currencies.add(s.currency);
+      // TODO add market Capitalisation
+    });
+    setOgFilters({
+      country: Array.from(contries).sort(),
+      industry: Array.from(industries).sort(),
+      currency: Array.from(currencies).sort(),
+      mc: Array.from(mc),
+    });
   };
 
+  // clear all filters
+  const clearFilters = () => {
+    setFilters(emptyFilters);
+  };
+
+  React.useEffect(() => {
+    setOriginalFilters();
+    // deps must be empty because the function should only be called on mount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stocks]);
+
+  // update filters
   const handleChange = (
     event: React.ChangeEvent<{ name?: string | undefined; value: unknown }>
   ) => {
@@ -131,13 +142,13 @@ const Filter: React.FC<FilterProps> = ({ stocks, filters, setFilters, updateStoc
         variant="contained"
         color="primary"
       >
-        <Button
+        {/* <Button
           type="button"
-          onClick={() => updateStockList()}
+          onClick={}
           startIcon={<FilterList />}
         >
           Adapt
-        </Button>
+        </Button> */}
         <Button type="button" onClick={clearFilters} startIcon={<Delete />}>
           <Typography>{t('analyser.filter.clear')}</Typography>
         </Button>
