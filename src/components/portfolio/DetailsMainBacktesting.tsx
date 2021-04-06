@@ -70,7 +70,15 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
-const DetailsMainBacktesting: React.FC = () => {
+type DetailsMainBacktestingProps = {
+  token: string;
+  id: string;
+};
+
+const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
+  token,
+  id,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -95,12 +103,7 @@ const DetailsMainBacktesting: React.FC = () => {
     setError(undefined);
     try {
       // TODO get real token and id from useContext
-      const backTestingResponse = await API.backtesting(
-        'mockToken',
-        'mockID',
-        from,
-        to
-      );
+      const backTestingResponse = await API.backtesting(token, id, from, to);
       if (isMounted.current) {
         setBacktesting(backTestingResponse);
       }
