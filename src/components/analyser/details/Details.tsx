@@ -350,13 +350,7 @@ const Details: React.FC<DetailsProps> = ({ token, symbol, back }) => {
   ];
 
   const theme = useTheme();
-  const series = [ {
-    name: 'Bucket Slope',
-    data: [9]
-  }, {
-    name: 'Reborn Kid',
-    data: [25]
-  }];
+  const series = [80];
 
   return (
     <>
@@ -404,8 +398,9 @@ const Details: React.FC<DetailsProps> = ({ token, symbol, back }) => {
               height={450}
             />
             <KeyFigures />
-            <AnalysisChart series ={series} textColor={theme.palette.primary.main} height={350}/>
+            
           </Container>
+          <AnalysisChart series ={series}/>
         </div>
       )}
     </>
