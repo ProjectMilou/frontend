@@ -9,7 +9,6 @@ import DetailsMainDividens from './DetailsMainDividends';
 import DetailsMainAnalyst from './DetailsMainAnalyst';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 import DetailMainBacktesting from './DetailsMainBacktesting';
-import { RiskAnalysis, Position, KeyFigures } from './DetailsTypes';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({

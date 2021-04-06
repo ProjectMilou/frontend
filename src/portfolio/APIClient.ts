@@ -2,7 +2,6 @@ import { AppError } from '../Errors';
 
 // TODO: Change to production URL when available
 // TODO: Use a common base URL for shell, analyser and portfolio instead of 3 URLs
-import { number } from 'prop-types';
 
 export const baseURL = 'https://api.milou.io/portfolio';
 
