@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import ProgressButton from './ProgressButton';
-import { ErrorCode, errorMessageKey, errorTitleKey } from '../../Errors';
+import { errorMessageKey, errorTitleKey } from '../../Errors';
 
 export type DeleteDialogProps = {
   initialName?: string;
@@ -28,7 +28,7 @@ const DeleteDialog: React.FC<DeleteDialogProps> = ({
   // name of the portfolio that is deleted
   const [name, setName] = React.useState<string>();
   const [loading, setLoading] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<ErrorCode | undefined>();
+  const [error, setError] = React.useState<Error | undefined>();
 
   // Only update the name when the dialog is opened to prevent updates
   // during the close animation.
@@ -82,7 +82,7 @@ const DeleteDialog: React.FC<DeleteDialogProps> = ({
               handleClose();
             } catch (e) {
               setLoading(false);
-              setError(e.message);
+              setError(e);
             }
           }}
           color="primary"

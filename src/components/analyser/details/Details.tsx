@@ -5,7 +5,7 @@ import {
   Container,
   useTheme,
 } from '@material-ui/core';
-import { ErrorCode } from '../../../Errors';
+import { isAuthenticationError } from '../../../Errors';
 import * as API from '../../../analyser/APIClient';
 import ErrorMessage from '../../shared/ErrorMessage';
 import DetailsHeader from './DetailsHeader';
@@ -36,7 +36,7 @@ const useStyles = makeStyles({
 const Details: React.FC<DetailsProps> = ({ token, symbol, back }) => {
   const [stockOverview, setStockOverview] = React.useState<API.Stock>();
   const [stockDetails, setStockDetails] = React.useState<API.StockDetails>();
-  const [error, setError] = React.useState<ErrorCode | undefined>();
+  const [error, setError] = React.useState<Error | undefined>();
 
   const isMounted = React.useRef(true);
   const fetch = async () => {
@@ -51,7 +51,7 @@ const Details: React.FC<DetailsProps> = ({ token, symbol, back }) => {
       }
     } catch (e) {
       if (isMounted.current) {
-        setError(e.message);
+        setError(e);
       }
     }
   };
@@ -366,7 +366,7 @@ const Details: React.FC<DetailsProps> = ({ token, symbol, back }) => {
             error={error}
             messageKey="analyser.dashboard.errorMessage"
             handling={
-              error.startsWith('AUTH')
+              isAuthenticationError(error)
                 ? {
                     buttonText: 'error.action.login',
                     action: async () => {

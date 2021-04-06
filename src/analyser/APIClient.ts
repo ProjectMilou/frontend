@@ -1,5 +1,7 @@
 // Based on Portfolio API Client
 
+import { AppError } from '../Errors';
+
 export const baseURL = 'https://api.milou.io/stocks';
 const headers = { 'Content-Type': 'application/json' };
 
@@ -67,14 +69,14 @@ async function request(
     method,
     headers: { ...headers, ...additionalHeaders },
     body,
-  }).catch(() => Promise.reject(new Error('UNKNOWN'))); // network error etc.
+  }).catch(() => Promise.reject(new AppError('UNKNOWN'))); // network error etc.
   if (response.ok) {
     return Promise.resolve(response.json()); // valid response
   }
   const json = await response
     .json()
-    .catch(() => Promise.reject(new Error('UNKNOWN'))); // server error without JSON response
-  return Promise.reject(new Error(json.error)); // JSON error
+    .catch(() => Promise.reject(new AppError('UNKNOWN'))); // server error without JSON response
+  return Promise.reject(new AppError(json.error)); // JSON error
 }
 
 /**
