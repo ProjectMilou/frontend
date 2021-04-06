@@ -10,12 +10,12 @@ import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Popover from '@material-ui/core/Popover';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
+import * as API from '../../portfolio/APIClient';
+import { errorMessageKey, errorTitleKey } from '../../Errors';
+import ProgressButton from '../portfolio/ProgressButton';
 
 // stylesheet for the entire add to portfolio component
 const useStyles = makeStyles((theme: Theme) =>
@@ -31,11 +31,12 @@ const useStyles = makeStyles((theme: Theme) =>
     Dialog: {
       minWidth: '40rem',
     },
-    dialogHeaderFooter: {
+    dialogHeader: {
       margin: 0,
       padding: theme.spacing(2),
       display: 'flex',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
+      minWidth: '30rem',
     },
     // dialog header
     headerCloseButton: {
@@ -51,6 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
     // dialog body
     DialogContent: {
       display: 'flex',
+      flexDirection: 'column',
       justifyContent: 'space-between',
       margin: 0,
       padding: theme.spacing(1),
@@ -72,15 +74,21 @@ const useStyles = makeStyles((theme: Theme) =>
       right: '-50%',
       whiteSpace: 'nowrap',
     },
+    dialogFooter: {
+      margin: 0,
+      padding: theme.spacing(2),
+      display: 'flex',
+      justifyContent: 'end',
+    },
   })
 );
 
 type ListEntryProps = {
-  id: number;
+  id: string;
   name: string;
   checked: CheckedType;
-  handleToggle: (id: number) => () => void;
-  changeAmount: (id: number, amount: string) => void;
+  handleToggle: (id: string) => () => void;
+  changeAmount: (id: string, amount: string) => void;
   pattern: RegExp;
 };
 
@@ -95,11 +103,11 @@ const ListEntry: React.FC<ListEntryProps> = ({
   const classes = useStyles();
 
   return (
-    <ListItem key={id} role={undefined} dense className={classes.listItem}>
+    <ListItem role={undefined} dense className={classes.listItem}>
       <ListItemIcon>
         <Checkbox
           edge="start"
-          checked={typeof checked[id] !== 'undefined'}
+          checked={Boolean(checked[id])}
           tabIndex={-1}
           disableRipple
           inputProps={{
@@ -134,7 +142,7 @@ const ListEntry: React.FC<ListEntryProps> = ({
           },
         }}
         style={{
-          display: typeof checked[id] !== 'undefined' ? 'block' : 'none',
+          display: checked[id] ? 'block' : 'none',
           width: '4rem',
         }}
       />
@@ -142,80 +150,105 @@ const ListEntry: React.FC<ListEntryProps> = ({
   );
 };
 
-// TODO: remove test type and object once api call is implemented
-type TestPortType = {
-  id: number;
-  name: string;
-};
-
-const testPortfolios: TestPortType[] = [
-  {
-    id: 0,
-    name: 'My Portfolio 1',
-  },
-  {
-    id: 1,
-    name: 'My Portfolio 2',
-  },
-  {
-    id: 2,
-    name: 'My Portfolio 3',
-  },
-  {
-    id: 3,
-    name: 'My Portfolio 4',
-  },
-];
-
 type CheckedType = {
-  [key: number]: string;
+  // id of portfolio: qty of stock;
+  [id: string]: string;
 };
 
 type AddToPortfolioButtonType = {
   symbol: string;
+  token: string;
 };
 
 // returns the add to portfolio button and all subcomponents including the dialog window
-const AddToPortfolioButton: React.FC<AddToPortfolioButtonType> = () => {
+const AddToPortfolioButton: React.FC<AddToPortfolioButtonType> = ({
+  symbol,
+  token,
+}) => {
   // style and translation hooks
   const classes = useStyles();
   const { t } = useTranslation();
   // pattern for testing input fields
   const pattern = /^(?:[1-9]\d*|0)?(?:\.\d+)?$/;
 
-  // TODO: replace with api call
-  const portfolios = testPortfolios;
+  // the list of portfolios belonging to the user
+  // TODO: change to type PortfolioStock[]
+  const [portfolios, setPortfolios] = React.useState<API.PortfolioOverview[]>(
+    []
+  );
 
   // the state that controls whether the dialog window is open or closed
   const [open, setOpen] = React.useState(false);
-
-  // the state that keeps track of whether the error pop-up is open or closed
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-    null
-  );
-
-  // handle saving selections
-  const handleSave = (event: React.MouseEvent<HTMLButtonElement>) => {
-    // make api call
-    const err = 'asdf';
-
-    // if an error is returned show the error pop-up
-    if (err) {
-      setAnchorEl(event.currentTarget);
-    } else {
-      // close window once changes have been saved
-      setOpen(false);
-    }
-  };
-
+  // true when waiting for an API response
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [error, setError] = React.useState<Error | undefined>();
   // keep track of which portfolios have been selected and the amount in the textfield
   const [checked, setChecked] = React.useState<CheckedType>({});
 
+  // defines function to fetch from api
+  const isMounted = React.useRef(true);
+  const fetch = async () => {
+    setError(undefined);
+    try {
+      // TODO: change to API.stock(token, symbol) call
+      const p = await API.list(token);
+      if (isMounted.current) {
+        setPortfolios(p);
+      }
+    } catch (e) {
+      if (isMounted.current) {
+        setError(e);
+      }
+    }
+  };
+
+  // opon mount fetch list of portfolios from api
+  React.useEffect(() => {
+    fetch();
+    return () => {
+      isMounted.current = false;
+    };
+    // deps must be empty because the function should only be called on mount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const openDialog = () => {
+    // reset the dialog's state on (re-)open
+    setLoading(false);
+    setError(undefined);
+    setChecked({});
+    setOpen(true);
+  };
+
+  // handle saving selections
+  const handleSave = async () => {
+    setLoading(true);
+
+    try {
+      // parse the checked state into the form expected by the api
+      const modifications: API.PortfolioQty[] = Object.entries(checked).map(
+        ([id, qty]) => ({
+          id,
+          // TODO: use react-number-format for validation,
+          //  store numbers instead of strings, avoid converting
+          qty: Number.parseFloat(qty),
+        })
+      );
+      // make api put call
+      await API.saveStockToPortfolios(token, symbol, modifications);
+      setOpen(false);
+    } catch (e) {
+      // on error stop the loading animation and display error to user
+      setLoading(false);
+      setError(e);
+    }
+  };
+
   // handles checking and unchecking portfolios
-  const handleCheckToggle = (id: number) => () => {
+  const handleCheckToggle = (id: string) => () => {
     const newChecked = { ...checked };
 
-    if (typeof newChecked[id] === 'undefined') {
+    if (!newChecked[id]) {
       // if unchecked, check it with an initial value of 1
       newChecked[id] = '1';
     } else {
@@ -227,7 +260,7 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonType> = () => {
   };
 
   //  a function that sets the amount everytime a textfield is changed
-  const changeAmount = (id: number, amount: string) => {
+  const changeAmount = (id: string, amount: string) => {
     // when a user changes the input field the checked state gets updated
     setChecked({ ...checked, [id]: amount });
   };
@@ -237,7 +270,7 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonType> = () => {
       <Button
         variant="contained"
         className={classes.addButton}
-        onClick={() => setOpen(true)}
+        onClick={() => openDialog()}
       >
         {t('analyzer.addToPortfolio')}
       </Button>
@@ -248,28 +281,19 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonType> = () => {
         className={classes.Dialog}
       >
         {/* The header of the dialog window */}
-        <MuiDialogTitle
-          disableTypography
-          className={classes.dialogHeaderFooter}
-        >
+        <MuiDialogTitle disableTypography className={classes.dialogHeader}>
           <span className={classes.span}>
             <Typography variant="h6" className={classes.text}>
               {t('analyzer.dialogHeader')}
             </Typography>
           </span>
-          <IconButton
-            aria-label="close"
-            className={classes.headerCloseButton}
-            onClick={() => setOpen(false)}
-          >
-            <CloseIcon />
-          </IconButton>
         </MuiDialogTitle>
         {/* The body of the dialog window */}
         <MuiDialogContent dividers className={classes.DialogContent}>
           <List className={classes.List} component="ol">
             {portfolios.map((portfolio) => (
               <ListEntry
+                key={portfolio.id}
                 id={portfolio.id}
                 name={portfolio.name}
                 checked={checked}
@@ -279,23 +303,21 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonType> = () => {
               />
             ))}
           </List>
+          {error && (
+            <Typography color="error">
+              <b>{t(errorTitleKey(error))}</b>: {t(errorMessageKey(error))}
+            </Typography>
+          )}
         </MuiDialogContent>
         {/* The footer of the dialog window */}
-        <MuiDialogActions className={classes.dialogHeaderFooter}>
-          <Button
-            autoFocus
-            onClick={() => {
-              setOpen(false);
-              setChecked({});
-            }}
-            color="primary"
-          >
+        <MuiDialogActions className={classes.dialogFooter}>
+          <Button autoFocus onClick={() => setOpen(false)} color="primary">
             {t('portfolio.details.discardChanges')}
           </Button>
-          <Button
-            autoFocus
+          <ProgressButton
             onClick={handleSave}
             color="primary"
+            loading={loading}
             disabled={
               !Object.values(checked)
                 .map((stringAmount) => pattern.test(stringAmount))
@@ -303,24 +325,7 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonType> = () => {
             }
           >
             {t('portfolio.details.saveChanges')}
-          </Button>
-          {/* A small error pop-up */}
-          <Popover
-            id={anchorEl ? 'simple-popover' : undefined}
-            open={Boolean(anchorEl)}
-            anchorEl={anchorEl}
-            onClose={() => setAnchorEl(null)}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-          >
-            <Typography>Possible Error</Typography>
-          </Popover>
+          </ProgressButton>
         </MuiDialogActions>
       </Dialog>
     </div>
