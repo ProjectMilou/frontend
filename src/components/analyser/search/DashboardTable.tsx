@@ -1,7 +1,7 @@
 // Based on Portfolio's DashboardTable.tsx Will be later either replaced by Material-UI list or refactored
 
 import React from 'react';
-import { navigate } from '@reach/router'
+import { navigate } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import {
   lighten,
@@ -147,9 +147,7 @@ export type DashboardTableProps = {
   stocks: API.Stock[];
 };
 
-const DashboardTable: React.FC<DashboardTableProps> = ({
-  stocks,
-}) => {
+const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
   const { t } = useTranslation();
 
   return (
@@ -170,10 +168,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
         </TableHead>
         <TableBody>
           {stocks.map((s) => (
-            <DashboardTableRow
-              stock={s}
-              key={s.symbol}
-            />
+            <DashboardTableRow stock={s} key={s.symbol} />
           ))}
         </TableBody>
       </Table>

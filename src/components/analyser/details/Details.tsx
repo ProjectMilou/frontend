@@ -16,14 +16,13 @@ import DetailsOverview from './DetailsOverview';
 import StockChart from '../../shared/StockChart';
 import Dividends from './Dividends';
 
-
 // props type declaration
 export interface DetailsProps extends RouteComponentProps {
   // API token
   token: string;
   // function to return to the dashboard
   back: () => void;
-};
+}
 
 const useStyles = makeStyles({
   createButton: {
@@ -40,12 +39,11 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
   const [error, setError] = React.useState<Error | undefined>();
 
   // get symbol
-  const { id } = useParams()
-  const symbol:string = id
+  const { id } = useParams();
+  const symbol: string = id;
 
   const isMounted = React.useRef(true);
   const fetch = async () => {
-    console.log(symbol)
     setError(undefined);
     try {
       const sO = await API.stockOverview(token, symbol);

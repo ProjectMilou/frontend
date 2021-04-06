@@ -70,8 +70,7 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
     <Card className={classes.card}>
       <ButtonBase
         className={classes.cardAction}
-        onClick={() => navigate(`analyser/${stock.symbol}`)
-        }
+        onClick={() => navigate(`analyser/${stock.symbol}`)}
       >
         <CardMedia
           className={classes.media}
@@ -117,9 +116,7 @@ export type DashboardCardsProps = {
   stocks: API.Stock[];
 };
 
-const DashboardCards: React.FC<DashboardCardsProps> = ({
-  stocks,
-}) => (
+const DashboardCards: React.FC<DashboardCardsProps> = ({ stocks }) => (
   <Grid>
     <GridList>
       {stocks.map((s) => (

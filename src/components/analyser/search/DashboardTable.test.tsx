@@ -6,7 +6,6 @@ import { MockOverview, MockOverviewTwo } from '../../../analyser/APIMocks';
 describe('DashboardTable', () => {
   const defaultProps: DashboardTableProps = {
     stocks: [MockOverview, MockOverviewTwo],
-    selectStock: jest.fn(),
   };
 
   const renderComponent = (newProps?: Partial<DashboardTableProps>) => {

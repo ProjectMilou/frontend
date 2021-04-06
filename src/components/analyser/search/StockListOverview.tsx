@@ -10,7 +10,6 @@ import DashboardCards from './DashboardCards';
 
 export type StockListOverviewProps = {
   stocks: API.Stock[];
-  selectStock: (id: string) => void;
 };
 
 const useStyles = makeStyles({
@@ -23,10 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-const StockListOverview: React.FC<StockListOverviewProps> = ({
-  stocks,
-  selectStock,
-}) => {
+const StockListOverview: React.FC<StockListOverviewProps> = ({ stocks }) => {
   const { t } = useTranslation();
   const classes = useStyles();
   const [view, setView] = React.useState<DashboardView>(DashboardView.Table);
