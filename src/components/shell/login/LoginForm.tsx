@@ -18,8 +18,7 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 import Divider from '@material-ui/core/Divider';
 import { useTranslation } from 'react-i18next';
 import LinkButton from '../LinkButton';
-
-const url = 'https://api.milou.io';
+import { UserService } from '../../../services/UserService';
 
 const useStyles = makeStyles({
   errorMessage: {
@@ -78,28 +77,14 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
       return;
     }
 
-    fetch(url.concat('/user/login'), {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ ...login }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
+    UserService.login(login.email, login.password).then((ok) => {
+      if (!ok) {
         setLoginError(true);
-        return null;
-      })
-      .then((data) => {
-        if (data) {
-          const { token } = data;
-          localStorage.setItem('token', token);
-          setUserState();
-        }
-      });
+        return;
+      }
+
+      setUserState();
+    });
   };
 
   return (
