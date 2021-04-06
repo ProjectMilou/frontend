@@ -43,9 +43,9 @@ const StockListOverview: React.FC<StockListOverviewProps> = ({
       )}
       {!!stocks.length &&
         (view === DashboardView.Table ? (
-          <DashboardTable stocks={stocks} selectStock={selectStock} />
+          <DashboardTable stocks={stocks} />
         ) : (
-          <DashboardCards stocks={stocks} selectStock={selectStock} />
+          <DashboardCards stocks={stocks} />
         ))}
     </>
   );

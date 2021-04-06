@@ -129,7 +129,7 @@ export async function stockOverview(
   const response = (await request(
     token,
     'GET',
-    `/search?id=${symbol}`
+    `search?id=${symbol}`
   )) as StockList;
   return response.stocks[0] as Stock;
 }
