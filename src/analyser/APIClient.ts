@@ -28,6 +28,11 @@ export type Stock = {
   date: Date;
 };
 
+// List of stocks
+type StockList = {
+  stocks: Stock[];
+};
+
 // Stock details
 export type StockDetails = {
   symbol: string;
@@ -39,16 +44,23 @@ export type StockDetails = {
   assenmbly: Date;
 };
 
-// List of stocks
-type StockList = {
-  stocks: Stock[];
-};
+// Filter object
+export type Filters = {
+  [key: string]: string[]
+  countries: string[],
+  currencies: string[],
+  industries: string[]
+  mcSizes: string[]
+}
+
+
 
 /**
  * Makes an API call. Resolves to the JSON response if the call is successful,
  * otherwise rejects with an error that has an {@link ErrorCode} as message.
- *
- * TODO: Error handeling.
+ *  
+ * TODO: Merge with portfolio requet
+ * 
  * @param token - Authentication token
  * @param method - Request method (GET, POST, etc.)
  * @param url - An URL relative to {@link baseURL}
@@ -83,9 +95,18 @@ async function request(
  * Gets an overview over all stocks with an authenticated user.
  *
  * @param token - Authentication token
+ * @param filters - Object including all filters
+ * 
  */
-export async function listStocks(token: string): Promise<Stock[]> {
-  const response = (await request(token, 'GET', '/list')) as StockList;
+export async function listStocks(token: string, filters: Filters): Promise<Stock[]> {
+  let base = '/list'
+  Object.keys(filters).forEach((key) => {
+    if(filters[key].length > 0) {
+      base += `?${key}=${filters[key].toString()}`
+    }
+  })
+
+  const response = (await request(token, 'GET', base)) as StockList;
   return response.stocks;
 }
 

@@ -348,7 +348,7 @@ function convertPortfolioDetails(response: DetailsResponse): PortfolioDetails {
  *
  * @return Parsed JSON response if the API call succeeds
  */
-async function request(
+export async function request(
   token: string,
   method: string,
   url: string,

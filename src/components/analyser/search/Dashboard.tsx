@@ -39,12 +39,13 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
 
   const [stocks, setStocks] = React.useState<API.Stock[]>();
   const [error, setError] = React.useState<Error | undefined>();
+  const [filters, setFilters] = React.useState<API.Filters>({ countries: [], industries: [], currencies: [], mcSizes: [] });
 
   const isMounted = React.useRef(true);
   const fetch = async () => {
     setError(undefined);
     try {
-      const s = await API.listStocks(token);
+      const s = await API.listStocks(token, filters);
       if (isMounted.current) {
         setStocks(s);
       }
