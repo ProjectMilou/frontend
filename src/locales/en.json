@@ -169,5 +169,17 @@
   "analyser.detail.keyfigure.EPS.title": "Earnings per Share",
   "analyser.detail.keyfigure.EPS.definition": "EPS indicates how much money a company makes for each share of its stock, and is a widely used metric to estimate corporate value. A higher EPS indicates greater value because investors will pay more for a company's shares if they think the company has higher profits relative to its share price.",
   "analyzer.addToPortfolio": "Add To Portfolio",
-  "analyzer.dialogHeader": "Select the portfolios you want to add to"
+  "analyzer.dialogHeader": "Select the portfolios you want to add to",
+  "shell.profile.profile-header": "Profile",
+  "shell.profile.account-details.header": "Account Details",
+  "shell.profile.account-details.email": "Email",
+  "shell.profile.account-details.first-name": "First Name",
+  "shell.profile.account-details.last-name": "Last Name",
+  "shell.profile.account-details.update-details": "Update Details",
+  "shell.profile.account-details.edit-details": "Edit Details",
+  "shell.profile.account-details.delete-account": "Delete Account",
+  "shell.profile.account-details.delete-dialog.title": "Are you sure you want to delete your account?",
+  "shell.profile.account-details.delete-dialog.description": "Deleting your account is irreversible. All your data will be deleted!",
+  "shell.profile.account-details.delete-dialog.ok": "OK",
+  "shell.profile.account-details.delete-dialog.cancel": "Cancel"
 }

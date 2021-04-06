@@ -91,11 +91,6 @@ const Footer: React.FC = () => {
               Privacy Policy
             </Link>
           </Grid>
-          <Grid item>
-            <Link to="/terms" className={classes.link}>
-              Terms and Conditions
-            </Link>
-          </Grid>
         </Grid>
       </Grid>
 
