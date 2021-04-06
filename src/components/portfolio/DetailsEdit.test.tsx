@@ -2,8 +2,9 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import DetailsEdit from './DetailsEdit';
+import { Position } from '../../portfolio/APIClient';
 
-const mockPositions = [
+const mockPositions: Position[] = [
   {
     stock: {
       isin: '0',
@@ -14,15 +15,18 @@ const mockPositions = [
       perf1y: 5,
       country: 'Germany',
       industry: 'Auto',
+      currency: 'EUR',
       score: 0.7,
     },
     qty: 5,
+    totalReturn: 6.5,
+    totalReturnPercent: 25,
   },
 ];
 
 describe('Details Edit', () => {
   test('renders and the buttons work', () => {
-    render(<DetailsEdit positions={mockPositions} />);
+    render(<DetailsEdit positions={mockPositions} edit={jest.fn()} />);
     const editButton = screen.getByText('portfolio.details.editPortfolio');
     userEvent.click(editButton);
     screen.getByText('portfolio.details.dialogHeader');
