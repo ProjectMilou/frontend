@@ -1,18 +1,21 @@
 // Based on Portfolio API Client
 
+import { AppError } from '../Errors';
+
 export const baseURL = 'https://api.milou.io/stocks';
 const headers = { 'Content-Type': 'application/json' };
 
 // Stock type
 export type Stock = {
   symbol: string;
-  ISIN: string;
-  WKN: string;
+  isin: string;
+  wkn: string;
   name: string;
   price: number;
-  '1d': number;
-  '7d': number;
-  '30d': number;
+  per1d: number;
+  per7d: number;
+  per30d: number;
+  per365d: number;
   marketCapitalization: number;
   analystTargetPrice: number;
   valuation: number;
@@ -38,26 +41,7 @@ export type StockDetails = {
 
 // List of stocks
 type StockList = {
-  stocks: {
-    symbol: string;
-    ISIN: string;
-    WKN: string;
-    name: string;
-    price: number;
-    '1d': number;
-    '7d': number;
-    '30d': number;
-    marketCapitalization: number;
-    analystTargetPrice: number;
-    valuation: number;
-    growth: number;
-    div: number;
-    currency: string;
-    country: string;
-    industry: string;
-    picture: URL;
-    date: Date;
-  }[];
+  stocks: Stock[];
 };
 
 /**
@@ -85,14 +69,14 @@ async function request(
     method,
     headers: { ...headers, ...additionalHeaders },
     body,
-  }).catch(() => Promise.reject(new Error('UNKNOWN'))); // network error etc.
+  }).catch(() => Promise.reject(new AppError('UNKNOWN'))); // network error etc.
   if (response.ok) {
     return Promise.resolve(response.json()); // valid response
   }
   const json = await response
     .json()
-    .catch(() => Promise.reject(new Error('UNKNOWN'))); // server error without JSON response
-  return Promise.reject(new Error(json.error)); // JSON error
+    .catch(() => Promise.reject(new AppError('UNKNOWN'))); // server error without JSON response
+  return Promise.reject(new AppError(json.error)); // JSON error
 }
 
 /**
@@ -101,7 +85,7 @@ async function request(
  * @param token - Authentication token
  */
 export async function listStocks(token: string): Promise<Stock[]> {
-  const response = (await request(token, 'GET', '')) as StockList;
+  const response = (await request(token, 'GET', '/list')) as StockList;
   return response.stocks;
 }
 
@@ -115,8 +99,12 @@ export async function stockOverview(
   token: string,
   symbol: string
 ): Promise<Stock> {
-  const response = (await request(token, 'GET', `${symbol}`)) as Stock;
-  return response;
+  const response = (await request(
+    token,
+    'GET',
+    `/search?id=${symbol}`
+  )) as StockList;
+  return response.stocks[0] as Stock;
 }
 
 /**
@@ -132,7 +120,7 @@ export async function stockDetails(
   const response = (await request(
     token,
     'GET',
-    `${symbol}/details`
+    `/details/search?id=${symbol}`
   )) as StockDetails;
   return response;
 }

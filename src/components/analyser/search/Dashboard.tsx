@@ -9,11 +9,11 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
-import { ErrorCode } from '../../../Errors';
 import ErrorMessage from '../../shared/ErrorMessage';
 import StockListOverview from './StockListOverview';
 import DashboardHeader from '../../shared/DashboardHeader';
 import Filter from './Filter';
+import { isAuthenticationError } from '../../../Errors';
 
 export type DashboardProps = {
   token: string;
@@ -38,7 +38,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
   const { t } = useTranslation();
 
   const [stocks, setStocks] = React.useState<API.Stock[]>();
-  const [error, setError] = React.useState<ErrorCode | undefined>();
+  const [error, setError] = React.useState<Error | undefined>();
 
   const isMounted = React.useRef(true);
   const fetch = async () => {
@@ -50,7 +50,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
       }
     } catch (e) {
       if (isMounted.current) {
-        setError(e.message);
+        setError(e);
       }
     }
   };
@@ -87,7 +87,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
             error={error}
             messageKey="analyser.dashboard.errorMessage"
             handling={
-              error.startsWith('AUTH')
+              isAuthenticationError(error)
                 ? {
                     buttonText: 'error.action.login',
                     action: async () => {

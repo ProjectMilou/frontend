@@ -10,6 +10,7 @@ describe('DashboardTable', () => {
     renamePortfolio: jest.fn(),
     duplicatePortfolio: jest.fn(),
     deletePortfolio: jest.fn(),
+    createPortfolio: jest.fn(),
   };
 
   const renderComponent = (newProps?: Partial<DashboardTableProps>) => {
@@ -19,6 +20,12 @@ describe('DashboardTable', () => {
       props,
     };
   };
+
+  test('show no table if no portfolios exist', () => {
+    const { container } = renderComponent({ portfolios: [] });
+    // no table
+    expect(container.querySelector('table')).toBeNull();
+  });
 
   test('display portfolio information', () => {
     const { container } = renderComponent();
