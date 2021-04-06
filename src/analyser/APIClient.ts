@@ -57,7 +57,7 @@ export type Filters = {
  * Makes an API call. Resolves to the JSON response if the call is successful,
  * otherwise rejects with an error that has an {@link ErrorCode} as message.
  *
- * TODO: Merge with portfolio requet
+ * TODO: Merge with portfolio request
  *
  * @param token - Authentication token
  * @param method - Request method (GET, POST, etc.)
@@ -105,6 +105,7 @@ export async function listStocks(
   Object.keys(filters).forEach((key) => {
     if (filters[key].length > 0) {
       if (params.length === 0) {
+        // TODO can be probably done nicer
         params += `?${key}=${filters[key].toString().replace(' ', '%20')}`;
       } else {
         params += `&${key}=${filters[key].toString().replace(' ', '%20')}`;
