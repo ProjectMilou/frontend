@@ -1,3 +1,5 @@
+// Based on Portfolio's DashboardTable.tsx Will be later either replaced by Material-UI list or refactored
+
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -13,28 +15,32 @@ import {
   TableRow,
   Theme,
   Typography,
+  createStyles,
 } from '@material-ui/core';
 import classNames from 'classnames';
 import * as API from '../../../analyser/APIClient';
-import EuroCurrency from '../EuroCurrency';
-import Performance from '../Performance';
-import Valuation from '../Valuation';
+import EuroCurrency from '../../shared/EuroCurrency';
+import Performance from '../../shared/Performance';
+import Valuation from '../../shared/Valuation';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  action: { display: 'inline-block' },
-  row: {
-    cursor: 'pointer',
-  },
-  rowHover: {
-    backgroundColor: lighten(theme.palette.primary.light, 0.85),
-  },
-  defaultText: {
-    fontSize: '24px',
-  },
-  disabled: {
-    cursor: 'not-allowed',
-  },
-}));
+const useStyles = makeStyles(({ palette }: Theme) =>
+  createStyles({
+    action: { display: 'inline-block' },
+    row: {
+      cursor: 'pointer',
+    },
+    rowHover: {
+      backgroundColor: lighten(palette.primary.light, 0.85),
+    },
+    defaultText: {
+      fontSize: '24px',
+      color: palette.primary.main,
+    },
+    disabled: {
+      cursor: 'not-allowed',
+    },
+  })
+);
 
 export type DashboardTableRowProps = {
   stock: API.Stock;
@@ -89,13 +95,25 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         />
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
-        <EuroCurrency value={stock.price} />
+        <EuroCurrency
+          value={stock.price}
+          decimalSeperator="."
+          thousandSeperator=","
+        />
       </TableCell>
       <TableCell align="center">
-        <Performance value={stock['7d']} />
+        <Performance
+          value={stock.per7d}
+          decimalSeperator="."
+          thousandSeperator=","
+        />
       </TableCell>
       <TableCell align="center">
-        <Performance value={stock['30d']} />
+        <Performance
+          value={stock.per30d}
+          decimalSeperator="."
+          thousandSeperator=","
+        />
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>
@@ -103,18 +121,21 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         </Typography>
       </TableCell>
       <TableCell align="center">
-        <EuroCurrency value={stock.analystTargetPrice} />
+        <EuroCurrency
+          value={stock.analystTargetPrice}
+          decimalSeperator="."
+          thousandSeperator=","
+        />
       </TableCell>
       <TableCell align="center">
         <Valuation value={stock.valuation} />
       </TableCell>
       <TableCell align="center">
-        <Typography color="primary" className={classes.defaultText}>
-          {stock.growth}
-        </Typography>
-      </TableCell>
-      <TableCell align="center">
-        <Performance value={stock.div} />
+        <Performance
+          value={stock.div}
+          decimalSeperator="."
+          thousandSeperator=","
+        />
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>
@@ -148,7 +169,6 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
             <TableCell align="center">{t('stock.marketCap')}</TableCell>
             <TableCell align="center">{t('stock.analystsTarget')}</TableCell>
             <TableCell align="center">{t('stock.valuation')}</TableCell>
-            <TableCell align="center">{t('stock.growth')}</TableCell>
             <TableCell align="center">{t('stock.div')}</TableCell>
             <TableCell align="center">{t('stock.industry')}</TableCell>
           </TableRow>

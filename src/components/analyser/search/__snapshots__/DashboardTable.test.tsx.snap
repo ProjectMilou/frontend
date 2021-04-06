@@ -61,12 +61,6 @@ exports[`DashboardTable display stock information 1`] = `
             class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
             scope="col"
           >
-            stock.growth
-          </th>
-          <th
-            class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
-            scope="col"
-          >
             stock.div
           </th>
           <th
@@ -109,7 +103,7 @@ exports[`DashboardTable display stock information 1`] = `
             <span
               class="makeStyles-euroCurrency-6 makeStyles-euroCurrency-7"
             >
-              €175.29
+              175.29 €
             </span>
           </td>
           <td
@@ -118,7 +112,7 @@ exports[`DashboardTable display stock information 1`] = `
             <span
               class="makeStyles-performance-8 makeStyles-performance-9"
             >
-              1.52%
+              1.52 %
             </span>
           </td>
           <td
@@ -127,7 +121,7 @@ exports[`DashboardTable display stock information 1`] = `
             <span
               class="makeStyles-performance-8 makeStyles-performance-10"
             >
-              0.92%
+              0.92 %
             </span>
           </td>
           <td
@@ -145,7 +139,7 @@ exports[`DashboardTable display stock information 1`] = `
             <span
               class="makeStyles-euroCurrency-6 makeStyles-euroCurrency-11"
             >
-              €137.00
+              137.00 €
             </span>
           </td>
           <td
@@ -154,17 +148,8 @@ exports[`DashboardTable display stock information 1`] = `
             <span
               class="makeStyles-euroCurrency-12 makeStyles-euroCurrency-13"
             >
-              P/E 20.7x
+              20.7x
             </span>
-          </td>
-          <td
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-          >
-            <p
-              class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
-            >
-              1.5
-            </p>
           </td>
           <td
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
@@ -172,7 +157,7 @@ exports[`DashboardTable display stock information 1`] = `
             <span
               class="makeStyles-performance-8 makeStyles-performance-14"
             >
-              0.05%
+              0.05 %
             </span>
           </td>
           <td
@@ -214,7 +199,7 @@ exports[`DashboardTable display stock information 1`] = `
             <span
               class="makeStyles-euroCurrency-6 makeStyles-euroCurrency-15"
             >
-              €252.19
+              252.19 €
             </span>
           </td>
           <td
@@ -223,7 +208,7 @@ exports[`DashboardTable display stock information 1`] = `
             <span
               class="makeStyles-performance-8 makeStyles-performance-16"
             >
-              1.52%
+              1.52 %
             </span>
           </td>
           <td
@@ -232,7 +217,7 @@ exports[`DashboardTable display stock information 1`] = `
             <span
               class="makeStyles-performance-8 makeStyles-performance-17"
             >
-              0.92%
+              0.92 %
             </span>
           </td>
           <td
@@ -250,7 +235,7 @@ exports[`DashboardTable display stock information 1`] = `
             <span
               class="makeStyles-euroCurrency-6 makeStyles-euroCurrency-18"
             >
-              €290.24
+              290.24 €
             </span>
           </td>
           <td
@@ -259,17 +244,8 @@ exports[`DashboardTable display stock information 1`] = `
             <span
               class="makeStyles-euroCurrency-12 makeStyles-euroCurrency-19"
             >
-              P/E 27.7x
+              27.7x
             </span>
-          </td>
-          <td
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-          >
-            <p
-              class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
-            >
-              3.2
-            </p>
           </td>
           <td
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
@@ -277,7 +253,7 @@ exports[`DashboardTable display stock information 1`] = `
             <span
               class="makeStyles-performance-8 makeStyles-performance-20"
             >
-              0.12%
+              0.12 %
             </span>
           </td>
           <td

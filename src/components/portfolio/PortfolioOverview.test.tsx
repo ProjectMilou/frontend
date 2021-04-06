@@ -4,6 +4,7 @@ import PortfolioOverview, { PortfolioOverviewProps } from './PortfolioOverview';
 import { MockOverview, MockOverviewTwo } from '../../portfolio/APIMocks';
 
 jest.mock('./DashboardTable', () => () => <table />);
+jest.mock('./DashboardCards', () => () => <ul />);
 
 describe('PortfolioOverview', () => {
   const defaultProps: PortfolioOverviewProps = {
@@ -12,6 +13,7 @@ describe('PortfolioOverview', () => {
     renamePortfolio: jest.fn(),
     duplicatePortfolio: jest.fn(),
     deletePortfolio: jest.fn(),
+    createPortfolio: jest.fn(),
   };
 
   const renderComponent = (newProps?: Partial<PortfolioOverviewProps>) => {
@@ -24,31 +26,27 @@ describe('PortfolioOverview', () => {
 
   test('show message if no portfolios exist', () => {
     const { container, getByText } = renderComponent({ portfolios: [] });
-    expect(getByText('portfolio.dashboard.title')).toBeInTheDocument();
     expect(getByText('portfolio.dashboard.noPortfolios')).toBeInTheDocument();
-    // no table
-    expect(container.querySelector('table')).toBeNull();
-    // no view selection
-    expect(container.querySelectorAll('button svg')).toHaveLength(0);
+    // view selection
+    expect(container.querySelectorAll('button svg')).toHaveLength(2);
   });
 
   test('switch between table and cards view', () => {
-    // TODO: Update test once cards view is implemented
     const { container, queryByText } = renderComponent();
     expect(queryByText('portfolio.dashboard.title')).toBeInTheDocument();
     expect(queryByText('portfolio.dashboard.noPortfolios')).toBeNull();
-    expect(queryByText('cards')).toBeNull();
     expect(container.querySelectorAll('table')).toHaveLength(1);
+    expect(container.querySelectorAll('ul')).toHaveLength(0);
     // buttons to change view
     const buttons = container.querySelectorAll('button svg');
     expect(buttons).toHaveLength(2);
     // change to cards view
     fireEvent.click(buttons[1]);
+    expect(container.querySelectorAll('ul')).toHaveLength(1);
     expect(container.querySelectorAll('table')).toHaveLength(0);
-    expect(queryByText('cards')).toBeInTheDocument();
     // change to table view
     fireEvent.click(buttons[0]);
     expect(container.querySelectorAll('table')).toHaveLength(1);
-    expect(queryByText('cards')).toBeNull();
+    expect(container.querySelectorAll('ul')).toHaveLength(0);
   });
 });

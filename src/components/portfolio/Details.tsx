@@ -1,13 +1,19 @@
 import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core';
+import {
+  makeStyles,
+  createStyles,
+  Theme,
+  LinearProgress,
+  Typography,
+  Container,
+} from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import DetailsHeader from './DetailsHeader';
 import DetailsMain from './DetailsMain';
-import {
-  PortfolioDetails,
-  KeyFigures,
-  RiskAnalysis,
-  Position,
-} from './DetailsTypes';
+import * as API from '../../portfolio/APIClient';
+import { isAuthenticationError } from '../../Errors';
+import ErrorMessage from '../shared/ErrorMessage';
+import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 
 // stylesheet for the details base component
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -24,151 +30,104 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       // change to agreed upon minWidth
       minWidth: '50rem',
     },
+    container: {
+      marginTop: '25px',
+    },
   })
 );
 
-// is this even useful?
-function sumPositions(pos: Position[]): number {
-  return (
-    Math.round(pos.map((p) => p.stock.price).reduce((a, b) => a + b) * 100) /
-    100
-  );
-}
-
-// all mock data that is passed down
-export const mockPositions: Position[] = [
-  {
-    stock: {
-      isin: '0',
-      symbol: 'BMW',
-      name: 'BMW',
-      price: 23.25,
-      perf7d: -1,
-      perf1y: 5,
-      country: 'Germany',
-      industry: 'Auto',
-      score: 0.7,
-    },
-    qty: 1,
-  },
-  {
-    stock: {
-      isin: '1',
-      symbol: 'MRC',
-      name: 'Mercedes',
-      price: 19.51,
-      perf7d: 3,
-      perf1y: -15,
-      country: 'Germany',
-      industry: 'Auto',
-      score: 0.4,
-    },
-    qty: 2,
-  },
-  {
-    stock: {
-      isin: '2',
-      symbol: 'MCL',
-      name: 'McLaren',
-      price: 12.11,
-      perf7d: 15,
-      perf1y: 10,
-      country: 'Germany',
-      industry: 'Auto',
-      score: 0.8,
-    },
-    qty: 3,
-  },
-  {
-    stock: {
-      isin: '3',
-      symbol: 'QQQ',
-      name: 'QQQ',
-      price: 120.11,
-      perf7d: 1,
-      perf1y: 2,
-      country: 'USA',
-      industry: 'Tech',
-      score: 0.9,
-    },
-    qty: 4,
-  },
-];
-
-const mockRisk: RiskAnalysis = {
-  countries: {
-    score: 0.1,
-    warnings: [
-      'Strong focus on two countries',
-      'Strong focus on western world',
-    ],
-  },
-  segments: { score: 0.4, warnings: ['c', 'd'] },
-  currency: { score: 0.8, warnings: ['e', 'f', 'g'] },
-};
-
-const mockFigures: KeyFigures[] = [
-  {
-    year: 1,
-    pte: 10,
-    ptb: 8,
-    ptg: 2,
-    eps: 1,
-    div: 5,
-  },
-];
-
-export const mock: PortfolioDetails = {
-  id: '1',
-  name: 'My Portfolio',
-  virtual: true,
-  positionCount: 3,
-  value: sumPositions(mockPositions),
-  score: 0.6,
-  perf7d: -2,
-  perf1y: 4,
-  modified: 0,
-  positions: mockPositions,
-  risk: mockRisk,
-  keyFigures: mockFigures,
-  nextDividend: 0,
-  dividendPayoutRatio: 0.25,
-};
-
 // props type declaration
 export type DetailsProps = {
+  token: string;
+  id: string;
   // function to return to the dashboard
   back: () => void;
 };
 
 // functional component that takes the name of the portfolio and a function to switch back to the dashboard
 // returns the entire details page
-const Details: React.FC<DetailsProps> = ({ back }) => {
+const Details: React.FC<DetailsProps> = ({ token, id, back }) => {
+  const [portfolioDetails, setPortfolioDetails] = React.useState<
+    API.PortfolioDetails | undefined
+  >();
+  const [error, setError] = React.useState<Error | undefined>(undefined);
+
+  const isMounted = React.useRef(true);
+
+  const fetch = async () => {
+    setError(undefined);
+    try {
+      const details = await API.details(token, id);
+      if (isMounted.current) {
+        setPortfolioDetails(details);
+      }
+    } catch (e) {
+      if (isMounted.current) {
+        setError(e);
+      }
+    }
+  };
+
+  React.useEffect(() => {
+    fetch();
+    return () => {
+      isMounted.current = false;
+    };
+    // deps must be empty because the function should only be called on mount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <div>
-      <section className={classes.topBanner}>
+      <div className={classes.topBanner}>
         <DetailsHeader
           back={back}
-          name={mock.name}
-          positions={mock.positions}
+          name={portfolioDetails?.overview.name}
+          positions={portfolioDetails?.positions}
+          editPositions={async (modifications) => {
+            await API.modify(token, id, modifications);
+            // reload portfolio details after successful edit
+            await fetch();
+          }}
         />
-      </section>
-      <section className={classes.main}>
-        <DetailsMain
-          positionCount={mock.positionCount}
-          value={mock.value}
-          score={mock.score}
-          perf7d={mock.perf7d}
-          perf1y={mock.perf1y}
-          risk={mock.risk}
-          positions={mock.positions}
-          figures={mock.keyFigures}
-          nextDividend={mock.nextDividend}
-          dividendPayoutRatio={mock.dividendPayoutRatio}
-        />
-      </section>
+      </div>
+      {!portfolioDetails && !error && <LinearProgress color="secondary" />}
+      {error && (
+        <Container className={classes.container}>
+          <ErrorMessage
+            error={error}
+            messageKey="portfolio.details.errorMessage"
+            handling={
+              isAuthenticationError(error)
+                ? {
+                    buttonText: 'error.action.login',
+                    action: async () => {
+                      // TODO: go back to login
+                    },
+                  }
+                : {
+                    buttonText: 'error.action.retry',
+                    action: fetch,
+                  }
+            }
+          />
+        </Container>
+      )}
+      {portfolioDetails &&
+        (portfolioDetails.overview.positionCount ? (
+          <div className={classes.main}>
+            <DetailsMain
+              portfolio={portfolioDetails as NonEmptyPortfolioDetails}
+            />
+          </div>
+        ) : (
+          <Container className={classes.container}>
+            <Typography>{t('portfolio.details.emptyPortfolio')}</Typography>
+          </Container>
+        ))}
     </div>
   );
 };

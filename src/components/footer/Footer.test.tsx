@@ -9,6 +9,5 @@ describe('Footer', () => {
     expect(screen.getByText(/About us/i)).toBeInTheDocument();
     expect(screen.getByText(/Mobile App/i)).toBeInTheDocument();
     expect(screen.getByText(/Privacy Policy/i)).toBeInTheDocument();
-    expect(screen.getByText(/Terms and Conditions/i)).toBeInTheDocument();
   });
 });

@@ -1,12 +1,17 @@
 import React from 'react';
-import { LinearProgress, makeStyles, Container } from '@material-ui/core';
-import { ErrorCode } from '../../../Errors';
+import {
+  LinearProgress,
+  makeStyles,
+  Container,
+  useTheme,
+} from '@material-ui/core';
+import { isAuthenticationError } from '../../../Errors';
 import * as API from '../../../analyser/APIClient';
-import ErrorMessage from '../ErrorMessage';
+import ErrorMessage from '../../shared/ErrorMessage';
 import DetailsHeader from './DetailsHeader';
 import KeyFigures from './KeyFigures';
 import DetailsOverview from './DetailsOverview';
-import StockChart from '../../charts/StockChart';
+import StockChart from '../../shared/StockChart';
 
 // props type declaration
 export type DetailsProps = {
@@ -27,10 +32,10 @@ const useStyles = makeStyles({
   },
 });
 
-const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
+const Details: React.FC<DetailsProps> = ({ token, symbol, back }) => {
   const [stockOverview, setStockOverview] = React.useState<API.Stock>();
   const [stockDetails, setStockDetails] = React.useState<API.StockDetails>();
-  const [error, setError] = React.useState<ErrorCode | undefined>();
+  const [error, setError] = React.useState<Error | undefined>();
 
   const isMounted = React.useRef(true);
   const fetch = async () => {
@@ -45,7 +50,7 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
       }
     } catch (e) {
       if (isMounted.current) {
-        setError(e.message);
+        setError(e);
       }
     }
   };
@@ -59,6 +64,10 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // window.history.pushState('', null, './');
+  //   $(window).on('popstate', function() {
+  //   location.reload(true);
+  // });
   const classes = useStyles();
 
   const chartSeries = [
@@ -339,6 +348,8 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
     [1361919600000, 39.6],
   ];
 
+  const theme = useTheme();
+
   return (
     <>
       {!stockOverview ||
@@ -354,7 +365,7 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
             error={error}
             messageKey="analyser.dashboard.errorMessage"
             handling={
-              error.startsWith('AUTH')
+              isAuthenticationError(error)
                 ? {
                     buttonText: 'error.action.login',
                     action: async () => {
@@ -371,13 +382,19 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
       )}
       {stockOverview && stockDetails && (
         <div>
-          <DetailsHeader details={stockOverview} />
+          <DetailsHeader back={back} details={stockOverview} />
           <Container className={classes.mainContent}>
             <DetailsOverview
               stockOverview={stockOverview}
               stockDetails={stockDetails}
             />
-            <StockChart series={chartSeries} />
+            <StockChart
+              series={chartSeries}
+              axisColor={theme.palette.secondary.contrastText}
+              buttonBackgroundColor={theme.palette.primary.main}
+              buttonTextColor={theme.palette.primary.contrastText}
+              height={450}
+            />
             <KeyFigures />
           </Container>
         </div>
