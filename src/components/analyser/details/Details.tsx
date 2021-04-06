@@ -398,9 +398,8 @@ const Details: React.FC<DetailsProps> = ({ token, symbol, back }) => {
               height={450}
             />
             <KeyFigures />
-            
+            <AnalysisChart series ={series}/>
           </Container>
-          <AnalysisChart series ={series}/>
         </div>
       )}
     </>

@@ -1,5 +1,11 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
+import {
+  makeStyles,
+  Theme,
+  createStyles,
+} from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
 
 export type Series = {
   name: string;
@@ -10,10 +16,61 @@ type AnalysisChartProps = {
   series: number[];
 };
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    button: {
+      margin: theme.spacing(1),
+    },
+    customSize: {
+      maxWidth: 500,
+    },
+    root: {
+      margin: '25px auto',
+      minWidth: '50%',
+    },
+    titleContainer: {
+      display: 'flex',
+      marginBottom: '2rem',
+    },
+    titleWrapper: {
+      marginRight: '1rem',
+    },
+    sectionTitle: {
+      margin: 0,
+      color: 'primary',
+      // TODO use theme fontsize and weight
+      fontSize: '2.25rem',
+      fontWeight: 400,
+      whiteSpace: 'nowrap',
+    },
+    sectionSubTitle: {
+      margin: 0,
+      color: 'primary',
+      // TODO use theme fontsize and weight
+      fontSize: '2rem',
+      fontWeight: 400,
+      whiteSpace: 'nowrap',
+    },
+    lineWrapper: {
+      display: 'flex',
+      width: '100%',
+      // TODO: use theme color
+      borderColor: 'grey',
+    },
+    line: {
+      width: '100%',
+      alignSelf: 'center',
+      paddingLeft: '2%',
+    },
+  })
+);
+
 const AnalysisChart: React.FC<AnalysisChartProps> = ({
   series
 }
 ) => {
+  const classes = useStyles();
+  const { t } = useTranslation();
   const options = {
     options: {
       chart: {
@@ -27,16 +84,6 @@ const AnalysisChart: React.FC<AnalysisChartProps> = ({
     fill: {
       type: 'gradient',
       colors: '#3da97e',
-      gradient: {
-        shade: 'light',
-        type: 'horizontal',
-        shadeIntensity: 0.5,
-        gradientToColors: ['#B80C09', '#3da97e'],
-        inverseColors: true,
-        opacityFrom: 1,
-        opacityTo: 1,
-        stops: [0,100],
-      }
     },
     plotOptions: {
       radialBar: {
@@ -90,19 +137,22 @@ const AnalysisChart: React.FC<AnalysisChartProps> = ({
         }
       }
     },
-    stroke: {
-      lineCap: 'round'
-    },
-    labels: ['Percent'],
+    labels: ['Score'],
 
   };
   return (
-    <div id="card">
+    <div>
+      <div className={classes.titleContainer}>
+        <div className={classes.titleWrapper}>
+          <h2 className={classes.sectionSubTitle}>
+            {t('analyser.details.KeyFiguresHeader.Analysts')}
+          </h2>
+        </div>
+      </div>
     <div id="chart">
     <Chart options={options} series={series} type="radialBar" height={350} />
   </div>
   </div>
-
   );
 };
 
