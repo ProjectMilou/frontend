@@ -409,6 +409,30 @@ export async function list(token: string): Promise<PortfolioOverview[]> {
   ];
 }
 
+/**
+ * Gets the data needed for the Back-Testing section of the portfolio details page.
+ *
+ * @param token - Authentication token
+ * @param id - Id of the portfolio for which the Back-Testing information is needed
+ * @param from - UNIX timestamp for the date FROM which the user wants to backtest
+ * @param to - UNIX timestamp for the date UNTIL WHICH the user wants to backtest
+ */
+export async function backtesting(
+  token: string,
+  id: string,
+  from: number,
+  to: number
+): Promise<Backtesting> {
+  const response = (await request(
+    token,
+    'GET',
+    // TODO edit url when final contract is clear
+    `backtest/${id}/${from}/${to}`
+    // TODO add type BacktestingResponse if needed
+  )) as Backtesting;
+  return response;
+}
+
 export async function details(
   token: string,
   id: string

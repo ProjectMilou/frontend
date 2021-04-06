@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
+import { Container } from '@material-ui/core';
 import DetailsMainBacktestingTimeline from './DetailsMainBacktestingTimeline';
 import { Backtesting } from '../../portfolio/APIClient';
 import DetailsMainBacktestingList from './DetailsMainBacktestingList';
+import * as API from '../../portfolio/APIClient';
+import ErrorMessage from '../shared/ErrorMessage';
 
-// stylesheet for the backtesting section
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     backtestingWrapper: {
@@ -14,6 +16,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       flexDirection: 'column',
       width: '100%',
     },
+
     subtitle: {
       display: 'flex',
       alignItems: 'center',
@@ -61,10 +64,12 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       display: 'flex',
       marginTop: '1em',
     },
+    container: {
+      marginTop: '25px',
+    },
   })
 );
 
-// returns the details page header
 const DetailsMainBacktesting: React.FC = () => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -79,9 +84,32 @@ const DetailsMainBacktesting: React.FC = () => {
   const [selectedTo, setSelectedTo] = React.useState<string>(
     oneYearBack.toISOString().split('T')[0]
   );
+
   const [helperText, setHelperText] = React.useState<string>('');
   const [disabled, setDisabled] = React.useState<boolean>(false);
   const [backtesting, setBacktesting] = React.useState<Backtesting>();
+  const [error, setError] = React.useState<Error | undefined>(undefined);
+  const isMounted = React.useRef(true);
+
+  const fetch = async (from: number, to: number) => {
+    setError(undefined);
+    try {
+      // TODO get real token and id from useContext
+      const backTestingResponse = await API.backtesting(
+        'mockToken',
+        'mockID',
+        from,
+        to
+      );
+      if (isMounted.current) {
+        setBacktesting(backTestingResponse);
+      }
+    } catch (e) {
+      if (isMounted.current) {
+        setError(e);
+      }
+    }
+  };
 
   useEffect(() => {
     const from = Date.parse(selectedFrom);
@@ -93,6 +121,7 @@ const DetailsMainBacktesting: React.FC = () => {
       setDisabled(true);
       // TODO do API call, call setBacktesting and then enable fields again
       // TODO replace mock with actual api call
+      // fetch(from, to);
       const backtestingInit: Backtesting = {
         MDDMaxToMin: -65,
         MDDInitialToMin: -65,
@@ -117,8 +146,12 @@ const DetailsMainBacktesting: React.FC = () => {
         sharpeRatio: 0.65,
       };
       setBacktesting(backtestingInit);
+
       setTimeout(() => setDisabled(false), 3000);
     }
+    return () => {
+      isMounted.current = false;
+    };
   }, [selectedFrom, selectedTo, t]);
 
   return (
@@ -166,7 +199,16 @@ const DetailsMainBacktesting: React.FC = () => {
           />
         </form>
       </div>
-      {backtesting ? (
+      {/* TODO maybe replace with ternary operator instead of conditional error and conditional backtesting */}
+      {error && (
+        <Container className={classes.container}>
+          <ErrorMessage
+            error={error}
+            messageKey="portfolio.details.backtesting.errorMessage"
+          />
+        </Container>
+      )}
+      {backtesting && (
         <div className={classes.timelineListWrapper}>
           <DetailsMainBacktestingTimeline
             startDate={selectedFrom}
@@ -187,8 +229,6 @@ const DetailsMainBacktesting: React.FC = () => {
             cagr={backtesting.CAGR}
           />
         </div>
-      ) : (
-        <p>LOADING...</p>
       )}
     </div>
   );

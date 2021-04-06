@@ -46,6 +46,7 @@
   "portfolio.details.backtesting.cagr": "Compound Annual Growth Rate",
   "portfolio.details.backtesting.subheading": "Here you can see how your portfolio would have performed in the past",
   "portfolio.details.backtesting.dateHelperText": "Please select a valid time range.",
+  "portfolio.details.backtesting.errorMessage": "There was an error while loading the Backtesting data.",
   "cancel": "Cancel",
   "shell.email": "Email",
   "shell.password": "Password",
