@@ -60,10 +60,7 @@ const BankSearch: React.FC = () => {
           <List className={style.searchResults}>
             {searchResultData.map((result) => (
               <ListItem disableGutters>
-                <Link
-                  target="_blank"
-                  href={`${apiURL}user/bank?bankId=${result.id}`}
-                >
+                <Link href={`${apiURL}user/bank?bankId=${result.id}`}>
                   <ListItemText
                     primary={result.name}
                     secondary={result.location /* should be BIC */}
