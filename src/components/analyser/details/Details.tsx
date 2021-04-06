@@ -13,6 +13,7 @@ import KeyFigures from './KeyFigures';
 import DetailsOverview from './DetailsOverview';
 import StockChart from '../../shared/StockChart';
 import AnalysisChart from './AnalysisChart';
+import Dividends from './Dividends';
 
 // props type declaration
 export type DetailsProps = {
@@ -399,6 +400,7 @@ const Details: React.FC<DetailsProps> = ({ token, symbol, back }) => {
             />
             <KeyFigures />
             <AnalysisChart series ={series}/>
+            <Dividends />
           </Container>
         </div>
       )}
