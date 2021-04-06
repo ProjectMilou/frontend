@@ -99,6 +99,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
   const [error, setError] = React.useState<Error | undefined>(undefined);
   const isMounted = React.useRef(true);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const fetch = async (from: number, to: number) => {
     setError(undefined);
     try {
