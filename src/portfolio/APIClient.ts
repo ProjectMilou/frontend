@@ -96,6 +96,11 @@ export type PositionQty = {
   qty: number;
 };
 
+export type PortfoliosQty = {
+  id: string;
+  qty: number;
+};
+
 // Types describing the JSON response of API calls.
 // The correctness of these types is assumed, no checks are performed.
 
@@ -478,6 +483,19 @@ export async function modify(
     token,
     'PUT',
     `modify/${id}`,
+    JSON.stringify({ modifications })
+  );
+}
+
+export async function stock(
+  token: string,
+  isin: string,
+  modifications: PortfoliosQty[]
+): Promise<void> {
+  await request(
+    token,
+    'PUT',
+    `stock/${isin}`,
     JSON.stringify({ modifications })
   );
 }
