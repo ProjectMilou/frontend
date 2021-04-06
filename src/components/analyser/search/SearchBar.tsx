@@ -36,7 +36,7 @@ const SearchBar: React.FC = () => {
 
   const fetch = async () => {
     try {
-      const emptyFilters: API.Filters = { countries: [], industries: [], currencies: [], mcSizes: [] };
+      const emptyFilters: API.Filters = { country: [], industry: [], currency: [], mc: [] };
       const s = await API.listStocks('', emptyFilters);
       setStocks(s);
     } catch (err) {

@@ -26,38 +26,42 @@ const useStyles = makeStyles({
 });
 
 function setOriginalFilters(stocks: API.Stock[]) {
-  const ogFilters: API.Filters = { countries: [], industries: [], currencies: [], mcSizes: [] };
+  const ogFilters: API.Filters = { country: [], industry: [], currency: [], mc: [] };
   stocks.forEach((s) => {
-    if (!ogFilters.countries.includes(s.country)) {
-      ogFilters.countries.push(s.country);
+    if (!ogFilters.country.includes(s.country)) {
+      ogFilters.country.push(s.country);
     }
-    if (!ogFilters.industries.includes(s.country)) {
-      ogFilters.industries.push(s.industry);
+    if (!ogFilters.industry.includes(s.country)) {
+      ogFilters.industry.push(s.industry);
     }
-    if (!ogFilters.currencies.includes(s.currency)) {
-      ogFilters.currencies.push(s.currency);
+    if (!ogFilters.currency.includes(s.currency)) {
+      ogFilters.currency.push(s.currency);
     }
   });
-  ogFilters.countries.sort();
-  ogFilters.industries.sort();
-  ogFilters.currencies.sort();
+  ogFilters.country.sort();
+  ogFilters.industry.sort();
+  ogFilters.currency.sort();
   return ogFilters;
 }
 
 export type FilterProps = {
   stocks: API.Stock[];
+  filters: API.Filters;
+  setFilters: React.Dispatch<React.SetStateAction<API.Filters>>
+  updateStockList: () => Promise<void>
 };
 
-const Filter: React.FC<FilterProps> = ({ stocks }) => {
+const Filter: React.FC<FilterProps> = ({ stocks, filters, setFilters, updateStockList }) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
   const ogFilters = setOriginalFilters(stocks);
-  const emptyFilters: API.Filters = { countries: [], industries: [], currencies: [], mcSizes: [] };
-  const [filters, setFilters] = React.useState<API.Filters>(emptyFilters);
+  const emptyFilters: API.Filters = { country: [], industry: [], currency: [], mc: [] };
 
   const clearFilters = () => {
-    setFilters({ countries: [], industries: [], currencies: [], mcSizes: []});
+    setFilters(emptyFilters)
+    updateStockList()
+   
   };
 
   const handleChange = (
@@ -68,13 +72,13 @@ const Filter: React.FC<FilterProps> = ({ stocks }) => {
     if (temp.indexOf('') > -1) {
       switch (name) {
         case 'Country':
-          setFilters({ ...filters, countries: [] });
+          setFilters({ ...filters, country: [] });
           break;
         case 'Industry':
-          setFilters({ ...filters, industries: [] });
+          setFilters({ ...filters, industry: [] });
           break;
         case 'Currency':
-          setFilters({ ...filters, currencies: [] });
+          setFilters({ ...filters, currency: [] });
           break;
         default:
           break;
@@ -82,13 +86,13 @@ const Filter: React.FC<FilterProps> = ({ stocks }) => {
     } else {
       switch (name) {
         case 'Country':
-          setFilters({ ...filters, countries: temp });
+          setFilters({ ...filters, country: temp });
           break;
         case 'Industry':
-          setFilters({ ...filters, industries: temp });
+          setFilters({ ...filters, industry: temp });
           break;
         case 'Currency':
-          setFilters({ ...filters, currencies: temp });
+          setFilters({ ...filters, currency: temp });
           break;
         default:
           break;
@@ -96,29 +100,31 @@ const Filter: React.FC<FilterProps> = ({ stocks }) => {
     }
   };
 
-  const sendRequest = () => {
-    // TODO: send a filter request and tell?
-  };
-
   return (
     <Container className={classes.filterContainer}>
       <FilterBar
-        filtersList={filters.countries}
-        ogFiltersList={ogFilters.countries}
+        filtersList={filters.country}
+        ogFiltersList={ogFilters.country}
         handleChange={handleChange}
         name={t('stock.country')}
       />
       <FilterBar
-        filtersList={filters.industries}
-        ogFiltersList={ogFilters.industries}
+        filtersList={filters.industry}
+        ogFiltersList={ogFilters.industry}
         handleChange={handleChange}
         name={t('stock.industry')}
       />
       <FilterBar
-        filtersList={filters.currencies}
-        ogFiltersList={ogFilters.currencies}
+        filtersList={filters.currency}
+        ogFiltersList={ogFilters.currency}
         handleChange={handleChange}
-        name={t('stock.currencies')}
+        name={t('stock.currency')}
+      />
+      <FilterBar
+        filtersList={filters.mc}
+        ogFiltersList={ogFilters.mc}
+        handleChange={handleChange}
+        name={t('stock.marketCap')}
       />
       <ButtonGroup
         className={classes.buttonGroup}
@@ -127,7 +133,7 @@ const Filter: React.FC<FilterProps> = ({ stocks }) => {
       >
         <Button
           type="button"
-          onClick={() => sendRequest}
+          onClick={() => updateStockList()}
           startIcon={<FilterList />}
         >
           Adapt

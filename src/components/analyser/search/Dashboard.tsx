@@ -39,7 +39,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
 
   const [stocks, setStocks] = React.useState<API.Stock[]>();
   const [error, setError] = React.useState<Error | undefined>();
-  const [filters, setFilters] = React.useState<API.Filters>({ countries: [], industries: [], currencies: [], mcSizes: [] });
+  const [filters, setFilters] = React.useState<API.Filters>({ country: [], industry: [], currency: [], mc: [] });
 
   const isMounted = React.useRef(true);
   const fetch = async () => {
@@ -55,6 +55,16 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
       }
     }
   };
+
+  const updateStockList = async ():Promise<void> => {
+
+    try {
+      setStocks(await API.listStocks(token, filters));
+      console.warn(stocks)
+    } catch (e) {
+        setError(e);
+    }
+  }
 
   React.useEffect(() => {
     fetch();
@@ -78,7 +88,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
       {stocks && (
         <AppBar position="sticky" className={classes.filter}>
           <Toolbar variant="dense" disableGutters>
-            <Filter stocks={stocks} />
+            <Filter stocks={stocks} filters={filters} setFilters={setFilters} updateStockList={updateStockList} />
           </Toolbar>
         </AppBar>
       )}

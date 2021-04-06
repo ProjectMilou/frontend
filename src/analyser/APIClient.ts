@@ -47,10 +47,10 @@ export type StockDetails = {
 // Filter object
 export type Filters = {
   [key: string]: string[]
-  countries: string[],
-  currencies: string[],
-  industries: string[]
-  mcSizes: string[]
+  country: string[],
+  currency: string[],
+  industry: string[]
+  mc: string[]
 }
 
 
@@ -102,9 +102,11 @@ export async function listStocks(token: string, filters: Filters): Promise<Stock
   let base = '/list'
   Object.keys(filters).forEach((key) => {
     if(filters[key].length > 0) {
-      base += `?${key}=${filters[key].toString()}`
+      base += `?${key}=${filters[key].toString().replace(' ','%20')}`
     }
   })
+  console.log(filters)
+  console.log(base)
 
   const response = (await request(token, 'GET', base)) as StockList;
   return response.stocks;
