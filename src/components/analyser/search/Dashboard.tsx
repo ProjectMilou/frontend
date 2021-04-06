@@ -39,30 +39,28 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
 
   const [stocks, setStocks] = React.useState<API.Stock[]>();
   const [error, setError] = React.useState<Error | undefined>();
+  const [filters, setFilters] = React.useState<API.Filters>({
+    country: [],
+    industry: [],
+    currency: [],
+    mc: [],
+  });
 
-  const isMounted = React.useRef(true);
   const fetch = async () => {
     setError(undefined);
     try {
-      const s = await API.listStocks(token);
-      if (isMounted.current) {
-        setStocks(s);
-      }
+      const s = await API.listStocks(token, filters).then();
+      setStocks(s);
     } catch (e) {
-      if (isMounted.current) {
-        setError(e);
-      }
+      setError(e);
     }
   };
 
   React.useEffect(() => {
     fetch();
-    return () => {
-      isMounted.current = false;
-    };
     // deps must be empty because the function should only be called on mount.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [filters]);
 
   const classes = useStyles();
 
@@ -77,7 +75,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
       {stocks && (
         <AppBar position="sticky" className={classes.filter}>
           <Toolbar variant="dense" disableGutters>
-            <Filter stocks={stocks} />
+            <Filter stocks={stocks} filters={filters} setFilters={setFilters} />
           </Toolbar>
         </AppBar>
       )}
