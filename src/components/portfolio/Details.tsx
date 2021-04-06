@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import DetailsHeader from './DetailsHeader';
 import DetailsMain from './DetailsMain';
 import * as API from '../../portfolio/APIClient';
-import { ErrorCode } from '../../Errors';
+import { isAuthenticationError } from '../../Errors';
 import ErrorMessage from '../shared/ErrorMessage';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 
@@ -50,7 +50,7 @@ const Details: React.FC<DetailsProps> = ({ token, id, back }) => {
   const [portfolioDetails, setPortfolioDetails] = React.useState<
     API.PortfolioDetails | undefined
   >();
-  const [error, setError] = React.useState<ErrorCode | undefined>(undefined);
+  const [error, setError] = React.useState<Error | undefined>(undefined);
 
   const isMounted = React.useRef(true);
 
@@ -63,7 +63,7 @@ const Details: React.FC<DetailsProps> = ({ token, id, back }) => {
       }
     } catch (e) {
       if (isMounted.current) {
-        setError(e.message);
+        setError(e);
       }
     }
   };
@@ -101,7 +101,7 @@ const Details: React.FC<DetailsProps> = ({ token, id, back }) => {
             error={error}
             messageKey="portfolio.details.errorMessage"
             handling={
-              error.startsWith('AUTH')
+              isAuthenticationError(error)
                 ? {
                     buttonText: 'error.action.login',
                     action: async () => {

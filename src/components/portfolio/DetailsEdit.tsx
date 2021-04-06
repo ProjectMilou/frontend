@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import { List, ListItem } from '@material-ui/core';
 import { Position, PositionQty } from '../../portfolio/APIClient';
 import ProgressButton from './ProgressButton';
-import { ErrorCode, errorMessageKey, errorTitleKey } from '../../Errors';
+import { errorMessageKey, errorTitleKey } from '../../Errors';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -125,7 +125,7 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions, edit }) => {
   const [open, setOpen] = React.useState(false);
   // true when waiting for an API response
   const [loading, setLoading] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<ErrorCode | undefined>();
+  const [error, setError] = React.useState<Error | undefined>();
 
   // the following tracks the temporary state of the amount for each position that the user enters
   // the amount is formatted as string because the user might enter NaN values
@@ -327,7 +327,7 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions, edit }) => {
                 closeDialog();
               } catch (e) {
                 setLoading(false);
-                setError(e.message);
+                setError(e);
               }
             }}
             color="primary"

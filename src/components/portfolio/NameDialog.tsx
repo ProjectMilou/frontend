@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import ProgressButton from './ProgressButton';
-import { ErrorCode, errorMessageKey } from '../../Errors';
+import { errorMessageKey } from '../../Errors';
 
 export type NameDialogProps = {
   initialName?: string;
@@ -52,7 +52,7 @@ const NameDialog: React.FC<NameDialogProps> = ({
   // remain when the dialog is opened multiple times.
   const [name, setName] = React.useState<string>(initialName || '');
   const [loading, setLoading] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<ErrorCode | undefined>();
+  const [error, setError] = React.useState<Error | undefined>();
 
   /* If the open property changed, the dialog was re-opened, possibly for a
    * different portfolio, so the state must be reset. State is not changed on
@@ -109,7 +109,7 @@ const NameDialog: React.FC<NameDialogProps> = ({
               handleClose();
             } catch (e) {
               setLoading(false);
-              setError(e.message);
+              setError(e);
             }
           }}
           color="primary"

@@ -2,7 +2,6 @@ import React, { Reducer } from 'react';
 import { LinearProgress, makeStyles, Container } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../portfolio/APIClient';
-import { ErrorCode } from '../../Errors';
 import ErrorMessage from '../shared/ErrorMessage';
 import PortfolioOverview from './PortfolioOverview';
 import DashboardHeader from '../shared/DashboardHeader';
@@ -10,6 +9,7 @@ import RenameDialog from './RenameDialog';
 import DuplicateDialog from './DuplicateDialog';
 import DeleteDialog from './DeleteDialog';
 import CreateDialog from './CreateDialog';
+import { isAuthenticationError } from '../../Errors';
 
 export type DashboardProps = {
   token: string;
@@ -45,7 +45,7 @@ function portfolioName(
 
 type State = {
   portfolios?: API.PortfolioOverview[];
-  error?: ErrorCode;
+  error?: Error;
   dialog: Dialog;
 };
 
@@ -73,7 +73,7 @@ type DeleteAction = {
 };
 type SetErrorAction = {
   type: 'setError';
-  payload: ErrorCode;
+  payload: Error;
 };
 type ClearErrorAction = {
   type: 'clearError';
@@ -228,7 +228,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
       }
     } catch (e) {
       if (isMounted.current) {
-        dispatch({ type: 'setError', payload: e.message });
+        dispatch({ type: 'setError', payload: e });
       }
     }
   };
@@ -259,7 +259,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
             error={state.error}
             messageKey="portfolio.dashboard.errorMessage"
             handling={
-              state.error.startsWith('AUTH')
+              isAuthenticationError(state.error)
                 ? {
                     buttonText: 'error.action.login',
                     action: async () => {
