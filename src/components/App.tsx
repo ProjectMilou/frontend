@@ -42,7 +42,7 @@ const theme = createMuiTheme({
   },
   palette: {
     background: {
-      default: '#E5E5E5',
+      default: '#EEF1FB',
     },
     primary: {
       light: '#415176',

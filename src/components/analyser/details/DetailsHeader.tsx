@@ -94,31 +94,31 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
             />
             <>&emsp;&emsp;</>
             <TextOverText
-              top={`${details['1d']}%`}
+              top={`${details.per1d}%`}
               bottom={t('stock.1d')}
-              colorTop={convertPercentToColor(details['1d'])}
+              colorTop={convertPercentToColor(details.per1d)}
               colorBottom="#EEF1FB"
             />
             <>&emsp;&emsp;</>
             <TextOverText
-              top={`${details['7d']}%`}
+              top={`${details.per7d}%`}
               bottom={t('stock.7d')}
-              colorTop={convertPercentToColor(details['7d'])}
+              colorTop={convertPercentToColor(details.per7d)}
               colorBottom="#EEF1FB"
             />
             <>&emsp;&emsp;</>
             <TextOverText
-              top={`${details['30d']}%`}
+              top={`${details.per30d}%`}
               bottom={t('stock.30d')}
-              colorTop={convertPercentToColor(details['30d'])}
+              colorTop={convertPercentToColor(details.per30d)}
               colorBottom="#EEF1FB"
             />
           </div>
           <Typography className={classes.wknIsin}>
             <>WKN: </>
-            {details.WKN}
+            {details.wkn}
             <> / ISIN: </>
-            {details.ISIN}
+            {details.isin}
           </Typography>
         </Typography>
       </Container>
