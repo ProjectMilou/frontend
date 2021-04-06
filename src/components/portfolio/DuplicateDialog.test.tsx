@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import * as React from 'react';
 import DuplicateDialog, { DuplicateDialogProps } from './DuplicateDialog';
+import { AppError } from '../../Errors';
 
 describe('DuplicateDialog', () => {
   const defaultProps: DuplicateDialogProps = {
@@ -79,7 +80,7 @@ describe('DuplicateDialog', () => {
 
   test('reset state on reopen', async () => {
     const { props, rerender } = renderComponent({
-      duplicate: jest.fn().mockRejectedValue(new Error('UNKNOWN')),
+      duplicate: jest.fn().mockRejectedValue(new AppError('UNKNOWN')),
     });
     fireEvent.change(document.querySelector('input')!, {
       target: { value: 'input' },
