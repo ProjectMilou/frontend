@@ -1,5 +1,6 @@
 import { navigate } from '@reach/router';
-import { BaseService, MethodType } from './BaseService';
+import { BaseService } from './BaseService';
+import { StorageService } from './StorageService';
 
 export interface IUserProfile {
   firstName?: string;
@@ -16,52 +17,6 @@ enum Endpoints {
 }
 
 export class UserService extends BaseService {
-  private static localStorageTokenID = 'token';
-
-  /**
-   * Getter for user jwt token
-   * @returns token
-   */
-  private static getToken() {
-    return localStorage.getItem(this.localStorageTokenID);
-  }
-
-  /**
-   * Setter for user jwt token
-   * @param token token
-   */
-  private static setToken(token: string) {
-    localStorage.setItem(this.localStorageTokenID, token);
-  }
-
-  /**
-   * Makes an authenticated request to the server, with the token saved in localStorage.
-   * If no token is saved throws an error.
-   * @param method Request method
-   * @param endpoint Request endpoint
-   * @param body Request body
-   * @returns Response from requst
-   */
-  public static async authenticatedRequest(
-    method: MethodType,
-    endpoint: string,
-    body?: Record<string, unknown>
-  ): Promise<Response> {
-    const token = this.getToken();
-    if (!token) {
-      throw new Error('User is not logged in!');
-    }
-
-    return this.request(
-      method,
-      endpoint,
-      {
-        Authorization: `Bearer ${token}`,
-      },
-      body
-    );
-  }
-
   /**
    * Getter for the profile data of the logged in user.
    * @returns Profile Data
@@ -139,7 +94,7 @@ export class UserService extends BaseService {
 
     if (!data || !data.token) return false;
 
-    this.setToken(data.token);
+    StorageService.setToken(data.token);
     return true;
   }
 
@@ -147,7 +102,7 @@ export class UserService extends BaseService {
    * Loggs the user out and navigates to homepage if the user is in the profile page.
    */
   public static logout(): void {
-    localStorage.removeItem(this.localStorageTokenID);
+    StorageService.removeToken();
     if (window.location.pathname === '/profile') {
       navigate('/');
     }
@@ -158,6 +113,6 @@ export class UserService extends BaseService {
    * @returns True if a user is logged in, false if not.
    */
   public static isLoggedIn(): boolean {
-    return Boolean(this.getToken());
+    return Boolean(StorageService.getToken());
   }
 }

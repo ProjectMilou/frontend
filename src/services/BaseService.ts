@@ -1,3 +1,5 @@
+import { StorageService } from './StorageService';
+
 export type MethodType =
   | 'GET'
   | 'HEAD'
@@ -32,5 +34,33 @@ export class BaseService {
       body: JSON.stringify(body),
       headers,
     });
+  }
+
+  /**
+   * Makes an authenticated request to the server, with the token saved in localStorage.
+   * If no token is saved throws an error.
+   * @param method Request method
+   * @param endpoint Request endpoint
+   * @param body Request body
+   * @returns Response from requst
+   */
+  public static async authenticatedRequest(
+    method: MethodType,
+    endpoint: string,
+    body?: Record<string, unknown>
+  ): Promise<Response> {
+    const token = StorageService.getToken();
+    if (!token) {
+      throw new Error('User is not logged in!');
+    }
+
+    return this.request(
+      method,
+      endpoint,
+      {
+        Authorization: `Bearer ${token}`,
+      },
+      body
+    );
   }
 }
