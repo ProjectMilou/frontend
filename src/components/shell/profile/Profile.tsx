@@ -17,7 +17,7 @@ import {
 import { navigate, RouteComponentProps } from '@reach/router';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { IUserProfile, UserService } from '../../../services/UserService';
+import { UserService } from '../../../services/UserService';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,18 +47,15 @@ const Profile: React.FC<RouteComponentProps> = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  function handleData(data: IUserProfile) {
-    if (!data) return;
-    setUser({
-      firstName: data.firstName || '',
-      lastName: data.lastName || '',
-      email: (data.user && data.user.id) || '',
-    });
-  }
-
   useEffect(() => {
     UserService.getProfile()
-      .then(handleData)
+      .then((data) =>
+        setUser({
+          firstName: data.firstName || '',
+          lastName: data.lastName || '',
+          email: (data.user && data.user.id) || '',
+        })
+      )
       .catch(() => navigate('/'));
   }, []);
 

@@ -1,14 +1,7 @@
 import { navigate } from '@reach/router';
 import { BaseService } from './BaseService';
+import { IUserProfile } from './models/user/IUserProfile';
 import { StorageService } from './StorageService';
-
-export interface IUserProfile {
-  firstName?: string;
-  lastName?: string;
-  user?: {
-    id?: string;
-  };
-}
 
 enum Endpoints {
   Edit = 'user/edit',
