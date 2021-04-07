@@ -1,4 +1,5 @@
 import React from 'react';
+import { navigate } from '@reach/router';
 import {
   Card,
   CardContent,
@@ -53,7 +54,6 @@ const useStyles = makeStyles(() => ({
 
 export type DashboardCardsRowProps = {
   stock: API.Stock;
-  selectStock: (id: string) => void;
 };
 
 function convertPercentToColor(val: number): string {
@@ -62,7 +62,6 @@ function convertPercentToColor(val: number): string {
 
 export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
   stock,
-  selectStock,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -71,9 +70,7 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
     <Card className={classes.card}>
       <ButtonBase
         className={classes.cardAction}
-        onClick={() => {
-          selectStock(stock.symbol);
-        }}
+        onClick={() => navigate(`analyser/${stock.symbol}`)}
       >
         <CardMedia
           className={classes.media}
@@ -117,17 +114,13 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
 
 export type DashboardCardsProps = {
   stocks: API.Stock[];
-  selectStock: (symbol: string) => void;
 };
 
-const DashboardCards: React.FC<DashboardCardsProps> = ({
-  stocks,
-  selectStock,
-}) => (
+const DashboardCards: React.FC<DashboardCardsProps> = ({ stocks }) => (
   <Grid>
     <GridList>
       {stocks.map((s) => (
-        <DashboardCardsRow stock={s} selectStock={selectStock} key={s.symbol} />
+        <DashboardCardsRow stock={s} key={s.symbol} />
       ))}
     </GridList>
   </Grid>

@@ -7,6 +7,7 @@ import {
   Toolbar,
   AppBar,
 } from '@material-ui/core';
+import { RouteComponentProps } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import ErrorMessage from '../../shared/ErrorMessage';
@@ -15,10 +16,9 @@ import DashboardHeader from '../../shared/DashboardHeader';
 import Filter from './Filter';
 import { isAuthenticationError } from '../../../Errors';
 
-export type DashboardProps = {
+export interface DashboardProps extends RouteComponentProps {
   token: string;
-  selectStock: (symbol: string) => void;
-};
+}
 
 const useStyles = makeStyles({
   createButton: {
@@ -34,7 +34,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
+const Dashboard: React.FC<DashboardProps> = ({ token }) => {
   const { t } = useTranslation();
 
   const [stocks, setStocks] = React.useState<API.Stock[]>();
@@ -101,7 +101,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
         )}
         {stocks && (
           <div>
-            <StockListOverview stocks={stocks} selectStock={selectStock} />
+            <StockListOverview stocks={stocks} />
           </div>
         )}
       </Container>

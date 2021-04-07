@@ -1,6 +1,7 @@
 // Based on Portfolio's DashboardTable.tsx Will be later either replaced by Material-UI list or refactored
 
 import React from 'react';
+import { navigate } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import {
   lighten,
@@ -44,7 +45,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 
 export type DashboardTableRowProps = {
   stock: API.Stock;
-  selectStock: (id: string) => void;
 };
 
 // Rounds and adds M=Million, B=Billion and K=Thousand --> American System!!!
@@ -65,7 +65,6 @@ function moneyFormat(val: number): string {
 // Numbers are output in different colors need clear approach!
 export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
   stock,
-  selectStock,
 }) => {
   const [hover, setHover] = React.useState<boolean>(false);
 
@@ -74,9 +73,7 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
 
   return (
     <TableRow
-      onClick={() => {
-        selectStock(stock.symbol);
-      }}
+      onClick={() => navigate(`analyser/${stock.symbol}`)}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       className={classNames(classes.row, hover && classes.rowHover)}
@@ -148,13 +145,9 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
 
 export type DashboardTableProps = {
   stocks: API.Stock[];
-  selectStock: (symbol: string) => void;
 };
 
-const DashboardTable: React.FC<DashboardTableProps> = ({
-  stocks,
-  selectStock,
-}) => {
+const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
   const { t } = useTranslation();
 
   return (
@@ -175,11 +168,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
         </TableHead>
         <TableBody>
           {stocks.map((s) => (
-            <DashboardTableRow
-              stock={s}
-              selectStock={selectStock}
-              key={s.symbol}
-            />
+            <DashboardTableRow stock={s} key={s.symbol} />
           ))}
         </TableBody>
       </Table>

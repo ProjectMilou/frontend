@@ -1,4 +1,6 @@
+// Based on Portfolio Details
 import React from 'react';
+import { RouteComponentProps, useParams } from '@reach/router';
 import {
   LinearProgress,
   makeStyles,
@@ -15,14 +17,12 @@ import StockChart from '../../shared/StockChart';
 import Dividends from './Dividends';
 
 // props type declaration
-export type DetailsProps = {
+export interface DetailsProps extends RouteComponentProps {
   // API token
   token: string;
   // function to return to the dashboard
   back: () => void;
-  // symbol
-  symbol: string;
-};
+}
 
 const useStyles = makeStyles({
   createButton: {
@@ -33,10 +33,14 @@ const useStyles = makeStyles({
   },
 });
 
-const Details: React.FC<DetailsProps> = ({ token, symbol, back }) => {
+const Details: React.FC<DetailsProps> = ({ token, back }) => {
   const [stockOverview, setStockOverview] = React.useState<API.Stock>();
   const [stockDetails, setStockDetails] = React.useState<API.StockDetails>();
   const [error, setError] = React.useState<Error | undefined>();
+
+  // get symbol
+  const { id } = useParams();
+  const symbol: string = id;
 
   const isMounted = React.useRef(true);
   const fetch = async () => {
