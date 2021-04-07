@@ -41,10 +41,16 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     disabled: {
       cursor: 'not-allowed',
     },
-
-    tableContainer: {
-      
-    }
+    customTableContainer: {
+      overflowX: 'initial',
+      height: 600,
+      overflow: 'auto',
+    },
+    customTableHead: {
+      fill: 'white',
+      backgroundColor: 'white',
+      color: 'red',
+    },
   })
 );
 
@@ -154,13 +160,14 @@ export type DashboardTableProps = {
 
 const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
   const { t } = useTranslation();
+  const classes = useStyles();
 
   const [items, setItems] = React.useState<API.Stock[]>(stocks.slice(0, 10));
   const [hasMore, setHasMore] = React.useState<boolean>(true);
 
   React.useEffect(() => {
-    setItems(stocks.slice(0, 10))
-    setHasMore(true)
+    setItems(stocks.slice(0, 10));
+    setHasMore(true);
   }, [stocks]);
 
   const fetchMoreData = () => {
@@ -168,31 +175,34 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
       setHasMore(false);
       return;
     }
-    setHasMore(true)
+    setHasMore(true);
     // a fake async api call like which sends
-    // 5 more stocsk in 1.5 secs
+    // 5 more stocks in 1.5 secs
+    // TODO replace with async API call
     setTimeout(() => {
-      const newItems = items.concat(stocks.slice(items.length, items.length+5))
+      const newItems = items.concat(
+        stocks.slice(items.length, items.length + 5)
+      );
       setItems(newItems);
     }, 1500);
   };
   return (
-    <div>
-      <InfiniteScroll
-        dataLength={items.length}
-        next={fetchMoreData}
-        hasMore={hasMore}
-        loader={<></>}
-        scrollableTarget="scrollableTable"
-        endMessage={
-          <></>
-        }
-      >
-        <Paper>
-        <TableContainer id="scrollableTable" style={{ height: 600, overflow: 'auto' }}>
+    <InfiniteScroll
+      dataLength={items.length}
+      next={fetchMoreData}
+      hasMore={hasMore}
+      loader={<></>}
+      scrollableTarget="scrollableTable"
+      endMessage={<></>}
+    >
+      <Paper>
+        <TableContainer
+          id="scrollableTable"
+          classes={{ root: classes.customTableContainer }}
+        >
           <Table stickyHeader aria-label="simple table">
             <TableHead>
-              <TableRow>
+              <TableRow classes={{ root: classes.customTableHead }}>
                 <TableCell align="center">{t('stock.name')}</TableCell>
                 <TableCell align="center">{t('stock.lastPrice')}</TableCell>
                 <TableCell align="center">{t('stock.7d')}</TableCell>
@@ -211,13 +221,11 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
                 <DashboardTableRow stock={s} key={s.symbol} />
               ))}
               {hasMore && <h4>Loading...</h4>}
-              
             </TableBody>
           </Table>
         </TableContainer>
-        </Paper>
-      </InfiniteScroll>
-    </div>
+      </Paper>
+    </InfiniteScroll>
   );
 };
 
