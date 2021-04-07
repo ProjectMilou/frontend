@@ -17,7 +17,7 @@ import {
 import { navigate, RouteComponentProps } from '@reach/router';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { UserService } from '../../../services/UserService';
+import UserService from '../../../services/UserService';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

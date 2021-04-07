@@ -18,7 +18,7 @@ import * as EmailValidator from 'email-validator';
 import { useTranslation } from 'react-i18next';
 import LinkButton from '../LinkButton';
 import { UserInput } from '../utils';
-import { UserService } from '../../../services/UserService';
+import UserService from '../../../services/UserService';
 
 interface RegisterFormProps {
   onSuccess: () => void;

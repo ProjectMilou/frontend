@@ -12,9 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import validate from 'uuid-validate';
 import LinkButton from '../LinkButton';
 import { UserInput } from '../utils';
-import { UserService } from '../../../services/UserService';
-
-const url = 'https://api.milou.io';
+import UserService from '../../../services/UserService';
 
 const useStyles = makeStyles({
   errorMessage: {

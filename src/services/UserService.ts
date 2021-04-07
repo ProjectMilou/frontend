@@ -12,7 +12,7 @@ enum Endpoints {
   RegisterConfirm = 'user/register/confirm',
 }
 
-export class UserService extends BaseService {
+class UserService extends BaseService {
   /**
    * Getter for the profile data of the logged in user.
    * @returns Profile Data
@@ -166,3 +166,5 @@ export class UserService extends BaseService {
     }
   }
 }
+
+export default UserService;

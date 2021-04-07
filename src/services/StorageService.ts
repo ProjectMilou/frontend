@@ -35,7 +35,7 @@ export class StorageService {
    * Getter for user jwt token
    * @returns token
    */
-  public static getToken() {
+  public static getToken(): string | null {
     return this.getItem(StorageItem.token);
   }
 
@@ -43,14 +43,16 @@ export class StorageService {
    * Setter for user jwt token
    * @param token token
    */
-  public static setToken(token: string) {
-    return this.setItem(StorageItem.token, token);
+  public static setToken(token: string): void {
+    this.setItem(StorageItem.token, token);
   }
 
   /**
    * Remove token from storage.
    */
-  public static removeToken() {
+  public static removeToken(): void {
     this.removeItem(StorageItem.token);
   }
 }
+
+export default StorageService;

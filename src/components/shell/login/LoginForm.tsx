@@ -18,7 +18,7 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 import Divider from '@material-ui/core/Divider';
 import { useTranslation } from 'react-i18next';
 import LinkButton from '../LinkButton';
-import { UserService } from '../../../services/UserService';
+import UserService from '../../../services/UserService';
 
 const useStyles = makeStyles({
   errorMessage: {
