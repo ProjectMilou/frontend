@@ -11,10 +11,11 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow, TableSortLabel,
+  TableRow,
+  TableSortLabel,
   Theme,
   Tooltip,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/DeleteForever';
 import DuplicateIcon from '@material-ui/icons/AddToPhotos';
@@ -148,7 +149,7 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
   );
 };
 
-type Order = 'asc' | 'desc'
+type Order = 'asc' | 'desc';
 
 interface SortableHeadCell {
   id: keyof PortfolioOverview;
@@ -157,24 +158,35 @@ interface SortableHeadCell {
 }
 
 export type DashboardTableHeadProps = {
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof PortfolioOverview) => void;
+  onRequestSort: (
+    event: React.MouseEvent<unknown>,
+    property: keyof PortfolioOverview
+  ) => void;
   order: Order;
   orderBy: keyof PortfolioOverview;
 };
 
 export const DashboardTableHead: React.FC<DashboardTableHeadProps> = ({
-  onRequestSort, order, orderBy,
-                                                                      }) => {
+  onRequestSort,
+  order,
+  orderBy,
+}) => {
   const { t } = useTranslation();
   const headCells: SortableHeadCell[] = [
     { id: 'score', numeric: true, label: t('portfolio.score') },
     { id: 'name', numeric: false, label: t('portfolio.name') },
-    { id: 'positionCount', numeric: true, label: t('portfolio.positionsCount') },
+    {
+      id: 'positionCount',
+      numeric: true,
+      label: t('portfolio.positionsCount'),
+    },
     { id: 'value', numeric: true, label: t('portfolio.value') },
     { id: 'perf7d', numeric: true, label: t('portfolio.7d') },
     { id: 'perf1y', numeric: true, label: t('portfolio.1y') },
   ];
-  const createSortHandler = (property: keyof PortfolioOverview) => (event: React.MouseEvent<unknown>) => {
+  const createSortHandler = (property: keyof PortfolioOverview) => (
+    event: React.MouseEvent<unknown>
+  ) => {
     onRequestSort(event, property);
   };
 
@@ -183,10 +195,9 @@ export const DashboardTableHead: React.FC<DashboardTableHeadProps> = ({
       <TableRow>
         {headCells.map((headCell) => (
           <TableCell
-            align = 'center'
+            align="center"
             key={headCell.id}
-            sortDirection ={
-              orderBy === headCell.id ? order : false}
+            sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -214,25 +225,43 @@ export type DashboardTableProps = {
 function comparatorTable(a: number | string, b: number | string) {
   if (a < b) {
     return -1;
-  } if (a > b) {
+  }
+  if (a > b) {
     return 1;
   }
   return 0;
 }
 
-function sortingTableEntry(portfolios: PortfolioOverview[], orderBy: keyof PortfolioOverview, order: Order) {
-  const sortingArray = portfolios
+function sortingTableEntry(
+  portfolios: PortfolioOverview[],
+  orderBy: keyof PortfolioOverview,
+  order: Order
+) {
+  const sortingArray = portfolios;
   if (orderBy === 'name') {
     // order = true = asc | order = false = desc
-    return order === 'asc' ?
-      sortingArray.sort((a, b) => comparatorTable(a[orderBy] as string, b[orderBy] as string)) :
-      sortingArray.sort((a, b) => comparatorTable(b[orderBy] as string, a[orderBy] as string));
+    return order === 'asc'
+      ? sortingArray.sort((a, b) =>
+          comparatorTable(a[orderBy] as string, b[orderBy] as string)
+        )
+      : sortingArray.sort((a, b) =>
+          comparatorTable(b[orderBy] as string, a[orderBy] as string)
+        );
   }
-    const sortingArrayWithoutUndefined = sortingArray.filter((values) => typeof values[orderBy] !== ('undefined'));
-   const sortedArrayWithoutUndefined = order === 'asc' ?
-      sortingArrayWithoutUndefined.sort((a, b)=> comparatorTable(a[orderBy] as number, b[orderBy] as number)) :
-      sortingArrayWithoutUndefined.sort((a, b)=> comparatorTable(b[orderBy] as number, a[orderBy] as number));
-   return sortedArrayWithoutUndefined.concat(portfolios.filter((values) => typeof values[orderBy] === ('undefined')))
+  const sortingArrayWithoutUndefined = sortingArray.filter(
+    (values) => typeof values[orderBy] !== 'undefined'
+  );
+  const sortedArrayWithoutUndefined =
+    order === 'asc'
+      ? sortingArrayWithoutUndefined.sort((a, b) =>
+          comparatorTable(a[orderBy] as number, b[orderBy] as number)
+        )
+      : sortingArrayWithoutUndefined.sort((a, b) =>
+          comparatorTable(b[orderBy] as number, a[orderBy] as number)
+        );
+  return sortedArrayWithoutUndefined.concat(
+    portfolios.filter((values) => typeof values[orderBy] === 'undefined')
+  );
 }
 
 const DashboardTable: React.FC<DashboardTableProps> = ({
@@ -243,10 +272,15 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
   deletePortfolio,
 }) => {
   // order == true == asc | order == false == desc
-  const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof PortfolioOverview>('score');
+  const [order, setOrder] = React.useState<Order>('desc');
+  const [orderBy, setOrderBy] = React.useState<keyof PortfolioOverview>(
+    'score'
+  );
 
-  const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof PortfolioOverview) => {
+  const handleRequestSort = (
+    event: React.MouseEvent<unknown>,
+    property: keyof PortfolioOverview
+  ) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
@@ -257,8 +291,8 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
       <Table aria-label="simple table">
         <DashboardTableHead
           onRequestSort={handleRequestSort}
-          order = {order}
-          orderBy = {orderBy}
+          order={order}
+          orderBy={orderBy}
         />
         <TableBody>
           {sortingTableEntry(portfolios, orderBy, order).map((p) => (
