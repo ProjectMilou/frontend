@@ -9,7 +9,7 @@ enum Endpoints {
   Profile = 'user/profile',
   Login = 'user/login',
   Register = 'user/register',
-  RegisterConfirm = 'user/register/confirm'
+  RegisterConfirm = 'user/register/confirm',
 }
 
 export class UserService extends BaseService {
@@ -110,5 +110,59 @@ export class UserService extends BaseService {
    */
   public static isLoggedIn(): boolean {
     return Boolean(StorageService.getToken());
+  }
+
+  /**
+   * Registers a user with email and password.
+   * @param email Email of user to be registered
+   * @param password Password of user to be registered
+   * @returns True if registration request successful, false if not
+   */
+  public static async register(
+    email: string,
+    password: string
+  ): Promise<boolean> {
+    try {
+      const response = await this.request(
+        'POST',
+        Endpoints.Register,
+        {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        {
+          email,
+          password,
+        }
+      );
+      return response.ok;
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Email confirmation of registration.
+   * @param uuid Confirmation UUID
+   * @returns True if register confirmation was successful, false if not.
+   */
+  public static async registerConfirm(uuid: string): Promise<boolean> {
+    try {
+      const response = await this.request(
+        'POST',
+        Endpoints.RegisterConfirm,
+        {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        {
+          uuid,
+        }
+      );
+
+      return response.ok;
+    } catch {
+      return false;
+    }
   }
 }

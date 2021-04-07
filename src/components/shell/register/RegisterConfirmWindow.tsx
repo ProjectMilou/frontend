@@ -11,7 +11,8 @@ import { useTranslation } from 'react-i18next';
 import Divider from '@material-ui/core/Divider';
 import validate from 'uuid-validate';
 import LinkButton from '../LinkButton';
-import fetchRegister, { UserInput } from '../utils';
+import { UserInput } from '../utils';
+import { UserService } from '../../../services/UserService';
 
 const url = 'https://api.milou.io';
 
@@ -40,19 +41,9 @@ const RegisterFailedWindow: React.FC<RegisterFailedWindowProps> = (props) => {
   const [resend, setResend] = useState(false);
 
   const handleSubmit = () => {
-    fetch(url.concat('/user/register/confirm'), {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ uuid }),
-    }).then((response) => {
-      if (response.ok) {
-        registerConfirmed();
-      }
-      setError('Invalid code. Please try again!');
-    });
+    UserService.registerConfirm(uuid).then((ok) =>
+      ok ? registerConfirmed() : setError('Invalid code. Please try again!')
+    );
   };
 
   const onSuccess = () => {
@@ -115,9 +106,11 @@ const RegisterFailedWindow: React.FC<RegisterFailedWindowProps> = (props) => {
         <br />
         {t('shell.message.resend')}
         <LinkButton
-          handleEvent={() => {
-            fetchRegister({ login, onSuccess, onFail });
-          }}
+          handleEvent={() =>
+            UserService.register(login.email, login.password).then((ok) =>
+              ok ? onSuccess() : onFail()
+            )
+          }
         />
         .
       </Typography>
