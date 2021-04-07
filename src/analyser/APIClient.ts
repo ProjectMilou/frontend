@@ -100,7 +100,7 @@ export async function listStocks(
   token: string,
   filters: Filters
 ): Promise<Stock[]> {
-  const base = '/list';
+  const base = 'list';
   let params = '';
   Object.keys(filters).forEach((key) => {
     if (filters[key].length > 0) {

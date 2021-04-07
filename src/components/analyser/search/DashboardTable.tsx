@@ -1,6 +1,7 @@
 // Based on Portfolio's DashboardTable.tsx Will be later either replaced by Material-UI list or refactored
 
 import React from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { navigate } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import {
@@ -40,6 +41,10 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     disabled: {
       cursor: 'not-allowed',
     },
+
+    tableContainer: {
+      
+    }
   })
 );
 
@@ -150,29 +155,69 @@ export type DashboardTableProps = {
 const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
   const { t } = useTranslation();
 
+  const [items, setItems] = React.useState<API.Stock[]>(stocks.slice(0, 10));
+  const [hasMore, setHasMore] = React.useState<boolean>(true);
+
+  React.useEffect(() => {
+    setItems(stocks.slice(0, 10))
+    setHasMore(true)
+  }, [stocks]);
+
+  const fetchMoreData = () => {
+    if (items.length >= stocks.length) {
+      setHasMore(false);
+      return;
+    }
+    setHasMore(true)
+    // a fake async api call like which sends
+    // 5 more stocsk in 1.5 secs
+    setTimeout(() => {
+      const newItems = items.concat(stocks.slice(items.length, items.length+5))
+      setItems(newItems);
+    }, 1500);
+  };
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">{t('stock.name')}</TableCell>
-            <TableCell align="center">{t('stock.lastPrice')}</TableCell>
-            <TableCell align="center">{t('stock.7d')}</TableCell>
-            <TableCell align="center">{t('stock.30d')}</TableCell>
-            <TableCell align="center">{t('stock.marketCap')}</TableCell>
-            <TableCell align="center">{t('stock.analystsTarget')}</TableCell>
-            <TableCell align="center">{t('stock.valuation')}</TableCell>
-            <TableCell align="center">{t('stock.div')}</TableCell>
-            <TableCell align="center">{t('stock.industry')}</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {stocks.map((s) => (
-            <DashboardTableRow stock={s} key={s.symbol} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div>
+      <InfiniteScroll
+        dataLength={items.length}
+        next={fetchMoreData}
+        hasMore={hasMore}
+        loader={<></>}
+        scrollableTarget="scrollableTable"
+        endMessage={
+          <></>
+        }
+      >
+        <Paper>
+        <TableContainer id="scrollableTable" style={{ height: 600, overflow: 'auto' }}>
+          <Table stickyHeader aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">{t('stock.name')}</TableCell>
+                <TableCell align="center">{t('stock.lastPrice')}</TableCell>
+                <TableCell align="center">{t('stock.7d')}</TableCell>
+                <TableCell align="center">{t('stock.30d')}</TableCell>
+                <TableCell align="center">{t('stock.marketCap')}</TableCell>
+                <TableCell align="center">
+                  {t('stock.analystsTarget')}
+                </TableCell>
+                <TableCell align="center">{t('stock.valuation')}</TableCell>
+                <TableCell align="center">{t('stock.div')}</TableCell>
+                <TableCell align="center">{t('stock.industry')}</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {items.map((s) => (
+                <DashboardTableRow stock={s} key={s.symbol} />
+              ))}
+              {hasMore && <h4>Loading...</h4>}
+              
+            </TableBody>
+          </Table>
+        </TableContainer>
+        </Paper>
+      </InfiniteScroll>
+    </div>
   );
 };
 
