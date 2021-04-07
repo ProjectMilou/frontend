@@ -108,7 +108,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
   })
 );
 
-const chartSeries = [
+const volatileSeries = [
   [1327359600000, 30.95],
   [1327446000000, 31.34],
   [1327532400000, 31.18],
@@ -451,11 +451,12 @@ const Risks: React.FC = () => {
               {t('analyser.details.Risks.VolatilityChart')}
             </div>
             <StockChart
-              series={chartSeries}
+              series={volatileSeries}
               axisColor={theme.palette.secondary.contrastText}
               buttonBackgroundColor={theme.palette.primary.main}
               buttonTextColor={theme.palette.primary.contrastText}
               height={250}
+              chartID="risk_chart"
             />
           </div>
         </div>

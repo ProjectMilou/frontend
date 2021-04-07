@@ -15,17 +15,18 @@ type StockChartProps = {
   buttonTextColor: string;
   axisColor: string;
   height: number;
+  chartID: string;
 };
 
 let selection = 'one_year';
 
-const updateData = (timeline: string) => {
+const updateData = (timeline: string, chartID: string) => {
   selection = timeline;
 
   switch (timeline) {
     case 'one_month':
       ApexCharts.exec(
-        'area-datetime',
+        chartID,
         'zoomX',
         new Date('28 Jan 2013').getTime(),
         new Date('27 Feb 2013').getTime()
@@ -33,7 +34,7 @@ const updateData = (timeline: string) => {
       break;
     case 'six_months':
       ApexCharts.exec(
-        'area-datetime',
+        chartID,
         'zoomX',
         new Date('27 Sep 2012').getTime(),
         new Date('27 Feb 2013').getTime()
@@ -41,7 +42,7 @@ const updateData = (timeline: string) => {
       break;
     case 'one_year':
       ApexCharts.exec(
-        'area-datetime',
+        chartID,
         'zoomX',
         new Date('27 Feb 2012').getTime(),
         new Date('27 Feb 2013').getTime()
@@ -49,7 +50,7 @@ const updateData = (timeline: string) => {
       break;
     case 'ytd':
       ApexCharts.exec(
-        'area-datetime',
+        chartID,
         'zoomX',
         new Date('01 Jan 2013').getTime(),
         new Date('27 Feb 2013').getTime()
@@ -57,7 +58,7 @@ const updateData = (timeline: string) => {
       break;
     case 'all':
       ApexCharts.exec(
-        'area-datetime',
+        chartID,
         'zoomX',
         new Date('23 Jan 2012').getTime(),
         new Date('27 Feb 2013').getTime()
@@ -73,11 +74,12 @@ const Datetime: React.FC<StockChartProps> = ({
   buttonTextColor,
   axisColor,
   height,
+  chartID,
 }) => {
   const options = {
     colors: ['#4392F1'],
     chart: {
-      id: 'area-datetime',
+      id: chartID,
       type: 'area',
       height: 350,
       zoom: {
@@ -146,7 +148,7 @@ const Datetime: React.FC<StockChartProps> = ({
             id="one_month"
             variant="contained"
             style={buttonStyling}
-            onClick={() => updateData('one_month')}
+            onClick={() => updateData('one_month', chartID)}
             className={selection === 'one_month' ? 'active' : ''}
           >
             1M
@@ -157,7 +159,7 @@ const Datetime: React.FC<StockChartProps> = ({
             id="six_months"
             variant="contained"
             style={buttonStyling}
-            onClick={() => updateData('six_months')}
+            onClick={() => updateData('six_months', chartID)}
             className={selection === 'six_months' ? 'active' : ''}
           >
             6M
@@ -168,7 +170,7 @@ const Datetime: React.FC<StockChartProps> = ({
             id="one_year"
             variant="contained"
             style={buttonStyling}
-            onClick={() => updateData('one_year')}
+            onClick={() => updateData('one_year', chartID)}
             className={selection === 'one_year' ? 'active' : ''}
           >
             1Y
@@ -179,7 +181,7 @@ const Datetime: React.FC<StockChartProps> = ({
             id="ytd"
             variant="contained"
             style={buttonStyling}
-            onClick={() => updateData('ytd')}
+            onClick={() => updateData('ytd', chartID)}
             className={selection === 'ytd' ? 'active' : ''}
           >
             YTD
@@ -190,7 +192,7 @@ const Datetime: React.FC<StockChartProps> = ({
             id="all"
             variant="contained"
             style={buttonStyling}
-            onClick={() => updateData('all')}
+            onClick={() => updateData('all', chartID)}
             className={selection === 'all' ? 'active' : ''}
           >
             ALL
