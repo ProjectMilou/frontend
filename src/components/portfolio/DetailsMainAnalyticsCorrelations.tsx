@@ -25,6 +25,7 @@ type HeatmapProps = {
   portfolio: NonEmptyPortfolioDetails;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Heatmap: React.FC<HeatmapProps> = ({ portfolio }) => {
   const theme = useTheme();
   const { t } = useTranslation();
