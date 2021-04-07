@@ -96,8 +96,15 @@ export type PositionQty = {
   qty: number;
 };
 
-export type PortfoliosQty = {
+export type PortfolioQty = {
   id: string;
+  qty: number;
+};
+
+export type PortfolioStock = {
+  id: string;
+  name: string;
+  virtual: boolean;
   qty: number;
 };
 
@@ -145,6 +152,8 @@ type DuplicateResponse = {
 type CreateResponse = {
   id: string;
 };
+
+type PortfolioStockResponse = PortfolioStock[];
 
 // mock portfolio while the api is not finished yet (copied from APIMocks.ts).
 // TODO: remove this
@@ -487,15 +496,41 @@ export async function modify(
   );
 }
 
+/**
+ * Gets the portfolio name and quantity of a specified stock for all portfolios of the current user.
+ * This information is displayed to the user when adding a stock to his portfolios.
+ *
+ * @param token - Authentication token
+ * @param symbol - Symbol of the current stock
+ */
 export async function stock(
   token: string,
-  isin: string,
-  modifications: PortfoliosQty[]
+  symbol: string
+): Promise<PortfolioStock[]> {
+  const response = (await request(
+    token,
+    'GET',
+    `stock/${symbol}`
+  )) as PortfolioStockResponse;
+  return response;
+}
+
+/**
+ * Modifies a stock's quantity within multiple portfolios simultaneously.
+ *
+ * @param token - Authentication token
+ * @param symbol - Symbol of the current stock
+ * @param modifications - modifications made to the portfolios
+ */
+export async function saveStockToPortfolios(
+  token: string,
+  symbol: string,
+  modifications: PortfolioQty[]
 ): Promise<void> {
   await request(
     token,
     'PUT',
-    `stock/${isin}`,
+    `stock/${symbol}`,
     JSON.stringify({ modifications })
   );
 }

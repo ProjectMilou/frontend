@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../portfolio/APIClient';
 import { errorMessageKey, errorTitleKey } from '../../Errors';
-import ProgressButton from './ProgressButton';
+import ProgressButton from '../portfolio/ProgressButton';
 
 // stylesheet for the entire add to portfolio component
 const useStyles = makeStyles((theme: Theme) =>
@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2),
       display: 'flex',
       justifyContent: 'center',
+      minWidth: '30rem',
     },
     // dialog header
     headerCloseButton: {
@@ -106,7 +107,7 @@ const ListEntry: React.FC<ListEntryProps> = ({
       <ListItemIcon>
         <Checkbox
           edge="start"
-          checked={typeof checked[id] !== 'undefined'}
+          checked={Boolean(checked[id])}
           tabIndex={-1}
           disableRipple
           inputProps={{
@@ -141,7 +142,7 @@ const ListEntry: React.FC<ListEntryProps> = ({
           },
         }}
         style={{
-          display: typeof checked[id] !== 'undefined' ? 'block' : 'none',
+          display: checked[id] ? 'block' : 'none',
           width: '4rem',
         }}
       />
@@ -155,13 +156,13 @@ type CheckedType = {
 };
 
 type AddToPortfolioButtonType = {
-  isin: string;
+  symbol: string;
   token: string;
 };
 
 // returns the add to portfolio button and all subcomponents including the dialog window
 const AddToPortfolioButton: React.FC<AddToPortfolioButtonType> = ({
-  isin,
+  symbol,
   token,
 }) => {
   // style and translation hooks
@@ -171,6 +172,7 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonType> = ({
   const pattern = /^(?:[1-9]\d*|0)?(?:\.\d+)?$/;
 
   // the list of portfolios belonging to the user
+  // TODO: change to type PortfolioStock[]
   const [portfolios, setPortfolios] = React.useState<API.PortfolioOverview[]>(
     []
   );
@@ -188,6 +190,7 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonType> = ({
   const fetch = async () => {
     setError(undefined);
     try {
+      // TODO: change to API.stock(token, symbol) call
       const p = await API.list(token);
       if (isMounted.current) {
         setPortfolios(p);
@@ -223,7 +226,7 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonType> = ({
 
     try {
       // parse the checked state into the form expected by the api
-      const modifications: API.PortfoliosQty[] = Object.entries(checked).map(
+      const modifications: API.PortfolioQty[] = Object.entries(checked).map(
         ([id, qty]) => ({
           id,
           // TODO: use react-number-format for validation,
@@ -232,7 +235,7 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonType> = ({
         })
       );
       // make api put call
-      await API.stock(token, isin, modifications);
+      await API.saveStockToPortfolios(token, symbol, modifications);
       setOpen(false);
     } catch (e) {
       // on error stop the loading animation and display error to user
@@ -245,7 +248,7 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonType> = ({
   const handleCheckToggle = (id: string) => () => {
     const newChecked = { ...checked };
 
-    if (typeof newChecked[id] === 'undefined') {
+    if (!newChecked[id]) {
       // if unchecked, check it with an initial value of 1
       newChecked[id] = '1';
     } else {
