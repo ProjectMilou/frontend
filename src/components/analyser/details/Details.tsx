@@ -15,6 +15,7 @@ import KeyFigures from './KeyFigures';
 import DetailsOverview from './DetailsOverview';
 import StockChart from '../../shared/StockChart';
 import Dividends from './Dividends';
+import Risks from './Risks';
 
 // props type declaration
 export interface DetailsProps extends RouteComponentProps {
@@ -402,6 +403,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
             />
             <KeyFigures />
             <Dividends />
+            <Risks />
           </Container>
         </div>
       )}
