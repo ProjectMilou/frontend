@@ -8,6 +8,7 @@ import DetailsMainKeyFigures from './DetailsMainKeyFigures';
 import DetailsMainDividens from './DetailsMainDividends';
 import DetailsMainAnalyst from './DetailsMainAnalyst';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
+import DetailsMainAnalytics from './DetailsMainAnalytics';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -102,6 +103,9 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio }) => {
       </Section>
       <Section title={t('portfolio.details.analyst')}>
         <DetailsMainAnalyst />
+      </Section>
+      <Section title={t('portfolio.details.analytics')}>
+        <DetailsMainAnalytics />
       </Section>
     </div>
   );

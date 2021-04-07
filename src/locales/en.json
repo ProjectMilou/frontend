@@ -29,6 +29,7 @@
   "portfolio.details.payout": "Dividend Payout Ratio",
   "portfolio.details.nextDate": "Next Payout Date",
   "portfolio.details.analyst": "Analysts",
+  "portfolio.details.analytics": "Analytics",
   "portfolio.details.emptyPortfolio": "This portfolio does not contain any stocks.",
   "portfolio.details.errorMessage": "There has been an error while loading the portfolio details.",
   "cancel": "Cancel",
