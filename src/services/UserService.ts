@@ -1,4 +1,5 @@
 import { navigate } from '@reach/router';
+import { AppError } from '../Errors';
 import { BaseService } from './BaseService';
 import { IUserProfile } from './models/user/IUserProfile';
 import { StorageService } from './StorageService';
@@ -7,6 +8,8 @@ enum Endpoints {
   Edit = 'user/edit',
   Profile = 'user/profile',
   Login = 'user/login',
+  Register = 'user/register',
+  RegisterConfirm = 'user/register/confirm'
 }
 
 export class UserService extends BaseService {
@@ -17,7 +20,7 @@ export class UserService extends BaseService {
   public static async getProfile(): Promise<IUserProfile> {
     const response = await this.authenticatedRequest('GET', Endpoints.Profile);
 
-    if (!response.ok) throw new Error('Could not get profile!');
+    if (!response.ok) throw new AppError('AUTH_TOKEN_INVALID');
 
     const userProfile = await response.json();
     return userProfile;

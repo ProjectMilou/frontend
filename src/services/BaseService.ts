@@ -1,3 +1,4 @@
+import { AppError } from '../Errors';
 import { StorageService } from './StorageService';
 
 export type MethodType =
@@ -51,7 +52,7 @@ export class BaseService {
   ): Promise<Response> {
     const token = StorageService.getToken();
     if (!token) {
-      throw new Error('User is not logged in!');
+      throw new AppError('AUTH_TOKEN_INVALID');
     }
 
     return this.request(
