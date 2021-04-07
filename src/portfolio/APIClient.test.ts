@@ -48,6 +48,7 @@ describe('Portfolio API client', () => {
               virtual: true,
               positionCount: 3,
               value: 9,
+              score: 42,
               perf7d: -1.23,
               perf1y: 13.37,
               modified: 0,
