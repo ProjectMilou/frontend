@@ -54,6 +54,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
     lineChartWrapper: {
       float: 'right',
       flexBasis: '70%',
+      padding: '1rem',
     },
     infoContainer: {
       height: '100%',
@@ -62,7 +63,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       flexDirection: 'column',
       justifyContent: 'space-evenly',
       alignItems: 'left',
-      padding: '3rem',
+      padding: '2rem',
       float: 'left',
     },
     infoWrapper: {
@@ -94,6 +95,15 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       display: 'flex',
       justifyContent: 'space-between',
       marginTop: '2rem',
+    },
+    title: {
+      display: 'flex',
+      alignSelf: 'center',
+      width: '100%',
+      justifyContent: 'center',
+      color: palette.primary.dark,
+      fontWeight: typography.fontWeightBold,
+      fontSize: '0.8rem',
     },
   })
 );
@@ -414,22 +424,32 @@ const Risks: React.FC = () => {
         </div>
       </div>
         <div className={classes.chartContainer}>
-
           <div className={classes.infoContainer}>
             <InfoBlock
-              title={t('analyser.details.RiskHeader.BetaFactor')}
+              title={t('analyser.details.Risks.BetaFactor')}
               body={<p style={{ margin: 0 }}> 0.5 </p>}
             />
             <InfoBlock
-              title={t('analyser.details.RiskHeader.SharpeRatio')}
+              title={t('analyser.details.Risks.SharpeRatio')}
               body={<p style={{ margin: 0 }}> 0.5 </p>}
             />
             <InfoBlock
-              title={t('analyser.details.RiskHeader.TreynorRatio')}
+              title={t('analyser.details.Risks.TreynorRatio')}
               body={<p style={{ margin: 0 }}> 0.5 </p>}
             />
+            <div className={classes.infoBody}>
+              <p style={{ paddingLeft: 30 }}>
+                {t('analyser.details.Risks.CompanyShare')}
+              </p>
+            </div>
+            <div className={classes.infoBody}>
+              <p style={{ margin: 0 }}> 0.5 </p>
+            </div>
           </div>
           <div className={classes.lineChartWrapper}>
+            <div className={classes.title}>
+              {t('analyser.details.Risks.VolatilityChart')}
+            </div>
             <StockChart
               series={chartSeries}
               axisColor={theme.palette.secondary.contrastText}
@@ -439,8 +459,6 @@ const Risks: React.FC = () => {
             />
           </div>
         </div>
-      
-        
     </div>
   );
 };
