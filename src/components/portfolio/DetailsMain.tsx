@@ -105,7 +105,7 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio }) => {
         <DetailsMainAnalyst />
       </Section>
       <Section title={t('portfolio.details.analytics')}>
-        <DetailsMainAnalytics />
+        <DetailsMainAnalytics portfolio={portfolio} />
       </Section>
     </div>
   );

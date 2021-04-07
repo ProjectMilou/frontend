@@ -2,6 +2,7 @@ import React from 'react';
 import Chart from 'react-apexcharts';
 import { useTheme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 
 // TODO replace with actual api values
 const mockCorrelations = [
@@ -20,7 +21,11 @@ const mockCorrelations = [
   },
 ];
 
-const Heatmat: React.FC = () => {
+type HeatmapProps = {
+  portfolio: NonEmptyPortfolioDetails;
+};
+
+const Heatmap: React.FC<HeatmapProps> = ({ portfolio }) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -66,6 +71,12 @@ const Heatmat: React.FC = () => {
   );
 };
 
-const DetailsMainAnalyticsCorrelations: React.FC = () => <Heatmat />;
+type DetailsMainAnalyticsCorrelationsProps = {
+  portfolio: NonEmptyPortfolioDetails;
+};
+
+const DetailsMainAnalyticsCorrelations: React.FC<DetailsMainAnalyticsCorrelationsProps> = ({
+  portfolio,
+}) => <Heatmap portfolio={portfolio} />;
 
 export default DetailsMainAnalyticsCorrelations;
