@@ -1,6 +1,7 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
 import { useTheme } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
 // TODO replace with actual api values
 const mockCorrelations = [
@@ -21,6 +22,7 @@ const mockCorrelations = [
 
 const Heatmat: React.FC = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
 
   const options = {
     chart: {
@@ -32,7 +34,10 @@ const Heatmat: React.FC = () => {
     },
     colors: ['#008FFB'],
     title: {
-      text: 'HeatMap Chart (Single color)',
+      text: t('portfolio.details.analytics.correlations.chartTitle'),
+      style: {
+        color: theme.palette.primary.contrastText,
+      },
     },
     xaxis: {
       type: 'category',
