@@ -1,5 +1,6 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
+import { useTheme } from '@material-ui/core';
 
 // TODO replace with props from api call
 const mockCorrelations = [
@@ -147,6 +148,7 @@ const mockCorrelations = [
 
 const Heatmat: React.FC = () => {
   const series = mockCorrelations;
+  const theme = useTheme();
 
   const options = {
     chart: {
@@ -159,6 +161,20 @@ const Heatmat: React.FC = () => {
     colors: ['#008FFB'],
     title: {
       text: 'HeatMap Chart (Single color)',
+    },
+    xaxis: {
+      labels: {
+        style: {
+          colors: theme.palette.primary.contrastText,
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: theme.palette.primary.contrastText,
+        },
+      },
     },
   };
 
