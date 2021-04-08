@@ -49,6 +49,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     updateButton: {
       backgroundColor: palette.primary.light,
       color: palette.primary.contrastText,
+      alignSelf: 'baseline',
     },
     innerText: {
       color: palette.primary.contrastText,
@@ -103,6 +104,47 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
   const [error, setError] = React.useState<Error | undefined>(undefined);
   const isMounted = React.useRef(true);
 
+  // TODO delete when real api works
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const mockFetch = async (from: number, to: number) => {
+    setError(undefined);
+    try {
+      setTimeout(() => {
+        if (isMounted.current) {
+          const backtestingMock: Backtesting = {
+            MDDMaxToMin: -65,
+            MDDInitialToMin: -65,
+            dateMax: '10.02.2019',
+            dateMin: '03.04.2020',
+            maxValue: 1250.55,
+            minValue: 512.67,
+            initialValue: 840.56,
+            bestYear: {
+              changeBest: 210.5,
+              yearBest: '2020',
+              growthRateBest: 10.5,
+            },
+            worstYear: {
+              changeWorst: -70.56,
+              yearWorst: '2019',
+              growthRateWorst: -5.6,
+            },
+            finalPortfolioBalance: 970.43,
+            CAGR: 5.42,
+            standardDeviation: 12.1,
+            sharpeRatio: 0.65,
+          };
+          setBacktesting(backtestingMock);
+        }
+      }, 2000);
+    } catch (e) {
+      if (isMounted.current) {
+        setError(e);
+      }
+    }
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const fetch = async (from: number, to: number) => {
     setError(undefined);
     try {
@@ -117,16 +159,27 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
     }
   };
 
-  // for validation of input fields
+  // intial fetching
   useEffect(() => {
+    mockFetch(Date.parse(selectedFrom), Date.parse(selectedTo));
+    return () => {
+      isMounted.current = false;
+    };
+    // deps must be empty because the function should only be called on mount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const onClickUpdate = () => {
+    // remove error from last click
+    setInputValid(true);
     const from = Date.parse(selectedFrom);
     const to = Date.parse(selectedTo);
     if (to < from || Date.now() < to) {
       setInputValid(false);
     } else {
-      setInputValid(true);
+      mockFetch(Date.parse(selectedFrom), Date.parse(selectedTo));
     }
-  }, [selectedFrom, selectedTo]);
+  };
 
   return (
     <div className={classes.backtestingWrapper}>
@@ -176,10 +229,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
           <Button
             className={classes.updateButton}
             variant="contained"
-            disabled={!inputValid}
-            onClick={() =>
-              fetch(Date.parse(selectedFrom), Date.parse(selectedTo))
-            }
+            onClick={onClickUpdate}
           >
             {t('portfolio.details.backtesting.updateButton')}
           </Button>
