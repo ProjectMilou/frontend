@@ -98,7 +98,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
     oneYearBack.toISOString().split('T')[0]
   );
 
-  const [helperText, setHelperText] = React.useState<string>('');
+  const [inputValid, setInputValid] = React.useState<boolean>(true);
   const [backtesting, setBacktesting] = React.useState<Backtesting>();
   const [error, setError] = React.useState<Error | undefined>(undefined);
   const isMounted = React.useRef(true);
@@ -119,18 +119,16 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
     }
   };
 
+  // for validation of input fields
   useEffect(() => {
     const from = Date.parse(selectedFrom);
     const to = Date.parse(selectedTo);
     if (to < from || Date.now() < to) {
-      setHelperText(t('portfolio.details.backtesting.dateHelperText'));
+      setInputValid(false);
     } else {
-      setHelperText('');
+      setInputValid(true);
     }
-    return () => {
-      isMounted.current = false;
-    };
-  }, [selectedFrom, selectedTo, t]);
+  }, [selectedFrom, selectedTo]);
 
   return (
     <div className={classes.backtestingWrapper}>
@@ -159,8 +157,12 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
           <TextField
             id="dateTo"
             type="date"
-            helperText={helperText}
-            error={!(helperText === '')}
+            helperText={
+              inputValid
+                ? undefined
+                : t('portfolio.details.backtesting.dateHelperText')
+            }
+            error={!inputValid}
             value={selectedTo}
             variant="outlined"
             onChange={(e) => setSelectedTo(e.target.value)}
@@ -173,7 +175,11 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
               className: classes.innerText,
             }}
           />
-          <Button className={classes.updateButton} variant="contained">
+          <Button
+            className={classes.updateButton}
+            variant="contained"
+            disabled={!inputValid}
+          >
             {t('portfolio.details.backtesting.updateButton')}
           </Button>
         </form>
