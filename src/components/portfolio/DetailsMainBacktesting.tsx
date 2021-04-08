@@ -115,7 +115,7 @@ type SetValidAction = {
 
 type SetBacktestingAction = {
   type: 'setBacktesting';
-  payload: Backtesting;
+  payload: Backtesting | undefined;
 };
 
 type SetErrorAction = {
@@ -231,9 +231,12 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
     ) {
       dispatch({ type: 'setValid', payload: false });
     } else {
+      dispatch({ type: 'setBacktesting', payload: undefined });
       mockFetch(state.selectedFrom, state.selectedTo);
     }
   };
+
+  console.log(state.backtesting, state.error);
 
   return (
     <div className={classes.backtestingWrapper}>
@@ -283,13 +286,15 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
           <Button
             className={classes.updateButton}
             variant="contained"
-            onClick={onClickUpdate}
+            onClick={() => onClickUpdate()}
           >
             {t('portfolio.details.backtesting.updateButton')}
           </Button>
         </form>
       </div>
-      {!state.backtesting && !state.error && <CircularProgress />}
+      {!state.backtesting && !state.error && (
+        <CircularProgress color="secondary" />
+      )}
       {/* TODO maybe replace with ternary operator instead of conditional error and conditional backtesting */}
       {state.error && (
         <Container className={classes.container}>

@@ -78,6 +78,7 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
         icon={<EventAvailableIcon className={classes.startAndEnd} />}
         title={t('portfolio.details.backtesting.end')}
         value={<EuroCurrency value={endValue} size="1em" />}
+        lastItem
       />
     </Timeline>
   );

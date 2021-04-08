@@ -45,6 +45,7 @@ type DetailsMainBacktestingTimelineItemProps = {
   icon: ReactNode;
   title: string;
   value: ReactNode;
+  lastItem?: boolean;
 };
 
 const DetailsMainBacktestingTimelineItem: React.FC<DetailsMainBacktestingTimelineItemProps> = ({
@@ -52,6 +53,7 @@ const DetailsMainBacktestingTimelineItem: React.FC<DetailsMainBacktestingTimelin
   icon,
   title,
   value,
+  lastItem,
 }) => {
   const classes = useStyles();
 
@@ -62,7 +64,9 @@ const DetailsMainBacktestingTimelineItem: React.FC<DetailsMainBacktestingTimelin
       </TimelineOppositeContent>
       <TimelineSeparator>
         <TimelineDot color="primary">{icon}</TimelineDot>
-        <TimelineConnector className={classes.timelineConnector} />
+        {lastItem ? undefined : (
+          <TimelineConnector className={classes.timelineConnector} />
+        )}
       </TimelineSeparator>
       <TimelineContent className={classes.timelineContent}>
         <Paper elevation={3} className={classes.paper}>
