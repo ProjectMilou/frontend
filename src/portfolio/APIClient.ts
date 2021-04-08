@@ -147,6 +147,9 @@ export type BacktestingResponse = {
   sharpeRatio: number;
 };
 
+// Types describing the JSON response of API calls.
+// The correctness of these types is assumed, no checks are performed.
+
 type PortfolioOverviewResponse = {
   id: number;
   name: string;
