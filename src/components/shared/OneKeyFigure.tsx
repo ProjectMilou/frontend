@@ -1,11 +1,7 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import {
-  Checkbox,
-  Toolbar,
-  FormControlLabel,
-} from '@material-ui/core';
-import InfoButton from './InfoButton'
+import { Checkbox, Toolbar, FormControlLabel } from '@material-ui/core';
+import InfoButton from './InfoButton';
 
 export type KeyFigure = {
   title: string;
@@ -13,21 +9,6 @@ export type KeyFigure = {
   toggleFilter: (filter: string) => void;
   textColor: string;
 };
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    button: {
-      margin: theme.spacing(1),
-    },
-    customSize: {
-      maxWidth: 500,
-    },
-    root: {
-      margin: '25px auto',
-      minWidth: '50%',
-    },
-  })
-);
 
 export const OneKeyFigure: React.FC<KeyFigure> = ({
   title,
@@ -60,7 +41,7 @@ export const OneKeyFigure: React.FC<KeyFigure> = ({
           }
           label={title}
         />
-        <InfoButton title={definition} > </InfoButton>
+        <InfoButton title={definition}> </InfoButton>
       </Toolbar>
     </div>
   );
