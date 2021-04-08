@@ -227,7 +227,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
     dispatch({ type: 'setValid', payload: true });
     if (
       state.selectedTo < state.selectedFrom ||
-      Date.now() < state.selectedTo.getMilliseconds()
+      new Date() < state.selectedTo
     ) {
       dispatch({ type: 'setValid', payload: false });
     } else {
@@ -261,7 +261,15 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
           <span className={classes.subtitle}>{t('portfolio.details.to')}:</span>
           <MuiPickersUtilsProvider utils={MomentUtils}>
             <KeyboardDatePicker
-              InputProps={{ className: classes.datePickerInput }}
+              InputProps={{
+                className: classes.datePickerInput,
+              }}
+              helperText={
+                state.inputValid
+                  ? undefined
+                  : t('portfolio.details.backtesting.dateHelperText')
+              }
+              error={!state.inputValid}
               value={state.selectedTo}
               onChange={(date) =>
                 dispatch({
