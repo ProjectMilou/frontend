@@ -103,11 +103,9 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
   const [error, setError] = React.useState<Error | undefined>(undefined);
   const isMounted = React.useRef(true);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const fetch = async (from: number, to: number) => {
     setError(undefined);
     try {
-      // TODO get real token and id from useContext
       const backTestingResponse = await API.backtesting(token, id, from, to);
       if (isMounted.current) {
         setBacktesting(backTestingResponse);
@@ -179,6 +177,9 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
             className={classes.updateButton}
             variant="contained"
             disabled={!inputValid}
+            onClick={() =>
+              fetch(Date.parse(selectedFrom), Date.parse(selectedTo))
+            }
           >
             {t('portfolio.details.backtesting.updateButton')}
           </Button>
