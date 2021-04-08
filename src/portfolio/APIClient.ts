@@ -422,14 +422,13 @@ export async function backtesting(
   from: number,
   to: number
 ): Promise<Backtesting> {
-  const response = (await request(
+  return (await request(
     token,
     'GET',
     // TODO edit url when final contract is clear
     `backtest/${id}/${from}/${to}`
     // TODO add type BacktestingResponse if needed
   )) as Backtesting;
-  return response;
 }
 
 export async function details(
