@@ -239,12 +239,14 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
 
   return (
     <div className={classes.backtestingWrapper}>
-      <p className={classes.subtitle}>
+      <h2 className={classes.subtitle}>
         {t('portfolio.details.backtesting.subheading')}
-      </p>
+      </h2>
       <div className={classes.datePicker}>
         <form className={classes.form} noValidate>
-          <p className={classes.subtitle}>{t('portfolio.details.from')}:</p>
+          <span className={classes.subtitle}>
+            {t('portfolio.details.from')}:
+          </span>
           <TextField
             id="dateFrom"
             type="date"
@@ -262,7 +264,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
               className: classes.innerText,
             }}
           />
-          <p className={classes.subtitle}>{t('portfolio.details.to')}:</p>
+          <span className={classes.subtitle}>{t('portfolio.details.to')}:</span>
           <TextField
             id="dateTo"
             type="date"
