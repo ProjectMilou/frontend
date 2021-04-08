@@ -105,7 +105,7 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
             </ListItemText>
           </AccordionSummary>
           <AccordionDetails className={classes.labelText}>
-            Description placeholder
+            {t('portfolio.details.backtesting.bestChangeDescription')}
           </AccordionDetails>
         </Accordion>
       </ListItem>
@@ -127,7 +127,7 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
             </ListItemText>
           </AccordionSummary>
           <AccordionDetails className={classes.labelText}>
-            Description placeholder
+            {t('portfolio.details.backtesting.worstChangeDescription')}
           </AccordionDetails>
         </Accordion>
       </ListItem>
@@ -149,7 +149,7 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
             </ListItemText>
           </AccordionSummary>
           <AccordionDetails className={classes.labelText}>
-            Description placeholder
+            {t('portfolio.details.backtesting.mddDescription')}
           </AccordionDetails>
         </Accordion>
       </ListItem>
@@ -171,7 +171,7 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
             </ListItemText>
           </AccordionSummary>
           <AccordionDetails className={classes.labelText}>
-            Description placeholder
+            {t('portfolio.details.backtesting.standardDeviationDescription')}
           </AccordionDetails>
         </Accordion>
       </ListItem>
@@ -193,7 +193,7 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
             </ListItemText>
           </AccordionSummary>
           <AccordionDetails className={classes.labelText}>
-            Description placeholder
+            {t('portfolio.details.backtesting.sharpeRatioDescription')}
           </AccordionDetails>
         </Accordion>
       </ListItem>
@@ -215,7 +215,7 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
             </ListItemText>
           </AccordionSummary>
           <AccordionDetails className={classes.labelText}>
-            Description placeholder
+            {t('portfolio.details.backtesting.cagrDescription')}
           </AccordionDetails>
         </Accordion>
       </ListItem>
