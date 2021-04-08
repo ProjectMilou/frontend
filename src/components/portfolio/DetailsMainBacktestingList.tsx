@@ -1,12 +1,5 @@
 import React from 'react';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import TrendingDownIcon from '@material-ui/icons/TrendingDown';
 import WarningIcon from '@material-ui/icons/Warning';
@@ -17,31 +10,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import EuroCurrency from '../shared/EuroCurrency';
 import Performance from '../shared/Performance';
+import DetailsMainBacktestingListItem from './DetailsMainBacktestingListItem';
 
 const useStyles = makeStyles((theme) => ({
   list: {
     width: '100%',
     flexBasis: '50%',
-  },
-  accordion: {
-    backgroundColor: theme.palette.primary.light,
-    width: '100%',
-  },
-  expandButton: {
-    color: theme.palette.primary.contrastText,
-  },
-  labelText: {
-    color: theme.palette.primary.contrastText,
-    fontSize: '1em',
-  },
-  valueText: {
-    color: theme.palette.primary.contrastText,
-    fontSize: '1em',
-    textAlign: 'right',
-  },
-  listIcon: {
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   trendUp: {
     color: theme.palette.success.light,
@@ -87,138 +61,50 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
   // TODO replace description placeholder with actual description
   return (
     <List className={classes.list}>
-      <ListItem>
-        <Accordion className={classes.accordion}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon className={classes.expandButton} />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <ListItemIcon className={classes.listIcon}>
-              <TrendingUpIcon className={classes.trendUp} />
-            </ListItemIcon>
-            <ListItemText className={classes.labelText}>
-              {t('portfolio.details.backtesting.bestChange')}
-            </ListItemText>
-            <ListItemText className={classes.valueText}>
-              <EuroCurrency value={changeBest} size="1em" />
-            </ListItemText>
-          </AccordionSummary>
-          <AccordionDetails className={classes.labelText}>
-            {t('portfolio.details.backtesting.bestChangeDescription')}
-          </AccordionDetails>
-        </Accordion>
-      </ListItem>
-      <ListItem>
-        <Accordion className={classes.accordion}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon className={classes.expandButton} />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <ListItemIcon className={classes.listIcon}>
-              <TrendingDownIcon className={classes.trendDown} />
-            </ListItemIcon>
-            <ListItemText className={classes.labelText}>
-              {t('portfolio.details.backtesting.worstChange')}
-            </ListItemText>
-            <ListItemText className={classes.valueText}>
-              <EuroCurrency value={changeWorst} size="1em" />
-            </ListItemText>
-          </AccordionSummary>
-          <AccordionDetails className={classes.labelText}>
-            {t('portfolio.details.backtesting.worstChangeDescription')}
-          </AccordionDetails>
-        </Accordion>
-      </ListItem>
-      <ListItem>
-        <Accordion className={classes.accordion}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon className={classes.expandButton} />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <ListItemIcon className={classes.listIcon}>
-              <HeightIcon className={classes.mdd} />
-            </ListItemIcon>
-            <ListItemText className={classes.labelText}>
-              {t('portfolio.details.backtesting.mddMinMax')}
-            </ListItemText>
-            <ListItemText className={classes.valueText}>
-              <Performance value={mddMaxToMin} size="1em" noPaint />
-            </ListItemText>
-          </AccordionSummary>
-          <AccordionDetails className={classes.labelText}>
-            {t('portfolio.details.backtesting.mddDescription')}
-          </AccordionDetails>
-        </Accordion>
-      </ListItem>
-      <ListItem>
-        <Accordion className={classes.accordion}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon className={classes.expandButton} />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <ListItemIcon className={classes.listIcon}>
-              <WarningIcon className={classes.beta} />
-            </ListItemIcon>
-            <ListItemText className={classes.labelText}>
-              {t('portfolio.details.backtesting.standardDeviation')}
-            </ListItemText>
-            <ListItemText className={classes.valueText}>
-              <Performance value={standardDeviation} size="1em" noPaint />
-            </ListItemText>
-          </AccordionSummary>
-          <AccordionDetails className={classes.labelText}>
-            {t('portfolio.details.backtesting.standardDeviationDescription')}
-          </AccordionDetails>
-        </Accordion>
-      </ListItem>
-      <ListItem>
-        <Accordion className={classes.accordion}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon className={classes.expandButton} />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <ListItemIcon className={classes.listIcon}>
-              <NewReleasesIcon className={classes.sharpe} />
-            </ListItemIcon>
-            <ListItemText className={classes.labelText}>
-              {t('portfolio.details.backtesting.sharpeRatio')}
-            </ListItemText>
-            <ListItemText className={classes.valueText}>
-              {sharpeRatio}
-            </ListItemText>
-          </AccordionSummary>
-          <AccordionDetails className={classes.labelText}>
-            {t('portfolio.details.backtesting.sharpeRatioDescription')}
-          </AccordionDetails>
-        </Accordion>
-      </ListItem>
-      <ListItem>
-        <Accordion className={classes.accordion}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon className={classes.expandButton} />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <ListItemIcon className={classes.listIcon}>
-              <SpeedIcon className={classes.cagr} />
-            </ListItemIcon>
-            <ListItemText className={classes.labelText}>
-              {t('portfolio.details.backtesting.cagr')}
-            </ListItemText>
-            <ListItemText className={classes.valueText}>
-              <Performance value={cagr} size="1em" noPaint />
-            </ListItemText>
-          </AccordionSummary>
-          <AccordionDetails className={classes.labelText}>
-            {t('portfolio.details.backtesting.cagrDescription')}
-          </AccordionDetails>
-        </Accordion>
-      </ListItem>
+      <DetailsMainBacktestingListItem
+        icon={<TrendingUpIcon className={classes.trendUp} />}
+        title={t('portfolio.details.backtesting.bestChange')}
+        value={<EuroCurrency value={changeBest} size="1em" />}
+        descriptionText={t(
+          'portfolio.details.backtesting.bestChangeDescription'
+        )}
+      />
+      <DetailsMainBacktestingListItem
+        icon={<TrendingDownIcon className={classes.trendDown} />}
+        title={t('portfolio.details.backtesting.worstChange')}
+        value={<EuroCurrency value={changeWorst} size="1em" />}
+        descriptionText={t(
+          'portfolio.details.backtesting.worstChangeDescription'
+        )}
+      />
+      <DetailsMainBacktestingListItem
+        icon={<HeightIcon className={classes.mdd} />}
+        title={t('portfolio.details.backtesting.mddMinMax')}
+        value={<Performance value={mddMaxToMin} size="1em" noPaint />}
+        descriptionText={t('portfolio.details.backtesting.mddDescription')}
+      />
+      <DetailsMainBacktestingListItem
+        icon={<WarningIcon className={classes.beta} />}
+        title={t('portfolio.details.backtesting.standardDeviation')}
+        value={<Performance value={standardDeviation} size="1em" noPaint />}
+        descriptionText={t(
+          'portfolio.details.backtesting.standardDeviationDescription'
+        )}
+      />
+      <DetailsMainBacktestingListItem
+        icon={<NewReleasesIcon className={classes.sharpe} />}
+        title={t('portfolio.details.backtesting.sharpeRatio')}
+        value={sharpeRatio}
+        descriptionText={t(
+          'portfolio.details.backtesting.sharpeRatioDescription'
+        )}
+      />
+      <DetailsMainBacktestingListItem
+        icon={<SpeedIcon className={classes.cagr} />}
+        title={t('portfolio.details.backtesting.cagr')}
+        value={<Performance value={cagr} size="1em" noPaint />}
+        descriptionText={t('portfolio.details.backtesting.cagrDescription')}
+      />
     </List>
   );
 };
