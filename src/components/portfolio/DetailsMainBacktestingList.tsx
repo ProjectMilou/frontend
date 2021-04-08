@@ -96,7 +96,7 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
           >
             <ListItemIcon className={classes.listIcon}>
               <TrendingUpIcon className={classes.trendUp} />
-            </ListItemIcon>{' '}
+            </ListItemIcon>
             <ListItemText className={classes.labelText}>
               {t('portfolio.details.backtesting.bestChange')}
             </ListItemText>
