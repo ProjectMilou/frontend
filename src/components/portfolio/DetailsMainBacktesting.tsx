@@ -3,7 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Container } from '@material-ui/core';
+import { Container, CircularProgress } from '@material-ui/core';
 import DetailsMainBacktestingTimeline from './DetailsMainBacktestingTimeline';
 import { Backtesting } from '../../portfolio/APIClient';
 import DetailsMainBacktestingList from './DetailsMainBacktestingList';
@@ -164,34 +164,35 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
   const mockFetch = async (from: number, to: number) => {
     dispatch({ type: 'setError', payload: undefined });
     try {
-      setTimeout(() => {
-        if (isMounted.current) {
-          const backtestingMock: Backtesting = {
-            MDDMaxToMin: -65,
-            MDDInitialToMin: -65,
-            dateMax: '10.02.2019',
-            dateMin: '03.04.2020',
-            maxValue: 1250.55,
-            minValue: 512.67,
-            initialValue: 840.56,
-            bestYear: {
-              changeBest: 210.5,
-              yearBest: '2020',
-              growthRateBest: 10.5,
-            },
-            worstYear: {
-              changeWorst: -70.56,
-              yearWorst: '2019',
-              growthRateWorst: -5.6,
-            },
-            finalPortfolioBalance: 970.43,
-            CAGR: 5.42,
-            standardDeviation: 12.1,
-            sharpeRatio: 0.65,
-          };
-          dispatch({ type: 'setBacktesting', payload: backtestingMock });
-        }
-      }, 2000);
+      if (isMounted.current) {
+        const backtestingMock: Backtesting = {
+          MDDMaxToMin: -65,
+          MDDInitialToMin: -65,
+          dateMax: '10.02.2019',
+          dateMin: '03.04.2020',
+          maxValue: 1250.55,
+          minValue: 512.67,
+          initialValue: 840.56,
+          bestYear: {
+            changeBest: 210.5,
+            yearBest: '2020',
+            growthRateBest: 10.5,
+          },
+          worstYear: {
+            changeWorst: -70.56,
+            yearWorst: '2019',
+            growthRateWorst: -5.6,
+          },
+          finalPortfolioBalance: 970.43,
+          CAGR: 5.42,
+          standardDeviation: 12.1,
+          sharpeRatio: 0.65,
+        };
+        setTimeout(
+          () => dispatch({ type: 'setBacktesting', payload: backtestingMock }),
+          2000
+        );
+      }
     } catch (e) {
       if (isMounted.current) {
         dispatch({ type: 'setError', payload: e });
@@ -294,6 +295,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
           </Button>
         </form>
       </div>
+      {!state.backtesting && !state.error && <CircularProgress />}
       {/* TODO maybe replace with ternary operator instead of conditional error and conditional backtesting */}
       {state.error && (
         <Container className={classes.container}>
