@@ -99,8 +99,8 @@ export type PositionQty = {
 export type Backtesting = {
   MDDMaxToMin: number;
   MDDInitialToMin: number;
-  dateMax: string;
-  dateMin: string;
+  dateMax: Date;
+  dateMin: Date;
   maxValue: number;
   minValue: number;
   initialValue: number;
@@ -122,6 +122,30 @@ export type Backtesting = {
 
 // Types describing the JSON response of API calls.
 // The correctness of these types is assumed, no checks are performed.
+
+export type BacktestingResponse = {
+  MDDMaxToMin: number;
+  MDDInitialToMin: number;
+  dateMax: string;
+  dateMin: string;
+  maxValue: number;
+  minValue: number;
+  initialValue: number;
+  bestYear: {
+    changeBest: number;
+    yearBest: string;
+    growthRateBest: number;
+  };
+  worstYear: {
+    changeWorst: number;
+    yearWorst: string;
+    growthRateWorst: number;
+  };
+  finalPortfolioBalance: number;
+  CAGR: number;
+  standardDeviation: number;
+  sharpeRatio: number;
+};
 
 type PortfolioOverviewResponse = {
   id: number;
@@ -330,6 +354,18 @@ function convertPortfolioOverview(
 }
 
 /**
+ * Converts a {@link BacktestingResponse} object as received from the API
+ * to a {@link Backtesting} object for use by the application.
+ */
+function convertBacktesting(response: BacktestingResponse): Backtesting {
+  return {
+    ...response,
+    dateMin: new Date(response.dateMin),
+    dateMax: new Date(response.dateMax),
+  };
+}
+
+/**
  * Converts a {@link DetailsResponse} object as received from the API to a
  * {@link PortfolioDetails} object for use by the application. If the portfolio
  * is empty, the returned object is of type {@link EmptyPortfolioDetails},
@@ -419,8 +455,8 @@ export async function list(token: string): Promise<PortfolioOverview[]> {
 export async function backtesting(
   token: string,
   id: string,
-  from: number,
-  to: number
+  from: Date,
+  to: Date
 ): Promise<Backtesting> {
   const response = (await request(
     token,
@@ -428,8 +464,8 @@ export async function backtesting(
     // TODO edit url when final contract is clear
     `backtest/${id}/${from}/${to}`
     // TODO add type BacktestingResponse if needed
-  )) as Backtesting;
-  return response;
+  )) as BacktestingResponse;
+  return convertBacktesting(response);
 }
 
 export async function details(

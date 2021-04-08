@@ -1,9 +1,13 @@
 import React, { useEffect, useReducer } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Container, CircularProgress } from '@material-ui/core';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
 import DetailsMainBacktestingTimeline from './DetailsMainBacktestingTimeline';
 import { Backtesting } from '../../portfolio/APIClient';
 import DetailsMainBacktestingList from './DetailsMainBacktestingList';
@@ -33,18 +37,11 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       flexWrap: 'wrap',
       justifyContent: 'center',
     },
-    textField: {
+    datePickerInput: {
       marginLeft: '1rem',
       marginRight: '2rem',
       width: 180,
       color: palette.primary.contrastText,
-      '& .MuiInputBase-root.Mui-disabled': {
-        color: palette.primary.contrastText,
-        opacity: 0.6,
-      },
-      '& .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline': {
-        borderColor: palette.primary.contrastText,
-      },
     },
     updateButton: {
       backgroundColor: palette.primary.light,
@@ -82,8 +79,8 @@ type DetailsMainBacktestingProps = {
 };
 
 type State = {
-  selectedFrom: string;
-  selectedTo: string;
+  selectedFrom: Date;
+  selectedTo: Date;
   inputValid: boolean;
   backtesting: Backtesting | undefined;
   error: Error | undefined;
@@ -94,8 +91,8 @@ const today = Date.now();
 const twoYearsBack = new Date(today - 63113904000);
 const oneYearBack = new Date(today - 31556952000);
 const initialState: State = {
-  selectedFrom: twoYearsBack.toISOString().split('T')[0],
-  selectedTo: oneYearBack.toISOString().split('T')[0],
+  selectedFrom: twoYearsBack,
+  selectedTo: oneYearBack,
   inputValid: true,
   backtesting: undefined,
   error: undefined,
@@ -103,12 +100,12 @@ const initialState: State = {
 
 type SetFromAction = {
   type: 'setFrom';
-  payload: string;
+  payload: Date;
 };
 
 type SetToAction = {
   type: 'setTo';
-  payload: string;
+  payload: Date;
 };
 
 type SetValidAction = {
@@ -161,15 +158,15 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
 
   // TODO delete when real api works
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const mockFetch = async (from: number, to: number) => {
+  const mockFetch = async (from: Date, to: Date) => {
     dispatch({ type: 'setError', payload: undefined });
     try {
       if (isMounted.current) {
         const backtestingMock: Backtesting = {
           MDDMaxToMin: -65,
           MDDInitialToMin: -65,
-          dateMax: '10.02.2019',
-          dateMin: '03.04.2020',
+          dateMax: new Date('10.02.2019'),
+          dateMin: new Date('03.04.2020'),
           maxValue: 1250.55,
           minValue: 512.67,
           initialValue: 840.56,
@@ -201,7 +198,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const fetch = async (from: number, to: number) => {
+  const fetch = async (from: Date, to: Date) => {
     dispatch({ type: 'setError', payload: undefined });
     try {
       const backTestingResponse = await API.backtesting(token, id, from, to);
@@ -217,7 +214,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
 
   // on initial mount
   useEffect(() => {
-    mockFetch(Date.parse(state.selectedFrom), Date.parse(state.selectedTo));
+    mockFetch(state.selectedFrom, state.selectedTo);
     return () => {
       isMounted.current = false;
     };
@@ -228,12 +225,13 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
   const onClickUpdate = () => {
     // remove error from last click
     dispatch({ type: 'setValid', payload: true });
-    const from = Date.parse(state.selectedFrom);
-    const to = Date.parse(state.selectedTo);
-    if (to < from || Date.now() < to) {
+    if (
+      state.selectedTo < state.selectedFrom ||
+      Date.now() < state.selectedTo.getMilliseconds()
+    ) {
       dispatch({ type: 'setValid', payload: false });
     } else {
-      mockFetch(Date.parse(state.selectedFrom), Date.parse(state.selectedTo));
+      mockFetch(state.selectedFrom, state.selectedTo);
     }
   };
 
@@ -247,47 +245,33 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
           <span className={classes.subtitle}>
             {t('portfolio.details.from')}:
           </span>
-          <TextField
-            id="dateFrom"
-            type="date"
-            value={state.selectedFrom}
-            variant="outlined"
-            onChange={(e) =>
-              dispatch({ type: 'setFrom', payload: e.target.value })
-            }
-            className={classes.textField}
-            InputLabelProps={{
-              shrink: true,
-              className: classes.innerText,
-            }}
-            InputProps={{
-              className: classes.innerText,
-            }}
-          />
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+            <KeyboardDatePicker
+              InputProps={{ className: classes.datePickerInput }}
+              value={state.selectedFrom}
+              onChange={(date) =>
+                dispatch({
+                  type: 'setFrom',
+                  // if the onchange date is null don't change the state
+                  payload: date ? date.toDate() : state.selectedFrom,
+                })
+              }
+            />
+          </MuiPickersUtilsProvider>
           <span className={classes.subtitle}>{t('portfolio.details.to')}:</span>
-          <TextField
-            id="dateTo"
-            type="date"
-            helperText={
-              state.inputValid
-                ? undefined
-                : t('portfolio.details.backtesting.dateHelperText')
-            }
-            error={!state.inputValid}
-            value={state.selectedTo}
-            variant="outlined"
-            onChange={(e) =>
-              dispatch({ type: 'setTo', payload: e.target.value })
-            }
-            className={classes.textField}
-            InputLabelProps={{
-              shrink: true,
-              className: classes.innerText,
-            }}
-            InputProps={{
-              className: classes.innerText,
-            }}
-          />
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+            <KeyboardDatePicker
+              InputProps={{ className: classes.datePickerInput }}
+              value={state.selectedTo}
+              onChange={(date) =>
+                dispatch({
+                  type: 'setTo',
+                  // if the onchange date is null don't change the state
+                  payload: date ? date.toDate() : state.selectedFrom,
+                })
+              }
+            />
+          </MuiPickersUtilsProvider>
           <Button
             className={classes.updateButton}
             variant="contained"
