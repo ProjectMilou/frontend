@@ -1,9 +1,17 @@
 import React from 'react';
-import Tooltip from '@material-ui/core/Tooltip';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  createStyles,
+  Theme,
+  useTheme,
+} from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
+import AnalystBar from '../shared/AnalystBar';
+import AnalystBarIndicator from '../shared/AnalystBarIndicator';
+import { Position } from '../../portfolio/APIClient';
 
 // stylesheet for the analyst section
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     riskContainer: {
       display: 'flex',
@@ -14,63 +22,49 @@ const useStyles = makeStyles(() =>
       display: 'flex',
       flexDirection: 'column',
       width: '100%',
-      // TODO: delete fixed height
-      height: '30rem',
     },
-    barContainer: {
-      position: 'relative',
-      width: '90%',
-      height: '3rem',
-      margin: '1rem auto',
-      background:
-        'linear-gradient(90deg, rgba(204,0,0,0.9) 0%, rgba(218,150,0,0.9) 50%, rgba(0,187,9,0.9) 100%)',
-    },
-    barIndicator: {
-      position: 'absolute',
-      width: '1rem',
-      height: '100%',
-      margin: '0 0.05rem',
-      backgroundColor: 'orchid',
+    description: {
+      color: palette.primary.contrastText,
+      textAlign: 'center',
     },
   })
 );
 
 type DetailsMainAnalystProps = {
-  // props
+  positions: Position[];
 };
 
-// returns the details page header
 const DetailsMainAnalyst: React.FC<DetailsMainAnalystProps> = () => {
   const classes = useStyles();
+  const theme = useTheme();
+  const { t } = useTranslation();
 
+  // TODO: use actual values
   const mock = [
     { name: 'bmw', score: 0.2 },
     { name: 'mercedes', score: 0.4 },
-    { name: 'qqq', score: 1 },
+    { name: 'qqq', score: 0.9 },
+    { name: 't0', score: 0.6 },
     { name: 't1', score: 0.6 },
     { name: 't2', score: 0.8 },
   ];
 
   return (
     <div className={classes.analystWrapper}>
-      {/* body placeholder */}
-      <div className={classes.barContainer}>
+      <p className={classes.description}>
+        {t('portfolio.details.analystSubtext')}
+      </p>
+      <AnalystBar>
+        {/* TODO deal with overlap */}
         {mock.map((m) => (
-          <Tooltip title={`${m.name}: ${m.score}`}>
-            <div
-              className={classes.barIndicator}
-              style={{ left: `${m.score * 100}%` }}
-            />
-          </Tooltip>
-        ))}
-
-        <Tooltip title={`test2: ${0.6 * 100}%`}>
-          <div
-            className={classes.barIndicator}
-            style={{ left: `${0.61 * 100}%` }}
+          <AnalystBarIndicator
+            key={m.score}
+            tooltipText={`${m.name}: ${m.score * 100}`}
+            score={m.score}
+            color={theme.palette.primary.contrastText}
           />
-        </Tooltip>
-      </div>
+        ))}
+      </AnalystBar>
     </div>
   );
 };

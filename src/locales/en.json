@@ -29,6 +29,7 @@
   "portfolio.details.payout": "Dividend Payout Ratio",
   "portfolio.details.nextDate": "Next Payout Date",
   "portfolio.details.analyst": "Analysts",
+  "portfolio.details.analystSubtext": "Here are the scores of your top 5 positions. Their score is based on professional analysts buy, hold and sell recommendations.",
   "portfolio.details.emptyPortfolio": "This portfolio does not contain any stocks.",
   "portfolio.details.errorMessage": "There has been an error while loading the portfolio details.",
   "cancel": "Cancel",
