@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import { Container } from '@material-ui/core';
 import DetailsMainBacktestingTimeline from './DetailsMainBacktestingTimeline';
 import { Backtesting } from '../../portfolio/APIClient';
@@ -44,6 +45,10 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       '& .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline': {
         borderColor: palette.primary.contrastText,
       },
+    },
+    updateButton: {
+      backgroundColor: palette.primary.light,
+      color: palette.primary.contrastText,
     },
     innerText: {
       color: palette.primary.contrastText,
@@ -94,7 +99,6 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
   );
 
   const [helperText, setHelperText] = React.useState<string>('');
-  const [disabled, setDisabled] = React.useState<boolean>(false);
   const [backtesting, setBacktesting] = React.useState<Backtesting>();
   const [error, setError] = React.useState<Error | undefined>(undefined);
   const isMounted = React.useRef(true);
@@ -122,36 +126,6 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
       setHelperText(t('portfolio.details.backtesting.dateHelperText'));
     } else {
       setHelperText('');
-      setDisabled(true);
-      // TODO do API call, call setBacktesting and then enable fields again
-      // TODO replace mock with actual api call
-      // fetch(from, to);
-      const backtestingInit: Backtesting = {
-        MDDMaxToMin: -65,
-        MDDInitialToMin: -65,
-        dateMax: '10.02.2019',
-        dateMin: '03.04.2020',
-        maxValue: 1250.55,
-        minValue: 512.67,
-        initialValue: 840.56,
-        bestYear: {
-          changeBest: 210.5,
-          yearBest: '2020',
-          growthRateBest: 10.5,
-        },
-        worstYear: {
-          changeWorst: -70.56,
-          yearWorst: '2019',
-          growthRateWorst: -5.6,
-        },
-        finalPortfolioBalance: 970.43,
-        CAGR: 5.42,
-        standardDeviation: 12.1,
-        sharpeRatio: 0.65,
-      };
-      setBacktesting(backtestingInit);
-
-      setTimeout(() => setDisabled(false), 3000);
     }
     return () => {
       isMounted.current = false;
@@ -169,7 +143,6 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
           <TextField
             id="dateFrom"
             type="date"
-            disabled={disabled}
             value={selectedFrom}
             variant="outlined"
             onChange={(e) => setSelectedFrom(e.target.value)}
@@ -186,7 +159,6 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
           <TextField
             id="dateTo"
             type="date"
-            disabled={disabled}
             helperText={helperText}
             error={!(helperText === '')}
             value={selectedTo}
@@ -201,6 +173,9 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
               className: classes.innerText,
             }}
           />
+          <Button className={classes.updateButton} variant="contained">
+            {t('portfolio.details.backtesting.updateButton')}
+          </Button>
         </form>
       </div>
       {/* TODO maybe replace with ternary operator instead of conditional error and conditional backtesting */}
