@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
@@ -81,24 +81,88 @@ type DetailsMainBacktestingProps = {
   id: string;
 };
 
+type State = {
+  selectedFrom: string;
+  selectedTo: string;
+  inputValid: boolean;
+  backtesting: Backtesting | undefined;
+  error: Error | undefined;
+};
+
+// default range is from two years back to one year back
+const today = Date.now();
+const twoYearsBack = new Date(today - 63113904000);
+const oneYearBack = new Date(today - 31556952000);
+const initialState: State = {
+  selectedFrom: twoYearsBack.toISOString().split('T')[0],
+  selectedTo: oneYearBack.toISOString().split('T')[0],
+  inputValid: true,
+  backtesting: undefined,
+  error: undefined,
+};
+
+type SetFromAction = {
+  type: 'setFrom';
+  payload: string;
+};
+
+type SetToAction = {
+  type: 'setTo';
+  payload: string;
+};
+
+type SetValidAction = {
+  type: 'setValid';
+  payload: boolean;
+};
+
+type SetBacktestingAction = {
+  type: 'setBacktesting';
+  payload: Backtesting;
+};
+
+type SetErrorAction = {
+  type: 'setError';
+  payload: Error | undefined;
+};
+
+type Actions =
+  | SetFromAction
+  | SetToAction
+  | SetValidAction
+  | SetBacktestingAction
+  | SetErrorAction;
+
+const reducer = (state: State, action: Actions) => {
+  switch (action.type) {
+    case 'setFrom':
+      return { ...state, selectedFrom: action.payload };
+    case 'setTo':
+      return { ...state, selectedTo: action.payload };
+    case 'setValid':
+      return { ...state, inputValid: action.payload };
+    case 'setBacktesting':
+      return { ...state, backtesting: action.payload };
+    case 'setError':
+      return { ...state, error: action.payload };
+    default:
+      return state;
+  }
+};
+
 const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
   token,
   id,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-
-  const [selectedFrom, setSelectedFrom] = React.useState<string>('');
-  const [selectedTo, setSelectedTo] = React.useState<string>('');
-  const [inputValid, setInputValid] = React.useState<boolean>(true);
-  const [backtesting, setBacktesting] = React.useState<Backtesting>();
-  const [error, setError] = React.useState<Error | undefined>(undefined);
+  const [state, dispatch] = useReducer(reducer, initialState);
   const isMounted = React.useRef(true);
 
   // TODO delete when real api works
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const mockFetch = async (from: number, to: number) => {
-    setError(undefined);
+    dispatch({ type: 'setError', payload: undefined });
     try {
       setTimeout(() => {
         if (isMounted.current) {
@@ -125,40 +189,34 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
             standardDeviation: 12.1,
             sharpeRatio: 0.65,
           };
-          setBacktesting(backtestingMock);
+          dispatch({ type: 'setBacktesting', payload: backtestingMock });
         }
       }, 2000);
     } catch (e) {
       if (isMounted.current) {
-        setError(e);
+        dispatch({ type: 'setError', payload: e });
       }
     }
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const fetch = async (from: number, to: number) => {
-    setError(undefined);
+    dispatch({ type: 'setError', payload: undefined });
     try {
       const backTestingResponse = await API.backtesting(token, id, from, to);
       if (isMounted.current) {
-        setBacktesting(backTestingResponse);
+        dispatch({ type: 'setBacktesting', payload: backTestingResponse });
       }
     } catch (e) {
       if (isMounted.current) {
-        setError(e);
+        dispatch({ type: 'setError', payload: e });
       }
     }
   };
 
   // on initial mount
   useEffect(() => {
-    // default range is from two years back to one year back
-    const today = Date.now();
-    const twoYearsBack = new Date(today - 63113904000);
-    const oneYearBack = new Date(today - 31556952000);
-    setSelectedFrom(twoYearsBack.toISOString().split('T')[0]);
-    setSelectedTo(oneYearBack.toISOString().split('T')[0]);
-    mockFetch(Date.parse(selectedFrom), Date.parse(selectedTo));
+    mockFetch(Date.parse(state.selectedFrom), Date.parse(state.selectedTo));
     return () => {
       isMounted.current = false;
     };
@@ -168,13 +226,13 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
 
   const onClickUpdate = () => {
     // remove error from last click
-    setInputValid(true);
-    const from = Date.parse(selectedFrom);
-    const to = Date.parse(selectedTo);
+    dispatch({ type: 'setValid', payload: true });
+    const from = Date.parse(state.selectedFrom);
+    const to = Date.parse(state.selectedTo);
     if (to < from || Date.now() < to) {
-      setInputValid(false);
+      dispatch({ type: 'setValid', payload: false });
     } else {
-      mockFetch(Date.parse(selectedFrom), Date.parse(selectedTo));
+      mockFetch(Date.parse(state.selectedFrom), Date.parse(state.selectedTo));
     }
   };
 
@@ -189,9 +247,11 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
           <TextField
             id="dateFrom"
             type="date"
-            value={selectedFrom}
+            value={state.selectedFrom}
             variant="outlined"
-            onChange={(e) => setSelectedFrom(e.target.value)}
+            onChange={(e) =>
+              dispatch({ type: 'setFrom', payload: e.target.value })
+            }
             className={classes.textField}
             InputLabelProps={{
               shrink: true,
@@ -206,14 +266,16 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
             id="dateTo"
             type="date"
             helperText={
-              inputValid
+              state.inputValid
                 ? undefined
                 : t('portfolio.details.backtesting.dateHelperText')
             }
-            error={!inputValid}
-            value={selectedTo}
+            error={!state.inputValid}
+            value={state.selectedTo}
             variant="outlined"
-            onChange={(e) => setSelectedTo(e.target.value)}
+            onChange={(e) =>
+              dispatch({ type: 'setTo', payload: e.target.value })
+            }
             className={classes.textField}
             InputLabelProps={{
               shrink: true,
@@ -233,33 +295,33 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
         </form>
       </div>
       {/* TODO maybe replace with ternary operator instead of conditional error and conditional backtesting */}
-      {error && (
+      {state.error && (
         <Container className={classes.container}>
           <ErrorMessage
-            error={error}
+            error={state.error}
             messageKey="portfolio.details.backtesting.errorMessage"
           />
         </Container>
       )}
-      {backtesting && (
+      {state.backtesting && (
         <div className={classes.timelineListWrapper}>
           <DetailsMainBacktestingTimeline
-            startDate={selectedFrom}
-            startValue={backtesting.initialValue}
-            minDate={backtesting.dateMin}
-            minVale={backtesting.minValue}
-            maxDate={backtesting.dateMax}
-            maxValue={backtesting.maxValue}
-            endDate={selectedTo}
-            endValue={backtesting.finalPortfolioBalance}
+            startDate={state.selectedFrom}
+            startValue={state.backtesting.initialValue}
+            minDate={state.backtesting.dateMin}
+            minVale={state.backtesting.minValue}
+            maxDate={state.backtesting.dateMax}
+            maxValue={state.backtesting.maxValue}
+            endDate={state.selectedTo}
+            endValue={state.backtesting.finalPortfolioBalance}
           />
           <DetailsMainBacktestingList
-            changeBest={backtesting.bestYear.changeBest}
-            changeWorst={backtesting.worstYear.changeWorst}
-            mddMaxToMin={backtesting.MDDMaxToMin}
-            standardDeviation={backtesting.standardDeviation}
-            sharpeRatio={backtesting.sharpeRatio}
-            cagr={backtesting.CAGR}
+            changeBest={state.backtesting.bestYear.changeBest}
+            changeWorst={state.backtesting.worstYear.changeWorst}
+            mddMaxToMin={state.backtesting.MDDMaxToMin}
+            standardDeviation={state.backtesting.standardDeviation}
+            sharpeRatio={state.backtesting.sharpeRatio}
+            cagr={state.backtesting.CAGR}
           />
         </div>
       )}
