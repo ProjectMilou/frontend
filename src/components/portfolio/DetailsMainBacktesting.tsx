@@ -88,17 +88,8 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
   const classes = useStyles();
   const { t } = useTranslation();
 
-  // default range is from two years back to one year back
-  const today = Date.now();
-  const twoYearsBack = new Date(today - 63113904000);
-  const oneYearBack = new Date(today - 31556952000);
-  const [selectedFrom, setSelectedFrom] = React.useState<string>(
-    twoYearsBack.toISOString().split('T')[0]
-  );
-  const [selectedTo, setSelectedTo] = React.useState<string>(
-    oneYearBack.toISOString().split('T')[0]
-  );
-
+  const [selectedFrom, setSelectedFrom] = React.useState<string>('');
+  const [selectedTo, setSelectedTo] = React.useState<string>('');
   const [inputValid, setInputValid] = React.useState<boolean>(true);
   const [backtesting, setBacktesting] = React.useState<Backtesting>();
   const [error, setError] = React.useState<Error | undefined>(undefined);
@@ -159,8 +150,14 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
     }
   };
 
-  // intial fetching
+  // on initial mount
   useEffect(() => {
+    // default range is from two years back to one year back
+    const today = Date.now();
+    const twoYearsBack = new Date(today - 63113904000);
+    const oneYearBack = new Date(today - 31556952000);
+    setSelectedFrom(twoYearsBack.toISOString().split('T')[0]);
+    setSelectedTo(oneYearBack.toISOString().split('T')[0]);
     mockFetch(Date.parse(selectedFrom), Date.parse(selectedTo));
     return () => {
       isMounted.current = false;
