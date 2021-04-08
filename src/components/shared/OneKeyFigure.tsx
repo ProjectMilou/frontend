@@ -1,12 +1,11 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { InfoOutlined } from '@material-ui/icons';
 import {
   Checkbox,
   Toolbar,
   FormControlLabel,
-  Tooltip,
 } from '@material-ui/core';
+import InfoButton from './InfoButton'
 
 export type KeyFigure = {
   title: string;
@@ -36,7 +35,6 @@ export const OneKeyFigure: React.FC<KeyFigure> = ({
   toggleFilter,
   textColor,
 }) => {
-  const classes = useStyles();
   const [visible, setVisible] = React.useState<boolean>(true);
 
   const handleClick = () => {
@@ -62,18 +60,7 @@ export const OneKeyFigure: React.FC<KeyFigure> = ({
           }
           label={title}
         />
-        <Tooltip
-          title={definition}
-          placement="top-start"
-          classes={{ tooltip: classes.customSize }}
-        >
-          <InfoOutlined
-            fontSize="small"
-            style={{
-              color: textColor,
-            }}
-          />
-        </Tooltip>
+        <InfoButton title={definition} > </InfoButton>
       </Toolbar>
     </div>
   );
