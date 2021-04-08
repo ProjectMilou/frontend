@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Checkbox, Toolbar, FormControlLabel } from '@material-ui/core';
 import InfoButton from './InfoButton';
 
