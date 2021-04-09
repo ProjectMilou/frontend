@@ -80,10 +80,10 @@ Get the performance of the stock from beginning or last 5 years
 
 #### Request
 
-| parameter | type     | description                                     |
-| --------- | -------- | ----------------------------------------------- |
-| `id`      | `string` | SYMBOL of stock                                 |
-| `max`     | `boolean`  | all data points if true, else only last 5 years |
+| parameter | type      | description                                     |
+| --------- | --------- | ----------------------------------------------- |
+| `id`      | `string`  | SYMBOL of stock                                 |
+| `max`     | `boolean` | all data points if true, else only last 5 years |
 
 #### Repsonse
 
