@@ -1,5 +1,10 @@
 import React, { useEffect, useReducer } from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  createStyles,
+  Theme,
+  darken,
+} from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import { Container, CircularProgress } from '@material-ui/core';
@@ -21,7 +26,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       flexDirection: 'column',
       width: '100%',
     },
-
     subtitle: {
       display: 'flex',
       alignItems: 'center',
@@ -36,39 +40,48 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       display: 'flex',
       flexWrap: 'wrap',
       justifyContent: 'center',
+      alignItems: 'baseline',
     },
     datePickerInput: {
       marginLeft: '1rem',
       marginRight: '2rem',
       width: 180,
       color: palette.primary.contrastText,
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: `${darken(palette.primary.contrastText, 0.2)}`,
+      },
+      '&:hover': {
+        '& .MuiOutlinedInput-notchedOutline': {
+          borderColor: palette.primary.contrastText,
+        },
+      },
     },
     updateButton: {
       backgroundColor: palette.primary.light,
       color: palette.primary.contrastText,
       alignSelf: 'baseline',
     },
-    innerText: {
+    innerButton: {
       color: palette.primary.contrastText,
-      opacity: 0.9,
-      '& .MuiOutlinedInput-notchedOutline': {
-        borderColor: palette.primary.contrastText,
-        opacity: 0.9,
-      },
-      '&:hover': {
-        opacity: 1,
-        '& .MuiOutlinedInput-notchedOutline': {
-          borderColor: palette.primary.contrastText,
-          opacity: 1,
-        },
-      },
+    },
+    helperText: {
+      position: 'absolute',
+      top: '100%',
+      left: '-60%',
+      whiteSpace: 'nowrap',
     },
     timelineListWrapper: {
       display: 'flex',
       marginTop: '1em',
     },
-    container: {
+    errorContainer: {
       marginTop: '25px',
+    },
+    progressContainer: {
+      height: '25rem',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
   })
 );
@@ -255,14 +268,18 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
       <h2 className={classes.subtitle}>
         {t('portfolio.details.backtesting.subheading')}
       </h2>
-      <div className={classes.datePicker}>
-        <form className={classes.form} noValidate>
-          <span className={classes.subtitle}>
-            {t('portfolio.details.from')}:
-          </span>
-          <MuiPickersUtilsProvider utils={MomentUtils}>
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+        <div className={classes.datePicker}>
+          <form className={classes.form} noValidate>
+            <span className={classes.subtitle}>
+              {t('portfolio.details.from')}:
+            </span>
             <KeyboardDatePicker
+              inputVariant="outlined"
+              format="MM/DD/YYYY"
               InputProps={{ className: classes.datePickerInput }}
+              KeyboardButtonProps={{ className: classes.innerButton }}
+              error={!state.inputValid}
               value={state.selectedFrom}
               onChange={(date) => {
                 // if the onchange date is null don't change the state
@@ -273,14 +290,17 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
                   });
                 }
               }}
+              disableFuture
             />
-          </MuiPickersUtilsProvider>
-          <span className={classes.subtitle}>{t('portfolio.details.to')}:</span>
-          <MuiPickersUtilsProvider utils={MomentUtils}>
+            <span className={classes.subtitle}>
+              {t('portfolio.details.to')}:
+            </span>
             <KeyboardDatePicker
-              InputProps={{
-                className: classes.datePickerInput,
-              }}
+              inputVariant="outlined"
+              format="MM/DD/YYYY"
+              InputProps={{ className: classes.datePickerInput }}
+              KeyboardButtonProps={{ className: classes.innerButton }}
+              FormHelperTextProps={{ className: classes.helperText }}
               helperText={
                 state.inputValid
                   ? undefined
@@ -295,23 +315,26 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
                   payload: date ? date.toDate() : state.selectedFrom,
                 })
               }
+              disableFuture
             />
-          </MuiPickersUtilsProvider>
-          <Button
-            className={classes.updateButton}
-            variant="contained"
-            disabled={state.updateDisabled}
-            onClick={() => onClickUpdate()}
-          >
-            {t('portfolio.details.backtesting.updateButton')}
-          </Button>
-        </form>
-      </div>
+            <Button
+              className={classes.updateButton}
+              variant="contained"
+              disabled={state.updateDisabled}
+              onClick={() => onClickUpdate()}
+            >
+              {t('portfolio.details.backtesting.updateButton')}
+            </Button>
+          </form>
+        </div>
+      </MuiPickersUtilsProvider>
       {!state.backtesting && !state.error && (
-        <CircularProgress color="secondary" />
+        <div className={classes.progressContainer}>
+          <CircularProgress color="secondary" size={60} />
+        </div>
       )}
       {state.error && (
-        <Container className={classes.container}>
+        <Container className={classes.errorContainer}>
           <ErrorMessage
             error={state.error}
             messageKey="portfolio.details.backtesting.errorMessage"

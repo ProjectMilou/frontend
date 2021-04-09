@@ -40,8 +40,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     lineWrapper: {
       display: 'flex',
       width: '100%',
-      // TODO: use theme color
-      borderColor: '#EEF1FB',
+      borderColor: palette.primary.contrastText,
     },
     line: {
       width: '100%',

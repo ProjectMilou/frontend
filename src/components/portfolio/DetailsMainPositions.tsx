@@ -18,8 +18,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     button: {
       textTransform: 'none',
-      // TODO: use theme color
-      color: '#EEF1FB',
+      color: palette.primary.contrastText,
       padding: 0,
     },
     gridListWrapper: {
@@ -44,8 +43,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       fontWeight: 600,
     },
     cardSubtitle: {
-      // TODO: use theme color
-      color: '#EEF1FB',
+      color: palette.primary.contrastText,
       fontSize: '1rem',
       fontWeight: 500,
       marginTop: '10px',
@@ -116,20 +114,36 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
                 <div className={classes.cardContentLower}>
                   <ValueOverName
                     value={
-                      <StyledNumberFormat value={p.stock.perf7d} suffix="%" />
+                      <StyledNumberFormat
+                        value={p.stock.perf7d}
+                        suffix="%"
+                        paintJob
+                      />
                     }
                     name={t('portfolio.details.day7')}
                     secondValue={
-                      <StyledNumberFormat value={sevDayAbsolute} suffix="€" />
+                      <StyledNumberFormat
+                        value={sevDayAbsolute}
+                        suffix="€"
+                        paintJob
+                      />
                     }
                   />
                   <ValueOverName
                     value={
-                      <StyledNumberFormat value={p.stock.perf1y} suffix="%" />
+                      <StyledNumberFormat
+                        value={p.stock.perf1y}
+                        suffix="%"
+                        paintJob
+                      />
                     }
                     name={t('portfolio.details.year')}
                     secondValue={
-                      <StyledNumberFormat value={oneYearAbsolute} suffix="€" />
+                      <StyledNumberFormat
+                        value={oneYearAbsolute}
+                        suffix="€"
+                        paintJob
+                      />
                     }
                   />
                   <ValueOverName
@@ -137,11 +151,16 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
                       <StyledNumberFormat
                         value={p.totalReturnPercent}
                         suffix="%"
+                        paintJob
                       />
                     }
                     name={t('portfolio.details.totalReturn')}
                     secondValue={
-                      <StyledNumberFormat value={p.totalReturn} suffix="€" />
+                      <StyledNumberFormat
+                        value={p.totalReturn}
+                        suffix="€"
+                        paintJob
+                      />
                     }
                   />
                 </div>
