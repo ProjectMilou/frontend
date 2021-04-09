@@ -310,7 +310,6 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
       {!state.backtesting && !state.error && (
         <CircularProgress color="secondary" />
       )}
-      {/* TODO maybe replace with ternary operator instead of conditional error and conditional backtesting */}
       {state.error && (
         <Container className={classes.container}>
           <ErrorMessage
