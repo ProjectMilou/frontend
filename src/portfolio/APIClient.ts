@@ -125,6 +125,35 @@ export type Backtesting = {
 
 export type BacktestingResponse = {
   error: string;
+  success:
+    | {
+        MDDMaxToMin: number;
+        MDDInitialToMin: number;
+        dateMax: string;
+        dateMin: string;
+        maxValue: number;
+        minValue: number;
+        initialValue: number;
+        bestYear: {
+          changeBest: number;
+          yearBest: string;
+          growthRateBest: number;
+        };
+        worstYear: {
+          changeWorst: number;
+          yearWorst: string;
+          growthRateWorst: number;
+        };
+        finalPortfolioBalance: number;
+        CAGR: number;
+        standardDeviation: number;
+        sharpeRatio: number;
+      }
+    | Record<string, never>;
+};
+
+type NonEmptyBacktestingResponse = {
+  error: string;
   success: {
     MDDMaxToMin: number;
     MDDInitialToMin: number;
@@ -363,7 +392,9 @@ function convertPortfolioOverview(
  * Converts a {@link BacktestingResponse} object as received from the API
  * to a {@link Backtesting} object for use by the application.
  */
-function convertBacktesting(response: BacktestingResponse): Backtesting {
+function convertBacktesting(
+  response: NonEmptyBacktestingResponse
+): Backtesting {
   const { success } = response;
   return {
     ...success,
@@ -468,9 +499,16 @@ export async function backtesting(
   const response = (await request(
     token,
     'GET',
-    `/analytics/backtest/${id}?${from}&${to}`
+    `/analytics/backtest/${id}?${from.toISOString().split('T')[0]}&${
+      to.toISOString().split('T')[0]
+    }`
   )) as BacktestingResponse;
-  return convertBacktesting(response);
+  if (
+    response.error.length > 0 ||
+    Object.entries(response.success).length === 0
+  )
+    throw new Error(response.error);
+  return convertBacktesting(response as NonEmptyBacktestingResponse);
 }
 
 export async function details(
