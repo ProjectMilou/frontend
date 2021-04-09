@@ -2,7 +2,7 @@
 
 import { AppError } from '../Errors';
 
-export const baseURL = 'https://api.milou.io/stock';
+export const baseURL = 'https://api.milou.io/stocks';
 const headers = { 'Content-Type': 'application/json' };
 
 // Stock type
