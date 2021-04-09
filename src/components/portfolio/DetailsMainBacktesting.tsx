@@ -84,6 +84,7 @@ type State = {
   inputValid: boolean;
   backtesting: Backtesting | undefined;
   error: Error | undefined;
+  updateDisabled: boolean;
 };
 
 // default range is from two years back to one year back
@@ -96,6 +97,7 @@ const initialState: State = {
   inputValid: true,
   backtesting: undefined,
   error: undefined,
+  updateDisabled: false,
 };
 
 type SetFromAction = {
@@ -123,12 +125,18 @@ type SetErrorAction = {
   payload: Error | undefined;
 };
 
+type SetUpdateDisabledAction = {
+  type: 'setUpdateDisabled';
+  payload: boolean;
+};
+
 type Actions =
   | SetFromAction
   | SetToAction
   | SetValidAction
   | SetBacktestingAction
-  | SetErrorAction;
+  | SetErrorAction
+  | SetUpdateDisabledAction;
 
 const reducer = (state: State, action: Actions) => {
   switch (action.type) {
@@ -142,6 +150,8 @@ const reducer = (state: State, action: Actions) => {
       return { ...state, backtesting: action.payload };
     case 'setError':
       return { ...state, error: action.payload };
+    case 'setUpdateDisabled':
+      return { ...state, updateDisabled: action.payload };
     default:
       return state;
   }
@@ -223,7 +233,8 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
   }, []);
 
   const onClickUpdate = () => {
-    console.log('ALLARE');
+    // disable button until new result is being displayed
+    dispatch({ type: 'setUpdateDisabled', payload: true });
     // remove error from last click
     dispatch({ type: 'setValid', payload: true });
     if (
@@ -231,9 +242,11 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
       new Date() < state.selectedTo
     ) {
       dispatch({ type: 'setValid', payload: false });
+      dispatch({ type: 'setUpdateDisabled', payload: false });
     } else {
       dispatch({ type: 'setBacktesting', payload: undefined });
       mockFetch(state.selectedFrom, state.selectedTo);
+      dispatch({ type: 'setUpdateDisabled', payload: false });
     }
   };
 
@@ -285,6 +298,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
           <Button
             className={classes.updateButton}
             variant="contained"
+            disabled={state.updateDisabled}
             onClick={() => onClickUpdate()}
           >
             {t('portfolio.details.backtesting.updateButton')}
