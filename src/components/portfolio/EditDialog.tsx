@@ -36,7 +36,7 @@ export type EditDialogProps = {
   /** Called on dialog close. */
   handleClose: () => void;
   /** Called with the modified values when the action button is clicked. */
-  action: (values: Values) => Promise<void>;
+  action: (changes: { [key: string]: number }) => Promise<void>;
   /** Strings in the dialog. */
   strings: {
     /** Dialog title. */
