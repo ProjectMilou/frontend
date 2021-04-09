@@ -40,7 +40,7 @@ export const OneKeyFigure: React.FC<KeyFigure> = ({
           }
           label={title}
         />
-        <InfoButton title={definition}> </InfoButton>
+        <InfoButton infotext={definition}> </InfoButton>
       </Toolbar>
     </div>
   );
