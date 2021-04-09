@@ -6,7 +6,7 @@ import { makeStyles, Theme } from '@material-ui/core';
  * Component for number formatting and optional styling
  *
  * @param value - number value that is being displayed
- * @param suffix - suffix for the formatted number value, use autocompletion of your IDE!
+ * @param suffix - suffix for the formatted number value
  * IMPORTANT: don't use curly braces around the suffix string
  *    WRONG: suffix={'&nbsp;€'}
  *    CORRECT: suffix='&nbsp;€'
@@ -19,7 +19,7 @@ import { makeStyles, Theme } from '@material-ui/core';
  */
 type StyledNumberFormatProps = {
   value: number;
-  suffix: '&nbsp;€' | '&nbsp;%';
+  suffix: '€' | '%';
   size?: string;
   fontWeight?: number;
   paintJob?: boolean | string;
@@ -59,7 +59,7 @@ const StyledNumberFormat: React.FC<StyledNumberFormatProps> = (props) => {
       value={value}
       displayType="text"
       thousandSeparator="."
-      suffix={suffix}
+      suffix={`&nbsp;${suffix}`}
       decimalScale={2}
       fixedDecimalScale
       decimalSeparator=","

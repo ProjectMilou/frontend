@@ -94,13 +94,13 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         />
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
-        <StyledNumberFormat value={stock.price} suffix="&nbsp;€" />
+        <StyledNumberFormat value={stock.price} suffix="€" />
       </TableCell>
       <TableCell align="center">
-        <StyledNumberFormat value={stock.per7d} suffix="&nbsp;%" paintJob />
+        <StyledNumberFormat value={stock.per7d} suffix="%" paintJob />
       </TableCell>
       <TableCell align="center">
-        <StyledNumberFormat value={stock.per30d} suffix="&nbsp;%" paintJob />
+        <StyledNumberFormat value={stock.per30d} suffix="%" paintJob />
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>
@@ -108,13 +108,13 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         </Typography>
       </TableCell>
       <TableCell align="center">
-        <StyledNumberFormat value={stock.analystTargetPrice} suffix="&nbsp;€" />
+        <StyledNumberFormat value={stock.analystTargetPrice} suffix="€" />
       </TableCell>
       <TableCell align="center">
         <Valuation value={stock.valuation} />
       </TableCell>
       <TableCell align="center">
-        <StyledNumberFormat value={stock.div} suffix="&nbsp;%" paintJob />
+        <StyledNumberFormat value={stock.div} suffix="%" paintJob />
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>

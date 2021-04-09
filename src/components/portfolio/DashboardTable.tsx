@@ -87,13 +87,13 @@ const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         {portfolio.positionCount}
       </TableCell>
       <TableCell align="center">
-        <StyledNumberFormat value={portfolio.value} suffix="&nbsp;€" />
+        <StyledNumberFormat value={portfolio.value} suffix="€" />
       </TableCell>
       <TableCell align="center">
-        <StyledNumberFormat value={portfolio.perf7d} suffix="&nbsp;%" />
+        <StyledNumberFormat value={portfolio.perf7d} suffix="%" />
       </TableCell>
       <TableCell align="center">
-        <StyledNumberFormat value={portfolio.perf1y} suffix="&nbsp;%" />
+        <StyledNumberFormat value={portfolio.perf1y} suffix="%" />
       </TableCell>
       <TableCell align="center">
         <DashboardActions

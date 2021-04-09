@@ -63,7 +63,7 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
       <DetailsMainBacktestingListItem
         icon={<TrendingUpIcon className={classes.trendUp} />}
         title={t('portfolio.details.backtesting.bestChange')}
-        value={<StyledNumberFormat value={changeBest} suffix="&nbsp;€" />}
+        value={<StyledNumberFormat value={changeBest} suffix="€" />}
         descriptionText={t(
           'portfolio.details.backtesting.bestChangeDescription'
         )}
@@ -71,7 +71,7 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
       <DetailsMainBacktestingListItem
         icon={<TrendingDownIcon className={classes.trendDown} />}
         title={t('portfolio.details.backtesting.worstChange')}
-        value={<StyledNumberFormat value={changeWorst} suffix="&nbsp;€" />}
+        value={<StyledNumberFormat value={changeWorst} suffix="€" />}
         descriptionText={t(
           'portfolio.details.backtesting.worstChangeDescription'
         )}
@@ -79,15 +79,13 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
       <DetailsMainBacktestingListItem
         icon={<HeightIcon className={classes.mdd} />}
         title={t('portfolio.details.backtesting.mddMinMax')}
-        value={<StyledNumberFormat value={mddMaxToMin} suffix="&nbsp;%" />}
+        value={<StyledNumberFormat value={mddMaxToMin} suffix="%" />}
         descriptionText={t('portfolio.details.backtesting.mddDescription')}
       />
       <DetailsMainBacktestingListItem
         icon={<WarningIcon className={classes.beta} />}
         title={t('portfolio.details.backtesting.standardDeviation')}
-        value={
-          <StyledNumberFormat value={standardDeviation} suffix="&nbsp;%" />
-        }
+        value={<StyledNumberFormat value={standardDeviation} suffix="%" />}
         descriptionText={t(
           'portfolio.details.backtesting.standardDeviationDescription'
         )}
@@ -103,7 +101,7 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
       <DetailsMainBacktestingListItem
         icon={<SpeedIcon className={classes.cagr} />}
         title={t('portfolio.details.backtesting.cagr')}
-        value={<StyledNumberFormat value={cagr} suffix="&nbsp;%" />}
+        value={<StyledNumberFormat value={cagr} suffix="%" />}
         descriptionText={t('portfolio.details.backtesting.cagrDescription')}
       />
     </List>

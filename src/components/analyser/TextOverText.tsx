@@ -60,7 +60,7 @@ const TextOverText: React.FC<TextOverTextProps> = (props) => {
           <p className={classes.bottom}>
             <StyledNumberFormat
               value={parseInt(bottom, 10)}
-              suffix="&nbsp;€"
+              suffix="€"
               fontWeight={600}
               size="1.3rem"
             />

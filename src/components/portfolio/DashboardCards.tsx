@@ -79,7 +79,7 @@ const CardComponent: React.FC<CardComponentProps> = ({
           {portfolio.virtual ? t('portfolio.virtual') : t('portfolio.real')}
         </Typography>
         <div className={classes.value}>
-          <StyledNumberFormat value={portfolio.value} suffix="&nbsp;€" />
+          <StyledNumberFormat value={portfolio.value} suffix="€" />
         </div>
       </CardContent>
       <CardActions className={classes.cardActions}>

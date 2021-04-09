@@ -106,60 +106,42 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
                     <span>{`${t('portfolio.details.holding')}: `}</span>
                     <StyledNumberFormat
                       value={p.stock.price * p.qty}
-                      suffix="&nbsp;€"
+                      suffix="€"
                     />
                     <br />
                     <span>{`${t('portfolio.details.perShare')}: `}</span>
-                    <StyledNumberFormat
-                      value={p.stock.price}
-                      suffix="&nbsp;€"
-                    />
+                    <StyledNumberFormat value={p.stock.price} suffix="€" />
                   </div>
                 </div>
                 <div className={classes.cardContentLower}>
                   <ValueOverName
                     value={
-                      <StyledNumberFormat
-                        value={p.stock.perf7d}
-                        suffix="&nbsp;%"
-                      />
+                      <StyledNumberFormat value={p.stock.perf7d} suffix="%" />
                     }
                     name={t('portfolio.details.day7')}
                     secondValue={
-                      <StyledNumberFormat
-                        value={sevDayAbsolute}
-                        suffix="&nbsp;€"
-                      />
+                      <StyledNumberFormat value={sevDayAbsolute} suffix="€" />
                     }
                   />
                   <ValueOverName
                     value={
-                      <StyledNumberFormat
-                        value={p.stock.perf1y}
-                        suffix="&nbsp;%"
-                      />
+                      <StyledNumberFormat value={p.stock.perf1y} suffix="%" />
                     }
                     name={t('portfolio.details.year')}
                     secondValue={
-                      <StyledNumberFormat
-                        value={oneYearAbsolute}
-                        suffix="&nbsp;€"
-                      />
+                      <StyledNumberFormat value={oneYearAbsolute} suffix="€" />
                     }
                   />
                   <ValueOverName
                     value={
                       <StyledNumberFormat
                         value={p.totalReturnPercent}
-                        suffix="&nbsp;%"
+                        suffix="%"
                       />
                     }
                     name={t('portfolio.details.totalReturn')}
                     secondValue={
-                      <StyledNumberFormat
-                        value={p.totalReturn}
-                        suffix="&nbsp;€"
-                      />
+                      <StyledNumberFormat value={p.totalReturn} suffix="€" />
                     }
                   />
                 </div>

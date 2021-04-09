@@ -374,7 +374,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
               value={
                 <StyledNumberFormat
                   value={portfolio.overview.perf7d}
-                  suffix="&nbsp;%"
+                  suffix="%"
                   paintJob
                 />
               }
@@ -385,7 +385,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
               value={
                 <StyledNumberFormat
                   value={portfolio.overview.perf1y}
-                  suffix="&nbsp;%"
+                  suffix="%"
                   paintJob
                 />
               }
@@ -396,7 +396,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
               value={
                 <StyledNumberFormat
                   value={portfolio.overview.value}
-                  suffix="&nbsp;€"
+                  suffix="€"
                 />
               }
               name={t('portfolio.details.totalValue')}

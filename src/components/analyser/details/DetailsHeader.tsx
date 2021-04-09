@@ -87,7 +87,7 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
             <>&emsp;&emsp;&emsp;</>
             <StyledNumberFormat
               value={details.price}
-              suffix="&nbsp;€"
+              suffix="€"
               size="35px"
               paintJob="#EEF1FB"
             />
