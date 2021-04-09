@@ -89,6 +89,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   {t('shell.profile.account-details.email')}
                 </Typography>
                 <TextField
+                  inputProps={{ 'data-testid': 'email' }}
                   variant="outlined"
                   value={user.email}
                   disabled
@@ -101,6 +102,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   {t('shell.profile.account-details.first-name')}
                 </Typography>
                 <TextField
+                  inputProps={{ 'data-testid': 'firstname' }}
                   variant="outlined"
                   value={user.firstName}
                   onChange={(e) =>
@@ -116,6 +118,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   {t('shell.profile.account-details.last-name')}
                 </Typography>
                 <TextField
+                  inputProps={{ 'data-testid': 'lastname' }}
                   variant="outlined"
                   value={user.lastName}
                   onChange={(e) =>
