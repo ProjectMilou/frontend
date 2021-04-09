@@ -40,7 +40,7 @@ To be discussed: More filters
 
 response: list of stocks with applied filters
 
-### `GET /stocks/list`
+### `GET /stock/list`
 
 List of all stocks and their data
 
@@ -268,3 +268,14 @@ Get risk analysis
 | `rewards`     | `string[]`  | List of Rewards                               |
 | `risks`       | `string[]`  | List of Risks                                 |
 | `risk_checks` | `boolean[]` | A list of risk checks, as in simpy Wallstreet |
+
+
+### `GET /stock/balanceSheet`
+
+| parameter | type     | description     |
+| --------- | -------- | --------------- |
+| `id`      | `string` | SYMBOL of stock |
+
+#### Repsonse
+
+balance sheet of the stock, as in alpha vantage https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=IBM&apikey=demo

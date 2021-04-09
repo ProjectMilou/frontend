@@ -2,7 +2,7 @@
 
 import { AppError } from '../Errors';
 
-export const baseURL = 'https://api.milou.io/stocks';
+export const baseURL = 'https://api.milou.io/stock';
 const headers = { 'Content-Type': 'application/json' };
 
 // Stock type
@@ -75,6 +75,7 @@ async function request(
   additionalHeaders?: HeadersInit
 ): Promise<unknown> {
   // TODO: authentication
+  console.log(`${baseURL}/${url}`)
   const response = await fetch(`${baseURL}/${url}`, {
     method,
     headers: { ...headers, ...additionalHeaders },
@@ -129,7 +130,7 @@ export async function stockOverview(
   const response = (await request(
     token,
     'GET',
-    `search?id=${symbol}`
+    `overview?id=${symbol}`
   )) as StockList;
   return response.stocks[0] as Stock;
 }
@@ -147,7 +148,7 @@ export async function stockDetails(
   const response = (await request(
     token,
     'GET',
-    `/details/search?id=${symbol}`
+    `details?id=${symbol}`
   )) as StockDetails;
   return response;
 }
