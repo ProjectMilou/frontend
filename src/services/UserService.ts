@@ -1,6 +1,7 @@
 import { navigate } from '@reach/router';
 import { AppError } from '../Errors';
 import { BaseService } from './BaseService';
+import { ILoginResponse } from './models/user/ILoginResponse';
 import { IUserProfile } from './models/user/IUserProfile';
 import { StorageService } from './StorageService';
 
@@ -86,7 +87,7 @@ class UserService extends BaseService {
 
     if (!response.ok) return false;
 
-    const data = await response.json();
+    const data: ILoginResponse | undefined = await response.json();
 
     if (!data || !data.token) return false;
 
