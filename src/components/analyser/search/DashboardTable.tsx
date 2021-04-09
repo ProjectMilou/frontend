@@ -1,6 +1,7 @@
 // Based on Portfolio's DashboardTable.tsx Will be later either replaced by Material-UI list or refactored
 
 import React from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { navigate } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import {
@@ -34,11 +35,21 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       backgroundColor: lighten(palette.primary.light, 0.85),
     },
     defaultText: {
-      fontSize: '24px',
+      fontSize: '15px',
       color: palette.primary.main,
     },
     disabled: {
       cursor: 'not-allowed',
+    },
+    customTableContainer: {
+      overflowX: 'initial',
+      height: 800,
+      overflow: 'auto',
+    },
+    customTableHead: {
+      backgroundColor: 'white',
+      color: palette.primary.main,
+      borderBottom: '1px solid black',
     },
   })
 );
@@ -107,7 +118,7 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
       </TableCell>
       <TableCell align="center">
         <Performance
-          value={stock.per30d}
+          value={stock.per365d}
           decimalSeperator="."
           thousandSeperator=","
         />
@@ -149,30 +160,133 @@ export type DashboardTableProps = {
 
 const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
   const { t } = useTranslation();
+  const classes = useStyles();
 
+  const [items, setItems] = React.useState<API.Stock[]>(stocks.slice(0, 10));
+  const [hasMore, setHasMore] = React.useState<boolean>(true);
+
+  React.useEffect(() => {
+    setItems(stocks.slice(0, 10));
+    setHasMore(true);
+  }, [stocks]);
+
+  const fetchMoreData = () => {
+    if (items.length >= stocks.length) {
+      setHasMore(false);
+      return;
+    }
+    setHasMore(true);
+    // a fake async api call like which sends
+    // 5 more stocks in 1.5 secs
+    // TODO replace with async API call
+    setTimeout(() => {
+      const newItems = items.concat(
+        stocks.slice(items.length, items.length + 5)
+      );
+      setItems(newItems);
+    }, 1500);
+  };
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">{t('stock.name')}</TableCell>
-            <TableCell align="center">{t('stock.lastPrice')}</TableCell>
-            <TableCell align="center">{t('stock.7d')}</TableCell>
-            <TableCell align="center">{t('stock.30d')}</TableCell>
-            <TableCell align="center">{t('stock.marketCap')}</TableCell>
-            <TableCell align="center">{t('stock.analystsTarget')}</TableCell>
-            <TableCell align="center">{t('stock.valuation')}</TableCell>
-            <TableCell align="center">{t('stock.div')}</TableCell>
-            <TableCell align="center">{t('stock.industry')}</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {stocks.map((s) => (
-            <DashboardTableRow stock={s} key={s.symbol} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <InfiniteScroll
+      dataLength={items.length}
+      next={fetchMoreData}
+      hasMore={hasMore}
+      loader={<></>}
+      scrollableTarget="scrollableTable"
+      endMessage={<></>}
+    >
+      <Paper>
+        <TableContainer
+          id="scrollableTable"
+          classes={{ root: classes.customTableContainer }}
+        >
+          <Table stickyHeader aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell
+                  align="center"
+                  classes={{ root: classes.customTableHead }}
+                >
+                  <Typography className={classes.defaultText}>
+                    {t('stock.name')}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  classes={{ root: classes.customTableHead }}
+                >
+                  <Typography className={classes.defaultText}>
+                    {t('stock.lastPrice')}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  classes={{ root: classes.customTableHead }}
+                >
+                  <Typography className={classes.defaultText}>
+                    {t('stock.7d')}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  classes={{ root: classes.customTableHead }}
+                >
+                  <Typography className={classes.defaultText}>
+                    {t('stock.365d')}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  classes={{ root: classes.customTableHead }}
+                >
+                  <Typography className={classes.defaultText}>
+                    {t('stock.marketCap')}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  classes={{ root: classes.customTableHead }}
+                >
+                  <Typography className={classes.defaultText}>
+                    {t('stock.analystsTarget')}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  classes={{ root: classes.customTableHead }}
+                >
+                  <Typography className={classes.defaultText}>
+                    {t('stock.valuation')}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  classes={{ root: classes.customTableHead }}
+                >
+                  <Typography className={classes.defaultText}>
+                    {t('stock.div')}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  classes={{ root: classes.customTableHead }}
+                >
+                  <Typography className={classes.defaultText}>
+                    {t('stock.industry')}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {items.map((s) => (
+                <DashboardTableRow stock={s} key={s.symbol} />
+              ))}
+              {hasMore && <h4>Loading More Stocks...</h4>}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
+    </InfiniteScroll>
   );
 };
 
