@@ -8,8 +8,7 @@ import SpeedIcon from '@material-ui/icons/Speed';
 import HeightIcon from '@material-ui/icons/Height';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import EuroCurrency from '../shared/EuroCurrency';
-import Performance from '../shared/Performance';
+import StyledNumberFormat from '../shared/StyledNumberFormat';
 import DetailsMainBacktestingListItem from './DetailsMainBacktestingListItem';
 
 const useStyles = makeStyles((theme) => ({
@@ -64,7 +63,7 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
       <DetailsMainBacktestingListItem
         icon={<TrendingUpIcon className={classes.trendUp} />}
         title={t('portfolio.details.backtesting.bestChange')}
-        value={<EuroCurrency value={changeBest} size="1em" />}
+        value={<StyledNumberFormat value={changeBest} suffix="&nbsp;€" />}
         descriptionText={t(
           'portfolio.details.backtesting.bestChangeDescription'
         )}
@@ -72,7 +71,7 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
       <DetailsMainBacktestingListItem
         icon={<TrendingDownIcon className={classes.trendDown} />}
         title={t('portfolio.details.backtesting.worstChange')}
-        value={<EuroCurrency value={changeWorst} size="1em" />}
+        value={<StyledNumberFormat value={changeWorst} suffix="&nbsp;€" />}
         descriptionText={t(
           'portfolio.details.backtesting.worstChangeDescription'
         )}
@@ -80,13 +79,15 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
       <DetailsMainBacktestingListItem
         icon={<HeightIcon className={classes.mdd} />}
         title={t('portfolio.details.backtesting.mddMinMax')}
-        value={<Performance value={mddMaxToMin} size="1em" noPaint />}
+        value={<StyledNumberFormat value={mddMaxToMin} suffix="&nbsp;%" />}
         descriptionText={t('portfolio.details.backtesting.mddDescription')}
       />
       <DetailsMainBacktestingListItem
         icon={<WarningIcon className={classes.beta} />}
         title={t('portfolio.details.backtesting.standardDeviation')}
-        value={<Performance value={standardDeviation} size="1em" noPaint />}
+        value={
+          <StyledNumberFormat value={standardDeviation} suffix="&nbsp;%" />
+        }
         descriptionText={t(
           'portfolio.details.backtesting.standardDeviationDescription'
         )}
@@ -102,7 +103,7 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
       <DetailsMainBacktestingListItem
         icon={<SpeedIcon className={classes.cagr} />}
         title={t('portfolio.details.backtesting.cagr')}
-        value={<Performance value={cagr} size="1em" noPaint />}
+        value={<StyledNumberFormat value={cagr} suffix="&nbsp;%" />}
         descriptionText={t('portfolio.details.backtesting.cagrDescription')}
       />
     </List>

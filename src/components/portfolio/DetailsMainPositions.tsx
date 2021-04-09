@@ -10,8 +10,7 @@ import {
 } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import { useTranslation } from 'react-i18next';
-import EuroCurrency from '../shared/EuroCurrency';
-import Performance from '../shared/Performance';
+import StyledNumberFormat from '../shared/StyledNumberFormat';
 import ValueOverName from './ValueOverName';
 import { Position } from '../../portfolio/APIClient';
 
@@ -105,38 +104,62 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
                   <div className={classes.cardTitle}>{p.stock.name}</div>
                   <div className={classes.cardSubtitle}>
                     <span>{`${t('portfolio.details.holding')}: `}</span>
-                    <EuroCurrency value={p.stock.price * p.qty} size="1em" />
+                    <StyledNumberFormat
+                      value={p.stock.price * p.qty}
+                      suffix="&nbsp;€"
+                    />
                     <br />
                     <span>{`${t('portfolio.details.perShare')}: `}</span>
-                    <EuroCurrency value={p.stock.price} size="1em" />
+                    <StyledNumberFormat
+                      value={p.stock.price}
+                      suffix="&nbsp;€"
+                    />
                   </div>
                 </div>
                 <div className={classes.cardContentLower}>
                   <ValueOverName
-                    value={<Performance value={p.stock.perf7d} size="1em" />}
+                    value={
+                      <StyledNumberFormat
+                        value={p.stock.perf7d}
+                        suffix="&nbsp;%"
+                      />
+                    }
                     name={t('portfolio.details.day7')}
                     secondValue={
-                      <EuroCurrency value={sevDayAbsolute} size="1em" doPaint />
-                    }
-                  />
-                  <ValueOverName
-                    value={<Performance value={p.stock.perf1y} size="1em" />}
-                    name={t('portfolio.details.year')}
-                    secondValue={
-                      <EuroCurrency
-                        value={oneYearAbsolute}
-                        size="1em"
-                        doPaint
+                      <StyledNumberFormat
+                        value={sevDayAbsolute}
+                        suffix="&nbsp;€"
                       />
                     }
                   />
                   <ValueOverName
                     value={
-                      <Performance value={p.totalReturnPercent} size="1em" />
+                      <StyledNumberFormat
+                        value={p.stock.perf1y}
+                        suffix="&nbsp;%"
+                      />
+                    }
+                    name={t('portfolio.details.year')}
+                    secondValue={
+                      <StyledNumberFormat
+                        value={oneYearAbsolute}
+                        suffix="&nbsp;€"
+                      />
+                    }
+                  />
+                  <ValueOverName
+                    value={
+                      <StyledNumberFormat
+                        value={p.totalReturnPercent}
+                        suffix="&nbsp;%"
+                      />
                     }
                     name={t('portfolio.details.totalReturn')}
                     secondValue={
-                      <EuroCurrency value={p.totalReturn} size="1em" doPaint />
+                      <StyledNumberFormat
+                        value={p.totalReturn}
+                        suffix="&nbsp;€"
+                      />
                     }
                   />
                 </div>

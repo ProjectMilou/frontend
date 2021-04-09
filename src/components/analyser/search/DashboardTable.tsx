@@ -19,8 +19,7 @@ import {
 } from '@material-ui/core';
 import classNames from 'classnames';
 import * as API from '../../../analyser/APIClient';
-import EuroCurrency from '../../shared/EuroCurrency';
-import Performance from '../../shared/Performance';
+import StyledNumberFormat from '../../shared/StyledNumberFormat';
 import Valuation from '../../shared/Valuation';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -95,25 +94,13 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         />
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
-        <EuroCurrency
-          value={stock.price}
-          decimalSeperator="."
-          thousandSeperator=","
-        />
+        <StyledNumberFormat value={stock.price} suffix="&nbsp;€" />
       </TableCell>
       <TableCell align="center">
-        <Performance
-          value={stock.per7d}
-          decimalSeperator="."
-          thousandSeperator=","
-        />
+        <StyledNumberFormat value={stock.per7d} suffix="&nbsp;%" paintJob />
       </TableCell>
       <TableCell align="center">
-        <Performance
-          value={stock.per30d}
-          decimalSeperator="."
-          thousandSeperator=","
-        />
+        <StyledNumberFormat value={stock.per30d} suffix="&nbsp;%" paintJob />
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>
@@ -121,21 +108,13 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         </Typography>
       </TableCell>
       <TableCell align="center">
-        <EuroCurrency
-          value={stock.analystTargetPrice}
-          decimalSeperator="."
-          thousandSeperator=","
-        />
+        <StyledNumberFormat value={stock.analystTargetPrice} suffix="&nbsp;€" />
       </TableCell>
       <TableCell align="center">
         <Valuation value={stock.valuation} />
       </TableCell>
       <TableCell align="center">
-        <Performance
-          value={stock.div}
-          decimalSeperator="."
-          thousandSeperator=","
-        />
+        <StyledNumberFormat value={stock.div} suffix="&nbsp;%" paintJob />
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>

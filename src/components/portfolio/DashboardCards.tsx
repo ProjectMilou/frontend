@@ -15,7 +15,7 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import * as API from '../../portfolio/APIClient';
 import { PortfolioOverview } from '../../portfolio/APIClient';
 import DashboardActions from './DashboardActions';
-import EuroCurrency from '../shared/EuroCurrency';
+import StyledNumberFormat from '../shared/StyledNumberFormat';
 
 const useStyles = makeStyles(() => ({
   gridList: {
@@ -79,7 +79,7 @@ const CardComponent: React.FC<CardComponentProps> = ({
           {portfolio.virtual ? t('portfolio.virtual') : t('portfolio.real')}
         </Typography>
         <div className={classes.value}>
-          <EuroCurrency value={portfolio.value} />
+          <StyledNumberFormat value={portfolio.value} suffix="&nbsp;€" />
         </div>
       </CardContent>
       <CardActions className={classes.cardActions}>

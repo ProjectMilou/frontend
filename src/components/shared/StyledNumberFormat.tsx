@@ -16,8 +16,6 @@ import { makeStyles, Theme } from '@material-ui/core';
  *    - true will color green for positive values and red for negative values
  *    - if a hex-string is passed (e.g. '#fff') the text will be painted in that color
  *    - default/false is to inherit from parent (sets color to undefined)
- * @param decimalSeperator - optional, default is ","
- * @param thousandSeperator - optional, default is "."
  */
 type StyledNumberFormatProps = {
   value: number;
@@ -25,8 +23,6 @@ type StyledNumberFormatProps = {
   size?: string;
   fontWeight?: number;
   paintJob?: boolean | string;
-  decimalSeperator?: string;
-  thousandSeperator?: string;
 };
 
 const useStyles = makeStyles<Theme, StyledNumberFormatProps, string>(
@@ -55,18 +51,18 @@ const useStyles = makeStyles<Theme, StyledNumberFormatProps, string>(
 );
 
 const StyledNumberFormat: React.FC<StyledNumberFormatProps> = (props) => {
-  const { value, suffix, decimalSeperator, thousandSeperator } = props;
+  const { value, suffix } = props;
   const classes = useStyles(props);
 
   return (
     <NumberFormat
       value={value}
       displayType="text"
-      thousandSeparator={thousandSeperator || '.'}
+      thousandSeparator="."
       suffix={suffix}
       decimalScale={2}
       fixedDecimalScale
-      decimalSeparator={decimalSeperator || ','}
+      decimalSeparator=","
       className={classes.styledNumberFormat}
     />
   );

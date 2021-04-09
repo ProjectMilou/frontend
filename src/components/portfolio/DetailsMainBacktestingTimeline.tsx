@@ -5,7 +5,7 @@ import Timeline from '@material-ui/lab/Timeline';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import TodayIcon from '@material-ui/icons/Today';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
-import EuroCurrency from '../shared/EuroCurrency';
+import StyledNumberFormat from '../shared/StyledNumberFormat';
 import DetailsMainBacktestingTimelineItem from './DetailsMainBacktestingTimelineItem';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,7 +33,7 @@ type DetailsMainBacktestingTimelineProps = {
   startDate: Date;
   startValue: number;
   minDate: Date;
-  minVale: number;
+  minValue: number;
   maxDate: Date;
   maxValue: number;
   endDate: Date;
@@ -44,7 +44,7 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
   startDate,
   startValue,
   minDate,
-  minVale,
+  minValue,
   maxDate,
   maxValue,
   endDate,
@@ -58,7 +58,7 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
       date={maxDate}
       icon={<EuroSymbolIcon className={classes.euroMax} />}
       title={t('portfolio.details.backtesting.max')}
-      value={<EuroCurrency value={maxValue} size="1em" />}
+      value={<StyledNumberFormat value={maxValue} suffix="&nbsp;€" />}
     />
   );
 
@@ -67,7 +67,7 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
       date={minDate}
       icon={<EuroSymbolIcon className={classes.euroMin} />}
       title={t('portfolio.details.backtesting.min')}
-      value={<EuroCurrency value={minVale} size="1em" />}
+      value={<StyledNumberFormat value={minValue} suffix="&nbsp;€" />}
     />
   );
 
@@ -77,7 +77,7 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
         date={startDate}
         icon={<TodayIcon className={classes.startAndEnd} />}
         title={t('portfolio.details.backtesting.start')}
-        value={<EuroCurrency value={startValue} size="1em" />}
+        value={<StyledNumberFormat value={startValue} suffix="&nbsp;€" />}
       />
       {minDate < maxDate ? worst : best}
       {minDate < maxDate ? best : worst}
@@ -85,7 +85,7 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
         date={endDate}
         icon={<EventAvailableIcon className={classes.startAndEnd} />}
         title={t('portfolio.details.backtesting.end')}
-        value={<EuroCurrency value={endValue} size="1em" />}
+        value={<StyledNumberFormat value={endValue} suffix="&nbsp;€" />}
         lastItem
       />
     </Timeline>

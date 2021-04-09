@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
-import EuroCurrency from '../shared/EuroCurrency';
+import StyledNumberFormat from '../shared/StyledNumberFormat';
 
 export type TextOverTextProps = {
   top: string;
@@ -58,12 +58,11 @@ const TextOverText: React.FC<TextOverTextProps> = (props) => {
       {euro && (
         <div className={classes.pWrapper}>
           <p className={classes.bottom}>
-            <EuroCurrency
+            <StyledNumberFormat
               value={parseInt(bottom, 10)}
+              suffix="&nbsp;€"
               fontWeight={600}
               size="1.3rem"
-              decimalSeperator="."
-              thousandSeperator=","
             />
           </p>
         </div>
