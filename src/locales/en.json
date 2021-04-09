@@ -1,7 +1,8 @@
 {
   "portfolio.details.editPortfolio": "Edit Portfolio",
   "portfolio.details.summaryHeader": "Summary",
-  "portfolio.details.dialogHeader": "Here you can adjust the positions of your portfolio",
+  "portfolio.dialog.edit.title": "Edit portfolio positions",
+  "portfolio.dialog.edit.text": "Here you can adjust the positions of your portfolio.",
   "portfolio.details.stock": "Stock",
   "portfolio.details.price": "Price",
   "portfolio.details.amount": "Amount",
