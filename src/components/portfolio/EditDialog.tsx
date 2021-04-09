@@ -476,6 +476,15 @@ const EditDialog: React.FC<EditDialogProps> = ({
 
   const { t } = useTranslation();
 
+  const changes = Object.entries(state.values).reduce(
+    (acc, [id, value]) => ({
+      ...acc,
+      // only include modified values
+      ...(value === entries[id].value ? {} : { [id]: value }),
+    }),
+    {}
+  );
+
   return (
     <Dialog
       open={open}
@@ -528,21 +537,13 @@ const EditDialog: React.FC<EditDialogProps> = ({
           {strings.cancel || t('cancel')}
         </Button>
         <ProgressButton
-          disabled={!open}
+          // action button is disabled if all values are unchanged
+          disabled={!open || !Object.keys(changes).length}
           loading={state.loading}
           onClick={async () => {
             dispatch({ type: 'setLoading', payload: true });
             try {
-              await action(
-                Object.entries(state.values).reduce(
-                  (acc, [id, value]) => ({
-                    ...acc,
-                    // only include modified values
-                    ...(value === entries[id].value ? {} : { [id]: value }),
-                  }),
-                  {}
-                )
-              );
+              await action(changes);
               handleClose();
             } catch (e) {
               dispatch({ type: 'setLoading', payload: false });
