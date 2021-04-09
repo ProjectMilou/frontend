@@ -57,7 +57,6 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
   const classes = useStyles();
   const { t } = useTranslation();
 
-  // TODO replace description placeholder with actual description
   return (
     <List className={classes.list}>
       <DetailsMainBacktestingListItem

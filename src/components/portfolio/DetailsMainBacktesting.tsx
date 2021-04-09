@@ -264,13 +264,15 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
             <KeyboardDatePicker
               InputProps={{ className: classes.datePickerInput }}
               value={state.selectedFrom}
-              onChange={(date) =>
-                dispatch({
-                  type: 'setFrom',
-                  // if the onchange date is null don't change the state
-                  payload: date ? date.toDate() : state.selectedFrom,
-                })
-              }
+              onChange={(date) => {
+                // if the onchange date is null don't change the state
+                if (date !== null) {
+                  dispatch({
+                    type: 'setFrom',
+                    payload: date.toDate(),
+                  });
+                }
+              }}
             />
           </MuiPickersUtilsProvider>
           <span className={classes.subtitle}>{t('portfolio.details.to')}:</span>
@@ -308,7 +310,6 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
       {!state.backtesting && !state.error && (
         <CircularProgress color="secondary" />
       )}
-      {/* TODO maybe replace with ternary operator instead of conditional error and conditional backtesting */}
       {state.error && (
         <Container className={classes.container}>
           <ErrorMessage
