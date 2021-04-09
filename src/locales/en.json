@@ -134,7 +134,7 @@
   "stock.1d": "1D Return",
   "stock.7d": "7D Return",
   "stock.30d": "1M Return",
-  "stock.1y": "1Y Return",
+  "stock.365d": "1Y Return",
   "stock.marketCap": "Market Cap",
   "stock.analystsTarget": "Analysts Target",
   "stock.valuation": "Valuation P/E",

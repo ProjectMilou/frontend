@@ -35,7 +35,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       backgroundColor: lighten(palette.primary.light, 0.85),
     },
     defaultText: {
-      fontSize: '24px',
+      fontSize: '15px',
       color: palette.primary.main,
     },
     disabled: {
@@ -43,13 +43,13 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     },
     customTableContainer: {
       overflowX: 'initial',
-      height: 600,
+      height: 800,
       overflow: 'auto',
     },
     customTableHead: {
-      fill: 'white',
       backgroundColor: 'white',
-      color: 'red',
+      color: palette.primary.main,
+      borderBottom: '1px solid black',
     },
   })
 );
@@ -118,7 +118,7 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
       </TableCell>
       <TableCell align="center">
         <Performance
-          value={stock.per30d}
+          value={stock.per365d}
           decimalSeperator="."
           thousandSeperator=","
         />
@@ -202,25 +202,86 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
         >
           <Table stickyHeader aria-label="simple table">
             <TableHead>
-              <TableRow classes={{ root: classes.customTableHead }}>
-                <TableCell align="center">{t('stock.name')}</TableCell>
-                <TableCell align="center">{t('stock.lastPrice')}</TableCell>
-                <TableCell align="center">{t('stock.7d')}</TableCell>
-                <TableCell align="center">{t('stock.30d')}</TableCell>
-                <TableCell align="center">{t('stock.marketCap')}</TableCell>
-                <TableCell align="center">
-                  {t('stock.analystsTarget')}
+              <TableRow>
+                <TableCell
+                  align="center"
+                  classes={{ root: classes.customTableHead }}
+                >
+                  <Typography className={classes.defaultText}>
+                    {t('stock.name')}
+                  </Typography>
                 </TableCell>
-                <TableCell align="center">{t('stock.valuation')}</TableCell>
-                <TableCell align="center">{t('stock.div')}</TableCell>
-                <TableCell align="center">{t('stock.industry')}</TableCell>
+                <TableCell
+                  align="center"
+                  classes={{ root: classes.customTableHead }}
+                >
+                  <Typography className={classes.defaultText}>
+                    {t('stock.lastPrice')}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  classes={{ root: classes.customTableHead }}
+                >
+                  <Typography className={classes.defaultText}>
+                    {t('stock.7d')}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  classes={{ root: classes.customTableHead }}
+                >
+                  <Typography className={classes.defaultText}>
+                    {t('stock.365d')}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  classes={{ root: classes.customTableHead }}
+                >
+                  <Typography className={classes.defaultText}>
+                    {t('stock.marketCap')}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  classes={{ root: classes.customTableHead }}
+                >
+                  <Typography className={classes.defaultText}>
+                    {t('stock.analystsTarget')}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  classes={{ root: classes.customTableHead }}
+                >
+                  <Typography className={classes.defaultText}>
+                    {t('stock.valuation')}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  classes={{ root: classes.customTableHead }}
+                >
+                  <Typography className={classes.defaultText}>
+                    {t('stock.div')}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  classes={{ root: classes.customTableHead }}
+                >
+                  <Typography className={classes.defaultText}>
+                    {t('stock.industry')}
+                  </Typography>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {items.map((s) => (
                 <DashboardTableRow stock={s} key={s.symbol} />
               ))}
-              {hasMore && <h4>Loading...</h4>}
+              {hasMore && <h4>Loading More Stocks...</h4>}
             </TableBody>
           </Table>
         </TableContainer>

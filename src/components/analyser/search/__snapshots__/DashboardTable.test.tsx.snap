@@ -24,61 +24,97 @@ exports[`DashboardTable display stock information 1`] = `
               class="MuiTableHead-root"
             >
               <tr
-                class="MuiTableRow-root makeStyles-customTableHead-7 MuiTableRow-head"
+                class="MuiTableRow-root MuiTableRow-head"
               >
                 <th
-                  class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                  class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                   scope="col"
                 >
-                  stock.name
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  >
+                    stock.name
+                  </p>
                 </th>
                 <th
-                  class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                  class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                   scope="col"
                 >
-                  stock.lastPrice
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  >
+                    stock.lastPrice
+                  </p>
                 </th>
                 <th
-                  class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                  class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                   scope="col"
                 >
-                  stock.7d
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  >
+                    stock.7d
+                  </p>
                 </th>
                 <th
-                  class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                  class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                   scope="col"
                 >
-                  stock.30d
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  >
+                    stock.365d
+                  </p>
                 </th>
                 <th
-                  class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                  class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                   scope="col"
                 >
-                  stock.marketCap
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  >
+                    stock.marketCap
+                  </p>
                 </th>
                 <th
-                  class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                  class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                   scope="col"
                 >
-                  stock.analystsTarget
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  >
+                    stock.analystsTarget
+                  </p>
                 </th>
                 <th
-                  class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                  class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                   scope="col"
                 >
-                  stock.valuation
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  >
+                    stock.valuation
+                  </p>
                 </th>
                 <th
-                  class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                  class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                   scope="col"
                 >
-                  stock.div
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  >
+                    stock.div
+                  </p>
                 </th>
                 <th
-                  class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                  class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                   scope="col"
                 >
-                  stock.industry
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  >
+                    stock.industry
+                  </p>
                 </th>
               </tr>
             </thead>
@@ -132,7 +168,7 @@ exports[`DashboardTable display stock information 1`] = `
                   <span
                     class="makeStyles-performance-10 makeStyles-performance-12"
                   >
-                    0.92 %
+                    40.30 %
                   </span>
                 </td>
                 <td
@@ -228,7 +264,7 @@ exports[`DashboardTable display stock information 1`] = `
                   <span
                     class="makeStyles-performance-10 makeStyles-performance-19"
                   >
-                    0.92 %
+                    30.30 %
                   </span>
                 </td>
                 <td
@@ -278,7 +314,7 @@ exports[`DashboardTable display stock information 1`] = `
                 </td>
               </tr>
               <h4>
-                Loading...
+                Loading More Stocks...
               </h4>
             </tbody>
           </table>

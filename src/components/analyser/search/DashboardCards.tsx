@@ -51,6 +51,9 @@ const useStyles = makeStyles(() => ({
   paddingBottom: {
     paddingBottom: 40,
   },
+  grid: {
+    overflow: 'hidden' /* Hide scrollbars */,
+  },
 }));
 
 export type DashboardCardsRowProps = {
@@ -118,6 +121,8 @@ export type DashboardCardsProps = {
 };
 
 const DashboardCards: React.FC<DashboardCardsProps> = ({ stocks }) => {
+  const classes = useStyles();
+
   const [items, setItems] = React.useState<API.Stock[]>(stocks.slice(0, 10));
   const [hasMore, setHasMore] = React.useState<boolean>(true);
 
@@ -151,7 +156,7 @@ const DashboardCards: React.FC<DashboardCardsProps> = ({ stocks }) => {
       scrollableTarget="scrollableTable"
       endMessage={<></>}
     >
-      <Grid>
+      <Grid className={classes.grid}>
         <GridList>
           {items.map((s) => (
             <DashboardCardsRow stock={s} key={s.symbol} />
