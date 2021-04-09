@@ -10,8 +10,10 @@ import {
 } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import { useTranslation } from 'react-i18next';
-import { Position } from './DetailsTypes';
-import ValueOverName from '../shared/ValueOverName';
+import EuroCurrency from '../shared/EuroCurrency';
+import Performance from '../shared/Performance';
+import ValueOverName from './ValueOverName';
+import { Position } from '../../portfolio/APIClient';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -39,7 +41,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     },
     cardTitle: {
       color: palette.primary.contrastText,
-      fontSize: '1.2rem',
+      fontSize: '1.5rem',
       fontWeight: 600,
     },
     cardSubtitle: {
@@ -47,6 +49,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       color: '#EEF1FB',
       fontSize: '1rem',
       fontWeight: 500,
+      marginTop: '10px',
     },
     cardContentLower: {
       display: 'flex',
@@ -61,6 +64,10 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 type DetailsMainPositionsProps = {
   positions: Position[];
 };
+
+// TODO delete mock and replace with value from refactored props object in map statement
+const sevDayAbsolute = -8.1;
+const oneYearAbsolute = 35.6;
 
 const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
   positions,
@@ -88,25 +95,49 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
             <Card
               variant="outlined"
               className={classes.card}
-              style={{ borderColor: convertPercentToColor(p.stock.perf7d) }}
+              style={{
+                borderColor: convertPercentToColor(p.totalReturnPercent),
+              }}
             >
+              {/* TODO replace mock primary and secondary value and color with correct values from props */}
               <CardContent>
                 <div className={classes.cardContentUpper}>
                   <div className={classes.cardTitle}>{p.stock.name}</div>
-                  <div
-                    className={classes.cardSubtitle}
-                  >{`$${p.stock.price}`}</div>
+                  <div className={classes.cardSubtitle}>
+                    <span>{`${t('portfolio.details.holding')}: `}</span>
+                    <EuroCurrency value={p.stock.price * p.qty} size="1em" />
+                    <br />
+                    <span>{`${t('portfolio.details.perShare')}: `}</span>
+                    <EuroCurrency value={p.stock.price} size="1em" />
+                  </div>
                 </div>
                 <div className={classes.cardContentLower}>
                   <ValueOverName
-                    value={`${p.stock.perf7d}%`}
+                    value={<Performance value={p.stock.perf7d} size="1em" />}
                     name={t('portfolio.details.day7')}
-                    valueColor={convertPercentToColor(p.stock.perf7d)}
+                    secondValue={
+                      <EuroCurrency value={sevDayAbsolute} size="1em" doPaint />
+                    }
                   />
                   <ValueOverName
-                    value={`${p.stock.perf1y}%`}
+                    value={<Performance value={p.stock.perf1y} size="1em" />}
                     name={t('portfolio.details.year')}
-                    valueColor={convertPercentToColor(p.stock.perf1y)}
+                    secondValue={
+                      <EuroCurrency
+                        value={oneYearAbsolute}
+                        size="1em"
+                        doPaint
+                      />
+                    }
+                  />
+                  <ValueOverName
+                    value={
+                      <Performance value={p.totalReturnPercent} size="1em" />
+                    }
+                    name={t('portfolio.details.totalReturn')}
+                    secondValue={
+                      <EuroCurrency value={p.totalReturn} size="1em" doPaint />
+                    }
                   />
                 </div>
               </CardContent>

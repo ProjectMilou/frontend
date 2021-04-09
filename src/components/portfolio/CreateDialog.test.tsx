@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import * as React from 'react';
 import CreateDialog, { CreateDialogProps } from './CreateDialog';
+import { AppError } from '../../Errors';
 
 describe('CreateDialog', () => {
   const defaultProps: CreateDialogProps = {
@@ -78,7 +79,7 @@ describe('CreateDialog', () => {
 
   test('reset state on reopen', async () => {
     const { props, rerender } = renderComponent({
-      create: jest.fn().mockRejectedValue(new Error('UNKNOWN')),
+      create: jest.fn().mockRejectedValue(new AppError('UNKNOWN')),
     });
     fireEvent.change(document.querySelector('input')!, {
       target: { value: 'input' },

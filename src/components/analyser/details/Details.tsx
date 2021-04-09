@@ -1,27 +1,28 @@
+// Based on Portfolio Details
 import React from 'react';
+import { RouteComponentProps, useParams } from '@reach/router';
 import {
   LinearProgress,
   makeStyles,
   Container,
   useTheme,
 } from '@material-ui/core';
-import { ErrorCode } from '../../../Errors';
+import { isAuthenticationError } from '../../../Errors';
 import * as API from '../../../analyser/APIClient';
 import ErrorMessage from '../../shared/ErrorMessage';
 import DetailsHeader from './DetailsHeader';
 import KeyFigures from './KeyFigures';
 import DetailsOverview from './DetailsOverview';
 import StockChart from '../../shared/StockChart';
+import Dividends from './Dividends';
 
 // props type declaration
-export type DetailsProps = {
+export interface DetailsProps extends RouteComponentProps {
   // API token
   token: string;
   // function to return to the dashboard
   back: () => void;
-  // symbol
-  symbol: string;
-};
+}
 
 const useStyles = makeStyles({
   createButton: {
@@ -32,10 +33,14 @@ const useStyles = makeStyles({
   },
 });
 
-const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
+const Details: React.FC<DetailsProps> = ({ token, back }) => {
   const [stockOverview, setStockOverview] = React.useState<API.Stock>();
   const [stockDetails, setStockDetails] = React.useState<API.StockDetails>();
-  const [error, setError] = React.useState<ErrorCode | undefined>();
+  const [error, setError] = React.useState<Error | undefined>();
+
+  // get symbol
+  const { id } = useParams();
+  const symbol: string = id;
 
   const isMounted = React.useRef(true);
   const fetch = async () => {
@@ -50,7 +55,7 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
       }
     } catch (e) {
       if (isMounted.current) {
-        setError(e.message);
+        setError(e);
       }
     }
   };
@@ -64,6 +69,10 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // window.history.pushState('', null, './');
+  //   $(window).on('popstate', function() {
+  //   location.reload(true);
+  // });
   const classes = useStyles();
 
   const chartSeries = [
@@ -361,7 +370,7 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
             error={error}
             messageKey="analyser.dashboard.errorMessage"
             handling={
-              error.startsWith('AUTH')
+              isAuthenticationError(error)
                 ? {
                     buttonText: 'error.action.login',
                     action: async () => {
@@ -378,7 +387,7 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
       )}
       {stockOverview && stockDetails && (
         <div>
-          <DetailsHeader details={stockOverview} />
+          <DetailsHeader back={back} details={stockOverview} />
           <Container className={classes.mainContent}>
             <DetailsOverview
               stockOverview={stockOverview}
@@ -392,6 +401,7 @@ const Details: React.FC<DetailsProps> = ({ token, symbol }) => {
               height={450}
             />
             <KeyFigures />
+            <Dividends />
           </Container>
         </div>
       )}

@@ -8,20 +8,21 @@
  * the tests multiple times.
  *
  * TL;DR: Never import this file, except for tests.
- * Framwork similar to portfolio teasm
+ * Framwork similar to portfolio team
  */
 
 import { Stock } from './APIClient';
 
 export const MockOverview: Stock = {
   symbol: 'IBM',
-  ISIN: 'US4592001014',
-  WKN: '851399',
+  isin: 'US4592001014',
+  wkn: '851399',
   name: 'International Business Machines Corporation',
   price: 175.29,
-  '1d': 2.25,
-  '7d': 1.52,
-  '30d': 0.92,
+  per1d: 2.25,
+  per7d: 1.52,
+  per30d: 0.92,
+  per365d: 40.3,
   marketCapitalization: 114263867392,
   analystTargetPrice: 137,
   valuation: 20.6803,
@@ -38,13 +39,14 @@ export const MockOverview: Stock = {
 
 export const MockOverviewTwo: Stock = {
   symbol: 'AAPL',
-  ISIN: 'US0378331005',
-  WKN: '865985',
+  isin: 'US0378331005',
+  wkn: '865985',
   name: 'Apple Inc',
   price: 252.19,
-  '1d': 1.79,
-  '7d': 1.52,
-  '30d': 0.92,
+  per1d: 1.79,
+  per7d: 1.52,
+  per30d: 0.92,
+  per365d: 30.3,
   marketCapitalization: 172637867392,
   analystTargetPrice: 290.24,
   valuation: 27.6803,

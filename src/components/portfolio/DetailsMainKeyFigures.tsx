@@ -1,9 +1,8 @@
 import React from 'react';
 import { makeStyles, createStyles, useTheme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import { KeyFigures } from './DetailsTypes';
-// TODO put into shared folder instead of importing from analyzer
 import KeyFiguresBar from '../shared/KeyFiguresBar';
+import { KeyFigures } from '../../portfolio/APIClient';
 
 // stylesheet for the key figure section
 const useStyles = makeStyles(() =>
@@ -29,27 +28,29 @@ type DetailsMainKeyFiguresProps = {
 };
 
 // returns the details page header
-const DetailsMainKeyFigures: React.FC<DetailsMainKeyFiguresProps> = () => {
+const DetailsMainKeyFigures: React.FC<DetailsMainKeyFiguresProps> = ({
+  figures,
+}) => {
   const classes = useStyles();
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const mockSeries = [
+  const series = [
     {
       name: t('analyser.detail.keyfigure.PER.title'),
-      data: [30, 40, 45, 50, 50],
+      data: figures.map((f) => f.pte),
     },
     {
       name: t('analyser.detail.keyfigure.PBR.title'),
-      data: [50, 25, 35, 80, 20],
+      data: figures.map((f) => f.ptb),
     },
     {
       name: t('analyser.detail.keyfigure.PEGR.title'),
-      data: [30, 50, 15, 40, 10],
+      data: figures.map((f) => f.ptg),
     },
     {
       name: t('analyser.detail.keyfigure.EPS.title'),
-      data: [10, 20, 25, 10, 90],
+      data: figures.map((f) => f.eps),
     },
   ];
 
@@ -57,7 +58,7 @@ const DetailsMainKeyFigures: React.FC<DetailsMainKeyFiguresProps> = () => {
     <div className={classes.figureWrapper}>
       <KeyFiguresBar
         chartHeight={350}
-        series={mockSeries}
+        series={series}
         textColor={theme.palette.primary.contrastText}
       />
     </div>

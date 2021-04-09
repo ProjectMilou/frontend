@@ -8,7 +8,7 @@ export type PerformanceProps = {
   thousandSeperator?: string;
   decimalSeperator?: string;
 };
-
+// TODO change hard coded colors to palette
 const useStyles = makeStyles<Theme, PerformanceProps, string>({
   performance: {
     fontSize: (props) => props.size || '24px',

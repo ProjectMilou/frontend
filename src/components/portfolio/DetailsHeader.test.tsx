@@ -2,14 +2,19 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import DetailsHeader from './DetailsHeader';
-import { mockPositions } from './Details';
+import { MockPositions } from '../../portfolio/APIMocks';
 
 const testName = 'My awesome portfolio';
 const mockBack = jest.fn();
 
 test('Details header renders correctly', async () => {
   render(
-    <DetailsHeader back={mockBack} name={testName} positions={mockPositions} />
+    <DetailsHeader
+      back={mockBack}
+      name={testName}
+      positions={MockPositions}
+      editPositions={jest.fn()}
+    />
   );
 
   screen.getByText(testName);

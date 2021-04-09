@@ -13,6 +13,7 @@ import logo from '../../assets/images/logo1.png';
 import NavLink from './NavLink';
 import Login from '../shell/login/Login';
 import Register from '../shell/register/Register';
+import { UserService } from '../../services/UserService';
 import SearchBar from '../analyser/search/SearchBar';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -45,7 +46,7 @@ const Header: React.FC = () => {
   const classes = useStyles();
   const [openLogin, setOpenLogin] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('token'));
+  const [loggedIn, setLoggedIn] = useState(UserService.isLoggedIn());
 
   return (
     <AppBar position="sticky" color="inherit">
@@ -67,8 +68,8 @@ const Header: React.FC = () => {
               variant="outlined"
               color="primary"
               onClick={() => {
-                localStorage.removeItem('token');
-                setLoggedIn(null);
+                UserService.logout();
+                setLoggedIn(false);
               }}
             >
               Logout
@@ -110,7 +111,7 @@ const Header: React.FC = () => {
               <Login
                 closePopUp={() => {
                   setOpenLogin(false);
-                  setLoggedIn(localStorage.getItem('token'));
+                  setLoggedIn(UserService.isLoggedIn());
                 }}
                 openRegisterPopUp={() => {
                   setOpenLogin(false);

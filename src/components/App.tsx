@@ -10,6 +10,7 @@ import Footer from './footer/Footer';
 import Profile from './shell/profile/Profile';
 // TODO: use @path variables in tsconfig
 import Imprint from '../pages/Imprint';
+import AboutUs from '../pages/AboutUs';
 import Privacy from '../pages/Privacy';
 
 declare module '@material-ui/core/styles/createPalette' {
@@ -41,7 +42,7 @@ const theme = createMuiTheme({
   },
   palette: {
     background: {
-      default: '#E5E5E5',
+      default: '#EEF1FB',
     },
     primary: {
       light: '#415176',
@@ -89,9 +90,10 @@ const App: React.FC = () => (
         <Router>
           <LandingPage path="/" />
           <Shell path="/shell" />
-          <Analyser path="/analyser" />
+          <Analyser path="/analyser/*" />
           <Portfolio path="/portfolio" />
           <Imprint path="/imprint" />
+          <AboutUs path="/aboutus" />
           <Privacy path="/privacy" />
           <Profile path="/profile" />
         </Router>
