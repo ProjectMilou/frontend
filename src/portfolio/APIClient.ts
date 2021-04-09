@@ -124,27 +124,30 @@ export type Backtesting = {
 // The correctness of these types is assumed, no checks are performed.
 
 export type BacktestingResponse = {
-  MDDMaxToMin: number;
-  MDDInitialToMin: number;
-  dateMax: string;
-  dateMin: string;
-  maxValue: number;
-  minValue: number;
-  initialValue: number;
-  bestYear: {
-    changeBest: number;
-    yearBest: string;
-    growthRateBest: number;
+  error: string;
+  success: {
+    MDDMaxToMin: number;
+    MDDInitialToMin: number;
+    dateMax: string;
+    dateMin: string;
+    maxValue: number;
+    minValue: number;
+    initialValue: number;
+    bestYear: {
+      changeBest: number;
+      yearBest: string;
+      growthRateBest: number;
+    };
+    worstYear: {
+      changeWorst: number;
+      yearWorst: string;
+      growthRateWorst: number;
+    };
+    finalPortfolioBalance: number;
+    CAGR: number;
+    standardDeviation: number;
+    sharpeRatio: number;
   };
-  worstYear: {
-    changeWorst: number;
-    yearWorst: string;
-    growthRateWorst: number;
-  };
-  finalPortfolioBalance: number;
-  CAGR: number;
-  standardDeviation: number;
-  sharpeRatio: number;
 };
 
 // Types describing the JSON response of API calls.
@@ -361,10 +364,11 @@ function convertPortfolioOverview(
  * to a {@link Backtesting} object for use by the application.
  */
 function convertBacktesting(response: BacktestingResponse): Backtesting {
+  const { success } = response;
   return {
-    ...response,
-    dateMin: new Date(response.dateMin),
-    dateMax: new Date(response.dateMax),
+    ...success,
+    dateMin: new Date(success.dateMin),
+    dateMax: new Date(success.dateMax),
   };
 }
 
