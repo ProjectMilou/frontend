@@ -1,4 +1,3 @@
-import { BaseService } from '../BaseService';
 import { ILoginResponse } from '../models/user/ILoginResponse';
 import StorageService from '../StorageService';
 import UserService from '../UserService';

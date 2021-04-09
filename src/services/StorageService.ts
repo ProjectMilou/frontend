@@ -2,7 +2,7 @@ enum StorageItem {
   token = 'token',
 }
 
-export class StorageService {
+class StorageService {
   private static storage = localStorage;
 
   /**

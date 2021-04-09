@@ -3,7 +3,7 @@ import { AppError } from '../Errors';
 import { BaseService } from './BaseService';
 import { ILoginResponse } from './models/user/ILoginResponse';
 import { IUserProfile } from './models/user/IUserProfile';
-import { StorageService } from './StorageService';
+import StorageService from './StorageService';
 
 enum Endpoints {
   Edit = 'user/edit',

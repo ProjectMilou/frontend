@@ -1,4 +1,5 @@
 import StorageService from '../StorageService';
+
 describe('StorageService', () => {
   test('Can get a token', () => {
     let token = StorageService.getToken();

@@ -1,5 +1,5 @@
 import { AppError } from '../Errors';
-import { StorageService } from './StorageService';
+import StorageService from './StorageService';
 
 export type MethodType =
   | 'GET'
