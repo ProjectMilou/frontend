@@ -264,13 +264,15 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
             <KeyboardDatePicker
               InputProps={{ className: classes.datePickerInput }}
               value={state.selectedFrom}
-              onChange={(date) =>
-                dispatch({
-                  type: 'setFrom',
-                  // if the onchange date is null don't change the state
-                  payload: date ? date.toDate() : state.selectedFrom,
-                })
-              }
+              onChange={(date) => {
+                // if the onchange date is null don't change the state
+                if (date !== null) {
+                  dispatch({
+                    type: 'setFrom',
+                    payload: date.toDate(),
+                  });
+                }
+              }}
             />
           </MuiPickersUtilsProvider>
           <span className={classes.subtitle}>{t('portfolio.details.to')}:</span>
