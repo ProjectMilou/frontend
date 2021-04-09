@@ -32,7 +32,6 @@ export type PortfolioOverview =
   | NonEmptyPortfolioOverview;
 
 export type Stock = {
-  isin: string;
   symbol: string;
   name: string;
   price: number;
@@ -92,7 +91,7 @@ export type NonEmptyPortfolioDetails = {
 export type PortfolioDetails = EmptyPortfolioDetails | NonEmptyPortfolioDetails;
 
 export type PositionQty = {
-  isin: string;
+  symbol: string;
   qty: number;
 };
 
@@ -242,7 +241,6 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
   positions: [
     {
       stock: {
-        isin: 'MOCK0',
         symbol: 'BMW',
         name: 'BMW',
         price: 23.25,
@@ -259,7 +257,6 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
     },
     {
       stock: {
-        isin: 'MOCK1',
         symbol: 'MRC',
         name: 'Mercedes',
         price: 19.51,
@@ -276,7 +273,6 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
     },
     {
       stock: {
-        isin: 'MOCK2',
         symbol: 'MCL',
         name: 'McLaren',
         price: 12.11,
@@ -293,7 +289,6 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
     },
     {
       stock: {
-        isin: 'MOCK3',
         symbol: 'QQQ',
         name: 'QQQ',
         price: 120.11,

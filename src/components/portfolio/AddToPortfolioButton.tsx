@@ -172,7 +172,7 @@ type CheckedType = {
 };
 
 type AddToPortfolioButtonType = {
-  isin: string;
+  symbol: string;
 };
 
 // returns the add to portfolio button and all subcomponents including the dialog window

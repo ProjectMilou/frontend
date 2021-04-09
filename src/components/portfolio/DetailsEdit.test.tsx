@@ -7,7 +7,6 @@ import { Position } from '../../portfolio/APIClient';
 const mockPositions: Position[] = [
   {
     stock: {
-      isin: '0',
       symbol: 'BMW',
       name: 'BMW',
       price: 23.25,

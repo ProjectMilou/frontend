@@ -112,7 +112,7 @@ type DetailsEditProps = {
 };
 
 // needed for tempPos (tracking user input to the amount text fields)
-type IsinToAmount = {
+type SymbolToAmount = {
   [key: string]: string;
 };
 
@@ -130,7 +130,7 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions, edit }) => {
   // the following tracks the temporary state of the amount for each position that the user enters
   // the amount is formatted as string because the user might enter NaN values
   // TODO: fix this mess
-  const [tempPos, setTempPos] = useState<IsinToAmount>({});
+  const [tempPos, setTempPos] = useState<SymbolToAmount>({});
 
   const closeDialog = () => setOpen(false);
   const openDialog = () => {
@@ -139,13 +139,13 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions, edit }) => {
     setError(undefined);
     setOpen(true);
 
-    const isinToAmount: IsinToAmount = {};
+    const symbolToAmount: SymbolToAmount = {};
     if (positions) {
       positions.forEach((p) => {
-        isinToAmount[p.stock.isin] = p.qty.toString();
+        symbolToAmount[p.stock.symbol] = p.qty.toString();
       });
     }
-    setTempPos(isinToAmount);
+    setTempPos(symbolToAmount);
   };
 
   // helper function for minus button
@@ -233,7 +233,7 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions, edit }) => {
             {positions &&
               positions.map((position) => (
                 <ListItem
-                  key={position.stock.isin}
+                  key={position.stock.symbol}
                   className={classes.listItem}
                 >
                   <div className={classes.textDiv}>
@@ -247,16 +247,16 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions, edit }) => {
                   <div className={classes.userFields}>
                     <IconButton
                       aria-label="minus"
-                      onClick={() => decrement(position.stock.isin)}
+                      onClick={() => decrement(position.stock.symbol)}
                     >
                       <RemoveIcon />
                     </IconButton>
                     <TextField
                       variant="outlined"
-                      value={tempPos[position.stock.isin]}
-                      error={!pattern.test(tempPos[position.stock.isin])}
+                      value={tempPos[position.stock.symbol]}
+                      error={!pattern.test(tempPos[position.stock.symbol])}
                       helperText={
-                        pattern.test(tempPos[position.stock.isin])
+                        pattern.test(tempPos[position.stock.symbol])
                           ? undefined
                           : 'Please enter a positive number!'
                       }
@@ -267,7 +267,7 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions, edit }) => {
                         // when a user changes the input field the tempPos state gets updated
                         setTempPos({
                           ...tempPos,
-                          [position.stock.isin]: e.target.value,
+                          [position.stock.symbol]: e.target.value,
                         });
                       }}
                       size="small"
@@ -284,13 +284,13 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions, edit }) => {
                     />
                     <IconButton
                       aria-label="plus"
-                      onClick={() => increment(position.stock.isin)}
+                      onClick={() => increment(position.stock.symbol)}
                     >
                       <AddIcon />
                     </IconButton>
                     <IconButton
                       aria-label="zero"
-                      onClick={() => setToZero(position.stock.isin)}
+                      onClick={() => setToZero(position.stock.symbol)}
                     >
                       <DeleteIcon />
                     </IconButton>
@@ -317,8 +317,8 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions, edit }) => {
               setLoading(true);
               try {
                 await edit(
-                  Object.entries(tempPos).map(([isin, qty]) => ({
-                    isin,
+                  Object.entries(tempPos).map(([symbol, qty]) => ({
+                    symbol,
                     // TODO: use react-number-format for validation,
                     //  store numbers instead of strings, avoid converting
                     qty: Number.parseFloat(qty),
