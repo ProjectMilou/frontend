@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SearchOption: React.FC<SearchOptionProps> = ({ stock }) => {
   const { symbol, name } = stock;
-  const toDetail = `/analyser/${symbol}`;
+  const toDetail = `analyser/${symbol}`;
   const { navlink } = useStyles();
 
   return (

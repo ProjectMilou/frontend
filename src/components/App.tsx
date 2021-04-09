@@ -90,7 +90,7 @@ const App: React.FC = () => (
         <Router>
           <LandingPage path="/" />
           <Shell path="/shell" />
-          <Analyser path="/analyser" />
+          <Analyser path="/analyser/*" />
           <Portfolio path="/portfolio" />
           <Imprint path="/imprint" />
           <AboutUs path="/aboutus" />
