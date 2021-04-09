@@ -59,7 +59,7 @@ const StyledNumberFormat: React.FC<StyledNumberFormatProps> = (props) => {
       value={value}
       displayType="text"
       thousandSeparator="."
-      suffix={`&nbsp;${suffix}`}
+      suffix={'\u00a0'.concat(suffix)}
       decimalScale={2}
       fixedDecimalScale
       decimalSeparator=","
