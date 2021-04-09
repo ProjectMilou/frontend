@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, makeStyles, Typography } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
   header: {
@@ -15,15 +14,12 @@ const useStyles = makeStyles({
   },
 });
 
-const DashboardHeader: React.FC = () => {
+const DashboardHeader: React.FC = ({ children }) => {
   const classes = useStyles();
-  const { t } = useTranslation();
   return (
     <div className={classes.header}>
       <Container maxWidth="lg">
-        <Typography className={classes.text}>
-          {t('analyser.dashboard.headerText')}
-        </Typography>
+        <Typography className={classes.text}>{children}</Typography>
       </Container>
     </div>
   );

@@ -1,23 +1,21 @@
-// TODO: Change to production URL when available
-// TODO: Use a common base URL for shell, analyser and portfolio instead of 3 URLs
+// Based on Portfolio API Client
 
-export const baseURL = 'https://api.milou.io/stocks';
+import { AppError } from '../Errors';
 
+export const baseURL = 'https://api.milou.io/stock';
 const headers = { 'Content-Type': 'application/json' };
-
-// Types describing the JSON response of API calls.
-// The correctness of these types is assumed, no checks are performed.
 
 // Stock type
 export type Stock = {
   symbol: string;
-  ISIN: string;
-  WKN: string;
+  isin: string;
+  wkn: string;
   name: string;
   price: number;
-  '1d': number;
-  '7d': number;
-  '30d': number;
+  per1d: number;
+  per7d: number;
+  per30d: number;
+  per365d: number;
   marketCapitalization: number;
   analystTargetPrice: number;
   valuation: number;
@@ -28,6 +26,11 @@ export type Stock = {
   industry: string;
   picture: URL;
   date: Date;
+};
+
+// List of stocks
+type StockList = {
+  stocks: Stock[];
 };
 
 // Stock details
@@ -41,33 +44,20 @@ export type StockDetails = {
   assenmbly: Date;
 };
 
-// List of stocks
-type StockList = {
-  stocks: {
-    symbol: string;
-    ISIN: string;
-    WKN: string;
-    name: string;
-    price: number;
-    '1d': number;
-    '7d': number;
-    '30d': number;
-    marketCapitalization: number;
-    analystTargetPrice: number;
-    valuation: number;
-    growth: number;
-    div: number;
-    currency: string;
-    country: string;
-    industry: string;
-    picture: URL;
-    date: Date;
-  }[];
+// Filter object
+export type Filters = {
+  [key: string]: string[];
+  country: string[];
+  currency: string[];
+  industry: string[];
+  mc: string[];
 };
 
 /**
  * Makes an API call. Resolves to the JSON response if the call is successful,
  * otherwise rejects with an error that has an {@link ErrorCode} as message.
+ *
+ * TODO: Merge with portfolio request
  *
  * @param token - Authentication token
  * @param method - Request method (GET, POST, etc.)
@@ -89,23 +79,40 @@ async function request(
     method,
     headers: { ...headers, ...additionalHeaders },
     body,
-  }).catch(() => Promise.reject(new Error('UNKNOWN'))); // network error etc.
+  }).catch(() => Promise.reject(new AppError('UNKNOWN'))); // network error etc.
   if (response.ok) {
     return Promise.resolve(response.json()); // valid response
   }
   const json = await response
     .json()
-    .catch(() => Promise.reject(new Error('UNKNOWN'))); // server error without JSON response
-  return Promise.reject(new Error(json.error)); // JSON error
+    .catch(() => Promise.reject(new AppError('UNKNOWN'))); // server error without JSON response
+  return Promise.reject(new AppError(json.error)); // JSON error
 }
 
 /**
  * Gets an overview over all stocks with an authenticated user.
  *
  * @param token - Authentication token
+ * @param filters - Object including all filters
+ *
  */
-export async function listStocks(token: string): Promise<Stock[]> {
-  const response = (await request(token, 'GET', '')) as StockList;
+export async function listStocks(
+  token: string,
+  filters: Filters
+): Promise<Stock[]> {
+  const base = 'list';
+  let params = '';
+  Object.keys(filters).forEach((key) => {
+    if (filters[key].length > 0) {
+      if (params.length === 0) {
+        // TODO can be probably done nicer
+        params += `?${key}=${filters[key].toString().replace(' ', '%20')}`;
+      } else {
+        params += `&${key}=${filters[key].toString().replace(' ', '%20')}`;
+      }
+    }
+  });
+  const response = (await request(token, 'GET', base + params)) as StockList;
   return response.stocks;
 }
 
@@ -119,8 +126,12 @@ export async function stockOverview(
   token: string,
   symbol: string
 ): Promise<Stock> {
-  const response = (await request(token, 'GET', `${symbol}`)) as Stock;
-  return response;
+  const response = (await request(
+    token,
+    'GET',
+    `overview?id=${symbol}`
+  )) as StockList;
+  return response.stocks[0] as Stock;
 }
 
 /**
@@ -136,7 +147,7 @@ export async function stockDetails(
   const response = (await request(
     token,
     'GET',
-    `${symbol}/details`
+    `details?id=${symbol}`
   )) as StockDetails;
   return response;
 }

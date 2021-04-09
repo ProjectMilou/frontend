@@ -10,11 +10,11 @@ import {
   makeStyles,
   Typography,
 } from '@material-ui/core';
-import { ErrorCode, errorMessageKey, errorTitleKey } from '../../Errors';
+import { errorMessageKey, errorTitleKey } from '../../Errors';
 
 export type ErrorMessageProps = {
   messageKey?: string;
-  error: ErrorCode;
+  error: Error;
   handling?: {
     buttonText: string;
     action: () => void;

@@ -10,7 +10,7 @@ const Portfolio: React.FC<RouteComponentProps> = () => {
   return (
     <>
       {id ? (
-        <Details back={() => setId(undefined)} />
+        <Details token="" id={id} back={() => setId(undefined)} />
       ) : (
         <Dashboard token="" selectPortfolio={setId} />
       )}

@@ -25,28 +25,33 @@ const useStyles = makeStyles(() =>
   })
 );
 
-// type declaration of props
 type ValueOverNameProps = {
-  value: string;
   name: string;
-  valueColor: string;
+  value: React.ReactNode;
+  // below is needed e.g. for positions card
+  secondValue?: React.ReactNode;
 };
 
 // this is a small component that displays a value above the name of the value
 const ValueOverName: React.FC<ValueOverNameProps> = ({
-  value,
   name,
-  valueColor,
+  value,
+  secondValue,
 }) => {
-  const classes = useStyles(valueColor);
+  const classes = useStyles();
 
   return (
     <div className={classes.compContainer}>
       <div className={classes.pWrapper}>
-        <p className={classes.p} style={{ color: valueColor }}>
-          {value}
-        </p>
+        <div className={classes.p}>{value}</div>
       </div>
+      {/* conditional rendering for a second value over the name
+      , e.g. used in position cards */}
+      {secondValue && (
+        <div className={classes.pWrapper}>
+          <div className={classes.p}>{secondValue}</div>
+        </div>
+      )}
       <div className={classes.pWrapper}>
         <p className={classes.p}>{name}</p>
       </div>

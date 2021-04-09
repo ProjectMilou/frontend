@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import * as React from 'react';
 import DeleteDialog, { DeleteDialogProps } from './DeleteDialog';
+import { AppError } from '../../Errors';
 
 describe('DeleteDialog', () => {
   const defaultProps: DeleteDialogProps = {
@@ -49,7 +50,7 @@ describe('DeleteDialog', () => {
 
   test('reset state on reopen', async () => {
     const { props, rerender } = renderComponent({
-      deletePortfolio: jest.fn().mockRejectedValue(new Error('UNKNOWN')),
+      deletePortfolio: jest.fn().mockRejectedValue(new AppError('UNKNOWN')),
     });
     fireEvent.click(screen.getByText('portfolio.delete'));
     // wait for the error

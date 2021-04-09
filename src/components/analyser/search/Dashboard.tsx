@@ -1,3 +1,4 @@
+// Based on Portfolio's Dashboard.tsx
 import React from 'react';
 import {
   LinearProgress,
@@ -6,17 +7,18 @@ import {
   Toolbar,
   AppBar,
 } from '@material-ui/core';
+import { RouteComponentProps } from '@reach/router';
+import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
-import { ErrorCode } from '../../../Errors';
-import ErrorMessage from '../ErrorMessage';
+import ErrorMessage from '../../shared/ErrorMessage';
 import StockListOverview from './StockListOverview';
-import DashboardHeader from './DashboardHeader';
+import DashboardHeader from '../../shared/DashboardHeader';
 import Filter from './Filter';
+import { isAuthenticationError } from '../../../Errors';
 
-export type DashboardProps = {
+export interface DashboardProps extends RouteComponentProps {
   token: string;
-  selectStock: (symbol: string) => void;
-};
+}
 
 const useStyles = makeStyles({
   createButton: {
@@ -32,39 +34,39 @@ const useStyles = makeStyles({
   },
 });
 
-const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
-  const [stocks, setStocks] = React.useState<API.Stock[]>();
-  const [error, setError] = React.useState<ErrorCode | undefined>();
+const Dashboard: React.FC<DashboardProps> = ({ token }) => {
+  const { t } = useTranslation();
 
-  const isMounted = React.useRef(true);
+  const [stocks, setStocks] = React.useState<API.Stock[]>();
+  const [error, setError] = React.useState<Error | undefined>();
+  const [filters, setFilters] = React.useState<API.Filters>({
+    country: [],
+    industry: [],
+    currency: [],
+    mc: [],
+  });
+
   const fetch = async () => {
     setError(undefined);
     try {
-      const s = await API.listStocks(token);
-      if (isMounted.current) {
-        setStocks(s);
-      }
+      const s = await API.listStocks(token, filters).then();
+      setStocks(s);
     } catch (e) {
-      if (isMounted.current) {
-        setError(e.message);
-      }
+      setError(e);
     }
   };
 
   React.useEffect(() => {
     fetch();
-    return () => {
-      isMounted.current = false;
-    };
     // deps must be empty because the function should only be called on mount.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [filters]);
 
   const classes = useStyles();
 
   return (
     <>
-      <DashboardHeader />
+      <DashboardHeader>{t('analyser.dashboard.headerText')}</DashboardHeader>
       {!stocks && !error && (
         <div>
           <LinearProgress color="secondary" />
@@ -73,7 +75,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
       {stocks && (
         <AppBar position="sticky" className={classes.filter}>
           <Toolbar variant="dense" disableGutters>
-            <Filter stocks={stocks} />
+            <Filter stocks={stocks} filters={filters} setFilters={setFilters} />
           </Toolbar>
         </AppBar>
       )}
@@ -83,7 +85,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
             error={error}
             messageKey="analyser.dashboard.errorMessage"
             handling={
-              error.startsWith('AUTH')
+              isAuthenticationError(error)
                 ? {
                     buttonText: 'error.action.login',
                     action: async () => {
@@ -99,7 +101,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectStock }) => {
         )}
         {stocks && (
           <div>
-            <StockListOverview stocks={stocks} selectStock={selectStock} />
+            <StockListOverview stocks={stocks} />
           </div>
         )}
       </Container>

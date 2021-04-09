@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import * as React from 'react';
 import RenameDialog, { RenameDialogProps } from './RenameDialog';
+import { AppError } from '../../Errors';
 
 describe('RenameDialog', () => {
   const defaultProps: RenameDialogProps = {
@@ -79,7 +80,7 @@ describe('RenameDialog', () => {
 
   test('reset state on reopen', async () => {
     const { props, rerender } = renderComponent({
-      rename: jest.fn().mockRejectedValue(new Error('UNKNOWN')),
+      rename: jest.fn().mockRejectedValue(new AppError('UNKNOWN')),
     });
     fireEvent.change(document.querySelector('input')!, {
       target: { value: 'input' },

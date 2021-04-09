@@ -5,8 +5,10 @@ import { makeStyles, Theme } from '@material-ui/core';
 export type PerformanceProps = {
   value: number;
   size?: string;
+  thousandSeperator?: string;
+  decimalSeperator?: string;
 };
-
+// TODO change hard coded colors to palette
 const useStyles = makeStyles<Theme, PerformanceProps, string>({
   performance: {
     fontSize: (props) => props.size || '24px',
@@ -24,17 +26,18 @@ const useStyles = makeStyles<Theme, PerformanceProps, string>({
 });
 
 const Performance: React.FC<PerformanceProps> = (props) => {
-  const { value } = props;
+  const { value, thousandSeperator, decimalSeperator } = props;
   const classes = useStyles(props);
 
   return (
     <NumberFormat
       value={value}
       displayType="text"
-      suffix="%"
+      thousandSeparator={thousandSeperator || '.'}
+      suffix="&nbsp;%"
       decimalScale={2}
       fixedDecimalScale
-      decimalSeparator="."
+      decimalSeparator={decimalSeperator || ','}
       className={classes.performance}
     />
   );
