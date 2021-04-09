@@ -464,9 +464,7 @@ export async function backtesting(
   const response = (await request(
     token,
     'GET',
-    // TODO edit url when final contract is clear
-    `backtest/${id}/${from}/${to}`
-    // TODO add type BacktestingResponse if needed
+    `/analytics/backtest/${id}?${from}&${to}`
   )) as BacktestingResponse;
   return convertBacktesting(response);
 }
