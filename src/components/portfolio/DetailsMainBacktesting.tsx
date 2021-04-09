@@ -165,8 +165,8 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
         const backtestingMock: Backtesting = {
           MDDMaxToMin: -65,
           MDDInitialToMin: -65,
-          dateMax: new Date('10.02.2019'),
-          dateMin: new Date('03.04.2020'),
+          dateMax: new Date('2019-02-10'),
+          dateMin: new Date('2020-03-04'),
           maxValue: 1250.55,
           minValue: 512.67,
           initialValue: 840.56,
@@ -223,6 +223,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
   }, []);
 
   const onClickUpdate = () => {
+    console.log('ALLARE');
     // remove error from last click
     dispatch({ type: 'setValid', payload: true });
     if (
@@ -235,8 +236,6 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
       mockFetch(state.selectedFrom, state.selectedTo);
     }
   };
-
-  console.log(state.backtesting, state.error);
 
   return (
     <div className={classes.backtestingWrapper}>

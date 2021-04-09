@@ -53,6 +53,24 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
   const classes = useStyles();
   const { t } = useTranslation();
 
+  const best = (
+    <DetailsMainBacktestingTimelineItem
+      date={maxDate}
+      icon={<EuroSymbolIcon className={classes.euroMax} />}
+      title={t('portfolio.details.backtesting.max')}
+      value={<EuroCurrency value={maxValue} size="1em" />}
+    />
+  );
+
+  const worst = (
+    <DetailsMainBacktestingTimelineItem
+      date={minDate}
+      icon={<EuroSymbolIcon className={classes.euroMin} />}
+      title={t('portfolio.details.backtesting.min')}
+      value={<EuroCurrency value={minVale} size="1em" />}
+    />
+  );
+
   return (
     <Timeline align="left" className={classes.timeline}>
       <DetailsMainBacktestingTimelineItem
@@ -61,18 +79,8 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
         title={t('portfolio.details.backtesting.start')}
         value={<EuroCurrency value={startValue} size="1em" />}
       />
-      <DetailsMainBacktestingTimelineItem
-        date={minDate}
-        icon={<EuroSymbolIcon className={classes.euroMin} />}
-        title={t('portfolio.details.backtesting.min')}
-        value={<EuroCurrency value={minVale} size="1em" />}
-      />
-      <DetailsMainBacktestingTimelineItem
-        date={maxDate}
-        icon={<EuroSymbolIcon className={classes.euroMax} />}
-        title={t('portfolio.details.backtesting.max')}
-        value={<EuroCurrency value={maxValue} size="1em" />}
-      />
+      {minDate < maxDate ? worst : best}
+      {minDate < maxDate ? best : worst}
       <DetailsMainBacktestingTimelineItem
         date={endDate}
         icon={<EventAvailableIcon className={classes.startAndEnd} />}
