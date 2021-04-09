@@ -6,16 +6,10 @@ import {
   Container,
   Typography,
 } from '@material-ui/core';
-import { FilterList, Delete } from '@material-ui/icons';
+import { Delete } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import { FilterBar } from './FilterBar';
-
-type Filters = {
-  countries: string[];
-  industries: string[];
-  currency: string[];
-};
 
 const useStyles = makeStyles({
   filterContainer: {
@@ -31,41 +25,56 @@ const useStyles = makeStyles({
   },
 });
 
-function setOriginalFilters(stocks: API.Stock[]) {
-  const ogFilters: Filters = { countries: [], industries: [], currency: [] };
-  stocks.forEach((s) => {
-    if (!ogFilters.countries.includes(s.country)) {
-      ogFilters.countries.push(s.country);
-    }
-    if (!ogFilters.industries.includes(s.country)) {
-      ogFilters.industries.push(s.industry);
-    }
-    if (!ogFilters.currency.includes(s.currency)) {
-      ogFilters.currency.push(s.currency);
-    }
-  });
-  ogFilters.countries.sort();
-  ogFilters.industries.sort();
-  ogFilters.currency.sort();
-  return ogFilters;
-}
-
 export type FilterProps = {
   stocks: API.Stock[];
+  filters: API.Filters;
+  setFilters: React.Dispatch<React.SetStateAction<API.Filters>>;
 };
 
-const Filter: React.FC<FilterProps> = ({ stocks }) => {
+const Filter: React.FC<FilterProps> = ({ stocks, filters, setFilters }) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const ogFilters = setOriginalFilters(stocks);
-  const emptyFilters: Filters = { countries: [], industries: [], currency: [] };
-  const [filters, setFilters] = React.useState<Filters>(emptyFilters);
+  const emptyFilters: API.Filters = {
+    country: [],
+    industry: [],
+    currency: [],
+    mc: [],
+  };
+  const [ogFilters, setOgFilters] = React.useState<API.Filters>(emptyFilters);
 
-  const clearFilters = () => {
-    setFilters({ countries: [], industries: [], currency: [] });
+  // add all found filters to og filters, never remove
+  const setOriginalFilters = () => {
+    const contries: Set<string> = new Set(ogFilters.country);
+    const industries: Set<string> = new Set(ogFilters.industry);
+    const currencies: Set<string> = new Set(ogFilters.currency);
+    const mc: Set<string> = new Set(ogFilters.mc);
+    stocks.forEach((s) => {
+      contries.add(s.country);
+      industries.add(s.industry);
+      currencies.add(s.currency);
+      // TODO add market Capitalisation
+    });
+    setOgFilters({
+      country: Array.from(contries).sort(),
+      industry: Array.from(industries).sort(),
+      currency: Array.from(currencies).sort(),
+      mc: Array.from(mc),
+    });
   };
 
+  // clear all filters
+  const clearFilters = () => {
+    setFilters(emptyFilters);
+  };
+
+  React.useEffect(() => {
+    setOriginalFilters();
+    // deps must be empty because the function should only be called on mount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stocks]);
+
+  // update filters
   const handleChange = (
     event: React.ChangeEvent<{ name?: string | undefined; value: unknown }>
   ) => {
@@ -74,10 +83,10 @@ const Filter: React.FC<FilterProps> = ({ stocks }) => {
     if (temp.indexOf('') > -1) {
       switch (name) {
         case 'Country':
-          setFilters({ ...filters, countries: [] });
+          setFilters({ ...filters, country: [] });
           break;
         case 'Industry':
-          setFilters({ ...filters, industries: [] });
+          setFilters({ ...filters, industry: [] });
           break;
         case 'Currency':
           setFilters({ ...filters, currency: [] });
@@ -88,10 +97,10 @@ const Filter: React.FC<FilterProps> = ({ stocks }) => {
     } else {
       switch (name) {
         case 'Country':
-          setFilters({ ...filters, countries: temp });
+          setFilters({ ...filters, country: temp });
           break;
         case 'Industry':
-          setFilters({ ...filters, industries: temp });
+          setFilters({ ...filters, industry: temp });
           break;
         case 'Currency':
           setFilters({ ...filters, currency: temp });
@@ -102,21 +111,17 @@ const Filter: React.FC<FilterProps> = ({ stocks }) => {
     }
   };
 
-  const sendRequest = () => {
-    // TODO: send a filter request and tell?
-  };
-
   return (
     <Container className={classes.filterContainer}>
       <FilterBar
-        filtersList={filters.countries}
-        ogFiltersList={ogFilters.countries}
+        filtersList={filters.country}
+        ogFiltersList={ogFilters.country}
         handleChange={handleChange}
         name={t('stock.country')}
       />
       <FilterBar
-        filtersList={filters.industries}
-        ogFiltersList={ogFilters.industries}
+        filtersList={filters.industry}
+        ogFiltersList={ogFilters.industry}
         handleChange={handleChange}
         name={t('stock.industry')}
       />
@@ -126,18 +131,24 @@ const Filter: React.FC<FilterProps> = ({ stocks }) => {
         handleChange={handleChange}
         name={t('stock.currency')}
       />
+      <FilterBar
+        filtersList={filters.mc}
+        ogFiltersList={ogFilters.mc}
+        handleChange={handleChange}
+        name={t('stock.marketCap')}
+      />
       <ButtonGroup
         className={classes.buttonGroup}
         variant="contained"
         color="primary"
       >
-        <Button
+        {/* <Button
           type="button"
-          onClick={() => sendRequest}
+          onClick={}
           startIcon={<FilterList />}
         >
           Adapt
-        </Button>
+        </Button> */}
         <Button type="button" onClick={clearFilters} startIcon={<Delete />}>
           <Typography>{t('analyser.filter.clear')}</Typography>
         </Button>
