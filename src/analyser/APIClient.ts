@@ -75,7 +75,6 @@ async function request(
   additionalHeaders?: HeadersInit
 ): Promise<unknown> {
   // TODO: authentication
-  console.log(`${baseURL}/${url}`)
   const response = await fetch(`${baseURL}/${url}`, {
     method,
     headers: { ...headers, ...additionalHeaders },

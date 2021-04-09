@@ -269,7 +269,6 @@ Get risk analysis
 | `risks`       | `string[]`  | List of Risks                                 |
 | `risk_checks` | `boolean[]` | A list of risk checks, as in simpy Wallstreet |
 
-
 ### `GET /stock/balanceSheet`
 
 | parameter | type     | description     |
