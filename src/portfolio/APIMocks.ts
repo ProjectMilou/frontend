@@ -22,7 +22,7 @@ export const MockOverview: PortfolioOverview = {
   virtual: true,
   positionCount: 3,
   value: 9,
-  score: 0.3,
+  score: 1,
   perf7d: -1.23,
   perf1y: 13.37,
   modified: new Date(0),

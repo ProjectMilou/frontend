@@ -12,12 +12,15 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TableSortLabel,
   Theme,
   Typography,
 } from '@material-ui/core';
 import classNames from 'classnames';
-import * as API from '../../portfolio/APIClient';
-import { PortfolioOverview } from '../../portfolio/APIClient';
+import {
+  NonEmptyPortfolioOverview,
+  PortfolioOverview,
+} from '../../portfolio/APIClient';
 import DashboardActions from './DashboardActions';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
 
@@ -124,14 +127,110 @@ const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
   );
 };
 
+type Order = 'asc' | 'desc';
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+type PortfolioOverviewKeys = KeysOfUnion<PortfolioOverview>;
+
+interface SortableHeadCell {
+  id: PortfolioOverviewKeys;
+  label: string;
+  numeric: boolean;
+}
+
+export type DashboardTableHeadProps = {
+  onRequestSort: (property: PortfolioOverviewKeys) => void;
+  order: Order;
+  orderBy: PortfolioOverviewKeys;
+};
+
+export const DashboardTableHead: React.FC<DashboardTableHeadProps> = ({
+  onRequestSort,
+  order,
+  orderBy,
+}) => {
+  const { t } = useTranslation();
+  const headCells: SortableHeadCell[] = [
+    { id: 'score', numeric: true, label: t('portfolio.score') },
+    { id: 'name', numeric: false, label: t('portfolio.name') },
+    {
+      id: 'positionCount',
+      numeric: true,
+      label: t('portfolio.positionsCount'),
+    },
+    { id: 'value', numeric: true, label: t('portfolio.value') },
+    { id: 'perf7d', numeric: true, label: t('portfolio.7d') },
+    { id: 'perf1y', numeric: true, label: t('portfolio.1y') },
+  ];
+
+  return (
+    <TableHead>
+      <TableRow>
+        {headCells.map((headCell) => (
+          <TableCell
+            align="center"
+            key={headCell.id}
+            sortDirection={orderBy === headCell.id ? order : false}
+          >
+            <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={() => onRequestSort(headCell.id)}
+            >
+              {headCell.label}
+            </TableSortLabel>
+          </TableCell>
+        ))}
+        <TableCell align="center">{t('portfolio.actions')}</TableCell>
+      </TableRow>
+    </TableHead>
+  );
+};
+
 export type DashboardTableProps = {
-  portfolios: API.PortfolioOverview[];
+  portfolios: PortfolioOverview[];
   selectPortfolio: (id: string) => void;
   renamePortfolio: (id: string) => void;
   duplicatePortfolio: (id: string) => void;
   deletePortfolio: (id: string) => void;
   createPortfolio: () => void;
 };
+
+function comparatorTable<T>(a: T, b: T) {
+  if (a < b) {
+    return -1;
+  }
+  if (a > b) {
+    return 1;
+  }
+  return 0;
+}
+
+function isDefined(obj: Record<string, unknown>, key: string) {
+  return key in obj && obj[key] !== undefined;
+}
+
+function sortPortfolios(
+  portfolios: PortfolioOverview[],
+  orderBy: PortfolioOverviewKeys,
+  order: Order
+) {
+  // portfolios without undefined values in the sorting column
+  const nonUndefined = portfolios.filter((values) =>
+    isDefined(values, orderBy)
+  ) as NonEmptyPortfolioOverview[];
+
+  const sorted =
+    order === 'asc'
+      ? nonUndefined.sort((a, b) => comparatorTable(a[orderBy], b[orderBy]))
+      : nonUndefined.sort((a, b) => comparatorTable(b[orderBy], a[orderBy]));
+
+  // undefined values are always at the end
+  return [
+    ...sorted,
+    ...portfolios.filter((values) => !isDefined(values, orderBy)),
+  ];
+}
 
 const DashboardTable: React.FC<DashboardTableProps> = ({
   portfolios,
@@ -141,30 +240,38 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
   deletePortfolio,
   createPortfolio,
 }) => {
+  const [order, setOrder] = React.useState<Order>('desc');
+  const [orderBy, setOrderBy] = React.useState<PortfolioOverviewKeys>('score');
+  const [sortedPortfolios, setSortedPortfolios] = React.useState(() =>
+    sortPortfolios(portfolios, orderBy, order)
+  );
+
+  // only sort portfolios when needed
+  React.useEffect(() => {
+    setSortedPortfolios(sortPortfolios(portfolios, orderBy, order));
+  }, [portfolios, orderBy, order]);
+
   const classes = useStyles();
   const { t } = useTranslation();
 
+  const handleRequestSort = (property: PortfolioOverviewKeys) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
   // TODO: Improve portfolio score visualization
   return (
     <>
       {!!portfolios.length && (
         <TableContainer component={Paper}>
-          <Table aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">{t('portfolio.score')}</TableCell>
-                <TableCell align="center">{t('portfolio.name')}</TableCell>
-                <TableCell align="center">
-                  {t('portfolio.positionsCount')}
-                </TableCell>
-                <TableCell align="center">{t('portfolio.value')}</TableCell>
-                <TableCell align="center">{t('portfolio.7d')}</TableCell>
-                <TableCell align="center">{t('portfolio.1y')}</TableCell>
-                <TableCell align="center">{t('portfolio.actions')}</TableCell>
-              </TableRow>
-            </TableHead>
+          <Table>
+            <DashboardTableHead
+              onRequestSort={handleRequestSort}
+              order={order}
+              orderBy={orderBy}
+            />
             <TableBody>
-              {portfolios.map((p) => (
+              {sortedPortfolios.map((p) => (
                 <DashboardTableRow
                   portfolio={p}
                   selectPortfolio={selectPortfolio}
