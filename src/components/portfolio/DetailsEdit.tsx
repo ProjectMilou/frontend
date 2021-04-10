@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { TableCell } from '@material-ui/core';
 import { Position, PositionQty } from '../../portfolio/APIClient';
 import EditDialog from './EditDialog';
-import EuroCurrency from '../shared/EuroCurrency';
+import StyledNumberFormat from '../shared/StyledNumberFormat';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -74,7 +74,7 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions, edit }) => {
                 value: p.qty,
                 additionalTableCells: (
                   <TableCell>
-                    <EuroCurrency value={p.stock.price} size="1em" />
+                    <StyledNumberFormat value={p.stock.price} suffix="€" />
                   </TableCell>
                 ),
               },
