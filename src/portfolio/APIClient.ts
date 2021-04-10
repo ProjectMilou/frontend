@@ -32,7 +32,6 @@ export type PortfolioOverview =
   | NonEmptyPortfolioOverview;
 
 export type Stock = {
-  isin: string;
   symbol: string;
   name: string;
   price: number;
@@ -92,7 +91,19 @@ export type NonEmptyPortfolioDetails = {
 export type PortfolioDetails = EmptyPortfolioDetails | NonEmptyPortfolioDetails;
 
 export type PositionQty = {
-  isin: string;
+  symbol: string;
+  qty: number;
+};
+
+export type PortfolioQty = {
+  id: string;
+  qty: number;
+};
+
+export type PortfolioStock = {
+  id: string;
+  name: string;
+  virtual: boolean;
   qty: number;
 };
 
@@ -224,6 +235,8 @@ type CreateResponse = {
   id: string;
 };
 
+type PortfolioStockResponse = PortfolioStock[];
+
 // mock portfolio while the api is not finished yet (copied from APIMocks.ts).
 // TODO: remove this
 
@@ -242,7 +255,6 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
   positions: [
     {
       stock: {
-        isin: 'MOCK0',
         symbol: 'BMW',
         name: 'BMW',
         price: 23.25,
@@ -259,7 +271,6 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
     },
     {
       stock: {
-        isin: 'MOCK1',
         symbol: 'MRC',
         name: 'Mercedes',
         price: 19.51,
@@ -276,7 +287,6 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
     },
     {
       stock: {
-        isin: 'MOCK2',
         symbol: 'MCL',
         name: 'McLaren',
         price: 12.11,
@@ -293,7 +303,6 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
     },
     {
       stock: {
-        isin: 'MOCK3',
         symbol: 'QQQ',
         name: 'QQQ',
         price: 120.11,
@@ -605,6 +614,44 @@ export async function modify(
     token,
     'PUT',
     `modify/${id}`,
+    JSON.stringify({ modifications })
+  );
+}
+
+/**
+ * Gets the portfolio name and quantity of a specified stock for all portfolios of the current user.
+ * This information is displayed to the user when adding a stock to his portfolios.
+ *
+ * @param token - Authentication token
+ * @param symbol - Symbol of the current stock
+ */
+export async function stock(
+  token: string,
+  symbol: string
+): Promise<PortfolioStock[]> {
+  return (await request(
+    token,
+    'GET',
+    `stock/${symbol}`
+  )) as PortfolioStockResponse;
+}
+
+/**
+ * Modifies a stock's quantity within multiple portfolios simultaneously.
+ *
+ * @param token - Authentication token
+ * @param symbol - Symbol of the current stock
+ * @param modifications - modifications made to the portfolios
+ */
+export async function saveStockToPortfolios(
+  token: string,
+  symbol: string,
+  modifications: PortfolioQty[]
+): Promise<void> {
+  await request(
+    token,
+    'PUT',
+    `stock/${symbol}`,
     JSON.stringify({ modifications })
   );
 }
