@@ -17,8 +17,10 @@ import {
   Typography,
 } from '@material-ui/core';
 import classNames from 'classnames';
-import * as API from '../../portfolio/APIClient';
-import { PortfolioOverview } from '../../portfolio/APIClient';
+import {
+  NonEmptyPortfolioOverview,
+  PortfolioOverview,
+} from '../../portfolio/APIClient';
 import DashboardActions from './DashboardActions';
 import EuroCurrency from '../shared/EuroCurrency';
 import Performance from '../shared/Performance';
@@ -111,19 +113,19 @@ const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
 
 type Order = 'asc' | 'desc';
 
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+type PortfolioOverviewKeys = KeysOfUnion<PortfolioOverview>;
+
 interface SortableHeadCell {
-  id: keyof PortfolioOverview;
+  id: PortfolioOverviewKeys;
   label: string;
   numeric: boolean;
 }
 
 export type DashboardTableHeadProps = {
-  onRequestSort: (
-    event: React.MouseEvent<unknown>,
-    property: keyof PortfolioOverview
-  ) => void;
+  onRequestSort: (property: PortfolioOverviewKeys) => void;
   order: Order;
-  orderBy: keyof PortfolioOverview;
+  orderBy: PortfolioOverviewKeys;
 };
 
 export const DashboardTableHead: React.FC<DashboardTableHeadProps> = ({
@@ -144,11 +146,6 @@ export const DashboardTableHead: React.FC<DashboardTableHeadProps> = ({
     { id: 'perf7d', numeric: true, label: t('portfolio.7d') },
     { id: 'perf1y', numeric: true, label: t('portfolio.1y') },
   ];
-  const createSortHandler = (property: keyof PortfolioOverview) => (
-    event: React.MouseEvent<unknown>
-  ) => {
-    onRequestSort(event, property);
-  };
 
   return (
     <TableHead>
@@ -162,7 +159,7 @@ export const DashboardTableHead: React.FC<DashboardTableHeadProps> = ({
             <TableSortLabel
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
+              onClick={() => onRequestSort(headCell.id)}
             >
               {headCell.label}
             </TableSortLabel>
@@ -175,7 +172,7 @@ export const DashboardTableHead: React.FC<DashboardTableHeadProps> = ({
 };
 
 export type DashboardTableProps = {
-  portfolios: API.PortfolioOverview[];
+  portfolios: PortfolioOverview[];
   selectPortfolio: (id: string) => void;
   renamePortfolio: (id: string) => void;
   duplicatePortfolio: (id: string) => void;
@@ -183,7 +180,7 @@ export type DashboardTableProps = {
   createPortfolio: () => void;
 };
 
-function comparatorTable(a: number | string, b: number | string) {
+function comparatorTable<T>(a: T, b: T) {
   if (a < b) {
     return -1;
   }
@@ -193,36 +190,30 @@ function comparatorTable(a: number | string, b: number | string) {
   return 0;
 }
 
-function sortingTableEntry(
+function isDefined(obj: Record<string, unknown>, key: string) {
+  return key in obj && obj[key] !== undefined;
+}
+
+function sortPortfolios(
   portfolios: PortfolioOverview[],
-  orderBy: keyof PortfolioOverview,
+  orderBy: PortfolioOverviewKeys,
   order: Order
 ) {
-  const sortingArray = portfolios;
-  if (orderBy === 'name') {
-    // order = true = asc | order = false = desc
-    return order === 'asc'
-      ? sortingArray.sort((a, b) =>
-          comparatorTable(a[orderBy] as string, b[orderBy] as string)
-        )
-      : sortingArray.sort((a, b) =>
-          comparatorTable(b[orderBy] as string, a[orderBy] as string)
-        );
-  }
-  const sortingArrayWithoutUndefined = sortingArray.filter(
-    (values) => typeof values[orderBy] !== 'undefined'
-  );
-  const sortedArrayWithoutUndefined =
+  // portfolios without undefined values in the sorting column
+  const nonUndefined = portfolios.filter((values) =>
+    isDefined(values, orderBy)
+  ) as NonEmptyPortfolioOverview[];
+
+  const sorted =
     order === 'asc'
-      ? sortingArrayWithoutUndefined.sort((a, b) =>
-          comparatorTable(a[orderBy] as number, b[orderBy] as number)
-        )
-      : sortingArrayWithoutUndefined.sort((a, b) =>
-          comparatorTable(b[orderBy] as number, a[orderBy] as number)
-        );
-  return sortedArrayWithoutUndefined.concat(
-    portfolios.filter((values) => typeof values[orderBy] === 'undefined')
-  );
+      ? nonUndefined.sort((a, b) => comparatorTable(a[orderBy], b[orderBy]))
+      : nonUndefined.sort((a, b) => comparatorTable(b[orderBy], a[orderBy]));
+
+  // undefined values are always at the end
+  return [
+    ...sorted,
+    ...portfolios.filter((values) => !isDefined(values, orderBy)),
+  ];
 }
 
 const DashboardTable: React.FC<DashboardTableProps> = ({
@@ -233,18 +224,21 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
   deletePortfolio,
   createPortfolio,
 }) => {
-  // order == true == asc | order == false == desc
   const [order, setOrder] = React.useState<Order>('desc');
-  const [orderBy, setOrderBy] = React.useState<keyof PortfolioOverview>(
-    'score'
+  const [orderBy, setOrderBy] = React.useState<PortfolioOverviewKeys>('score');
+  const [sortedPortfolios, setSortedPortfolios] = React.useState(() =>
+    sortPortfolios(portfolios, orderBy, order)
   );
+
+  // only sort portfolios when needed
+  React.useEffect(() => {
+    setSortedPortfolios(sortPortfolios(portfolios, orderBy, order));
+  }, [portfolios, orderBy, order]);
+
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
-    property: keyof PortfolioOverview
-  ) => {
+  const handleRequestSort = (property: PortfolioOverviewKeys) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
@@ -254,14 +248,14 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
     <>
       {!!portfolios.length && (
         <TableContainer component={Paper}>
-          <Table aria-label="simple table">
+          <Table>
             <DashboardTableHead
               onRequestSort={handleRequestSort}
               order={order}
               orderBy={orderBy}
             />
             <TableBody>
-              {sortingTableEntry(portfolios, orderBy, order).map((p) => (
+              {sortedPortfolios.map((p) => (
                 <DashboardTableRow
                   portfolio={p}
                   selectPortfolio={selectPortfolio}
