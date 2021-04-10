@@ -8,6 +8,7 @@ import DetailsMainKeyFigures from './DetailsMainKeyFigures';
 import DetailsMainDividens from './DetailsMainDividends';
 import DetailsMainAnalyst from './DetailsMainAnalyst';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
+import DetailMainBacktesting from './DetailsMainBacktesting';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -39,8 +40,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     lineWrapper: {
       display: 'flex',
       width: '100%',
-      // TODO: use theme color
-      borderColor: '#EEF1FB',
+      borderColor: palette.primary.contrastText,
     },
     line: {
       width: '100%',
@@ -74,9 +74,11 @@ const Section: React.FC<SectionProps> = ({ title, children }) => {
 
 type DetailsMainProps = {
   portfolio: NonEmptyPortfolioDetails;
+  token: string;
+  id: string;
 };
 
-const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio }) => {
+const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, token, id }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -102,6 +104,9 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio }) => {
       </Section>
       <Section title={t('portfolio.details.analyst')}>
         <DetailsMainAnalyst positions={portfolio.positions} />
+      </Section>
+      <Section title={t('portfolio.details.backtesting')}>
+        <DetailMainBacktesting id={id} token={token} />
       </Section>
     </div>
   );

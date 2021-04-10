@@ -121,6 +121,8 @@ const Details: React.FC<DetailsProps> = ({ token, id, back }) => {
           <div className={classes.main}>
             <DetailsMain
               portfolio={portfolioDetails as NonEmptyPortfolioDetails}
+              id={id}
+              token={token}
             />
           </div>
         ) : (
