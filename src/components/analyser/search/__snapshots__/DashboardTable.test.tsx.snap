@@ -148,27 +148,27 @@ exports[`DashboardTable display stock information 1`] = `
                   class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-4 MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-euroCurrency-8 makeStyles-euroCurrency-9"
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-9"
                   >
-                    175.29 €
+                    175,29 €
                   </span>
                 </td>
                 <td
                   class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-performance-10 makeStyles-performance-11"
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-10"
                   >
-                    1.52 %
+                    1,52 %
                   </span>
                 </td>
                 <td
                   class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-performance-10 makeStyles-performance-12"
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-11"
                   >
-                    40.30 %
+                    40,30 %
                   </span>
                 </td>
                 <td
@@ -184,16 +184,16 @@ exports[`DashboardTable display stock information 1`] = `
                   class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-euroCurrency-8 makeStyles-euroCurrency-13"
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-12"
                   >
-                    137.00 €
+                    137,00 €
                   </span>
                 </td>
                 <td
                   class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-euroCurrency-14 makeStyles-euroCurrency-15"
+                    class="makeStyles-euroCurrency-13 makeStyles-euroCurrency-14"
                   >
                     20.7x
                   </span>
@@ -202,9 +202,9 @@ exports[`DashboardTable display stock information 1`] = `
                   class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-performance-10 makeStyles-performance-16"
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-15"
                   >
-                    0.05 %
+                    0,05 %
                   </span>
                 </td>
                 <td
@@ -244,27 +244,27 @@ exports[`DashboardTable display stock information 1`] = `
                   class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-4 MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-euroCurrency-8 makeStyles-euroCurrency-17"
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-16"
                   >
-                    252.19 €
+                    252,19 €
                   </span>
                 </td>
                 <td
                   class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-performance-10 makeStyles-performance-18"
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-17"
                   >
-                    1.52 %
+                    1,52 %
                   </span>
                 </td>
                 <td
                   class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-performance-10 makeStyles-performance-19"
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-18"
                   >
-                    30.30 %
+                    30,30 %
                   </span>
                 </td>
                 <td
@@ -280,16 +280,16 @@ exports[`DashboardTable display stock information 1`] = `
                   class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-euroCurrency-8 makeStyles-euroCurrency-20"
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-19"
                   >
-                    290.24 €
+                    290,24 €
                   </span>
                 </td>
                 <td
                   class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-euroCurrency-14 makeStyles-euroCurrency-21"
+                    class="makeStyles-euroCurrency-13 makeStyles-euroCurrency-20"
                   >
                     27.7x
                   </span>
@@ -298,9 +298,9 @@ exports[`DashboardTable display stock information 1`] = `
                   class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-performance-10 makeStyles-performance-22"
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-21"
                   >
-                    0.12 %
+                    0,12 %
                   </span>
                 </td>
                 <td
