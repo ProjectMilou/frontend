@@ -14,7 +14,6 @@ import { isAuthenticationError } from '../../Errors';
 
 export interface DashboardProps extends RouteComponentProps {
   token: string;
-  selectPortfolio: (id: string) => void;
 }
 
 enum DialogType {
@@ -213,7 +212,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
+const Dashboard: React.FC<DashboardProps> = ({ token }) => {
   const [state, dispatch] = React.useReducer<Reducer<State, Actions>>(
     reducer,
     initialState
@@ -278,7 +277,6 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
           <div>
             <PortfolioOverview
               portfolios={state.portfolios}
-              selectPortfolio={selectPortfolio}
               renamePortfolio={(portfolioId) =>
                 dispatch({
                   type: 'openDialog',

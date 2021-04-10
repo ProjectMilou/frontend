@@ -54,3 +54,12 @@ jest.mock('react-apexcharts', () => ({
 
 // mock fetch
 fetchMock.enableMocks();
+
+// mock portfolio router
+export const mockPortfolioRouter = jest.mock('./portfolio/Router.ts', () => ({
+  portfolioDetails: jest.fn(),
+  portfolioDashboard: jest.fn(),
+  stockDetails: jest.fn(),
+}));
+
+export default {};

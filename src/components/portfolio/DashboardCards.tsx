@@ -16,6 +16,7 @@ import * as API from '../../portfolio/APIClient';
 import { PortfolioOverview } from '../../portfolio/APIClient';
 import DashboardActions from './DashboardActions';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
+import { portfolioDetails } from '../../portfolio/Router';
 
 const useStyles = makeStyles(() => ({
   gridList: {
@@ -56,7 +57,6 @@ const useStyles = makeStyles(() => ({
 
 type CardComponentProps = {
   portfolio: PortfolioOverview;
-  selectPortfolio: (id: string) => void;
   renamePortfolio: (id: string) => void;
   duplicatePortfolio: (id: string) => void;
   deletePortfolio: (id: string) => void;
@@ -101,7 +101,6 @@ const CardComponent: React.FC<CardComponentProps> = ({
 
 export type DashboardCardsProps = {
   portfolios: API.PortfolioOverview[];
-  selectPortfolio: (id: string) => void;
   renamePortfolio: (id: string) => void;
   duplicatePortfolio: (id: string) => void;
   deletePortfolio: (id: string) => void;
@@ -110,7 +109,6 @@ export type DashboardCardsProps = {
 
 const DashboardCards: React.FC<DashboardCardsProps> = ({
   portfolios,
-  selectPortfolio,
   renamePortfolio,
   duplicatePortfolio,
   deletePortfolio,
@@ -129,15 +127,12 @@ const DashboardCards: React.FC<DashboardCardsProps> = ({
       {portfolios.map((p) => (
         <GridListTile
           key={p.id}
-          onClick={() => {
-            selectPortfolio(p.id);
-          }}
+          onClick={() => portfolioDetails(p.id)}
           className={classes.gridListTile}
         >
           <CardComponent
             key={p.id}
             portfolio={p}
-            selectPortfolio={selectPortfolio}
             renamePortfolio={renamePortfolio}
             duplicatePortfolio={duplicatePortfolio}
             deletePortfolio={deletePortfolio}
