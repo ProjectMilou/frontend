@@ -25,7 +25,7 @@ declare module '@material-ui/core/styles/createPalette' {
   }
 }
 
-const theme = createMuiTheme({
+export const theme = createMuiTheme({
   typography: {
     fontFamily: [
       '-apple-system',
@@ -90,7 +90,7 @@ const App: React.FC = () => (
         <Router>
           <LandingPage path="/" />
           <Shell path="/shell" />
-          <Analyser path="/analyser" />
+          <Analyser path="/analyser/*" />
           <Portfolio path="/portfolio" />
           <Imprint path="/imprint" />
           <AboutUs path="/aboutus" />

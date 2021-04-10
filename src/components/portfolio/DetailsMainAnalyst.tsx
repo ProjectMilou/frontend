@@ -14,7 +14,7 @@ const useStyles = makeStyles(() =>
       flexDirection: 'column',
       width: '100%',
       // TODO: delete fixed height
-      height: '30rem',
+      height: '20rem',
     },
   })
 );

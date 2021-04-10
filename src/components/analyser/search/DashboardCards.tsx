@@ -1,4 +1,6 @@
 import React from 'react';
+import { navigate } from '@reach/router';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import {
   Card,
   CardContent,
@@ -49,11 +51,13 @@ const useStyles = makeStyles(() => ({
   paddingBottom: {
     paddingBottom: 40,
   },
+  grid: {
+    overflow: 'hidden' /* Hide scrollbars */,
+  },
 }));
 
 export type DashboardCardsRowProps = {
   stock: API.Stock;
-  selectStock: (id: string) => void;
 };
 
 function convertPercentToColor(val: number): string {
@@ -62,7 +66,6 @@ function convertPercentToColor(val: number): string {
 
 export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
   stock,
-  selectStock,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -71,9 +74,7 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
     <Card className={classes.card}>
       <ButtonBase
         className={classes.cardAction}
-        onClick={() => {
-          selectStock(stock.symbol);
-        }}
+        onClick={() => navigate(`analyser/${stock.symbol}`)}
       >
         <CardMedia
           className={classes.media}
@@ -117,20 +118,54 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
 
 export type DashboardCardsProps = {
   stocks: API.Stock[];
-  selectStock: (symbol: string) => void;
 };
 
-const DashboardCards: React.FC<DashboardCardsProps> = ({
-  stocks,
-  selectStock,
-}) => (
-  <Grid>
-    <GridList>
-      {stocks.map((s) => (
-        <DashboardCardsRow stock={s} selectStock={selectStock} key={s.symbol} />
-      ))}
-    </GridList>
-  </Grid>
-);
+const DashboardCards: React.FC<DashboardCardsProps> = ({ stocks }) => {
+  const classes = useStyles();
+
+  const [items, setItems] = React.useState<API.Stock[]>(stocks.slice(0, 10));
+  const [hasMore, setHasMore] = React.useState<boolean>(true);
+
+  React.useEffect(() => {
+    setItems(stocks.slice(0, 10));
+    setHasMore(true);
+  }, [stocks]);
+
+  const fetchMoreData = () => {
+    if (items.length >= stocks.length) {
+      setHasMore(false);
+      return;
+    }
+    setHasMore(true);
+    // a fake async api call like which sends
+    // 5 more stocks in 1.5 secs
+    // TODO replace with async API call
+    setTimeout(() => {
+      const newItems = items.concat(
+        stocks.slice(items.length, items.length + 5)
+      );
+      setItems(newItems);
+    }, 1500);
+  };
+  return (
+    <InfiniteScroll
+      dataLength={items.length}
+      next={fetchMoreData}
+      hasMore={hasMore}
+      loader={<></>}
+      scrollableTarget="scrollableTable"
+      endMessage={<></>}
+    >
+      <Grid className={classes.grid}>
+        <GridList>
+          {items.map((s) => (
+            <DashboardCardsRow stock={s} key={s.symbol} />
+          ))}
+          {hasMore && <h4>Loading...</h4>}
+        </GridList>
+      </Grid>
+    </InfiniteScroll>
+  );
+};
 
 export default DashboardCards;
