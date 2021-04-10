@@ -18,7 +18,7 @@ const debtEquityPerStockExample = {
 
 const averageDebtEquityExample = 8.48989362900556;
 
-const DebtEquity: React.FC = () => {
+const DetailsDebtEquity: React.FC = () => {
   const series = [
     {
       data: [
@@ -66,4 +66,4 @@ const DebtEquity: React.FC = () => {
   );
 };
 
-export default DebtEquity;
+export default DetailsDebtEquity;
