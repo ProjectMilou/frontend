@@ -1,5 +1,5 @@
 import React from 'react';
-import Tooltip from '@material-ui/core/Tooltip';
+import { Tooltip } from '@material-ui/core';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 
@@ -21,19 +21,26 @@ const useStyles = makeStyles(() =>
     indicatorArrow: {
       margin: '-1rem',
     },
+    tooltip: {
+      fontSize: '0.8rem',
+      fontWeight: 600,
+      lineHeight: '1.2rem',
+      whiteSpace: 'pre-line',
+    },
   })
 );
 
 type AnalystBarIndicatorProps = {
   // the text to be shown when hovered over
   tooltipText: string;
-  // a number between 0 and 1 that determines the position of the indicator
-  // 0 - left ; 1 - right
+  // a number between 0 and 100 that determines the position of the indicator
+  // 0 - left ; 100 - right
   score: number;
   // the color of the indicator (incl arrow)
   color: string;
 };
 
+// this is an indicator for the red to green bar graph
 const AnalystBarIndicator: React.FC<AnalystBarIndicatorProps> = ({
   tooltipText,
   score,
@@ -42,8 +49,8 @@ const AnalystBarIndicator: React.FC<AnalystBarIndicatorProps> = ({
   const classes = useStyles();
 
   return (
-    <Tooltip title={tooltipText}>
-      <div className={classes.barIndicator} style={{ left: `${score * 100}%` }}>
+    <Tooltip title={<p className={classes.tooltip}>{tooltipText}</p>}>
+      <div className={classes.barIndicator} style={{ left: `${score}%` }}>
         <div
           className={classes.indicatorLine}
           style={{ backgroundColor: color }}

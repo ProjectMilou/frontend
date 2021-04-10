@@ -26,28 +26,42 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     description: {
       color: palette.primary.contrastText,
       textAlign: 'center',
+      fontSize: '1.15rem',
     },
   })
 );
+
+type BarDataType = {
+  [key: number]: string;
+};
 
 type DetailsMainAnalystProps = {
   positions: Position[];
 };
 
-const DetailsMainAnalyst: React.FC<DetailsMainAnalystProps> = () => {
+const DetailsMainAnalyst: React.FC<DetailsMainAnalystProps> = ({
+  positions,
+}) => {
   const classes = useStyles();
   const theme = useTheme();
   const { t } = useTranslation();
 
-  // TODO: use actual values
-  const mock = [
-    { name: 'bmw', score: 0.2 },
-    { name: 'mercedes', score: 0.4 },
-    { name: 'qqq', score: 0.9 },
-    { name: 't0', score: 0.6 },
-    { name: 't1', score: 0.6 },
-    { name: 't2', score: 0.8 },
-  ];
+  // an object that keeps only the data that is needed to display the analyst bar
+  const barData: BarDataType = {};
+
+  if (positions) {
+    positions.forEach((p) => {
+      const score = Math.round(p.stock.score * 100);
+
+      if (!barData[score]) {
+        // if there is no entry with this score create one
+        barData[score] = p.stock.name;
+      } else {
+        // otherwise add on to an existing score
+        barData[score] = barData[score].concat(`\n${p.stock.name}`);
+      }
+    });
+  }
 
   return (
     <div className={classes.analystWrapper}>
@@ -55,12 +69,11 @@ const DetailsMainAnalyst: React.FC<DetailsMainAnalystProps> = () => {
         {t('portfolio.details.analystSubtext')}
       </p>
       <AnalystBar>
-        {/* TODO deal with overlap */}
-        {mock.map((m) => (
+        {Object.entries(barData).map(([key, value]) => (
           <AnalystBarIndicator
-            key={m.score}
-            tooltipText={`${m.name}: ${m.score * 100}`}
-            score={m.score}
+            key={key}
+            tooltipText={value}
+            score={parseInt(key, 10)}
             color={theme.palette.primary.contrastText}
           />
         ))}
