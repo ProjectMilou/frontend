@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Reducer } from 'react';
 import {
   createStyles,
   lighten,
@@ -32,6 +32,96 @@ type AddToPortfolioButtonProps = {
   token: string;
 };
 
+type SnackbarName = 'error' | 'noPortfolios';
+
+type State = {
+  /** Information about the stock quantity in the user's portfolios. */
+  portfolios?: API.PortfolioStock[];
+  /** Whether the dialog is currently open. */
+  open: boolean;
+  /** Whether `portfolios` is currently being fetched. */
+  loading: boolean;
+  /** The most recent error that occurred when fetching `portfolios`. */
+  error?: Error;
+  /** Which snackbars are currently open. */
+  snackbars: {
+    [key in SnackbarName]: boolean;
+  };
+};
+
+const initialState: State = {
+  open: false,
+  loading: false,
+  snackbars: {
+    error: false,
+    noPortfolios: false,
+  },
+};
+
+type InitAction = { type: 'init' };
+type SetPortfoliosAction = {
+  type: 'setPortfolios';
+  payload: API.PortfolioStock[];
+};
+type SetOpenAction = { type: 'setOpen'; payload: boolean };
+type SetLoadingAction = { type: 'setLoading'; payload: boolean };
+type SetErrorAction = { type: 'setError'; payload: Error };
+type OpenSnackbarAction = { type: 'openSnackbar'; payload: SnackbarName };
+type CloseSnackbarAction = { type: 'closeSnackbar'; payload: SnackbarName };
+type Actions =
+  | InitAction
+  | SetPortfoliosAction
+  | SetOpenAction
+  | SetLoadingAction
+  | SetErrorAction
+  | OpenSnackbarAction
+  | CloseSnackbarAction;
+
+function reducer(state: State, action: Actions): State {
+  switch (action.type) {
+    case 'init':
+      return initialState;
+    case 'setPortfolios':
+      return {
+        ...state,
+        portfolios: action.payload,
+      };
+    case 'setOpen':
+      return {
+        ...state,
+        open: action.payload,
+      };
+    case 'setLoading':
+      return {
+        ...state,
+        loading: action.payload,
+      };
+    case 'setError':
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case 'openSnackbar':
+      return {
+        ...state,
+        snackbars: {
+          ...state.snackbars,
+          [action.payload]: true,
+        },
+      };
+    case 'closeSnackbar':
+      return {
+        ...state,
+        snackbars: {
+          ...state.snackbars,
+          [action.payload]: false,
+        },
+      };
+    default:
+      throw new Error();
+  }
+}
+
 // returns the add to portfolio button and all subcomponents including the dialog window
 const AddToPortfolioButton: React.FC<AddToPortfolioButtonProps> = ({
   symbol,
@@ -41,29 +131,24 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonProps> = ({
   const classes = useStyles();
   const { t } = useTranslation();
 
-  // TODO: refactor state handling
-
-  // the list of portfolios belonging to the user
-  const [portfolios, setPortfolios] = React.useState<
-    API.PortfolioStock[] | undefined
-  >(undefined);
-
-  // the state that controls whether the dialog window is open or closed
-  const [open, setOpen] = React.useState<boolean>(false);
-  // true when waiting for an API response
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<Error | undefined>();
-  const [errorSnackbarOpen, setErrorSnackbarOpen] = React.useState<boolean>(
-    false
+  const [state, dispatch] = React.useReducer<Reducer<State, Actions>>(
+    reducer,
+    initialState
   );
-  const [
-    noPortfoliosSnackbarOpen,
-    setNoPortfoliosSnackbarOpen,
-  ] = React.useState<boolean>(false);
+
+  // reset state on stock change
+  React.useEffect(() => dispatch({ type: 'init' }), [symbol]);
 
   const isMounted = React.useRef(true);
+  React.useEffect(
+    () => () => {
+      isMounted.current = false;
+    },
+    []
+  );
+
   const openDialog = async () => {
-    setLoading(true);
+    dispatch({ type: 'setLoading', payload: true });
     try {
       // const p = await API.stock(token, symbol);
       const p: API.PortfolioStock[] = [
@@ -71,22 +156,26 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonProps> = ({
       ];
       // const p: API.PortfolioStock[] = [];
       if (isMounted.current) {
-        setPortfolios(p);
+        dispatch({ type: 'setPortfolios', payload: p });
         if (p.length) {
-          setOpen(true);
+          dispatch({ type: 'setOpen', payload: true });
         } else {
           // openDialog is called on button click which can trigger a close event of an open snackbar that could be handled
           // after openDialog, so the (re-)opening of the snackbar is delayed to avoid close being handled after open.
-          process.nextTick(() => setNoPortfoliosSnackbarOpen(true));
+          process.nextTick(() =>
+            dispatch({ type: 'openSnackbar', payload: 'noPortfolios' })
+          );
         }
       }
     } catch (e) {
       if (isMounted.current) {
-        setError(e);
-        process.nextTick(() => setErrorSnackbarOpen(true));
+        dispatch({ type: 'setError', payload: e });
+        process.nextTick(() =>
+          dispatch({ type: 'openSnackbar', payload: 'error' })
+        );
       }
     } finally {
-      setLoading(false);
+      dispatch({ type: 'setLoading', payload: false });
     }
   };
 
@@ -95,42 +184,52 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonProps> = ({
       <ProgressButton
         className={classes.addButton}
         onClick={() => openDialog()}
-        loading={loading}
+        loading={state.loading}
       >
         {t('analyzer.addToPortfolio')}
       </ProgressButton>
-      {error && (
+      {state.error && (
         // TODO: Handle errors consistently (also use Snackbar for errors in dialogs)
         <Snackbar
-          open={errorSnackbarOpen}
-          onClose={() => setErrorSnackbarOpen(false)}
+          open={state.snackbars.error}
+          onClose={() => dispatch({ type: 'closeSnackbar', payload: 'error' })}
         >
-          <Alert onClose={() => setErrorSnackbarOpen(false)} severity="error">
-            <b>{t(errorTitleKey(error))}</b>: {t(errorMessageKey(error))}
+          <Alert
+            onClose={() =>
+              dispatch({ type: 'closeSnackbar', payload: 'error' })
+            }
+            severity="error"
+          >
+            <b>{t(errorTitleKey(state.error))}</b>:{' '}
+            {t(errorMessageKey(state.error))}
           </Alert>
         </Snackbar>
       )}
       <Snackbar
-        open={noPortfoliosSnackbarOpen}
-        onClose={() => setNoPortfoliosSnackbarOpen(false)}
+        open={state.snackbars.noPortfolios}
+        onClose={() =>
+          dispatch({ type: 'closeSnackbar', payload: 'noPortfolios' })
+        }
       >
         <Alert
-          onClose={() => setNoPortfoliosSnackbarOpen(false)}
+          onClose={() =>
+            dispatch({ type: 'closeSnackbar', payload: 'noPortfolios' })
+          }
           severity="info"
         >
           {t('analyzer.addToPortfolio.noPortfolios')}
         </Alert>
       </Snackbar>
-      {portfolios && (
+      {state.portfolios && (
         <EditDialog
-          open={open}
+          open={state.open}
           strings={{
             title: t('portfolio.dialog.addStock.title'),
             displayNameHeader: t('portfolio'),
             valueHeader: t('portfolio.details.amount'),
           }}
           additionalContent={t('portfolio.dialog.addStock.text')}
-          entries={portfolios.reduce(
+          entries={state.portfolios.reduce(
             (acc, p) => ({
               ...acc,
               [p.id]: {
@@ -141,7 +240,7 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonProps> = ({
             }),
             {}
           )}
-          handleClose={() => setOpen(false)}
+          handleClose={() => dispatch({ type: 'setOpen', payload: false })}
           action={async (v) => {
             await API.saveStockToPortfolios(
               token,
