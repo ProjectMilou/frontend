@@ -96,6 +96,89 @@ export type PositionQty = {
   qty: number;
 };
 
+export type Backtesting = {
+  MDDMaxToMin: number;
+  MDDInitialToMin: number;
+  dateMax: Date;
+  dateMin: Date;
+  maxValue: number;
+  minValue: number;
+  initialValue: number;
+  bestYear: {
+    changeBest: number;
+    yearBest: string;
+    growthRateBest: number;
+  };
+  worstYear: {
+    changeWorst: number;
+    yearWorst: string;
+    growthRateWorst: number;
+  };
+  finalPortfolioBalance: number;
+  CAGR: number;
+  standardDeviation: number;
+  sharpeRatio: number;
+};
+
+// Types describing the JSON response of API calls.
+// The correctness of these types is assumed, no checks are performed.
+
+export type BacktestingResponse = {
+  error: string;
+  success:
+    | {
+        MDDMaxToMin: number;
+        MDDInitialToMin: number;
+        dateMax: string;
+        dateMin: string;
+        maxValue: number;
+        minValue: number;
+        initialValue: number;
+        bestYear: {
+          changeBest: number;
+          yearBest: string;
+          growthRateBest: number;
+        };
+        worstYear: {
+          changeWorst: number;
+          yearWorst: string;
+          growthRateWorst: number;
+        };
+        finalPortfolioBalance: number;
+        CAGR: number;
+        standardDeviation: number;
+        sharpeRatio: number;
+      }
+    | Record<string, never>;
+};
+
+type NonEmptyBacktestingResponse = {
+  error: string;
+  success: {
+    MDDMaxToMin: number;
+    MDDInitialToMin: number;
+    dateMax: string;
+    dateMin: string;
+    maxValue: number;
+    minValue: number;
+    initialValue: number;
+    bestYear: {
+      changeBest: number;
+      yearBest: string;
+      growthRateBest: number;
+    };
+    worstYear: {
+      changeWorst: number;
+      yearWorst: string;
+      growthRateWorst: number;
+    };
+    finalPortfolioBalance: number;
+    CAGR: number;
+    standardDeviation: number;
+    sharpeRatio: number;
+  };
+};
+
 // Types describing the JSON response of API calls.
 // The correctness of these types is assumed, no checks are performed.
 
@@ -306,6 +389,21 @@ function convertPortfolioOverview(
 }
 
 /**
+ * Converts a {@link BacktestingResponse} object as received from the API
+ * to a {@link Backtesting} object for use by the application.
+ */
+function convertBacktesting(
+  response: NonEmptyBacktestingResponse
+): Backtesting {
+  const { success } = response;
+  return {
+    ...success,
+    dateMin: new Date(success.dateMin),
+    dateMax: new Date(success.dateMax),
+  };
+}
+
+/**
  * Converts a {@link DetailsResponse} object as received from the API to a
  * {@link PortfolioDetails} object for use by the application. If the portfolio
  * is empty, the returned object is of type {@link EmptyPortfolioDetails},
@@ -382,6 +480,35 @@ export async function list(token: string): Promise<PortfolioOverview[]> {
     ...response.portfolios.map(convertPortfolioOverview),
     mockPortfolio.overview,
   ];
+}
+
+/**
+ * Gets the data needed for the Back-Testing section of the portfolio details page.
+ *
+ * @param token - Authentication token
+ * @param id - Id of the portfolio for which the Back-Testing information is needed
+ * @param from - UNIX timestamp for the date FROM which the user wants to backtest
+ * @param to - UNIX timestamp for the date UNTIL WHICH the user wants to backtest
+ */
+export async function backtesting(
+  token: string,
+  id: string,
+  from: Date,
+  to: Date
+): Promise<Backtesting> {
+  const response = (await request(
+    token,
+    'GET',
+    `/analytics/backtest/${id}?${from.toISOString().split('T')[0]}&${
+      to.toISOString().split('T')[0]
+    }`
+  )) as BacktestingResponse;
+  if (
+    response.error.length > 0 ||
+    Object.entries(response.success).length === 0
+  )
+    throw new Error(response.error);
+  return convertBacktesting(response as NonEmptyBacktestingResponse);
 }
 
 export async function details(

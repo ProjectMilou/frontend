@@ -9,7 +9,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useTranslation } from 'react-i18next';
 import TextOverText from '../TextOverText';
 import * as API from '../../../analyser/APIClient';
-import EuroCurrency from '../../shared/EuroCurrency';
+import StyledNumberFormat from '../../shared/StyledNumberFormat';
 
 export type DetailsProps = {
   details: API.Stock;
@@ -85,12 +85,11 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
             </div>
             {chooseSymbol(details)}
             <>&emsp;&emsp;&emsp;</>
-            <EuroCurrency
+            <StyledNumberFormat
               value={details.price}
+              suffix="€"
               size="35px"
-              color="#EEF1FB"
-              decimalSeperator="."
-              thousandSeperator=","
+              paintJob="#EEF1FB"
             />
             <>&emsp;&emsp;</>
             <TextOverText
