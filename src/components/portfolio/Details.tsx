@@ -42,7 +42,7 @@ export interface DetailsProps extends RouteComponentProps {
   token: string;
   // function to return to the dashboard
   back: () => void;
-};
+}
 
 // functional component that takes the name of the portfolio and a function to switch back to the dashboard
 // returns the entire details page
@@ -103,15 +103,15 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
             handling={
               isAuthenticationError(error)
                 ? {
-                  buttonText: 'error.action.login',
-                  action: async () => {
-                    // TODO: go back to login
-                  },
-                }
+                    buttonText: 'error.action.login',
+                    action: async () => {
+                      // TODO: go back to login
+                    },
+                  }
                 : {
-                  buttonText: 'error.action.retry',
-                  action: fetch,
-                }
+                    buttonText: 'error.action.retry',
+                    action: fetch,
+                  }
             }
           />
         </Container>

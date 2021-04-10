@@ -15,7 +15,7 @@ import { isAuthenticationError } from '../../Errors';
 export interface DashboardProps extends RouteComponentProps {
   token: string;
   selectPortfolio: (id: string) => void;
-};
+}
 
 enum DialogType {
   None,
@@ -262,15 +262,15 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
             handling={
               isAuthenticationError(state.error)
                 ? {
-                  buttonText: 'error.action.login',
-                  action: async () => {
-                    // TODO: go back to login
-                  },
-                }
+                    buttonText: 'error.action.login',
+                    action: async () => {
+                      // TODO: go back to login
+                    },
+                  }
                 : {
-                  buttonText: 'error.action.retry',
-                  action: fetch,
-                }
+                    buttonText: 'error.action.retry',
+                    action: fetch,
+                  }
             }
           />
         )}
