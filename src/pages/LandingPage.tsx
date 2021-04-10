@@ -25,16 +25,16 @@ import WarningIcon from '@material-ui/icons/Warning';
 import Card from './components/Card';
 import Media from './components/Media';
 import GridRowContainer from './components/GridRowContainer';
-import img from './media/180.png';
-import img1 from './media/getThumb.gif';
-import img2 from './media/media2.png';
-import img3 from './media/start.png';
-import img4 from './media/tech-talents.png';
-import img5 from './media/tumlogo.png';
-import manage from './media/manage.png';
-import analyse from './media/analyse.png';
-import lernen from './media/lernen.png';
-import portfolio from './media/Portfolio.png';
+import img from '../assets/images/180.png';
+import img1 from '../assets/images/getThumb.gif';
+import img2 from '../assets/images/media2.png';
+import img3 from '../assets/images/start.png';
+import img4 from '../assets/images/tech-talents.png';
+import img5 from '../assets/images/tumlogo.png';
+import manage from '../assets/images/manage.png';
+import analyse from '../assets/images/analyse.png';
+import lernen from '../assets/images/lernen.png';
+import portfolio from '../assets/images/Portfolio.png';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -271,10 +271,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             >
               <Grid item>
                 <TrendingUpIcon
-                  style={{
-                    color: '#df4f9b',
-                    fontSize: '54px',
-                  }}
+                  style={{ color: '#df4f9b', fontSize: '54px' }}
                 />
               </Grid>
               <Grid item xs container direction="column">
