@@ -6,7 +6,6 @@ exports[`DashboardTable display portfolio information 1`] = `
     class="MuiPaper-root MuiTableContainer-root MuiPaper-elevation1 MuiPaper-rounded"
   >
     <table
-      aria-label="simple table"
       class="MuiTable-root"
     >
       <thead
@@ -16,40 +15,143 @@ exports[`DashboardTable display portfolio information 1`] = `
           class="MuiTableRow-root MuiTableRow-head"
         >
           <th
+            aria-sort="descending"
             class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
             scope="col"
           >
-            portfolio.score
+            <span
+              aria-disabled="false"
+              class="MuiButtonBase-root MuiTableSortLabel-root MuiTableSortLabel-active"
+              role="button"
+              tabindex="0"
+            >
+              portfolio.score
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionDesc"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                />
+              </svg>
+            </span>
           </th>
           <th
             class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
             scope="col"
           >
-            portfolio.name
+            <span
+              aria-disabled="false"
+              class="MuiButtonBase-root MuiTableSortLabel-root"
+              role="button"
+              tabindex="0"
+            >
+              portfolio.name
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                />
+              </svg>
+            </span>
           </th>
           <th
             class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
             scope="col"
           >
-            portfolio.positionsCount
+            <span
+              aria-disabled="false"
+              class="MuiButtonBase-root MuiTableSortLabel-root"
+              role="button"
+              tabindex="0"
+            >
+              portfolio.positionsCount
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                />
+              </svg>
+            </span>
           </th>
           <th
             class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
             scope="col"
           >
-            portfolio.value
+            <span
+              aria-disabled="false"
+              class="MuiButtonBase-root MuiTableSortLabel-root"
+              role="button"
+              tabindex="0"
+            >
+              portfolio.value
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                />
+              </svg>
+            </span>
           </th>
           <th
             class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
             scope="col"
           >
-            portfolio.7d
+            <span
+              aria-disabled="false"
+              class="MuiButtonBase-root MuiTableSortLabel-root"
+              role="button"
+              tabindex="0"
+            >
+              portfolio.7d
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                />
+              </svg>
+            </span>
           </th>
           <th
             class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
             scope="col"
           >
-            portfolio.1y
+            <span
+              aria-disabled="false"
+              class="MuiButtonBase-root MuiTableSortLabel-root"
+              role="button"
+              tabindex="0"
+            >
+              portfolio.1y
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                />
+              </svg>
+            </span>
           </th>
           <th
             class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
@@ -68,7 +170,7 @@ exports[`DashboardTable display portfolio information 1`] = `
           <td
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
-            0.3
+            1
           </td>
           <th
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
