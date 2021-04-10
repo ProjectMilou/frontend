@@ -6,7 +6,6 @@ exports[`DashboardTable display portfolio information 1`] = `
     class="MuiPaper-root MuiTableContainer-root MuiPaper-elevation1 MuiPaper-rounded"
   >
     <table
-      aria-label="simple table"
       class="MuiTable-root"
     >
       <thead
@@ -171,7 +170,7 @@ exports[`DashboardTable display portfolio information 1`] = `
           <td
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
-            0.3
+            1
           </td>
           <th
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
