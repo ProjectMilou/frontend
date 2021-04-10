@@ -629,12 +629,11 @@ export async function stock(
   token: string,
   symbol: string
 ): Promise<PortfolioStock[]> {
-  const response = (await request(
+  return (await request(
     token,
     'GET',
     `stock/${symbol}`
   )) as PortfolioStockResponse;
-  return response;
 }
 
 /**
