@@ -19,8 +19,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     button: {
       textTransform: 'none',
-      // TODO: use theme color
-      color: '#EEF1FB',
+      color: palette.primary.contrastText,
       padding: 0,
     },
     gridListWrapper: {
@@ -45,8 +44,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       fontWeight: 600,
     },
     cardSubtitle: {
-      // TODO: use theme color
-      color: '#EEF1FB',
+      color: palette.primary.contrastText,
       fontSize: '1rem',
       fontWeight: 500,
       marginTop: '10px',

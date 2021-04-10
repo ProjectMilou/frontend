@@ -50,17 +50,22 @@ const DetailsMainAnalyst: React.FC<DetailsMainAnalystProps> = ({
   const barData: BarDataType = {};
 
   if (positions) {
-    positions.forEach((p) => {
-      const score = Math.round(p.stock.score * 100);
+    Object.values(positions)
+      // sort by total value
+      .sort((a, b) => (a.qty * a.stock.price > b.qty * b.stock.price ? 1 : -1))
+      // take the top 5
+      .slice(positions.length > 5 ? positions.length - 5 : 0)
+      .forEach((p) => {
+        const score = Math.round(p.stock.score * 100);
 
-      if (!barData[score]) {
-        // if there is no entry with this score create one
-        barData[score] = p.stock.name;
-      } else {
-        // otherwise add on to an existing score
-        barData[score] = barData[score].concat(`\n${p.stock.name}`);
-      }
-    });
+        if (!barData[score]) {
+          // if there is no entry with this score create one
+          barData[score] = p.stock.name;
+        } else {
+          // otherwise add on to an existing score
+          barData[score] = barData[score].concat(`\n${p.stock.name}`);
+        }
+      });
   }
 
   return (
@@ -69,11 +74,11 @@ const DetailsMainAnalyst: React.FC<DetailsMainAnalystProps> = ({
         {t('portfolio.details.analystSubtext')}
       </p>
       <AnalystBar>
-        {Object.entries(barData).map(([key, value]) => (
+        {Object.entries(barData).map(([score, names]) => (
           <AnalystBarIndicator
-            key={key}
-            tooltipText={value}
-            score={parseInt(key, 10)}
+            key={score}
+            tooltipText={names}
+            score={parseInt(score, 10)}
             color={theme.palette.primary.contrastText}
           />
         ))}
