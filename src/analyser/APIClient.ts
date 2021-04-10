@@ -2,7 +2,7 @@
 
 import { AppError } from '../Errors';
 
-export const baseURL = 'https://api.milou.io/stocks';
+export const baseURL = 'https://api.milou.io/stock';
 const headers = { 'Content-Type': 'application/json' };
 
 // Stock type
@@ -100,7 +100,7 @@ export async function listStocks(
   token: string,
   filters: Filters
 ): Promise<Stock[]> {
-  const base = '/list';
+  const base = 'list';
   let params = '';
   Object.keys(filters).forEach((key) => {
     if (filters[key].length > 0) {
@@ -129,7 +129,7 @@ export async function stockOverview(
   const response = (await request(
     token,
     'GET',
-    `search?id=${symbol}`
+    `overview?id=${symbol}`
   )) as StockList;
   return response.stocks[0] as Stock;
 }
@@ -147,7 +147,7 @@ export async function stockDetails(
   const response = (await request(
     token,
     'GET',
-    `/details/search?id=${symbol}`
+    `details?id=${symbol}`
   )) as StockDetails;
   return response;
 }

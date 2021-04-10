@@ -19,8 +19,7 @@ import classNames from 'classnames';
 import * as API from '../../portfolio/APIClient';
 import { PortfolioOverview } from '../../portfolio/APIClient';
 import DashboardActions from './DashboardActions';
-import EuroCurrency from '../shared/EuroCurrency';
-import Performance from '../shared/Performance';
+import StyledNumberFormat from '../shared/StyledNumberFormat';
 
 const useStyles = makeStyles((theme: Theme) => ({
   action: { display: 'inline-block' },
@@ -88,13 +87,30 @@ const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         {portfolio.positionCount}
       </TableCell>
       <TableCell align="center">
-        <EuroCurrency value={portfolio.value} />
+        <StyledNumberFormat
+          value={portfolio.value}
+          suffix="€"
+          size="24"
+          fontWeight={400}
+        />
       </TableCell>
       <TableCell align="center">
-        <Performance value={portfolio.perf7d} />
+        <StyledNumberFormat
+          value={portfolio.perf7d}
+          suffix="%"
+          size="24"
+          fontWeight={400}
+          paintJob
+        />
       </TableCell>
       <TableCell align="center">
-        <Performance value={portfolio.perf1y} />
+        <StyledNumberFormat
+          value={portfolio.perf1y}
+          suffix="%"
+          size="24"
+          fontWeight={400}
+          paintJob
+        />
       </TableCell>
       <TableCell align="center">
         <DashboardActions

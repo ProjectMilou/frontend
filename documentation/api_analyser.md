@@ -1,48 +1,15 @@
-# Search Page
-
-### `POST /search`
-
-search list by NAME, ISIN, WKN, SYMBOL
-
-#### Request
-
-| parameter | type     |
-| --------- | -------- |
-| `id`      | `string` |
-
-#### Response
-
-| parameter | type      |
-| --------- | --------- |
-| `stocks`  | `stock[]` |
-
-response: list of stocks with searched name, ISIN, WKN, SYMBOL
-
-### `POST /filter`
-
-search list of stocks as result of given filters
-
-#### Request
-
-| parameter  | type       |
-| ---------- | ---------- |
-| `country`  | `string[]` |
-| `currency` | `string[]` |
-| `industry` | `string[]` |
-
-To be discussed: More filters
-
-#### Response
-
-| parameter | type      |
-| --------- | --------- |
-| `stocks`  | `stock[]` |
-
-response: list of stocks with applied filters
-
 ### `GET /stocks/list`
 
-List of all stocks and their data
+List of all stocks and their data. It should be possible, but not required, to send filters as paramters with this request and only receive stocks as response that match the filters.
+
+#### Request
+
+| parameter   | type       | description                                         |
+| ----------- | ---------- | --------------------------------------------------- |
+| `country?`  | `string[]` | possible filter of countries                        |
+| `currency?` | `string[]` | possible filter of currencies                       |
+| `industry?` | `string[]` | possible filter of industry                         |
+| `mc?`       | `string`   | either small, medium or large market capitalization |
 
 #### Response
 
@@ -59,14 +26,16 @@ List of all stocks and their data
 | `symbol`    | `string`      | Ticker symbol                                    |
 | `name`      | `string`      |                                                  |
 | `price`     | `number` (FP) | Last price per share                             |
-| `1d`        | `number` (FP) | 1 day return                                     |
-| `7d`        | `number` (FP) | 7 day return                                     |
-| `30d`       | `number` (FP) | 30 day return                                    |
+| `per1d`     | `number` (FP) | 1 day performance                                |
+| `per7d`     | `number` (FP) | 7 days performance                               |
+| `per30d`    | `number` (FP) | 30 days performance                              |
+| `per365d`   | `number` (FP) | 1 year performance                               |
 | `marketCap` | `number` (FP) | Market Capitalization in billion dollars         |
 | `analysTar` | `number` (FP) | Analyst target in dollars                        |
 | `valuation` | `number` (FP) | Ratio comp to similar companies                  |
 | `growth`    | `number` (FP) | Growth target in next 3 years                    |
 | `div`       | `number` (FP) | Latest paid out dividend in percentage per share |
+| `mc`        | `string`      | Either small, medium, large                      |
 | `currency`  | `string`      |                                                  |
 | `country`   | `string`      |                                                  |
 | `industry`  | `string`      |                                                  |
@@ -103,30 +72,7 @@ Same as `stock` from search page
 
 #### Repsonse
 
-| parameter   | type           | description                                   |
-| ----------- | -------------- | --------------------------------------------- |
-| `intro`     | `string`       | introduction of the company in some sentences |
-| `founded`   | `number` (Int) | the year that the company founded in          |
-| `website`   | `string`       | the website of the company                    |
-| `employees` | `number` (Int) | latest number of the employees                |
-| `address`   | `string`       | Street address                                |
-| `assembly`  | `date`(int)    | Date of the next shareholder assembly         |
-
-### `GET /filters`
-
-get all countries, industries, categories, currencies, etc. so that show the user the filters
-
-#### Request
-
-| parameter | type     | description |
-| --------- | -------- | ----------- |
-| `id`      | `string` | filter name |
-
-#### Repsonse
-
-| parameter | type       | description               |
-| --------- | ---------- | ------------------------- |
-| `filer`   | `string[]` | list of a specific filter |
+all from alpha vantage company overview
 
 ### `GET /stock/charts/historic`
 
@@ -177,7 +123,7 @@ Get the key figures of the stock from beginning or last 5 years
 | `ptg` | `number`(FP) | Price to Earning Growth Ratio|
 | `eps` | `number`(FP) | Earnings per Share|
 
-### `GET /stock/charts/dividend`
+### `GET /stock/charts/dividend (DEPRECATED)`
 
 Get the dividend of the stock from beginning or last 5 years
 
@@ -225,7 +171,7 @@ Get the analysts recommendation
 | `date` | `number` (Int)| date when prediction was made|
 | `goal` | `number`(FP) | Stock goal in dollars|
 | `strategy` | `string` | Either buy, hold, or sell|
-| `source` | `string` | Link to source of rating|
+| `source` | `URL` | Link to source of rating agency|
 | `more Info?` | `TBD` | More Information, e.g. Future Growth|
 
 ### `GET /stock/news`
@@ -268,3 +214,13 @@ Get risk analysis
 | `rewards`     | `string[]`  | List of Rewards                               |
 | `risks`       | `string[]`  | List of Risks                                 |
 | `risk_checks` | `boolean[]` | A list of risk checks, as in simpy Wallstreet |
+
+### `GET /stock/balanceSheet`
+
+| parameter | type     | description     |
+| --------- | -------- | --------------- |
+| `id`      | `string` | SYMBOL of stock |
+
+#### Repsonse
+
+balance sheet of the stock, as in alpha vantage https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=IBM&apikey=demo
