@@ -251,29 +251,29 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
   };
   // TODO: Improve portfolio score visualization
   return (
-   <>
-    {!!portfolios.length && (
-      <TableContainer component={Paper}>
-        <Table aria-label="simple table">
-          <DashboardTableHead
-           onRequestSort={handleRequestSort}
-           order={order}
-           orderBy={orderBy}
-          />
-          <TableBody>
-            {sortingTableEntry(portfolios, orderBy, order).map((p) => (
-             <DashboardTableRow
-               portfolio={p}
-               selectPortfolio={selectPortfolio}
-               key={p.id}
-               renamePortfolio={renamePortfolio}
-               duplicatePortfolio={duplicatePortfolio}
-               deletePortfolio={deletePortfolio}
-             />
-           ))}
-         </TableBody>
-        </Table>
-      </TableContainer>
+    <>
+      {!!portfolios.length && (
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table">
+            <DashboardTableHead
+              onRequestSort={handleRequestSort}
+              order={order}
+              orderBy={orderBy}
+            />
+            <TableBody>
+              {sortingTableEntry(portfolios, orderBy, order).map((p) => (
+                <DashboardTableRow
+                  portfolio={p}
+                  selectPortfolio={selectPortfolio}
+                  key={p.id}
+                  renamePortfolio={renamePortfolio}
+                  duplicatePortfolio={duplicatePortfolio}
+                  deletePortfolio={deletePortfolio}
+                />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       )}
       <Button
         className={classes.createButton}
