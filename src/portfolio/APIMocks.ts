@@ -22,7 +22,7 @@ export const MockOverview: PortfolioOverview = {
   virtual: true,
   positionCount: 3,
   value: 9,
-  score: 0.3,
+  score: 1,
   perf7d: -1.23,
   perf1y: 13.37,
   modified: new Date(0),
@@ -44,7 +44,6 @@ export const MockOverviewTwo: PortfolioOverview = {
 export const MockPositions: Position[] = [
   {
     stock: {
-      isin: '0',
       symbol: 'BMW',
       name: 'BMW',
       price: 23.25,
@@ -61,7 +60,6 @@ export const MockPositions: Position[] = [
   },
   {
     stock: {
-      isin: '1',
       symbol: 'MRC',
       name: 'Mercedes',
       price: 19.51,
@@ -78,7 +76,6 @@ export const MockPositions: Position[] = [
   },
   {
     stock: {
-      isin: '2',
       symbol: 'MCL',
       name: 'McLaren',
       price: 12.11,
@@ -95,7 +92,6 @@ export const MockPositions: Position[] = [
   },
   {
     stock: {
-      isin: '3',
       symbol: 'QQQ',
       name: 'QQQ',
       price: 120.11,

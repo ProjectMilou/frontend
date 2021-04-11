@@ -88,7 +88,7 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
         style={{ margin: '0 auto' }}
       >
         {positions.map((p) => (
-          <GridListTile key={p.stock.isin}>
+          <GridListTile key={p.stock.symbol}>
             <Card
               variant="outlined"
               className={classes.card}

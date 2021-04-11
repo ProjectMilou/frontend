@@ -13,6 +13,7 @@ export type ProgressButtonProps = {
   disabled?: boolean;
   loading?: boolean;
   color?: PropTypes.Color;
+  className?: string;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -39,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
  * @param disabled - Whether the button is disabled. Note: The button is always disabled if {@param loading} is set.
  * @param loading - Whether the loading indicator should be displayed
  * @param color - The color of the button
+ * @param className - Button class name(s)
  * @param children - The content of the button
  */
 const ProgressButton: React.FC<ProgressButtonProps> = ({
@@ -46,6 +48,7 @@ const ProgressButton: React.FC<ProgressButtonProps> = ({
   disabled,
   loading,
   color,
+  className,
   children,
 }) => {
   const classes = useStyles();
@@ -53,7 +56,12 @@ const ProgressButton: React.FC<ProgressButtonProps> = ({
   return (
     <div className={classes.root}>
       <div className={classes.wrapper}>
-        <Button disabled={loading || disabled} onClick={onClick} color={color}>
+        <Button
+          disabled={loading || disabled}
+          onClick={onClick}
+          color={color}
+          className={className}
+        >
           {children}
         </Button>
         {loading && (
