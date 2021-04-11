@@ -10,8 +10,7 @@ import {
 } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import { useTranslation } from 'react-i18next';
-import EuroCurrency from '../shared/EuroCurrency';
-import Performance from '../shared/Performance';
+import StyledNumberFormat from '../shared/StyledNumberFormat';
 import ValueOverName from './ValueOverName';
 import { Position } from '../../portfolio/APIClient';
 
@@ -19,8 +18,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     button: {
       textTransform: 'none',
-      // TODO: use theme color
-      color: '#EEF1FB',
+      color: palette.primary.contrastText,
       padding: 0,
     },
     gridListWrapper: {
@@ -45,8 +43,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       fontWeight: 600,
     },
     cardSubtitle: {
-      // TODO: use theme color
-      color: '#EEF1FB',
+      color: palette.primary.contrastText,
       fontSize: '1rem',
       fontWeight: 500,
       marginTop: '10px',
@@ -91,7 +88,7 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
         style={{ margin: '0 auto' }}
       >
         {positions.map((p) => (
-          <GridListTile key={p.stock.isin}>
+          <GridListTile key={p.stock.symbol}>
             <Card
               variant="outlined"
               className={classes.card}
@@ -105,38 +102,65 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
                   <div className={classes.cardTitle}>{p.stock.name}</div>
                   <div className={classes.cardSubtitle}>
                     <span>{`${t('portfolio.details.holding')}: `}</span>
-                    <EuroCurrency value={p.stock.price * p.qty} size="1em" />
+                    <StyledNumberFormat
+                      value={p.stock.price * p.qty}
+                      suffix="€"
+                    />
                     <br />
                     <span>{`${t('portfolio.details.perShare')}: `}</span>
-                    <EuroCurrency value={p.stock.price} size="1em" />
+                    <StyledNumberFormat value={p.stock.price} suffix="€" />
                   </div>
                 </div>
                 <div className={classes.cardContentLower}>
                   <ValueOverName
-                    value={<Performance value={p.stock.perf7d} size="1em" />}
+                    value={
+                      <StyledNumberFormat
+                        value={p.stock.perf7d}
+                        suffix="%"
+                        paintJob
+                      />
+                    }
                     name={t('portfolio.details.day7')}
                     secondValue={
-                      <EuroCurrency value={sevDayAbsolute} size="1em" doPaint />
-                    }
-                  />
-                  <ValueOverName
-                    value={<Performance value={p.stock.perf1y} size="1em" />}
-                    name={t('portfolio.details.year')}
-                    secondValue={
-                      <EuroCurrency
-                        value={oneYearAbsolute}
-                        size="1em"
-                        doPaint
+                      <StyledNumberFormat
+                        value={sevDayAbsolute}
+                        suffix="€"
+                        paintJob
                       />
                     }
                   />
                   <ValueOverName
                     value={
-                      <Performance value={p.totalReturnPercent} size="1em" />
+                      <StyledNumberFormat
+                        value={p.stock.perf1y}
+                        suffix="%"
+                        paintJob
+                      />
+                    }
+                    name={t('portfolio.details.year')}
+                    secondValue={
+                      <StyledNumberFormat
+                        value={oneYearAbsolute}
+                        suffix="€"
+                        paintJob
+                      />
+                    }
+                  />
+                  <ValueOverName
+                    value={
+                      <StyledNumberFormat
+                        value={p.totalReturnPercent}
+                        suffix="%"
+                        paintJob
+                      />
                     }
                     name={t('portfolio.details.totalReturn')}
                     secondValue={
-                      <EuroCurrency value={p.totalReturn} size="1em" doPaint />
+                      <StyledNumberFormat
+                        value={p.totalReturn}
+                        suffix="€"
+                        paintJob
+                      />
                     }
                   />
                 </div>

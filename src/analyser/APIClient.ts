@@ -28,6 +28,11 @@ export type Stock = {
   date: Date;
 };
 
+// List of stocks
+type StockList = {
+  stocks: Stock[];
+};
+
 // Stock details
 export type StockDetails = {
   symbol: string;
@@ -39,16 +44,21 @@ export type StockDetails = {
   assenmbly: Date;
 };
 
-// List of stocks
-type StockList = {
-  stocks: Stock[];
+// Filter object
+export type Filters = {
+  [key: string]: string[];
+  country: string[];
+  currency: string[];
+  industry: string[];
+  mc: string[];
 };
 
 /**
  * Makes an API call. Resolves to the JSON response if the call is successful,
  * otherwise rejects with an error that has an {@link ErrorCode} as message.
  *
- * TODO: Error handeling.
+ * TODO: Merge with portfolio request
+ *
  * @param token - Authentication token
  * @param method - Request method (GET, POST, etc.)
  * @param url - An URL relative to {@link baseURL}
@@ -83,9 +93,26 @@ async function request(
  * Gets an overview over all stocks with an authenticated user.
  *
  * @param token - Authentication token
+ * @param filters - Object including all filters
+ *
  */
-export async function listStocks(token: string): Promise<Stock[]> {
-  const response = (await request(token, 'GET', '/list')) as StockList;
+export async function listStocks(
+  token: string,
+  filters: Filters
+): Promise<Stock[]> {
+  const base = 'list';
+  let params = '';
+  Object.keys(filters).forEach((key) => {
+    if (filters[key].length > 0) {
+      if (params.length === 0) {
+        // TODO can be probably done nicer
+        params += `?${key}=${filters[key].toString().replace(' ', '%20')}`;
+      } else {
+        params += `&${key}=${filters[key].toString().replace(' ', '%20')}`;
+      }
+    }
+  });
+  const response = (await request(token, 'GET', base + params)) as StockList;
   return response.stocks;
 }
 
@@ -102,7 +129,7 @@ export async function stockOverview(
   const response = (await request(
     token,
     'GET',
-    `/search?id=${symbol}`
+    `overview?id=${symbol}`
   )) as StockList;
   return response.stocks[0] as Stock;
 }
@@ -120,7 +147,28 @@ export async function stockDetails(
   const response = (await request(
     token,
     'GET',
-    `/details/search?id=${symbol}`
+    `details?id=${symbol}`
+  )) as StockDetails;
+  return response;
+}
+
+// TODO Backend not working yet
+/**
+ * Gets a details over a single stock with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ * @param historic - if true all data will be returned, else only 5 years
+ */
+export async function stockCharts(
+  token: string,
+  symbol: string,
+  historic: boolean
+): Promise<StockDetails> {
+  const response = (await request(
+    token,
+    'GET',
+    `charts/historic?id=${symbol}&max=${historic.toString()}`
   )) as StockDetails;
   return response;
 }
