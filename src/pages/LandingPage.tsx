@@ -39,11 +39,11 @@ import portfolio from '../assets/images/Portfolio.png';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     media1: {
-      maxWidth: '450px',
-      maxHeight: '390px',
+      maxWidth: '480px',
+      maxHeight: '396px',
       display: 'auto',
       objectFit: 'scale-down',
-      padding: '10px',
+      padding: '100px',
     },
     media2: {
       width: '500px',
@@ -61,8 +61,10 @@ const useStyles = makeStyles((theme: Theme) =>
     divider: {
       light: false,
       variant: 'middle',
-      marginInline: '200px',
-      color: theme.palette.primary.dark,
+      marginLeft: '250px',
+      marginRight: '250px',
+      height: '1px',
+      background: theme.palette.secondary.contrastText,
     },
     box1: {
       paddingTop: '50px',
@@ -71,13 +73,13 @@ const useStyles = makeStyles((theme: Theme) =>
     typography1: {
       color: theme.palette.primary.dark,
       fontSize: '24px',
+      marginLeft: '120px',
+      marginRight: '120px',
     },
     boxMain: {
-      paddingLeft: '300px',
-      paddingRight: '300px',
-      paddingTop: '100px',
-      paddingBottom: '100px',
-      backgroundColor: '#EEF1FB',
+      paddingLeft: '180px',
+      paddingRight: '180px',
+      backgroundColor: theme.palette.primary.contrastText,
     },
     gridItem: {
       paddingInline: '100px',
@@ -86,8 +88,43 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '54px',
       color: theme.palette.secondary.light,
     },
+    largeIcon: {
+      width: '60px',
+      height: '60px',
+    },
     span: {
       color: theme.palette.secondary.light,
+    },
+    success: {
+      color: theme.palette.success.main,
+    },
+    warning: {
+      color: theme.palette.warning.main,
+    },
+    error: {
+      color: theme.palette.error.main,
+    },
+    box: {
+      backgroundColor: theme.palette.primary.main,
+      padding: '80px',
+      marginBottom: '60px',
+      display: 'flex',
+      justifyContent: 'center',
+    },
+    typography: {
+      color: '#50aaff',
+      fontWeight: 'bold',
+      padding: '20px',
+    },
+    button: {
+      backgroundColor: theme.palette.secondary.light,
+      borderRadius: '10px',
+      color: theme.palette.primary.contrastText,
+      textTransform: 'none',
+    },
+    title: {
+      fontWeight: 'bold',
+      padding: '16px',
     },
   })
 );
@@ -97,23 +134,23 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
   return (
     <Box>
       <Card />
+      <Divider className={classes.divider} />
+      <Box className={classes.box1}>
+        <Typography
+          variant="body1"
+          align="center"
+          className={classes.typography1}
+        >
+          Apps like Trade Republic and other direct brokers make investing
+          easier and easier. The stock market is now accessible to everyone.
+          Even so, many individuals do not have access to tools to make informed
+          and informed investment decisions. Current solutions are often
+          confusing and tailored to professional investors. This is exactly
+          where we attack.
+        </Typography>
+      </Box>
+      <Divider className={classes.divider} />
       <Box className={classes.boxMain}>
-        <Divider className={classes.divider} />
-        <Box className={classes.box1}>
-          <Typography
-            variant="body1"
-            align="center"
-            className={classes.typography1}
-          >
-            Apps like Trade Republic and other direct brokers make investing
-            easier and easier. The stock market is now accessible to everyone.
-            Even so, many individuals do not have access to tools to make
-            informed and informed investment decisions. Current solutions are
-            often confusing and tailored to professional investors. This is
-            exactly where we attack.
-          </Typography>
-        </Box>
-        <Divider className={classes.divider} />
         <Box style={{ paddingBlock: '40px' }}>
           <GridRowContainer
             image={lernen}
@@ -122,7 +159,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             classNameImage={classes.media1}
             classNameGrid={classes.gridItem}
             type="even"
-            titleColor="#FFC43B"
+            titleClass={`${classes.warning} ${classes.title}`}
           />
           <GridRowContainer
             image={analyse}
@@ -131,7 +168,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             classNameImage={classes.media1}
             classNameGrid={classes.gridItem}
             type="odd"
-            titleColor="#D64745"
+            titleClass={`${classes.error} ${classes.title}`}
           />
 
           <GridRowContainer
@@ -141,14 +178,14 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             classNameImage={classes.media1}
             classNameGrid={classes.gridItem}
             type="even"
-            titleColor="#50E2A8"
+            titleClass={`${classes.success} ${classes.title}`}
           />
         </Box>
       </Box>
 
-      <Box bgcolor="#0c1a3a" color="white" px={16} pt={4} pb={18}>
+      <Box bgcolor="#0c1a3a" color="white" px={20} pt={4} pb={18}>
         <Grid container direction="column" spacing={2}>
-          <Grid item>
+          <Grid item spacing={2}>
             <Typography variant="h3">Did you know...</Typography>
           </Grid>
           <Grid item container direction="row" spacing={2} alignItems="center">
@@ -209,7 +246,13 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
       </Box>
 
       <Box className={classes.boxMain} display="flex">
-        <Grid container direction="row" spacing={4} alignItems="center">
+        <Grid
+          container
+          direction="row"
+          spacing={4}
+          alignItems="center"
+          justify="space-between"
+        >
           <Grid item>
             <Media image={img2} className={classes.media2} />
           </Grid>
@@ -218,7 +261,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             xs
             container
             direction="column"
-            spacing={8}
+            spacing={4}
             alignItems="center"
             justify-content="center"
           >
@@ -231,7 +274,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             >
               <Grid item>
                 <CastForEducationIcon
-                  style={{ color: '#50E2A8', fontSize: '54px' }}
+                  className={`${classes.success} ${classes.largeIcon}`}
                 />
               </Grid>
               <Grid item xs container direction="column">
@@ -251,7 +294,9 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
               spacing={4}
             >
               <Grid item>
-                <InfoIcon style={{ color: '#FFC43B', fontSize: '54px' }} />
+                <InfoIcon
+                  className={`${classes.warning} ${classes.largeIcon}`}
+                />
               </Grid>
               <Grid item xs container direction="column">
                 <Typography variant="h5">INFO BOXES</Typography>
@@ -271,7 +316,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             >
               <Grid item>
                 <TrendingUpIcon
-                  style={{ color: '#df4f9b', fontSize: '54px' }}
+                  className={`${classes.span} ${classes.largeIcon}`}
                 />
               </Grid>
               <Grid item xs container direction="column">
@@ -291,7 +336,9 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
               spacing={4}
             >
               <Grid item>
-                <WarningIcon style={{ color: '#D64745', fontSize: '54px' }} />
+                <WarningIcon
+                  className={`${classes.error} ${classes.largeIcon}`}
+                />
               </Grid>
               <Grid item xs container direction="column">
                 <Typography variant="h5">RISK WARNING</Typography>
@@ -304,7 +351,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
           </Grid>
         </Grid>
       </Box>
-      <Box bgcolor="#0c1a3a" color="white" py={8}>
+      <Box bgcolor="#0c1a3a" color="white" py={8} px={8}>
         <Grid container>
           <Grid item xs container direction="column" alignItems="center">
             <Typography variant="h3">Our supporters</Typography>
