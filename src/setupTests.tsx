@@ -60,6 +60,7 @@ export const mockPortfolioRouter = jest.mock('./portfolio/Router.ts', () => ({
   portfolioDetails: jest.fn(),
   portfolioDashboard: jest.fn(),
   stockDetails: jest.fn(),
+  importPortfolio: jest.fn(),
 }));
 
 export default {};

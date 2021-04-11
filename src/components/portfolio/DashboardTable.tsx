@@ -23,7 +23,7 @@ import {
 } from '../../portfolio/APIClient';
 import DashboardActions from './DashboardActions';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
-import { portfolioDetails } from '../../portfolio/Router';
+import { portfolioDetails, importPortfolio } from '../../portfolio/Router';
 
 const useStyles = makeStyles((theme: Theme) => ({
   action: { display: 'inline-block' },
@@ -39,8 +39,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   disabled: {
     cursor: 'not-allowed',
   },
-  createButton: {
+  buttons: {
     marginTop: '25px',
+    '& > *': {
+      marginLeft: '25px',
+    },
+    '& > *:first-child': {
+      marginLeft: '0px',
+    },
   },
 }));
 
@@ -279,14 +285,22 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
           </Table>
         </TableContainer>
       )}
-      <Button
-        className={classes.createButton}
-        variant="outlined"
-        color="primary"
-        onClick={() => createPortfolio()}
-      >
-        {t('portfolio.dashboard.createPortfolio')}
-      </Button>
+      <div className={classes.buttons}>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => createPortfolio()}
+        >
+          {t('portfolio.dashboard.createPortfolio')}
+        </Button>
+        <Button
+          variant="outlined"
+          color="secondary"
+          onClick={() => importPortfolio()}
+        >
+          {t('portfolio.dashboard.importPortfolio')}
+        </Button>
+      </div>
     </>
   );
 };

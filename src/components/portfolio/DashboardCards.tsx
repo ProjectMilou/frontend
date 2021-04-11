@@ -12,11 +12,12 @@ import {
   Typography,
 } from '@material-ui/core';
 import AddBoxIcon from '@material-ui/icons/AddBox';
+import ImportIcon from '@material-ui/icons/Input';
 import * as API from '../../portfolio/APIClient';
 import { PortfolioOverview } from '../../portfolio/APIClient';
 import DashboardActions from './DashboardActions';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
-import { portfolioDetails } from '../../portfolio/Router';
+import { importPortfolio, portfolioDetails } from '../../portfolio/Router';
 
 const useStyles = makeStyles(() => ({
   gridList: {
@@ -150,6 +151,20 @@ const DashboardCards: React.FC<DashboardCardsProps> = ({
             <div>
               <IconButton>
                 <AddBoxIcon fontSize="large" />
+              </IconButton>
+            </div>
+          </Tooltip>
+        </Card>
+      </GridListTile>
+      <GridListTile
+        className={classes.gridListTile}
+        onClick={() => importPortfolio()}
+      >
+        <Card className={classes.blankCard}>
+          <Tooltip title={t('portfolio.dashboard.importPortfolio').toString()}>
+            <div>
+              <IconButton>
+                <ImportIcon fontSize="large" />
               </IconButton>
             </div>
           </Tooltip>

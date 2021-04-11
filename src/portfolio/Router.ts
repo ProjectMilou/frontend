@@ -24,3 +24,10 @@ export async function portfolioDashboard(): Promise<void> {
 export async function stockDetails(symbol: string): Promise<void> {
   await navigate(`/analyser/${symbol}`);
 }
+
+/**
+ * Navigates to a page where a bank account can be connected to import portfolios.
+ */
+export async function importPortfolio(): Promise<void> {
+  await navigate(`/profile`);
+}
