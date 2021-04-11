@@ -133,7 +133,7 @@ describe('Portfolio API client', () => {
   });
 
   describe('modify', () => {
-    const apiCall = () => modify('', '0', [{ isin: '0', qty: 5 }]);
+    const apiCall = () => modify('', '0', [{ symbol: '0', qty: 5 }]);
 
     test('resolves on success', async () => {
       fetchMock.mockResponseOnce(JSON.stringify({}));

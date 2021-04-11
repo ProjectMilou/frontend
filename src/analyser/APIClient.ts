@@ -152,7 +152,6 @@ export async function stockDetails(
   return response;
 }
 
-// TODO Backend not working yet
 /**
  * Gets a details over a single stock with an authenticated user.
  *
