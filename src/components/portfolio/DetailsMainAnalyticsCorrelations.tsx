@@ -10,25 +10,6 @@ type Correlation = {
 
 type MappedCorrelation = [string, string, number];
 
-type HeatMapMetric = {
-  name: string;
-  // the order of these correlation values are always the same, e.g. always BMW first, then Apple...
-  orderedValues: number[];
-};
-
-const categories = [
-  'BMW',
-  'Apple',
-  'J&J',
-  'TUM',
-  'Google',
-  'Dell',
-  'Nestle',
-  'Android',
-  'Faber',
-  'TripAdvisor',
-];
-
 const mockCorr: Correlation = {
   'BMW;Apple': 0.397373186,
   'Apple;TUM': 0.352196405,
@@ -41,46 +22,27 @@ const mappedCorrs: MappedCorrelation[] = Object.keys(mockCorr).map((key) => [
   mockCorr[key],
 ]);
 
-categories.forEach((c) => {
-  const oneMetric: HeatMapMetric = {
-    name: c,
-    orderedValues: categories.map((c2) => {
-      if (c2 === c) return 1;
-      const matchingResults = mappedCorrs.filter(
-        // check if c, c2 (current name and current key of the orderedValue) are the same two values as
-        // in the ordered correlation received from backend => if yes the corresponding correlation value
-        (mc) =>
-          JSON.stringify([c, c2].sort()) ===
-          JSON.stringify(mc.slice(0, 2).sort())
-      );
-      if (matchingResults.length === 1) return matchingResults[0];
-      // in this case there was no match in the data from backend or more than one
-      // TODO proper error handling
-      return -1;
-    }),
-  };
-});
+// neuerplan erstelle ein array von name, data objekten
+// lege reihenfolge fest für data (da immer gleichen firmen damit auf x achse nichts schief geht
+// iteriere durch mapped corrs durch und pushe in das array
 
 // TODO replace with actual api values
 const mockCorrelations = [
   {
     name: 'BMW',
-    data: [
-      {
-        x: 'Apple',
-        y: 0.11,
-      },
-      {
-        x: 'Mercedes',
-        y: 0.9,
-      },
-      {
-        x: 'MCLaren',
-        y: 0.6,
-      },
-    ],
+    data: [1, 5, 6],
+  },
+  {
+    name: 'Audi',
+    data: [4, 5, 9],
+  },
+  {
+    name: 'Mercedes',
+    data: [3, 5, 9],
   },
 ];
+
+const mockCategories = ['BMW', 'Audi', 'Mercedes'];
 
 type HeatmapProps = {
   portfolio: NonEmptyPortfolioDetails;
@@ -107,7 +69,7 @@ const Heatmap: React.FC<HeatmapProps> = ({ portfolio }) => {
       },
     },
     xaxis: {
-      type: 'category',
+      categories: mockCategories,
       labels: {
         style: {
           colors: theme.palette.primary.contrastText,
