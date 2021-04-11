@@ -3,9 +3,8 @@ import ReactApexChart from 'react-apexcharts';
 // import ChartType from 'apexcharts'
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import { timeStamp } from 'node:console';
 
-// TODO  findt type
+// TODO  find type
 // eslint-disable-next-line
 declare let ApexCharts: any;
 
@@ -13,7 +12,7 @@ type StockChartProps = {
   // series array with unix timestamp and value
   series: number[][];
   // used to get more data than 5 years
-  fetchAllPerformaneData?: void;
+  setPerformanceAll?: React.Dispatch<React.SetStateAction<boolean>>;
   buttonBackgroundColor: string;
   buttonTextColor: string;
   axisColor: string;
@@ -22,72 +21,83 @@ type StockChartProps = {
 
 let selection = 'one_year';
 
-const newestTimestamp = (series:number[][]) => series[series.length-1][0]
-const oldestTimestamp = (series:number[][]) => series[0][0]
+const newestTimestamp = (series: number[][]) => series[series.length - 1][0];
+// const oldestTimestamp = (series: number[][]) => series[0][0];
 
-const timestamp1month = (series:number[][]) => {
-  const newest  = newestTimestamp(series)
-  const goal = newest - 2629800000
-  const allTimestamps = series.map(s => s[0])
-
-  // closest timestamp  https://stackoverflow.com/a/19277804
-  const closest = allTimestamps.reduce((prev, curr) => Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev);
-  return closest
-}
-
-const timestamp3months = (series:number[][]) => {
-  const newest  = newestTimestamp(series)
-  const goal = newest - 7889400000
-  const allTimestamps = series.map(s => s[0])
+const timestamp1month = (series: number[][]) => {
+  const newest = newestTimestamp(series);
+  const goal = newest - 2629800000;
+  const allTimestamps = series.map((s) => s[0]);
 
   // closest timestamp  https://stackoverflow.com/a/19277804
-  const closest = allTimestamps.reduce((prev, curr) => Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev);
-  return closest
-}
+  const closest = allTimestamps.reduce((prev, curr) =>
+    Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev
+  );
+  return closest;
+};
 
-const timestamp1year = (series:number[][]) => {
-  const newest  = newestTimestamp(series)
-  const goal = newest - 31556952000
-  const allTimestamps = series.map(s => s[0])
-
-  // closest timestamp  https://stackoverflow.com/a/19277804
-  const closest = allTimestamps.reduce((prev, curr) => Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev);
-  return closest
-}
-
-const timestamp3years = (series:number[][]) => {
-  const newest  = newestTimestamp(series)
-  const goal = newest - 94672800000
-  const allTimestamps = series.map(s => s[0])
+const timestamp3months = (series: number[][]) => {
+  const newest = newestTimestamp(series);
+  const goal = newest - 7889400000;
+  const allTimestamps = series.map((s) => s[0]);
 
   // closest timestamp  https://stackoverflow.com/a/19277804
-  const closest = allTimestamps.reduce((prev, curr) => Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev);
-  return closest
-}
+  const closest = allTimestamps.reduce((prev, curr) =>
+    Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev
+  );
+  return closest;
+};
 
-const timestamp5years = (series:number[][]) => {
-  const newest  = newestTimestamp(series)
-  const goal = newest - 157788000000
-  const allTimestamps = series.map(s => s[0])
-
-  // closest timestamp  https://stackoverflow.com/a/19277804
-  const closest = allTimestamps.reduce((prev, curr) => Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev);
-  return closest
-}
-
-const timestampYTD = (series:number[][]) => {
-  const newest  = newestTimestamp(series)
-  const year = new Date(series[series.length-1][0]).getFullYear()
-  console.log(year)
-  const goal = new Date(`01 Jan ${year}`).getTime()
-  const allTimestamps = series.map(s => s[0])
+const timestamp1year = (series: number[][]) => {
+  const newest = newestTimestamp(series);
+  const goal = newest - 31556952000;
+  const allTimestamps = series.map((s) => s[0]);
 
   // closest timestamp  https://stackoverflow.com/a/19277804
-  const closest = allTimestamps.reduce((prev, curr) => Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev);
-  return closest
-}
+  const closest = allTimestamps.reduce((prev, curr) =>
+    Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev
+  );
+  return closest;
+};
 
-const updateData = (series:number[][], timeline: string) => {
+const timestamp3years = (series: number[][]) => {
+  const newest = newestTimestamp(series);
+  const goal = newest - 94672800000;
+  const allTimestamps = series.map((s) => s[0]);
+
+  // closest timestamp  https://stackoverflow.com/a/19277804
+  const closest = allTimestamps.reduce((prev, curr) =>
+    Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev
+  );
+  return closest;
+};
+
+const timestamp5years = (series: number[][]) => {
+  const newest = newestTimestamp(series);
+  const goal = newest - 157788000000;
+  const allTimestamps = series.map((s) => s[0]);
+
+  // closest timestamp  https://stackoverflow.com/a/19277804
+  const closest = allTimestamps.reduce((prev, curr) =>
+    Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev
+  );
+  return closest;
+};
+
+const timestampYTD = (series: number[][]) => {
+  const newest = newestTimestamp(series);
+  const year = new Date(newest).getFullYear();
+  const goal = new Date(`01 Jan ${year}`).getTime();
+  const allTimestamps = series.map((s) => s[0]);
+
+  // closest timestamp  https://stackoverflow.com/a/19277804
+  const closest = allTimestamps.reduce((prev, curr) =>
+    Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev
+  );
+  return closest;
+};
+
+const updateData = (series: number[][], timeline: string) => {
   selection = timeline;
 
   switch (timeline) {
@@ -115,22 +125,22 @@ const updateData = (series:number[][], timeline: string) => {
         new Date(newestTimestamp(series)).getTime()
       );
       break;
-      case 'three_years':
-        ApexCharts.exec(
-          'area-datetime',
-          'zoomX',
-          new Date(timestamp3years(series)).getTime(),
-          new Date(newestTimestamp(series)).getTime()
-        );
-        break;
-        case 'five_years':
-          ApexCharts.exec(
-            'area-datetime',
-            'zoomX',
-            new Date(timestamp5years(series)).getTime(),
-            new Date(newestTimestamp(series)).getTime()
-          );
-          break;
+    case 'three_years':
+      ApexCharts.exec(
+        'area-datetime',
+        'zoomX',
+        new Date(timestamp3years(series)).getTime(),
+        new Date(newestTimestamp(series)).getTime()
+      );
+      break;
+    case 'five_years':
+      ApexCharts.exec(
+        'area-datetime',
+        'zoomX',
+        new Date(timestamp5years(series)).getTime(),
+        new Date(newestTimestamp(series)).getTime()
+      );
+      break;
     case 'ytd':
       ApexCharts.exec(
         'area-datetime',
@@ -144,7 +154,7 @@ const updateData = (series:number[][], timeline: string) => {
         'area-datetime',
         'zoomX',
         new Date(series[0][0]).getTime(), // oldest date in stock series
-        new Date(newestTimestamp(series)).getTime(), // newest date of stock series
+        new Date(newestTimestamp(series)).getTime() // newest date of stock series
       );
       break;
     default:
@@ -153,7 +163,7 @@ const updateData = (series:number[][], timeline: string) => {
 
 const Datetime: React.FC<StockChartProps> = ({
   series,
-  fetchAllPerformaneData = () => null,
+  setPerformanceAll,
   buttonBackgroundColor,
   buttonTextColor,
   axisColor,
@@ -287,8 +297,10 @@ const Datetime: React.FC<StockChartProps> = ({
             variant="contained"
             style={buttonStyling}
             onClick={() => {
-              fetchAllPerformaneData()
-              updateData(series, 'all')
+              if (setPerformanceAll !== undefined) {
+                setPerformanceAll(true);
+              }
+              updateData(series, 'all');
             }}
             className={selection === 'all' ? 'active' : ''}
           >

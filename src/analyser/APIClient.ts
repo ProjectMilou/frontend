@@ -55,16 +55,14 @@ export type StockDetails = {
 
 // historic performance data
 export type StockHistricPerformanceList = {
-  dataPoints: StockHistricPerformance[]
-}
+  dataPoints: StockHistricPerformance[];
+};
 
 export type StockHistricPerformance = {
   _id: string;
   date: string;
   close: number;
-}
-
-
+};
 
 /**
  * Makes an API call. Resolves to the JSON response if the call is successful,
@@ -88,7 +86,7 @@ async function request(
   additionalHeaders?: HeadersInit
 ): Promise<unknown> {
   // TODO: authentication
-  console.log(`${baseURL}/${url}`)
+  // console.log(`${baseURL}/${url}`);
   const response = await fetch(`${baseURL}/${url}`, {
     method,
     headers: { ...headers, ...additionalHeaders },
