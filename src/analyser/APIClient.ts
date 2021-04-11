@@ -2,7 +2,7 @@
 
 import { AppError } from '../Errors';
 
-export const baseURL = 'https://api.milou.io/stock';
+export const baseURL = 'https://api.milou.io/stocks';
 const headers = { 'Content-Type': 'application/json' };
 
 // Stock type
@@ -148,6 +148,27 @@ export async function stockDetails(
     token,
     'GET',
     `details?id=${symbol}`
+  )) as StockDetails;
+  return response;
+}
+
+// TODO Backend not working yet
+/**
+ * Gets a details over a single stock with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ * @param historic - if true all data will be returned, else only 5 years
+ */
+export async function stockCharts(
+  token: string,
+  symbol: string,
+  historic: boolean
+): Promise<StockDetails> {
+  const response = (await request(
+    token,
+    'GET',
+    `charts/historic?id=${symbol}&max=${historic.toString()}`
   )) as StockDetails;
   return response;
 }
