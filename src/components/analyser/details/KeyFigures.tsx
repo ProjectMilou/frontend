@@ -90,6 +90,7 @@ const KeyFigures: React.FC = () => {
   ];
 
   return (
+    <p>
     <div>
       <div className={classes.titleContainer}>
         <div className={classes.titleWrapper}>
@@ -114,6 +115,7 @@ const KeyFigures: React.FC = () => {
         textColor={theme.palette.secondary.contrastText}
       />
     </div>
+    </p>
   );
 };
 export default KeyFigures;
