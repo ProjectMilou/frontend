@@ -13,6 +13,8 @@ import logo from '../../assets/images/logo1.png';
 import NavLink from './NavLink';
 import Login from '../shell/login/Login';
 import Register from '../shell/register/Register';
+import { UserService } from '../../services/UserService';
+import SearchBar from '../analyser/search/SearchBar';
 import ForgotPassword from '../shell/forgotPassword/ForgotPassword';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -25,12 +27,18 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     button: {
-      margin: theme.spacing(1),
+      margin: theme.spacing(0.5),
+      height: theme.spacing(6),
     },
     dialog: {
       borderRadius: '10px',
       maxWidth: '450px',
-      margin: 'auto',
+      width: '100%',
+      margin: ' 100px auto',
+      height: 'min-content',
+    },
+    paper: {
+      minWidth: '350px',
     },
   })
 );
@@ -40,6 +48,7 @@ const Header: React.FC = () => {
   const [openLogin, setOpenLogin] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
   const [openForgotPassword, setOpenForgotPassword] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(UserService.isLoggedIn());
 
   return (
     <AppBar position="sticky" color="inherit">
@@ -53,58 +62,93 @@ const Header: React.FC = () => {
         <NavLink to="/academy">Academy</NavLink>
         <div className={classes.grow} />
 
-        <Button
-          className={classes.button}
-          variant="outlined"
-          color="primary"
-          onClick={() => setOpenLogin(true)}
-        >
-          Login
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => setOpenRegister(true)}
-        >
-          Register
-        </Button>
-        <Dialog
-          open={openLogin}
-          onClose={() => setOpenLogin(false)}
-          className={classes.dialog}
-        >
-          <Login
-            closePopUp={() => setOpenLogin(false)}
-            openRegisterPopUp={() => {
-              setOpenLogin(false);
-              setOpenRegister(true);
-            }}
-            openForgotPasswordPopUp={() => {
-              setOpenLogin(false);
-              setOpenForgotPassword(true);
-            }}
-          />
-        </Dialog>
-        <Dialog
-          open={openRegister}
-          onClose={() => setOpenRegister(false)}
-          className={classes.dialog}
-        >
-          <Register
-            closePopUp={() => setOpenRegister(false)}
-            openLoginPopUp={() => {
-              setOpenRegister(false);
-              setOpenLogin(true);
-            }}
-          />
-        </Dialog>
-        <Dialog
-          open={openForgotPassword}
-          onClose={() => setOpenForgotPassword(false)}
-          className={classes.dialog}
-        >
-          <ForgotPassword closePopUp={() => setOpenForgotPassword(false)} />
-        </Dialog>
+        <SearchBar />
+        {loggedIn ? (
+          <>
+            <Button
+              className={classes.button}
+              variant="outlined"
+              color="primary"
+              onClick={() => {
+                UserService.logout();
+                setLoggedIn(false);
+              }}
+            >
+              Logout
+            </Button>
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              component={Link}
+              to="/profile"
+            >
+              Profile
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button
+              className={classes.button}
+              variant="outlined"
+              color="primary"
+              onClick={() => setOpenLogin(true)}
+            >
+              Login
+            </Button>
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              onClick={() => setOpenRegister(true)}
+            >
+              Register
+            </Button>
+            <Dialog
+              open={openLogin}
+              onClose={() => setOpenLogin(false)}
+              className={classes.dialog}
+              classes={{ paper: classes.paper }}
+            >
+              <Login
+                closePopUp={() => {
+                  setOpenLogin(false);
+                  setLoggedIn(UserService.isLoggedIn());
+                }}
+                openRegisterPopUp={() => {
+                  setOpenLogin(false);
+                  setOpenRegister(true);
+                }}
+                openForgotPasswordPopUp={() => {
+                  setOpenLogin(false);
+                  setOpenForgotPassword(true);
+                }}
+              />
+            </Dialog>
+            <Dialog
+              open={openRegister}
+              onClose={() => setOpenRegister(false)}
+              className={classes.dialog}
+              classes={{ paper: classes.paper }}
+            >
+              <Register
+                closePopUp={() => setOpenRegister(false)}
+                openLoginPopUp={() => {
+                  setOpenRegister(false);
+                  setOpenLogin(true);
+                }}
+              />
+            </Dialog>
+            <Dialog
+              open={openForgotPassword}
+              onClose={() => setOpenForgotPassword(false)}
+              className={classes.dialog}
+              classes={{ paper: classes.paper }}
+            >
+              <ForgotPassword closePopUp={() => setOpenForgotPassword(false)} />
+            </Dialog>
+          </>
+        )}
       </Toolbar>
     </AppBar>
   );

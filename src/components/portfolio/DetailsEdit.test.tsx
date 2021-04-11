@@ -1,0 +1,41 @@
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { ThemeProvider } from '@material-ui/core/styles';
+import DetailsEdit from './DetailsEdit';
+import { Position } from '../../portfolio/APIClient';
+import { theme } from '../App';
+
+const mockPositions: Position[] = [
+  {
+    stock: {
+      symbol: 'BMW',
+      name: 'BMW',
+      price: 23.25,
+      perf7d: -1,
+      perf1y: 5,
+      country: 'Germany',
+      industry: 'Auto',
+      currency: 'EUR',
+      score: 0.7,
+    },
+    qty: 5,
+    totalReturn: 6.5,
+    totalReturnPercent: 25,
+  },
+];
+
+// TODO: Test the EditDialog component.
+
+describe('Details Edit', () => {
+  test('renders and the buttons work', () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <DetailsEdit positions={mockPositions} edit={jest.fn()} />
+      </ThemeProvider>
+    );
+    const editButton = screen.getByText('portfolio.details.editPortfolio');
+    userEvent.click(editButton);
+    screen.getByText('portfolio.dialog.edit.title');
+  });
+});

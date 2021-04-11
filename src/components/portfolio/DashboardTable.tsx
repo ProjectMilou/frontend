@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  IconButton,
+  Button,
   lighten,
   ListItemText,
   makeStyles,
@@ -12,18 +12,17 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TableSortLabel,
   Theme,
-  Tooltip,
   Typography,
 } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/DeleteForever';
-import DuplicateIcon from '@material-ui/icons/AddToPhotos';
-import EditIcon from '@material-ui/icons/Edit';
 import classNames from 'classnames';
-import * as API from '../../portfolio/APIClient';
-import { PortfolioOverview } from '../../portfolio/APIClient';
-import EuroCurrency from './EuroCurrency';
-import Performance from './Performance';
+import {
+  NonEmptyPortfolioOverview,
+  PortfolioOverview,
+} from '../../portfolio/APIClient';
+import DashboardActions from './DashboardActions';
+import StyledNumberFormat from '../shared/StyledNumberFormat';
 
 const useStyles = makeStyles((theme: Theme) => ({
   action: { display: 'inline-block' },
@@ -39,9 +38,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   disabled: {
     cursor: 'not-allowed',
   },
+  createButton: {
+    marginTop: '25px',
+  },
 }));
 
-export type DashboardTableRowProps = {
+type DashboardTableRowProps = {
   portfolio: PortfolioOverview;
   selectPortfolio: (id: string) => void;
   renamePortfolio: (id: string) => void;
@@ -49,7 +51,7 @@ export type DashboardTableRowProps = {
   deletePortfolio: (id: string) => void;
 };
 
-export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
+const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
   portfolio,
   selectPortfolio,
   renamePortfolio,
@@ -70,7 +72,9 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
       onMouseLeave={() => setHover(false)}
       className={classNames(classes.row, hover && classes.rowHover)}
     >
-      <TableCell align="center">{portfolio.score}</TableCell>
+      <TableCell align="center">
+        {'score' in portfolio && portfolio.score}
+      </TableCell>
       <TableCell align="center" component="th" scope="row">
         <ListItemText
           primary={<Typography color="primary">{portfolio.name}</Typography>}
@@ -86,75 +90,147 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         {portfolio.positionCount}
       </TableCell>
       <TableCell align="center">
-        <EuroCurrency value={portfolio.value} />
+        <StyledNumberFormat
+          value={portfolio.value}
+          suffix="€"
+          size="24"
+          fontWeight={400}
+        />
       </TableCell>
       <TableCell align="center">
-        <Performance value={portfolio.perf7d} />
+        <StyledNumberFormat
+          value={portfolio.perf7d}
+          suffix="%"
+          size="24"
+          fontWeight={400}
+          paintJob
+        />
       </TableCell>
       <TableCell align="center">
-        <Performance value={portfolio.perf1y} />
+        <StyledNumberFormat
+          value={portfolio.perf1y}
+          suffix="%"
+          size="24"
+          fontWeight={400}
+          paintJob
+        />
       </TableCell>
       <TableCell align="center">
-        <Tooltip title={t('portfolio.rename').toString()}>
-          <div className={classes.action}>
-            <IconButton
-              onClick={(e) => {
-                renamePortfolio(portfolio.id);
-                e.stopPropagation();
-              }}
-            >
-              <EditIcon />
-            </IconButton>
-          </div>
-        </Tooltip>
-        <Tooltip title={t('portfolio.duplicate').toString()}>
-          <div className={classes.action}>
-            <IconButton
-              onClick={(e) => {
-                duplicatePortfolio(portfolio.id);
-                e.stopPropagation();
-              }}
-            >
-              <DuplicateIcon />
-            </IconButton>
-          </div>
-        </Tooltip>
-        <Tooltip
-          title={(portfolio.virtual
-            ? t('portfolio.delete')
-            : t('portfolio.deleteReal')
-          ).toString()}
-          // stop click event propagation here because the delete button can be disabled
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div
-            className={classNames(
-              classes.action,
-              !portfolio.virtual && classes.disabled
-            )}
-          >
-            <IconButton
-              disabled={!portfolio.virtual}
-              onClick={() => {
-                deletePortfolio(portfolio.id);
-              }}
-            >
-              <DeleteIcon />
-            </IconButton>
-          </div>
-        </Tooltip>
+        <DashboardActions
+          portfolio={portfolio}
+          renamePortfolio={renamePortfolio}
+          duplicatePortfolio={duplicatePortfolio}
+          deletePortfolio={deletePortfolio}
+        />
       </TableCell>
     </TableRow>
   );
 };
 
+type Order = 'asc' | 'desc';
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+type PortfolioOverviewKeys = KeysOfUnion<PortfolioOverview>;
+
+interface SortableHeadCell {
+  id: PortfolioOverviewKeys;
+  label: string;
+  numeric: boolean;
+}
+
+export type DashboardTableHeadProps = {
+  onRequestSort: (property: PortfolioOverviewKeys) => void;
+  order: Order;
+  orderBy: PortfolioOverviewKeys;
+};
+
+export const DashboardTableHead: React.FC<DashboardTableHeadProps> = ({
+  onRequestSort,
+  order,
+  orderBy,
+}) => {
+  const { t } = useTranslation();
+  const headCells: SortableHeadCell[] = [
+    { id: 'score', numeric: true, label: t('portfolio.score') },
+    { id: 'name', numeric: false, label: t('portfolio.name') },
+    {
+      id: 'positionCount',
+      numeric: true,
+      label: t('portfolio.positionsCount'),
+    },
+    { id: 'value', numeric: true, label: t('portfolio.value') },
+    { id: 'perf7d', numeric: true, label: t('portfolio.7d') },
+    { id: 'perf1y', numeric: true, label: t('portfolio.1y') },
+  ];
+
+  return (
+    <TableHead>
+      <TableRow>
+        {headCells.map((headCell) => (
+          <TableCell
+            align="center"
+            key={headCell.id}
+            sortDirection={orderBy === headCell.id ? order : false}
+          >
+            <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={() => onRequestSort(headCell.id)}
+            >
+              {headCell.label}
+            </TableSortLabel>
+          </TableCell>
+        ))}
+        <TableCell align="center">{t('portfolio.actions')}</TableCell>
+      </TableRow>
+    </TableHead>
+  );
+};
+
 export type DashboardTableProps = {
-  portfolios: API.PortfolioOverview[];
+  portfolios: PortfolioOverview[];
   selectPortfolio: (id: string) => void;
   renamePortfolio: (id: string) => void;
   duplicatePortfolio: (id: string) => void;
   deletePortfolio: (id: string) => void;
+  createPortfolio: () => void;
 };
+
+function comparatorTable<T>(a: T, b: T) {
+  if (a < b) {
+    return -1;
+  }
+  if (a > b) {
+    return 1;
+  }
+  return 0;
+}
+
+function isDefined(obj: Record<string, unknown>, key: string) {
+  return key in obj && obj[key] !== undefined;
+}
+
+function sortPortfolios(
+  portfolios: PortfolioOverview[],
+  orderBy: PortfolioOverviewKeys,
+  order: Order
+) {
+  // portfolios without undefined values in the sorting column
+  const nonUndefined = portfolios.filter((values) =>
+    isDefined(values, orderBy)
+  ) as NonEmptyPortfolioOverview[];
+
+  const sorted =
+    order === 'asc'
+      ? nonUndefined.sort((a, b) => comparatorTable(a[orderBy], b[orderBy]))
+      : nonUndefined.sort((a, b) => comparatorTable(b[orderBy], a[orderBy]));
+
+  // undefined values are always at the end
+  return [
+    ...sorted,
+    ...portfolios.filter((values) => !isDefined(values, orderBy)),
+  ];
+}
 
 const DashboardTable: React.FC<DashboardTableProps> = ({
   portfolios,
@@ -162,40 +238,62 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
   renamePortfolio,
   duplicatePortfolio,
   deletePortfolio,
+  createPortfolio,
 }) => {
+  const [order, setOrder] = React.useState<Order>('desc');
+  const [orderBy, setOrderBy] = React.useState<PortfolioOverviewKeys>('score');
+  const [sortedPortfolios, setSortedPortfolios] = React.useState(() =>
+    sortPortfolios(portfolios, orderBy, order)
+  );
+
+  // only sort portfolios when needed
+  React.useEffect(() => {
+    setSortedPortfolios(sortPortfolios(portfolios, orderBy, order));
+  }, [portfolios, orderBy, order]);
+
+  const classes = useStyles();
   const { t } = useTranslation();
 
+  const handleRequestSort = (property: PortfolioOverviewKeys) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
   // TODO: Improve portfolio score visualization
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">{t('portfolio.score')}</TableCell>
-            <TableCell align="center">{t('portfolio.name')}</TableCell>
-            <TableCell align="center">
-              {t('portfolio.positionsCount')}
-            </TableCell>
-            <TableCell align="center">{t('portfolio.value')}</TableCell>
-            <TableCell align="center">{t('portfolio.7d')}</TableCell>
-            <TableCell align="center">{t('portfolio.1y')}</TableCell>
-            <TableCell align="center">{t('portfolio.actions')}</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {portfolios.map((p) => (
-            <DashboardTableRow
-              portfolio={p}
-              selectPortfolio={selectPortfolio}
-              key={p.id}
-              renamePortfolio={renamePortfolio}
-              duplicatePortfolio={duplicatePortfolio}
-              deletePortfolio={deletePortfolio}
+    <>
+      {!!portfolios.length && (
+        <TableContainer component={Paper}>
+          <Table>
+            <DashboardTableHead
+              onRequestSort={handleRequestSort}
+              order={order}
+              orderBy={orderBy}
             />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+            <TableBody>
+              {sortedPortfolios.map((p) => (
+                <DashboardTableRow
+                  portfolio={p}
+                  selectPortfolio={selectPortfolio}
+                  key={p.id}
+                  renamePortfolio={renamePortfolio}
+                  duplicatePortfolio={duplicatePortfolio}
+                  deletePortfolio={deletePortfolio}
+                />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
+      <Button
+        className={classes.createButton}
+        variant="outlined"
+        color="primary"
+        onClick={() => createPortfolio()}
+      >
+        {t('portfolio.dashboard.createPortfolio')}
+      </Button>
+    </>
   );
 };
 
