@@ -38,20 +38,20 @@ import portfolio from '../assets/images/Portfolio.png';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    media1: {
+    mediaSmall: {
       maxWidth: '480px',
       maxHeight: '396px',
       display: 'auto',
       objectFit: 'scale-down',
       padding: '100px',
     },
-    media2: {
+    mediaLarge: {
       width: '500px',
       height: '732px',
       padding: '50px',
       objectFit: 'scale-down',
     },
-    logos: {
+    logo: {
       maxWidth: '200px',
     },
     icon: {
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: '50px',
       paddingBottom: '50px',
     },
-    typography1: {
+    typographyMain: {
       color: theme.palette.primary.dark,
       fontSize: '24px',
       marginLeft: '120px',
@@ -139,7 +139,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
         <Typography
           variant="body1"
           align="center"
-          className={classes.typography1}
+          className={classes.typographyMain}
         >
           Apps like Trade Republic and other direct brokers make investing
           easier and easier. The stock market is now accessible to everyone.
@@ -156,7 +156,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             image={lernen}
             title="LEARN"
             content="No prior knowledge is necessary for us. Whether you are a professional or a beginner, we will accompany you throughout the entire investment lifecycle and help you to be a successful investor. With our free academy, you can easily build up your knowledge of finances and deepen it."
-            classNameImage={classes.media1}
+            classNameImage={classes.mediaSmall}
             classNameGrid={classes.gridItem}
             type="even"
             titleClass={`${classes.warning} ${classes.title}`}
@@ -165,7 +165,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             image={analyse}
             title="ANALYSIS"
             content="Do you feel ready for your first investment or are you interested in the development of different stocks? Perfect! Our analysis tool helps you to conduct investment research. Regardless of whether you want to invest in stocks or ETFs: Here you will find the most important things clearly and understandably!"
-            classNameImage={classes.media1}
+            classNameImage={classes.mediaSmall}
             classNameGrid={classes.gridItem}
             type="odd"
             titleClass={`${classes.error} ${classes.title}`}
@@ -175,7 +175,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             image={portfolio}
             title="PORTFOLIO"
             content="It is also important to us that you build your portfolio with a good risk-return ratio. Our tool helps you to achieve optimal diversification in order to reduce your risk. In doing so, we are guided by the current scientific standards of portfolio theory."
-            classNameImage={classes.media1}
+            classNameImage={classes.mediaSmall}
             classNameGrid={classes.gridItem}
             type="even"
             titleClass={`${classes.success} ${classes.title}`}
@@ -254,7 +254,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
           justify="space-between"
         >
           <Grid item>
-            <Media image={img2} className={classes.media2} />
+            <Media image={img2} className={classes.mediaLarge} />
           </Grid>
           <Grid
             item
@@ -364,22 +364,22 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
           <Grid container item alignItems="center" justify="center">
             <GridList cols={6} cellHeight={120} spacing={18}>
               <GridListTile>
-                <Media image={img} className={classes.logos} />
+                <Media image={img} className={classes.logo} />
               </GridListTile>
               <GridListTile>
-                <Media image={img1} className={classes.logos} />
+                <Media image={img1} className={classes.logo} />
               </GridListTile>
               <GridListTile>
-                <Media image={img5} className={classes.logos} />
+                <Media image={img5} className={classes.logo} />
               </GridListTile>
               <GridListTile>
-                <Media image={manage} className={classes.logos} />
+                <Media image={manage} className={classes.logo} />
               </GridListTile>
               <GridListTile>
-                <Media image={img4} className={classes.logos} />
+                <Media image={img4} className={classes.logo} />
               </GridListTile>
               <GridListTile>
-                <Media image={img3} className={classes.logos} />
+                <Media image={img3} className={classes.logo} />
               </GridListTile>
             </GridList>
           </Grid>
