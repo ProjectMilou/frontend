@@ -49,6 +49,7 @@ const DetailsMainAnalyst: React.FC<DetailsMainAnalystProps> = ({
   // an object that keeps only the data that is needed to display the analyst bar
   const barData: BarDataType = {};
 
+  // please keep in mind while adding to this section that this calculation happens every re-render
   if (positions) {
     Object.values(positions)
       // sort by total value
