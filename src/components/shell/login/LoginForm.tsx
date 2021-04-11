@@ -16,7 +16,7 @@ import {
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import Divider from '@material-ui/core/Divider';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import LinkButton from '../LinkButton';
 import { UserService } from '../../../services/UserService';
 
@@ -156,8 +156,11 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
       <Divider style={{ margin: '20px 0' }} />
 
       <Typography variant="body1" align="center">
-        {t('shell.message.noAccount')}
-        <LinkButton handleEvent={openRegisterPopUpWindow} />
+        <Trans
+          i18nKey="shell.message.noAccount"
+          t={t}
+          components={[<LinkButton handleEvent={openRegisterPopUpWindow} />]}
+        />
       </Typography>
     </>
   );

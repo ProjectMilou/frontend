@@ -1,6 +1,5 @@
 import { makeStyles } from '@material-ui/core';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
   button: {
@@ -16,15 +15,15 @@ const useStyles = makeStyles({
   },
 });
 
-interface RegisterFailedWindowProps {
+interface LinkButtonProps {
   handleEvent: () => void;
   text?: string;
   style?: React.CSSProperties;
+  children?: React.ReactNode;
 }
 
-const LinkButton: React.FC<RegisterFailedWindowProps> = (props) => {
-  const { handleEvent, text, style } = props;
-  const { t } = useTranslation();
+const LinkButton: React.FC<LinkButtonProps> = (props) => {
+  const { handleEvent, text, style, children } = props;
   const { button } = useStyles();
 
   return (
@@ -39,7 +38,7 @@ const LinkButton: React.FC<RegisterFailedWindowProps> = (props) => {
       }}
       style={style}
     >
-      {text || t('shell.link')}
+      {text || children}
     </button>
   );
 };
