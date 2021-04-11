@@ -39,6 +39,11 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
   const [stockPerformance, setStockPerformance] = React.useState<number[][]>([
     [],
   ]);
+  // eslint-disable-next-line
+  const [
+    companyReports,
+    setCompanyReports,
+  ] = React.useState<API.CompanyReports>();
   const [performanceAll, setPerformanceAll] = React.useState(false);
   const [error, setError] = React.useState<Error | undefined>();
 
@@ -63,12 +68,14 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
       const sO = await API.stockOverview(token, symbol);
       const sD = await API.stockDetails(token, symbol);
       const sP = await API.stockPerformance(token, symbol, false);
+      const cR = await API.companyReports(token, symbol);
 
       if (isMounted.current) {
         setStockOverview(sO);
         setStockDetails(sD);
         // TODO get unix timestamp from backend and reverse array
         setStockPerformance(convertPerformance(sP));
+        setCompanyReports(cR);
       }
     } catch (e) {
       if (isMounted.current) {
@@ -140,7 +147,6 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
       )}
       {stockOverview && stockDetails && (
         <div>
-          <p>{performanceAll.toString()}</p>
           <DetailsHeader back={back} details={stockOverview} />
           <Container className={classes.mainContent}>
             <DetailsOverview

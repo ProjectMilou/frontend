@@ -311,10 +311,12 @@ const Datetime: React.FC<StockChartProps> = ({
         <div id="chart-timeline">
           <ReactApexChart
             options={options}
-            series={[{ 
-              name: "performance",
-              data: series,
-             }]}
+            series={[
+              {
+                name: 'performance',
+                data: series,
+              },
+            ]}
             type="area"
             height={height}
             width="100%"

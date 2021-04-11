@@ -64,6 +64,53 @@ export type StockHistricPerformance = {
   close: number;
 };
 
+export type CompanyReports = {
+  symbol: string;
+  annualReports: CompanyReport[];
+};
+
+export type CompanyReport = {
+  _id: string;
+  fiscalDateEnding: Date;
+  reportedCurrency: string;
+  totalAssets: number;
+  totalCurrentAssets: number;
+  cashAndCashEquivalentsAtCarryingValue: number;
+  cashAndShortTermInvestments: number;
+  inventory: number;
+  currentNetReceivables: number;
+  totalNonCurrentAssets: number;
+  propertyPlantEquipment: number;
+  accumulatedDepreciationAmortizationPPE: number;
+  intangibleAssets: number;
+  intangibleAssetsExcludingGoodwill: number;
+  goodwill: number;
+  investments: number;
+  longTermInvestments: number;
+  shortTermInvestments: number;
+  otherCurrentAssets: number;
+  otherNonCurrrentAssets: number;
+  totalLiabilities: number;
+  totalCurrentLiabilities: number;
+  currentAccountsPayable: number;
+  deferredRevenue: number;
+  currentDebt: number;
+  shortTermDebt: number;
+  totalNonCurrentLiabilities: number;
+  capitalLeaseObligations: number;
+  longTermDebt: number;
+  currentLongTermDebt: number;
+  longTermDebtNoncurrent: number;
+  shortLongTermDebtTotal: number;
+  otherCurrentLiabilities: number;
+  otherNonCurrentLiabilities: number;
+  totalShareholderEquity: number;
+  treasuryStock: number;
+  retainedEarnings: number;
+  commonStock: number;
+  commonStockSharesOutstanding: number;
+};
+
 /**
  * Makes an API call. Resolves to the JSON response if the call is successful,
  * otherwise rejects with an error that has an {@link ErrorCode} as message.
@@ -86,6 +133,7 @@ async function request(
   additionalHeaders?: HeadersInit
 ): Promise<unknown> {
   // TODO: authentication
+
   // console.log(`${baseURL}/${url}`);
   const response = await fetch(`${baseURL}/${url}`, {
     method,
@@ -165,7 +213,7 @@ export async function stockDetails(
 }
 
 /**
- * Gets a details over a single stock with an authenticated user.
+ * Gets stock performance with an authenticated user.
  *
  * @param token - Authentication token
  * @param symbol - Stock Symbol to search for
@@ -181,5 +229,23 @@ export async function stockPerformance(
     'GET',
     `charts/historic?id=${symbol}&max=${historic.toString()}`
   )) as StockHistricPerformanceList;
+  return response;
+}
+
+/**
+ * Gets company reports with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ */
+export async function companyReports(
+  token: string,
+  symbol: string
+): Promise<CompanyReports> {
+  const response = (await request(
+    token,
+    'GET',
+    `balanceSheet?id=${symbol}`
+  )) as CompanyReports;
   return response;
 }
