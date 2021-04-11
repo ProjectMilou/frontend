@@ -90,7 +90,10 @@ const CardComponent: React.FC<CardComponentProps> = ({
   const { t } = useTranslation();
 
   return (
-    <Card className={classes.card}>
+    <Card
+      className={classes.card}
+      onClick={() => portfolioDetails(portfolio.id)}
+    >
       <CardContent className={classes.cardContent}>
         <Typography className={classes.portName}>{portfolio.name}</Typography>
         <Typography color={portfolio.virtual ? 'textSecondary' : 'secondary'}>
@@ -143,11 +146,7 @@ const DashboardCards: React.FC<DashboardCardsProps> = ({
       className={classes.gridList}
     >
       {portfolios.map((p) => (
-        <GridListTile
-          key={p.id}
-          onClick={() => portfolioDetails(p.id)}
-          className={classes.gridListTile}
-        >
+        <GridListTile key={p.id} className={classes.gridListTile}>
           <CardComponent
             key={p.id}
             portfolio={p}
@@ -157,14 +156,14 @@ const DashboardCards: React.FC<DashboardCardsProps> = ({
           />
         </GridListTile>
       ))}
-      <GridListTile
-        className={classes.gridListTile}
-        onClick={() => {
-          createPortfolio();
-        }}
-      >
+      <GridListTile className={classes.gridListTile}>
         <Card
-          className={classNames(classes.blankCard, classes.createPortfolioCard)}
+          className={classNames(
+            classes.card,
+            classes.blankCard,
+            classes.createPortfolioCard
+          )}
+          onClick={() => createPortfolio()}
         >
           <Tooltip title={t('portfolio.dashboard.createPortfolio').toString()}>
             <div>
@@ -175,12 +174,14 @@ const DashboardCards: React.FC<DashboardCardsProps> = ({
           </Tooltip>
         </Card>
       </GridListTile>
-      <GridListTile
-        className={classes.gridListTile}
-        onClick={() => importPortfolio()}
-      >
+      <GridListTile className={classes.gridListTile}>
         <Card
-          className={classNames(classes.blankCard, classes.importPortfolioCard)}
+          className={classNames(
+            classes.card,
+            classes.blankCard,
+            classes.importPortfolioCard
+          )}
+          onClick={() => importPortfolio()}
         >
           <Tooltip title={t('portfolio.dashboard.importPortfolio').toString()}>
             <div>
