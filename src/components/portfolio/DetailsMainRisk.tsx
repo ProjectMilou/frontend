@@ -1,11 +1,18 @@
 import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  createStyles,
+  Theme,
+  useTheme,
+} from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import CheckIcon from '@material-ui/icons/Check';
 import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 import DetailsDonut from './DetailsDonut';
 import { Position, Risk, RiskAnalysis } from '../../portfolio/APIClient';
 import { riskPortions } from '../../portfolio/Risk';
+import StyledNumberFormat from '../shared/StyledNumberFormat';
 
 // stylesheet for the risk analysis section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -14,6 +21,18 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       display: 'flex',
       justifyContent: 'space-between',
       margin: '1rem 0',
+    },
+    sharpeText: {
+      width: 'min-content',
+      margin: '4rem auto',
+      padding: '1rem',
+      color: palette.primary.contrastText,
+      fontSize: '1.5rem',
+      fontWeight: 600,
+      whiteSpace: 'nowrap',
+      borderStyle: 'solid',
+      borderRadius: '0.75rem',
+      borderColor: palette.primary.contrastText,
     },
     riskWrapper: {
       display: 'flex',
@@ -52,8 +71,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     warnings: {
       margin: '0.1rem 0',
       fontSize: '1rem',
-      // TODO: change to theme color
-      color: '#EEF1FB',
+      color: palette.primary.contrastText,
     },
   })
 );
@@ -153,6 +171,7 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
   positions,
 }) => {
   const classes = useStyles();
+  const { palette } = useTheme();
   const { t } = useTranslation();
 
   const countriesRisk = React.useMemo(
@@ -170,30 +189,50 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
     [positions]
   );
 
+  // TODO: use actual sharpe ratio
+  const sharpeRatio = 1;
+
   return (
-    <div className={classes.riskContainer}>
-      <RiskComp
-        risk={risk.countries}
-        title={t('portfolio.details.countries')}
-        // TODO: deal with overflow (too many names)
-        labels={Object.keys(countriesRisk)}
-        portions={Object.values(countriesRisk)}
-      />
-      <RiskComp
-        risk={risk.segments}
-        title={t('portfolio.details.segments')}
-        // TODO: deal with overflow (too many names)
-        labels={Object.keys(segmentsRisk)}
-        portions={Object.values(segmentsRisk)}
-      />
-      <RiskComp
-        risk={risk.currency}
-        title={t('portfolio.details.currency')}
-        // TODO: deal with overflow (too many names)
-        labels={Object.keys(currencyRisk)}
-        portions={Object.values(currencyRisk)}
-      />
-    </div>
+    <>
+      <Typography className={classes.sharpeText}>
+        {t('portfolio.details.sharpe')}
+        <StyledNumberFormat
+          value={sharpeRatio}
+          suffix=""
+          paintJob={
+            // eslint-disable-next-line no-nested-ternary
+            sharpeRatio < 1
+              ? palette.error.main
+              : sharpeRatio < 2
+              ? palette.warning.main
+              : palette.success.main
+          }
+        />
+      </Typography>
+      <div className={classes.riskContainer}>
+        <RiskComp
+          risk={risk.countries}
+          title={t('portfolio.details.countries')}
+          // TODO: deal with overflow (too many names)
+          labels={Object.keys(countriesRisk)}
+          portions={Object.values(countriesRisk)}
+        />
+        <RiskComp
+          risk={risk.segments}
+          title={t('portfolio.details.segments')}
+          // TODO: deal with overflow (too many names)
+          labels={Object.keys(segmentsRisk)}
+          portions={Object.values(segmentsRisk)}
+        />
+        <RiskComp
+          risk={risk.currency}
+          title={t('portfolio.details.currency')}
+          // TODO: deal with overflow (too many names)
+          labels={Object.keys(currencyRisk)}
+          portions={Object.values(currencyRisk)}
+        />
+      </div>
+    </>
   );
 };
 
