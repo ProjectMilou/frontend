@@ -351,7 +351,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
           </Grid>
         </Grid>
       </Box>
-      <Box bgcolor="#0c1a3a" color="white" py={8} px={8}>
+      <Box bgcolor="#0c1a3a" color="white" py={8}>
         <Grid container>
           <Grid item xs container direction="column" alignItems="center">
             <Typography variant="h3">Our supporters</Typography>
