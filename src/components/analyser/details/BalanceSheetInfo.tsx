@@ -61,6 +61,7 @@ const BalanceSheetInfo: React.FC = (
     <div>
       <Chart
         options={options}
+        series={options.series}
       />
 
     </div>
