@@ -13,13 +13,14 @@ import {
 } from '@material-ui/core';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import ImportIcon from '@material-ui/icons/Input';
+import classNames from 'classnames';
 import * as API from '../../portfolio/APIClient';
 import { PortfolioOverview } from '../../portfolio/APIClient';
 import DashboardActions from './DashboardActions';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
 import { importPortfolio, portfolioDetails } from '../../portfolio/Router';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(({ palette }) => ({
   gridList: {
     width: '100%',
     height: 'auto',
@@ -39,6 +40,22 @@ const useStyles = makeStyles(() => ({
     backgroundColor: 'transparent',
     borderStyle: 'dashed',
     borderColor: 'grey',
+  },
+  createPortfolioCard: {
+    '&:hover': {
+      borderColor: palette.primary.main,
+      '& svg': {
+        color: palette.primary.main,
+      },
+    },
+  },
+  importPortfolioCard: {
+    '&:hover': {
+      borderColor: palette.secondary.main,
+      '& svg': {
+        color: palette.secondary.main,
+      },
+    },
   },
   cardContent: {
     display: 'flex',
@@ -146,8 +163,10 @@ const DashboardCards: React.FC<DashboardCardsProps> = ({
           createPortfolio();
         }}
       >
-        <Card className={classes.blankCard}>
-          <Tooltip title={t('portfolio.create').toString()}>
+        <Card
+          className={classNames(classes.blankCard, classes.createPortfolioCard)}
+        >
+          <Tooltip title={t('portfolio.dashboard.createPortfolio').toString()}>
             <div>
               <IconButton>
                 <AddBoxIcon fontSize="large" />
@@ -160,7 +179,9 @@ const DashboardCards: React.FC<DashboardCardsProps> = ({
         className={classes.gridListTile}
         onClick={() => importPortfolio()}
       >
-        <Card className={classes.blankCard}>
+        <Card
+          className={classNames(classes.blankCard, classes.importPortfolioCard)}
+        >
           <Tooltip title={t('portfolio.dashboard.importPortfolio').toString()}>
             <div>
               <IconButton>
