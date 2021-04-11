@@ -151,6 +151,8 @@
   "analyser.details.DividendsHeader": "2.2 Dividends",
   "analyser.details.AnalysisHeader": "2.4 Analysis",
   "analyser.details.BalanceSheetHeader": "2.3 Balance Sheet",
+  "analyser.details.BalanceSheet.Liabilities": "Liabilities + Equities",
+  "analyser.details.BalanceSheet.Assets": "Assets",
   "analyser.details.DividendsHistory": "Dividends History",
   "analyser.details.DividendYield": "Dividend Yield",
   "analyser.details.DividendPayoutRatio": "Dividend Payout Ratio",

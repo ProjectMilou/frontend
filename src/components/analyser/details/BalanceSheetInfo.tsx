@@ -25,7 +25,6 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
     },
     titleContainer: {
       display: 'flex',
-      marginBottom: '2rem',
     },
     titleWrapper: {
       marginRight: '1rem',
@@ -38,6 +37,14 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       fontWeight: 400,
       whiteSpace: 'nowrap',
     },
+    boxTitles:{
+      margin: 0,
+      color: 'primary',
+      // TODO use theme fontsize and weight
+      fontSize: '1.5rem',
+      fontWeight: 400,
+      whiteSpace: 'nowrap',
+    }
   })
   );
 
@@ -45,85 +52,135 @@ const BalanceSheetInfo: React.FC = (
 ) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const seriesLeft = 
+    [
+      {
+        data: [
+          {
+            x: "New Delhi",
+            y: 218,
+          },
+          {
+            x: "Kolkata",
+            y: 149,
+          },
+          {
+            x: "Mumbai",
+            y: 184,
+          },
+          {
+            x: "Ahmedabad",
+            y: 55,
+          },
+          {
+            x: "Bangaluru",
+            y: 84,
+          },
+          {
+            x: "Pune",
+            y: 31,
+          },
+          {
+            x: "Chennai",
+            y: 70,
+          }
+        ],
+      },
+    ]
+
+
+    const seriesRight = 
+    [
+      {
+        data: [
+          {
+            x: "New Delhi",
+            y: 218,
+          },
+          {
+            x: "Kolkata",
+            y: 149,
+          },
+          {
+            x: "Mumbai",
+            y: 184,
+          },
+          {
+            x: "Ahmedabad",
+            y: 55,
+          },
+          {
+            x: "Bangaluru",
+            y: 84,
+          },
+          {
+            x: "Pune",
+            y: 31,
+          },
+          {
+            x: "Chennai",
+            y: 70,
+          }
+        ],
+      },
+    ]
   const options = {
-      series: [
-        {
-          data: [
-            {
-              x: "New Delhi",
-              y: 218,
-            },
-            {
-              x: "Kolkata",
-              y: 149,
-            },
-            {
-              x: "Mumbai",
-              y: 184,
-            },
-            {
-              x: "Ahmedabad",
-              y: 55,
-            },
-            {
-              x: "Bangaluru",
-              y: 84,
-            },
-            {
-              x: "Pune",
-              y: 31,
-            },
-            {
-              x: "Chennai",
-              y: 70,
-            }
-          ],
-        },
-      ],
       legend: {
         show: false
       },
       chart: {
         height: 150,
-        type: 'treemap'
-      },
-      title: {
-        text: 'Basic Treemap'
+        type: 'treemap',
+        toolbar: {
+          show: false,
+        },
       },
   }; 
   
   
   return (
     <p>
-    <div>
       <div className={classes.titleContainer}>
         <div className={classes.titleWrapper}>
           <h2 className={classes.sectionSubTitle}>
-            {t('analyser.details.BalanceSheetHeader')}
+              {t('analyser.details.BalanceSheetHeader')}
           </h2>
         </div>
       </div>
-    <div className={classes.infoContainer}>
-      <div className={classes.MapWrapper}>
-        <Chart
-          options={options}
-          type='treemap'
-          series={options.series}
-          height={350}
-          width={350}
-        />
-     </div>
-     <div className={classes.MapWrapper}> 
-        <Chart
-          options={options}
-          type='treemap'
-          series={options.series}
-          height={350}
-          width={350}
-        />
-        </div>  
-    </div>
-    </div>
+        <div className={classes.infoContainer}>
+          <div className={classes.MapWrapper}>
+          <div className={classes.titleContainer}>
+        <div className={classes.titleWrapper}>
+          <h5 className={classes.boxTitles}>
+              {t('analyser.details.BalanceSheet.Assets')}
+          </h5>
+        </div>
+      </div>
+            <Chart
+              options={options}
+              type='treemap'
+              series={seriesLeft}
+              height={350}
+              width={350}
+            />
+          </div>
+        <div className={classes.MapWrapper}> 
+        <div className={classes.titleContainer}>
+        <div className={classes.titleWrapper}>
+          <h5 className={classes.boxTitles}>
+              {t('analyser.details.BalanceSheet.Liabilities')}
+          </h5>
+        </div>
+      </div>
+          <Chart
+            options={options}
+            type='treemap'
+            series={seriesRight}
+            height={350}
+            width={350}
+           />
+          </div>  
+        </div>
     </p>
   );
 };
