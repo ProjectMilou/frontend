@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import { Grow, makeStyles, Typography } from '@material-ui/core';
+import { createStyles, Grow, makeStyles, Typography } from '@material-ui/core';
 
-const useStyles = makeStyles({
-  iconCheck: {
-    width: '100px',
-    height: '100px',
-    margin: 'auto',
-    color: 'primary',
-    marginTop: '20px',
-    display: 'block',
-  },
-});
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    iconCheck: {
+      width: theme.spacing(10),
+      height: theme.spacing(10),
+      margin: 'auto',
+      color: theme.palette.primary.main,
+      marginTop: theme.spacing(2),
+      display: 'block',
+    },
+  })
+);
 
 interface WelcomeWindowProps {
   closePopUp: () => void;
@@ -26,7 +28,7 @@ const WelcomeWindow: React.FC<WelcomeWindowProps> = (props) => {
   useEffect(() => {
     setTimeout(() => {
       closePopUp();
-    }, 3000);
+    }, 3000000);
   });
 
   const showCheckmark = true;
