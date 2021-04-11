@@ -152,7 +152,6 @@ export async function stockDetails(
   return response;
 }
 
-
 /**
  * Gets a details over a single stock with an authenticated user.
  *
@@ -160,7 +159,7 @@ export async function stockDetails(
  * @param symbol - Stock Symbol to search for
  * @param historic - if true all data will be returned, else only 5 years
  */
- export async function stockCharts(
+export async function stockCharts(
   token: string,
   symbol: string,
   historic: boolean
