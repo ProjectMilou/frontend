@@ -39,8 +39,8 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
   const [stockPerformance, setStockPerformance] = React.useState<number[][]>([
     [],
   ]);
-  // eslint-disable-next-line
   const [
+    // eslint-disable-next-line
     companyReports,
     setCompanyReports,
   ] = React.useState<API.CompanyReports>();
