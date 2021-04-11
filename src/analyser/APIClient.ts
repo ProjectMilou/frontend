@@ -5,6 +5,15 @@ import { AppError } from '../Errors';
 export const baseURL = 'https://api.milou.io/stocks';
 const headers = { 'Content-Type': 'application/json' };
 
+// Filter object
+export type Filters = {
+  [key: string]: string[];
+  country: string[];
+  currency: string[];
+  industry: string[];
+  mc: string[];
+};
+
 // Stock type
 export type Stock = {
   symbol: string;
@@ -44,14 +53,18 @@ export type StockDetails = {
   assenmbly: Date;
 };
 
-// Filter object
-export type Filters = {
-  [key: string]: string[];
-  country: string[];
-  currency: string[];
-  industry: string[];
-  mc: string[];
-};
+// historic performance data
+export type StockHistricPerformanceList = {
+  dataPoints: StockHistricPerformance[]
+}
+
+export type StockHistricPerformance = {
+  _id: string;
+  date: string;
+  close: number;
+}
+
+
 
 /**
  * Makes an API call. Resolves to the JSON response if the call is successful,
@@ -75,6 +88,7 @@ async function request(
   additionalHeaders?: HeadersInit
 ): Promise<unknown> {
   // TODO: authentication
+  console.log(`${baseURL}/${url}`)
   const response = await fetch(`${baseURL}/${url}`, {
     method,
     headers: { ...headers, ...additionalHeaders },
@@ -159,15 +173,15 @@ export async function stockDetails(
  * @param symbol - Stock Symbol to search for
  * @param historic - if true all data will be returned, else only 5 years
  */
-export async function stockCharts(
+export async function stockPerformance(
   token: string,
   symbol: string,
   historic: boolean
-): Promise<StockDetails> {
+): Promise<StockHistricPerformanceList> {
   const response = (await request(
     token,
     'GET',
     `charts/historic?id=${symbol}&max=${historic.toString()}`
-  )) as StockDetails;
+  )) as StockHistricPerformanceList;
   return response;
 }
