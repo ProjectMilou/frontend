@@ -33,6 +33,7 @@
   "portfolio.details.from": "From",
   "portfolio.details.to": "To",
   "portfolio.details.analyst": "Analysts",
+  "portfolio.details.analystSubtext": "Here are the scores of your top 5 positions. Their score is based on professional analysts buy, hold and sell recommendations.",
   "portfolio.details.emptyPortfolio": "This portfolio does not contain any stocks.",
   "portfolio.details.errorMessage": "There has been an error while loading the portfolio details.",
   "portfolio.details.backtesting": "Backtesting",
