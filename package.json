@@ -10,7 +10,9 @@
     "format": "lint-staged",
     "lint": "tsc --noEmit && eslint .",
     "prettier-check": "prettier --check .",
-    "prettier-fix": "prettier --write ."
+    "prettier-fix": "prettier --write .",
+    "postinstall": "patch-package",
+    "heroku-postbuild": "patch-package"
   },
   "dependencies": {
     "@date-io/moment": "^2.10.8",
