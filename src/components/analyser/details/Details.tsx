@@ -173,7 +173,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
             <KeyFigures />
             <Dividends />
             <BalanceSheetInfo companyReports={companyReports}/>
-            <Analysts recommendations={analystRecommendations}/> 
+            <Analysts recommendations={analystRecommendations} overview={stockOverview}/> 
           </Container>
         </div>
       )}
