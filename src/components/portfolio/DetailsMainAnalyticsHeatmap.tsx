@@ -1,23 +1,8 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
-import { createStyles, useTheme, makeStyles } from '@material-ui/core';
+import { useTheme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { Theme } from '@material-ui/core/styles';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
-import StyledNumberFormat from '../shared/StyledNumberFormat';
-
-const useStyles = makeStyles(({ palette }: Theme) =>
-  createStyles({
-    standardDeviationWrapper: {
-      color: palette.primary.contrastText,
-      marginBottom: '2em',
-      fontSize: '1.5em',
-    },
-    standardDeviationValue: {
-      marginLeft: '1em',
-    },
-  })
-);
 
 type MappedCorrelation = [string, string, number];
 
@@ -32,7 +17,10 @@ type HeatmapProps = {
   height: number;
 };
 
-const Heatmap: React.FC<HeatmapProps> = ({ portfolio, height }) => {
+const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
+  portfolio,
+  height,
+}) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -156,30 +144,4 @@ const Heatmap: React.FC<HeatmapProps> = ({ portfolio, height }) => {
   );
 };
 
-type DetailsMainAnalyticsCorrelationsProps = {
-  portfolio: NonEmptyPortfolioDetails;
-};
-
-const DetailsMainAnalyticsCorrelations: React.FC<DetailsMainAnalyticsCorrelationsProps> = ({
-  portfolio,
-}) => {
-  const { t } = useTranslation();
-  const classes = useStyles();
-
-  return (
-    <div>
-      <div className={classes.standardDeviationWrapper}>
-        <span>{t('portfolio.details.analytics.standardDeviation')}</span>
-        <span className={classes.standardDeviationValue}>
-          <StyledNumberFormat
-            value={portfolio.analytics.standardDeviation * 100}
-            suffix="%"
-          />
-        </span>
-      </div>
-      <Heatmap portfolio={portfolio} height={350} />
-    </div>
-  );
-};
-
-export default DetailsMainAnalyticsCorrelations;
+export default DetailsAnalyticsHeatmap;
