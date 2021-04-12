@@ -28,6 +28,9 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 })
 );
 
+
+// Calculates percentage buy/sell/hold
+// multiplied by 1 to prevent issue with string concatenation
 function getPercentage(val: API.AnalystsRecommendation[]): number {
   let percentage = 0;
   if(val.length>0){

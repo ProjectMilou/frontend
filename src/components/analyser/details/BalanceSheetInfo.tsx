@@ -66,27 +66,32 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
             y: companyReports.annualReports[0].cashAndShortTermInvestments,
           },
           {
-            x: "Physical Assets",
-            y: companyReports.annualReports[0].propertyPlantEquipment,
-          },
-          {
             x: "Inventory",
             y: companyReports.annualReports[0].inventory,
-          },
-          {
-            x: "Longterm & Other Assets",
-            y: companyReports.annualReports[0].longTermInvestments
-              +companyReports.annualReports[0].otherCurrentAssets
-              +companyReports.annualReports[0].otherNonCurrrentAssets,
           },
           {
             x: "Receivables",
             y: companyReports.annualReports[0].currentNetReceivables,
           },
           {
+            x: "Physical Assets",
+            y: companyReports.annualReports[0].propertyPlantEquipment,
+          },
+          {
+            x: "Deprecation and Amortisation",
+            y: companyReports.annualReports[0].accumulatedDepreciationAmortizationPPE,
+          },
+          {
             x: "Intangible Assets",
             y: companyReports.annualReports[0].intangibleAssets,
           },
+          {
+            x: "Longterm & Other Assets",
+            y: companyReports.annualReports[0].longTermInvestments*1
+              +companyReports.annualReports[0].otherCurrentAssets*1
+              +companyReports.annualReports[0].otherNonCurrrentAssets*1,
+          },
+          
         ],
       },
     ]
@@ -102,8 +107,8 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
           },
           {
             x: "Other Liabilities",
-            y: companyReports.annualReports[0].otherCurrentLiabilities
-              +companyReports.annualReports[0].otherNonCurrentLiabilities,
+            y: companyReports.annualReports[0].otherCurrentLiabilities*1
+              +companyReports.annualReports[0].otherNonCurrentLiabilities*1,
           },
           {
             x: "Accounts Payable",
@@ -114,8 +119,12 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
             y: companyReports.annualReports[0].deferredRevenue,
           },
           {
-            x: "",
-            y: 0,
+            x: "Capital Lease Obligations",
+            y: companyReports.annualReports[0].capitalLeaseObligations,
+          },
+          {
+            x: "Retained Earnings",
+            y: companyReports.annualReports[0].retainedEarnings,
           },
           {
             x: "",
@@ -142,6 +151,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
         },
       },
       colors: [
+        '#50E2A8',
         '#50E2A8',
         '#50E2A8',
         '#50E2A8',
