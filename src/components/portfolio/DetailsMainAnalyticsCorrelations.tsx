@@ -13,7 +13,7 @@ type MappedCorrelation = [string, string, number];
 type HeatMapSeries = {
   name: string;
   // the order of which number represents which company is always the same
-  orderedValues: number[];
+  data: number[];
 };
 
 type HeatmapProps = {
@@ -41,11 +41,13 @@ const Heatmap: React.FC<HeatmapProps> = ({ portfolio }) => {
   ).map((key) => [key.split(';')[0], key.split(';')[1], correlations[key]]);
 
   // gets unique set of companies displayed in the chart (used as x-axis categories)
-  const chartCategories = new Set(
-    mappedCorrelations
-      .map((mc) => [mc[0], mc[1]])
-      .reduce((arr1, arr2) => arr1.concat(arr2))
-      .sort()
+  const chartCategories = Array.from(
+    new Set(
+      mappedCorrelations
+        .map((mc) => [mc[0], mc[1]])
+        .reduce((arr1, arr2) => arr1.concat(arr2))
+        .sort()
+    )
   );
 
   // will be passed to the chart as series prop
@@ -54,11 +56,11 @@ const Heatmap: React.FC<HeatmapProps> = ({ portfolio }) => {
   chartCategories.forEach((c1) => {
     const currentSeries: HeatMapSeries = {
       name: c1,
-      orderedValues: [],
+      data: [],
     };
     chartCategories.forEach((c2) => {
       // the correlation of a company to itself is 1
-      if (c1 === c2) currentSeries.orderedValues.push(1);
+      if (c1 === c2) currentSeries.data.push(1);
       else {
         // check if c1 + c2 are present as a pair in the mappedCorrelations ignoring order
         // if present push the corresponding correlation value, if no match is found place default value 0
@@ -72,11 +74,13 @@ const Heatmap: React.FC<HeatmapProps> = ({ portfolio }) => {
             // eslint-disable-next-line prefer-destructuring
             valueToPush = mc[2];
         });
-        currentSeries.orderedValues.push(valueToPush);
+        currentSeries.data.push(valueToPush);
       }
     });
     finalSeries.push(currentSeries);
   });
+
+  console.log(finalSeries);
 
   const options = {
     chart: {
@@ -86,7 +90,7 @@ const Heatmap: React.FC<HeatmapProps> = ({ portfolio }) => {
     dataLabels: {
       enabled: false,
     },
-    colors: ['#008FFB'],
+    colors: [theme.palette.lightBlue.main],
     title: {
       text: t('portfolio.details.analytics.correlations.chartTitle'),
       style: {
