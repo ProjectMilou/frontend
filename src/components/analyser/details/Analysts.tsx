@@ -29,7 +29,11 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 );
 
 function getPercentage(val: API.AnalystsRecommendation[]): number {
-  return (val[0].buy*100+val[0].hold*50+val[0].sell*0)/(val[0].buy+val[0].hold+val[0].sell)
+  let percentage = 0;
+  if(val.length>0){
+    percentage = (val[0].buy*100+val[0].hold*50+val[0].sell*0)/(val[0].buy*1+val[0].hold*1+val[0].sell*1)
+  }
+  return percentage
 }
 
 const Analysts: React.FC<AnalystsProps> = ({ recommendations }) => {
