@@ -84,6 +84,36 @@ const Heatmap: React.FC<HeatmapProps> = ({ portfolio, height }) => {
   });
 
   const options = {
+    legend: {
+      labels: {
+        colors: theme.palette.primary.contrastText,
+      },
+    },
+    plotOptions: {
+      heatmap: {
+        shadeIntensity: 0.8,
+        // TODO sadly true does not work as expected, apex bug?
+        reverseNegativeShade: false,
+        colorScale: {
+          ranges: [
+            {
+              from: -1,
+              to: 0,
+              color: theme.palette.error.main,
+              foreColor: theme.palette.primary.main,
+              name: t('portfolio.details.analytics.correlations.negative'),
+            },
+            {
+              from: 0,
+              to: 1,
+              color: theme.palette.success.main,
+              foreColor: theme.palette.primary.main,
+              name: t('portfolio.details.analytics.correlations.positive'),
+            },
+          ],
+        },
+      },
+    },
     chart: {
       type: 'heatmap',
       toolbar: {
@@ -93,7 +123,6 @@ const Heatmap: React.FC<HeatmapProps> = ({ portfolio, height }) => {
     dataLabels: {
       enabled: false,
     },
-    colors: [theme.palette.lightBlue.main],
     title: {
       text: t('portfolio.details.analytics.correlations.chartTitle'),
       style: {

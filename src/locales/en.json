@@ -37,6 +37,8 @@
   "portfolio.details.analytics": "Analytics",
   "portfolio.details.analytics.standardDeviation": "Standard Deviation of the entire portfolio:",
   "portfolio.details.analytics.correlations.chartTitle": "Correlations of your Top 10 Stocks:",
+  "portfolio.details.analytics.correlations.negative": "Negative correlation",
+  "portfolio.details.analytics.correlations.positive": "Positive correlation",
   "portfolio.details.emptyPortfolio": "This portfolio does not contain any stocks.",
   "portfolio.details.errorMessage": "There has been an error while loading the portfolio details.",
   "portfolio.details.backtesting": "Backtesting",

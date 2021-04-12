@@ -256,12 +256,12 @@ type PortfolioStockResponse = PortfolioStock[];
 // TODO: remove this
 
 const MockCorrelations: Correlations = {
-  'BMW;Apple': 1,
-  'Apple;TUM': 2,
-  'Apple;Faber': 3,
-  'TUM;BMW': 4,
-  'BMW;Faber': 5,
-  'Faber;TUM': 6,
+  'BMW;Apple': 0.33,
+  'Apple;TUM': 0.56,
+  'Apple;Faber': 0.55,
+  'TUM;BMW': -0.3,
+  'BMW;Faber': -0.8,
+  'Faber;TUM': 0.1,
 };
 
 const MockAnalytics: Analytics = {
