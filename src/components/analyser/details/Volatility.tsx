@@ -1,9 +1,5 @@
 import React, { ReactElement } from 'react';
-import {
-  makeStyles,
-  Theme,
-  createStyles,
-} from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import ReactApexChart from 'react-apexcharts';
 
@@ -240,43 +236,46 @@ const Volatility: React.FC = () => {
 
   return (
     <div>
-        <div className={classes.chartContainer}>
-          <div className={classes.infoContainer}>
-            <InfoBlock
-              title={t('analyser.details.Volatility.BetaFactor')}
-              body={<p style={{ margin: 0 }}> 0.5 </p>}
-            />
-            <InfoBlock
-              title={t('analyser.details.Volatility.SharpeRatio')}
-              body={<p style={{ margin: 0 }}> 0.5 </p>}
-            />
-            <InfoBlock
-              title={t('analyser.details.Volatility.TreynorRatio')}
-              body={<p style={{ margin: 0 }}> 0.5 </p>}
-            />
-            <div className={classes.infoBody}>
-              <p style={{ paddingLeft: 30 }}>
-                {t('analyser.details.Volatility.CompanyShare')}
-              </p>
-            </div>
-            <div className={classes.infoBody}>
-              <p style={{ margin: 0 }}> 0.5 </p>
-            </div>
+      <div className={classes.chartContainer}>
+        <div className={classes.infoContainer}>
+          <InfoBlock
+            title={t('analyser.details.Volatility.BetaFactor')}
+            body={<p style={{ margin: 0 }}> 0.5 </p>}
+          />
+          <InfoBlock
+            title={t('analyser.details.Volatility.SharpeRatio')}
+            body={<p style={{ margin: 0 }}> 0.5 </p>}
+          />
+          <InfoBlock
+            title={t('analyser.details.Volatility.TreynorRatio')}
+            body={<p style={{ margin: 0 }}> 0.5 </p>}
+          />
+          <div className={classes.infoBody}>
+            <p style={{ paddingLeft: 30 }}>
+              {t('analyser.details.Volatility.CompanyShare')}
+            </p>
           </div>
-          <div className={classes.lineChartWrapper}>
-            <div className={classes.title}>
-              {t('analyser.details.Volatility.VolatilityChart')}
-            </div>
-            <div id="chart-timeline">
-              <ReactApexChart
-                options={options}
-                series={[{ name: 'Volatility', data: volatileSeries }, { name: 'Market', data: marketSeries }]}
-                height={300}
-                width="100%"
-              />
-            </div>
+          <div className={classes.infoBody}>
+            <p style={{ margin: 0 }}> 0.5 </p>
           </div>
         </div>
+        <div className={classes.lineChartWrapper}>
+          <div className={classes.title}>
+            {t('analyser.details.Volatility.VolatilityChart')}
+          </div>
+          <div id="chart-timeline">
+            <ReactApexChart
+              options={options}
+              series={[
+                { name: 'Volatility', data: volatileSeries },
+                { name: 'Market', data: marketSeries },
+              ]}
+              height={300}
+              width="100%"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

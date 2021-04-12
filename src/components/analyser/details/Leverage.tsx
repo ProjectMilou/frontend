@@ -214,34 +214,33 @@ const Leverage: React.FC = () => {
 
   return (
     <div>
-        <div className={classes.chartContainer}>
-
-          <div className={classes.lineChartWrapper}>
-            <div className={classes.title}>
-              {t('analyser.details.Leverage.DebtDevelopment')}
-            </div>
-              <ReactApexChart
-                options={options}
-                series={[{ name: 'Debt', data: debtSeries }]}
-                height={300}
-                width="100%"
-              />
+      <div className={classes.chartContainer}>
+        <div className={classes.lineChartWrapper}>
+          <div className={classes.title}>
+            {t('analyser.details.Leverage.DebtDevelopment')}
           </div>
-          <div className={classes.infoContainer}>
-            <InfoBlock
-              title={t('analyser.details.Leverage.DebtLevel')}
-              body={<p style={{ margin: 0 }}> 0.5 </p>}
-            />
-            <InfoBlock
-              title={t('analyser.details.Leverage.DebtCoverage')}
-              body={<p style={{ margin: 0 }}> 0.5 </p>}
-            />
-            <InfoBlock
-              title={t('analyser.details.Leverage.InterestCoverage')}
-              body={<p style={{ margin: 0 }}> 0.5 </p>}
-            />
-          </div>
+          <ReactApexChart
+            options={options}
+            series={[{ name: 'Debt', data: debtSeries }]}
+            height={300}
+            width="100%"
+          />
         </div>
+        <div className={classes.infoContainer}>
+          <InfoBlock
+            title={t('analyser.details.Leverage.DebtLevel')}
+            body={<p style={{ margin: 0 }}> 0.5 </p>}
+          />
+          <InfoBlock
+            title={t('analyser.details.Leverage.DebtCoverage')}
+            body={<p style={{ margin: 0 }}> 0.5 </p>}
+          />
+          <InfoBlock
+            title={t('analyser.details.Leverage.InterestCoverage')}
+            body={<p style={{ margin: 0 }}> 0.5 </p>}
+          />
+        </div>
+      </div>
     </div>
   );
 };
