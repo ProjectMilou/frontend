@@ -11,12 +11,14 @@ import { isAuthenticationError } from '../../../Errors';
 import * as API from '../../../analyser/APIClient';
 import ErrorMessage from '../../shared/ErrorMessage';
 import DetailsHeader from './DetailsHeader';
-import KeyFigures from './KeyFigures';
 import DetailsOverview from './DetailsOverview';
+import KeyFigures from './KeyFigures';
 import StockChart from '../../shared/StockChart';
 import Dividends from './Dividends';
 import NewsComponent from './NewsComponent';
 import SectionDivider from './SectionDivider';
+import BalanceSheetInfo from './BalanceSheetInfo';
+import Analysts from './Analysts';
 
 // props type declaration
 export interface DetailsProps extends RouteComponentProps {
@@ -46,6 +48,11 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
     companyReports,
     setCompanyReports,
   ] = React.useState<API.CompanyReports>();
+  // eslint-disable-next-line
+  const [analystRecommendations, setAnalystRecommendations] = React.useState<
+    API.AnalystsRecommendation[]
+  >([]);
+
   const [performanceAll, setPerformanceAll] = React.useState(false);
   const [error, setError] = React.useState<Error | undefined>();
 
@@ -72,6 +79,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
       const sD = await API.stockDetails(token, symbol);
       const sP = await API.stockPerformance(token, symbol, false);
       const cR = await API.companyReports(token, symbol);
+      const aR = await API.analystsRecommendations(token, symbol);
 
       if (isMounted.current) {
         setStockOverview(sO);
@@ -100,6 +108,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
         url: "news.com",
         date: "12 April",},
         ])
+        setAnalystRecommendations(aR);
       }
     } catch (e) {
       if (isMounted.current) {
@@ -169,7 +178,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
           />
         </Container>
       )}
-      {stockOverview && stockDetails && newsList && (
+      {stockOverview && stockDetails && newsList && companyReports && analystRecommendations && (
         <div>
           <DetailsHeader back={back} details={stockOverview} />
           <Container className={classes.mainContent}>
@@ -189,6 +198,11 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
             <SectionDivider section='analyser.details.KeyFiguresHeader'/>
             <KeyFigures />
             <Dividends />
+            <BalanceSheetInfo companyReports={companyReports} />
+              <Analysts
+                recommendations={analystRecommendations}
+                overview={stockOverview}
+              />
             
           </Container>
         </div>

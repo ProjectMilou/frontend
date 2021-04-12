@@ -116,6 +116,15 @@ export type News = {
   date: string // TODO change to date
   url: string // Todo change to URL
 }
+export type AnalystsRecommendation = {
+  symbol: string;
+  buy: number;
+  hold: number;
+  sell: number;
+  strategy: string;
+  date: Date;
+  source: URL;
+};
 
 /**
  * Makes an API call. Resolves to the JSON response if the call is successful,
@@ -253,5 +262,23 @@ export async function companyReports(
     'GET',
     `balanceSheet?id=${symbol}`
   )) as CompanyReports;
+  return response;
+}
+
+/**
+ * Gets analysts recommendations with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ */
+export async function analystsRecommendations(
+  token: string,
+  symbol: string
+): Promise<AnalystsRecommendation[]> {
+  const response = (await request(
+    token,
+    'GET',
+    `charts/analysts?id=${symbol}`
+  )) as AnalystsRecommendation[];
   return response;
 }

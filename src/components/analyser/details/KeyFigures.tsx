@@ -7,7 +7,6 @@ import {
 } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import KeyFiguresBar from '../../shared/KeyFiguresBar';
-import SectionDivider from './SectionDivider';
 import SubsectionDivider from './SubsectionDivider';
 
 const useStyles = makeStyles((theme: Theme) =>

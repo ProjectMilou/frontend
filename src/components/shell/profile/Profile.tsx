@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: 0,
     },
     subpaper: {
-      padding: 40,
+      padding: theme.spacing(4),
     },
     label: {
       color: theme.palette.primary.dark,
