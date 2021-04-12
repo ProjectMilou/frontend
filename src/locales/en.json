@@ -35,6 +35,7 @@
   "portfolio.details.analyst": "Analysts",
   "portfolio.details.analystSubtext": "Here are the scores of your top 5 positions. Their score is based on professional analysts buy, hold and sell recommendations.",
   "portfolio.details.analytics": "Analytics",
+  "portfolio.details.analytics.standardDeviation": "Standard Deviation of the entire portfolio:",
   "portfolio.details.analytics.correlations.chartTitle": "Correlations of your Top 10 Stocks:",
   "portfolio.details.emptyPortfolio": "This portfolio does not contain any stocks.",
   "portfolio.details.errorMessage": "There has been an error while loading the portfolio details.",
