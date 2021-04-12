@@ -12,19 +12,19 @@ const DetailsVolatilityGraph: React.FC = () => {
       margin: 'auto',
       'background-color': 'black',
       position: 'relative',
+      display: 'flex',
     },
     lineMiddle: {
-      height: '25px',
-      width: '100px',
-      'background-color': 'orange',
+      height: '20px',
+      width: '3px',
+      'background-color': 'red',
       margin: 'auto',
-      'margin-top': '5%',
     },
     lineMiddleDynamic: {
       position: 'absolute',
       height: '20px',
-      width: '5px',
-      'background-color': 'red',
+      width: '3px',
+      'background-color': 'white',
     },
   });
 
@@ -35,11 +35,41 @@ const DetailsVolatilityGraph: React.FC = () => {
       <Grid container direction="row" justify="center" alignItems="center">
         <HotelIcon />
         <div className={classes.line}>
-          <div className={classes.lineMiddle}>Market Avg</div>
+          <div className={classes.lineMiddle} />
           <div
             className={classes.lineMiddleDynamic}
             style={{
-              left: Math.round((1.0304461557501514 / 2.0) * 1000) / 10,
+              left: `${Math.round((1.0304461557501514 / 2.0) * 1000) / 10}%`,
+            }}
+          />
+          <div
+            className={classes.lineMiddleDynamic}
+            style={{
+              left: `${Math.round((0.5496680733681532 / 2.0) * 1000) / 10}%`,
+            }}
+          />
+          <div
+            className={classes.lineMiddleDynamic}
+            style={{
+              left: `${Math.round((0.5993856976545141 / 2.0) * 1000) / 10}%`,
+            }}
+          />
+          <div
+            className={classes.lineMiddleDynamic}
+            style={{
+              left: `${Math.round((0.5765889119578946 / 2.0) * 1000) / 10}%`,
+            }}
+          />
+          <div
+            className={classes.lineMiddleDynamic}
+            style={{
+              left: `${Math.round((0.7140162113218156 / 2.0) * 1000) / 10}%`,
+            }}
+          />
+          <div
+            className={classes.lineMiddleDynamic}
+            style={{
+              left: `${Math.round((0.6486754881067324 / 2.0) * 1000) / 10}%`,
             }}
           />
         </div>
