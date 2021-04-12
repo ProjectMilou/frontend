@@ -72,6 +72,19 @@ export type KeyFigures = {
   dividendPayoutRatio: number;
 };
 
+export type Correlations = {
+  [key: string]: number;
+};
+
+export type Analytics = {
+  volatility: number;
+  standardDeviation: number;
+  sharpeRatio: number;
+  treynorRatio: number;
+  debtEquity: number;
+  correlations: Correlations;
+};
+
 export type EmptyPortfolioDetails = {
   overview: EmptyPortfolioOverview;
   positions: [];
@@ -86,6 +99,7 @@ export type NonEmptyPortfolioDetails = {
   dividendPayoutRatio: number;
   totalReturn: number;
   totalReturnPercent: number;
+  analytics: Analytics;
 };
 
 export type PortfolioDetails = EmptyPortfolioDetails | NonEmptyPortfolioDetails;
@@ -223,6 +237,7 @@ type NonEmptyDetailsResponse = {
   dividendPayoutRatio: number;
   totalReturn: number;
   totalReturnPercent: number;
+  analytics: Analytics;
 };
 
 type DetailsResponse = EmptyDetailsResponse | NonEmptyDetailsResponse;
@@ -239,6 +254,24 @@ type PortfolioStockResponse = PortfolioStock[];
 
 // mock portfolio while the api is not finished yet (copied from APIMocks.ts).
 // TODO: remove this
+
+const MockCorrelations: Correlations = {
+  'BMW;Apple': 0.33,
+  'Apple;TUM': 0.56,
+  'Apple;Faber': 0.55,
+  'TUM;BMW': -0.3,
+  'BMW;Faber': -0.8,
+  'Faber;TUM': 0.1,
+};
+
+const MockAnalytics: Analytics = {
+  volatility: 1.45,
+  standardDeviation: 0.12,
+  sharpeRatio: 0.45,
+  treynorRatio: 1.2,
+  debtEquity: 0.55,
+  correlations: MockCorrelations,
+};
 
 const mockPortfolio: NonEmptyPortfolioDetails = {
   overview: {
@@ -381,6 +414,7 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
   dividendPayoutRatio: 25,
   totalReturn: 75.43,
   totalReturnPercent: 12.34,
+  analytics: MockAnalytics,
 };
 
 /**
