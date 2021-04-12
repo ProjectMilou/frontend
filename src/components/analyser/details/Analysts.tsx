@@ -3,6 +3,11 @@ import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/sty
 import { useTranslation } from 'react-i18next';
 import AnalystBar from '../../shared/AnalystBar';
 import AnalystBarIndicator from '../../shared/AnalystBarIndicator';
+import * as API from '../../../analyser/APIClient';
+
+export type AnalystsProps = {
+  recommendations: API.AnalystsRecommendation[];
+};
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -23,7 +28,11 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 })
 );
 
-const Analysts: React.FC = () => {
+function getPercentage(val: API.AnalystsRecommendation[]): number {
+  return (val[0].buy*100+val[0].hold*50+val[0].sell*0)/(val[0].buy+val[0].hold+val[0].sell)
+}
+
+const Analysts: React.FC<AnalystsProps> = ({ recommendations }) => {
     const classes = useStyles();
     const { t } = useTranslation();
     const theme = useTheme();
@@ -38,7 +47,7 @@ const Analysts: React.FC = () => {
         </div>
       </div>
       <AnalystBar>
-      <AnalystBarIndicator tooltipText='Buy' score={75} color={theme.palette.primary.main}/>
+      <AnalystBarIndicator tooltipText='Buy' score={getPercentage(recommendations)} color={theme.palette.primary.main}/>
       </AnalystBar>
       </p>
     )

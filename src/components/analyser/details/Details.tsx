@@ -154,7 +154,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
           />
         </Container>
       )}
-      {stockOverview && stockDetails && companyReports &&(
+      {stockOverview && stockDetails && companyReports && analystRecommendations &&(
         <div>
           <DetailsHeader back={back} details={stockOverview} />
           <Container className={classes.mainContent}>
@@ -173,7 +173,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
             <KeyFigures />
             <Dividends />
             <BalanceSheetInfo companyReports={companyReports}/>
-            <Analysts /> 
+            <Analysts recommendations={analystRecommendations}/> 
           </Container>
         </div>
       )}
