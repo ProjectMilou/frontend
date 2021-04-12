@@ -449,6 +449,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
             buttonBackgroundColor={theme.palette.primary.light}
             buttonTextColor={theme.palette.primary.contrastText}
             height={300}
+            chartID="details_summary_chart"
           />
         </div>
       </div>
