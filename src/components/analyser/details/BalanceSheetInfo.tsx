@@ -1,11 +1,11 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles, useTheme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import * as API from '../../../analyser/APIClient';
 
-export type Series = {
-  name: string;
-  data: number[];
+export type BalanceSheetProps = {
+  companyReports: API.CompanyReports;
 };
 
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -52,66 +52,78 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
   );
 
-const BalanceSheetInfo: React.FC = (
-) => {
+const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const seriesLeft = 
+  const theme = useTheme();
+
+  const assets = 
     [
       {
         data: [
           {
             x: "Cash & Short term Investments",
-            y: 218,
+            y: companyReports.annualReports[0].cashAndShortTermInvestments,
           },
           {
             x: "Physical Assets",
-            y: 149,
+            y: companyReports.annualReports[0].propertyPlantEquipment,
           },
           {
             x: "Inventory",
-            y: 84,
+            y: companyReports.annualReports[0].inventory,
           },
           {
             x: "Longterm & Other Assets",
-            y: 31,
+            y: companyReports.annualReports[0].longTermInvestments
+              +companyReports.annualReports[0].otherCurrentAssets
+              +companyReports.annualReports[0].otherNonCurrrentAssets,
           },
           {
             x: "Receivables",
-            y: 70,
-          }
+            y: companyReports.annualReports[0].currentNetReceivables,
+          },
+          {
+            x: "Intangible Assets",
+            y: companyReports.annualReports[0].intangibleAssets,
+          },
         ],
       },
     ]
 
 
-    const seriesRight = 
+    const liabilitiesEquities = 
     [
       {
         data: [
           {
             x: "Equity",
-            y: 218,
+            y: companyReports.annualReports[0].totalShareholderEquity,
           },
           {
             x: "Other Liabilities",
-            y: 149,
+            y: companyReports.annualReports[0].otherCurrentLiabilities
+              +companyReports.annualReports[0].otherNonCurrentLiabilities,
           },
           {
             x: "Accounts Payable",
-            y: 84,
+            y: companyReports.annualReports[0].currentAccountsPayable,
           },
           {
-            x: "Options",
+            x: "Deffered Revenue",
+            y: companyReports.annualReports[0].deferredRevenue,
+          },
+          {
+            x: "",
             y: 0,
           },
           {
-            x: "Options",
+            x: "",
             y: 0,
           },
           {
             x: "Debt",
-            y: 70,
+            y: companyReports.annualReports[0].currentDebt,
           },
           
         ],
@@ -135,12 +147,18 @@ const BalanceSheetInfo: React.FC = (
         '#50E2A8',
         '#50E2A8',
         '#50E2A8',
+        '#50E2A8',
         '#D64745',
       ],
       plotOptions: {
         treemap: {
           distributed: true,
           enableShades: false
+        }
+      },
+      dataLabels: {
+        style: {
+          colors: [theme.palette.primary.main]
         }
       }
   }; 
@@ -166,9 +184,9 @@ const BalanceSheetInfo: React.FC = (
             <Chart
               options={options}
               type='treemap'
-              series={seriesLeft}
+              series={assets}
               height={350}
-              width={350}
+              width={400}
             />
           </div>
         <div className={classes.MapWrapper}> 
@@ -182,9 +200,9 @@ const BalanceSheetInfo: React.FC = (
           <Chart
             options={options}
             type='treemap'
-            series={seriesRight}
+            series={liabilitiesEquities}
             height={350}
-            width={350}
+            width={400}
            />
           </div>  
         </div>
