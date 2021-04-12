@@ -15,6 +15,7 @@ import KeyFigures from './KeyFigures';
 import DetailsOverview from './DetailsOverview';
 import StockChart from '../../shared/StockChart';
 import Dividends from './Dividends';
+import NewsComponent from './NewsComponent';
 
 // props type declaration
 export interface DetailsProps extends RouteComponentProps {
@@ -61,6 +62,16 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
     });
     return unixDataPoints.reverse();
   };
+  const [newsList, setNewsList] = React.useState<API.News[]>([
+    {
+      headline: "this is hot",
+      url: new URL("https://stackoverflow.com"),
+      date: new Date("1 March 2021"),
+    }, 
+    {headline: "this is not",
+    url: new URL("https://stackoverflow.com"),
+    date: new Date("1 April 2021"),}
+    ]);
 
   const fetch = async () => {
     setError(undefined);
@@ -163,6 +174,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
             />
             <KeyFigures />
             <Dividends />
+            <NewsComponent newsList={newsList}/>
           </Container>
         </div>
       )}

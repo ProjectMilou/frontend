@@ -111,6 +111,12 @@ export type CompanyReport = {
   commonStockSharesOutstanding: number;
 };
 
+export type News = {
+  headline: string
+  date: Date
+  url: URL
+}
+
 /**
  * Makes an API call. Resolves to the JSON response if the call is successful,
  * otherwise rejects with an error that has an {@link ErrorCode} as message.
