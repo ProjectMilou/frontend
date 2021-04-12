@@ -87,27 +87,38 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
         // TODO get unix timestamp from backend and reverse array
         setStockPerformance(convertPerformance(sP));
         setCompanyReports(cR);
-        setNewsList([{
-          headline: "this is hot news, gamestonk is very high this week",
-          url: "wallstreet.com",
-          date: "1st April"
-        }, 
-        {headline: "Elon Musk now officially called Master of Coin",
-        url: "news.com",
-        date: "12 April",},
-        {headline: "Elon Musk now officially called Master of Coin",
-        url: "news.com",
-        date: "12 April",},
-        {headline: "Elon Musk now officially called Master of Coin",
-        url: "news.com",
-        date: "12 April",},
-        {headline: "Elon Musk now officially called Master of Coin",
-        url: "news.com",
-        date: "12 April",},
-        {headline: "Elon Musk now officially called Master of Coin",
-        url: "news.com",
-        date: "12 April",},
-        ])
+        setNewsList([
+          {
+            headline: 'this is hot news, gamestonk is very high this week',
+            url: 'wallstreet.com',
+            date: '1st April',
+          },
+          {
+            headline: 'Elon Musk now officially called Master of Coin',
+            url: 'news.com',
+            date: '12 April',
+          },
+          {
+            headline: 'Elon Musk now officially called Master of Coin',
+            url: 'news.com',
+            date: '12 April',
+          },
+          {
+            headline: 'Elon Musk now officially called Master of Coin',
+            url: 'news.com',
+            date: '12 April',
+          },
+          {
+            headline: 'Elon Musk now officially called Master of Coin',
+            url: 'news.com',
+            date: '12 April',
+          },
+          {
+            headline: 'Elon Musk now officially called Master of Coin',
+            url: 'news.com',
+            date: '12 April',
+          },
+        ]);
         setAnalystRecommendations(aR);
       }
     } catch (e) {
@@ -178,35 +189,38 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
           />
         </Container>
       )}
-      {stockOverview && stockDetails && newsList && companyReports && analystRecommendations && (
-        <div>
-          <DetailsHeader back={back} details={stockOverview} />
-          <Container className={classes.mainContent}>
-            <DetailsOverview
-              stockOverview={stockOverview}
-              stockDetails={stockDetails}
-            />
-            <StockChart
-              series={stockPerformance}
-              setPerformanceAll={setPerformanceAll}
-              axisColor={theme.palette.secondary.contrastText}
-              buttonBackgroundColor={theme.palette.primary.main}
-              buttonTextColor={theme.palette.primary.contrastText}
-              height={450}
-            />
-            <NewsComponent newsList={newsList}/>
-            <SectionDivider section='analyser.details.KeyFiguresHeader'/>
-            <KeyFigures />
-            <Dividends />
-            <BalanceSheetInfo companyReports={companyReports} />
+      {stockOverview &&
+        stockDetails &&
+        newsList &&
+        companyReports &&
+        analystRecommendations && (
+          <div>
+            <DetailsHeader back={back} details={stockOverview} />
+            <Container className={classes.mainContent}>
+              <DetailsOverview
+                stockOverview={stockOverview}
+                stockDetails={stockDetails}
+              />
+              <StockChart
+                series={stockPerformance}
+                setPerformanceAll={setPerformanceAll}
+                axisColor={theme.palette.secondary.contrastText}
+                buttonBackgroundColor={theme.palette.primary.main}
+                buttonTextColor={theme.palette.primary.contrastText}
+                height={450}
+              />
+              <NewsComponent newsList={newsList} />
+              <SectionDivider section="analyser.details.KeyFiguresHeader" />
+              <KeyFigures />
+              <Dividends />
+              <BalanceSheetInfo companyReports={companyReports} />
               <Analysts
                 recommendations={analystRecommendations}
                 overview={stockOverview}
               />
-            
-          </Container>
-        </div>
-      )}
+            </Container>
+          </div>
+        )}
     </>
   );
 };

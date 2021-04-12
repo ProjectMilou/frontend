@@ -1,7 +1,6 @@
-import React from 'react'
+import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
     titleContainer: {
       display: 'flex',
       marginBottom: '2rem',
-      marginTop: '2rem'
+      marginTop: '2rem',
     },
     titleWrapper: {
       marginRight: '1rem',
@@ -54,25 +53,24 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type SubsectionDividerProps = {
-    subsection: string
-}
+  subsection: string;
+};
 
-const SubsectionDivider: React.FC<SubsectionDividerProps> = ({subsection}) => {
-    const classes = useStyles();
-    const { t } = useTranslation();
+const SubsectionDivider: React.FC<SubsectionDividerProps> = ({
+  subsection,
+}) => {
+  const classes = useStyles();
+  const { t } = useTranslation();
 
-    return (
-        <>
-        
+  return (
+    <>
       <div className={classes.titleContainer}>
         <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionSubTitle}>
-            {t(subsection)}
-          </h2>
+          <h2 className={classes.sectionSubTitle}>{t(subsection)}</h2>
         </div>
       </div>
-      </>
-    )
-}
+    </>
+  );
+};
 
-export default SubsectionDivider
+export default SubsectionDivider;

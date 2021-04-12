@@ -1,7 +1,6 @@
-import React from 'react'
+import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
     titleContainer: {
       display: 'flex',
       marginBottom: '2rem',
-      marginTop: '2rem'
+      marginTop: '2rem',
     },
     titleWrapper: {
       marginRight: '1rem',
@@ -54,27 +53,25 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type SectionDividerProps = {
-    section: string
-}
+  section: string;
+};
 
-const SectionDivider: React.FC<SectionDividerProps> = ({section}) => {
-    const classes = useStyles();
-    const { t } = useTranslation();
+const SectionDivider: React.FC<SectionDividerProps> = ({ section }) => {
+  const classes = useStyles();
+  const { t } = useTranslation();
 
-    return (
-        <>
-        <div className={classes.titleContainer}>
+  return (
+    <>
+      <div className={classes.titleContainer}>
         <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionTitle}>
-            {t(section)}
-          </h2>
+          <h2 className={classes.sectionTitle}>{t(section)}</h2>
         </div>
         <div className={classes.lineWrapper}>
           <hr className={classes.line} />
         </div>
       </div>
-      </>
-    )
-}
+    </>
+  );
+};
 
-export default SectionDivider
+export default SectionDivider;

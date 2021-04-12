@@ -112,10 +112,10 @@ export type CompanyReport = {
 };
 
 export type News = {
-  headline: string
-  date: string // TODO change to date
-  url: string // Todo change to URL
-}
+  headline: string;
+  date: string; // TODO change to date
+  url: string; // Todo change to URL
+};
 export type AnalystsRecommendation = {
   symbol: string;
   buy: number;
