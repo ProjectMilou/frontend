@@ -405,7 +405,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
             <KeyFigures />
             <Dividends />
             <BalanceSheetInfo />
-            <Analysts />
+            <Analysts /> 
           </Container>
         </div>
       )}

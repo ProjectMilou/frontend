@@ -8,7 +8,7 @@ export type Series = {
   data: number[];
 };
 
-const useStyles = makeStyles(({ palette, typography }: Theme) =>
+const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     infoContainer: {
       display: 'flex',
@@ -31,7 +31,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
     },
     sectionSubTitle: {
       margin: 0,
-      color: 'primary',
+      color: palette.primary.main,
       // TODO use theme fontsize and weight
       fontSize: '2rem',
       fontWeight: 400,
@@ -39,11 +39,15 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
     },
     boxTitles:{
       margin: 0,
-      color: 'primary',
+      color: palette.primary.main,
       // TODO use theme fontsize and weight
       fontSize: '1.5rem',
       fontWeight: 400,
       whiteSpace: 'nowrap',
+    },
+    contentWrapper:{
+      paddingBottom: '2rem',
+      paddingTop: '1rem'
     }
   })
   );
@@ -57,31 +61,23 @@ const BalanceSheetInfo: React.FC = (
       {
         data: [
           {
-            x: "New Delhi",
+            x: "Cash & Short term Investments",
             y: 218,
           },
           {
-            x: "Kolkata",
+            x: "Physical Assets",
             y: 149,
           },
           {
-            x: "Mumbai",
-            y: 184,
-          },
-          {
-            x: "Ahmedabad",
-            y: 55,
-          },
-          {
-            x: "Bangaluru",
+            x: "Inventory",
             y: 84,
           },
           {
-            x: "Pune",
+            x: "Longterm & Other Assets",
             y: 31,
           },
           {
-            x: "Chennai",
+            x: "Receivables",
             y: 70,
           }
         ],
@@ -94,36 +90,34 @@ const BalanceSheetInfo: React.FC = (
       {
         data: [
           {
-            x: "New Delhi",
+            x: "Equity",
             y: 218,
           },
           {
-            x: "Kolkata",
+            x: "Other Liabilities",
             y: 149,
           },
           {
-            x: "Mumbai",
-            y: 184,
-          },
-          {
-            x: "Ahmedabad",
-            y: 55,
-          },
-          {
-            x: "Bangaluru",
+            x: "Accounts Payable",
             y: 84,
           },
           {
-            x: "Pune",
-            y: 31,
+            x: "Options",
+            y: 0,
           },
           {
-            x: "Chennai",
+            x: "Options",
+            y: 0,
+          },
+          {
+            x: "Debt",
             y: 70,
-          }
+          },
+          
         ],
       },
     ]
+
   const options = {
       legend: {
         show: false
@@ -135,11 +129,24 @@ const BalanceSheetInfo: React.FC = (
           show: false,
         },
       },
+      colors: [
+        '#50E2A8',
+        '#50E2A8',
+        '#50E2A8',
+        '#50E2A8',
+        '#50E2A8',
+        '#D64745',
+      ],
+      plotOptions: {
+        treemap: {
+          distributed: true,
+          enableShades: false
+        }
+      }
   }; 
   
-  
   return (
-    <p>
+    <div className={classes.contentWrapper}>
       <div className={classes.titleContainer}>
         <div className={classes.titleWrapper}>
           <h2 className={classes.sectionSubTitle}>
@@ -181,7 +188,7 @@ const BalanceSheetInfo: React.FC = (
            />
           </div>  
         </div>
-    </p>
+    </div>
   );
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 
-const useStyles = makeStyles(({ palette, typography }: Theme) =>
+const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     titleContainer: {
         display: 'flex',
@@ -13,8 +13,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       },
       sectionSubTitle: {
         margin: 0,
-        color: 'primary',
-        // TODO use theme fontsize and weight
+        color: palette.primary.main,
         fontSize: '2rem',
         fontWeight: 400,
         whiteSpace: 'nowrap',
