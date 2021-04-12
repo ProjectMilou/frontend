@@ -21,8 +21,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     iconClear: {
       position: 'absolute',
-      right: '20px',
-      top: '20px',
+      right: theme.spacing(2.5),
+      top: theme.spacing(2.5),
       cursor: 'pointer',
     },
     dialog: {
