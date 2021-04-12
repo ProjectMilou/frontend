@@ -233,7 +233,7 @@ const Datetime: React.FC<StockChartProps> = ({
   };
 
   return (
-    <Box style={{ marginTop: '20px', marginBottom: '80px' }}>
+    <Box style={{ marginTop: '20px' }}>
       <div id="chart">
         <div className="toolbar">
           <Button

@@ -113,8 +113,8 @@ export type CompanyReport = {
 
 export type News = {
   headline: string
-  date: Date
-  url: URL
+  date: string // TODO change to date
+  url: string // Todo change to URL
 }
 
 /**

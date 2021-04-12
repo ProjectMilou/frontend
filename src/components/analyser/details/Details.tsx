@@ -16,6 +16,7 @@ import DetailsOverview from './DetailsOverview';
 import StockChart from '../../shared/StockChart';
 import Dividends from './Dividends';
 import NewsComponent from './NewsComponent';
+import SectionDivider from './SectionDivider';
 
 // props type declaration
 export interface DetailsProps extends RouteComponentProps {
@@ -62,16 +63,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
     });
     return unixDataPoints.reverse();
   };
-  const [newsList, setNewsList] = React.useState<API.News[]>([
-    {
-      headline: "this is hot",
-      url: new URL("https://stackoverflow.com"),
-      date: new Date("1 March 2021"),
-    }, 
-    {headline: "this is not",
-    url: new URL("https://stackoverflow.com"),
-    date: new Date("1 April 2021"),}
-    ]);
+  const [newsList, setNewsList] = React.useState<API.News[]>();
 
   const fetch = async () => {
     setError(undefined);
@@ -87,6 +79,27 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
         // TODO get unix timestamp from backend and reverse array
         setStockPerformance(convertPerformance(sP));
         setCompanyReports(cR);
+        setNewsList([{
+          headline: "this is hot news, gamestonk is very high this week",
+          url: "wallstreet.com",
+          date: "1st April"
+        }, 
+        {headline: "Elon Musk now officially called Master of Coin",
+        url: "news.com",
+        date: "12 April",},
+        {headline: "Elon Musk now officially called Master of Coin",
+        url: "news.com",
+        date: "12 April",},
+        {headline: "Elon Musk now officially called Master of Coin",
+        url: "news.com",
+        date: "12 April",},
+        {headline: "Elon Musk now officially called Master of Coin",
+        url: "news.com",
+        date: "12 April",},
+        {headline: "Elon Musk now officially called Master of Coin",
+        url: "news.com",
+        date: "12 April",},
+        ])
       }
     } catch (e) {
       if (isMounted.current) {
@@ -156,7 +169,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
           />
         </Container>
       )}
-      {stockOverview && stockDetails && (
+      {stockOverview && stockDetails && newsList && (
         <div>
           <DetailsHeader back={back} details={stockOverview} />
           <Container className={classes.mainContent}>
@@ -172,9 +185,11 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
               buttonTextColor={theme.palette.primary.contrastText}
               height={450}
             />
+            <NewsComponent newsList={newsList}/>
+            <SectionDivider section='analyser.details.KeyFiguresHeader'/>
             <KeyFigures />
             <Dividends />
-            <NewsComponent newsList={newsList}/>
+            
           </Container>
         </div>
       )}

@@ -7,6 +7,8 @@ import {
 } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import KeyFiguresBar from '../../shared/KeyFiguresBar';
+import SectionDivider from './SectionDivider';
+import SubsectionDivider from './SubsectionDivider';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -91,23 +93,7 @@ const KeyFigures: React.FC = () => {
 
   return (
     <div>
-      <div className={classes.titleContainer}>
-        <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionTitle}>
-            {t('analyser.details.KeyFiguresHeader')}
-          </h2>
-        </div>
-        <div className={classes.lineWrapper}>
-          <hr className={classes.line} />
-        </div>
-      </div>
-      <div className={classes.titleContainer}>
-        <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionSubTitle}>
-            {t('analyser.details.KeyFiguresHeader.KeyFigures')}
-          </h2>
-        </div>
-      </div>
+      <SubsectionDivider subsection='analyser.details.KeyFiguresHeader.KeyFigures'/>
       <KeyFiguresBar
         chartHeight={350}
         series={mockSeries}

@@ -16,7 +16,7 @@ export type NewsCardProps = {
 
 const useStyles = makeStyles({
     root: {
-        minWidth: 275,
+        width: 275,
       },
       divider: {
         display: 'inline-block',
@@ -29,19 +29,26 @@ const useStyles = makeStyles({
       pos: {
         marginBottom: 12,
       },
+      link: {
+        textDecoration: "None",
+      },
+      card: {
+        margin: 15,
+      }
 });
 
 
 const News: React.FC<NewsCardProps> = ({ news }) => {
   const classes = useStyles();
   const divider = <span className={classes.divider}>|</span>;
-
   const { t } = useTranslation();
+  
   return (
-    <Link to={news.url.toString()}>
+    <div className={classes.card}>
+    <Link to={news.url.toString()} className={classes.link}>
     <Card className={classes.root} variant="outlined">
       <CardContent>
-        <Typography variant="h5" component="h2">
+        <Typography variant="h5" component="h2" className={classes.pos}>
           {t(news.headline)}
         </Typography>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -50,6 +57,7 @@ const News: React.FC<NewsCardProps> = ({ news }) => {
       </CardContent>
     </Card>
     </Link>
+    </div>
   );
 };
 
