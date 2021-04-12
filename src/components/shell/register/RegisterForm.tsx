@@ -176,7 +176,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
                     })
                   }
                 >
-                  {!showPassword.password ? <Visibility /> : <VisibilityOff />}
+                  {showPassword.password ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
             }
