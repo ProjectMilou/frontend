@@ -2,9 +2,10 @@ import React from 'react';
 import Chart from 'react-apexcharts';
 import { useTheme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
-
-type MappedCorrelation = [string, string, number];
+import {
+  Correlations,
+  NonEmptyPortfolioDetails,
+} from '../../portfolio/APIClient';
 
 type HeatMapSeries = {
   name: string;
@@ -17,6 +18,21 @@ type HeatmapProps = {
   height: number;
 };
 
+function lookupCorrelation(
+  symbol1: string,
+  symbol2: string,
+  correlations: Correlations
+) {
+  if (symbol1 === symbol2) return 1;
+  return (
+    // TODO in case the combination is not contained in correlations (faulty api data)
+    //  proper error handling still needs to be done, right now 0 is returned
+    correlations[`${symbol1};${symbol2}`] ||
+    correlations[`${symbol2};${symbol1}`] ||
+    0
+  );
+}
+
 const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
   portfolio,
   height,
@@ -26,53 +42,23 @@ const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
 
   const { correlations } = portfolio.analytics;
 
-  // array of arrays of symbol - symbol - correlation
-  const mappedCorrelations: MappedCorrelation[] = Object.keys(
-    correlations
-  ).map((key) => [key.split(';')[0], key.split(';')[1], correlations[key]]);
-
-  // gets unique set of companies displayed in the chart (used as x-axis categories)
+  // categories for x-axis
   const chartCategories = Array.from(
-    new Set(
-      mappedCorrelations
-        .map((mc) => [mc[0], mc[1]])
-        .reduce((arr1, arr2) => arr1.concat(arr2))
-        .sort()
-    )
-  );
+    new Set(Object.keys(correlations).flatMap((key) => key.split(';')))
+  ).sort();
 
-  // will be passed to the chart as series prop
-  const finalSeries: HeatMapSeries[] = [];
-
-  chartCategories.forEach((c1) => {
-    const currentSeries: HeatMapSeries = {
-      name: c1,
-      data: [],
-    };
-    chartCategories.forEach((c2) => {
-      // the correlation of a company to itself is 1
-      if (c1 === c2) currentSeries.data.push(1);
-      else {
-        /* check if c1 + c2 are present as a pair in the mappedCorrelations ignoring order
-         if present push the corresponding correlation value, if no match is found place default value 0
-         it is mandatory that each series has the same amount and order of ordered values to display a meaningful x-Axis in the chart */
-        let valueToPush = 0;
-        mappedCorrelations.forEach((mc) => {
-          if (
-            JSON.stringify([c1, c2].sort()) ===
-            JSON.stringify(mc.slice(0, 2).sort())
-          )
-            // eslint-disable-next-line prefer-destructuring
-            valueToPush = mc[2];
-        });
-        currentSeries.data.push(valueToPush);
-      }
-    });
-    finalSeries.push(currentSeries);
-  });
+  const series: HeatMapSeries[] = chartCategories.map((symbol1) => ({
+    name: symbol1,
+    data: chartCategories.map((symbol2) =>
+      lookupCorrelation(symbol1, symbol2, correlations)
+    ),
+  }));
 
   const options = {
     legend: {
+      onItemHover: {
+        highlightDataSeries: false,
+      },
       labels: {
         colors: theme.palette.primary.contrastText,
       },
@@ -88,14 +74,12 @@ const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
               from: -1,
               to: 0,
               color: theme.palette.error.main,
-              foreColor: theme.palette.primary.main,
               name: t('portfolio.details.analytics.correlations.negative'),
             },
             {
               from: 0,
               to: 1,
               color: theme.palette.success.main,
-              foreColor: theme.palette.primary.main,
               name: t('portfolio.details.analytics.correlations.positive'),
             },
           ],
@@ -135,12 +119,7 @@ const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
   };
 
   return (
-    <Chart
-      type="heatmap"
-      height={height}
-      series={finalSeries}
-      options={options}
-    />
+    <Chart type="heatmap" height={height} series={series} options={options} />
   );
 };
 
