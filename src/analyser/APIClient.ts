@@ -5,6 +5,15 @@ import { AppError } from '../Errors';
 export const baseURL = 'https://api.milou.io/stocks';
 const headers = { 'Content-Type': 'application/json' };
 
+// Filter object
+export type Filters = {
+  [key: string]: string[];
+  country: string[];
+  currency: string[];
+  industry: string[];
+  mc: string[];
+};
+
 // Stock type
 export type Stock = {
   symbol: string;
@@ -44,13 +53,62 @@ export type StockDetails = {
   assenmbly: Date;
 };
 
-// Filter object
-export type Filters = {
-  [key: string]: string[];
-  country: string[];
-  currency: string[];
-  industry: string[];
-  mc: string[];
+// historic performance data
+export type StockHistricPerformanceList = {
+  dataPoints: StockHistricPerformance[];
+};
+
+export type StockHistricPerformance = {
+  _id: string;
+  date: string;
+  close: number;
+};
+
+export type CompanyReports = {
+  symbol: string;
+  annualReports: CompanyReport[];
+};
+
+export type CompanyReport = {
+  _id: string;
+  fiscalDateEnding: Date;
+  reportedCurrency: string;
+  totalAssets: number;
+  totalCurrentAssets: number;
+  cashAndCashEquivalentsAtCarryingValue: number;
+  cashAndShortTermInvestments: number;
+  inventory: number;
+  currentNetReceivables: number;
+  totalNonCurrentAssets: number;
+  propertyPlantEquipment: number;
+  accumulatedDepreciationAmortizationPPE: number;
+  intangibleAssets: number;
+  intangibleAssetsExcludingGoodwill: number;
+  goodwill: number;
+  investments: number;
+  longTermInvestments: number;
+  shortTermInvestments: number;
+  otherCurrentAssets: number;
+  otherNonCurrrentAssets: number;
+  totalLiabilities: number;
+  totalCurrentLiabilities: number;
+  currentAccountsPayable: number;
+  deferredRevenue: number;
+  currentDebt: number;
+  shortTermDebt: number;
+  totalNonCurrentLiabilities: number;
+  capitalLeaseObligations: number;
+  longTermDebt: number;
+  currentLongTermDebt: number;
+  longTermDebtNoncurrent: number;
+  shortLongTermDebtTotal: number;
+  otherCurrentLiabilities: number;
+  otherNonCurrentLiabilities: number;
+  totalShareholderEquity: number;
+  treasuryStock: number;
+  retainedEarnings: number;
+  commonStock: number;
+  commonStockSharesOutstanding: number;
 };
 
 /**
@@ -75,6 +133,8 @@ async function request(
   additionalHeaders?: HeadersInit
 ): Promise<unknown> {
   // TODO: authentication
+
+  // console.log(`${baseURL}/${url}`);
   const response = await fetch(`${baseURL}/${url}`, {
     method,
     headers: { ...headers, ...additionalHeaders },
@@ -100,7 +160,7 @@ export async function listStocks(
   token: string,
   filters: Filters
 ): Promise<Stock[]> {
-  const base = '/list';
+  const base = 'list';
   let params = '';
   Object.keys(filters).forEach((key) => {
     if (filters[key].length > 0) {
@@ -129,7 +189,7 @@ export async function stockOverview(
   const response = (await request(
     token,
     'GET',
-    `search?id=${symbol}`
+    `overview?id=${symbol}`
   )) as StockList;
   return response.stocks[0] as Stock;
 }
@@ -147,7 +207,45 @@ export async function stockDetails(
   const response = (await request(
     token,
     'GET',
-    `/details/search?id=${symbol}`
+    `details?id=${symbol}`
   )) as StockDetails;
+  return response;
+}
+
+/**
+ * Gets stock performance with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ * @param historic - if true all data will be returned, else only 5 years
+ */
+export async function stockPerformance(
+  token: string,
+  symbol: string,
+  historic: boolean
+): Promise<StockHistricPerformanceList> {
+  const response = (await request(
+    token,
+    'GET',
+    `charts/historic?id=${symbol}&max=${historic.toString()}`
+  )) as StockHistricPerformanceList;
+  return response;
+}
+
+/**
+ * Gets company reports with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ */
+export async function companyReports(
+  token: string,
+  symbol: string
+): Promise<CompanyReports> {
+  const response = (await request(
+    token,
+    'GET',
+    `balanceSheet?id=${symbol}`
+  )) as CompanyReports;
   return response;
 }

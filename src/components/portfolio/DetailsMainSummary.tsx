@@ -4,8 +4,7 @@ import { useTranslation } from 'react-i18next';
 import ValueOverName from './ValueOverName';
 import DetailsDonut from './DetailsDonut';
 import StockChart from '../shared/StockChart';
-import Performance from '../shared/Performance';
-import EuroCurrency from '../shared/EuroCurrency';
+import StyledNumberFormat from '../shared/StyledNumberFormat';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 
 // stylesheet for the Summary section
@@ -373,21 +372,32 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
             {/* 7 day moving average */}
             <ValueOverName
               value={
-                <Performance value={portfolio.overview.perf7d} size="1em" />
+                <StyledNumberFormat
+                  value={portfolio.overview.perf7d}
+                  suffix="%"
+                  paintJob
+                />
               }
               name={t('portfolio.details.day7')}
             />
             {/* 1 year moving average */}
             <ValueOverName
               value={
-                <Performance value={portfolio.overview.perf1y} size="1em" />
+                <StyledNumberFormat
+                  value={portfolio.overview.perf1y}
+                  suffix="%"
+                  paintJob
+                />
               }
               name={t('portfolio.details.year')}
             />
             {/* total value */}
             <ValueOverName
               value={
-                <EuroCurrency value={portfolio.overview.value} size="1em" />
+                <StyledNumberFormat
+                  value={portfolio.overview.value}
+                  suffix="€"
+                />
               }
               name={t('portfolio.details.totalValue')}
             />

@@ -4,13 +4,15 @@ import ReactApexChart from 'react-apexcharts';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
-// TODO  findt type
+// TODO  find type
 // eslint-disable-next-line
 declare let ApexCharts: any;
 
 type StockChartProps = {
   // series array with unix timestamp and value
   series: number[][];
+  // used to get more data than 5 years
+  setPerformanceAll?: React.Dispatch<React.SetStateAction<boolean>>;
   buttonBackgroundColor: string;
   buttonTextColor: string;
   axisColor: string;
@@ -20,7 +22,83 @@ type StockChartProps = {
 
 let selection = 'one_year';
 
-const updateData = (timeline: string, chartID: string) => {
+const newestTimestamp = (series: number[][]) => series[series.length - 1][0];
+// const oldestTimestamp = (series: number[][]) => series[0][0];
+
+const timestamp1month = (series: number[][]) => {
+  const newest = newestTimestamp(series);
+  const goal = newest - 2629800000;
+  const allTimestamps = series.map((s) => s[0]);
+
+  // closest timestamp  https://stackoverflow.com/a/19277804
+  const closest = allTimestamps.reduce((prev, curr) =>
+    Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev
+  );
+  return closest;
+};
+
+const timestamp3months = (series: number[][]) => {
+  const newest = newestTimestamp(series);
+  const goal = newest - 7889400000;
+  const allTimestamps = series.map((s) => s[0]);
+
+  // closest timestamp  https://stackoverflow.com/a/19277804
+  const closest = allTimestamps.reduce((prev, curr) =>
+    Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev
+  );
+  return closest;
+};
+
+const timestamp1year = (series: number[][]) => {
+  const newest = newestTimestamp(series);
+  const goal = newest - 31556952000;
+  const allTimestamps = series.map((s) => s[0]);
+
+  // closest timestamp  https://stackoverflow.com/a/19277804
+  const closest = allTimestamps.reduce((prev, curr) =>
+    Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev
+  );
+  return closest;
+};
+
+const timestamp3years = (series: number[][]) => {
+  const newest = newestTimestamp(series);
+  const goal = newest - 94672800000;
+  const allTimestamps = series.map((s) => s[0]);
+
+  // closest timestamp  https://stackoverflow.com/a/19277804
+  const closest = allTimestamps.reduce((prev, curr) =>
+    Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev
+  );
+  return closest;
+};
+
+const timestamp5years = (series: number[][]) => {
+  const newest = newestTimestamp(series);
+  const goal = newest - 157788000000;
+  const allTimestamps = series.map((s) => s[0]);
+
+  // closest timestamp  https://stackoverflow.com/a/19277804
+  const closest = allTimestamps.reduce((prev, curr) =>
+    Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev
+  );
+  return closest;
+};
+
+const timestampYTD = (series: number[][]) => {
+  const newest = newestTimestamp(series);
+  const year = new Date(newest).getFullYear();
+  const goal = new Date(`01 Jan ${year}`).getTime();
+  const allTimestamps = series.map((s) => s[0]);
+
+  // closest timestamp  https://stackoverflow.com/a/19277804
+  const closest = allTimestamps.reduce((prev, curr) =>
+    Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev
+  );
+  return closest;
+};
+
+const updateData = (series: number[][], timeline: string) => {
   selection = timeline;
 
   switch (timeline) {
@@ -28,40 +106,56 @@ const updateData = (timeline: string, chartID: string) => {
       ApexCharts.exec(
         chartID,
         'zoomX',
-        new Date('28 Jan 2013').getTime(),
-        new Date('27 Feb 2013').getTime()
+        new Date(timestamp1month(series)).getTime(),
+        new Date(newestTimestamp(series)).getTime()
       );
       break;
-    case 'six_months':
+    case 'three_months':
       ApexCharts.exec(
         chartID,
         'zoomX',
-        new Date('27 Sep 2012').getTime(),
-        new Date('27 Feb 2013').getTime()
+        new Date(timestamp3months(series)).getTime(),
+        new Date(newestTimestamp(series)).getTime()
       );
       break;
     case 'one_year':
       ApexCharts.exec(
         chartID,
         'zoomX',
-        new Date('27 Feb 2012').getTime(),
-        new Date('27 Feb 2013').getTime()
+        new Date(timestamp1year(series)).getTime(),
+        new Date(newestTimestamp(series)).getTime()
+      );
+      break;
+    case 'three_years':
+      ApexCharts.exec(
+        'area-datetime',
+        'zoomX',
+        new Date(timestamp3years(series)).getTime(),
+        new Date(newestTimestamp(series)).getTime()
+      );
+      break;
+    case 'five_years':
+      ApexCharts.exec(
+        'area-datetime',
+        'zoomX',
+        new Date(timestamp5years(series)).getTime(),
+        new Date(newestTimestamp(series)).getTime()
       );
       break;
     case 'ytd':
       ApexCharts.exec(
         chartID,
         'zoomX',
-        new Date('01 Jan 2013').getTime(),
-        new Date('27 Feb 2013').getTime()
+        new Date(timestampYTD(series)).getTime(),
+        new Date(newestTimestamp(series)).getTime()
       );
       break;
     case 'all':
       ApexCharts.exec(
         chartID,
         'zoomX',
-        new Date('23 Jan 2012').getTime(),
-        new Date('27 Feb 2013').getTime()
+        new Date(series[0][0]).getTime(), // oldest date in stock series
+        new Date(newestTimestamp(series)).getTime() // newest date of stock series
       );
       break;
     default:
@@ -70,6 +164,7 @@ const updateData = (timeline: string, chartID: string) => {
 
 const Datetime: React.FC<StockChartProps> = ({
   series,
+  setPerformanceAll,
   buttonBackgroundColor,
   buttonTextColor,
   axisColor,
@@ -100,7 +195,7 @@ const Datetime: React.FC<StockChartProps> = ({
     },
     xaxis: {
       type: 'datetime',
-      min: new Date('01 MAR 2012').getTime(),
+      min: new Date(series[0][0]).getTime(),
       tickAmount: 6,
       labels: {
         style: {
@@ -148,7 +243,7 @@ const Datetime: React.FC<StockChartProps> = ({
             id="one_month"
             variant="contained"
             style={buttonStyling}
-            onClick={() => updateData('one_month', chartID)}
+            onClick={() => updateData(series, 'one_month')}
             className={selection === 'one_month' ? 'active' : ''}
           >
             1M
@@ -156,13 +251,13 @@ const Datetime: React.FC<StockChartProps> = ({
           &nbsp;
           <Button
             type="button"
-            id="six_months"
+            id="three_months"
             variant="contained"
             style={buttonStyling}
-            onClick={() => updateData('six_months', chartID)}
+            onClick={() => updateData(series, 'three_months')}
             className={selection === 'six_months' ? 'active' : ''}
           >
-            6M
+            3M
           </Button>
           &nbsp;
           <Button
@@ -170,7 +265,7 @@ const Datetime: React.FC<StockChartProps> = ({
             id="one_year"
             variant="contained"
             style={buttonStyling}
-            onClick={() => updateData('one_year', chartID)}
+            onClick={() => updateData(series, 'one_year')}
             className={selection === 'one_year' ? 'active' : ''}
           >
             1Y
@@ -178,10 +273,21 @@ const Datetime: React.FC<StockChartProps> = ({
           &nbsp;
           <Button
             type="button"
+            id="five_years"
+            variant="contained"
+            style={buttonStyling}
+            onClick={() => updateData(series, 'five_years')}
+            className={selection === 'one_year' ? 'active' : ''}
+          >
+            5Y
+          </Button>
+          &nbsp;
+          <Button
+            type="button"
             id="ytd"
             variant="contained"
             style={buttonStyling}
-            onClick={() => updateData('ytd', chartID)}
+            onClick={() => updateData(series, 'ytd')}
             className={selection === 'ytd' ? 'active' : ''}
           >
             YTD
@@ -192,7 +298,12 @@ const Datetime: React.FC<StockChartProps> = ({
             id="all"
             variant="contained"
             style={buttonStyling}
-            onClick={() => updateData('all', chartID)}
+            onClick={() => {
+              if (setPerformanceAll !== undefined) {
+                setPerformanceAll(true);
+              }
+              updateData(series, 'all');
+            }}
             className={selection === 'all' ? 'active' : ''}
           >
             ALL
@@ -202,7 +313,12 @@ const Datetime: React.FC<StockChartProps> = ({
         <div id="chart-timeline">
           <ReactApexChart
             options={options}
-            series={[{ data: series }]}
+            series={[
+              {
+                name: 'performance',
+                data: series,
+              },
+            ]}
             type="area"
             height={height}
             width="100%"
