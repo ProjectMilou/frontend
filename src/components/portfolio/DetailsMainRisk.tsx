@@ -8,6 +8,7 @@ import {
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import CheckIcon from '@material-ui/icons/Check';
+import WarningIcon from '@material-ui/icons/Warning';
 import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 import DetailsDonut from './DetailsDonut';
 import { Position, Risk, RiskAnalysis } from '../../portfolio/APIClient';
@@ -68,6 +69,10 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       fontWeight: 600,
       color: palette.primary.contrastText,
     },
+    icon: {
+      width: '100%',
+      height: '100%',
+    },
     warnings: {
       margin: '0.1rem 0',
       fontSize: '1rem',
@@ -79,6 +84,8 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 // type declarations
 type RiskCompProps = {
   risk: Risk;
+  // a score determined by the parent component: 0 - bad | 1 - ok |  2 - good
+  score: number;
   title: string;
   labels: string[];
   portions: number[];
@@ -92,33 +99,46 @@ type DetailsMainRiskProps = {
 // A component consisting of the title, chart and warnings of a given risk type
 const RiskComp: React.FC<RiskCompProps> = ({
   risk,
+  score,
   title,
   labels,
   portions,
 }) => {
   const classes = useStyles();
+  const theme = useTheme();
   const { t } = useTranslation();
 
-  // TODO: no hard coded colors
-  // TODO: update range to fit data from analytics
   // convert a score to a color
-  function convertScoreToColor(val: number): string {
-    return val < 0.5 ? '#D64745' : '#50E2A8';
-  }
+  const scoreColor =
+    // eslint-disable-next-line no-nested-ternary
+    score === 0
+      ? theme.palette.error.main
+      : score === 1
+      ? theme.palette.warning.main
+      : theme.palette.success.main;
 
-  function convertScoreToIcon(val: number): React.ReactElement {
-    const iconStyle = {
-      color: convertScoreToColor(val),
-      width: '100%',
-      height: '100%',
-    };
-
-    return val < 0.5 ? (
-      <PriorityHighIcon style={iconStyle} aria-label="exclamationMark" />
+  // convert a score to an icon
+  const scoreIcon =
+    // eslint-disable-next-line no-nested-ternary
+    score === 0 ? (
+      <PriorityHighIcon
+        style={{ color: theme.palette.error.main }}
+        className={classes.icon}
+        aria-label="exclamationIcon"
+      />
+    ) : score === 1 ? (
+      <WarningIcon
+        style={{ color: theme.palette.warning.main }}
+        className={classes.icon}
+        aria-label="waringIcon"
+      />
     ) : (
-      <CheckIcon style={iconStyle} aria-label="checkMark" />
+      <CheckIcon
+        style={{ color: theme.palette.success.main }}
+        className={classes.icon}
+        aria-label="checkIcon"
+      />
     );
-  }
 
   return (
     <div className={classes.riskWrapper}>
@@ -140,13 +160,9 @@ const RiskComp: React.FC<RiskCompProps> = ({
       <div>
         {/* icon + number + title */}
         <div className={classes.statContainer}>
-          <div className={classes.iconWrapper}>
-            {convertScoreToIcon(risk.score)}
-          </div>
+          <div className={classes.iconWrapper}>{scoreIcon}</div>
           <div className={classes.countWrapper}>
-            <div style={{ color: convertScoreToColor(risk.score) }}>
-              {risk.count}
-            </div>
+            <div style={{ color: scoreColor }}>{risk.count}</div>
           </div>
           <div className={classes.subtitleWrapper}>
             <p>{title}</p>
@@ -216,20 +232,32 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
           // TODO: deal with overflow (too many names)
           labels={Object.keys(countriesRisk)}
           portions={Object.values(countriesRisk)}
+          score={
+            // eslint-disable-next-line no-nested-ternary
+            risk.countries.count < 3 ? 0 : risk.countries.count < 5 ? 1 : 2
+          }
         />
         <RiskComp
           risk={risk.segments}
-          title={t('portfolio.details.segments')}
+          title={t('portfolio.details.industries')}
           // TODO: deal with overflow (too many names)
           labels={Object.keys(segmentsRisk)}
           portions={Object.values(segmentsRisk)}
+          score={
+            // eslint-disable-next-line no-nested-ternary
+            risk.segments.count < 5 ? 0 : risk.segments.count < 9 ? 1 : 2
+          }
         />
         <RiskComp
           risk={risk.currency}
-          title={t('portfolio.details.currency')}
+          title={t('portfolio.details.currencies')}
           // TODO: deal with overflow (too many names)
           labels={Object.keys(currencyRisk)}
           portions={Object.values(currencyRisk)}
+          score={
+            // eslint-disable-next-line no-nested-ternary
+            risk.currency.count < 3 ? 0 : risk.currency.count < 5 ? 1 : 2
+          }
         />
       </div>
     </>
