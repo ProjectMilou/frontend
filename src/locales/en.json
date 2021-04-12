@@ -95,6 +95,7 @@
   "portfolio.dashboard.view.table": "Table view",
   "portfolio.dashboard.view.cards": "Cards view",
   "portfolio.dashboard.createPortfolio": "Create New Portfolio",
+  "portfolio.dashboard.importPortfolio": "Import Portfolio",
   "portfolio.dashboard.noPortfolios": "You don't have any portfolios. To get started, create a new virtual portfolio or import an existing portfolio.",
   "portfolio.score": "Score",
   "portfolio.name": "Name",
