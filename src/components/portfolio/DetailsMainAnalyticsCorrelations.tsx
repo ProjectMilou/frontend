@@ -4,10 +4,6 @@ import { useTheme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 
-type Correlations = {
-  [key: string]: number;
-};
-
 type MappedCorrelation = [string, string, number];
 
 type HeatMapSeries = {
@@ -21,20 +17,11 @@ type HeatmapProps = {
   height: number;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Heatmap: React.FC<HeatmapProps> = ({ portfolio, height }) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
-  // TODO replace with correlations from props when api is available
-  const correlations: Correlations = {
-    'BMW;Apple': 1,
-    'Apple;TUM': 2,
-    'Apple;Faber': 3,
-    'TUM;BMW': 4,
-    'BMW;Faber': 5,
-    'Faber;TUM': 6,
-  };
+  const { correlations } = portfolio.analytics;
 
   // array of arrays of symbol - symbol - correlation
   const mappedCorrelations: MappedCorrelation[] = Object.keys(
