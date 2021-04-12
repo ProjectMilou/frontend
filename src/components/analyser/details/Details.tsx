@@ -161,7 +161,6 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
               buttonBackgroundColor={theme.palette.primary.main}
               buttonTextColor={theme.palette.primary.contrastText}
               height={450}
-              chartID="stock_chart"
             />
             <KeyFigures />
             <Dividends />

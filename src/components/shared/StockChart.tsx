@@ -17,7 +17,6 @@ type StockChartProps = {
   buttonTextColor: string;
   axisColor: string;
   height: number;
-  chartID: string;
 };
 
 let selection = 'one_year';
@@ -104,7 +103,7 @@ const updateData = (series: number[][], timeline: string) => {
   switch (timeline) {
     case 'one_month':
       ApexCharts.exec(
-        chartID,
+        'area-datetime',
         'zoomX',
         new Date(timestamp1month(series)).getTime(),
         new Date(newestTimestamp(series)).getTime()
@@ -112,7 +111,7 @@ const updateData = (series: number[][], timeline: string) => {
       break;
     case 'three_months':
       ApexCharts.exec(
-        chartID,
+        'area-datetime',
         'zoomX',
         new Date(timestamp3months(series)).getTime(),
         new Date(newestTimestamp(series)).getTime()
@@ -120,7 +119,7 @@ const updateData = (series: number[][], timeline: string) => {
       break;
     case 'one_year':
       ApexCharts.exec(
-        chartID,
+        'area-datetime',
         'zoomX',
         new Date(timestamp1year(series)).getTime(),
         new Date(newestTimestamp(series)).getTime()
@@ -144,7 +143,7 @@ const updateData = (series: number[][], timeline: string) => {
       break;
     case 'ytd':
       ApexCharts.exec(
-        chartID,
+        'area-datetime',
         'zoomX',
         new Date(timestampYTD(series)).getTime(),
         new Date(newestTimestamp(series)).getTime()
@@ -152,7 +151,7 @@ const updateData = (series: number[][], timeline: string) => {
       break;
     case 'all':
       ApexCharts.exec(
-        chartID,
+        'area-datetime',
         'zoomX',
         new Date(series[0][0]).getTime(), // oldest date in stock series
         new Date(newestTimestamp(series)).getTime() // newest date of stock series
@@ -169,12 +168,11 @@ const Datetime: React.FC<StockChartProps> = ({
   buttonTextColor,
   axisColor,
   height,
-  chartID,
 }) => {
   const options = {
     colors: ['#4392F1'],
     chart: {
-      id: chartID,
+      id: 'area-datetime',
       type: 'area',
       height: 350,
       zoom: {
