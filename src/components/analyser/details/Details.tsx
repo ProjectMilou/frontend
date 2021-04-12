@@ -154,29 +154,35 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
           />
         </Container>
       )}
-      {stockOverview && stockDetails && companyReports && analystRecommendations &&(
-        <div>
-          <DetailsHeader back={back} details={stockOverview} />
-          <Container className={classes.mainContent}>
-            <DetailsOverview
-              stockOverview={stockOverview}
-              stockDetails={stockDetails}
-            />
-            <StockChart
-              series={stockPerformance}
-              setPerformanceAll={setPerformanceAll}
-              axisColor={theme.palette.secondary.contrastText}
-              buttonBackgroundColor={theme.palette.primary.main}
-              buttonTextColor={theme.palette.primary.contrastText}
-              height={450}
-            />
-            <KeyFigures />
-            <Dividends />
-            <BalanceSheetInfo companyReports={companyReports}/>
-            <Analysts recommendations={analystRecommendations} overview={stockOverview}/> 
-          </Container>
-        </div>
-      )}
+      {stockOverview &&
+        stockDetails &&
+        companyReports &&
+        analystRecommendations && (
+          <div>
+            <DetailsHeader back={back} details={stockOverview} />
+            <Container className={classes.mainContent}>
+              <DetailsOverview
+                stockOverview={stockOverview}
+                stockDetails={stockDetails}
+              />
+              <StockChart
+                series={stockPerformance}
+                setPerformanceAll={setPerformanceAll}
+                axisColor={theme.palette.secondary.contrastText}
+                buttonBackgroundColor={theme.palette.primary.main}
+                buttonTextColor={theme.palette.primary.contrastText}
+                height={450}
+              />
+              <KeyFigures />
+              <Dividends />
+              <BalanceSheetInfo companyReports={companyReports} />
+              <Analysts
+                recommendations={analystRecommendations}
+                overview={stockOverview}
+              />
+            </Container>
+          </div>
+        )}
     </>
   );
 };
