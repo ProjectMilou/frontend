@@ -18,14 +18,15 @@ type HeatMapSeries = {
 
 type HeatmapProps = {
   portfolio: NonEmptyPortfolioDetails;
+  height: number;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const Heatmap: React.FC<HeatmapProps> = ({ portfolio }) => {
+const Heatmap: React.FC<HeatmapProps> = ({ portfolio, height }) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
-  // TODO replace with correlations from props (rework of API client necessary
+  // TODO replace with correlations from props when api is available
   const correlations: Correlations = {
     'BMW;Apple': 1,
     'Apple;TUM': 2,
@@ -62,9 +63,9 @@ const Heatmap: React.FC<HeatmapProps> = ({ portfolio }) => {
       // the correlation of a company to itself is 1
       if (c1 === c2) currentSeries.data.push(1);
       else {
-        // check if c1 + c2 are present as a pair in the mappedCorrelations ignoring order
-        // if present push the corresponding correlation value, if no match is found place default value 0
-        // it is mandatory that each series has the same amount and order of ordered values to display a meaningful x-Axis in the cahrt
+        /* check if c1 + c2 are present as a pair in the mappedCorrelations ignoring order
+         if present push the corresponding correlation value, if no match is found place default value 0
+         it is mandatory that each series has the same amount and order of ordered values to display a meaningful x-Axis in the chart */
         let valueToPush = 0;
         mappedCorrelations.forEach((mc) => {
           if (
@@ -80,11 +81,8 @@ const Heatmap: React.FC<HeatmapProps> = ({ portfolio }) => {
     finalSeries.push(currentSeries);
   });
 
-  console.log(finalSeries);
-
   const options = {
     chart: {
-      height: 350,
       type: 'heatmap',
     },
     dataLabels: {
@@ -115,7 +113,12 @@ const Heatmap: React.FC<HeatmapProps> = ({ portfolio }) => {
   };
 
   return (
-    <Chart type="heatmap" height={350} series={finalSeries} options={options} />
+    <Chart
+      type="heatmap"
+      height={height}
+      series={finalSeries}
+      options={options}
+    />
   );
 };
 
@@ -125,6 +128,6 @@ type DetailsMainAnalyticsCorrelationsProps = {
 
 const DetailsMainAnalyticsCorrelations: React.FC<DetailsMainAnalyticsCorrelationsProps> = ({
   portfolio,
-}) => <Heatmap portfolio={portfolio} />;
+}) => <Heatmap portfolio={portfolio} height={350} />;
 
 export default DetailsMainAnalyticsCorrelations;
