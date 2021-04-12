@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import FlashOnIcon from '@material-ui/icons/FlashOn';
 import HotelIcon from '@material-ui/icons/Hotel';
 import Grid from '@material-ui/core/Grid';
+import VolatilityLineEntry from './VolatilityLineEntry';
 
 const DetailsVolatilityGraph: React.FC = () => {
   const useStyles = makeStyles({
@@ -36,42 +37,12 @@ const DetailsVolatilityGraph: React.FC = () => {
         <HotelIcon />
         <div className={classes.line}>
           <div className={classes.lineMiddle} />
-          <div
-            className={classes.lineMiddleDynamic}
-            style={{
-              left: `${Math.round((1.0304461557501514 / 2.0) * 1000) / 10}%`,
-            }}
-          />
-          <div
-            className={classes.lineMiddleDynamic}
-            style={{
-              left: `${Math.round((0.5496680733681532 / 2.0) * 1000) / 10}%`,
-            }}
-          />
-          <div
-            className={classes.lineMiddleDynamic}
-            style={{
-              left: `${Math.round((0.5993856976545141 / 2.0) * 1000) / 10}%`,
-            }}
-          />
-          <div
-            className={classes.lineMiddleDynamic}
-            style={{
-              left: `${Math.round((0.5765889119578946 / 2.0) * 1000) / 10}%`,
-            }}
-          />
-          <div
-            className={classes.lineMiddleDynamic}
-            style={{
-              left: `${Math.round((0.7140162113218156 / 2.0) * 1000) / 10}%`,
-            }}
-          />
-          <div
-            className={classes.lineMiddleDynamic}
-            style={{
-              left: `${Math.round((0.6486754881067324 / 2.0) * 1000) / 10}%`,
-            }}
-          />
+          <VolatilityLineEntry volatilityValue={1.0304461557501514} />
+          <VolatilityLineEntry volatilityValue={0.5496680733681532} />
+          <VolatilityLineEntry volatilityValue={0.5993856976545141} />
+          <VolatilityLineEntry volatilityValue={0.5765889119578946} />
+          <VolatilityLineEntry volatilityValue={0.7140162113218156} />
+          <VolatilityLineEntry volatilityValue={0.6486754881067324} />
         </div>
         <FlashOnIcon />
       </Grid>
