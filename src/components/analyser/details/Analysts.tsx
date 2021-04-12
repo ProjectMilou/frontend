@@ -1,6 +1,8 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import AnalystBar from '../../shared/AnalystBar';
+import AnalystBarIndicator from '../../shared/AnalystBarIndicator';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -24,6 +26,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 const Analysts: React.FC = () => {
     const classes = useStyles();
     const { t } = useTranslation();
+    const theme = useTheme();
 
     return(
         <p>
@@ -34,6 +37,9 @@ const Analysts: React.FC = () => {
           </h2>
         </div>
       </div>
+      <AnalystBar>
+      <AnalystBarIndicator tooltipText='Buy' score={75} color={theme.palette.primary.main}/>
+      </AnalystBar>
       </p>
     )
 }
