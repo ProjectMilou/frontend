@@ -6,6 +6,7 @@ import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
 import DetailsAnalyticsHeatmap from './DetailsMainAnalyticsHeatmap';
 import DetailsAnalyticsDebtEquityBar from './DetailsAnalyticsDebtEquityBar';
+import DetailsVolatilityGraph from './DetailsVolatilityGraph';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -53,6 +54,16 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
         </span>
       </div>
       <DetailsAnalyticsDebtEquityBar portfolio={portfolio} height={350} />
+      <div className={classes.titleWrapper}>
+        {t('portfolio.details.analytics.volatility.total')}
+        <div className={classes.value}>
+          {Math.round(portfolio.analytics.volatility * 1000) / 1000}
+        </div>
+      </div>
+      <div className={classes.titleWrapper}>
+        {t('portfolio.details.analytics.volatility.vsMarket')}
+      </div>
+      <DetailsVolatilityGraph portfolio={portfolio} />
     </>
   );
 };

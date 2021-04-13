@@ -10,10 +10,17 @@ import HotelIcon from '@material-ui/icons/Hotel';
 import Grid from '@material-ui/core/Grid';
 import { useTranslation } from 'react-i18next';
 import VolatilityLineEntry from './VolatilityLineEntry';
+import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 
 const portfolioVolatility = 0.5208850412096532;
 
-const DetailsVolatilityGraph: React.FC = () => {
+type DetailsVolatilityGraphProps = {
+  portfolio: NonEmptyPortfolioDetails;
+};
+
+const DetailsVolatilityGraph: React.FC<DetailsVolatilityGraphProps> = ({
+  portfolio,
+}) => {
   const useStyles = makeStyles(({ palette }: Theme) =>
     createStyles({
       text: {
@@ -68,14 +75,6 @@ const DetailsVolatilityGraph: React.FC = () => {
 
   return (
     <>
-      <h1 className={classes.text}>{t('portfolio.details.volatility')}</h1>
-      <h3 className={classes.text}>
-        {Math.round(portfolioVolatility * 1000) / 1000}
-      </h3>
-      <h2 className={classes.text}>
-        {t('portfolio.details.volatilityMarket')}
-      </h2>
-
       <Grid container direction="row" justify="center" alignItems="center">
         <HotelIcon style={{ color: theme.palette.primary.contrastText }} />
         <div className={classes.line}>
