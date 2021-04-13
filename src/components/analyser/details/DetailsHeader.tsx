@@ -44,6 +44,7 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'space-around',
     width: '100%',
+    color: '#EEF1FB',
   },
   backButtonContainer: {
     display: 'flex',
@@ -83,7 +84,7 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
               >
                 <ArrowBackIosIcon
                   fontSize="large"
-                  style={{ color: '#EEF1FB' }}
+                  style={{ color: theme.palette.background.default }}
                 />
               </IconButton>
             </div>
