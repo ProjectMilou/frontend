@@ -15,7 +15,7 @@ import Login from '../shell/login/Login';
 import UserService from '../../services/UserService';
 import SearchBar from '../analyser/search/SearchBar';
 import Register from '../shell/register/Register';
-import { useContext } from '../../state/context';
+import { Context } from '../../state/context';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Header: React.FC = () => {
   const classes = useStyles();
-  const { state, dispatch } = useContext();
+  const { state, dispatch } = React.useContext(Context);
   const [openRegister, setOpenRegister] = useState(false);
   const [loggedIn, setLoggedIn] = useState(UserService.isLoggedIn());
 

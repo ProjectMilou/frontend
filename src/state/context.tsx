@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { ReactNode, useReducer } from 'react';
 
 type ContextType = {
   openLogin: boolean;
@@ -9,15 +9,15 @@ const initialState = {
 
 export const Context = React.createContext<{
   state: ContextType;
-  dispatch: React.Dispatch<any>;
+  dispatch: React.Dispatch<Action>;
 }>({
   state: initialState,
-  dispatch: () => {},
+  dispatch: s => s,
 });
 
 export type Action = { type: 'OPEN_LOGIN' } | { type: 'CLOSE_LOGIN' };
 
-const Reducer = (state: ContextType, action: Action) => {
+const Reducer = (state: ContextType, action: Action) : ContextType => {
   switch (action.type) {
     case 'OPEN_LOGIN':
       return {
@@ -33,12 +33,12 @@ const Reducer = (state: ContextType, action: Action) => {
   }
 };
 
-export function ContextProvider({ children }: any) {
+interface ContextProviderProps{
+  children: ReactNode
+}
+export function ContextProvider({ children }: ContextProviderProps): JSX.Element {
   const [state, dispatch] = useReducer(Reducer, initialState);
-
   return (
     <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>
   );
 }
-
-export const useContext = () => React.useContext(Context);
