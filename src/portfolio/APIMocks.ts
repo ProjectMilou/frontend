@@ -9,6 +9,8 @@
  */
 
 import {
+  Analytics,
+  Correlations,
   KeyFigures,
   NonEmptyPortfolioDetails,
   PortfolioOverview,
@@ -22,7 +24,7 @@ export const MockOverview: PortfolioOverview = {
   virtual: true,
   positionCount: 3,
   value: 9,
-  score: 0.3,
+  score: 1,
   perf7d: -1.23,
   perf1y: 13.37,
   modified: new Date(0),
@@ -44,7 +46,6 @@ export const MockOverviewTwo: PortfolioOverview = {
 export const MockPositions: Position[] = [
   {
     stock: {
-      isin: '0',
       symbol: 'BMW',
       name: 'BMW',
       price: 23.25,
@@ -61,7 +62,6 @@ export const MockPositions: Position[] = [
   },
   {
     stock: {
-      isin: '1',
       symbol: 'MRC',
       name: 'Mercedes',
       price: 19.51,
@@ -78,7 +78,6 @@ export const MockPositions: Position[] = [
   },
   {
     stock: {
-      isin: '2',
       symbol: 'MCL',
       name: 'McLaren',
       price: 12.11,
@@ -95,7 +94,6 @@ export const MockPositions: Position[] = [
   },
   {
     stock: {
-      isin: '3',
       symbol: 'QQQ',
       name: 'QQQ',
       price: 120.11,
@@ -137,6 +135,24 @@ const MockFigures: KeyFigures[] = [
   },
 ];
 
+export const MockCorrelations: Correlations = {
+  'BMW;Apple': 1,
+  'Apple;TUM': 2,
+  'Apple;Faber': 3,
+  'TUM;BMW': 4,
+  'BMW;Faber': 5,
+  'Faber;TUM': 6,
+};
+
+export const MockAnalytics: Analytics = {
+  volatility: 1.45,
+  standardDeviation: 0.12,
+  sharpeRatio: 0.45,
+  treynorRatio: 1.2,
+  debtEquity: 0.55,
+  correlations: MockCorrelations,
+};
+
 export const MockDetails: NonEmptyPortfolioDetails = {
   overview: MockOverviewTwo,
   positions: MockPositions,
@@ -146,4 +162,5 @@ export const MockDetails: NonEmptyPortfolioDetails = {
   dividendPayoutRatio: 0.25,
   totalReturn: 75.43,
   totalReturnPercent: 12.34,
+  analytics: MockAnalytics,
 };

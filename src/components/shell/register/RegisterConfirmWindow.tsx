@@ -1,5 +1,6 @@
 import {
   Button,
+  createStyles,
   DialogActions,
   DialogContent,
   makeStyles,
@@ -14,15 +15,17 @@ import LinkButton from '../LinkButton';
 import { UserInput } from '../utils';
 import UserService from '../../../services/UserService';
 
-const useStyles = makeStyles({
-  errorMessage: {
-    color: 'red',
-    border: '1px solid red',
-    padding: '5px',
-    display: 'inline',
-    marginBottom: '10px',
-  },
-});
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    errorMessage: {
+      color: theme.palette.error.main,
+      border: theme.spacing(0.125, 'solid red'),
+      padding: theme.spacing(0.5),
+      display: 'inline',
+      marginBottom: theme.spacing(1),
+    },
+  })
+);
 
 interface RegisterFailedWindowProps {
   login: UserInput;

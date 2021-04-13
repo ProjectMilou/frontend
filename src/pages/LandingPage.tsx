@@ -25,16 +25,16 @@ import WarningIcon from '@material-ui/icons/Warning';
 import Card from './components/Card';
 import Media from './components/Media';
 import GridRowContainer from './components/GridRowContainer';
-import img from './media/180.png';
-import img1 from './media/getThumb.gif';
-import img2 from './media/media2.png';
-import img3 from './media/start.png';
-import img4 from './media/tech-talents.png';
-import img5 from './media/tumlogo.png';
-import manage from './media/manage.png';
-import analyse from './media/analyse.png';
-import lernen from './media/lernen.png';
-import portfolio from './media/Portfolio.png';
+import img from '../assets/images/180.png';
+import img1 from '../assets/images/getThumb.gif';
+import img2 from '../assets/images/media2.png';
+import img3 from '../assets/images/start.png';
+import img4 from '../assets/images/tech-talents.png';
+import img5 from '../assets/images/tumlogo.png';
+import manage from '../assets/images/manage.png';
+import analyse from '../assets/images/analyse.png';
+import lernen from '../assets/images/lernen.png';
+import portfolio from '../assets/images/Portfolio.png';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,12 +43,12 @@ const useStyles = makeStyles((theme: Theme) =>
       maxHeight: '390px',
       display: 'auto',
       objectFit: 'scale-down',
-      padding: '10px',
+      padding: theme.spacing(1),
     },
     media2: {
       width: '500px',
       height: '732px',
-      padding: '50px',
+      padding: theme.spacing(5),
       objectFit: 'scale-down',
     },
     logos: {
@@ -61,29 +61,29 @@ const useStyles = makeStyles((theme: Theme) =>
     divider: {
       light: false,
       variant: 'middle',
-      marginInline: '200px',
+      marginInline: theme.spacing(25),
       color: theme.palette.primary.dark,
     },
     box1: {
-      paddingTop: '50px',
-      paddingBottom: '50px',
+      paddingTop: theme.spacing(5),
+      paddingBottom: theme.spacing(5),
     },
     typography1: {
       color: theme.palette.primary.dark,
       fontSize: '24px',
     },
     boxMain: {
-      paddingLeft: '300px',
-      paddingRight: '300px',
-      paddingTop: '100px',
-      paddingBottom: '100px',
-      backgroundColor: '#EEF1FB',
+      padding: theme.spacing(12.5, 37.5),
+      backgroundColor: theme.palette.background.default,
     },
     gridItem: {
-      paddingInline: '100px',
+      paddingInline: theme.spacing(12.5),
     },
     smallIcon: {
       fontSize: '54px',
+      color: theme.palette.secondary.light,
+    },
+    span: {
       color: theme.palette.secondary.light,
     },
   })
@@ -119,6 +119,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             classNameImage={classes.media1}
             classNameGrid={classes.gridItem}
             type="even"
+            titleColor="#FFC43B"
           />
           <GridRowContainer
             image={analyse}
@@ -127,6 +128,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             classNameImage={classes.media1}
             classNameGrid={classes.gridItem}
             type="odd"
+            titleColor="#D64745"
           />
 
           <GridRowContainer
@@ -136,6 +138,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             classNameImage={classes.media1}
             classNameGrid={classes.gridItem}
             type="even"
+            titleColor="#50E2A8"
           />
         </Box>
       </Box>
@@ -151,8 +154,9 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             </Grid>
             <Grid item xs>
               <Typography variant="h6">
-                ..to be a successful investor, need you initially, no assets .
-                You can start investing with as little as 25 euros a month.
+                ..to be a successful investor, initially, you{' '}
+                <span className={classes.span}>need no assets</span> . You can
+                start investing with as little as 25 euros a month.
               </Typography>
             </Grid>
           </Grid>
@@ -162,9 +166,11 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             </Grid>
             <Grid item xs>
               <Typography variant="h6">
-                ..we only work with commission-free products , stocks and ETFs.
-                This ensures that we pursue the same interests as you, namely to
-                make you a successful investor.
+                ..we only work with{' '}
+                <span className={classes.span}>commission-free products</span>,
+                stocks and ETFs. This ensures that we pursue the{' '}
+                <span className={classes.span}>same interests </span>
+                as you, namely to make you a successful investor.
               </Typography>
             </Grid>
           </Grid>
@@ -188,7 +194,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             <div style={{ margin: 'auto' }}>
               <Button
                 style={{
-                  backgroundColor: '#d8a842',
+                  backgroundColor: '#FFC43B',
                   color: 'white',
                 }}
               >
@@ -222,7 +228,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             >
               <Grid item>
                 <CastForEducationIcon
-                  style={{ color: '#3aa03a', fontSize: '54px' }}
+                  style={{ color: '#50E2A8', fontSize: '54px' }}
                 />
               </Grid>
               <Grid item xs container direction="column">
@@ -242,7 +248,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
               spacing={4}
             >
               <Grid item>
-                <InfoIcon style={{ color: 'secondary', fontSize: '54px' }} />
+                <InfoIcon style={{ color: '#FFC43B', fontSize: '54px' }} />
               </Grid>
               <Grid item xs container direction="column">
                 <Typography variant="h5">INFO BOXES</Typography>
@@ -262,7 +268,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             >
               <Grid item>
                 <TrendingUpIcon
-                  style={{ color: '#ecec0f', fontSize: '54px' }}
+                  style={{ color: '#df4f9b', fontSize: '54px' }}
                 />
               </Grid>
               <Grid item xs container direction="column">
@@ -282,7 +288,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
               spacing={4}
             >
               <Grid item>
-                <WarningIcon style={{ color: '#ce2020', fontSize: '54px' }} />
+                <WarningIcon style={{ color: '#D64745', fontSize: '54px' }} />
               </Grid>
               <Grid item xs container direction="column">
                 <Typography variant="h5">RISK WARNING</Typography>
@@ -345,7 +351,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
               <div>
                 <Input placeholder="Email Address" required />
               </div>
-              <div style={{ marginTop: '2px' }}>
+              <div style={{ marginTop: '6px' }}>
                 <Button variant="contained" color="primary">
                   Submit
                 </Button>
