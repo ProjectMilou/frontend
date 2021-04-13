@@ -52,7 +52,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = (props) => {
       <img src={logo} alt="milou-logo" className={iconLogo} />
 
       {hasSuccess ? (
-        <ForgotPasswordSuccessWindow closePopUp={() => closePopUp} />
+        <ForgotPasswordSuccessWindow closePopUp={closePopUp} />
       ) : (
         <ForgotPasswordForm setSuccess={setSuccess} />
       )}
