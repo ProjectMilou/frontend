@@ -468,11 +468,6 @@ function convertPortfolioDetails(response: DetailsResponse): PortfolioDetails {
         r.overview
       ) as NonEmptyPortfolioOverview,
       nextDividend: new Date(r.nextDividend),
-      // TODO: remove once API response includes currency
-      positions: r.positions.map((p) => ({
-        ...p,
-        stock: { ...(p.stock || '???') },
-      })),
     };
   }
   // portfolio is empty

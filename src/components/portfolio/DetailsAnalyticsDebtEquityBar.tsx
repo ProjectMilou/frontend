@@ -68,11 +68,7 @@ const DetailsAnalyticsDebtEquityBar: React.FC<DetailsAnalyticsDebtEquityBarProps
     },
   };
 
-  return (
-    <>
-      <Chart options={options} series={series} type="bar" height={height} />
-    </>
-  );
+  return <Chart options={options} series={series} type="bar" height={height} />;
 };
 
 export default DetailsAnalyticsDebtEquityBar;
