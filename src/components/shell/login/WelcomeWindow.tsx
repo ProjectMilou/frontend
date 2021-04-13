@@ -28,7 +28,7 @@ const WelcomeWindow: React.FC<WelcomeWindowProps> = (props) => {
   useEffect(() => {
     setTimeout(() => {
       closePopUp();
-    }, 3000000);
+    }, 3000);
   });
 
   const showCheckmark = true;
