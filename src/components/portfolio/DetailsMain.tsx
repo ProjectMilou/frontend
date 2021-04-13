@@ -106,9 +106,6 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, token, id }) => {
       <Section title={t('portfolio.details.analyst')}>
         <DetailsMainAnalyst positions={portfolio.positions} />
       </Section>
-      <Section title={t('portfolio.details.analytics')}>
-        <DetailsMainAnalytics portfolio={portfolio} />
-      </Section>
       <Section title={t('portfolio.details.backtesting')}>
         <DetailMainBacktesting id={id} token={token} />
       </Section>
