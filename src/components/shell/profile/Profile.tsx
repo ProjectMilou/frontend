@@ -1,7 +1,7 @@
 import {
   Button,
-  Dialog,
   createStyles,
+  Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
@@ -18,7 +18,6 @@ import { navigate, RouteComponentProps } from '@reach/router';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IUserProfile, UserService } from '../../../services/UserService';
-import BankSearch from '../bankSearch/BankSearch';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,23 +25,13 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: 0,
     },
     subpaper: {
-      padding: theme.spacing(4),
+      padding: 40,
     },
     label: {
       color: theme.palette.primary.dark,
     },
     details: {
       maxWidth: '50%',
-    },
-    dialog: {
-      borderRadius: '10px',
-      maxWidth: '450px',
-      width: '100%',
-      margin: ' 100px auto',
-      height: 'min-content',
-    },
-    paper: {
-      minWidth: '350px',
     },
   })
 );
@@ -54,7 +43,6 @@ const Profile: React.FC<RouteComponentProps> = () => {
     email: '',
   });
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [addBankIsOpen, setAddBankIsOpen] = useState(false);
   const [edit, setEdit] = useState(false);
   const classes = useStyles();
   const { t } = useTranslation();
@@ -145,23 +133,6 @@ const Profile: React.FC<RouteComponentProps> = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => setAddBankIsOpen(true)}
-                >
-                  {t(`shell.profile.account-details.add-bankconnection`)}
-                </Button>
-                <Dialog
-                  open={addBankIsOpen}
-                  onClose={() => setAddBankIsOpen(false)}
-                  className={classes.dialog}
-                  classes={{ paper: classes.paper }}
-                >
-                  <BankSearch />
-                </Dialog>
-                <br />
-                <br />
-                <Button
-                  variant="contained"
-                  color="primary"
                   onClick={edit ? onEdit : () => setEdit(true)}
                 >
                   {t(
@@ -169,7 +140,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
                       edit ? 'update' : 'edit'
                     }-details`
                   )}
-                </Button>
+                </Button>{' '}
                 <Button
                   variant="outlined"
                   color="primary"

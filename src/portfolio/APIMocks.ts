@@ -9,8 +9,6 @@
  */
 
 import {
-  Analytics,
-  Correlations,
   KeyFigures,
   NonEmptyPortfolioDetails,
   PortfolioOverview,
@@ -135,24 +133,6 @@ const MockFigures: KeyFigures[] = [
   },
 ];
 
-export const MockCorrelations: Correlations = {
-  'BMW;Apple': 1,
-  'Apple;TUM': 2,
-  'Apple;Faber': 3,
-  'TUM;BMW': 4,
-  'BMW;Faber': 5,
-  'Faber;TUM': 6,
-};
-
-export const MockAnalytics: Analytics = {
-  volatility: 1.45,
-  standardDeviation: 0.12,
-  sharpeRatio: 0.45,
-  treynorRatio: 1.2,
-  debtEquity: 0.55,
-  correlations: MockCorrelations,
-};
-
 export const MockDetails: NonEmptyPortfolioDetails = {
   overview: MockOverviewTwo,
   positions: MockPositions,
@@ -162,5 +142,4 @@ export const MockDetails: NonEmptyPortfolioDetails = {
   dividendPayoutRatio: 0.25,
   totalReturn: 75.43,
   totalReturnPercent: 12.34,
-  analytics: MockAnalytics,
 };

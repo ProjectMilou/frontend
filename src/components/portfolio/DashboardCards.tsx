@@ -12,15 +12,12 @@ import {
   Typography,
 } from '@material-ui/core';
 import AddBoxIcon from '@material-ui/icons/AddBox';
-import ImportIcon from '@material-ui/icons/Input';
-import classNames from 'classnames';
 import * as API from '../../portfolio/APIClient';
 import { PortfolioOverview } from '../../portfolio/APIClient';
 import DashboardActions from './DashboardActions';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
-import { importPortfolio, portfolioDetails } from '../../portfolio/Router';
 
-const useStyles = makeStyles(({ palette }) => ({
+const useStyles = makeStyles(() => ({
   gridList: {
     width: '100%',
     height: 'auto',
@@ -41,22 +38,6 @@ const useStyles = makeStyles(({ palette }) => ({
     borderStyle: 'dashed',
     borderColor: 'grey',
   },
-  createPortfolioCard: {
-    '&:hover': {
-      borderColor: palette.primary.main,
-      '& svg': {
-        color: palette.primary.main,
-      },
-    },
-  },
-  importPortfolioCard: {
-    '&:hover': {
-      borderColor: palette.secondary.main,
-      '& svg': {
-        color: palette.secondary.main,
-      },
-    },
-  },
   cardContent: {
     display: 'flex',
     flexDirection: 'column',
@@ -75,6 +56,7 @@ const useStyles = makeStyles(({ palette }) => ({
 
 type CardComponentProps = {
   portfolio: PortfolioOverview;
+  selectPortfolio: (id: string) => void;
   renamePortfolio: (id: string) => void;
   duplicatePortfolio: (id: string) => void;
   deletePortfolio: (id: string) => void;
@@ -90,10 +72,7 @@ const CardComponent: React.FC<CardComponentProps> = ({
   const { t } = useTranslation();
 
   return (
-    <Card
-      className={classes.card}
-      onClick={() => portfolioDetails(portfolio.id)}
-    >
+    <Card className={classes.card}>
       <CardContent className={classes.cardContent}>
         <Typography className={classes.portName}>{portfolio.name}</Typography>
         <Typography color={portfolio.virtual ? 'textSecondary' : 'secondary'}>
@@ -122,6 +101,7 @@ const CardComponent: React.FC<CardComponentProps> = ({
 
 export type DashboardCardsProps = {
   portfolios: API.PortfolioOverview[];
+  selectPortfolio: (id: string) => void;
   renamePortfolio: (id: string) => void;
   duplicatePortfolio: (id: string) => void;
   deletePortfolio: (id: string) => void;
@@ -130,6 +110,7 @@ export type DashboardCardsProps = {
 
 const DashboardCards: React.FC<DashboardCardsProps> = ({
   portfolios,
+  selectPortfolio,
   renamePortfolio,
   duplicatePortfolio,
   deletePortfolio,
@@ -146,47 +127,34 @@ const DashboardCards: React.FC<DashboardCardsProps> = ({
       className={classes.gridList}
     >
       {portfolios.map((p) => (
-        <GridListTile key={p.id} className={classes.gridListTile}>
+        <GridListTile
+          key={p.id}
+          onClick={() => {
+            selectPortfolio(p.id);
+          }}
+          className={classes.gridListTile}
+        >
           <CardComponent
             key={p.id}
             portfolio={p}
+            selectPortfolio={selectPortfolio}
             renamePortfolio={renamePortfolio}
             duplicatePortfolio={duplicatePortfolio}
             deletePortfolio={deletePortfolio}
           />
         </GridListTile>
       ))}
-      <GridListTile className={classes.gridListTile}>
-        <Card
-          className={classNames(
-            classes.card,
-            classes.blankCard,
-            classes.createPortfolioCard
-          )}
-          onClick={() => createPortfolio()}
-        >
-          <Tooltip title={t('portfolio.dashboard.createPortfolio').toString()}>
+      <GridListTile
+        className={classes.gridListTile}
+        onClick={() => {
+          createPortfolio();
+        }}
+      >
+        <Card className={classes.blankCard}>
+          <Tooltip title={t('portfolio.create').toString()}>
             <div>
               <IconButton>
                 <AddBoxIcon fontSize="large" />
-              </IconButton>
-            </div>
-          </Tooltip>
-        </Card>
-      </GridListTile>
-      <GridListTile className={classes.gridListTile}>
-        <Card
-          className={classNames(
-            classes.card,
-            classes.blankCard,
-            classes.importPortfolioCard
-          )}
-          onClick={() => importPortfolio()}
-        >
-          <Tooltip title={t('portfolio.dashboard.importPortfolio').toString()}>
-            <div>
-              <IconButton>
-                <ImportIcon fontSize="large" />
               </IconButton>
             </div>
           </Tooltip>

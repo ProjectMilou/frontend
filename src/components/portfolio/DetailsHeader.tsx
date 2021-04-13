@@ -3,7 +3,6 @@ import { IconButton, makeStyles, createStyles, Theme } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import DetailsEdit from './DetailsEdit';
 import { Position, PositionQty } from '../../portfolio/APIClient';
-import { portfolioDashboard } from '../../portfolio/Router';
 
 // stylesheet for the header of the details page
 const useStyles = makeStyles(({ typography }: Theme) =>
@@ -38,6 +37,8 @@ const useStyles = makeStyles(({ typography }: Theme) =>
 
 // type declaration of the header components props
 export type DetailsHeaderProps = {
+  // function to return to the dashboard
+  back: () => void;
   // name of the portfolio
   name?: string;
   // list of positions
@@ -48,6 +49,7 @@ export type DetailsHeaderProps = {
 
 // returns the details page header
 const DetailsHeader: React.FC<DetailsHeaderProps> = ({
+  back,
   name,
   positions,
   editPositions,
@@ -60,7 +62,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
         <div className={classes.backButtonContainer}>
           <IconButton
             aria-label="back"
-            onClick={() => portfolioDashboard()}
+            onClick={back}
             style={{ backgroundColor: 'transparent' }}
           >
             <ArrowBackIosIcon fontSize="large" />

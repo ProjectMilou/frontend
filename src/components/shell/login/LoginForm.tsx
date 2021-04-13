@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Button,
-  createStyles,
   DialogActions,
   DialogContent,
   FormControl,
@@ -13,7 +12,6 @@ import {
   makeStyles,
   TextField,
   Typography,
-  Theme,
   useTheme,
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
@@ -22,16 +20,14 @@ import { useTranslation } from 'react-i18next';
 import LinkButton from '../LinkButton';
 import { UserService } from '../../../services/UserService';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    errorMessage: {
-      color: theme.palette.error.main,
-      border: theme.spacing(0.125, 'solid red'),
-      padding: theme.spacing(0.5),
-      margin: theme.spacing(0, 3),
-    },
-  })
-);
+const useStyles = makeStyles({
+  errorMessage: {
+    color: 'red',
+    border: '1px solid red',
+    padding: '5px',
+    margin: '0px 24px',
+  },
+});
 
 interface LoginFormProps {
   setUserState: () => void;

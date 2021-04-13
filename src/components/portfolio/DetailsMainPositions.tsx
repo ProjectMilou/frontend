@@ -13,7 +13,6 @@ import { useTranslation } from 'react-i18next';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
 import ValueOverName from './ValueOverName';
 import { Position } from '../../portfolio/APIClient';
-import { stockDetails } from '../../portfolio/Router';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -177,7 +176,8 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
                   }
                   className={classes.button}
                   style={{ backgroundColor: 'transparent' }}
-                  onClick={() => stockDetails(p.stock.symbol)}
+                  // TODO: handle button click
+                  onClick={() => null}
                 >
                   {t('portfolio.details.viewMore')}
                 </Button>

@@ -70,6 +70,7 @@ const Filter: React.FC<FilterProps> = ({ stocks, filters, setFilters }) => {
 
   React.useEffect(() => {
     setOriginalFilters();
+    // deps must be empty because the function should only be called on mount.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stocks]);
 

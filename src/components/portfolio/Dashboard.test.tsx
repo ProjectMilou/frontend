@@ -17,6 +17,7 @@ const mockAPI = API as jest.Mocked<typeof API>;
 describe('Dashboard', () => {
   const defaultProps: DashboardProps = {
     token: 'validToken',
+    selectPortfolio: jest.fn(),
   };
 
   const renderComponent = (newProps?: Partial<DashboardProps>) => {

@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     logo: {
       maxWidth: 100,
-      marginRight: theme.spacing(1.25),
+      marginRight: '10px',
     },
     grow: {
       flexGrow: 1,
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: '10px',
       maxWidth: '450px',
       width: '100%',
-      margin: theme.spacing(12.5, 'auto'),
+      margin: ' 100px auto',
       height: 'min-content',
     },
     paper: {

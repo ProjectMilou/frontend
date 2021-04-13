@@ -8,7 +8,6 @@ import {
   Container,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { RouteComponentProps, useParams } from '@reach/router';
 import DetailsHeader from './DetailsHeader';
 import DetailsMain from './DetailsMain';
 import * as API from '../../portfolio/APIClient';
@@ -38,18 +37,21 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 );
 
 // props type declaration
-export interface DetailsProps extends RouteComponentProps {
+export type DetailsProps = {
   token: string;
-}
+  id: string;
+  // function to return to the dashboard
+  back: () => void;
+};
 
 // functional component that takes the name of the portfolio and a function to switch back to the dashboard
 // returns the entire details page
-const Details: React.FC<DetailsProps> = ({ token }) => {
+const Details: React.FC<DetailsProps> = ({ token, id, back }) => {
   const [portfolioDetails, setPortfolioDetails] = React.useState<
     API.PortfolioDetails | undefined
   >();
   const [error, setError] = React.useState<Error | undefined>(undefined);
-  const { id } = useParams();
+
   const isMounted = React.useRef(true);
 
   const fetch = async () => {
@@ -82,6 +84,7 @@ const Details: React.FC<DetailsProps> = ({ token }) => {
     <div>
       <div className={classes.topBanner}>
         <DetailsHeader
+          back={back}
           name={portfolioDetails?.overview.name}
           positions={portfolioDetails?.positions}
           editPositions={async (modifications) => {

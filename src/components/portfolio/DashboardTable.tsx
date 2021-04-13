@@ -23,7 +23,6 @@ import {
 } from '../../portfolio/APIClient';
 import DashboardActions from './DashboardActions';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
-import { portfolioDetails, importPortfolio } from '../../portfolio/Router';
 
 const useStyles = makeStyles((theme: Theme) => ({
   action: { display: 'inline-block' },
@@ -39,19 +38,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   disabled: {
     cursor: 'not-allowed',
   },
-  buttons: {
+  createButton: {
     marginTop: '25px',
-    '& > *': {
-      marginLeft: '25px',
-    },
-    '& > *:first-child': {
-      marginLeft: '0px',
-    },
   },
 }));
 
 type DashboardTableRowProps = {
   portfolio: PortfolioOverview;
+  selectPortfolio: (id: string) => void;
   renamePortfolio: (id: string) => void;
   duplicatePortfolio: (id: string) => void;
   deletePortfolio: (id: string) => void;
@@ -59,6 +53,7 @@ type DashboardTableRowProps = {
 
 const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
   portfolio,
+  selectPortfolio,
   renamePortfolio,
   duplicatePortfolio,
   deletePortfolio,
@@ -70,7 +65,9 @@ const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
 
   return (
     <TableRow
-      onClick={() => portfolioDetails(portfolio.id)}
+      onClick={() => {
+        selectPortfolio(portfolio.id);
+      }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       className={classNames(classes.row, hover && classes.rowHover)}
@@ -192,6 +189,7 @@ export const DashboardTableHead: React.FC<DashboardTableHeadProps> = ({
 
 export type DashboardTableProps = {
   portfolios: PortfolioOverview[];
+  selectPortfolio: (id: string) => void;
   renamePortfolio: (id: string) => void;
   duplicatePortfolio: (id: string) => void;
   deletePortfolio: (id: string) => void;
@@ -236,6 +234,7 @@ function sortPortfolios(
 
 const DashboardTable: React.FC<DashboardTableProps> = ({
   portfolios,
+  selectPortfolio,
   renamePortfolio,
   duplicatePortfolio,
   deletePortfolio,
@@ -275,6 +274,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
               {sortedPortfolios.map((p) => (
                 <DashboardTableRow
                   portfolio={p}
+                  selectPortfolio={selectPortfolio}
                   key={p.id}
                   renamePortfolio={renamePortfolio}
                   duplicatePortfolio={duplicatePortfolio}
@@ -285,22 +285,14 @@ const DashboardTable: React.FC<DashboardTableProps> = ({
           </Table>
         </TableContainer>
       )}
-      <div className={classes.buttons}>
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => createPortfolio()}
-        >
-          {t('portfolio.dashboard.createPortfolio')}
-        </Button>
-        <Button
-          variant="outlined"
-          color="secondary"
-          onClick={() => importPortfolio()}
-        >
-          {t('portfolio.dashboard.importPortfolio')}
-        </Button>
-      </div>
+      <Button
+        className={classes.createButton}
+        variant="outlined"
+        color="primary"
+        onClick={() => createPortfolio()}
+      >
+        {t('portfolio.dashboard.createPortfolio')}
+      </Button>
     </>
   );
 };

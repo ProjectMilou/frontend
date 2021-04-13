@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     logo: {
       maxWidth: 130,
-      marginRight: theme.spacing(1.25),
+      marginRight: '10px',
     },
     link: {
       color: contrastText,
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     root: {
       backgroundColor: main,
-      padding: theme.spacing(6.25),
+      padding: 50,
     },
     divider: {
       backgroundColor: 'white',
@@ -36,10 +36,10 @@ const useStyles = makeStyles((theme: Theme) => {
       fontSize: 11.5,
     },
     iconGrid: {
-      padding: theme.spacing(2.5),
+      padding: 20,
     },
     linkGrid: {
-      paddingBottom: theme.spacing(2.5),
+      paddingBottom: 20,
     },
   });
 });

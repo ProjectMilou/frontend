@@ -1,6 +1,5 @@
 import {
   Button,
-  createStyles,
   DialogActions,
   DialogContent,
   makeStyles,
@@ -16,17 +15,15 @@ import fetchRegister, { UserInput } from '../utils';
 
 const url = 'https://api.milou.io';
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    errorMessage: {
-      color: theme.palette.error.main,
-      border: theme.spacing(0.125, 'solid red'),
-      padding: theme.spacing(0.5),
-      display: 'inline',
-      marginBottom: theme.spacing(1),
-    },
-  })
-);
+const useStyles = makeStyles({
+  errorMessage: {
+    color: 'red',
+    border: '1px solid red',
+    padding: '5px',
+    display: 'inline',
+    marginBottom: '10px',
+  },
+});
 
 interface RegisterFailedWindowProps {
   login: UserInput;

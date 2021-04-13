@@ -5,15 +5,6 @@ import { AppError } from '../Errors';
 export const baseURL = 'https://api.milou.io/stocks';
 const headers = { 'Content-Type': 'application/json' };
 
-// Filter object
-export type Filters = {
-  [key: string]: string[];
-  country: string[];
-  currency: string[];
-  industry: string[];
-  mc: string[];
-};
-
 // Stock type
 export type Stock = {
   symbol: string;
@@ -53,77 +44,13 @@ export type StockDetails = {
   assenmbly: Date;
 };
 
-// historic performance data
-export type StockHistricPerformanceList = {
-  dataPoints: StockHistricPerformance[];
-};
-
-export type StockHistricPerformance = {
-  _id: string;
-  date: string;
-  close: number;
-};
-
-export type CompanyReports = {
-  symbol: string;
-  annualReports: CompanyReport[];
-};
-
-export type CompanyReport = {
-  _id: string;
-  fiscalDateEnding: Date;
-  reportedCurrency: string;
-  totalAssets: number;
-  totalCurrentAssets: number;
-  cashAndCashEquivalentsAtCarryingValue: number;
-  cashAndShortTermInvestments: number;
-  inventory: number;
-  currentNetReceivables: number;
-  totalNonCurrentAssets: number;
-  propertyPlantEquipment: number;
-  accumulatedDepreciationAmortizationPPE: number;
-  intangibleAssets: number;
-  intangibleAssetsExcludingGoodwill: number;
-  goodwill: number;
-  investments: number;
-  longTermInvestments: number;
-  shortTermInvestments: number;
-  otherCurrentAssets: number;
-  otherNonCurrrentAssets: number;
-  totalLiabilities: number;
-  totalCurrentLiabilities: number;
-  currentAccountsPayable: number;
-  deferredRevenue: number;
-  currentDebt: number;
-  shortTermDebt: number;
-  totalNonCurrentLiabilities: number;
-  capitalLeaseObligations: number;
-  longTermDebt: number;
-  currentLongTermDebt: number;
-  longTermDebtNoncurrent: number;
-  shortLongTermDebtTotal: number;
-  otherCurrentLiabilities: number;
-  otherNonCurrentLiabilities: number;
-  totalShareholderEquity: number;
-  treasuryStock: number;
-  retainedEarnings: number;
-  commonStock: number;
-  commonStockSharesOutstanding: number;
-};
-
-export type News = {
-  headline: string;
-  date: string; // TODO change to date
-  url: string; // Todo change to URL
-};
-export type AnalystsRecommendation = {
-  symbol: string;
-  buy: number;
-  hold: number;
-  sell: number;
-  strategy: string;
-  date: Date;
-  source: URL;
+// Filter object
+export type Filters = {
+  [key: string]: string[];
+  country: string[];
+  currency: string[];
+  industry: string[];
+  mc: string[];
 };
 
 /**
@@ -148,8 +75,6 @@ async function request(
   additionalHeaders?: HeadersInit
 ): Promise<unknown> {
   // TODO: authentication
-
-  // console.log(`${baseURL}/${url}`);
   const response = await fetch(`${baseURL}/${url}`, {
     method,
     headers: { ...headers, ...additionalHeaders },
@@ -227,58 +152,23 @@ export async function stockDetails(
   return response;
 }
 
+// TODO Backend not working yet
 /**
- * Gets stock performance with an authenticated user.
+ * Gets a details over a single stock with an authenticated user.
  *
  * @param token - Authentication token
  * @param symbol - Stock Symbol to search for
  * @param historic - if true all data will be returned, else only 5 years
  */
-export async function stockPerformance(
+export async function stockCharts(
   token: string,
   symbol: string,
   historic: boolean
-): Promise<StockHistricPerformanceList> {
+): Promise<StockDetails> {
   const response = (await request(
     token,
     'GET',
     `charts/historic?id=${symbol}&max=${historic.toString()}`
-  )) as StockHistricPerformanceList;
-  return response;
-}
-
-/**
- * Gets company reports with an authenticated user.
- *
- * @param token - Authentication token
- * @param symbol - Stock Symbol to search for
- */
-export async function companyReports(
-  token: string,
-  symbol: string
-): Promise<CompanyReports> {
-  const response = (await request(
-    token,
-    'GET',
-    `balanceSheet?id=${symbol}`
-  )) as CompanyReports;
-  return response;
-}
-
-/**
- * Gets analysts recommendations with an authenticated user.
- *
- * @param token - Authentication token
- * @param symbol - Stock Symbol to search for
- */
-export async function analystsRecommendations(
-  token: string,
-  symbol: string
-): Promise<AnalystsRecommendation[]> {
-  const response = (await request(
-    token,
-    'GET',
-    `charts/analysts?id=${symbol}`
-  )) as AnalystsRecommendation[];
+  )) as StockDetails;
   return response;
 }

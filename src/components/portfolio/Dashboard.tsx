@@ -1,5 +1,4 @@
 import React, { Reducer } from 'react';
-import { RouteComponentProps } from '@reach/router';
 import { LinearProgress, makeStyles, Container } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../portfolio/APIClient';
@@ -12,9 +11,10 @@ import DeleteDialog from './DeleteDialog';
 import CreateDialog from './CreateDialog';
 import { isAuthenticationError } from '../../Errors';
 
-export interface DashboardProps extends RouteComponentProps {
+export type DashboardProps = {
   token: string;
-}
+  selectPortfolio: (id: string) => void;
+};
 
 enum DialogType {
   None,
@@ -212,7 +212,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Dashboard: React.FC<DashboardProps> = ({ token }) => {
+const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
   const [state, dispatch] = React.useReducer<Reducer<State, Actions>>(
     reducer,
     initialState
@@ -277,6 +277,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token }) => {
           <div>
             <PortfolioOverview
               portfolios={state.portfolios}
+              selectPortfolio={selectPortfolio}
               renamePortfolio={(portfolioId) =>
                 dispatch({
                   type: 'openDialog',

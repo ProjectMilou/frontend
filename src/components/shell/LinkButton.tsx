@@ -1,22 +1,20 @@
-import { createStyles, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    button: {
-      textDecoration: 'underline',
-      cursor: 'pointer',
-      backgroundColor: 'white',
-      border: 'none',
-      padding: '0px',
-      fontSize: '18px',
-      lineHeight: '1.5',
-      margin: theme.spacing(1, 'auto'),
-      display: 'inline',
-    },
-  })
-);
+const useStyles = makeStyles({
+  button: {
+    textDecoration: 'underline',
+    cursor: 'pointer',
+    backgroundColor: 'white',
+    border: 'none',
+    padding: '0px',
+    fontSize: '18px',
+    lineHeight: '1.5',
+    margin: '10px auto',
+    display: 'inline',
+  },
+});
 
 interface RegisterFailedWindowProps {
   handleEvent: () => void;
