@@ -15,7 +15,7 @@ import React, { useState } from 'react';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import Divider from '@material-ui/core/Divider';
 import * as EmailValidator from 'email-validator';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import LinkButton from '../LinkButton';
 import { UserInput } from '../utils';
 import UserService from '../../../services/UserService';
@@ -164,7 +164,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
           <InputLabel htmlFor="password">{t('shell.password')}</InputLabel>
           <Input
             id="password"
-            type={!showPassword.password ? 'text' : 'password'}
+            type={showPassword.password ? 'text' : 'password'}
             value={login.password}
             onChange={handleChange}
             inputProps={{ 'data-testid': 'password' }}
@@ -247,7 +247,11 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
       <Divider style={{ margin: '10px 0' }} />
 
       <Typography variant="body1" align="center">
-        {t('shell.question.haveAccount')} <LinkButton handleEvent={goToLogin} />
+        <Trans
+          i18nKey="shell.question.haveAccount"
+          t={t}
+          components={[<LinkButton handleEvent={goToLogin} />]}
+        />
       </Typography>
     </>
   );
