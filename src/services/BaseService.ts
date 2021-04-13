@@ -48,7 +48,8 @@ export class BaseService {
   public static async authenticatedRequest(
     method: MethodType,
     endpoint: string,
-    body?: Record<string, unknown>
+    body?: Record<string, unknown>,
+    headers?: HeadersInit
   ): Promise<Response> {
     const token = StorageService.getToken();
     if (!token) {
@@ -60,6 +61,7 @@ export class BaseService {
       endpoint,
       {
         Authorization: `Bearer ${token}`,
+        ...headers,
       },
       body
     );
