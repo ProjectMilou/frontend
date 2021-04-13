@@ -134,30 +134,80 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
   );
 };
 
-const DashboardTableHeader: React.FC = () => {
-  const { t } = useTranslation();
-  const classes = useStyles();
+function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+}
 
-  const headers = [
-    { label: t('stock.name') },
-    { label: t('stock.lastPrice') },
-    { label: t('stock.7d') },
-    { label: t('stock.365d') },
-    { label: t('stock.marketCap') },
-    { label: t('stock.analystsTarget') },
-    { label: t('stock.valuation') },
-    { label: t('stock.div') },
-    { label: t('stock.industry') },
-  ];
+type Order = 'asc' | 'desc';
+
+function sortStocks(
+  items: API.Stock[],
+  order: Order,
+  orderBy: keyof API.Stock
+) {
+  return order === 'desc'
+    ? items.sort((a, b) => descendingComparator(a, b, orderBy))
+    : items.sort((a, b) => -descendingComparator(a, b, orderBy));
+}
+
+interface HeadCell {
+  id: keyof API.Stock;
+  numeric: boolean;
+  disablePadding: boolean;
+  label: string;
+}
+
+export type DashboardTableHeaderProps = {
+  onRequestSort: (
+    event: React.MouseEvent<unknown>,
+    property: keyof API.Stock
+  ) => void;
+  order: Order;
+  orderByKey: keyof API.Stock;
+  headCells: HeadCell[];
+};
+
+const DashboardTableHeader: React.FC<DashboardTableHeaderProps> = ({
+  onRequestSort,
+  order,
+  orderByKey,
+  headCells,
+}) => {
+  const classes = useStyles();
+  const createSortHandler = (property: keyof API.Stock) => (
+    event: React.MouseEvent<unknown>
+  ) => {
+    onRequestSort(event, property);
+  };
 
   return (
     <TableHead>
       <TableRow>
-        {headers.map((header) => (
-          <TableCell align="center" classes={{ root: classes.customTableHead }}>
-            <Typography className={classes.defaultText}>
-              {header.label}
-            </Typography>
+        {headCells.map((hc) => (
+          <TableCell
+            key={hc.id}
+            align="center"
+            classes={{ root: classes.customTableHead }}
+            sortDirection={orderByKey === hc.id ? order : false}
+          >
+            <TableSortLabel
+              active={orderByKey === hc.id}
+              direction={orderByKey === hc.id ? order : 'asc'}
+              onClick={createSortHandler(hc.id)}
+            >
+              {hc.label}
+              {orderByKey === hc.id ? (
+                <span>
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                </span>
+              ) : null}
+            </TableSortLabel>
           </TableCell>
         ))}
       </TableRow>
@@ -170,11 +220,75 @@ export type DashboardTableProps = {
 };
 
 const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
-  const { t } = useTranslation();
   const classes = useStyles();
+  const { t } = useTranslation();
 
   const [items, setItems] = React.useState<API.Stock[]>(stocks.slice(0, 10));
   const [hasMore, setHasMore] = React.useState<boolean>(true);
+
+  const [order, setOrder] = React.useState<Order>('asc');
+  const [orderByKey, setOrderByKey] = React.useState<keyof API.Stock>('name');
+  const [sortedStocks, setSortedStocks] = React.useState(() =>
+    sortStocks(items, order, orderByKey)
+  );
+  React.useEffect(() => {
+    setSortedStocks(sortStocks(items, order, orderByKey));
+  }, [items, order, orderByKey]);
+  const handleRequestSort = (
+    event: React.MouseEvent<unknown>,
+    property: keyof API.Stock
+  ) => {
+    const isAsc = orderByKey === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderByKey(property);
+  };
+
+  const headCells: HeadCell[] = [
+    {
+      id: 'name',
+      numeric: false,
+      disablePadding: false,
+      label: t('stock.name'),
+    },
+    {
+      id: 'price',
+      numeric: true,
+      disablePadding: false,
+      label: t('stock.lastPrice'),
+    },
+    { id: 'per7d', numeric: true, disablePadding: false, label: t('stock.7d') },
+    {
+      id: 'per365d',
+      numeric: true,
+      disablePadding: false,
+      label: t('stock.365d'),
+    },
+    {
+      id: 'marketCapitalization',
+      numeric: true,
+      disablePadding: false,
+      label: t('stock.marketCap'),
+    },
+    {
+      id: 'analystTargetPrice',
+      numeric: true,
+      disablePadding: false,
+      label: t('stock.analystsTarget'),
+    },
+    {
+      id: 'valuation',
+      numeric: true,
+      disablePadding: false,
+      label: t('stock.valuation'),
+    },
+    { id: 'div', numeric: true, disablePadding: false, label: t('stock.div') },
+    {
+      id: 'industry',
+      numeric: true,
+      disablePadding: false,
+      label: t('stock.industry'),
+    },
+  ];
 
   React.useEffect(() => {
     setItems(stocks.slice(0, 10));
@@ -212,9 +326,14 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
           classes={{ root: classes.customTableContainer }}
         >
           <Table stickyHeader aria-label="simple table">
-            <DashboardTableHeader />
+            <DashboardTableHeader
+              onRequestSort={handleRequestSort}
+              order={order}
+              orderByKey={orderByKey}
+              headCells={headCells}
+            />
             <TableBody>
-              {items.map((s) => (
+              {sortedStocks.map((s) => (
                 <DashboardTableRow stock={s} key={s.symbol} />
               ))}
               {hasMore && <h4>Loading More Stocks...</h4>}
