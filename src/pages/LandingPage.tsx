@@ -43,12 +43,12 @@ const useStyles = makeStyles((theme: Theme) =>
       maxHeight: '396px',
       display: 'auto',
       objectFit: 'scale-down',
-      padding: theme.spacing(1),
+      padding: '100px',
     },
     mediaLarge: {
       width: '500px',
       height: '732px',
-      padding: theme.spacing(5),
+      padding: '50px',
       objectFit: 'scale-down',
     },
     logo: {
@@ -61,12 +61,14 @@ const useStyles = makeStyles((theme: Theme) =>
     divider: {
       light: false,
       variant: 'middle',
-      marginInline: theme.spacing(25),
-      color: theme.palette.primary.dark,
+      marginLeft: '250px',
+      marginRight: '250px',
+      height: '1px',
+      background: theme.palette.secondary.contrastText,
     },
     box1: {
-      paddingTop: theme.spacing(5),
-      paddingBottom: theme.spacing(5),
+      paddingTop: '50px',
+      paddingBottom: '50px',
     },
     typographyMain: {
       color: theme.palette.primary.dark,
@@ -75,11 +77,12 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: '120px',
     },
     boxMain: {
-      padding: theme.spacing(12.5, 37.5),
-      backgroundColor: theme.palette.background.default,
+      paddingLeft: '180px',
+      paddingRight: '180px',
+      backgroundColor: theme.palette.primary.contrastText,
     },
     gridItem: {
-      paddingInline: theme.spacing(12.5),
+      paddingInline: '100px',
     },
     smallIcon: {
       fontSize: '54px',
