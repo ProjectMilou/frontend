@@ -8,10 +8,12 @@ import {
   rename,
 } from './APIClient';
 import { MockDetails, MockOverview, MockOverviewTwo } from './APIMocks';
+import StorageService from '../services/StorageService';
 
 describe('Portfolio API client', () => {
   beforeEach(() => {
     fetchMock.resetMocks();
+    StorageService.setToken('dummy');
   });
 
   /**
@@ -29,7 +31,9 @@ describe('Portfolio API client', () => {
       fetchMock.mockRejectOnce(() =>
         Promise.reject(new Error('network error'))
       );
-      await expect(apiCall()).rejects.toMatchInlineSnapshot(`[Error: UNKNOWN]`);
+      await expect(apiCall()).rejects.toMatchInlineSnapshot(
+        `[Error: network error]`
+      );
     });
 
     test('rejects with JSON error', async () => {

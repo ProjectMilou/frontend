@@ -1,10 +1,10 @@
 import { AppError } from '../Errors';
+import { BaseService, MethodType } from '../services/BaseService';
 
-// TODO: Change to production URL when available
-// TODO: Use a common base URL for shell, analyser and portfolio instead of 3 URLs
-export const baseURL = 'https://api.milou.io/portfolio';
+// TODO: Create a PortfolioService that extends BaseService
 
-const headers = { 'Content-Type': 'application/json' };
+const endpoint = 'portfolio';
+const jsonContentTypeHeader = { 'Content-Type': 'application/json' };
 
 // Types used by the frontend
 
@@ -482,27 +482,25 @@ function convertPortfolioDetails(response: DetailsResponse): PortfolioDetails {
  * Makes an API call. Resolves to the JSON response if the call is successful,
  * otherwise rejects with an error that has an {@link ErrorCode} as message.
  *
- * @param token - Authentication token
  * @param method - Request method (GET, POST, etc.)
  * @param url - An URL relative to {@link baseURL}
  * @param body - The request body
- * @param additionalHeaders - Additional request headers
+ * @param headers - Additional request headers
  *
  * @return Parsed JSON response if the API call succeeds
  */
 async function request(
-  token: string,
-  method: string,
+  method: MethodType,
   url: string,
-  body?: string,
-  additionalHeaders?: HeadersInit
+  body?: Record<string, unknown>,
+  headers?: HeadersInit
 ): Promise<unknown> {
-  // TODO: authentication
-  const response = await fetch(`${baseURL}/${url}`, {
+  const response = await BaseService.authenticatedRequest(
     method,
-    headers: { ...headers, ...additionalHeaders },
+    `${endpoint}/${url}`,
     body,
-  }).catch(() => Promise.reject(new AppError('UNKNOWN'))); // network error etc.
+    headers
+  );
   if (response.ok) {
     return Promise.resolve(response.json()); // valid response
   }
@@ -518,7 +516,7 @@ async function request(
  * @param token - Authentication token
  */
 export async function list(token: string): Promise<PortfolioOverview[]> {
-  const response = (await request(token, 'GET', 'list')) as ListResponse;
+  const response = (await request('GET', 'list')) as ListResponse;
   // TODO: remove mock when api is implemented
   return [
     ...response.portfolios.map(convertPortfolioOverview),
@@ -541,7 +539,6 @@ export async function backtesting(
   to: Date
 ): Promise<Backtesting> {
   const response = (await request(
-    token,
     'GET',
     `/analytics/backtest/${id}?${from.toISOString().split('T')[0]}&${
       to.toISOString().split('T')[0]
@@ -565,11 +562,7 @@ export async function details(
       setTimeout(() => resolve(mockPortfolio), 1000)
     );
   }
-  const response = (await request(
-    token,
-    'GET',
-    `details/${id}`
-  )) as DetailsResponse;
+  const response = (await request('GET', `details/${id}`)) as DetailsResponse;
   return convertPortfolioDetails(response);
 }
 
@@ -585,7 +578,7 @@ export async function rename(
   id: string,
   name: string
 ): Promise<void> {
-  await request(token, 'PUT', `rename/${id}`, JSON.stringify({ name }));
+  await request('PUT', `rename/${id}`, { name }, jsonContentTypeHeader);
 }
 
 /**
@@ -602,10 +595,10 @@ export async function duplicate(
   name: string
 ): Promise<string> {
   const response = (await request(
-    token,
     'POST',
     `duplicate/${id}`,
-    JSON.stringify({ name })
+    { name },
+    jsonContentTypeHeader
   )) as DuplicateResponse;
   return response.id;
 }
@@ -620,7 +613,7 @@ export async function deletePortfolio(
   token: string,
   id: string
 ): Promise<void> {
-  await request(token, 'DELETE', id);
+  await request('DELETE', id);
 }
 
 /**
@@ -632,10 +625,10 @@ export async function deletePortfolio(
  */
 export async function create(token: string, name: string): Promise<string> {
   const response = (await request(
-    token,
     'POST',
     'create',
-    JSON.stringify({ name })
+    { name },
+    jsonContentTypeHeader
   )) as CreateResponse;
   return response.id;
 }
@@ -646,10 +639,10 @@ export async function modify(
   modifications: PositionQty[]
 ): Promise<void> {
   await request(
-    token,
     'PUT',
     `modify/${id}`,
-    JSON.stringify({ modifications })
+    { modifications },
+    jsonContentTypeHeader
   );
 }
 
@@ -664,11 +657,7 @@ export async function stock(
   token: string,
   symbol: string
 ): Promise<PortfolioStock[]> {
-  return (await request(
-    token,
-    'GET',
-    `stock/${symbol}`
-  )) as PortfolioStockResponse;
+  return (await request('GET', `stock/${symbol}`)) as PortfolioStockResponse;
 }
 
 /**
@@ -683,10 +672,5 @@ export async function saveStockToPortfolios(
   symbol: string,
   modifications: PortfolioQty[]
 ): Promise<void> {
-  await request(
-    token,
-    'PUT',
-    `stock/${symbol}`,
-    JSON.stringify({ modifications })
-  );
+  await request('PUT', `stock/${symbol}`, { modifications });
 }
