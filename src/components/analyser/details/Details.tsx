@@ -17,6 +17,7 @@ import StockChart from '../../shared/StockChart';
 import Dividends from './Dividends';
 import NewsComponent from './NewsComponent';
 import SectionDivider from './SectionDivider';
+import Risks from './Risks';
 import BalanceSheetInfo from './BalanceSheetInfo';
 import Analysts from './Analysts';
 
@@ -218,6 +219,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
                 recommendations={analystRecommendations}
                 overview={stockOverview}
               />
+              <Risks />
             </Container>
           </div>
         )}
