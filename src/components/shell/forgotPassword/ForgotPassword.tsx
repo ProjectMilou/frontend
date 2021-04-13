@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles, createStyles, useTheme } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
-import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import logo from '../../../assets/images/logo1.png';
 import ForgotPasswordForm from './ForgotPasswordForm';
@@ -36,7 +35,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = (props) => {
   const { closePopUp } = props;
   const theme = useTheme();
   const { dialog, iconLogo, iconClear } = useStyles(theme);
-  const { t } = useTranslation();
+  const [hasSuccess, setSuccess] = useState(false);
 
   return (
     <div className={dialog}>
@@ -51,7 +50,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = (props) => {
 
       <img src={logo} alt="milou-logo" className={iconLogo} />
 
-      <ForgotPasswordForm />
+      <ForgotPasswordForm setSuccess={setSuccess} />
     </div>
   );
 };
