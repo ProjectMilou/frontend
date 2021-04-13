@@ -165,6 +165,7 @@ export class UserService extends BaseService {
   /**
    * Starts the password reset process
    */
+  // TODO this does not work as it always returns true
   public static async forgot(email: string): Promise<boolean> {
     try {
       const response = await this.request(

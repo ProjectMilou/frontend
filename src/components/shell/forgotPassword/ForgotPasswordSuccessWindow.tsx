@@ -12,7 +12,6 @@ const ForgotPasswordSuccessWindow: React.FC<ForgotPasswordWindowProps> = (
   const { t } = useTranslation();
   const { closePopUp } = props;
 
-  // TODO this does not work
   useEffect(() => {
     setTimeout(() => {
       closePopUp();
