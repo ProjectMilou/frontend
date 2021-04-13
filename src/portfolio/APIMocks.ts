@@ -9,6 +9,8 @@
  */
 
 import {
+  Analytics,
+  Correlations,
   KeyFigures,
   NonEmptyPortfolioDetails,
   PortfolioOverview,
@@ -24,7 +26,9 @@ export const MockOverview: PortfolioOverview = {
   value: 9,
   score: 1,
   perf7d: -1.23,
+  perf7dPercent: -1,
   perf1y: 13.37,
+  perf1yPercent: 5,
   modified: new Date(0),
 };
 
@@ -36,6 +40,8 @@ export const MockOverviewTwo: PortfolioOverview = {
   value: 174.98,
   score: 0.6,
   perf7d: 0,
+  perf7dPercent: 0,
+  perf1yPercent: -1,
   perf1y: -1,
   modified: new Date(1616086585),
 };
@@ -48,10 +54,11 @@ export const MockPositions: Position[] = [
       name: 'BMW',
       price: 23.25,
       perf7d: -1,
+      perf7dPercent: -0.3,
       perf1y: 5,
-      country: 'Germany',
-      industry: 'Auto',
-      currency: 'EUR',
+      perf1yPercent: 2,
+      volatility: 0.3,
+      debtEquity: 0.8,
       score: 0.7,
     },
     qty: 1,
@@ -64,10 +71,11 @@ export const MockPositions: Position[] = [
       name: 'Mercedes',
       price: 19.51,
       perf7d: 3,
+      perf7dPercent: 2.4,
       perf1y: -15,
-      country: 'Germany',
-      industry: 'Auto',
-      currency: 'EUR',
+      perf1yPercent: 10.5,
+      volatility: 1.3,
+      debtEquity: 1.5,
       score: 0.4,
     },
     qty: 2,
@@ -80,10 +88,11 @@ export const MockPositions: Position[] = [
       name: 'McLaren',
       price: 12.11,
       perf7d: 15,
+      perf7dPercent: 12,
       perf1y: 10,
-      country: 'Germany',
-      industry: 'Auto',
-      currency: 'EUR',
+      perf1yPercent: 8.5,
+      volatility: 0.8,
+      debtEquity: 0.5,
       score: 0.8,
     },
     qty: 3,
@@ -96,11 +105,12 @@ export const MockPositions: Position[] = [
       name: 'QQQ',
       price: 120.11,
       perf7d: 1,
+      perf7dPercent: 1,
       perf1y: 2,
-      country: 'USA',
-      industry: 'Tech',
-      currency: 'USD',
+      perf1yPercent: 0.4,
       score: 0.9,
+      volatility: 1.33,
+      debtEquity: 1.45,
     },
     qty: 4,
     totalReturn: -1.23,
@@ -110,15 +120,17 @@ export const MockPositions: Position[] = [
 
 const MockRisk: RiskAnalysis = {
   countries: {
-    count: 2,
-    score: 0.1,
-    warnings: [
-      'Strong focus on two countries',
-      'Strong focus on western world',
-    ],
+    USA: 2,
+    GER: 3,
   },
-  segments: { count: 2, score: 0.4, warnings: ['c', 'd'] },
-  currency: { count: 3, score: 0.8, warnings: ['e', 'f', 'g'] },
+  segments: {
+    'Financial Service': 2,
+    HealthCare: 5,
+  },
+  currency: {
+    Dollar: 2,
+    Euro: 3,
+  },
 };
 
 const MockFigures: KeyFigures[] = [
@@ -133,13 +145,31 @@ const MockFigures: KeyFigures[] = [
   },
 ];
 
+export const MockCorrelations: Correlations = {
+  'BMW;Apple': 1,
+  'Apple;TUM': 2,
+  'Apple;Faber': 3,
+  'TUM;BMW': 4,
+  'BMW;Faber': 5,
+  'Faber;TUM': 6,
+};
+
+export const MockAnalytics: Analytics = {
+  volatility: 1.45,
+  standardDeviation: 0.12,
+  sharpeRatio: 0.45,
+  treynorRatio: 1.2,
+  debtEquity: 0.55,
+  correlations: MockCorrelations,
+};
+
 export const MockDetails: NonEmptyPortfolioDetails = {
   overview: MockOverviewTwo,
   positions: MockPositions,
   risk: MockRisk,
   keyFigures: MockFigures,
   nextDividend: new Date(0),
-  dividendPayoutRatio: 0.25,
   totalReturn: 75.43,
   totalReturnPercent: 12.34,
+  analytics: MockAnalytics,
 };

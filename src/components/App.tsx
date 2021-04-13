@@ -12,6 +12,8 @@ import Profile from './shell/profile/Profile';
 import Imprint from '../pages/Imprint';
 import AboutUs from '../pages/AboutUs';
 import Privacy from '../pages/Privacy';
+import Page404 from '../pages/Page404';
+import Confirm from '../pages/Confirm';
 
 declare module '@material-ui/core/styles/createPalette' {
   interface Palette {
@@ -91,11 +93,13 @@ const App: React.FC = () => (
           <LandingPage path="/" />
           <Shell path="/shell" />
           <Analyser path="/analyser/*" />
-          <Portfolio path="/portfolio" />
+          <Portfolio path="/portfolio/*" />
           <Imprint path="/imprint" />
           <AboutUs path="/aboutus" />
           <Privacy path="/privacy" />
           <Profile path="/profile" />
+          <Confirm path="/confirm/:id/:token" />
+          <Page404 default />
         </Router>
       </div>
 

@@ -1,30 +1,31 @@
-import { makeStyles } from '@material-ui/core';
+import { createStyles, makeStyles } from '@material-ui/core';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
-const useStyles = makeStyles({
-  button: {
-    textDecoration: 'underline',
-    cursor: 'pointer',
-    backgroundColor: 'white',
-    border: 'none',
-    padding: '0px',
-    fontSize: '18px',
-    lineHeight: '1.5',
-    margin: '10px auto',
-    display: 'inline',
-  },
-});
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    button: {
+      textDecoration: 'underline',
+      cursor: 'pointer',
+      backgroundColor: 'white',
+      border: 'none',
+      padding: '0px',
+      fontSize: '18px',
+      lineHeight: '1.5',
+      margin: theme.spacing(1, 'auto'),
+      display: 'inline',
+    },
+  })
+);
 
-interface RegisterFailedWindowProps {
+interface LinkButtonProps {
   handleEvent: () => void;
   text?: string;
   style?: React.CSSProperties;
+  children?: React.ReactNode;
 }
 
-const LinkButton: React.FC<RegisterFailedWindowProps> = (props) => {
-  const { handleEvent, text, style } = props;
-  const { t } = useTranslation();
+const LinkButton: React.FC<LinkButtonProps> = (props) => {
+  const { handleEvent, text, style, children } = props;
   const { button } = useStyles();
 
   return (
@@ -39,7 +40,7 @@ const LinkButton: React.FC<RegisterFailedWindowProps> = (props) => {
       }}
       style={style}
     >
-      {text || t('shell.link')}
+      {text || children}
     </button>
   );
 };
