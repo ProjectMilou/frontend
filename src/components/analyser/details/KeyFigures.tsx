@@ -90,30 +90,32 @@ const KeyFigures: React.FC = () => {
   ];
 
   return (
-    <div>
-      <div className={classes.titleContainer}>
-        <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionTitle}>
-            {t('analyser.details.KeyFiguresHeader')}
-          </h2>
+    <p>
+      <div>
+        <div className={classes.titleContainer}>
+          <div className={classes.titleWrapper}>
+            <h2 className={classes.sectionTitle}>
+              {t('analyser.details.KeyFiguresHeader')}
+            </h2>
+          </div>
+          <div className={classes.lineWrapper}>
+            <hr className={classes.line} />
+          </div>
         </div>
-        <div className={classes.lineWrapper}>
-          <hr className={classes.line} />
+        <div className={classes.titleContainer}>
+          <div className={classes.titleWrapper}>
+            <h2 className={classes.sectionSubTitle}>
+              {t('analyser.details.KeyFiguresHeader.KeyFigures')}
+            </h2>
+          </div>
         </div>
+        <KeyFiguresBar
+          chartHeight={350}
+          series={mockSeries}
+          textColor={theme.palette.secondary.contrastText}
+        />
       </div>
-      <div className={classes.titleContainer}>
-        <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionSubTitle}>
-            {t('analyser.details.KeyFiguresHeader.KeyFigures')}
-          </h2>
-        </div>
-      </div>
-      <KeyFiguresBar
-        chartHeight={350}
-        series={mockSeries}
-        textColor={theme.palette.secondary.contrastText}
-      />
-    </div>
+    </p>
   );
 };
 export default KeyFigures;

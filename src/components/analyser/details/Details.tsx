@@ -15,7 +15,8 @@ import KeyFigures from './KeyFigures';
 import DetailsOverview from './DetailsOverview';
 import StockChart from '../../shared/StockChart';
 import Dividends from './Dividends';
-import Risks from './Risks';
+import BalanceSheetInfo from './BalanceSheetInfo';
+import Analysts from './Analysts';
 
 // props type declaration
 export interface DetailsProps extends RouteComponentProps {
@@ -45,6 +46,11 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
     companyReports,
     setCompanyReports,
   ] = React.useState<API.CompanyReports>();
+  // eslint-disable-next-line
+  const [analystRecommendations, setAnalystRecommendations] = React.useState<
+    API.AnalystsRecommendation[]
+  >([]);
+
   const [performanceAll, setPerformanceAll] = React.useState(false);
   const [error, setError] = React.useState<Error | undefined>();
 
@@ -70,6 +76,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
       const sD = await API.stockDetails(token, symbol);
       const sP = await API.stockPerformance(token, symbol, false);
       const cR = await API.companyReports(token, symbol);
+      const aR = await API.analystsRecommendations(token, symbol);
 
       if (isMounted.current) {
         setStockOverview(sO);
@@ -77,6 +84,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
         // TODO get unix timestamp from backend and reverse array
         setStockPerformance(convertPerformance(sP));
         setCompanyReports(cR);
+        setAnalystRecommendations(aR);
       }
     } catch (e) {
       if (isMounted.current) {
@@ -146,28 +154,35 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
           />
         </Container>
       )}
-      {stockOverview && stockDetails && (
-        <div>
-          <DetailsHeader back={back} details={stockOverview} />
-          <Container className={classes.mainContent}>
-            <DetailsOverview
-              stockOverview={stockOverview}
-              stockDetails={stockDetails}
-            />
-            <StockChart
-              series={stockPerformance}
-              setPerformanceAll={setPerformanceAll}
-              axisColor={theme.palette.secondary.contrastText}
-              buttonBackgroundColor={theme.palette.primary.main}
-              buttonTextColor={theme.palette.primary.contrastText}
-              height={450}
-            />
-            <KeyFigures />
-            <Dividends />
-            <Risks />
-          </Container>
-        </div>
-      )}
+      {stockOverview &&
+        stockDetails &&
+        companyReports &&
+        analystRecommendations && (
+          <div>
+            <DetailsHeader back={back} details={stockOverview} />
+            <Container className={classes.mainContent}>
+              <DetailsOverview
+                stockOverview={stockOverview}
+                stockDetails={stockDetails}
+              />
+              <StockChart
+                series={stockPerformance}
+                setPerformanceAll={setPerformanceAll}
+                axisColor={theme.palette.secondary.contrastText}
+                buttonBackgroundColor={theme.palette.primary.main}
+                buttonTextColor={theme.palette.primary.contrastText}
+                height={450}
+              />
+              <KeyFigures />
+              <Dividends />
+              <BalanceSheetInfo companyReports={companyReports} />
+              <Analysts
+                recommendations={analystRecommendations}
+                overview={stockOverview}
+              />
+            </Container>
+          </div>
+        )}
     </>
   );
 };
