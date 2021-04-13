@@ -1,12 +1,31 @@
 import React, { useEffect } from 'react';
-import { createStyles, Grow, makeStyles, Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-const ForgotPasswordSuccessWindow: React.FC = () => {
+interface ForgotPasswordWindowProps {
+  closePopUp: () => void;
+}
+
+const ForgotPasswordSuccessWindow: React.FC<ForgotPasswordWindowProps> = (
+  props
+) => {
   const { t } = useTranslation();
+  const { closePopUp } = props;
+
+  // TODO this does not work
+  useEffect(() => {
+    setTimeout(() => {
+      closePopUp();
+    }, 3000);
+  });
+
   return (
-    <Typography variant="h5" align="center">
-      {t('shell.forgotPassword.tokenSent')}
-    </Typography>
+    <Box my={3}>
+      <Typography variant="h5" align="center">
+        {t('shell.forgotPassword.tokenSent')}
+      </Typography>
+    </Box>
   );
 };
+
+export default ForgotPasswordSuccessWindow;

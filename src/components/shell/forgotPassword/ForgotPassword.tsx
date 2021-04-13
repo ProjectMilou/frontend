@@ -4,6 +4,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import PropTypes from 'prop-types';
 import logo from '../../../assets/images/logo1.png';
 import ForgotPasswordForm from './ForgotPasswordForm';
+import ForgotPasswordSuccessWindow from './ForgotPasswordSuccessWindow';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -50,7 +51,11 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = (props) => {
 
       <img src={logo} alt="milou-logo" className={iconLogo} />
 
-      <ForgotPasswordForm setSuccess={setSuccess} />
+      {hasSuccess ? (
+        <ForgotPasswordSuccessWindow closePopUp={() => closePopUp} />
+      ) : (
+        <ForgotPasswordForm setSuccess={setSuccess} />
+      )}
     </div>
   );
 };
