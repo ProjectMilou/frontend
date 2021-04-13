@@ -32,7 +32,6 @@ export type PortfolioOverview =
   | NonEmptyPortfolioOverview;
 
 export type Stock = {
-  isin: string;
   symbol: string;
   name: string;
   price: number;
@@ -73,6 +72,19 @@ export type KeyFigures = {
   dividendPayoutRatio: number;
 };
 
+export type Correlations = {
+  [key: string]: number;
+};
+
+export type Analytics = {
+  volatility: number;
+  standardDeviation: number;
+  sharpeRatio: number;
+  treynorRatio: number;
+  debtEquity: number;
+  correlations: Correlations;
+};
+
 export type EmptyPortfolioDetails = {
   overview: EmptyPortfolioOverview;
   positions: [];
@@ -87,13 +99,109 @@ export type NonEmptyPortfolioDetails = {
   dividendPayoutRatio: number;
   totalReturn: number;
   totalReturnPercent: number;
+  analytics: Analytics;
 };
 
 export type PortfolioDetails = EmptyPortfolioDetails | NonEmptyPortfolioDetails;
 
 export type PositionQty = {
-  isin: string;
+  symbol: string;
   qty: number;
+};
+
+export type PortfolioQty = {
+  id: string;
+  qty: number;
+};
+
+export type PortfolioStock = {
+  id: string;
+  name: string;
+  virtual: boolean;
+  qty: number;
+};
+
+export type Backtesting = {
+  MDDMaxToMin: number;
+  MDDInitialToMin: number;
+  dateMax: Date;
+  dateMin: Date;
+  maxValue: number;
+  minValue: number;
+  initialValue: number;
+  bestYear: {
+    changeBest: number;
+    yearBest: string;
+    growthRateBest: number;
+  };
+  worstYear: {
+    changeWorst: number;
+    yearWorst: string;
+    growthRateWorst: number;
+  };
+  finalPortfolioBalance: number;
+  CAGR: number;
+  standardDeviation: number;
+  sharpeRatio: number;
+};
+
+// Types describing the JSON response of API calls.
+// The correctness of these types is assumed, no checks are performed.
+
+export type BacktestingResponse = {
+  error: string;
+  success:
+    | {
+        MDDMaxToMin: number;
+        MDDInitialToMin: number;
+        dateMax: string;
+        dateMin: string;
+        maxValue: number;
+        minValue: number;
+        initialValue: number;
+        bestYear: {
+          changeBest: number;
+          yearBest: string;
+          growthRateBest: number;
+        };
+        worstYear: {
+          changeWorst: number;
+          yearWorst: string;
+          growthRateWorst: number;
+        };
+        finalPortfolioBalance: number;
+        CAGR: number;
+        standardDeviation: number;
+        sharpeRatio: number;
+      }
+    | Record<string, never>;
+};
+
+type NonEmptyBacktestingResponse = {
+  error: string;
+  success: {
+    MDDMaxToMin: number;
+    MDDInitialToMin: number;
+    dateMax: string;
+    dateMin: string;
+    maxValue: number;
+    minValue: number;
+    initialValue: number;
+    bestYear: {
+      changeBest: number;
+      yearBest: string;
+      growthRateBest: number;
+    };
+    worstYear: {
+      changeWorst: number;
+      yearWorst: string;
+      growthRateWorst: number;
+    };
+    finalPortfolioBalance: number;
+    CAGR: number;
+    standardDeviation: number;
+    sharpeRatio: number;
+  };
 };
 
 // Types describing the JSON response of API calls.
@@ -129,6 +237,7 @@ type NonEmptyDetailsResponse = {
   dividendPayoutRatio: number;
   totalReturn: number;
   totalReturnPercent: number;
+  analytics: Analytics;
 };
 
 type DetailsResponse = EmptyDetailsResponse | NonEmptyDetailsResponse;
@@ -141,8 +250,28 @@ type CreateResponse = {
   id: string;
 };
 
+type PortfolioStockResponse = PortfolioStock[];
+
 // mock portfolio while the api is not finished yet (copied from APIMocks.ts).
 // TODO: remove this
+
+const MockCorrelations: Correlations = {
+  'BMW;Apple': 0.33,
+  'Apple;TUM': 0.56,
+  'Apple;Faber': 0.55,
+  'TUM;BMW': -0.3,
+  'BMW;Faber': -0.8,
+  'Faber;TUM': 0.1,
+};
+
+const MockAnalytics: Analytics = {
+  volatility: 1.45,
+  standardDeviation: 0.12,
+  sharpeRatio: 0.45,
+  treynorRatio: 1.2,
+  debtEquity: 0.55,
+  correlations: MockCorrelations,
+};
 
 const mockPortfolio: NonEmptyPortfolioDetails = {
   overview: {
@@ -159,7 +288,6 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
   positions: [
     {
       stock: {
-        isin: 'MOCK0',
         symbol: 'BMW',
         name: 'BMW',
         price: 23.25,
@@ -176,7 +304,6 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
     },
     {
       stock: {
-        isin: 'MOCK1',
         symbol: 'MRC',
         name: 'Mercedes',
         price: 19.51,
@@ -193,7 +320,6 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
     },
     {
       stock: {
-        isin: 'MOCK2',
         symbol: 'MCL',
         name: 'McLaren',
         price: 12.11,
@@ -210,7 +336,6 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
     },
     {
       stock: {
-        isin: 'MOCK3',
         symbol: 'QQQ',
         name: 'QQQ',
         price: 120.11,
@@ -289,6 +414,7 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
   dividendPayoutRatio: 25,
   totalReturn: 75.43,
   totalReturnPercent: 12.34,
+  analytics: MockAnalytics,
 };
 
 /**
@@ -302,6 +428,21 @@ function convertPortfolioOverview(
     ...response,
     id: response.id.toString(),
     modified: new Date(response.modified),
+  };
+}
+
+/**
+ * Converts a {@link BacktestingResponse} object as received from the API
+ * to a {@link Backtesting} object for use by the application.
+ */
+function convertBacktesting(
+  response: NonEmptyBacktestingResponse
+): Backtesting {
+  const { success } = response;
+  return {
+    ...success,
+    dateMin: new Date(success.dateMin),
+    dateMax: new Date(success.dateMax),
   };
 }
 
@@ -382,6 +523,35 @@ export async function list(token: string): Promise<PortfolioOverview[]> {
     ...response.portfolios.map(convertPortfolioOverview),
     mockPortfolio.overview,
   ];
+}
+
+/**
+ * Gets the data needed for the Back-Testing section of the portfolio details page.
+ *
+ * @param token - Authentication token
+ * @param id - Id of the portfolio for which the Back-Testing information is needed
+ * @param from - UNIX timestamp for the date FROM which the user wants to backtest
+ * @param to - UNIX timestamp for the date UNTIL WHICH the user wants to backtest
+ */
+export async function backtesting(
+  token: string,
+  id: string,
+  from: Date,
+  to: Date
+): Promise<Backtesting> {
+  const response = (await request(
+    token,
+    'GET',
+    `/analytics/backtest/${id}?${from.toISOString().split('T')[0]}&${
+      to.toISOString().split('T')[0]
+    }`
+  )) as BacktestingResponse;
+  if (
+    response.error.length > 0 ||
+    Object.entries(response.success).length === 0
+  )
+    throw new Error(response.error);
+  return convertBacktesting(response as NonEmptyBacktestingResponse);
 }
 
 export async function details(
@@ -478,6 +648,44 @@ export async function modify(
     token,
     'PUT',
     `modify/${id}`,
+    JSON.stringify({ modifications })
+  );
+}
+
+/**
+ * Gets the portfolio name and quantity of a specified stock for all portfolios of the current user.
+ * This information is displayed to the user when adding a stock to his portfolios.
+ *
+ * @param token - Authentication token
+ * @param symbol - Symbol of the current stock
+ */
+export async function stock(
+  token: string,
+  symbol: string
+): Promise<PortfolioStock[]> {
+  return (await request(
+    token,
+    'GET',
+    `stock/${symbol}`
+  )) as PortfolioStockResponse;
+}
+
+/**
+ * Modifies a stock's quantity within multiple portfolios simultaneously.
+ *
+ * @param token - Authentication token
+ * @param symbol - Symbol of the current stock
+ * @param modifications - modifications made to the portfolios
+ */
+export async function saveStockToPortfolios(
+  token: string,
+  symbol: string,
+  modifications: PortfolioQty[]
+): Promise<void> {
+  await request(
+    token,
+    'PUT',
+    `stock/${symbol}`,
     JSON.stringify({ modifications })
   );
 }
