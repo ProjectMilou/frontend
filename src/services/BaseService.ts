@@ -53,7 +53,7 @@ export class BaseService {
   ): Promise<Response> {
     const token = StorageService.getToken();
     if (!token) {
-      throw new AppError('AUTH_TOKEN_INVALID');
+      throw new AppError('AUTH_USER_NOT_LOGGED_IN');
     }
 
     return this.request(

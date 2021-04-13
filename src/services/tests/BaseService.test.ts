@@ -13,7 +13,7 @@ describe('BaseService', () => {
       const apiCall = () => BaseService.authenticatedRequest('GET', 'dummy');
 
       await expect(apiCall).rejects.toMatchInlineSnapshot(
-        '[Error: AUTH_TOKEN_INVALID]'
+        '[Error: AUTH_USER_NOT_LOGGED_IN]'
       );
     });
   });
