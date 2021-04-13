@@ -73,6 +73,7 @@
   "shell.message.forgotPassword": "Forgot password?",
   "shell.forgotPassword.reset": "Enter your email so we can send you an authentication token",
   "shell.forgotPassword.submit": "Send token",
+  "shell.forgotPassword.tokenSent": "Please click on the link that we sent to your email",
   "shell.message.noAccount": "You have no account? Then register ",
   "shell.question.haveAccount": "You already have an account? Then log in ",
   "shell.message.haveAccount": "You already have an account. To log in please click ",
