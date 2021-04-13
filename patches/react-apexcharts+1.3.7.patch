@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-apexcharts/types/react-apexcharts.d.ts b/node_modules/react-apexcharts/types/react-apexcharts.d.ts
+index 62e764e..42314ec 100644
+--- a/node_modules/react-apexcharts/types/react-apexcharts.d.ts
++++ b/node_modules/react-apexcharts/types/react-apexcharts.d.ts
+@@ -6,7 +6,7 @@
+ declare module "react-apexcharts" {
+     interface Props {
+         type?: "line" | "area" | "bar" | "histogram" | "pie" | "donut" | "rangeBar" |
+-            "radialBar" | "scatter" | "bubble" | "heatmap" | "candlestick" | "radar" | "polarArea",
++            "radialBar" | "scatter" | "bubble" | "heatmap" | "treemap" | "candlestick" | "radar" | "polarArea",
+         series?: Array<any>,
+         width?: string | number,
+         height?: string | number,
