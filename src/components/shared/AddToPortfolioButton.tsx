@@ -1,9 +1,5 @@
 import React, { Reducer } from 'react';
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-} from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { Alert } from '@material-ui/lab';
 import Fab from '@material-ui/core/Fab';
@@ -21,12 +17,12 @@ const useStyles = makeStyles((theme: Theme) =>
         margin: theme.spacing(1),
       },
       margin: 0,
-    top: 'auto',
-    right: 20,
-    bottom: 20,
-    left: 'auto',
-    position: 'fixed',
-    color: 'primary'
+      top: 'auto',
+      right: 20,
+      bottom: 20,
+      left: 'auto',
+      position: 'fixed',
+      color: 'primary',
     },
     root: {
       '& > *': {
@@ -194,9 +190,9 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonProps> = ({
       <Fab
         className={classes.addButton}
         onClick={() => openDialog()}
-        color="primary" 
-        aria-label="add" 
-        variant='extended'
+        color="primary"
+        aria-label="add"
+        variant="extended"
       >
         <AddIcon />
         <>&nbsp;&nbsp;</>
