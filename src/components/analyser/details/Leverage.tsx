@@ -1,10 +1,5 @@
 import React, { ReactElement } from 'react';
-import {
-  makeStyles,
-  Theme,
-  createStyles,
-  useTheme,
-} from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import ReactApexChart from 'react-apexcharts';
 
@@ -159,7 +154,6 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, body }) => {
 const Leverage: React.FC = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const theme = useTheme();
   const options = {
     colors: ['#008ffb'],
     chart: {
