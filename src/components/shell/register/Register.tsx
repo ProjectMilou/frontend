@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import {
   Box,
   Button,
+  createStyles,
   makeStyles,
   Typography,
   useTheme,
 } from '@material-ui/core';
 import { Trans } from 'react-i18next';
 import ClearIcon from '@material-ui/icons/Clear';
-import { createStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import logo from '../../../assets/images/logo1.png';
 import RegisterForm from './RegisterForm';

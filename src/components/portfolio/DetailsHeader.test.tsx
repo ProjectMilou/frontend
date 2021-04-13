@@ -4,16 +4,15 @@ import userEvent from '@testing-library/user-event';
 import { ThemeProvider } from '@material-ui/core/styles';
 import DetailsHeader from './DetailsHeader';
 import { MockPositions } from '../../portfolio/APIMocks';
+import { portfolioDashboard } from '../../portfolio/Router';
 import { theme } from '../App';
 
 const testName = 'My awesome portfolio';
-const mockBack = jest.fn();
 
 test('Details header renders correctly', async () => {
   render(
     <ThemeProvider theme={theme}>
       <DetailsHeader
-        back={mockBack}
         name={testName}
         positions={MockPositions}
         editPositions={jest.fn()}
@@ -26,7 +25,7 @@ test('Details header renders correctly', async () => {
   // testing back button
   const backButton = screen.getByRole('button', { name: 'back' });
   await userEvent.click(backButton);
-  expect(mockBack).toHaveBeenCalled();
+  expect(portfolioDashboard).toHaveBeenCalled();
 
   // testing edit button
   expect(

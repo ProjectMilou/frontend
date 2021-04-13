@@ -1,61 +1,8 @@
 import React from 'react';
-import {
-  makeStyles,
-  Theme,
-  createStyles,
-  useTheme,
-} from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import KeyFiguresBar from '../../shared/KeyFiguresBar';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    button: {
-      margin: theme.spacing(1),
-    },
-    customSize: {
-      maxWidth: 500,
-    },
-    root: {
-      margin: '25px auto',
-      minWidth: '50%',
-    },
-    titleContainer: {
-      display: 'flex',
-      marginBottom: '2rem',
-    },
-    titleWrapper: {
-      marginRight: '1rem',
-    },
-    sectionTitle: {
-      margin: 0,
-      color: 'primary',
-      // TODO use theme fontsize and weight
-      fontSize: '2.25rem',
-      fontWeight: 400,
-      whiteSpace: 'nowrap',
-    },
-    sectionSubTitle: {
-      margin: 0,
-      color: 'primary',
-      // TODO use theme fontsize and weight
-      fontSize: '2rem',
-      fontWeight: 400,
-      whiteSpace: 'nowrap',
-    },
-    lineWrapper: {
-      display: 'flex',
-      width: '100%',
-      // TODO: use theme color
-      borderColor: 'grey',
-    },
-    line: {
-      width: '100%',
-      alignSelf: 'center',
-      paddingLeft: '2%',
-    },
-  })
-);
+import SubsectionDivider from './SubsectionDivider';
 
 export type KeyFigure = {
   title: string;
@@ -64,7 +11,6 @@ export type KeyFigure = {
 };
 
 const KeyFigures: React.FC = () => {
-  const classes = useStyles();
   const { t } = useTranslation();
   const theme = useTheme();
 
@@ -91,23 +37,7 @@ const KeyFigures: React.FC = () => {
 
   return (
     <div>
-      <div className={classes.titleContainer}>
-        <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionTitle}>
-            {t('analyser.details.KeyFiguresHeader')}
-          </h2>
-        </div>
-        <div className={classes.lineWrapper}>
-          <hr className={classes.line} />
-        </div>
-      </div>
-      <div className={classes.titleContainer}>
-        <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionSubTitle}>
-            {t('analyser.details.KeyFiguresHeader.KeyFigures')}
-          </h2>
-        </div>
-      </div>
+      <SubsectionDivider subsection="analyser.details.KeyFiguresHeader.KeyFigures" />
       <KeyFiguresBar
         chartHeight={350}
         series={mockSeries}

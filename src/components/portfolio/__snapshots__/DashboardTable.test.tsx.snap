@@ -463,19 +463,37 @@ exports[`DashboardTable display portfolio information 1`] = `
       </tbody>
     </table>
   </div>
-  <button
-    class="MuiButtonBase-root MuiButton-root MuiButton-outlined makeStyles-createButton-12 MuiButton-outlinedPrimary"
-    tabindex="0"
-    type="button"
+  <div
+    class="makeStyles-buttons-12"
   >
-    <span
-      class="MuiButton-label"
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary"
+      tabindex="0"
+      type="button"
     >
-      portfolio.dashboard.createPortfolio
-    </span>
-    <span
-      class="MuiTouchRipple-root"
-    />
-  </button>
+      <span
+        class="MuiButton-label"
+      >
+        portfolio.dashboard.createPortfolio
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedSecondary"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiButton-label"
+      >
+        portfolio.dashboard.importPortfolio
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+  </div>
 </div>
 `;
