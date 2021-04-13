@@ -1,7 +1,7 @@
 import {
   Button,
-  createStyles,
   Dialog,
+  createStyles,
   DialogActions,
   DialogContent,
   DialogContentText,
@@ -17,7 +17,8 @@ import {
 import { navigate, RouteComponentProps } from '@reach/router';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { IUserProfile, UserService } from '../../../services/UserService';
+import UserService from '../../../services/UserService';
+import BankSearch from '../bankSearch/BankSearch';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,6 +34,16 @@ const useStyles = makeStyles((theme: Theme) =>
     details: {
       maxWidth: '50%',
     },
+    dialog: {
+      borderRadius: '10px',
+      maxWidth: '450px',
+      width: '100%',
+      margin: ' 100px auto',
+      height: 'min-content',
+    },
+    paper: {
+      minWidth: '350px',
+    },
   })
 );
 
@@ -43,22 +54,20 @@ const Profile: React.FC<RouteComponentProps> = () => {
     email: '',
   });
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [addBankIsOpen, setAddBankIsOpen] = useState(false);
   const [edit, setEdit] = useState(false);
   const classes = useStyles();
   const { t } = useTranslation();
 
-  function handleData(data: IUserProfile) {
-    if (!data) return;
-    setUser({
-      firstName: data.firstName || '',
-      lastName: data.lastName || '',
-      email: (data.user && data.user.id) || '',
-    });
-  }
-
   useEffect(() => {
     UserService.getProfile()
-      .then(handleData)
+      .then((data) =>
+        setUser({
+          firstName: data.firstName || '',
+          lastName: data.lastName || '',
+          email: data.email || '',
+        })
+      )
       .catch(() => navigate('/'));
   }, []);
 
@@ -92,6 +101,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   {t('shell.profile.account-details.email')}
                 </Typography>
                 <TextField
+                  inputProps={{ 'data-testid': 'email' }}
                   variant="outlined"
                   value={user.email}
                   disabled
@@ -104,6 +114,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   {t('shell.profile.account-details.first-name')}
                 </Typography>
                 <TextField
+                  inputProps={{ 'data-testid': 'firstname' }}
                   variant="outlined"
                   value={user.firstName}
                   onChange={(e) =>
@@ -119,6 +130,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   {t('shell.profile.account-details.last-name')}
                 </Typography>
                 <TextField
+                  inputProps={{ 'data-testid': 'lastname' }}
                   variant="outlined"
                   value={user.lastName}
                   onChange={(e) =>
@@ -133,6 +145,23 @@ const Profile: React.FC<RouteComponentProps> = () => {
                 <Button
                   variant="contained"
                   color="primary"
+                  onClick={() => setAddBankIsOpen(true)}
+                >
+                  {t(`shell.profile.account-details.add-bankconnection`)}
+                </Button>
+                <Dialog
+                  open={addBankIsOpen}
+                  onClose={() => setAddBankIsOpen(false)}
+                  className={classes.dialog}
+                  classes={{ paper: classes.paper }}
+                >
+                  <BankSearch />
+                </Dialog>
+                <br />
+                <br />
+                <Button
+                  variant="contained"
+                  color="primary"
                   onClick={edit ? onEdit : () => setEdit(true)}
                 >
                   {t(
@@ -140,7 +169,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
                       edit ? 'update' : 'edit'
                     }-details`
                   )}
-                </Button>{' '}
+                </Button>
                 <Button
                   variant="outlined"
                   color="primary"

@@ -11,7 +11,16 @@ const GridRowContainer: React.FC<{
   title: string;
   content: string;
   type: string;
-}> = ({ image, classNameImage, classNameGrid, title, content, type }) => {
+  titleColor: string;
+}> = ({
+  image,
+  classNameImage,
+  classNameGrid,
+  title,
+  content,
+  type,
+  titleColor,
+}) => {
   if (type === 'even') {
     return (
       <Grid
@@ -28,6 +37,7 @@ const GridRowContainer: React.FC<{
           classNameGrid={classNameGrid}
           title={title}
           content={content}
+          titleColor={titleColor}
         />
       </Grid>
     );
@@ -44,6 +54,7 @@ const GridRowContainer: React.FC<{
         classNameGrid={classNameGrid}
         title={title}
         content={content}
+        titleColor={titleColor}
       />
       <Grid item>
         <Media image={image} className={classNameImage} />
