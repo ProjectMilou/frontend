@@ -512,10 +512,8 @@ async function request(
 
 /**
  * Gets an overview over all portfolios of the authenticated user.
- *
- * @param token - Authentication token
  */
-export async function list(token: string): Promise<PortfolioOverview[]> {
+export async function list(): Promise<PortfolioOverview[]> {
   const response = (await request('GET', 'list')) as ListResponse;
   // TODO: remove mock when api is implemented
   return [
@@ -527,13 +525,11 @@ export async function list(token: string): Promise<PortfolioOverview[]> {
 /**
  * Gets the data needed for the Back-Testing section of the portfolio details page.
  *
- * @param token - Authentication token
  * @param id - Id of the portfolio for which the Back-Testing information is needed
  * @param from - UNIX timestamp for the date FROM which the user wants to backtest
  * @param to - UNIX timestamp for the date UNTIL WHICH the user wants to backtest
  */
 export async function backtesting(
-  token: string,
   id: string,
   from: Date,
   to: Date
@@ -552,10 +548,7 @@ export async function backtesting(
   return convertBacktesting(response as NonEmptyBacktestingResponse);
 }
 
-export async function details(
-  token: string,
-  id: string
-): Promise<PortfolioDetails> {
+export async function details(id: string): Promise<PortfolioDetails> {
   // TODO: remove mock when api is implemented
   if (id === 'MOCK') {
     return new Promise((resolve) =>
@@ -568,32 +561,22 @@ export async function details(
 
 /**
  * Renames a portfolio.
- *
- * @param token - Authentication token
+
  * @param id - ID of the portfolio to be renamed
  * @param name - New name of the portfolio
  */
-export async function rename(
-  token: string,
-  id: string,
-  name: string
-): Promise<void> {
+export async function rename(id: string, name: string): Promise<void> {
   await request('PUT', `rename/${id}`, { name }, jsonContentTypeHeader);
 }
 
 /**
  * Duplicates a portfolio.
  *
- * @param token - Authentication token
  * @param id - ID of the portfolio to be duplicated
  * @param name - Name of the duplicate
  * @return ID of the duplicate
  */
-export async function duplicate(
-  token: string,
-  id: string,
-  name: string
-): Promise<string> {
+export async function duplicate(id: string, name: string): Promise<string> {
   const response = (await request(
     'POST',
     `duplicate/${id}`,
@@ -606,24 +589,19 @@ export async function duplicate(
 /**
  * Deletes a portfolio.
  *
- * @param token - Authentication token
  * @param id - ID of the portfolio to be deleted
  */
-export async function deletePortfolio(
-  token: string,
-  id: string
-): Promise<void> {
+export async function deletePortfolio(id: string): Promise<void> {
   await request('DELETE', id);
 }
 
 /**
  * Creates a new portfolio.
  *
- * @param token - Authentication token
  * @param name - Name of the new portfolio
  * @return ID of the new portfolio
  */
-export async function create(token: string, name: string): Promise<string> {
+export async function create(name: string): Promise<string> {
   const response = (await request(
     'POST',
     'create',
@@ -634,7 +612,6 @@ export async function create(token: string, name: string): Promise<string> {
 }
 
 export async function modify(
-  token: string,
   id: string,
   modifications: PositionQty[]
 ): Promise<void> {
@@ -650,25 +627,19 @@ export async function modify(
  * Gets the portfolio name and quantity of a specified stock for all portfolios of the current user.
  * This information is displayed to the user when adding a stock to his portfolios.
  *
- * @param token - Authentication token
  * @param symbol - Symbol of the current stock
  */
-export async function stock(
-  token: string,
-  symbol: string
-): Promise<PortfolioStock[]> {
+export async function stock(symbol: string): Promise<PortfolioStock[]> {
   return (await request('GET', `stock/${symbol}`)) as PortfolioStockResponse;
 }
 
 /**
  * Modifies a stock's quantity within multiple portfolios simultaneously.
  *
- * @param token - Authentication token
  * @param symbol - Symbol of the current stock
  * @param modifications - modifications made to the portfolios
  */
 export async function saveStockToPortfolios(
-  token: string,
   symbol: string,
   modifications: PortfolioQty[]
 ): Promise<void> {

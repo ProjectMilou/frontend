@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type AddToPortfolioButtonProps = {
   symbol: string;
-  token: string;
 };
 
 type SnackbarName = 'error' | 'noPortfolios';
@@ -130,7 +129,6 @@ function reducer(state: State, action: Actions): State {
 // returns the add to portfolio button and all subcomponents including the dialog window
 const AddToPortfolioButton: React.FC<AddToPortfolioButtonProps> = ({
   symbol,
-  token,
 }) => {
   // style and translation hooks
   const classes = useStyles();
@@ -155,11 +153,7 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonProps> = ({
   const openDialog = async () => {
     dispatch({ type: 'setLoading', payload: true });
     try {
-      // const p = await API.stock(token, symbol);
-      const p: API.PortfolioStock[] = [
-        { id: 'MOCK', qty: 2.5, virtual: true, name: 'mock portfolio' },
-      ];
-      // const p: API.PortfolioStock[] = [];
+      const p = await API.stock(symbol);
       if (isMounted.current) {
         dispatch({ type: 'setPortfolios', payload: p });
         if (p.length) {
@@ -253,7 +247,6 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonProps> = ({
           handleClose={() => dispatch({ type: 'setOpen', payload: false })}
           action={async (v) => {
             await API.saveStockToPortfolios(
-              token,
               symbol,
               Object.entries(v).map(([id, qty]) => ({ id, qty }))
             );
