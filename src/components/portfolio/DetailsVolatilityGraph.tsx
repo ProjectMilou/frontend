@@ -12,8 +12,6 @@ import { useTranslation } from 'react-i18next';
 import VolatilityLineEntry from './VolatilityLineEntry';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 
-const portfolioVolatility = 0.5208850412096532;
-
 type DetailsVolatilityGraphProps = {
   portfolio: NonEmptyPortfolioDetails;
 };

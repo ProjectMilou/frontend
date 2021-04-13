@@ -56,9 +56,9 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
       <DetailsAnalyticsDebtEquityBar portfolio={portfolio} height={350} />
       <div className={classes.titleWrapper}>
         {t('portfolio.details.analytics.volatility.total')}
-        <div className={classes.value}>
+        <span className={classes.value}>
           {Math.round(portfolio.analytics.volatility * 1000) / 1000}
-        </div>
+        </span>
       </div>
       <div className={classes.titleWrapper}>
         {t('portfolio.details.analytics.volatility.vsMarket')}
