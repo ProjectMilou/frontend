@@ -15,6 +15,7 @@ import KeyFigures from './KeyFigures';
 import DetailsOverview from './DetailsOverview';
 import StockChart from '../../shared/StockChart';
 import Dividends from './Dividends';
+import Risks from './Risks';
 import BalanceSheetInfo from './BalanceSheetInfo';
 import Analysts from './Analysts';
 
@@ -180,6 +181,8 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
                 recommendations={analystRecommendations}
                 overview={stockOverview}
               />
+              <Risks />
+
             </Container>
           </div>
         )}

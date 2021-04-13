@@ -8,7 +8,6 @@ import DetailsMainKeyFigures from './DetailsMainKeyFigures';
 import DetailsMainDividens from './DetailsMainDividends';
 import DetailsMainAnalyst from './DetailsMainAnalyst';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
-import DetailsMainAnalytics from './DetailsMainAnalytics';
 import DetailMainBacktesting from './DetailsMainBacktesting';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
