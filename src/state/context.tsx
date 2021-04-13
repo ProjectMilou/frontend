@@ -12,12 +12,12 @@ export const Context = React.createContext<{
   dispatch: React.Dispatch<Action>;
 }>({
   state: initialState,
-  dispatch: s => s,
+  dispatch: (s) => s,
 });
 
 export type Action = { type: 'OPEN_LOGIN' } | { type: 'CLOSE_LOGIN' };
 
-const Reducer = (state: ContextType, action: Action) : ContextType => {
+const Reducer = (state: ContextType, action: Action): ContextType => {
   switch (action.type) {
     case 'OPEN_LOGIN':
       return {
@@ -33,10 +33,12 @@ const Reducer = (state: ContextType, action: Action) : ContextType => {
   }
 };
 
-interface ContextProviderProps{
-  children: ReactNode
+interface ContextProviderProps {
+  children: ReactNode;
 }
-export function ContextProvider({ children }: ContextProviderProps): JSX.Element {
+export function ContextProvider({
+  children,
+}: ContextProviderProps): JSX.Element {
   const [state, dispatch] = useReducer(Reducer, initialState);
   return (
     <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>
