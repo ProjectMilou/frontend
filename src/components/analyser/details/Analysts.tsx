@@ -10,6 +10,7 @@ import AnalystBar from '../../shared/AnalystBar';
 import AnalystBarIndicator from '../../shared/AnalystBarIndicator';
 import StyledNumberFormat from '../../shared/StyledNumberFormat';
 import * as API from '../../../analyser/APIClient';
+import InfoButton from '../../shared/InfoButton';
 
 export type AnalystsProps = {
   recommendations: API.AnalystsRecommendation[];
@@ -105,6 +106,8 @@ const Analysts: React.FC<AnalystsProps> = ({ recommendations, overview }) => {
           {t('analyser.details.analysts.target')}
           <>&nbsp;</>
           <StyledNumberFormat value={overview.analystTargetPrice} suffix="€" />
+          <>&nbsp;&nbsp;</>
+          <InfoButton infotext='Liabilities and Equities also pretty important!'/>
         </h5>
       </div>
       <AnalystBar>

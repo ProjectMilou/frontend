@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
+import InfoButton from '../../shared/InfoButton';
 
 export type BalanceSheetProps = {
   companyReports: API.CompanyReports;
@@ -192,6 +193,8 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
             <div className={classes.titleWrapper}>
               <h5 className={classes.boxTitles}>
                 {t('analyser.details.BalanceSheet.Assets')}
+                <>&nbsp;</>
+                <InfoButton infotext='Assets are super important!!!'/>
               </h5>
             </div>
           </div>
@@ -208,6 +211,8 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
             <div className={classes.titleWrapper}>
               <h5 className={classes.boxTitles}>
                 {t('analyser.details.BalanceSheet.Liabilities')}
+                <>&nbsp;</>
+                <InfoButton infotext='Liabilities and Equities also pretty important!'/>
               </h5>
             </div>
           </div>

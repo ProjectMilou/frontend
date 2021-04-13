@@ -3,11 +3,12 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { InfoOutlined } from '@material-ui/icons';
 import { Tooltip } from '@material-ui/core';
 
-export type Info = {
+export type InfoProps = {
   infotext: string;
+  color?: string;
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles<Theme, InfoProps, string>((theme: Theme) =>
   createStyles({
     button: {
       margin: theme.spacing(1),
@@ -20,24 +21,23 @@ const useStyles = makeStyles((theme: Theme) =>
       minWidth: '50%',
     },
     infoText: {
-      color: '#0D1B3B',
+      color: (props) => props.color || theme.palette.primary.main,
       fontSize: 'medium',
     },
   })
 );
 
-const InfoButton: React.FC<Info> = ({ infotext }) => {
-  const classes = useStyles();
+const InfoButton: React.FC<InfoProps> = ({ infotext }, props) => {
+  const classes = useStyles(props);
+
   return (
-    <div>
-      <Tooltip
+    <Tooltip
         title={infotext}
         placement="top-start"
         classes={{ tooltip: classes.customSize }}
       >
         <InfoOutlined className={classes.infoText} />
       </Tooltip>
-    </div>
   );
 };
 

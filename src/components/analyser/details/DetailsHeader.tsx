@@ -4,12 +4,14 @@ import {
   Container,
   makeStyles,
   Typography,
+  useTheme,
 } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useTranslation } from 'react-i18next';
 import TextOverText from '../TextOverText';
 import * as API from '../../../analyser/APIClient';
 import StyledNumberFormat from '../../shared/StyledNumberFormat';
+import InfoButton from '../../shared/InfoButton';
 
 export type DetailsProps = {
   details: API.Stock;
@@ -63,6 +65,8 @@ function chooseSymbol(val: API.Stock): string {
 const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const theme = useTheme();
+
   return (
     <div className={classes.header}>
       <Container maxWidth="lg">
@@ -91,6 +95,8 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
               size="35px"
               paintJob="#EEF1FB"
             />
+            <>&nbsp;</>
+                <InfoButton infotext='Very Cheap must buy!!!' color='#ffffff'/>
             <>&emsp;&emsp;</>
             <TextOverText
               top={`${details.per1d}%`}
