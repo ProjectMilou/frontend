@@ -38,7 +38,8 @@ const GridColumnContainer: React.FC<{
   classNameGrid: string;
   title: string;
   content: string;
-}> = ({ classNameGrid, title, content }) => {
+  titleColor: string;
+}> = ({ classNameGrid, title, content, titleColor }) => {
   const classes = useStyles();
   return (
     <Grid
@@ -51,9 +52,12 @@ const GridColumnContainer: React.FC<{
       justify-content="center"
       className={classNameGrid}
     >
-      <Typography variant="h4" className={classes.title}>
-        {title}
-      </Typography>
+      <div style={{ color: titleColor }}>
+        <Typography variant="h4" className={classes.title}>
+          {title}
+        </Typography>
+      </div>
+
       <Typography variant="body1" align="center">
         {content}
       </Typography>
