@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles, createStyles, useTheme } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
 import KeyFiguresBar from '../shared/KeyFiguresBar';
 import { KeyFigures } from '../../portfolio/APIClient';
 
@@ -33,32 +32,20 @@ const DetailsMainKeyFigures: React.FC<DetailsMainKeyFiguresProps> = ({
 }) => {
   const classes = useStyles();
   const theme = useTheme();
-  const { t } = useTranslation();
 
-  const series = [
-    {
-      name: t('analyser.detail.keyfigure.PER.title'),
-      data: figures.map((f) => f.pte),
-    },
-    {
-      name: t('analyser.detail.keyfigure.PBR.title'),
-      data: figures.map((f) => f.ptb),
-    },
-    {
-      name: t('analyser.detail.keyfigure.PEGR.title'),
-      data: figures.map((f) => f.ptg),
-    },
-    {
-      name: t('analyser.detail.keyfigure.EPS.title'),
-      data: figures.map((f) => f.eps),
-    },
-  ];
+  const keyFigures = {
+    PER: figures.map((f) => f.pte),
+    PBR: figures.map((f) => f.ptb),
+    PEGR: figures.map((f) => f.ptg),
+    EPS: figures.map((f) => f.eps),
+  };
 
   return (
     <div className={classes.figureWrapper}>
       <KeyFiguresBar
         chartHeight={350}
-        series={series}
+        keyFigures={keyFigures}
+        years={figures.map((f) => f.year)}
         textColor={theme.palette.primary.contrastText}
       />
     </div>

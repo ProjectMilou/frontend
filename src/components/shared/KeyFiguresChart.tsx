@@ -7,24 +7,21 @@ export type Series = {
 };
 
 type KeyFiguresChartProps = {
-  series: Series[];
+  series: Series;
+  years: number[];
   textColor: string;
   height: number;
 };
 
 const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({
   series,
+  years,
   textColor,
   height,
 }) => {
   const options = {
-    legend: {
-      labels: {
-        colors: textColor,
-      },
-    },
     // Todo change hard coded colors and toggle for charts
-    colors: ['#F6AE2D', '#5DE78E', '#99ffff', '#bf80ff'],
+    colors: ['#F6AE2D'],
     chart: {
       id: 'line-chart',
       toolbar: {
@@ -32,8 +29,7 @@ const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({
       },
     },
     xaxis: {
-      // TODO: change hard coded years
-      categories: [2016, 2017, 2018, 2019, 2020],
+      categories: years,
       labels: {
         style: {
           colors: textColor,
@@ -58,7 +54,7 @@ const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({
     <div>
       <Chart
         options={options}
-        series={series}
+        series={[series]}
         type="line"
         width="100%"
         min-width="800px"
