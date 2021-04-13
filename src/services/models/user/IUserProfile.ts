@@ -1,7 +1,6 @@
 export interface IUserProfile {
-  firstName?: string;
-  lastName?: string;
-  user?: {
-    id?: string;
-  };
+  confirmed: boolean;
+  firstName: string;
+  lastName: string;
+  email: string;
 }

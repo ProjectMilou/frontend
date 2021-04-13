@@ -53,7 +53,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
         setUser({
           firstName: data.firstName || '',
           lastName: data.lastName || '',
-          email: (data.user && data.user.id) || '',
+          email: data.email || '',
         })
       )
       .catch(() => navigate('/'));
