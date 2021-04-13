@@ -182,7 +182,6 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
                 overview={stockOverview}
               />
               <Risks />
-
             </Container>
           </div>
         )}
