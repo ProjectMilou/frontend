@@ -43,7 +43,7 @@ const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = (props) => {
 
     UserService.forgot(email)
       .then(() => setSuccess(true))
-      .catch(() => setSuccess(false));
+      .catch(() => setError(true));
   };
   return (
     <>
@@ -63,7 +63,12 @@ const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = (props) => {
           type="text"
           fullWidth
           style={{ margin: '10px 0' }}
-          onChange={(event) => setEmail(event.target.value)}
+          onChange={(event) => {
+            if (hasError) {
+              setError(false);
+            }
+            setEmail(event.target.value);
+          }}
         />
       </DialogContent>
 
