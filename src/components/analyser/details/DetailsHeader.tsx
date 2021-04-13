@@ -97,7 +97,7 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
               paintJob="#EEF1FB"
             />
             <>&nbsp;</>
-                <InfoButton infotext='Very Cheap must buy!!!' color='#ffffff'/>
+                <InfoButton infotext='Very Cheap must buy!!!'/>
             <>&emsp;&emsp;</>
             <TextOverText
               top={`${details.per1d}%`}

@@ -5,10 +5,9 @@ import { Tooltip } from '@material-ui/core';
 
 export type InfoProps = {
   infotext: string;
-  color?: string;
-};
+}
 
-const useStyles = makeStyles<Theme, InfoProps, string>((theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     button: {
       margin: theme.spacing(1),
@@ -21,14 +20,13 @@ const useStyles = makeStyles<Theme, InfoProps, string>((theme: Theme) =>
       minWidth: '50%',
     },
     infoText: {
-      color: (props) => props.color || theme.palette.primary.main,
       fontSize: 'medium',
     },
   })
 );
 
-const InfoButton: React.FC<InfoProps> = ({ infotext }, props) => {
-  const classes = useStyles(props);
+const InfoButton: React.FC<InfoProps> = ({ infotext }) => {
+  const classes = useStyles();
 
   return (
     <Tooltip
