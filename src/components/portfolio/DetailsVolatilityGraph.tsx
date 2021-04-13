@@ -31,6 +31,17 @@ const DetailsVolatilityGraph: React.FC = () => {
         'background-color': 'black',
         margin: 'auto',
       },
+      marketAvg: {
+        position: 'absolute',
+        top: '450%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        display: 'flex',
+        flexDirection: 'column',
+      },
+      lineMiddleText: {
+        color: palette.primary.contrastText,
+      },
       lineMiddleDynamic: {
         position: 'absolute',
         height: '20px',
@@ -57,7 +68,11 @@ const DetailsVolatilityGraph: React.FC = () => {
       <Grid container direction="row" justify="center" alignItems="center">
         <HotelIcon style={{ color: theme.palette.primary.contrastText }} />
         <div className={classes.line}>
-          <div className={classes.lineMiddle}>Market Average</div>
+          <div className={classes.marketAvg}>
+            <div className={classes.lineMiddle} />
+            <div className={classes.lineMiddleText}>Market Average</div>
+          </div>
+
           <VolatilityLineEntry
             volatilityValue={1.0304461557501514}
             tooltipText="Apple"
