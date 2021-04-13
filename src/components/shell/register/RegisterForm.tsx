@@ -17,7 +17,8 @@ import Divider from '@material-ui/core/Divider';
 import * as EmailValidator from 'email-validator';
 import { useTranslation } from 'react-i18next';
 import LinkButton from '../LinkButton';
-import fetchRegister, { UserInput } from '../utils';
+import { UserInput } from '../utils';
+import UserService from '../../../services/UserService';
 
 interface RegisterFormProps {
   onSuccess: () => void;
@@ -132,7 +133,9 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
       return;
     }
 
-    fetchRegister({ login, onSuccess, onFail });
+    UserService.register(login.email, login.password).then((ok) =>
+      ok ? onSuccess() : onFail()
+    );
   };
 
   return (
