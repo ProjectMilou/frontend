@@ -13,6 +13,7 @@ enum Endpoints {
   Edit = 'user/edit',
   Profile = 'user/profile',
   Login = 'user/login',
+  Reset = 'user/reset',
 }
 
 export class UserService extends BaseService {
@@ -159,5 +160,27 @@ export class UserService extends BaseService {
    */
   public static isLoggedIn(): boolean {
     return Boolean(this.getToken());
+  }
+
+  /**
+   * Starts the password reset process
+   */
+  public static async forgot(email: string): Promise<boolean> {
+    try {
+      const response = await this.request(
+        'POST',
+        `${Endpoints.Reset}/forgot`,
+        {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        {
+          email,
+        }
+      );
+      return response.ok;
+    } catch {
+      return false;
+    }
   }
 }
