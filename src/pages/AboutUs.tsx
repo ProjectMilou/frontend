@@ -4,9 +4,9 @@ import { RouteComponentProps } from '@reach/router';
 import ProfileCard from './components/ProfileCard';
 import LogoCard from './components/LogoCard';
 
-import linda from './media/linda.png';
-import chris from './media/chris.png';
-import julien from './media/julien.png';
+import linda from '../assets/images/linda.png';
+import chris from '../assets/images/chris.png';
+import julien from '../assets/images/julien.png';
 
 const AboutUs: React.FC<RouteComponentProps> = () => (
   <Box>

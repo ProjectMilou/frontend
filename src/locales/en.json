@@ -225,5 +225,6 @@
   "shell.profile.account-details.delete-dialog.title": "Are you sure you want to delete your account?",
   "shell.profile.account-details.delete-dialog.description": "Deleting your account is irreversible. All your data will be deleted!",
   "shell.profile.account-details.delete-dialog.ok": "OK",
-  "shell.profile.account-details.delete-dialog.cancel": "Cancel"
+  "shell.profile.account-details.delete-dialog.cancel": "Cancel",
+  "shell.profile.account-details.add-bankconnection": "Add bank connection"
 }
