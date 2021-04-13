@@ -111,6 +111,11 @@ export type CompanyReport = {
   commonStockSharesOutstanding: number;
 };
 
+export type News = {
+  headline: string;
+  date: string; // TODO change to date
+  url: string; // Todo change to URL
+};
 export type AnalystsRecommendation = {
   symbol: string;
   buy: number;
