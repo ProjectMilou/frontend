@@ -1,28 +1,37 @@
 import React, { Reducer } from 'react';
 import {
   createStyles,
-  lighten,
   makeStyles,
   Theme,
 } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { Alert } from '@material-ui/lab';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 import { Snackbar } from '@material-ui/core';
 import * as API from '../../portfolio/APIClient';
 import { errorMessageKey, errorTitleKey } from '../../Errors';
-import ProgressButton from '../portfolio/ProgressButton';
 import EditDialog from '../portfolio/EditDialog';
 
 // stylesheet for the entire add to portfolio component
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     addButton: {
-      padding: '0.25rem 1rem',
-      backgroundColor: theme.palette.lightBlue.main,
-      '&:hover': {
-        backgroundColor: lighten(theme.palette.lightBlue.main, 0.35),
+      '& > *': {
+        margin: theme.spacing(1),
       },
-      whiteSpace: 'nowrap',
+      margin: 0,
+    top: 'auto',
+    right: 20,
+    bottom: 20,
+    left: 'auto',
+    position: 'fixed',
+    color: 'primary'
+    },
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+      },
     },
   })
 );
@@ -180,14 +189,19 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonProps> = ({
   };
 
   return (
-    <div>
-      <ProgressButton
+    <div className={classes.root}>
+      {/* Loading will be implemeted here in future */}
+      <Fab
         className={classes.addButton}
         onClick={() => openDialog()}
-        loading={state.loading}
+        color="primary" 
+        aria-label="add" 
+        variant='extended'
       >
+        <AddIcon />
+        <>&nbsp;&nbsp;</>
         {t('analyzer.addToPortfolio')}
-      </ProgressButton>
+      </Fab>
       {state.error && (
         // TODO: Handle errors consistently (also use Snackbar for errors in dialogs)
         <Snackbar
