@@ -209,7 +209,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
                     })
                   }
                 >
-                  {!showPassword.confirmPassword ? (
+                  {showPassword.confirmPassword ? (
                     <Visibility />
                   ) : (
                     <VisibilityOff />
