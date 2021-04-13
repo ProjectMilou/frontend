@@ -8,6 +8,11 @@ const headers = { 'Content-Type': 'application/json' };
 
 // Types used by the frontend
 
+type Performance = {
+  perf7d: number;
+  perf1y: number;
+};
+
 // TODO: Use a dictionary object instead of an array to make searching by id easier
 export type EmptyPortfolioOverview = {
   id: string;
@@ -15,12 +20,8 @@ export type EmptyPortfolioOverview = {
   virtual: boolean;
   positionCount: number;
   value: number;
-  perf7d: number;
-  perf7dPercent: number;
-  perf1y: number;
-  perf1yPercent: number;
   modified: Date;
-};
+} & Performance;
 
 export type NonEmptyPortfolioOverview = EmptyPortfolioOverview & {
   score: number;
@@ -35,13 +36,12 @@ export type Stock = {
   name: string;
   price: number;
   perf7d: number;
-  perf7dPercent: number;
   perf1y: number;
-  perf1yPercent: number;
-  volatility: number;
-  debtEquity: number;
+  country: string;
+  industry: string;
+  currency: string;
   score: number;
-};
+} & Performance;
 
 export type Position = {
   stock: Stock;
@@ -50,14 +50,16 @@ export type Position = {
   totalReturnPercent: number;
 };
 
-export type Diversification = {
-  [key: string]: number;
+export type Risk = {
+  count: number;
+  score: number;
+  warnings: string[];
 };
 
 export type RiskAnalysis = {
-  countries: Diversification;
-  segments: Diversification;
-  currency: Diversification;
+  countries: Risk;
+  segments: Risk;
+  currency: Risk;
 };
 
 export type KeyFigures = {
@@ -94,6 +96,7 @@ export type NonEmptyPortfolioDetails = {
   risk: RiskAnalysis;
   keyFigures: KeyFigures[];
   nextDividend: Date;
+  dividendPayoutRatio: number;
   totalReturn: number;
   totalReturnPercent: number;
   analytics: Analytics;
@@ -211,13 +214,9 @@ type PortfolioOverviewResponse = {
   positionCount: number;
   value: number;
   score?: number;
-  perf7d: number;
-  perf7dPercent: number;
-  perf1y: number;
-  perf1yPercent: number;
   /** UNIX timestamp */
   modified: number;
-};
+} & Performance;
 
 type ListResponse = {
   portfolios: PortfolioOverviewResponse[];
@@ -235,6 +234,7 @@ type NonEmptyDetailsResponse = {
   keyFigures: KeyFigures[];
   /** UNIX timestamp */
   nextDividend: number;
+  dividendPayoutRatio: number;
   totalReturn: number;
   totalReturnPercent: number;
   analytics: Analytics;
@@ -254,6 +254,7 @@ type PortfolioStockResponse = PortfolioStock[];
 
 // mock portfolio while the api is not finished yet (copied from APIMocks.ts).
 // TODO: remove this
+
 const MockCorrelations: Correlations = {
   'BMW;Apple': 0.33,
   'Apple;TUM': 0.56,
@@ -281,9 +282,7 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
     value: 174.98,
     score: 0.6,
     perf7d: 0,
-    perf7dPercent: 0,
     perf1y: -1,
-    perf1yPercent: -0.5,
     modified: new Date(1616086585),
   },
   positions: [
@@ -293,11 +292,10 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
         name: 'BMW',
         price: 23.25,
         perf7d: -1,
-        perf7dPercent: -0.3,
         perf1y: 5,
-        perf1yPercent: 2,
-        volatility: 0.3,
-        debtEquity: 0.8,
+        country: 'Germany',
+        industry: 'Auto',
+        currency: 'EUR',
         score: 0.7,
       },
       qty: 1,
@@ -310,11 +308,10 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
         name: 'Mercedes',
         price: 19.51,
         perf7d: 3,
-        perf7dPercent: 2.4,
         perf1y: -15,
-        perf1yPercent: 10.5,
-        volatility: 1.3,
-        debtEquity: 1.5,
+        country: 'Germany',
+        industry: 'Auto',
+        currency: 'EUR',
         score: 0.4,
       },
       qty: 2,
@@ -327,11 +324,10 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
         name: 'McLaren',
         price: 12.11,
         perf7d: 15,
-        perf7dPercent: 12,
         perf1y: 10,
-        perf1yPercent: 8.5,
-        volatility: 0.8,
-        debtEquity: 0.5,
+        country: 'Germany',
+        industry: 'Auto',
+        currency: 'EUR',
         score: 0.8,
       },
       qty: 3,
@@ -344,12 +340,11 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
         name: 'QQQ',
         price: 120.11,
         perf7d: 1,
-        perf7dPercent: 1,
         perf1y: 2,
-        perf1yPercent: 0.4,
+        country: 'USA',
+        industry: 'Tech',
+        currency: 'USD',
         score: 0.9,
-        volatility: 1.33,
-        debtEquity: 1.45,
       },
       qty: 4,
       totalReturn: -1.23,
@@ -358,17 +353,15 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
   ],
   risk: {
     countries: {
-      USA: 2,
-      GER: 3,
+      count: 2,
+      score: 0.1,
+      warnings: [
+        'Strong focus on two countries',
+        'Strong focus on western world',
+      ],
     },
-    segments: {
-      'Financial Service': 2,
-      HealthCare: 5,
-    },
-    currency: {
-      Dollar: 2,
-      Euro: 3,
-    },
+    segments: { count: 2, score: 0.4, warnings: ['c', 'd'] },
+    currency: { count: 3, score: 0.8, warnings: ['e', 'f', 'g'] },
   },
   keyFigures: [
     {
@@ -418,6 +411,7 @@ const mockPortfolio: NonEmptyPortfolioDetails = {
     },
   ],
   nextDividend: new Date(),
+  dividendPayoutRatio: 25,
   totalReturn: 75.43,
   totalReturnPercent: 12.34,
   analytics: MockAnalytics,
@@ -468,6 +462,11 @@ function convertPortfolioDetails(response: DetailsResponse): PortfolioDetails {
         r.overview
       ) as NonEmptyPortfolioOverview,
       nextDividend: new Date(r.nextDividend),
+      // TODO: remove once API response includes currency
+      positions: r.positions.map((p) => ({
+        ...p,
+        stock: { ...p.stock, currency: p.stock.currency || '???' },
+      })),
     };
   }
   // portfolio is empty

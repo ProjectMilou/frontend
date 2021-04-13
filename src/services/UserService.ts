@@ -1,19 +1,67 @@
 import { navigate } from '@reach/router';
-import { AppError } from '../Errors';
-import { BaseService } from './BaseService';
-import { ILoginResponse } from './models/user/ILoginResponse';
-import { IUserProfile } from './models/user/IUserProfile';
-import StorageService from './StorageService';
+import { BaseService, MethodType } from './BaseService';
+
+export interface IUserProfile {
+  firstName?: string;
+  lastName?: string;
+  user?: {
+    id?: string;
+  };
+}
 
 enum Endpoints {
   Edit = 'user/edit',
   Profile = 'user/profile',
   Login = 'user/login',
-  Register = 'user/register',
-  RegisterConfirm = 'user/register/confirm',
 }
 
-class UserService extends BaseService {
+export class UserService extends BaseService {
+  private static localStorageTokenID = 'token';
+
+  /**
+   * Getter for user jwt token
+   * @returns token
+   */
+  private static getToken() {
+    return localStorage.getItem(this.localStorageTokenID);
+  }
+
+  /**
+   * Setter for user jwt token
+   * @param token token
+   */
+  private static setToken(token: string) {
+    localStorage.setItem(this.localStorageTokenID, token);
+  }
+
+  /**
+   * Makes an authenticated request to the server, with the token saved in localStorage.
+   * If no token is saved throws an error.
+   * @param method Request method
+   * @param endpoint Request endpoint
+   * @param body Request body
+   * @returns Response from requst
+   */
+  public static async authenticatedRequest(
+    method: MethodType,
+    endpoint: string,
+    body?: Record<string, unknown>
+  ): Promise<Response> {
+    const token = this.getToken();
+    if (!token) {
+      throw new Error('User is not logged in!');
+    }
+
+    return this.request(
+      method,
+      endpoint,
+      {
+        Authorization: `Bearer ${token}`,
+      },
+      body
+    );
+  }
+
   /**
    * Getter for the profile data of the logged in user.
    * @returns Profile Data
@@ -21,7 +69,7 @@ class UserService extends BaseService {
   public static async getProfile(): Promise<IUserProfile> {
     const response = await this.authenticatedRequest('GET', Endpoints.Profile);
 
-    if (!response.ok) throw new AppError('AUTH_TOKEN_INVALID');
+    if (!response.ok) throw new Error('Could not get profile!');
 
     const userProfile = await response.json();
     return userProfile;
@@ -87,11 +135,11 @@ class UserService extends BaseService {
 
     if (!response.ok) return false;
 
-    const data: ILoginResponse | undefined = await response.json();
+    const data = await response.json();
 
     if (!data || !data.token) return false;
 
-    StorageService.setToken(data.token);
+    this.setToken(data.token);
     return true;
   }
 
@@ -99,7 +147,7 @@ class UserService extends BaseService {
    * Loggs the user out and navigates to homepage if the user is in the profile page.
    */
   public static logout(): void {
-    StorageService.removeToken();
+    localStorage.removeItem(this.localStorageTokenID);
     if (window.location.pathname === '/profile') {
       navigate('/');
     }
@@ -110,62 +158,6 @@ class UserService extends BaseService {
    * @returns True if a user is logged in, false if not.
    */
   public static isLoggedIn(): boolean {
-    return Boolean(StorageService.getToken());
-  }
-
-  /**
-   * Registers a user with email and password.
-   * @param email Email of user to be registered
-   * @param password Password of user to be registered
-   * @returns True if registration request successful, false if not
-   */
-  public static async register(
-    email: string,
-    password: string
-  ): Promise<boolean> {
-    try {
-      const response = await this.request(
-        'POST',
-        Endpoints.Register,
-        {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        {
-          email,
-          password,
-        }
-      );
-      return response.ok;
-    } catch {
-      return false;
-    }
-  }
-
-  /**
-   * Email confirmation of registration.
-   * @param uuid Confirmation UUID
-   * @returns True if register confirmation was successful, false if not.
-   */
-  public static async registerConfirm(uuid: string): Promise<boolean> {
-    try {
-      const response = await this.request(
-        'POST',
-        Endpoints.RegisterConfirm,
-        {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        {
-          uuid,
-        }
-      );
-
-      return response.ok;
-    } catch {
-      return false;
-    }
+    return Boolean(this.getToken());
   }
 }
-
-export default UserService;

@@ -17,7 +17,7 @@ import {
 import { navigate, RouteComponentProps } from '@reach/router';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import UserService from '../../../services/UserService';
+import { IUserProfile, UserService } from '../../../services/UserService';
 import BankSearch from '../bankSearch/BankSearch';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -59,15 +59,18 @@ const Profile: React.FC<RouteComponentProps> = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
+  function handleData(data: IUserProfile) {
+    if (!data) return;
+    setUser({
+      firstName: data.firstName || '',
+      lastName: data.lastName || '',
+      email: (data.user && data.user.id) || '',
+    });
+  }
+
   useEffect(() => {
     UserService.getProfile()
-      .then((data) =>
-        setUser({
-          firstName: data.firstName || '',
-          lastName: data.lastName || '',
-          email: data.email || '',
-        })
-      )
+      .then(handleData)
       .catch(() => navigate('/'));
   }, []);
 
@@ -101,7 +104,6 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   {t('shell.profile.account-details.email')}
                 </Typography>
                 <TextField
-                  inputProps={{ 'data-testid': 'email' }}
                   variant="outlined"
                   value={user.email}
                   disabled
@@ -114,7 +116,6 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   {t('shell.profile.account-details.first-name')}
                 </Typography>
                 <TextField
-                  inputProps={{ 'data-testid': 'firstname' }}
                   variant="outlined"
                   value={user.firstName}
                   onChange={(e) =>
@@ -130,7 +131,6 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   {t('shell.profile.account-details.last-name')}
                 </Typography>
                 <TextField
-                  inputProps={{ 'data-testid': 'lastname' }}
                   variant="outlined"
                   value={user.lastName}
                   onChange={(e) =>

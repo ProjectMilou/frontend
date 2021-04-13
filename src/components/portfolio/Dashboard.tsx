@@ -110,9 +110,7 @@ function createPortfolioAction(
         positionCount: 0,
         value: 0,
         perf7d: 0,
-        perf7dPercent: 0,
         perf1y: 0,
-        perf1yPercent: 0,
         modified: new Date(),
       },
     ]

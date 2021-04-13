@@ -12,9 +12,9 @@ import { Link } from '@reach/router';
 import logo from '../../assets/images/logo1.png';
 import NavLink from './NavLink';
 import Login from '../shell/login/Login';
-import UserService from '../../services/UserService';
-import SearchBar from '../analyser/search/SearchBar';
 import Register from '../shell/register/Register';
+import { UserService } from '../../services/UserService';
+import SearchBar from '../analyser/search/SearchBar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -5,17 +5,15 @@ import { useTranslation } from 'react-i18next';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
 import DetailsAnalyticsHeatmap from './DetailsMainAnalyticsHeatmap';
-import DetailsAnalyticsDebtEquityBar from './DetailsAnalyticsDebtEquityBar';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
-    titleWrapper: {
+    standardDeviationWrapper: {
       color: palette.primary.contrastText,
       marginBottom: '2em',
-      marginTop: '2em',
       fontSize: '1.5em',
     },
-    value: {
+    standardDeviationValue: {
       marginLeft: '1em',
     },
   })
@@ -33,9 +31,9 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
 
   return (
     <>
-      <div className={classes.titleWrapper}>
+      <div className={classes.standardDeviationWrapper}>
         <span>{t('portfolio.details.analytics.standardDeviation')}</span>
-        <span className={classes.value}>
+        <span className={classes.standardDeviationValue}>
           <StyledNumberFormat
             value={portfolio.analytics.standardDeviation * 100}
             suffix="%"
@@ -43,16 +41,6 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
         </span>
       </div>
       <DetailsAnalyticsHeatmap portfolio={portfolio} height={350} />
-      <div className={classes.titleWrapper}>
-        <span>{t('portfolio.details.analytics.debtEquity.total')}</span>
-        <span className={classes.value}>
-          <StyledNumberFormat
-            value={portfolio.analytics.debtEquity * 100}
-            suffix="%"
-          />
-        </span>
-      </div>
-      <DetailsAnalyticsDebtEquityBar portfolio={portfolio} height={350} />
     </>
   );
 };
