@@ -250,7 +250,7 @@ type CreateResponse = {
   id: string;
 };
 
-type PortfolioStockResponse = PortfolioStock[];
+type PortfolioStockResponse = { portfolios: PortfolioStock[] };
 
 // mock portfolio while the api is not finished yet (copied from APIMocks.ts).
 // TODO: remove this
@@ -630,7 +630,11 @@ export async function modify(
  * @param symbol - Symbol of the current stock
  */
 export async function stock(symbol: string): Promise<PortfolioStock[]> {
-  return (await request('GET', `stock/${symbol}`)) as PortfolioStockResponse;
+  const response = (await request(
+    'GET',
+    `stock/${symbol}`
+  )) as PortfolioStockResponse;
+  return response.portfolios;
 }
 
 /**
