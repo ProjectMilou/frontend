@@ -66,12 +66,32 @@ function checkValue(val: number): number {
   return result;
 }
 
-function deleteName(val: number, text: string): string {
+function checkName(val: number, text: string): string {
   let result = text;
   if (val === 0) {
     result = '';
   }
   return result;
+}
+
+// sadly not supported for now by treemap
+// eslint-disable-next-line
+function convertToInternationalCurrencySystem(val: number) {
+  // based on https://stackoverflow.com/a/36734774
+
+  if (Math.abs(Number(val)) >= 1.0e9) {
+    // Nine Zeroes for Billions
+    return `${(Math.abs(Number(val)) / 1.0e9).toFixed(2)} B`;
+  }
+  if (Math.abs(Number(val)) >= 1.0e6) {
+    // Six Zeroes for Millions
+    return `${(Math.abs(Number(val)) / 1.0e6).toFixed(2)} M`;
+  }
+  if (Math.abs(Number(val)) >= 1.0e3) {
+    // Three Zeroes for Thousands
+    return `${(Math.abs(Number(val)) / 1.0e3).toFixed(2)} K`;
+  }
+  return Math.abs(Number(val)).toString();
 }
 
 const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
@@ -111,38 +131,39 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
     {
       data: [
         {
-          x: deleteName(
+          x: checkName(
             assetSeries.cashShortTermInvestments,
             'Cash & Short term Investments'
           ),
           y: assetSeries.cashShortTermInvestments,
         },
         {
-          x: deleteName(assetSeries.inventory, 'Inventory'),
+          x: checkName(assetSeries.inventory, 'Inventory'),
           y: assetSeries.inventory,
         },
         {
-          x: deleteName(assetSeries.receivables, 'Receivables'),
+          x: checkName(assetSeries.receivables, 'Receivables'),
           y: assetSeries.receivables,
         },
         {
-          x: deleteName(assetSeries.physicalAsssets, 'Physical Assets'),
+          x: checkName(assetSeries.physicalAsssets, 'Physical Assets'),
           y: assetSeries.physicalAsssets,
         },
         {
-          x: deleteName(
+          x: checkName(
             assetSeries.deprecationAndAmortisation,
             'Deprecation and Amortisation'
           ),
           y: assetSeries.deprecationAndAmortisation,
         },
         {
-          x: deleteName(assetSeries.intangibleAssets, 'Intangible Assets'),
+          x: checkName(assetSeries.intangibleAssets, 'Intangible Assets'),
           y: assetSeries.intangibleAssets,
         },
         {
           x: 'Longterm & Other Assets',
           y:
+            // multiplied by 1 to avoid weird string concatenation error
             assetSeries.longTermInvestements * 1 +
             assetSeries.otherCurrentAssets * 1 +
             assetSeries.otherNonCurrentAssets * 1,
@@ -178,32 +199,33 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
     {
       data: [
         {
-          x: deleteName(equitiesSeries.equity, 'Equity'),
+          x: checkName(equitiesSeries.equity, 'Equity'),
           y: equitiesSeries.equity,
         },
         {
           x: 'Other Liabilities',
           y:
+            // multiplied by 1 to avoid weird string concatenation error
             equitiesSeries.otherCurrentLiabilities * 1 +
             equitiesSeries.otherNonCurrentLiabilities * 1,
         },
         {
-          x: deleteName(equitiesSeries.accountsPayable, 'Accounts Payable'),
+          x: checkName(equitiesSeries.accountsPayable, 'Accounts Payable'),
           y: equitiesSeries.accountsPayable,
         },
         {
-          x: deleteName(equitiesSeries.defferedRevenue, 'Deffered Revenue'),
+          x: checkName(equitiesSeries.defferedRevenue, 'Deffered Revenue'),
           y: equitiesSeries.defferedRevenue,
         },
         {
-          x: deleteName(
+          x: checkName(
             equitiesSeries.capitalLeaseObligations,
             'Capital Lease Obligations'
           ),
           y: equitiesSeries.capitalLeaseObligations,
         },
         {
-          x: deleteName(equitiesSeries.retainedEarnings, 'Retained Earnings'),
+          x: checkName(equitiesSeries.retainedEarnings, 'Retained Earnings'),
           y: equitiesSeries.retainedEarnings,
         },
         {
@@ -211,7 +233,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
           y: 0,
         },
         {
-          x: deleteName(equitiesSeries.debt, 'Debt'),
+          x: checkName(equitiesSeries.debt, 'Debt'),
           y: equitiesSeries.debt,
         },
       ],
