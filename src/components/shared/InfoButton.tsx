@@ -3,9 +3,9 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { InfoOutlined } from '@material-ui/icons';
 import { Tooltip } from '@material-ui/core';
 
-export type Info = {
+export type InfoProps = {
   infotext: string;
-};
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,24 +20,22 @@ const useStyles = makeStyles((theme: Theme) =>
       minWidth: '50%',
     },
     infoText: {
-      color: '#0D1B3B',
       fontSize: 'medium',
     },
   })
 );
 
-const InfoButton: React.FC<Info> = ({ infotext }) => {
+const InfoButton: React.FC<InfoProps> = ({ infotext }) => {
   const classes = useStyles();
+
   return (
-    <div>
-      <Tooltip
+    <Tooltip
         title={infotext}
         placement="top-start"
         classes={{ tooltip: classes.customSize }}
       >
         <InfoOutlined className={classes.infoText} />
       </Tooltip>
-    </div>
   );
 };
 
