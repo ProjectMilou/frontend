@@ -28,7 +28,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
     },
     sectionTitle: {
       margin: 0,
-      color: 'primary',
+      color: palette.primary.main,
       // TODO use theme fontsize and weight
       fontSize: '2.25rem',
       fontWeight: 400,
@@ -36,17 +36,16 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
     },
     sectionSubTitle: {
       margin: 0,
-      color: 'primary',
+      color: palette.primary.main,
       // TODO use theme fontsize and weight
       fontSize: '2rem',
-      fontWeight: 400,
+      fontWeight: typography.fontWeightRegular,
       whiteSpace: 'nowrap',
     },
     lineWrapper: {
       display: 'flex',
       width: '100%',
-      // TODO: use theme color
-      borderColor: 'grey',
+      borderColor: palette.primary.main,
     },
     line: {
       width: '100%',

@@ -22,84 +22,21 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
     },
     sectionTitle: {
       margin: 0,
-      color: 'primary',
+      color: palette.primary.main,
       // TODO use theme fontsize and weight
       fontSize: '2.25rem',
-      fontWeight: 400,
-      whiteSpace: 'nowrap',
-    },
-    sectionSubTitle: {
-      margin: 0,
-      color: 'primary',
-      // TODO use theme fontsize and weight
-      fontSize: '2rem',
-      fontWeight: 400,
+      fontWeight: typography.fontWeightRegular,
       whiteSpace: 'nowrap',
     },
     lineWrapper: {
       display: 'flex',
       width: '100%',
-      // TODO: use theme color
-      borderColor: 'grey',
+      borderColor: palette.primary.main,
     },
     line: {
       width: '100%',
       alignSelf: 'center',
       paddingLeft: '2%',
-    },
-    lineChartWrapper: {
-      float: 'right',
-      flexBasis: '70%',
-      padding: '1rem',
-    },
-    infoContainer: {
-      height: '100%',
-      flexBasis: '30%',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-evenly',
-      alignItems: 'left',
-      padding: '2rem',
-      float: 'left',
-    },
-    infoWrapper: {
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-    infoBody: {
-      display: 'flex',
-      alignSelf: 'center',
-      width: '100%',
-      justifyContent: 'center',
-      color: palette.primary.main,
-      fontWeight: typography.fontWeightRegular,
-      fontSize: '1.15rem',
-    },
-    infoTitle: {
-      color: palette.primary.main,
-      fontWeight: typography.fontWeightBold,
-      fontSize: '1.25rem',
-      margin: 0,
-      whiteSpace: 'nowrap',
-    },
-    infoTitleP: {
-      margin: '0.5rem 0',
-    },
-    chartContainer: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      marginTop: '2rem',
-    },
-    title: {
-      display: 'flex',
-      alignSelf: 'center',
-      width: '100%',
-      justifyContent: 'center',
-      color: palette.primary.dark,
-      fontWeight: typography.fontWeightBold,
-      fontSize: '0.8rem',
     },
   })
 );
