@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 
 type DividendsChartProps = {
   series: Series[];
+  height: number;
+  textColor: string;
 };
 
 type Series = {
@@ -11,7 +13,11 @@ type Series = {
   data: number[];
 };
 
-const KeyFiguresChart: React.FC<DividendsChartProps> = ({ series }) => {
+const KeyFiguresChart: React.FC<DividendsChartProps> = ({
+  series,
+  height,
+  textColor,
+}) => {
   const { t } = useTranslation();
 
   const options = {
@@ -29,6 +35,9 @@ const KeyFiguresChart: React.FC<DividendsChartProps> = ({ series }) => {
     title: {
       text: `${t('analyser.details.DividendsHistory')}`,
       align: 'center',
+      style: {
+        color: textColor,
+      },
     },
     dataLabels: {
       enabled: true,
@@ -37,20 +46,46 @@ const KeyFiguresChart: React.FC<DividendsChartProps> = ({ series }) => {
     labels: [2016, 2017, 2018, 2019, 2020],
     xaxis: {
       type: 'year',
+      labels: {
+        style: {
+          colors: textColor,
+        },
+      },
     },
     yaxis: [
       {
         title: {
           text: `${t('analyser.detail.dividend.payoutratio')}%`,
+          style: {
+            color: textColor,
+          },
+        },
+        labels: {
+          style: {
+            colors: textColor,
+          },
         },
       },
       {
         opposite: true,
         title: {
           text: `${t('analyser.detail.dividend.yield')}%`,
+          style: {
+            color: textColor,
+          },
+        },
+        labels: {
+          style: {
+            colors: textColor,
+          },
         },
       },
     ],
+    legend: {
+      labels: {
+        colors: textColor,
+      },
+    },
   };
 
   return (
@@ -61,7 +96,7 @@ const KeyFiguresChart: React.FC<DividendsChartProps> = ({ series }) => {
         type="line"
         width="100%"
         min-width="800px"
-        height={350}
+        height={height}
       />
     </div>
   );
