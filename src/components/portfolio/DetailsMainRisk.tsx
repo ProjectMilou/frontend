@@ -11,8 +11,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import WarningIcon from '@material-ui/icons/Warning';
 import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 import DetailsDonut from './DetailsDonut';
-import { Position, Risk, RiskAnalysis } from '../../portfolio/APIClient';
-import { riskPortions } from '../../portfolio/Risk';
+import { RiskAnalysis } from '../../portfolio/APIClient';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
 
 // stylesheet for the risk analysis section
@@ -89,9 +88,10 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 
 // type declarations
 type RiskCompProps = {
-  risk: Risk;
+  count: number;
   // a score determined by the parent component: 0 - bad | 1 - ok |  2 - good
   score: number;
+  warnings: string[];
   title: string;
   labels: string[];
   portions: number[];
@@ -99,13 +99,15 @@ type RiskCompProps = {
 
 type DetailsMainRiskProps = {
   risk: RiskAnalysis;
-  positions: Position[];
+  sharpeRatio: number;
+  treynorRatio: number;
 };
 
 // A component consisting of the title, chart and warnings of a given risk type
 const RiskComp: React.FC<RiskCompProps> = ({
-  risk,
+  count,
   score,
+  warnings,
   title,
   labels,
   portions,
@@ -168,7 +170,7 @@ const RiskComp: React.FC<RiskCompProps> = ({
         <div className={classes.statContainer}>
           <div className={classes.iconWrapper}>{scoreIcon}</div>
           <div className={classes.countWrapper}>
-            <div style={{ color: scoreColor }}>{risk.count}</div>
+            <div style={{ color: scoreColor }}>{count}</div>
           </div>
           <div className={classes.subtitleWrapper}>
             <p>{title}</p>
@@ -176,7 +178,7 @@ const RiskComp: React.FC<RiskCompProps> = ({
         </div>
         {/* warnings */}
         <div>
-          {risk.warnings.map((w) => (
+          {warnings.map((w) => (
             <p key={w} className={classes.warnings}>
               {t(w)}
             </p>
@@ -190,31 +192,12 @@ const RiskComp: React.FC<RiskCompProps> = ({
 // returns the details page header
 const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
   risk,
-  positions,
+  sharpeRatio,
+  treynorRatio,
 }) => {
   const classes = useStyles();
   const { palette } = useTheme();
   const { t } = useTranslation();
-
-  const countriesRisk = React.useMemo(
-    () => riskPortions(positions, (p) => p.stock.country),
-    [positions]
-  );
-
-  const segmentsRisk = React.useMemo(
-    () => riskPortions(positions, (p) => p.stock.industry),
-    [positions]
-  );
-
-  const currencyRisk = React.useMemo(
-    () => riskPortions(positions, (p) => p.stock.currency),
-    [positions]
-  );
-
-  // TODO: use actual sharpe ratio
-  const sharpeRatio = 1;
-
-  const treynorRatio = 1;
 
   return (
     <>
@@ -252,33 +235,36 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
       </div>
       <div className={classes.riskContainer}>
         <RiskComp
-          risk={risk.countries}
+          count={0}
+          warnings={[]}
           title={t('portfolio.details.countries')}
           // TODO: deal with overflow (too many names)
-          labels={Object.keys(countriesRisk)}
-          portions={Object.values(countriesRisk)}
+          labels={Object.keys(risk.countries)}
+          portions={Object.values(risk.countries)}
           score={
             // eslint-disable-next-line no-nested-ternary
             risk.countries.count < 3 ? 0 : risk.countries.count < 5 ? 1 : 2
           }
         />
         <RiskComp
-          risk={risk.segments}
+          count={0}
+          warnings={[]}
           title={t('portfolio.details.industries')}
           // TODO: deal with overflow (too many names)
-          labels={Object.keys(segmentsRisk)}
-          portions={Object.values(segmentsRisk)}
+          labels={Object.keys(risk.segments)}
+          portions={Object.values(risk.segments)}
           score={
             // eslint-disable-next-line no-nested-ternary
             risk.segments.count < 5 ? 0 : risk.segments.count < 9 ? 1 : 2
           }
         />
         <RiskComp
-          risk={risk.currency}
+          count={0}
+          warnings={[]}
           title={t('portfolio.details.currencies')}
           // TODO: deal with overflow (too many names)
-          labels={Object.keys(currencyRisk)}
-          portions={Object.values(currencyRisk)}
+          labels={Object.keys(risk.currency)}
+          portions={Object.values(risk.currency)}
           score={
             // eslint-disable-next-line no-nested-ternary
             risk.currency.count < 3 ? 0 : risk.currency.count < 5 ? 1 : 2

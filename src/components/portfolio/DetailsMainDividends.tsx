@@ -116,7 +116,10 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
         </InfoBlock>
         <InfoBlock title={t('portfolio.details.payout')}>
           <RatioDonut
-            ratio={portfolio.dividendPayoutRatio / 100}
+            ratio={
+              portfolio.keyFigures[portfolio.keyFigures.length - 1]
+                .dividendPayoutRatio
+            }
             textColor={theme.palette.primary.contrastText}
           />
         </InfoBlock>

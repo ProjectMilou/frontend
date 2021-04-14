@@ -12,9 +12,11 @@ import { Link } from '@reach/router';
 import logo from '../../assets/images/logo1.png';
 import NavLink from './NavLink';
 import Login from '../shell/login/Login';
-import Register from '../shell/register/Register';
-import { UserService } from '../../services/UserService';
+import UserService from '../../services/UserService';
 import SearchBar from '../analyser/search/SearchBar';
+import Register from '../shell/register/Register';
+import ForgotPassword from '../shell/forgotPassword/ForgotPassword';
+import { Context } from '../../state/context';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,8 +46,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Header: React.FC = () => {
   const classes = useStyles();
-  const [openLogin, setOpenLogin] = useState(false);
+  const { state, dispatch } = React.useContext(Context);
   const [openRegister, setOpenRegister] = useState(false);
+  const [openForgotPassword, setOpenForgotPassword] = useState(false);
   const [loggedIn, setLoggedIn] = useState(UserService.isLoggedIn());
 
   return (
@@ -90,7 +93,7 @@ const Header: React.FC = () => {
               className={classes.button}
               variant="outlined"
               color="primary"
-              onClick={() => setOpenLogin(true)}
+              onClick={() => dispatch({ type: 'OPEN_LOGIN' })}
             >
               Login
             </Button>
@@ -102,39 +105,54 @@ const Header: React.FC = () => {
             >
               Register
             </Button>
-            <Dialog
-              open={openLogin}
-              onClose={() => setOpenLogin(false)}
-              className={classes.dialog}
-              classes={{ paper: classes.paper }}
-            >
-              <Login
-                closePopUp={() => {
-                  setOpenLogin(false);
-                  setLoggedIn(UserService.isLoggedIn());
-                }}
-                openRegisterPopUp={() => {
-                  setOpenLogin(false);
-                  setOpenRegister(true);
-                }}
-              />
-            </Dialog>
-            <Dialog
-              open={openRegister}
-              onClose={() => setOpenRegister(false)}
-              className={classes.dialog}
-              classes={{ paper: classes.paper }}
-            >
-              <Register
-                closePopUp={() => setOpenRegister(false)}
-                openLoginPopUp={() => {
-                  setOpenRegister(false);
-                  setOpenLogin(true);
-                }}
-              />
-            </Dialog>
           </>
         )}
+
+        <Dialog
+          open={state.openLogin}
+          onClose={() => dispatch({ type: 'CLOSE_LOGIN' })}
+          className={classes.dialog}
+          classes={{ paper: classes.paper }}
+        >
+          <Login
+            closePopUp={() => {
+              dispatch({ type: 'CLOSE_LOGIN' });
+              setLoggedIn(UserService.isLoggedIn());
+            }}
+            openRegisterPopUp={() => {
+              dispatch({ type: 'CLOSE_LOGIN' });
+              setOpenRegister(true);
+            }}
+            openForgotPasswordPopUp={() => {
+              dispatch({ type: 'CLOSE_LOGIN' });
+              setOpenForgotPassword(true);
+            }}
+          />
+        </Dialog>
+
+        <Dialog
+          open={openRegister}
+          onClose={() => setOpenRegister(false)}
+          className={classes.dialog}
+          classes={{ paper: classes.paper }}
+        >
+          <Register
+            closePopUp={() => setOpenRegister(false)}
+            openLoginPopUp={() => {
+              setOpenRegister(false);
+              dispatch({ type: 'OPEN_LOGIN' });
+            }}
+          />
+        </Dialog>
+
+        <Dialog
+          open={openForgotPassword}
+          onClose={() => setOpenForgotPassword(false)}
+          className={classes.dialog}
+          classes={{ paper: classes.paper }}
+        >
+          <ForgotPassword closePopUp={() => setOpenForgotPassword(false)} />
+        </Dialog>
       </Toolbar>
     </AppBar>
   );
