@@ -210,7 +210,14 @@ const Volatility: React.FC<DetailsProps> = ({ details }) => {
         <div className={classes.infoContainer}>
           <InfoBlock
             title={t('analyser.details.Volatility.BetaFactor')}
-            body={<p style={{ margin: 0 }}> {details.beta} </p>}
+            body={
+              <p style={{ margin: 0 }}>
+                {' '}
+                {details.beta != null
+                  ? details.beta
+                  : (details.symbol, " doesn't share beta factor.")}{' '}
+              </p>
+            }
           />
           <InfoBlock
             title={t('analyser.details.Volatility.SharpeRatio')}

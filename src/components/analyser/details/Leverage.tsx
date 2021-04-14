@@ -243,6 +243,15 @@ const Leverage: React.FC<DetailsProps> = ({
     },
   };
 
+  const deptCoverage = (
+    companyReports.annualReports[0].cashAndCashEquivalentsAtCarryingValue /
+    companyReports.annualReports[0].currentDebt
+  ).toFixed(2);
+
+  const interestCoverage = (
+    stockOverview.ebitda / companyReports.annualReports[0].currentDebt
+  ).toFixed(2);
+
   return (
     <div>
       <div className={classes.chartContainer}>
@@ -266,7 +275,9 @@ const Leverage: React.FC<DetailsProps> = ({
             body={
               <p style={{ margin: 0 }}>
                 {' '}
-                {companyReports.annualReports[0].currentDebt}{' '}
+                {companyReports.annualReports[0].currentDebt != null
+                  ? companyReports.annualReports[0].currentDebt
+                  : (stockOverview.symbol, " doesn't share Debt Level.")}{' '}
               </p>
             }
           />
@@ -275,11 +286,10 @@ const Leverage: React.FC<DetailsProps> = ({
             body={
               <p style={{ margin: 0 }}>
                 {' '}
-                {(
-                  companyReports.annualReports[0]
-                    .cashAndCashEquivalentsAtCarryingValue /
-                  companyReports.annualReports[0].currentDebt
-                ).toFixed(2)}{' '}
+                {deptCoverage != null
+                  ? deptCoverage
+                  : (stockOverview.symbol,
+                    " doesn't share Debt Coverage.")}{' '}
               </p>
             }
           />
@@ -288,10 +298,10 @@ const Leverage: React.FC<DetailsProps> = ({
             body={
               <p style={{ margin: 0 }}>
                 {' '}
-                {(
-                  stockOverview.ebitda /
-                  companyReports.annualReports[0].currentDebt
-                ).toFixed(2)}{' '}
+                {interestCoverage != null
+                  ? interestCoverage
+                  : (stockOverview.symbol,
+                    " doesn't share Interest Coverage.")}{' '}
               </p>
             }
           />
