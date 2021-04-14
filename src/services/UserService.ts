@@ -11,6 +11,7 @@ enum Endpoints {
   Login = 'user/login',
   Register = 'user/register',
   RegisterConfirm = 'user/register/confirm',
+  Reset = 'user/reset',
 }
 
 class UserService extends BaseService {
@@ -161,6 +162,52 @@ class UserService extends BaseService {
         }
       );
 
+      return response.ok;
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Starts the password reset process
+   */
+  // TODO probably needs a better name
+  public static async forgot(email: string): Promise<boolean> {
+    try {
+      const response = await this.request(
+        'POST',
+        `${Endpoints.Reset}/forgot`,
+        {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        {
+          email,
+        }
+      );
+      return response.ok;
+    } catch {
+      return false;
+    }
+  }
+
+  public static async resetChange(
+    id: string,
+    token: string,
+    password: string
+  ): Promise<boolean> {
+    try {
+      const response = await this.request(
+        'POST',
+        `${Endpoints.Reset}/change/${id}/${token}`,
+        {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        {
+          password,
+        }
+      );
       return response.ok;
     } catch {
       return false;
