@@ -3,7 +3,7 @@ import { List } from '@material-ui/core';
 import RRpass from './RRpass';
 import RRfail from './RRfail';
 
-type   BalanceSheetRRProps = {
+type BalanceSheetRRProps = {
   dividend: number;
   payoutRatio: number;
 };
@@ -15,7 +15,10 @@ type Test = {
   failText: string;
 };
 
-const  BalanceSheetRR: React.FC<  BalanceSheetRRProps> = ({ dividend, payoutRatio }) => {
+const BalanceSheetRR: React.FC<BalanceSheetRRProps> = ({
+  dividend,
+  payoutRatio,
+}) => {
   // Tests
   const hasDividend: Test = {
     pass: dividend > 0,
