@@ -4,6 +4,7 @@ import {
   createStyles,
   Theme,
   useTheme,
+  darken,
 } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
@@ -163,6 +164,19 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
   const yellow = palette.warning.main;
   const green = palette.success.main;
 
+  function ratioToColor(ratio: number): string {
+    switch (true) {
+      case ratio < 0.5:
+        return red;
+      case ratio < 1:
+        return yellow;
+      case ratio < 2:
+        return darken(green, 0.25);
+      default:
+        return green;
+    }
+  }
+
   return (
     <>
       <div className={classes.ratioWrapper}>
@@ -171,14 +185,7 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
           <StyledNumberFormat
             value={sharpeRatio}
             suffix=""
-            paintJob={
-              // eslint-disable-next-line no-nested-ternary
-              sharpeRatio < 1
-                ? palette.error.main
-                : sharpeRatio < 2
-                ? palette.warning.main
-                : palette.success.main
-            }
+            paintJob={ratioToColor(sharpeRatio)}
           />
         </Typography>
         <Typography className={classes.ratioText}>
@@ -186,14 +193,7 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
           <StyledNumberFormat
             value={treynorRatio}
             suffix=""
-            paintJob={
-              // eslint-disable-next-line no-nested-ternary
-              treynorRatio < 1
-                ? palette.error.main
-                : treynorRatio < 2
-                ? palette.warning.main
-                : palette.success.main
-            }
+            paintJob={ratioToColor(treynorRatio)}
           />
         </Typography>
       </div>
