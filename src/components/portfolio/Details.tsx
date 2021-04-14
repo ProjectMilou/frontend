@@ -37,14 +37,9 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
-// props type declaration
-export interface DetailsProps extends RouteComponentProps {
-  token: string;
-}
-
 // functional component that takes the name of the portfolio and a function to switch back to the dashboard
 // returns the entire details page
-const Details: React.FC<DetailsProps> = ({ token }) => {
+const Details: React.FC<RouteComponentProps> = () => {
   const [portfolioDetails, setPortfolioDetails] = React.useState<
     API.PortfolioDetails | undefined
   >();
@@ -55,7 +50,7 @@ const Details: React.FC<DetailsProps> = ({ token }) => {
   const fetch = async () => {
     setError(undefined);
     try {
-      const details = await API.details(token, id);
+      const details = await API.details(id);
       if (isMounted.current) {
         setPortfolioDetails(details);
       }
@@ -85,7 +80,7 @@ const Details: React.FC<DetailsProps> = ({ token }) => {
           name={portfolioDetails?.overview.name}
           positions={portfolioDetails?.positions}
           editPositions={async (modifications) => {
-            await API.modify(token, id, modifications);
+            await API.modify(id, modifications);
             // reload portfolio details after successful edit
             await fetch();
           }}
@@ -119,7 +114,6 @@ const Details: React.FC<DetailsProps> = ({ token }) => {
             <DetailsMain
               portfolio={portfolioDetails as NonEmptyPortfolioDetails}
               id={id}
-              token={token}
             />
           </div>
         ) : (
