@@ -121,7 +121,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
         },
         {
           x: 'Longterm & Other Assets',
-          y:assetSeries.longTermInvestements +
+          y:assetSeries.longTermInvestements * 1 +
             assetSeries.otherCurrentAssets * 1 +
             assetSeries.otherNonCurrentAssets * 1,
         },
