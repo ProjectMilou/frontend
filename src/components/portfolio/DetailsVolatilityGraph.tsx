@@ -10,6 +10,26 @@ import HotelIcon from '@material-ui/icons/Hotel';
 import Grid from '@material-ui/core/Grid';
 import VolatilityLineEntry from './VolatilityLineEntry';
 import { Position } from '../../portfolio/APIClient';
+import VolatilityGraphMarketAvg from './VolatilityGraphMarketAvg';
+
+const useStyles = makeStyles(({ palette }: Theme) =>
+  createStyles({
+    icons: {
+      color: palette.primary.contrastText,
+    },
+    line: {
+      width: '90%',
+      height: '3px',
+      margin: 'auto',
+      'background-color': palette.primary.contrastText,
+      position: 'relative',
+      display: 'flex',
+    },
+    wrapper: {
+      height: '250px',
+    },
+  })
+);
 
 type DetailsVolatilityGraphProps = {
   positions: Position[];
@@ -18,43 +38,6 @@ type DetailsVolatilityGraphProps = {
 const DetailsVolatilityGraph: React.FC<DetailsVolatilityGraphProps> = ({
   positions,
 }) => {
-  const useStyles = makeStyles(({ palette }: Theme) =>
-    createStyles({
-      text: {
-        color: palette.primary.contrastText,
-      },
-      line: {
-        width: '90%',
-        height: '3px',
-        margin: 'auto',
-        'background-color': palette.primary.contrastText,
-        position: 'relative',
-        display: 'flex',
-      },
-      lineMiddle: {
-        height: '3rem',
-        width: '0.25rem',
-        'background-color': palette.primary.contrastText,
-        margin: 'auto',
-      },
-      marketAvg: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -100%)',
-        display: 'flex',
-        flexDirection: 'column',
-      },
-      lineMiddleText: {
-        color: palette.primary.contrastText,
-        marginBottom: '0.5rem',
-      },
-      wrapper: {
-        height: '250px',
-      },
-    })
-  );
-
   type VolatilityLineData = {
     [symbol: string]: number;
   };
@@ -83,14 +66,10 @@ const DetailsVolatilityGraph: React.FC<DetailsVolatilityGraphProps> = ({
         alignItems="center"
         className={classes.wrapper}
       >
-        <HotelIcon style={{ color: theme.palette.primary.contrastText }} />
+        <HotelIcon className={classes.icons} />
 
         <div className={classes.line}>
-          <div className={classes.marketAvg}>
-            <div className={classes.lineMiddleText}>Market Average</div>
-            <div className={classes.lineMiddle} />
-          </div>
-
+          <VolatilityGraphMarketAvg />
           {Object.entries(sortedStocks).map(([symbol, volatility]) => (
             <VolatilityLineEntry
               volatilityValue={volatility}
@@ -103,7 +82,7 @@ const DetailsVolatilityGraph: React.FC<DetailsVolatilityGraphProps> = ({
             />
           ))}
         </div>
-        <FlashOnIcon style={{ color: theme.palette.primary.contrastText }} />
+        <FlashOnIcon className={classes.icons} />
       </Grid>
     </>
   );
