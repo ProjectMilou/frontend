@@ -7,6 +7,7 @@ const renderLoginForm = () => {
   const props = {
     closePopUp: jest.fn(),
     openRegisterPopUpWindow: jest.fn(),
+    openForgotPasswordPopUpWindow: jest.fn(),
     setUserState: jest.fn(),
   };
   return {

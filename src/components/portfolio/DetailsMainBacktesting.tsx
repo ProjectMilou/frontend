@@ -87,7 +87,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 );
 
 type DetailsMainBacktestingProps = {
-  token: string;
   id: string;
 };
 
@@ -161,7 +160,6 @@ const reducer = (state: State, action: Actions) => {
 };
 
 const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
-  token,
   id,
 }) => {
   const classes = useStyles();
@@ -214,7 +212,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
   const fetch = async (from: Date, to: Date) => {
     dispatch({ type: 'setError', payload: undefined });
     try {
-      const backTestingResponse = await API.backtesting(token, id, from, to);
+      const backTestingResponse = await API.backtesting(id, from, to);
       if (isMounted.current) {
         dispatch({ type: 'setBacktesting', payload: backTestingResponse });
       }

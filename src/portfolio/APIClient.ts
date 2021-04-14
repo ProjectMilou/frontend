@@ -1,10 +1,10 @@
 import { AppError } from '../Errors';
+import { BaseService, MethodType } from '../services/BaseService';
 
-// TODO: Change to production URL when available
-// TODO: Use a common base URL for shell, analyser and portfolio instead of 3 URLs
-export const baseURL = 'https://api.milou.io/portfolio';
+// TODO: Create a PortfolioService that extends BaseService
 
-const headers = { 'Content-Type': 'application/json' };
+const endpoint = 'portfolio';
+const jsonContentTypeHeader = { 'Content-Type': 'application/json' };
 
 // Types used by the frontend
 
@@ -250,7 +250,7 @@ type CreateResponse = {
   id: string;
 };
 
-type PortfolioStockResponse = PortfolioStock[];
+type PortfolioStockResponse = { portfolios: PortfolioStock[] };
 
 // mock portfolio while the api is not finished yet (copied from APIMocks.ts).
 // TODO: remove this
@@ -482,27 +482,25 @@ function convertPortfolioDetails(response: DetailsResponse): PortfolioDetails {
  * Makes an API call. Resolves to the JSON response if the call is successful,
  * otherwise rejects with an error that has an {@link ErrorCode} as message.
  *
- * @param token - Authentication token
  * @param method - Request method (GET, POST, etc.)
  * @param url - An URL relative to {@link baseURL}
  * @param body - The request body
- * @param additionalHeaders - Additional request headers
+ * @param headers - Additional request headers
  *
  * @return Parsed JSON response if the API call succeeds
  */
 async function request(
-  token: string,
-  method: string,
+  method: MethodType,
   url: string,
-  body?: string,
-  additionalHeaders?: HeadersInit
+  body?: Record<string, unknown>,
+  headers?: HeadersInit
 ): Promise<unknown> {
-  // TODO: authentication
-  const response = await fetch(`${baseURL}/${url}`, {
+  const response = await BaseService.authenticatedRequest(
     method,
-    headers: { ...headers, ...additionalHeaders },
+    `${endpoint}/${url}`,
     body,
-  }).catch(() => Promise.reject(new AppError('UNKNOWN'))); // network error etc.
+    headers
+  );
   if (response.ok) {
     return Promise.resolve(response.json()); // valid response
   }
@@ -514,11 +512,9 @@ async function request(
 
 /**
  * Gets an overview over all portfolios of the authenticated user.
- *
- * @param token - Authentication token
  */
-export async function list(token: string): Promise<PortfolioOverview[]> {
-  const response = (await request(token, 'GET', 'list')) as ListResponse;
+export async function list(): Promise<PortfolioOverview[]> {
+  const response = (await request('GET', 'list')) as ListResponse;
   // TODO: remove mock when api is implemented
   return [
     ...response.portfolios.map(convertPortfolioOverview),
@@ -529,19 +525,16 @@ export async function list(token: string): Promise<PortfolioOverview[]> {
 /**
  * Gets the data needed for the Back-Testing section of the portfolio details page.
  *
- * @param token - Authentication token
  * @param id - Id of the portfolio for which the Back-Testing information is needed
  * @param from - UNIX timestamp for the date FROM which the user wants to backtest
  * @param to - UNIX timestamp for the date UNTIL WHICH the user wants to backtest
  */
 export async function backtesting(
-  token: string,
   id: string,
   from: Date,
   to: Date
 ): Promise<Backtesting> {
   const response = (await request(
-    token,
     'GET',
     `/analytics/backtest/${id}?${from.toISOString().split('T')[0]}&${
       to.toISOString().split('T')[0]
@@ -555,57 +548,40 @@ export async function backtesting(
   return convertBacktesting(response as NonEmptyBacktestingResponse);
 }
 
-export async function details(
-  token: string,
-  id: string
-): Promise<PortfolioDetails> {
+export async function details(id: string): Promise<PortfolioDetails> {
   // TODO: remove mock when api is implemented
   if (id === 'MOCK') {
     return new Promise((resolve) =>
       setTimeout(() => resolve(mockPortfolio), 1000)
     );
   }
-  const response = (await request(
-    token,
-    'GET',
-    `details/${id}`
-  )) as DetailsResponse;
+  const response = (await request('GET', `details/${id}`)) as DetailsResponse;
   return convertPortfolioDetails(response);
 }
 
 /**
  * Renames a portfolio.
- *
- * @param token - Authentication token
+
  * @param id - ID of the portfolio to be renamed
  * @param name - New name of the portfolio
  */
-export async function rename(
-  token: string,
-  id: string,
-  name: string
-): Promise<void> {
-  await request(token, 'PUT', `rename/${id}`, JSON.stringify({ name }));
+export async function rename(id: string, name: string): Promise<void> {
+  await request('PUT', `rename/${id}`, { name }, jsonContentTypeHeader);
 }
 
 /**
  * Duplicates a portfolio.
  *
- * @param token - Authentication token
  * @param id - ID of the portfolio to be duplicated
  * @param name - Name of the duplicate
  * @return ID of the duplicate
  */
-export async function duplicate(
-  token: string,
-  id: string,
-  name: string
-): Promise<string> {
+export async function duplicate(id: string, name: string): Promise<string> {
   const response = (await request(
-    token,
     'POST',
     `duplicate/${id}`,
-    JSON.stringify({ name })
+    { name },
+    jsonContentTypeHeader
   )) as DuplicateResponse;
   return response.id;
 }
@@ -613,43 +589,37 @@ export async function duplicate(
 /**
  * Deletes a portfolio.
  *
- * @param token - Authentication token
  * @param id - ID of the portfolio to be deleted
  */
-export async function deletePortfolio(
-  token: string,
-  id: string
-): Promise<void> {
-  await request(token, 'DELETE', id);
+export async function deletePortfolio(id: string): Promise<void> {
+  await request('DELETE', id);
 }
 
 /**
  * Creates a new portfolio.
  *
- * @param token - Authentication token
  * @param name - Name of the new portfolio
  * @return ID of the new portfolio
  */
-export async function create(token: string, name: string): Promise<string> {
+export async function create(name: string): Promise<string> {
   const response = (await request(
-    token,
     'POST',
     'create',
-    JSON.stringify({ name })
+    { name },
+    jsonContentTypeHeader
   )) as CreateResponse;
   return response.id;
 }
 
 export async function modify(
-  token: string,
   id: string,
   modifications: PositionQty[]
 ): Promise<void> {
   await request(
-    token,
     'PUT',
     `modify/${id}`,
-    JSON.stringify({ modifications })
+    { modifications },
+    jsonContentTypeHeader
   );
 }
 
@@ -657,36 +627,25 @@ export async function modify(
  * Gets the portfolio name and quantity of a specified stock for all portfolios of the current user.
  * This information is displayed to the user when adding a stock to his portfolios.
  *
- * @param token - Authentication token
  * @param symbol - Symbol of the current stock
  */
-export async function stock(
-  token: string,
-  symbol: string
-): Promise<PortfolioStock[]> {
-  return (await request(
-    token,
+export async function stock(symbol: string): Promise<PortfolioStock[]> {
+  const response = (await request(
     'GET',
     `stock/${symbol}`
   )) as PortfolioStockResponse;
+  return response.portfolios;
 }
 
 /**
  * Modifies a stock's quantity within multiple portfolios simultaneously.
  *
- * @param token - Authentication token
  * @param symbol - Symbol of the current stock
  * @param modifications - modifications made to the portfolios
  */
 export async function saveStockToPortfolios(
-  token: string,
   symbol: string,
   modifications: PortfolioQty[]
 ): Promise<void> {
-  await request(
-    token,
-    'PUT',
-    `stock/${symbol}`,
-    JSON.stringify({ modifications })
-  );
+  await request('PUT', `stock/${symbol}`, { modifications });
 }
