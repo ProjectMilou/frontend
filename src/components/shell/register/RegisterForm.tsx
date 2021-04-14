@@ -38,6 +38,7 @@ const useStyles = makeStyles({
     fontSize: '14px',
     margin: '0px',
     textDecoration: 'underline',
+    cursor: 'pointer',
   },
 });
 
