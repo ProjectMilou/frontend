@@ -7,9 +7,10 @@ import {
   IconButton,
   Input,
   InputAdornment,
-  InputLabel, makeStyles,
+  InputLabel,
+  makeStyles,
   TextField,
-  Typography
+  Typography,
 } from '@material-ui/core';
 import React, { useState } from 'react';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
@@ -32,11 +33,13 @@ interface RegisterFormProps {
 }
 
 const useStyles = makeStyles({
-    privacyLink: {
-display: "inline", fontSize: '14px', margin: '0px', textDecoration: "underline"
-    },
-  }
-);
+  privacyLink: {
+    display: 'inline',
+    fontSize: '14px',
+    margin: '0px',
+    textDecoration: 'underline',
+  },
+});
 
 const RegisterForm: React.FC<RegisterFormProps> = (props) => {
   const { t } = useTranslation();
@@ -114,6 +117,10 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
     );
   };
 
+  const openPrivacyTab = () => {
+    window.open(window.location.href.concat('privacy'), '_blank');
+  };
+
   return (
     <>
       <DialogContent>
@@ -180,9 +187,10 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
               if (login.password !== login.confirmPassword) {
                 setError({
                   ...hasError,
-                  confirmPassword: [t('error.confirmPassword'), t('error.retry')].join(
-                    ' '
-                  ),
+                  confirmPassword: [
+                    t('error.confirmPassword'),
+                    t('error.retry'),
+                  ].join(' '),
                 });
               }
             }}
@@ -232,8 +240,8 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
                 role="link"
                 aria-label="Privacy"
                 tabIndex={0}
-                onClick={()=> window.open(window.location.href.concat("privacy"), "_blank")}
-                onKeyDown={()=> window.open(window.location.href.concat("privacy"), "_blank")}
+                onClick={() => openPrivacyTab()}
+                onKeyDown={() => openPrivacyTab()}
               />,
             ]}
           />
