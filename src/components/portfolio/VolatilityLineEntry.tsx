@@ -5,19 +5,21 @@ import { Tooltip } from '@material-ui/core';
 type VolatilityLineEntryProps = {
   volatilityValue: number;
   tooltipText: string;
+  color: string;
 };
 
 const VolatilityLineEntry: React.FC<VolatilityLineEntryProps> = ({
   volatilityValue,
   tooltipText,
+  color,
 }) => {
   const useStyles = makeStyles(({ palette }: Theme) =>
     createStyles({
       line: {
         position: 'absolute',
         height: '2rem',
-        width: '3px',
-        backgroundColor: palette.primary.contrastText,
+        width: '0.25rem',
+        transform: 'translate(0%, -50%)',
       },
       tooltip: {
         fontSize: '0.8rem',
@@ -36,6 +38,7 @@ const VolatilityLineEntry: React.FC<VolatilityLineEntryProps> = ({
         className={classes.line}
         style={{
           left: `${Math.round((volatilityValue / 2.0) * 1000) / 10}%`,
+          backgroundColor: color,
         }}
       />
     </Tooltip>
