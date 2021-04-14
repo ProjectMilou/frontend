@@ -37,10 +37,11 @@ export enum State {
 interface LoginProps {
   closePopUp: () => void;
   openRegisterPopUp: () => void;
+  openForgotPasswordPopUp: () => void;
 }
 
 const Login: React.FC<LoginProps> = (props) => {
-  const { closePopUp, openRegisterPopUp } = props;
+  const { closePopUp, openRegisterPopUp, openForgotPasswordPopUp } = props;
   const theme = useTheme();
   const { dialog, iconLogo, iconClear } = useStyles(theme);
 
@@ -75,6 +76,7 @@ const Login: React.FC<LoginProps> = (props) => {
       {userState === 'loggedOut' && (
         <LoginForm
           openRegisterPopUpWindow={openRegisterPopUpWindow}
+          openForgotPasswordPopUpWindow={openForgotPasswordPopUp}
           setUserState={() => setUserState('loggedIn')}
           closePopUp={closePopUp}
         />
@@ -86,6 +88,7 @@ const Login: React.FC<LoginProps> = (props) => {
 Login.propTypes = {
   closePopUp: PropTypes.func.isRequired,
   openRegisterPopUp: PropTypes.func.isRequired,
+  openForgotPasswordPopUp: PropTypes.func.isRequired,
 };
 
 export default Login;
