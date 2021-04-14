@@ -211,14 +211,14 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
       </Box>
 
       <Box px="16px" py="8px">
-        <Typography style={{ fontSize: '12px' }} align="center">
+        <Typography style={{ fontSize: '14px' }} align="center">
           <Trans
             i18nKey="shell.disclaimer"
             t={t}
             components={[
               <LinkButton
                 handleEvent={() => navigate('/privacy')}
-                style={{ fontSize: '12px', margin: '0px' }}
+                style={{ fontSize: '14px', margin: '0px' }}
               />,
             ]}
           />
