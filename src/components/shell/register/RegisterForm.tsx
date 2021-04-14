@@ -2,27 +2,21 @@ import {
   Button,
   DialogActions,
   DialogContent,
-  FormControl,
-  FormHelperText,
-  IconButton,
-  Input,
-  InputAdornment,
-  InputLabel,
   makeStyles,
   TextField,
   Typography,
 } from '@material-ui/core';
 import React, { useState } from 'react';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
 import * as EmailValidator from 'email-validator';
 import { Trans, useTranslation } from 'react-i18next';
 import LinkButton from '../LinkButton';
-import { UserInput } from '../utils';
+import { UserInput, ErrorState } from '../utils';
 import UserService from '../../../services/UserService';
 import PasswordRequirement from './PasswordRequirement';
 import { checkPasswordRequirements, IRequirements } from './util-password';
+import PasswordField from './PasswordField';
 
 interface RegisterFormProps {
   onSuccess: () => void;
@@ -46,17 +40,6 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
   const { t } = useTranslation();
   const { privacyLink } = useStyles();
   const { onSuccess, onFail, goToLogin, login, setLogin } = props;
-
-  const [showPassword, setShowPassword] = useState({
-    password: false,
-    confirmPassword: false,
-  });
-
-  interface ErrorState {
-    email: string;
-    password: string;
-    confirmPassword: string;
-  }
 
   const [hasError, setError] = useState({
     email: '',
@@ -140,84 +123,12 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
           style={{ margin: '8px 0' }}
           inputProps={{ 'data-testid': 'email' }}
         />
-        <FormControl
-          fullWidth
-          error={hasError.password !== ''}
-          style={{ margin: '8px 0' }}
-        >
-          <InputLabel htmlFor="password">{t('shell.password')}</InputLabel>
-          <Input
-            id="password"
-            type={showPassword.password ? 'text' : 'password'}
-            value={login.password}
-            onChange={handleChange}
-            inputProps={{ 'data-testid': 'password' }}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={() =>
-                    setShowPassword({
-                      ...showPassword,
-                      password: !showPassword.password,
-                    })
-                  }
-                >
-                  {showPassword.password ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-          <FormHelperText>{hasError.password}</FormHelperText>
-        </FormControl>
-
-        <FormControl
-          fullWidth
-          error={hasError.confirmPassword !== ''}
-          style={{ margin: '8px 0' }}
-        >
-          <InputLabel htmlFor="password">
-            {t('shell.confirmPassword')}
-          </InputLabel>
-          <Input
-            id="confirmPassword"
-            type={showPassword.confirmPassword ? 'text' : 'password'}
-            value={login.confirmPassword}
-            onChange={handleChange}
-            onBlur={() => {
-              if (login.password !== login.confirmPassword) {
-                setError({
-                  ...hasError,
-                  confirmPassword: [
-                    t('error.confirmPassword'),
-                    t('error.retry'),
-                  ].join(' '),
-                });
-              }
-            }}
-            inputProps={{ 'data-testid': 'confirm-password' }}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={() =>
-                    setShowPassword({
-                      ...showPassword,
-                      confirmPassword: !showPassword.confirmPassword,
-                    })
-                  }
-                >
-                  {showPassword.confirmPassword ? (
-                    <Visibility />
-                  ) : (
-                    <VisibilityOff />
-                  )}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-          <FormHelperText>{hasError.confirmPassword}</FormHelperText>
-        </FormControl>
+        <PasswordField
+          hasError={hasError}
+          setError={setError}
+          login={login}
+          handleChange={handleChange}
+        />
       </DialogContent>
 
       <Box mx="auto" pb={1} pl={3}>
