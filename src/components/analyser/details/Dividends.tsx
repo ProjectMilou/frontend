@@ -3,6 +3,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import DividendRatioDonut from '../../shared/DividendRatioDonut';
 import DividendLineChart from '../../shared/DividendLineChart';
+import DividendsRR from './DividendsRR';
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
   createStyles({
@@ -153,6 +154,8 @@ const Dividends: React.FC = () => {
           />
         </div>
       </div>
+
+      <DividendsRR dividend={dividendYield} payoutRatio={ratio}/>
     </div>
   );
 };
