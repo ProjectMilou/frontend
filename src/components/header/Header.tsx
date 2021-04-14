@@ -15,6 +15,7 @@ import Login from '../shell/login/Login';
 import UserService from '../../services/UserService';
 import SearchBar from '../analyser/search/SearchBar';
 import Register from '../shell/register/Register';
+import ForgotPassword from '../shell/forgotPassword/ForgotPassword';
 import { Context } from '../../state/context';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -106,6 +107,7 @@ const Header: React.FC = () => {
             </Button>
           </>
         )}
+
         <Dialog
           open={state.openLogin}
           onClose={() => dispatch({ type: 'CLOSE_LOGIN' })}
@@ -127,6 +129,7 @@ const Header: React.FC = () => {
             }}
           />
         </Dialog>
+
         <Dialog
           open={openRegister}
           onClose={() => setOpenRegister(false)}
@@ -140,6 +143,15 @@ const Header: React.FC = () => {
               dispatch({ type: 'OPEN_LOGIN' });
             }}
           />
+        </Dialog>
+
+        <Dialog
+          open={openForgotPassword}
+          onClose={() => setOpenForgotPassword(false)}
+          className={classes.dialog}
+          classes={{ paper: classes.paper }}
+        >
+          <ForgotPassword closePopUp={() => setOpenForgotPassword(false)} />
         </Dialog>
       </Toolbar>
     </AppBar>

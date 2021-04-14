@@ -10,7 +10,7 @@ import {
   useTheme,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { UserService } from '../../../services/UserService';
+import UserService from '../../../services/UserService';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -42,7 +42,7 @@ const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = (props) => {
     }
 
     UserService.forgot(email)
-      .then(() => setSuccess(true))
+      .then((value) => (value ? setSuccess(true) : setError(true)))
       .catch(() => setError(true));
   };
   return (
