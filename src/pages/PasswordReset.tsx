@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Box,
   Button,
   Container,
   DialogActions,
@@ -15,7 +14,8 @@ import { RouteComponentProps } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 
 import PasswordField from '../components/shell/register/PasswordField';
-import { ErrorState, UserInput } from '../components/shell/utils';
+import { UserInput, ErrorState } from '../components/shell/utils';
+import UserService from '../services/UserService';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -31,6 +31,7 @@ interface PasswordResetProps extends RouteComponentProps {
 }
 
 const PasswordReset: React.FC<PasswordResetProps> = (props) => {
+  // TODO check if token is valid beforehand and only show form when it is
   const { id, token } = props;
   const { t } = useTranslation();
   const { formular } = useStyles(useTheme());
@@ -125,7 +126,8 @@ const PasswordReset: React.FC<PasswordResetProps> = (props) => {
       return;
     }
 
-    console.log(login);
+    // TODO error handling would be nice
+    UserService.resetChange(String(id), String(token), login.password);
   };
 
   return (
