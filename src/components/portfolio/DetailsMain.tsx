@@ -8,6 +8,7 @@ import DetailsMainKeyFigures from './DetailsMainKeyFigures';
 import DetailsMainDividens from './DetailsMainDividends';
 import DetailsMainAnalyst from './DetailsMainAnalyst';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
+import DetailsMainAnalytics from './DetailsMainAnalytics';
 import DetailMainBacktesting from './DetailsMainBacktesting';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -103,7 +104,10 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, token, id }) => {
         <DetailsMainDividens portfolio={portfolio} />
       </Section>
       <Section title={t('portfolio.details.analyst')}>
-        <DetailsMainAnalyst />
+        <DetailsMainAnalyst positions={portfolio.positions} />
+      </Section>
+      <Section title={t('portfolio.details.analytics')}>
+        <DetailsMainAnalytics portfolio={portfolio} />
       </Section>
       <Section title={t('portfolio.details.backtesting')}>
         <DetailMainBacktesting id={id} token={token} />
