@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import VolatilityLineEntry from './VolatilityLineEntry';
 import { Position } from '../../portfolio/APIClient';
 import VolatilityGraphMarketAvg from './VolatilityGraphMarketAvg';
+import VolatilityGraphPersonalPortfolio from './VolatilityGraphPersonalPortfolio';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -33,10 +34,12 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 
 type DetailsVolatilityGraphProps = {
   positions: Position[];
+  portfolioVolatility: number;
 };
 
 const DetailsVolatilityGraph: React.FC<DetailsVolatilityGraphProps> = ({
   positions,
+  portfolioVolatility,
 }) => {
   type VolatilityLineData = {
     [symbol: string]: number;
@@ -70,14 +73,17 @@ const DetailsVolatilityGraph: React.FC<DetailsVolatilityGraphProps> = ({
 
         <div className={classes.line}>
           <VolatilityGraphMarketAvg />
+          <VolatilityGraphPersonalPortfolio
+            portfolioVolatility={portfolioVolatility}
+          />
           {Object.entries(sortedStocks).map(([symbol, volatility]) => (
             <VolatilityLineEntry
               volatilityValue={volatility}
               tooltipText={symbol}
               color={
                 volatility > 1
-                  ? theme.palette.success.main
-                  : theme.palette.error.main
+                  ? theme.palette.error.main
+                  : theme.palette.success.main
               }
             />
           ))}
