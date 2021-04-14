@@ -140,7 +140,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
       <LinkButton
         handleEvent={() => {}}
         text={t('shell.message.forgotPassword')}
-        style={{ display: 'block', margin: '8px auto', marginTop: "0px"}}
+        style={{ display: 'block', margin: '8px auto', marginTop: '0px' }}
       />
 
       <DialogActions>

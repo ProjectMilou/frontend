@@ -81,8 +81,11 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
     }));
     if (hasError[event.target.id as keyof ErrorState])
       setError({ ...hasError, [event.target.id]: '' });
-    if(event.target.id === "password")
-      checkPasswordRequirements({ password: event.target.value , setRequirements });
+    if (event.target.id === 'password')
+      checkPasswordRequirements({
+        password: event.target.value,
+        setRequirements,
+      });
   };
 
   const handleSubmit = () => {
@@ -199,12 +202,16 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
 
       <Box mx="auto" pb="8px" pl="40px">
         {requirements.requirement.map(({ text, done }, index) => (
-          <PasswordRequirement key={text.concat(index.toString())} text={text} done={done} />
+          <PasswordRequirement
+            key={text.concat(index.toString())}
+            text={text}
+            done={done}
+          />
         ))}
       </Box>
 
       <Box px="16px" py="8px">
-        <Typography style={{fontSize: "12px"}} align="center">
+        <Typography style={{ fontSize: '12px' }} align="center">
           <Trans
             i18nKey="shell.disclaimer"
             t={t}

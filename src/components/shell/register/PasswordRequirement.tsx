@@ -15,15 +15,15 @@ const useStyles = makeStyles<Theme, PasswordRequirementProps>((theme) =>
   createStyles({
     checked: {
       height: theme.spacing(1.5),
-      color: theme.palette.success.main
+      color: theme.palette.success.main,
     },
     unchecked: {
       height: theme.spacing(1.5),
     },
     name: {
       fontSize: '12px',
-      color: ({done}) => (done ? "grey": ""),
-      textDecoration: ({done}) => (done ? "line-through": ""),
+      color: ({ done }) => (done ? 'grey' : ''),
+      textDecoration: ({ done }) => (done ? 'line-through' : ''),
     },
   })
 );
