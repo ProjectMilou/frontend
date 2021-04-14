@@ -66,9 +66,9 @@ const DetailsVolatilityGraph: React.FC<DetailsVolatilityGraphProps> = ({
 
   if (positions) {
     Object.values(positions)
-      .map((p) => p.stock)
-      .sort((a, b) => (a.volatility > b.volatility ? -1 : 1))
+      .sort((a, b) => (a.qty * a.stock.price > b.qty * b.stock.price ? -1 : 1))
       .slice(0, 3)
+      .map((p) => p.stock)
       .forEach((s) => {
         sortedStocks[s.symbol] = s.volatility;
       });
