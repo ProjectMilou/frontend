@@ -1,11 +1,9 @@
 import React from 'react';
-import {
-  List,
-} from '@material-ui/core';
+import { List } from '@material-ui/core';
 import RRpass from './RRpass';
 import RRfail from './RRfail';
 
-type DividendsRRProps = {
+type   BalanceSheetRRProps = {
   dividend: number;
   payoutRatio: number;
 };
@@ -17,7 +15,7 @@ type Test = {
   failText: string;
 };
 
-const DividendsRR: React.FC<DividendsRRProps> = ({ dividend, payoutRatio }) => {
+const  BalanceSheetRR: React.FC<  BalanceSheetRRProps> = ({ dividend, payoutRatio }) => {
   // Tests
   const hasDividend: Test = {
     pass: dividend > 0,
@@ -66,4 +64,4 @@ const DividendsRR: React.FC<DividendsRRProps> = ({ dividend, payoutRatio }) => {
     </List>
   );
 };
-export default DividendsRR;
+export default BalanceSheetRR;

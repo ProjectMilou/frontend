@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  List,
-} from '@material-ui/core';
+import { List } from '@material-ui/core';
 import RRpass from './RRpass';
 import RRfail from './RRfail';
 
