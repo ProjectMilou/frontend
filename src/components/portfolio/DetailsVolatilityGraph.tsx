@@ -8,16 +8,15 @@ import {
 import FlashOnIcon from '@material-ui/icons/FlashOn';
 import HotelIcon from '@material-ui/icons/Hotel';
 import Grid from '@material-ui/core/Grid';
-import { useTranslation } from 'react-i18next';
 import VolatilityLineEntry from './VolatilityLineEntry';
-import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
+import { Position } from '../../portfolio/APIClient';
 
 type DetailsVolatilityGraphProps = {
-  portfolio: NonEmptyPortfolioDetails;
+  positions: Position[];
 };
 
 const DetailsVolatilityGraph: React.FC<DetailsVolatilityGraphProps> = ({
-  portfolio,
+  positions,
 }) => {
   const useStyles = makeStyles(({ palette }: Theme) =>
     createStyles({
@@ -33,78 +32,62 @@ const DetailsVolatilityGraph: React.FC<DetailsVolatilityGraphProps> = ({
         display: 'flex',
       },
       lineMiddle: {
-        height: '20px',
-        width: '3px',
-        'background-color': 'black',
+        height: '3rem',
+        width: '0.25rem',
+        'background-color': palette.primary.contrastText,
         margin: 'auto',
       },
       marketAvg: {
         position: 'absolute',
-        top: '450%',
+        top: '50%',
         left: '50%',
-        transform: 'translate(-50%, -50%)',
+        transform: 'translate(-50%, -100%)',
         display: 'flex',
         flexDirection: 'column',
       },
       lineMiddleText: {
         color: palette.primary.contrastText,
-      },
-      lineMiddleDynamic: {
-        position: 'absolute',
-        height: '20px',
-        width: '3px',
-        'background-color': palette.primary.contrastText,
+        marginBottom: '0.5rem',
       },
     })
   );
 
-  const { t } = useTranslation();
+  type VolatilityLineData = {
+    [symbol: string]: number;
+  };
+
   const theme = useTheme();
   const classes = useStyles();
 
-  const volatility = {
-    Apple: 1.0304461557501514,
-    Google: 0.5496680733681532,
-    Amazon: 0.5993856976545141,
-    IBM: 0.5765889119578946,
-    'Alibaba group': 0.7140162113218156,
-    'JPMorgan Chase & Co.': 0.6486754881067324,
-  };
+  const sortedStocks: VolatilityLineData = {};
+
+  if (positions) {
+    Object.values(positions)
+      .map((p) => p.stock)
+      .sort((a, b) => (a.volatility > b.volatility ? -1 : 1))
+      .slice(0, 3)
+      .forEach((s) => {
+        sortedStocks[s.symbol] = s.volatility;
+      });
+  }
 
   return (
     <>
       <Grid container direction="row" justify="center" alignItems="center">
         <HotelIcon style={{ color: theme.palette.primary.contrastText }} />
+
         <div className={classes.line}>
           <div className={classes.marketAvg}>
-            <div className={classes.lineMiddle} />
             <div className={classes.lineMiddleText}>Market Average</div>
+            <div className={classes.lineMiddle} />
           </div>
 
-          <VolatilityLineEntry
-            volatilityValue={1.0304461557501514}
-            tooltipText="Apple"
-          />
-          <VolatilityLineEntry
-            volatilityValue={0.5496680733681532}
-            tooltipText="Google"
-          />
-          <VolatilityLineEntry
-            volatilityValue={0.5993856976545141}
-            tooltipText="Amazon"
-          />
-          <VolatilityLineEntry
-            volatilityValue={0.5765889119578946}
-            tooltipText="IBM"
-          />
-          <VolatilityLineEntry
-            volatilityValue={0.7140162113218156}
-            tooltipText="Alibaba group"
-          />
-          <VolatilityLineEntry
-            volatilityValue={0.6486754881067324}
-            tooltipText="JPMorgan Chase & Co."
-          />
+          {Object.entries(sortedStocks).map(([symbol, volatility]) => (
+            <VolatilityLineEntry
+              volatilityValue={volatility}
+              tooltipText={symbol}
+            />
+          ))}
         </div>
         <FlashOnIcon style={{ color: theme.palette.primary.contrastText }} />
       </Grid>

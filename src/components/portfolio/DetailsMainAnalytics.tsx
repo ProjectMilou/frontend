@@ -63,7 +63,7 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
       <div className={classes.titleWrapper}>
         {t('portfolio.details.analytics.volatility.vsMarket')}
       </div>
-      <DetailsVolatilityGraph portfolio={portfolio} />
+      <DetailsVolatilityGraph positions={portfolio.positions} />
     </>
   );
 };
