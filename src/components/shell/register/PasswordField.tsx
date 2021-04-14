@@ -9,12 +9,12 @@ import {
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { UserInput, ErrorState } from '../utils';
+import { ErrorState, PasswordInput } from '../utils';
 
 interface PasswordFieldProps {
   hasError: ErrorState;
   setError: React.Dispatch<React.SetStateAction<ErrorState>>;
-  login: UserInput;
+  login: PasswordInput;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 

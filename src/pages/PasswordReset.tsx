@@ -11,16 +11,19 @@ import {
   useTheme,
 } from '@material-ui/core';
 import { RouteComponentProps } from '@reach/router';
+import Box from '@material-ui/core/Box';
 import { useTranslation } from 'react-i18next';
-
 import PasswordField from '../components/shell/register/PasswordField';
-import { UserInput, ErrorState } from '../components/shell/utils';
+import { ErrorState, PasswordInput } from '../components/shell/utils';
 import UserService from '../services/UserService';
+import { checkPasswordRequirements, IRequirements } from '../components/shell/register/util-password';
+import PasswordRequirement from '../components/shell/register/PasswordRequirement';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     formular: {
       marginTop: theme.spacing(10),
+      marginBottom: theme.spacing(10),
       padding: theme.spacing(5, 3),
     },
   })
@@ -37,19 +40,39 @@ const PasswordReset: React.FC<PasswordResetProps> = (props) => {
   const { formular } = useStyles(useTheme());
 
   const [hasError, setError] = useState({
-    email: '',
     password: '',
     confirmPassword: '',
   } as ErrorState);
 
-  const [login, setLogin] = useState<UserInput>({
-    email: '',
+  const [login, setLogin] = useState<PasswordInput>({
     password: '',
     confirmPassword: '',
   });
 
+  const [requirements, setRequirements] = useState({
+    requirement: [
+      {
+        text: t('error.passwordRequirement.length'),
+        done: false,
+      },
+      {
+        text: t('error.passwordRequirement.cases'),
+        done: false,
+      },
+      {
+        text: t('error.passwordRequirement.number'),
+        done: false,
+      },
+      {
+        text: t('error.passwordRequirement.specialCharacter'),
+        done: false,
+      },
+    ],
+  } as IRequirements);
+
   // TODO This is the copy-pasta antipattern and in dire need of refactoring
   // see components/shell/register/RegisterForm.tsc:35 ff
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLogin((prevState) => ({
       ...prevState,
@@ -57,76 +80,14 @@ const PasswordReset: React.FC<PasswordResetProps> = (props) => {
     }));
     if (hasError[event.target.id as keyof ErrorState])
       setError({ ...hasError, [event.target.id]: '' });
+    if (event.target.id === 'password')
+      checkPasswordRequirements({
+        password: event.target.value,
+        setRequirements,
+      });
   };
 
   const handleSubmit = () => {
-    if (login.password.length < 8) {
-      setError({
-        ...hasError,
-        password: [
-          t('error.invalidPassword'),
-          t('error.passwordRequirement.length'),
-        ].join(' '),
-      });
-      return;
-    }
-
-    if (!/[a-z]{1}/.test(login.password)) {
-      setError({
-        ...hasError,
-        password: [
-          t('error.invalidPassword'),
-          t('error.passwordRequirement.lowerCase'),
-        ].join(' '),
-      });
-      return;
-    }
-
-    if (!/[A-Z]{1}/.test(login.password)) {
-      setError({
-        ...hasError,
-        password: [
-          t('error.invalidPassword'),
-          t('error.passwordRequirement.upperCase'),
-        ].join(' '),
-      });
-      return;
-    }
-
-    if (!/[0-9]{1}/.test(login.password)) {
-      setError({
-        ...hasError,
-        password: [
-          t('error.invalidPassword'),
-          t('error.passwordRequirement.number'),
-        ].join(' '),
-      });
-      return;
-    }
-
-    if (!/[^a-zA-Z][^0-9]{1}/.test(login.password)) {
-      setError({
-        ...hasError,
-        password: [
-          t('error.invalidPassword'),
-          t('error.passwordRequirement.specialCharacter'),
-        ].join(' '),
-      });
-      return;
-    }
-
-    if (login.password !== login.confirmPassword) {
-      setError({
-        ...hasError,
-        confirmPassword: [t('error.confirmPassword'), t('error.retry')].join(
-          ' '
-        ),
-      });
-      setLogin({ ...login, confirmPassword: '' });
-      return;
-    }
-
-    // TODO error handling would be nice
     UserService.resetChange(String(id), String(token), login.password);
   };
 
@@ -144,6 +105,17 @@ const PasswordReset: React.FC<PasswordResetProps> = (props) => {
             handleChange={handleChange}
           />
         </DialogContent>
+
+        <Box mx="auto" pb={1} pl={3}>
+          {requirements.requirement.map(({ text, done }, index) => (
+            <PasswordRequirement
+              key={text.concat(index.toString())}
+              text={text}
+              done={done}
+            />
+          ))}
+        </Box>
+
         <DialogActions>
           <Button
             type="button"
@@ -151,11 +123,14 @@ const PasswordReset: React.FC<PasswordResetProps> = (props) => {
             color="primary"
             fullWidth
             onClick={handleSubmit}
+            disabled={
+              requirements.requirement.map((r) => r.done).some((done) => !done) ||
+              login.password !== login.confirmPassword
+            }
           >
             submit
           </Button>
         </DialogActions>
-        {/* TODO add fancy password requirements */}
       </Paper>
     </Container>
   );
