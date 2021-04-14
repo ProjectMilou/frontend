@@ -5,7 +5,7 @@ import { Tooltip } from '@material-ui/core';
 
 export type InfoProps = {
   infotext: string;
-}
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,12 +30,12 @@ const InfoButton: React.FC<InfoProps> = ({ infotext }) => {
 
   return (
     <Tooltip
-        title={infotext}
-        placement="top-start"
-        classes={{ tooltip: classes.customSize }}
-      >
-        <InfoOutlined className={classes.infoText} />
-      </Tooltip>
+      title={infotext}
+      placement="top-start"
+      classes={{ tooltip: classes.customSize }}
+    >
+      <InfoOutlined className={classes.infoText} />
+    </Tooltip>
   );
 };
 
