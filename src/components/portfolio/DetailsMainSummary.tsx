@@ -422,7 +422,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
             {/* industries */}
             <ValueOverName
               value={Object.keys(portfolio.risk.segments).length}
-              name={t('portfolio.details.industries')}
+              name={t('portfolio.details.segments')}
             />
             {/* currencies */}
             <ValueOverName

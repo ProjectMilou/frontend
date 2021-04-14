@@ -113,7 +113,7 @@ const RiskComp: React.FC<RiskCompProps> = ({
     <div className={classes.riskWrapper}>
       {/* title */}
       <div>
-        <p className={classes.riskTitle}>{title}</p>
+        <span className={classes.riskTitle}>{title}</span>
       </div>
       {/* body with chart */}
       <div className={classes.riskPieWrapper}>
@@ -134,15 +134,15 @@ const RiskComp: React.FC<RiskCompProps> = ({
             <div style={{ color: bundle.riskColor }}>{bundle.count}</div>
           </div>
           <div className={classes.subtitleWrapper}>
-            <p>{title}</p>
+            <span>{title}</span>
           </div>
         </div>
         {/* warnings */}
         <div>
           {bundle.warnings.map((w) => (
-            <p key={w} className={classes.warnings}>
+            <span key={w} className={classes.warnings}>
               {t(w)}
-            </p>
+            </span>
           ))}
         </div>
       </div>
