@@ -14,11 +14,15 @@ import {
 import React, { useState } from 'react';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import Divider from '@material-ui/core/Divider';
+import Box from '@material-ui/core/Box';
+import { navigate } from '@reach/router';
 import * as EmailValidator from 'email-validator';
 import { Trans, useTranslation } from 'react-i18next';
 import LinkButton from '../LinkButton';
 import { UserInput } from '../utils';
 import UserService from '../../../services/UserService';
+import PasswordRequirement from './PasswordRequirement';
+import { checkPasswordRequirements, IRequirements } from './util-password';
 
 interface RegisterFormProps {
   onSuccess: () => void;
@@ -49,6 +53,27 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
     confirmPassword: '',
   } as ErrorState);
 
+  const [requirements, setRequirements] = useState({
+    requirement: [
+      {
+        text: t('error.passwordRequirement.length'),
+        done: false,
+      },
+      {
+        text: t('error.passwordRequirement.cases'),
+        done: false,
+      },
+      {
+        text: t('error.passwordRequirement.number'),
+        done: false,
+      },
+      {
+        text: t('error.passwordRequirement.specialCharacter'),
+        done: false,
+      },
+    ],
+  } as IRequirements);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLogin((prevState) => ({
       ...prevState,
@@ -56,6 +81,8 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
     }));
     if (hasError[event.target.id as keyof ErrorState])
       setError({ ...hasError, [event.target.id]: '' });
+    if(event.target.id === "password")
+      checkPasswordRequirements({ password: event.target.value , setRequirements });
   };
 
   const handleSubmit = () => {
@@ -63,61 +90,6 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
       setError({
         ...hasError,
         email: [t('error.invalidEmail'), t('error.retry')].join(' '),
-      });
-      return;
-    }
-
-    if (login.password.length < 8) {
-      setError({
-        ...hasError,
-        password: [
-          t('error.invalidPassword'),
-          t('error.passwordRequirement.length'),
-        ].join(' '),
-      });
-      return;
-    }
-
-    if (!/[a-z]{1}/.test(login.password)) {
-      setError({
-        ...hasError,
-        password: [
-          t('error.invalidPassword'),
-          t('error.passwordRequirement.lowerCase'),
-        ].join(' '),
-      });
-      return;
-    }
-
-    if (!/[A-Z]{1}/.test(login.password)) {
-      setError({
-        ...hasError,
-        password: [
-          t('error.invalidPassword'),
-          t('error.passwordRequirement.upperCase'),
-        ].join(' '),
-      });
-      return;
-    }
-
-    if (!/[0-9]{1}/.test(login.password)) {
-      setError({
-        ...hasError,
-        password: [
-          t('error.invalidPassword'),
-          t('error.passwordRequirement.number'),
-        ].join(' '),
-      });
-      return;
-    }
-
-    if (!/[^a-zA-Z][^0-9]{1}/.test(login.password)) {
-      setError({
-        ...hasError,
-        password: [
-          t('error.invalidPassword'),
-          t('error.passwordRequirement.specialCharacter'),
-        ].join(' '),
       });
       return;
     }
@@ -224,6 +196,27 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
           <FormHelperText>{hasError.confirmPassword}</FormHelperText>
         </FormControl>
       </DialogContent>
+
+      <Box mx="auto" pb="8px" pl="40px">
+        {requirements.requirement.map(({ text, done }, index) => (
+          <PasswordRequirement key={text.concat(index.toString())} text={text} done={done} />
+        ))}
+      </Box>
+
+      <Box px="16px" py="8px">
+        <Typography style={{fontSize: "12px"}} align="center">
+          <Trans
+            i18nKey="shell.disclaimer"
+            t={t}
+            components={[
+              <LinkButton
+                handleEvent={() => navigate('/privacy')}
+                style={{ fontSize: '12px', margin: '0px' }}
+              />,
+            ]}
+          />
+        </Typography>
+      </Box>
 
       <DialogActions>
         <Button

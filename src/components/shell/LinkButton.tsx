@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) =>
       backgroundColor: 'white',
       border: 'none',
       padding: '0px',
-      fontSize: '18px',
+      fontSize: '16px',
       lineHeight: '1.5',
       margin: theme.spacing(1, 'auto'),
       display: 'inline',
