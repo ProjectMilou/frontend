@@ -7,11 +7,9 @@ import {
 } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
-import CheckIcon from '@material-ui/icons/Check';
-import WarningIcon from '@material-ui/icons/Warning';
-import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 import DetailsDonut from './DetailsDonut';
 import { RiskAnalysis } from '../../portfolio/APIClient';
+import { RiskBundle, getRiskBundle } from '../../portfolio/Risk';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
 
 // stylesheet for the risk analysis section
@@ -88,11 +86,8 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 
 // type declarations
 type RiskCompProps = {
-  count: number;
-  // a score determined by the parent component: 0 - bad | 1 - ok |  2 - good
-  score: number;
-  warnings: string[];
   title: string;
+  bundle: RiskBundle;
   labels: string[];
   portions: number[];
 };
@@ -105,48 +100,13 @@ type DetailsMainRiskProps = {
 
 // A component consisting of the title, chart and warnings of a given risk type
 const RiskComp: React.FC<RiskCompProps> = ({
-  count,
-  score,
-  warnings,
   title,
+  bundle,
   labels,
   portions,
 }) => {
   const classes = useStyles();
-  const theme = useTheme();
   const { t } = useTranslation();
-
-  // convert a score to a color
-  const scoreColor =
-    // eslint-disable-next-line no-nested-ternary
-    score === 0
-      ? theme.palette.error.main
-      : score === 1
-      ? theme.palette.warning.main
-      : theme.palette.success.main;
-
-  // convert a score to an icon
-  const scoreIcon =
-    // eslint-disable-next-line no-nested-ternary
-    score === 0 ? (
-      <PriorityHighIcon
-        style={{ color: theme.palette.error.main }}
-        className={classes.icon}
-        aria-label="exclamationIcon"
-      />
-    ) : score === 1 ? (
-      <WarningIcon
-        style={{ color: theme.palette.warning.main }}
-        className={classes.icon}
-        aria-label="waringIcon"
-      />
-    ) : (
-      <CheckIcon
-        style={{ color: theme.palette.success.main }}
-        className={classes.icon}
-        aria-label="checkIcon"
-      />
-    );
 
   return (
     <div className={classes.riskWrapper}>
@@ -168,9 +128,9 @@ const RiskComp: React.FC<RiskCompProps> = ({
       <div>
         {/* icon + number + title */}
         <div className={classes.statContainer}>
-          <div className={classes.iconWrapper}>{scoreIcon}</div>
+          <div className={classes.iconWrapper}>{bundle.riskIcon}</div>
           <div className={classes.countWrapper}>
-            <div style={{ color: scoreColor }}>{count}</div>
+            <div style={{ color: bundle.riskColor }}>{bundle.count}</div>
           </div>
           <div className={classes.subtitleWrapper}>
             <p>{title}</p>
@@ -178,7 +138,7 @@ const RiskComp: React.FC<RiskCompProps> = ({
         </div>
         {/* warnings */}
         <div>
-          {warnings.map((w) => (
+          {bundle.warnings.map((w) => (
             <p key={w} className={classes.warnings}>
               {t(w)}
             </p>
@@ -198,6 +158,10 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
   const classes = useStyles();
   const { palette } = useTheme();
   const { t } = useTranslation();
+
+  const red = palette.error.main;
+  const yellow = palette.warning.main;
+  const green = palette.success.main;
 
   return (
     <>
@@ -235,40 +199,49 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
       </div>
       <div className={classes.riskContainer}>
         <RiskComp
-          count={0}
-          warnings={[]}
           title={t('portfolio.details.countries')}
+          bundle={getRiskBundle(
+            'country',
+            Object.entries(risk.countries).length,
+            3,
+            5,
+            red,
+            yellow,
+            green
+          )}
           // TODO: deal with overflow (too many names)
           labels={Object.keys(risk.countries)}
           portions={Object.values(risk.countries)}
-          score={
-            // eslint-disable-next-line no-nested-ternary
-            risk.countries.count < 3 ? 0 : risk.countries.count < 5 ? 1 : 2
-          }
         />
         <RiskComp
-          count={0}
-          warnings={[]}
-          title={t('portfolio.details.industries')}
+          title={t('portfolio.details.segments')}
+          bundle={getRiskBundle(
+            'segment',
+            Object.entries(risk.segments).length,
+            4,
+            6,
+            red,
+            yellow,
+            green
+          )}
           // TODO: deal with overflow (too many names)
           labels={Object.keys(risk.segments)}
           portions={Object.values(risk.segments)}
-          score={
-            // eslint-disable-next-line no-nested-ternary
-            risk.segments.count < 5 ? 0 : risk.segments.count < 9 ? 1 : 2
-          }
         />
         <RiskComp
-          count={0}
-          warnings={[]}
           title={t('portfolio.details.currencies')}
+          bundle={getRiskBundle(
+            'currency',
+            Object.entries(risk.currency).length,
+            2,
+            4,
+            red,
+            yellow,
+            green
+          )}
           // TODO: deal with overflow (too many names)
           labels={Object.keys(risk.currency)}
           portions={Object.values(risk.currency)}
-          score={
-            // eslint-disable-next-line no-nested-ternary
-            risk.currency.count < 3 ? 0 : risk.currency.count < 5 ? 1 : 2
-          }
         />
       </div>
     </>
