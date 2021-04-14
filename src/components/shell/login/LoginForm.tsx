@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
 interface LoginFormProps {
   setUserState: () => void;
   openRegisterPopUpWindow: () => void;
+  openForgotPasswordPopUpWindow: () => void;
   closePopUp: () => void;
 }
 
@@ -43,7 +44,11 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const { errorMessage } = useStyles(theme);
-  const { openRegisterPopUpWindow, setUserState } = props;
+  const {
+    openRegisterPopUpWindow,
+    openForgotPasswordPopUpWindow,
+    setUserState,
+  } = props;
 
   const [login, setLogin] = useState({
     email: '',
@@ -138,7 +143,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
       </DialogContent>
 
       <LinkButton
-        handleEvent={() => {}}
+        handleEvent={openForgotPasswordPopUpWindow}
         text={t('shell.message.forgotPassword')}
         style={{ display: 'block', margin: '8px auto', marginTop: '0px' }}
       />
