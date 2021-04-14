@@ -133,7 +133,12 @@ const Dividends: React.FC = () => {
       </div>
       <div className={classes.chartContainer}>
         <div className={classes.lineChartWrapper}>
-          <DividendLineChart series={seriesArray} />
+          <DividendLineChart
+            series={seriesArray}
+            height={350}
+            // TODO: please change this to whatever color you guys want/need
+            textColor="rgba(0, 0, 0, 0.87)"
+          />
         </div>
         <div className={classes.infoContainer}>
           {/* right side with info */}

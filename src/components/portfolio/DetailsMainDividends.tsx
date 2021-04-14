@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import RatioDonut from '../shared/RatioDonut';
-import KeyFiguresChart from '../shared/KeyFiguresChart';
+import DividendLineChart from '../shared/DividendLineChart';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 
 // stylesheet for the dividend section
@@ -94,8 +94,14 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
 
   const series = [
     {
+      name: t('portfolio.details.divPayout'),
+      type: 'column',
+      data: portfolio.keyFigures.map((k) => k.dividendPayoutRatio),
+    },
+    {
       name: t('portfolio.details.divYield'),
-      data: portfolio.keyFigures.map((f) => f.div),
+      type: 'line',
+      data: portfolio.keyFigures.map((k) => k.div),
     },
   ];
 
@@ -103,7 +109,7 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
     <div className={classes.dividendsWrapper}>
       <div className={classes.chartContainer}>
         {/* left side with graph */}
-        <KeyFiguresChart
+        <DividendLineChart
           series={series}
           height={450}
           textColor={theme.palette.primary.contrastText}
@@ -114,7 +120,7 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
         <InfoBlock title={t('portfolio.details.divYield')}>
           {portfolio.keyFigures[portfolio.keyFigures.length - 1].div}
         </InfoBlock>
-        <InfoBlock title={t('portfolio.details.payout')}>
+        <InfoBlock title={t('portfolio.details.divPayout')}>
           <RatioDonut
             ratio={
               portfolio.keyFigures[portfolio.keyFigures.length - 1]
