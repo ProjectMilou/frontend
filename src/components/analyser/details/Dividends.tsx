@@ -155,7 +155,7 @@ const Dividends: React.FC = () => {
         </div>
       </div>
 
-      <DividendsRR dividend={dividendYield} payoutRatio={ratio}/>
+      <DividendsRR dividend={dividendYield} payoutRatio={ratio} />
     </div>
   );
 };

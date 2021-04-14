@@ -1,38 +1,67 @@
-import React, { ReactElement } from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
-import { Container, Grid, List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import React from 'react';
+import { List } from '@material-ui/core';
 import RRpass from './RRpass';
-
-
-const useStyles = makeStyles(({ palette, typography }: Theme) =>
-  createStyles({
-    pass: {
-      color: "green"
-    },
-  })
-);
+import RRfail from './RRfail';
 
 type DividendsRRProps = {
-  dividend: number
-  payoutRatio: number
-}
+  dividend: number;
+  payoutRatio: number;
+};
 
-const DividendsRR: React.FC<DividendsRRProps> = ({ dividend, payoutRatio}) => {
-  const classes = useStyles();
-  const { t } = useTranslation();
+type Test = {
+  pass: boolean;
+  category: string;
+  passText: string;
+  failText: string;
+};
 
-  const hasDividend = dividend > 0
-  
+const DividendsRR: React.FC<DividendsRRProps> = ({ dividend, payoutRatio }) => {
+  // Tests
+  const hasDividend: Test = {
+    pass: dividend > 0,
+    category: 'Dividend',
+    passText: 'A dividend is paid',
+    failText: 'No dividend is paid',
+  };
+
+  const aboveAverage: Test = {
+    pass: dividend > 0.025,
+    category: 'High Dividend',
+    passText: 'Dividend is above average of 2.5%',
+    failText: 'Dividend is below average of 2.5%',
+  };
+
+  const goodPayoutRatio: Test = {
+    pass: payoutRatio > 0,
+    category: 'analyser.details.DividendPayoutRatio',
+    passText: 'A good payout ratio is provided',
+    failText:
+      'The company is making loss and does not provide a good payout ratio',
+  };
+
+  const tests = [hasDividend, aboveAverage, goodPayoutRatio];
 
   return (
-    
-    <List >
-      {hasDividend && <RRpass text="A dividend is paid" />}
+    <List>
+      {
+        // sort list by pass based on https://stackoverflow.com/a/17387454
+        tests
+          .sort((x, y) => {
+            if (x.pass === y.pass) {
+              return 0;
+            }
+            return x.pass ? 1 : -1;
+          })
+          // create pass or fail component
+          .map((t) =>
+            t.pass ? (
+              <RRpass category={t.category} text={t.passText} />
+            ) : (
+              <RRfail category={t.category} text={t.failText} />
+            )
+          )
+      }
     </List>
-  
-    
   );
 };
 export default DividendsRR;
