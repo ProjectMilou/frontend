@@ -31,7 +31,7 @@ const VolatilityLineEntry: React.FC<VolatilityLineEntryProps> = ({
   const classes = useStyles();
 
   return (
-    <Tooltip title={<p className={classes.tooltip}>{tooltipText}</p>}>
+    <Tooltip className={classes.tooltip} title={tooltipText}>
       <div
         className={classes.line}
         style={{
