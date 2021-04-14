@@ -1,15 +1,23 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { ThemeProvider } from '@material-ui/core/styles';
 import DetailsHeader from './DetailsHeader';
-import { mockPositions } from './Details';
+import { MockPositions } from '../../portfolio/APIMocks';
+import { portfolioDashboard } from '../../portfolio/Router';
+import { theme } from '../App';
 
 const testName = 'My awesome portfolio';
-const mockBack = jest.fn();
 
 test('Details header renders correctly', async () => {
   render(
-    <DetailsHeader back={mockBack} name={testName} positions={mockPositions} />
+    <ThemeProvider theme={theme}>
+      <DetailsHeader
+        name={testName}
+        positions={MockPositions}
+        editPositions={jest.fn()}
+      />
+    </ThemeProvider>
   );
 
   screen.getByText(testName);
@@ -17,10 +25,10 @@ test('Details header renders correctly', async () => {
   // testing back button
   const backButton = screen.getByRole('button', { name: 'back' });
   await userEvent.click(backButton);
-  expect(mockBack).toHaveBeenCalled();
+  expect(portfolioDashboard).toHaveBeenCalled();
 
   // testing edit button
-  const editButton = screen.getByText('portfolio.details.editPortfolio');
-  await userEvent.click(editButton);
-  await screen.findByText('portfolio.details.dialogHeader');
+  expect(
+    screen.getByText('portfolio.details.editPortfolio')
+  ).toBeInTheDocument();
 });

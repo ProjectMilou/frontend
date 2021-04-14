@@ -32,6 +32,7 @@ const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({
       },
     },
     xaxis: {
+      // TODO: change hard coded years
       categories: [2016, 2017, 2018, 2019, 2020],
       labels: {
         style: {

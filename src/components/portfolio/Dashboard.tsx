@@ -1,25 +1,16 @@
 import React, { Reducer } from 'react';
-import {
-  LinearProgress,
-  Button,
-  makeStyles,
-  Container,
-} from '@material-ui/core';
+import { RouteComponentProps } from '@reach/router';
+import { LinearProgress, makeStyles, Container } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../portfolio/APIClient';
-import { ErrorCode } from '../../Errors';
-import ErrorMessage from './ErrorMessage';
+import ErrorMessage from '../shared/ErrorMessage';
 import PortfolioOverview from './PortfolioOverview';
-import DashboardHeader from './DashboardHeader';
+import DashboardHeader from '../shared/DashboardHeader';
 import RenameDialog from './RenameDialog';
 import DuplicateDialog from './DuplicateDialog';
 import DeleteDialog from './DeleteDialog';
 import CreateDialog from './CreateDialog';
-
-export type DashboardProps = {
-  token: string;
-  selectPortfolio: (id: string) => void;
-};
+import { isAuthenticationError } from '../../Errors';
 
 enum DialogType {
   None,
@@ -50,7 +41,7 @@ function portfolioName(
 
 type State = {
   portfolios?: API.PortfolioOverview[];
-  error?: ErrorCode;
+  error?: Error;
   dialog: Dialog;
 };
 
@@ -78,7 +69,7 @@ type DeleteAction = {
 };
 type SetErrorAction = {
   type: 'setError';
-  payload: ErrorCode;
+  payload: Error;
 };
 type ClearErrorAction = {
   type: 'clearError';
@@ -115,7 +106,9 @@ function createPortfolioAction(
         positionCount: 0,
         value: 0,
         perf7d: 0,
+        perf7dPercent: 0,
         perf1y: 0,
+        perf1yPercent: 0,
         modified: new Date(),
       },
     ]
@@ -212,15 +205,12 @@ function reducer(state: State, action: Actions) {
 }
 
 const useStyles = makeStyles({
-  createButton: {
-    marginTop: '25px',
-  },
   dashboard: {
     margin: '25px auto',
   },
 });
 
-const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
+const Dashboard: React.FC<RouteComponentProps> = () => {
   const [state, dispatch] = React.useReducer<Reducer<State, Actions>>(
     reducer,
     initialState
@@ -230,13 +220,13 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
   const fetch = async () => {
     dispatch({ type: 'clearError' });
     try {
-      const p = await API.list(token);
+      const p = await API.list();
       if (isMounted.current) {
         dispatch({ type: 'setPortfolios', payload: p });
       }
     } catch (e) {
       if (isMounted.current) {
-        dispatch({ type: 'setError', payload: e.message });
+        dispatch({ type: 'setError', payload: e });
       }
     }
   };
@@ -255,7 +245,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
 
   return (
     <>
-      <DashboardHeader />
+      <DashboardHeader>{t('portfolio.dashboard.headerText')}</DashboardHeader>
       {!state.portfolios && !state.error && (
         <div>
           <LinearProgress color="secondary" />
@@ -267,7 +257,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
             error={state.error}
             messageKey="portfolio.dashboard.errorMessage"
             handling={
-              state.error.startsWith('AUTH')
+              isAuthenticationError(state.error)
                 ? {
                     buttonText: 'error.action.login',
                     action: async () => {
@@ -285,7 +275,6 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
           <div>
             <PortfolioOverview
               portfolios={state.portfolios}
-              selectPortfolio={selectPortfolio}
               renamePortfolio={(portfolioId) =>
                 dispatch({
                   type: 'openDialog',
@@ -304,20 +293,13 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
                   payload: { type: DialogType.DeletePortfolio, portfolioId },
                 });
               }}
-            />
-            <Button
-              className={classes.createButton}
-              variant="outlined"
-              color="primary"
-              onClick={() => {
+              createPortfolio={() => {
                 dispatch({
                   type: 'openDialog',
                   payload: { type: DialogType.CreatePortfolio },
                 });
               }}
-            >
-              {t('portfolio.dashboard.createPortfolio')}
-            </Button>
+            />
           </div>
         )}
       </Container>
@@ -325,7 +307,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
         open={state.dialog.type === DialogType.CreatePortfolio}
         handleClose={() => dispatch({ type: 'closeDialog' })}
         create={async (name) => {
-          const id = await API.create(token, name);
+          const id = await API.create(name);
           dispatch({ type: 'create', payload: { id, name } });
         }}
       />
@@ -335,7 +317,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
         handleClose={() => dispatch({ type: 'closeDialog' })}
         rename={async (name) => {
           if (state.dialog.portfolioId) {
-            await API.rename(token, state.dialog.portfolioId, name);
+            await API.rename(state.dialog.portfolioId, name);
             dispatch({
               type: 'rename',
               payload: { id: state.dialog.portfolioId, name },
@@ -349,11 +331,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
         handleClose={() => dispatch({ type: 'closeDialog' })}
         duplicate={async (name) => {
           if (state.dialog.portfolioId) {
-            const id = await API.duplicate(
-              token,
-              state.dialog.portfolioId,
-              name
-            );
+            const id = await API.duplicate(state.dialog.portfolioId, name);
             dispatch({
               type: 'duplicate',
               payload: {
@@ -371,7 +349,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token, selectPortfolio }) => {
         handleClose={() => dispatch({ type: 'closeDialog' })}
         deletePortfolio={async () => {
           if (state.dialog.portfolioId) {
-            await API.deletePortfolio(token, state.dialog.portfolioId);
+            await API.deletePortfolio(state.dialog.portfolioId);
             dispatch({
               type: 'delete',
               payload: { id: state.dialog.portfolioId },

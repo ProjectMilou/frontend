@@ -1,23 +1,30 @@
-// TODO: Change to production URL when available
-// TODO: Use a common base URL for shell, analyser and portfolio instead of 3 URLs
+// Based on Portfolio API Client
+
+import { AppError } from '../Errors';
 
 export const baseURL = 'https://api.milou.io/stocks';
-
 const headers = { 'Content-Type': 'application/json' };
 
-// Types describing the JSON response of API calls.
-// The correctness of these types is assumed, no checks are performed.
+// Filter object
+export type Filters = {
+  [key: string]: string[];
+  country: string[];
+  currency: string[];
+  industry: string[];
+  mc: string[];
+};
 
 // Stock type
 export type Stock = {
   symbol: string;
-  ISIN: string;
-  WKN: string;
+  isin: string;
+  wkn: string;
   name: string;
   price: number;
-  '1d': number;
-  '7d': number;
-  '30d': number;
+  per1d: number;
+  per7d: number;
+  per30d: number;
+  per365d: number;
   marketCapitalization: number;
   analystTargetPrice: number;
   valuation: number;
@@ -28,6 +35,11 @@ export type Stock = {
   industry: string;
   picture: URL;
   date: Date;
+};
+
+// List of stocks
+type StockList = {
+  stocks: Stock[];
 };
 
 // Stock details
@@ -41,33 +53,84 @@ export type StockDetails = {
   assenmbly: Date;
 };
 
-// List of stocks
-type StockList = {
-  stocks: {
-    symbol: string;
-    ISIN: string;
-    WKN: string;
-    name: string;
-    price: number;
-    '1d': number;
-    '7d': number;
-    '30d': number;
-    marketCapitalization: number;
-    analystTargetPrice: number;
-    valuation: number;
-    growth: number;
-    div: number;
-    currency: string;
-    country: string;
-    industry: string;
-    picture: URL;
-    date: Date;
-  }[];
+// historic performance data
+export type StockHistricPerformanceList = {
+  dataPoints: StockHistricPerformance[];
+};
+
+export type StockHistricPerformance = {
+  _id: string;
+  date: string;
+  close: number;
+};
+
+export type CompanyReports = {
+  symbol: string;
+  annualReports: CompanyReport[];
+};
+
+export type CompanyReport = {
+  _id: string;
+  fiscalDateEnding: Date;
+  reportedCurrency: string;
+  totalAssets: number;
+  totalCurrentAssets: number;
+  cashAndCashEquivalentsAtCarryingValue: number;
+  cashAndShortTermInvestments: number;
+  inventory: number;
+  currentNetReceivables: number;
+  totalNonCurrentAssets: number;
+  propertyPlantEquipment: number;
+  accumulatedDepreciationAmortizationPPE: number;
+  intangibleAssets: number;
+  intangibleAssetsExcludingGoodwill: number;
+  goodwill: number;
+  investments: number;
+  longTermInvestments: number;
+  shortTermInvestments: number;
+  otherCurrentAssets: number;
+  otherNonCurrrentAssets: number;
+  totalLiabilities: number;
+  totalCurrentLiabilities: number;
+  currentAccountsPayable: number;
+  deferredRevenue: number;
+  currentDebt: number;
+  shortTermDebt: number;
+  totalNonCurrentLiabilities: number;
+  capitalLeaseObligations: number;
+  longTermDebt: number;
+  currentLongTermDebt: number;
+  longTermDebtNoncurrent: number;
+  shortLongTermDebtTotal: number;
+  otherCurrentLiabilities: number;
+  otherNonCurrentLiabilities: number;
+  totalShareholderEquity: number;
+  treasuryStock: number;
+  retainedEarnings: number;
+  commonStock: number;
+  commonStockSharesOutstanding: number;
+};
+
+export type News = {
+  headline: string;
+  date: string; // TODO change to date
+  url: string; // Todo change to URL
+};
+export type AnalystsRecommendation = {
+  symbol: string;
+  buy: number;
+  hold: number;
+  sell: number;
+  strategy: string;
+  date: Date;
+  source: URL;
 };
 
 /**
  * Makes an API call. Resolves to the JSON response if the call is successful,
  * otherwise rejects with an error that has an {@link ErrorCode} as message.
+ *
+ * TODO: Merge with portfolio request
  *
  * @param token - Authentication token
  * @param method - Request method (GET, POST, etc.)
@@ -85,27 +148,46 @@ async function request(
   additionalHeaders?: HeadersInit
 ): Promise<unknown> {
   // TODO: authentication
+
+  // console.log(`${baseURL}/${url}`);
   const response = await fetch(`${baseURL}/${url}`, {
     method,
     headers: { ...headers, ...additionalHeaders },
     body,
-  }).catch(() => Promise.reject(new Error('UNKNOWN'))); // network error etc.
+  }).catch(() => Promise.reject(new AppError('UNKNOWN'))); // network error etc.
   if (response.ok) {
     return Promise.resolve(response.json()); // valid response
   }
   const json = await response
     .json()
-    .catch(() => Promise.reject(new Error('UNKNOWN'))); // server error without JSON response
-  return Promise.reject(new Error(json.error)); // JSON error
+    .catch(() => Promise.reject(new AppError('UNKNOWN'))); // server error without JSON response
+  return Promise.reject(new AppError(json.error)); // JSON error
 }
 
 /**
  * Gets an overview over all stocks with an authenticated user.
  *
  * @param token - Authentication token
+ * @param filters - Object including all filters
+ *
  */
-export async function listStocks(token: string): Promise<Stock[]> {
-  const response = (await request(token, 'GET', '')) as StockList;
+export async function listStocks(
+  token: string,
+  filters: Filters
+): Promise<Stock[]> {
+  const base = 'list';
+  let params = '';
+  Object.keys(filters).forEach((key) => {
+    if (filters[key].length > 0) {
+      if (params.length === 0) {
+        // TODO can be probably done nicer
+        params += `?${key}=${filters[key].toString().replace(' ', '%20')}`;
+      } else {
+        params += `&${key}=${filters[key].toString().replace(' ', '%20')}`;
+      }
+    }
+  });
+  const response = (await request(token, 'GET', base + params)) as StockList;
   return response.stocks;
 }
 
@@ -119,8 +201,12 @@ export async function stockOverview(
   token: string,
   symbol: string
 ): Promise<Stock> {
-  const response = (await request(token, 'GET', `${symbol}`)) as Stock;
-  return response;
+  const response = (await request(
+    token,
+    'GET',
+    `overview?id=${symbol}`
+  )) as StockList;
+  return response.stocks[0] as Stock;
 }
 
 /**
@@ -136,7 +222,63 @@ export async function stockDetails(
   const response = (await request(
     token,
     'GET',
-    `${symbol}/details`
+    `details?id=${symbol}`
   )) as StockDetails;
+  return response;
+}
+
+/**
+ * Gets stock performance with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ * @param historic - if true all data will be returned, else only 5 years
+ */
+export async function stockPerformance(
+  token: string,
+  symbol: string,
+  historic: boolean
+): Promise<StockHistricPerformanceList> {
+  const response = (await request(
+    token,
+    'GET',
+    `charts/historic?id=${symbol}&max=${historic.toString()}`
+  )) as StockHistricPerformanceList;
+  return response;
+}
+
+/**
+ * Gets company reports with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ */
+export async function companyReports(
+  token: string,
+  symbol: string
+): Promise<CompanyReports> {
+  const response = (await request(
+    token,
+    'GET',
+    `balanceSheet?id=${symbol}`
+  )) as CompanyReports;
+  return response;
+}
+
+/**
+ * Gets analysts recommendations with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ */
+export async function analystsRecommendations(
+  token: string,
+  symbol: string
+): Promise<AnalystsRecommendation[]> {
+  const response = (await request(
+    token,
+    'GET',
+    `charts/analysts?id=${symbol}`
+  )) as AnalystsRecommendation[];
   return response;
 }

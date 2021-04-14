@@ -3,295 +3,324 @@
 exports[`DashboardTable display stock information 1`] = `
 <div>
   <div
-    class="MuiPaper-root MuiTableContainer-root MuiPaper-elevation1 MuiPaper-rounded"
+    class="infinite-scroll-component__outerdiv"
   >
-    <table
-      aria-label="simple table"
-      class="MuiTable-root"
+    <div
+      class="infinite-scroll-component "
+      style="height: auto; overflow: auto;"
     >
-      <thead
-        class="MuiTableHead-root"
+      <div
+        class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded"
       >
-        <tr
-          class="MuiTableRow-root MuiTableRow-head"
+        <div
+          class="MuiTableContainer-root makeStyles-customTableContainer-6"
+          id="scrollableTable"
         >
-          <th
-            class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
-            scope="col"
+          <table
+            aria-label="simple table"
+            class="MuiTable-root MuiTable-stickyHeader"
           >
-            stock.name
-          </th>
-          <th
-            class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
-            scope="col"
-          >
-            stock.lastPrice
-          </th>
-          <th
-            class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
-            scope="col"
-          >
-            stock.7d
-          </th>
-          <th
-            class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
-            scope="col"
-          >
-            stock.30d
-          </th>
-          <th
-            class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
-            scope="col"
-          >
-            stock.marketCap
-          </th>
-          <th
-            class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
-            scope="col"
-          >
-            stock.analystsTarget
-          </th>
-          <th
-            class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
-            scope="col"
-          >
-            stock.valuation
-          </th>
-          <th
-            class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
-            scope="col"
-          >
-            stock.growth
-          </th>
-          <th
-            class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
-            scope="col"
-          >
-            stock.div
-          </th>
-          <th
-            class="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter"
-            scope="col"
-          >
-            stock.industry
-          </th>
-        </tr>
-      </thead>
-      <tbody
-        class="MuiTableBody-root"
-      >
-        <tr
-          class="MuiTableRow-root makeStyles-row-2"
-        >
-          <th
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-            role="cell"
-            scope="row"
-          >
-            <div
-              class="MuiListItemText-root MuiListItemText-multiline"
+            <thead
+              class="MuiTableHead-root"
             >
-              <p
-                class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
+              <tr
+                class="MuiTableRow-root MuiTableRow-head"
               >
-                IBM
-              </p>
-              <p
-                class="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary MuiTypography-displayBlock"
+                <th
+                  class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                  scope="col"
+                >
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  >
+                    stock.name
+                  </p>
+                </th>
+                <th
+                  class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                  scope="col"
+                >
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  >
+                    stock.lastPrice
+                  </p>
+                </th>
+                <th
+                  class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                  scope="col"
+                >
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  >
+                    stock.7d
+                  </p>
+                </th>
+                <th
+                  class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                  scope="col"
+                >
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  >
+                    stock.365d
+                  </p>
+                </th>
+                <th
+                  class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                  scope="col"
+                >
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  >
+                    stock.marketCap
+                  </p>
+                </th>
+                <th
+                  class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                  scope="col"
+                >
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  >
+                    stock.analystsTarget
+                  </p>
+                </th>
+                <th
+                  class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                  scope="col"
+                >
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  >
+                    stock.valuation
+                  </p>
+                </th>
+                <th
+                  class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                  scope="col"
+                >
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  >
+                    stock.div
+                  </p>
+                </th>
+                <th
+                  class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
+                  scope="col"
+                >
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  >
+                    stock.industry
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class="MuiTableBody-root"
+            >
+              <tr
+                class="MuiTableRow-root makeStyles-row-2"
               >
-                International Business Machines Corporation
-              </p>
-            </div>
-          </th>
-          <td
-            class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-4 MuiTableCell-alignCenter"
-          >
-            <span
-              class="makeStyles-euroCurrency-6 makeStyles-euroCurrency-7"
-            >
-              €175.29
-            </span>
-          </td>
-          <td
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-          >
-            <span
-              class="makeStyles-performance-8 makeStyles-performance-9"
-            >
-              1.52%
-            </span>
-          </td>
-          <td
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-          >
-            <span
-              class="makeStyles-performance-8 makeStyles-performance-10"
-            >
-              0.92%
-            </span>
-          </td>
-          <td
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-          >
-            <p
-              class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
-            >
-              €114B
-            </p>
-          </td>
-          <td
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-          >
-            <span
-              class="makeStyles-euroCurrency-6 makeStyles-euroCurrency-11"
-            >
-              €137.00
-            </span>
-          </td>
-          <td
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-          >
-            <span
-              class="makeStyles-euroCurrency-12 makeStyles-euroCurrency-13"
-            >
-              P/E 20.7x
-            </span>
-          </td>
-          <td
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-          >
-            <p
-              class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
-            >
-              1.5
-            </p>
-          </td>
-          <td
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-          >
-            <span
-              class="makeStyles-performance-8 makeStyles-performance-14"
-            >
-              0.05%
-            </span>
-          </td>
-          <td
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-          >
-            <p
-              class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
-            >
-              Consumer Electronics
-            </p>
-          </td>
-        </tr>
-        <tr
-          class="MuiTableRow-root makeStyles-row-2"
-        >
-          <th
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-            role="cell"
-            scope="row"
-          >
-            <div
-              class="MuiListItemText-root MuiListItemText-multiline"
-            >
-              <p
-                class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
+                <th
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                  role="cell"
+                  scope="row"
+                >
+                  <div
+                    class="MuiListItemText-root MuiListItemText-multiline"
+                  >
+                    <p
+                      class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
+                    >
+                      IBM
+                    </p>
+                    <p
+                      class="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary MuiTypography-displayBlock"
+                    >
+                      International Business Machines Corporation
+                    </p>
+                  </div>
+                </th>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-4 MuiTableCell-alignCenter"
+                >
+                  <span
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-9"
+                  >
+                    175,29 €
+                  </span>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <span
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-10"
+                  >
+                    1,52 %
+                  </span>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <span
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-11"
+                  >
+                    40,30 %
+                  </span>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
+                  >
+                    €114B
+                  </p>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <span
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-12"
+                  >
+                    137,00 €
+                  </span>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <span
+                    class="makeStyles-euroCurrency-13 makeStyles-euroCurrency-14"
+                  >
+                    20.7x
+                  </span>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <span
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-15"
+                  >
+                    0,05 %
+                  </span>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
+                  >
+                    Consumer Electronics
+                  </p>
+                </td>
+              </tr>
+              <tr
+                class="MuiTableRow-root makeStyles-row-2"
               >
-                AAPL
-              </p>
-              <p
-                class="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary MuiTypography-displayBlock"
-              >
-                Apple Inc
-              </p>
-            </div>
-          </th>
-          <td
-            class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-4 MuiTableCell-alignCenter"
-          >
-            <span
-              class="makeStyles-euroCurrency-6 makeStyles-euroCurrency-15"
-            >
-              €252.19
-            </span>
-          </td>
-          <td
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-          >
-            <span
-              class="makeStyles-performance-8 makeStyles-performance-16"
-            >
-              1.52%
-            </span>
-          </td>
-          <td
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-          >
-            <span
-              class="makeStyles-performance-8 makeStyles-performance-17"
-            >
-              0.92%
-            </span>
-          </td>
-          <td
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-          >
-            <p
-              class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
-            >
-              €173B
-            </p>
-          </td>
-          <td
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-          >
-            <span
-              class="makeStyles-euroCurrency-6 makeStyles-euroCurrency-18"
-            >
-              €290.24
-            </span>
-          </td>
-          <td
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-          >
-            <span
-              class="makeStyles-euroCurrency-12 makeStyles-euroCurrency-19"
-            >
-              P/E 27.7x
-            </span>
-          </td>
-          <td
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-          >
-            <p
-              class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
-            >
-              3.2
-            </p>
-          </td>
-          <td
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-          >
-            <span
-              class="makeStyles-performance-8 makeStyles-performance-20"
-            >
-              0.12%
-            </span>
-          </td>
-          <td
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-          >
-            <p
-              class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
-            >
-              Information Technology Services
-            </p>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+                <th
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                  role="cell"
+                  scope="row"
+                >
+                  <div
+                    class="MuiListItemText-root MuiListItemText-multiline"
+                  >
+                    <p
+                      class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
+                    >
+                      AAPL
+                    </p>
+                    <p
+                      class="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary MuiTypography-displayBlock"
+                    >
+                      Apple Inc
+                    </p>
+                  </div>
+                </th>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-4 MuiTableCell-alignCenter"
+                >
+                  <span
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-16"
+                  >
+                    252,19 €
+                  </span>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <span
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-17"
+                  >
+                    1,52 %
+                  </span>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <span
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-18"
+                  >
+                    30,30 %
+                  </span>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
+                  >
+                    €173B
+                  </p>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <span
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-19"
+                  >
+                    290,24 €
+                  </span>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <span
+                    class="makeStyles-euroCurrency-13 makeStyles-euroCurrency-20"
+                  >
+                    27.7x
+                  </span>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <span
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-21"
+                  >
+                    0,12 %
+                  </span>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
+                  >
+                    Information Technology Services
+                  </p>
+                </td>
+              </tr>
+              <h4>
+                Loading More Stocks...
+              </h4>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;

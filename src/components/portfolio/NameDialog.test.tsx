@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import * as React from 'react';
 import NameDialog, { NameDialogProps } from './NameDialog';
+import { AppError } from '../../Errors';
 
 describe('NameDialog', () => {
   const defaultProps: NameDialogProps = {
@@ -79,7 +80,7 @@ describe('NameDialog', () => {
   test('show error', async () => {
     const { props } = renderComponent({
       validate: jest.fn().mockReturnValue(true),
-      action: jest.fn().mockRejectedValue(new Error('UNKNOWN')),
+      action: jest.fn().mockRejectedValue(new AppError('UNKNOWN')),
     });
     fireEvent.change(document.querySelector('input')!, {
       target: { value: 'input' },
@@ -114,7 +115,7 @@ describe('NameDialog', () => {
   test('reset state on reopen', async () => {
     const { props, rerender } = renderComponent({
       validate: jest.fn().mockReturnValue(true),
-      action: jest.fn().mockRejectedValue(new Error('UNKNOWN')),
+      action: jest.fn().mockRejectedValue(new AppError('UNKNOWN')),
     });
     fireEvent.change(document.querySelector('input')!, {
       target: { value: 'input' },

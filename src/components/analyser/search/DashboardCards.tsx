@@ -1,87 +1,80 @@
 import React from 'react';
+import { navigate } from '@reach/router';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import {
   Card,
   CardContent,
   CardMedia,
   Grid,
   Divider,
-  lighten,
   makeStyles,
-  Theme,
-  Typography,
   GridList,
   ButtonBase,
 } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
+import TextOverText from '../TextOverText';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  action: { display: 'inline-block' },
-  row: {
-    cursor: 'pointer',
-  },
-  rowHover: {
-    backgroundColor: lighten(theme.palette.primary.light, 0.85),
-  },
-  defaultText: {
-    fontSize: '24px',
-  },
-  disabled: {
-    cursor: 'not-allowed',
-  },
+const useStyles = makeStyles(() => ({
   card: {
-    width: 280,
+    width: 289,
     margin: 10,
     transition: '0.3s',
-    boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
     '&:hover': {
       boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
     },
   },
   media: {
     height: 200,
-    width: 260,
+    width: 289,
     placeItems: 'center',
     alignItems: 'center',
     objectFit: 'scale-down',
-    margin: 10,
+    padding: 20,
   },
   content: {
-    textAlign: 'left',
-    padding: 30,
+    margin: 10,
   },
   divider: {
     margin: `${30}px 0`,
-  },
-  heading: {
-    fontWeight: 'bold',
-  },
-  subheading: {
-    lineHeight: 1.8,
   },
   cardAction: {
     display: 'block',
     textAlign: 'initial',
   },
+  rightBound: {
+    float: 'right',
+  },
+  leftBound: {
+    float: 'left',
+  },
+  paddingBottom: {
+    paddingBottom: 40,
+  },
+  grid: {
+    overflow: 'hidden' /* Hide scrollbars */,
+  },
 }));
 
 export type DashboardCardsRowProps = {
   stock: API.Stock;
-  selectStock: (id: string) => void;
 };
+
+function convertPercentToColor(val: number): string {
+  return val < 0 ? '#D64745' : '#50E2A8';
+}
 
 export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
   stock,
-  selectStock,
 }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Card className={classes.card}>
       <ButtonBase
         className={classes.cardAction}
-        onClick={() => {
-          selectStock(stock.symbol);
-        }}
+        onClick={() => navigate(`analyser/${stock.symbol}`)}
       >
         <CardMedia
           className={classes.media}
@@ -89,25 +82,34 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
           image={stock.picture.toString()}
         />
         <CardContent className={classes.content}>
-          <Typography
-            className="MuiTypography--heading"
-            variant="h6"
-            gutterBottom
-          >
-            {stock.symbol}
-          </Typography>
+          <TextOverText
+            top={`${stock.symbol}`}
+            bottom={`${stock.name}`}
+            colorTop="#68696b"
+            colorBottom="#122654"
+            sizeBottom="1.3rem"
+            alignment="left"
+          />
           <Divider className={classes.divider} light />
-          <Typography className="MuiTypography-body1" variant="caption">
-            {stock.name}
-          </Typography>
-          <Divider className={classes.divider} light />
-          <Typography className="MuiTypography-body1" variant="caption">
-            {stock.price}
-          </Typography>
-          <Divider className={classes.divider} light />
-          <Typography className="MuiTypography-body1" variant="caption">
-            {stock['30d']}
-          </Typography>
+          <div className={classes.paddingBottom}>
+            <div className={classes.leftBound}>
+              <TextOverText
+                top="Last Price"
+                colorTop="#68696b"
+                bottom={`${stock.price}`}
+                euro
+              />
+            </div>
+            <div className={classes.rightBound}>
+              <TextOverText
+                top={t('stock.30d')}
+                bottom={`${stock.per30d}%`}
+                colorTop="#68696b"
+                colorBottom={convertPercentToColor(stock.per30d)}
+                sizeBottom="1.3rem"
+              />
+            </div>
+          </div>
         </CardContent>
       </ButtonBase>
     </Card>
@@ -116,20 +118,54 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
 
 export type DashboardCardsProps = {
   stocks: API.Stock[];
-  selectStock: (symbol: string) => void;
 };
 
-const DashboardCards: React.FC<DashboardCardsProps> = ({
-  stocks,
-  selectStock,
-}) => (
-  <Grid>
-    <GridList>
-      {stocks.map((s) => (
-        <DashboardCardsRow stock={s} selectStock={selectStock} key={s.symbol} />
-      ))}
-    </GridList>
-  </Grid>
-);
+const DashboardCards: React.FC<DashboardCardsProps> = ({ stocks }) => {
+  const classes = useStyles();
+
+  const [items, setItems] = React.useState<API.Stock[]>(stocks.slice(0, 10));
+  const [hasMore, setHasMore] = React.useState<boolean>(true);
+
+  React.useEffect(() => {
+    setItems(stocks.slice(0, 10));
+    setHasMore(true);
+  }, [stocks]);
+
+  const fetchMoreData = () => {
+    if (items.length >= stocks.length) {
+      setHasMore(false);
+      return;
+    }
+    setHasMore(true);
+    // a fake async api call like which sends
+    // 5 more stocks in 1.5 secs
+    // TODO replace with async API call
+    setTimeout(() => {
+      const newItems = items.concat(
+        stocks.slice(items.length, items.length + 5)
+      );
+      setItems(newItems);
+    }, 1500);
+  };
+  return (
+    <InfiniteScroll
+      dataLength={items.length}
+      next={fetchMoreData}
+      hasMore={hasMore}
+      loader={<></>}
+      scrollableTarget="scrollableTable"
+      endMessage={<></>}
+    >
+      <Grid className={classes.grid}>
+        <GridList>
+          {items.map((s) => (
+            <DashboardCardsRow stock={s} key={s.symbol} />
+          ))}
+          {hasMore && <h4>Loading...</h4>}
+        </GridList>
+      </Grid>
+    </InfiniteScroll>
+  );
+};
 
 export default DashboardCards;

@@ -7,7 +7,9 @@ import DetailsMainRisk from './DetailsMainRisk';
 import DetailsMainKeyFigures from './DetailsMainKeyFigures';
 import DetailsMainDividens from './DetailsMainDividends';
 import DetailsMainAnalyst from './DetailsMainAnalyst';
-import { RiskAnalysis, Position, KeyFigures } from './DetailsTypes';
+import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
+import DetailsMainAnalytics from './DetailsMainAnalytics';
+import DetailMainBacktesting from './DetailsMainBacktesting';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -39,8 +41,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     lineWrapper: {
       display: 'flex',
       width: '100%',
-      // TODO: use theme color
-      borderColor: '#EEF1FB',
+      borderColor: palette.primary.contrastText,
     },
     line: {
       width: '100%',
@@ -73,66 +74,42 @@ const Section: React.FC<SectionProps> = ({ title, children }) => {
 };
 
 type DetailsMainProps = {
-  positionCount: number;
-  value: number;
-  score: number;
-  perf7d: number;
-  perf1y: number;
-  risk: RiskAnalysis;
-  positions: Position[];
-  figures: KeyFigures[];
-  nextDividend: number;
-  dividendPayoutRatio: number;
-  performance: number[][];
+  portfolio: NonEmptyPortfolioDetails;
+  id: string;
 };
 
-const DetailsMain: React.FC<DetailsMainProps> = ({
-  positionCount,
-  value,
-  score,
-  perf1y,
-  perf7d,
-  risk,
-  positions,
-  figures,
-  nextDividend,
-  dividendPayoutRatio,
-  performance,
-}) => {
+const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, id }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
   return (
     <div className={classes.mainWrapper}>
       <Section title={t('portfolio.details.summaryHeader')}>
-        <DetailsMainSummary
-          positionCount={positionCount}
-          value={value}
-          score={score}
-          perf1y={perf1y}
-          perf7d={perf7d}
-          risk={risk}
-          positions={positions}
-          performance={performance}
-        />
+        <DetailsMainSummary portfolio={portfolio} />
       </Section>
       <Section title={t('portfolio.details.positionsTitle')}>
-        <DetailsMainPositions positions={positions} />
+        <DetailsMainPositions positions={portfolio.positions} />
       </Section>
       <Section title={t('portfolio.details.risk')}>
-        <DetailsMainRisk risk={risk} positions={positions} />
-      </Section>
-      <Section title={t('portfolio.details.keyfigures')}>
-        <DetailsMainKeyFigures figures={figures} />
-      </Section>
-      <Section title={t('portfolio.details.dividends')}>
-        <DetailsMainDividens
-          nextDividend={nextDividend}
-          dividendPayoutRatio={dividendPayoutRatio}
+        <DetailsMainRisk
+          risk={portfolio.risk}
+          positions={portfolio.positions}
         />
       </Section>
+      <Section title={t('portfolio.details.keyfigures')}>
+        <DetailsMainKeyFigures figures={portfolio.keyFigures} />
+      </Section>
+      <Section title={t('portfolio.details.dividends')}>
+        <DetailsMainDividens portfolio={portfolio} />
+      </Section>
       <Section title={t('portfolio.details.analyst')}>
-        <DetailsMainAnalyst />
+        <DetailsMainAnalyst positions={portfolio.positions} />
+      </Section>
+      <Section title={t('portfolio.details.analytics')}>
+        <DetailsMainAnalytics portfolio={portfolio} />
+      </Section>
+      <Section title={t('portfolio.details.backtesting')}>
+        <DetailMainBacktesting id={id} />
       </Section>
     </div>
   );
