@@ -25,15 +25,15 @@ export const checkPasswordRequirements = ({
       },
       {
         ...prevState.requirement[1],
-        done: /[a-z]{1}/.test(password) && /[A-Z]{1}/.test(password),
+        done: /[a-z]/.test(password) && /[A-Z]/.test(password),
       },
       {
         ...prevState.requirement[2],
-        done: /[0-9]{1}/.test(password),
+        done: /[0-9]/.test(password),
       },
       {
         ...prevState.requirement[3],
-        done: /[^a-zA-Z][^0-9]{1}/.test(password),
+        done: /[^a-zA-Z0-9]/.test(password),
       },
     ],
   }));

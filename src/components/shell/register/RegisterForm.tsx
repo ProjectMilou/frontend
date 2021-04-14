@@ -254,9 +254,8 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
           type="button"
           disabled={
             login.email === '' ||
-            login.password === '' ||
-            login.confirmPassword === '' ||
             Object.values(hasError).join('').length > 0 ||
+            requirements.requirement.map(r => r.done).some(done => !done) ||
             login.password !== login.confirmPassword
           }
           variant="contained"
