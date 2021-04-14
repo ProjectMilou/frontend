@@ -4,14 +4,14 @@ import {
   Container,
   makeStyles,
   Typography,
-  useTheme,
+  Theme,
+  createStyles,
 } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useTranslation } from 'react-i18next';
 import TextOverText from '../TextOverText';
 import * as API from '../../../analyser/APIClient';
 import StyledNumberFormat from '../../shared/StyledNumberFormat';
-import InfoButton from '../../shared/InfoButton';
 
 export type DetailsProps = {
   details: API.Stock;
@@ -19,39 +19,44 @@ export type DetailsProps = {
   back: () => void;
 };
 
-const useStyles = makeStyles({
-  header: {
-    'background-color': '#0D1B3B',
-  },
-  text: {
-    'font-size': '35px',
-    color: '#EEF1FB',
-    padding: '50px 0',
-    minWidth: '50%',
-    maxWidth: '1000px',
-  },
-  price: {
-    paddingLeft: '6',
-  },
-  wknIsin: {
-    'font-size': '12px',
-    color: '#EEF1FB',
-    minWidth: '50%',
-    maxWidth: '1000px',
-    marginLeft: '100px',
-  },
-  infoValueWrapper: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    width: '100%',
-    color: '#EEF1FB',
-  },
-  backButtonContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    height: '100%',
-  },
-});
+const useStyles = makeStyles(({ palette }: Theme) =>
+  createStyles({
+    header: {
+      'background-color': '#0D1B3B',
+    },
+    text: {
+      'font-size': '35px',
+      color: '#EEF1FB',
+      padding: '50px 0',
+      minWidth: '50%',
+      maxWidth: '1000px',
+    },
+    price: {
+      paddingLeft: '6',
+    },
+    wknIsin: {
+      'font-size': '12px',
+      color: '#EEF1FB',
+      minWidth: '50%',
+      maxWidth: '1000px',
+      marginLeft: '100px',
+    },
+    infoValueWrapper: {
+      display: 'flex',
+      justifyContent: 'space-around',
+      width: '100%',
+      color: '#EEF1FB',
+    },
+    backButtonContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      height: '100%',
+    },
+    backButton: {
+      color: palette.background.default,
+    },
+  })
+);
 
 // TODO: no hard coded colors
 // takes a percent value and converts it to a color
@@ -66,7 +71,6 @@ function chooseSymbol(val: API.Stock): string {
 const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const theme = useTheme();
 
   return (
     <div className={classes.header}>
@@ -84,7 +88,7 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
               >
                 <ArrowBackIosIcon
                   fontSize="large"
-                  style={{ color: theme.palette.background.default }}
+                  className={classes.backButton}
                 />
               </IconButton>
             </div>
@@ -96,9 +100,6 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
               size="35px"
               paintJob="#EEF1FB"
             />
-            <>&nbsp;</>
-                <InfoButton infotext='Very Cheap must buy!!!'/>
-            <>&emsp;&emsp;</>
             <TextOverText
               top={`${details.per1d}%`}
               bottom={t('stock.1d')}
