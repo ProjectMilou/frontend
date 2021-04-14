@@ -11,7 +11,16 @@ const GridRowContainer: React.FC<{
   title: string;
   content: string;
   type: string;
-}> = ({ image, classNameImage, classNameGrid, title, content, type }) => {
+  titleClass: string;
+}> = ({
+  image,
+  classNameImage,
+  classNameGrid,
+  title,
+  content,
+  type,
+  titleClass,
+}) => {
   if (type === 'even') {
     return (
       <Grid
@@ -28,22 +37,18 @@ const GridRowContainer: React.FC<{
           classNameGrid={classNameGrid}
           title={title}
           content={content}
+          titleClass={titleClass}
         />
       </Grid>
     );
   }
   return (
-    <Grid
-      container
-      spacing={4}
-      justify-content="center"
-      direction="row"
-      alignItems="center"
-    >
+    <Grid container justify="space-between" direction="row" alignItems="center">
       <GridColumnContainer
         classNameGrid={classNameGrid}
         title={title}
         content={content}
+        titleClass={titleClass}
       />
       <Grid item>
         <Media image={image} className={classNameImage} />

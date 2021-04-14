@@ -20,6 +20,7 @@ import SectionDivider from './SectionDivider';
 import Risks from './Risks';
 import BalanceSheetInfo from './BalanceSheetInfo';
 import Analysts from './Analysts';
+import AddToPortfolioButton from '../../shared/AddToPortfolioButton';
 
 // props type declaration
 export interface DetailsProps extends RouteComponentProps {
@@ -220,6 +221,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
                 overview={stockOverview}
               />
               <Risks />
+              <AddToPortfolioButton symbol={symbol} />
             </Container>
           </div>
         )}
