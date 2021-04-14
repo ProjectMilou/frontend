@@ -194,7 +194,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
               <h5 className={classes.boxTitles}>
                 {t('analyser.details.BalanceSheet.Assets')}
                 <>&nbsp;</>
-                <InfoButton infotext='Assets are super important!!!'/>
+                <InfoButton infotext="Assets are super important!!!" />
               </h5>
             </div>
           </div>
@@ -212,7 +212,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
               <h5 className={classes.boxTitles}>
                 {t('analyser.details.BalanceSheet.Liabilities')}
                 <>&nbsp;</>
-                <InfoButton infotext='Liabilities and Equities also pretty important!'/>
+                <InfoButton infotext="Liabilities and Equities also pretty important!" />
               </h5>
             </div>
           </div>

@@ -16,12 +16,12 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       fontSize: 40,
     },
     category: {
-      ...typography.h5,
+      ...typography.h6,
       color: palette.success.main,
       display: 'inline',
     },
     text: {
-      ...typography.h5,
+      ...typography.h6,
       marginLeft: 10,
       display: 'inline',
     },
