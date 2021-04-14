@@ -1,18 +1,18 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import * as API from '../../../analyser/APIClient';
 import Volatility from './Volatility';
 import Leverage from './Leverage';
 
+// props type declaration
+export type DetailsProps = {
+  stockOverview: API.Stock;
+  companyReports: API.CompanyReports;
+};
+
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
   createStyles({
-    customSize: {
-      maxWidth: 500,
-    },
-    root: {
-      margin: '25px auto',
-      minWidth: '50%',
-    },
     titleContainer: {
       display: 'flex',
       marginBottom: '2rem',
@@ -104,10 +104,9 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
   })
 );
 
-const Risks: React.FC = () => {
+const Risks: React.FC<DetailsProps> = ({ stockOverview, companyReports }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-
   return (
     <div>
       <div className={classes.titleContainer}>
@@ -120,8 +119,8 @@ const Risks: React.FC = () => {
           <hr className={classes.line} />
         </div>
       </div>
-      <Volatility />
-      <Leverage />
+      <Volatility details={stockOverview} />
+      <Leverage stockOverview={stockOverview} companyReports={companyReports} />
     </div>
   );
 };

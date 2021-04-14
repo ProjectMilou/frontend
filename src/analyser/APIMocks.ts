@@ -35,6 +35,8 @@ export const MockOverview: Stock = {
     'https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg'
   ),
   date: new Date('2021-03-23T18:25:43.511Z'),
+  beta: 0.5,
+  ebitda: 0.5,
 };
 
 export const MockOverviewTwo: Stock = {
@@ -59,4 +61,6 @@ export const MockOverviewTwo: Stock = {
     'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg'
   ),
   date: new Date('2021-03-23T18:25:43.511Z'),
+  beta: 0.5,
+  ebitda: 0.5,
 };

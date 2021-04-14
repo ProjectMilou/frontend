@@ -220,7 +220,10 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
                 recommendations={analystRecommendations}
                 overview={stockOverview}
               />
-              <Risks />
+              <Risks
+                stockOverview={stockOverview}
+                companyReports={companyReports}
+              />
               <AddToPortfolioButton symbol={symbol} token={token} />
             </Container>
           </div>

@@ -35,6 +35,8 @@ export type Stock = {
   industry: string;
   picture: URL;
   date: Date;
+  beta: number;
+  ebitda: number;
 };
 
 // List of stocks
@@ -51,6 +53,7 @@ export type StockDetails = {
   fullTimeEmployees: number;
   address: string;
   assenmbly: Date;
+  beta: number;
 };
 
 // historic performance data

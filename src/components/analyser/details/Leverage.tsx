@@ -2,6 +2,13 @@ import React, { ReactElement } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import ReactApexChart from 'react-apexcharts';
+import * as API from '../../../analyser/APIClient';
+
+// props type declaration
+export type DetailsProps = {
+  stockOverview: API.Stock;
+  companyReports: API.CompanyReports;
+};
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
   createStyles({
@@ -131,6 +138,34 @@ const debtSeries = [
   [1361919600000, 39.6],
 ];
 
+const equitySeries = [
+  [1358895600000, 28.25],
+  [1358982000000, 28.1],
+  [1359068400000, 28.32],
+  [1359327600000, 28.24],
+  [1359414000000, 28.52],
+  [1359500400000, 27.94],
+  [1359586800000, 27.83],
+  [1359673200000, 28.34],
+  [1359932400000, 28.1],
+  [1360018800000, 28.51],
+  [1360105200000, 28.4],
+  [1360191600000, 28.07],
+  [1360278000000, 29.12],
+  [1360537200000, 28.64],
+  [1360623600000, 28.89],
+  [1360710000000, 28.81],
+  [1360796400000, 28.61],
+  [1360882800000, 28.63],
+  [1361228400000, 28.99],
+  [1361314800000, 38.77],
+  [1361401200000, 38.34],
+  [1361487600000, 38.55],
+  [1361746800000, 38.11],
+  [1361833200000, 38.59],
+  [1361919600000, 39.6],
+];
+
 // type declarations
 type InfoBlockProps = {
   title: string;
@@ -151,11 +186,14 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, body }) => {
   );
 };
 
-const Leverage: React.FC = () => {
+const Leverage: React.FC<DetailsProps> = ({
+  stockOverview,
+  companyReports,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const options = {
-    colors: ['#008ffb'],
+    colors: ['#00e396', '#008ffb'],
     chart: {
       type: 'line',
       height: 350,
@@ -215,7 +253,10 @@ const Leverage: React.FC = () => {
           </div>
           <ReactApexChart
             options={options}
-            series={[{ name: 'Debt', data: debtSeries }]}
+            series={[
+              { name: 'Debt', data: debtSeries },
+              { name: 'Equity', data: equitySeries },
+            ]}
             height={300}
             width="100%"
           />
@@ -223,15 +264,37 @@ const Leverage: React.FC = () => {
         <div className={classes.infoContainer}>
           <InfoBlock
             title={t('analyser.details.Leverage.DebtLevel')}
-            body={<p style={{ margin: 0 }}> 0.5 </p>}
+            body={
+              <p style={{ margin: 0 }}>
+                {' '}
+                {companyReports.annualReports[0].currentDebt}{' '}
+              </p>
+            }
           />
           <InfoBlock
             title={t('analyser.details.Leverage.DebtCoverage')}
-            body={<p style={{ margin: 0 }}> 0.5 </p>}
+            body={
+              <p style={{ margin: 0 }}>
+                {' '}
+                {(
+                  companyReports.annualReports[0]
+                    .cashAndCashEquivalentsAtCarryingValue /
+                  companyReports.annualReports[0].currentDebt
+                ).toFixed(2)}{' '}
+              </p>
+            }
           />
           <InfoBlock
             title={t('analyser.details.Leverage.InterestCoverage')}
-            body={<p style={{ margin: 0 }}> 0.5 </p>}
+            body={
+              <p style={{ margin: 0 }}>
+                {' '}
+                {(
+                  stockOverview.ebitda /
+                  companyReports.annualReports[0].currentDebt
+                ).toFixed(2)}{' '}
+              </p>
+            }
           />
         </div>
       </div>

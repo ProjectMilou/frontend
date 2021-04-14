@@ -2,6 +2,12 @@ import React, { ReactElement } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import ReactApexChart from 'react-apexcharts';
+import * as API from '../../../analyser/APIClient';
+
+// props type declaration
+export type DetailsProps = {
+  details: API.Stock;
+};
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
   createStyles({
@@ -179,7 +185,7 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, body }) => {
   );
 };
 
-const Volatility: React.FC = () => {
+const Volatility: React.FC<DetailsProps> = ({ details }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const options = {
@@ -240,7 +246,7 @@ const Volatility: React.FC = () => {
         <div className={classes.infoContainer}>
           <InfoBlock
             title={t('analyser.details.Volatility.BetaFactor')}
-            body={<p style={{ margin: 0 }}> 0.5 </p>}
+            body={<p style={{ margin: 0 }}> {details.beta} </p>}
           />
           <InfoBlock
             title={t('analyser.details.Volatility.SharpeRatio')}
