@@ -1,4 +1,10 @@
+import React from 'react';
+// import { useTheme } from '@material-ui/core/styles';
+// import CheckIcon from '@material-ui/icons/Check';
+// import WarningIcon from '@material-ui/icons/Warning';
+import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 import { Position } from './APIClient';
+// import { theme } from '../components/App';
 
 /** Maps elements of a risk category (e.g. country) to a total value. */
 export type RiskPortions = {
@@ -33,3 +39,34 @@ export function riskPortions(
     };
   }, {});
 }
+
+// const exclamationIcon = (
+//   <PriorityHighIcon
+//     style={{ color: theme.palette.error.main, width: '100%', height: '100%' }}
+//     aria-label="exclamationIcon"
+//   />
+// );
+
+// export type RiskBundle = {
+//   riskColor: string;
+//   riskIcon: JSX.Element;
+//   warnings: string[];
+// };
+
+// export function getCountryBundle(count: number): RiskBundle {
+//   switch (true) {
+//     case count < 3:
+//       return {
+//         riskColor: theme.palette.error.main,
+//         riskIcon: exclamationIcon,
+//         warnings: ['portfolio.details.warnings.country0'],
+//       };
+//     default:
+//       return {
+//         riskColor: theme.palette.success.main,
+//         riskIcon: exclamationIcon,
+//         warnings: ['portfolio.details.warnings.country0'],
+//       };
+//       break;
+//   }
+// }

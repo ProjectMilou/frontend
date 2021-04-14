@@ -23,9 +23,15 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       justifyContent: 'space-between',
       margin: '1rem 0',
     },
-    sharpeText: {
+    ratioWrapper: {
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      margin: '4rem 0',
+    },
+    ratioText: {
       width: 'min-content',
-      margin: '4rem auto',
+      margin: '0 4rem',
       padding: '1rem',
       color: palette.primary.contrastText,
       fontSize: '1.5rem',
@@ -208,23 +214,42 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
   // TODO: use actual sharpe ratio
   const sharpeRatio = 1;
 
+  const treynorRatio = 1;
+
   return (
     <>
-      <Typography className={classes.sharpeText}>
-        {t('portfolio.details.sharpe')}
-        <StyledNumberFormat
-          value={sharpeRatio}
-          suffix=""
-          paintJob={
-            // eslint-disable-next-line no-nested-ternary
-            sharpeRatio < 1
-              ? palette.error.main
-              : sharpeRatio < 2
-              ? palette.warning.main
-              : palette.success.main
-          }
-        />
-      </Typography>
+      <div className={classes.ratioWrapper}>
+        <Typography className={classes.ratioText}>
+          {t('portfolio.details.sharpe')}
+          <StyledNumberFormat
+            value={sharpeRatio}
+            suffix=""
+            paintJob={
+              // eslint-disable-next-line no-nested-ternary
+              sharpeRatio < 1
+                ? palette.error.main
+                : sharpeRatio < 2
+                ? palette.warning.main
+                : palette.success.main
+            }
+          />
+        </Typography>
+        <Typography className={classes.ratioText}>
+          {t('portfolio.details.treynor')}
+          <StyledNumberFormat
+            value={treynorRatio}
+            suffix=""
+            paintJob={
+              // eslint-disable-next-line no-nested-ternary
+              treynorRatio < 1
+                ? palette.error.main
+                : treynorRatio < 2
+                ? palette.warning.main
+                : palette.success.main
+            }
+          />
+        </Typography>
+      </div>
       <div className={classes.riskContainer}>
         <RiskComp
           risk={risk.countries}
