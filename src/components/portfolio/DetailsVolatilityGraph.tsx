@@ -49,6 +49,9 @@ const DetailsVolatilityGraph: React.FC<DetailsVolatilityGraphProps> = ({
         color: palette.primary.contrastText,
         marginBottom: '0.5rem',
       },
+      wrapper: {
+        height: '250px',
+      },
     })
   );
 
@@ -73,7 +76,13 @@ const DetailsVolatilityGraph: React.FC<DetailsVolatilityGraphProps> = ({
 
   return (
     <>
-      <Grid container direction="row" justify="center" alignItems="center">
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        className={classes.wrapper}
+      >
         <HotelIcon style={{ color: theme.palette.primary.contrastText }} />
 
         <div className={classes.line}>

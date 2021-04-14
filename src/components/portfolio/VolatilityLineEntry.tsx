@@ -15,7 +15,7 @@ const VolatilityLineEntry: React.FC<VolatilityLineEntryProps> = ({
     createStyles({
       line: {
         position: 'absolute',
-        height: '20px',
+        height: '2rem',
         width: '3px',
         backgroundColor: palette.primary.contrastText,
       },
