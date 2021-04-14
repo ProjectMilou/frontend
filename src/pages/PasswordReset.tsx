@@ -16,7 +16,10 @@ import { useTranslation } from 'react-i18next';
 import PasswordField from '../components/shell/register/PasswordField';
 import { ErrorState, PasswordInput } from '../components/shell/utils';
 import UserService from '../services/UserService';
-import { checkPasswordRequirements, IRequirements } from '../components/shell/register/util-password';
+import {
+  checkPasswordRequirements,
+  IRequirements,
+} from '../components/shell/register/util-password';
 import PasswordRequirement from '../components/shell/register/PasswordRequirement';
 
 const useStyles = makeStyles((theme) =>
@@ -124,7 +127,9 @@ const PasswordReset: React.FC<PasswordResetProps> = (props) => {
             fullWidth
             onClick={handleSubmit}
             disabled={
-              requirements.requirement.map((r) => r.done).some((done) => !done) ||
+              requirements.requirement
+                .map((r) => r.done)
+                .some((done) => !done) ||
               login.password !== login.confirmPassword
             }
           >
