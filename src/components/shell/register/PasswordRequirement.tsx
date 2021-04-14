@@ -14,11 +14,15 @@ interface PasswordRequirementProps {
 const useStyles = makeStyles<Theme, PasswordRequirementProps>((theme) =>
   createStyles({
     checked: {
+      marginRight: theme.spacing(1),
       height: theme.spacing(1.5),
+      width: theme.spacing(1.5),
       color: theme.palette.success.main,
     },
     unchecked: {
+      marginRight: theme.spacing(1),
       height: theme.spacing(1.5),
+      width: theme.spacing(1.5)
     },
     name: {
       fontSize: '12px',

@@ -7,15 +7,14 @@ import {
   IconButton,
   Input,
   InputAdornment,
-  InputLabel,
+  InputLabel, makeStyles,
   TextField,
-  Typography,
+  Typography
 } from '@material-ui/core';
 import React, { useState } from 'react';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
-import { navigate } from '@reach/router';
 import * as EmailValidator from 'email-validator';
 import { Trans, useTranslation } from 'react-i18next';
 import LinkButton from '../LinkButton';
@@ -32,8 +31,16 @@ interface RegisterFormProps {
   setLogin: (u: UserInput | ((u: UserInput) => UserInput)) => void;
 }
 
+const useStyles = makeStyles({
+    privacyLink: {
+display: "inline", fontSize: '14px', margin: '0px', textDecoration: "underline"
+    },
+  }
+);
+
 const RegisterForm: React.FC<RegisterFormProps> = (props) => {
   const { t } = useTranslation();
+  const { privacyLink } = useStyles();
   const { onSuccess, onFail, goToLogin, login, setLogin } = props;
 
   const [showPassword, setShowPassword] = useState({
@@ -75,12 +82,17 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
   } as IRequirements);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // update state
     setLogin((prevState) => ({
       ...prevState,
       [event.target.id]: event.target.value,
     }));
+
+    // undo error message
     if (hasError[event.target.id as keyof ErrorState])
       setError({ ...hasError, [event.target.id]: '' });
+
+    // check password requirements
     if (event.target.id === 'password')
       checkPasswordRequirements({
         password: event.target.value,
@@ -94,17 +106,6 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
         ...hasError,
         email: [t('error.invalidEmail'), t('error.retry')].join(' '),
       });
-      return;
-    }
-
-    if (login.password !== login.confirmPassword) {
-      setError({
-        ...hasError,
-        confirmPassword: [t('error.confirmPassword'), t('error.retry')].join(
-          ' '
-        ),
-      });
-      setLogin({ ...login, confirmPassword: '' });
       return;
     }
 
@@ -128,13 +129,13 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
           type="text"
           fullWidth
           helperText={hasError.email}
-          style={{ margin: '10px 0' }}
+          style={{ margin: '8px 0' }}
           inputProps={{ 'data-testid': 'email' }}
         />
         <FormControl
           fullWidth
           error={hasError.password !== ''}
-          style={{ margin: '10px 0' }}
+          style={{ margin: '8px 0' }}
         >
           <InputLabel htmlFor="password">{t('shell.password')}</InputLabel>
           <Input
@@ -165,7 +166,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
         <FormControl
           fullWidth
           error={hasError.confirmPassword !== ''}
-          style={{ margin: '10px 0' }}
+          style={{ margin: '8px 0' }}
         >
           <InputLabel htmlFor="password">
             {t('shell.confirmPassword')}
@@ -175,6 +176,16 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
             type={showPassword.confirmPassword ? 'text' : 'password'}
             value={login.confirmPassword}
             onChange={handleChange}
+            onBlur={() => {
+              if (login.password !== login.confirmPassword) {
+                setError({
+                  ...hasError,
+                  confirmPassword: [t('error.confirmPassword'), t('error.retry')].join(
+                    ' '
+                  ),
+                });
+              }
+            }}
             inputProps={{ 'data-testid': 'confirm-password' }}
             endAdornment={
               <InputAdornment position="end">
@@ -200,7 +211,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
         </FormControl>
       </DialogContent>
 
-      <Box mx="auto" pb="8px" pl="40px">
+      <Box mx="auto" pb={1} pl={3}>
         {requirements.requirement.map(({ text, done }, index) => (
           <PasswordRequirement
             key={text.concat(index.toString())}
@@ -210,15 +221,19 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
         ))}
       </Box>
 
-      <Box px="16px" py="8px">
+      <Box px={2} py={1}>
         <Typography style={{ fontSize: '14px' }} align="center">
           <Trans
             i18nKey="shell.disclaimer"
             t={t}
             components={[
-              <LinkButton
-                handleEvent={() => navigate('/privacy')}
-                style={{ fontSize: '14px', margin: '0px' }}
+              <div
+                className={privacyLink}
+                role="link"
+                aria-label="Privacy"
+                tabIndex={0}
+                onClick={()=> window.open(window.location.href.concat("privacy"), "_blank")}
+                onKeyDown={()=> window.open(window.location.href.concat("privacy"), "_blank")}
               />,
             ]}
           />
@@ -232,7 +247,8 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
             login.email === '' ||
             login.password === '' ||
             login.confirmPassword === '' ||
-            Object.values(hasError).join('').length > 0
+            Object.values(hasError).join('').length > 0 ||
+            login.password !== login.confirmPassword
           }
           variant="contained"
           color="primary"
