@@ -6,6 +6,12 @@ export interface UserInput {
   confirmPassword: string;
 }
 
+export interface ErrorState {
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 interface FetchProps {
   login: UserInput;
   onSuccess: () => void;
