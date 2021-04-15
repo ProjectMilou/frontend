@@ -16,6 +16,8 @@ test('Details header renders correctly', async () => {
         name={testName}
         positions={MockPositions}
         editPositions={jest.fn()}
+        id={'TestId'}
+        virtual
       />
     </ThemeProvider>
   );

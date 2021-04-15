@@ -14,11 +14,6 @@ import StyledNumberFormat from '../shared/StyledNumberFormat';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    subContainer: {
-      height: '50%',
-      display: 'flex',
-      alignItems: 'center',
-    },
     editButton: {
       position: 'absolute',
       left: '6rem',
@@ -35,21 +30,26 @@ const useStyles = makeStyles((theme: Theme) =>
 type DetailsEditProps = {
   positions?: Position[];
   edit: (modifications: PositionQty[]) => Promise<void>;
+  virtual: boolean;
 };
 
-const DetailsEdit: React.FC<DetailsEditProps> = ({ positions, edit }) => {
+const DetailsEdit: React.FC<DetailsEditProps> = ({
+  positions,
+  edit,
+  virtual,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
   const [open, setOpen] = React.useState(false);
 
   return (
-    <div className={classes.subContainer}>
+    <>
       <Button
         variant="contained"
         className={classes.editButton}
         onClick={() => setOpen(true)}
-        disabled={!positions?.length}
+        disabled={!positions?.length || !virtual}
       >
         {t('portfolio.details.editPortfolio')}
       </Button>
@@ -87,7 +87,7 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({ positions, edit }) => {
           }
         />
       )}
-    </div>
+    </>
   );
 };
 

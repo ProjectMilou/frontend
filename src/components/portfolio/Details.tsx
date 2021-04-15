@@ -76,7 +76,10 @@ const Details: React.FC<RouteComponentProps> = () => {
   return (
     <div>
       <div className={classes.topBanner}>
+        {/* TODO input real id and virtual */}
         <DetailsHeader
+          id="CHANGE TO REAL ID"
+          virtual
           name={portfolioDetails?.overview.name}
           positions={portfolioDetails?.positions}
           editPositions={async (modifications) => {
