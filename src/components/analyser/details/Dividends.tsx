@@ -4,15 +4,13 @@ import { useTranslation } from 'react-i18next';
 import DividendRatioDonut from '../../shared/DividendRatioDonut';
 import DividendLineChart from '../../shared/DividendLineChart';
 
+// props type declaration
+export type DetailsProps = {
+  series: number[];
+};
+
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
   createStyles({
-    customSize: {
-      maxWidth: 500,
-    },
-    root: {
-      margin: '25px auto',
-      minWidth: '50%',
-    },
     titleContainer: {
       display: 'flex',
       marginBottom: '2rem',
@@ -22,10 +20,10 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
     },
     sectionSubTitle: {
       margin: 0,
-      color: 'primary',
+      color: palette.primary.main,
       // TODO use theme fontsize and weight
       fontSize: '2rem',
-      fontWeight: 400,
+      fontWeight: typography.fontWeightRegular,
       whiteSpace: 'nowrap',
     },
     line: {
@@ -101,7 +99,7 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, body }) => {
   );
 };
 
-const Dividends: React.FC = () => {
+const Dividends: React.FC<DetailsProps> = ({ series }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -116,12 +114,12 @@ const Dividends: React.FC = () => {
     {
       name: t('analyser.detail.dividend.yield'),
       type: 'line',
-      data: [0.58, 0.71, 0.8, 1.12, 0.97],
+      data: series,
     },
   ]);
 
   const ratio = 0.25;
-  const dividendYield = 0.017;
+  const dividendYield = series[4];
   return (
     <div>
       <div className={classes.titleContainer}>

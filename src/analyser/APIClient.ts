@@ -64,6 +64,19 @@ export type StockHistricPerformance = {
   close: number;
 };
 
+// dividend performance data
+export type StockHistricDividendList = {
+  dataPoints: StockHistricDividend[];
+  date: string;
+  quota: string;
+};
+
+export type StockHistricDividend = {
+  _id: string;
+  date: string;
+  div: number;
+};
+
 export type CompanyReports = {
   symbol: string;
   annualReports: CompanyReport[];
@@ -244,6 +257,26 @@ export async function stockPerformance(
     'GET',
     `charts/historic?id=${symbol}&max=${historic.toString()}`
   )) as StockHistricPerformanceList;
+  return response;
+}
+
+/**
+ * Gets stock performance with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ * @param dividend - if true all data will be returned, else only 5 years
+ */
+export async function stockDividend(
+  token: string,
+  symbol: string,
+  dividend: boolean
+): Promise<StockHistricDividendList> {
+  const response = (await request(
+    token,
+    'GET',
+    `charts/dividend?id=${symbol}&max=${dividend.toString()}`
+  )) as StockHistricDividendList;
   return response;
 }
 
