@@ -11,7 +11,7 @@ import { isAuthenticationError } from '../../../Errors';
 import * as API from '../../../analyser/APIClient';
 import ErrorMessage from '../../shared/ErrorMessage';
 import DetailsHeader from './DetailsHeader';
-import DetailsOverview from './DetailsOverview';
+import DetailsOverviewInfoBox from './DetailsOverview';
 import KeyFigures from './KeyFigures';
 import StockChart from '../../shared/StockChart';
 import Dividends from './Dividends';
@@ -199,7 +199,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
           <div>
             <DetailsHeader back={back} details={stockOverview} />
             <Container className={classes.mainContent}>
-              <DetailsOverview
+              <DetailsOverviewInfoBox
                 stockOverview={stockOverview}
                 stockDetails={stockDetails}
               />

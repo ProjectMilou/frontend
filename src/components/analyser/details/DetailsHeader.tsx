@@ -6,7 +6,7 @@ import {
   Typography,
   Theme,
   createStyles,
-  useTheme
+  useTheme,
 } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useTranslation } from 'react-i18next';
@@ -101,28 +101,28 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
               value={parseFloat(details.price)}
               suffix="€"
               size="35px"
-              paintJob= {theme.palette.background.default}
+              paintJob={theme.palette.background.default}
             />
             <>&nbsp;&emsp;</>
             <TextOverText
               top={`${details.per7d.slice(0, -1)}%`}
               bottom={t('stock.7d')}
               colorTop={convertPercentToColor(parseFloat(details.per7d))}
-              colorBottom= {theme.palette.background.default}
+              colorBottom={theme.palette.background.default}
             />
             <>&nbsp;&emsp;</>
             <TextOverText
               top={`${details.per30d.slice(0, -1)}%`}
               bottom={t('stock.30d')}
               colorTop={convertPercentToColor(parseFloat(details.per30d))}
-              colorBottom= {theme.palette.background.default}
+              colorBottom={theme.palette.background.default}
             />
             <>&nbsp;&emsp;</>
             <TextOverText
               top={`${details.per365d.slice(0, -1)}%`}
               bottom={t('stock.365d')}
               colorTop={convertPercentToColor(parseFloat(details.per365d))}
-              colorBottom= {theme.palette.background.default}
+              colorBottom={theme.palette.background.default}
             />
           </div>
           <Typography className={classes.wknIsin}>
