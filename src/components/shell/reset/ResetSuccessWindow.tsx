@@ -2,13 +2,11 @@ import React, { useEffect } from 'react';
 import { Box, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-interface ForgotPasswordWindowProps {
+interface ResetSuccessWindowProps {
   closePopUp: () => void;
 }
 
-const ForgotPasswordSuccessWindow: React.FC<ForgotPasswordWindowProps> = (
-  props
-) => {
+const ResetSuccessWindow: React.FC<ResetSuccessWindowProps> = (props) => {
   const { t } = useTranslation();
   const { closePopUp } = props;
 
@@ -27,4 +25,4 @@ const ForgotPasswordSuccessWindow: React.FC<ForgotPasswordWindowProps> = (
   );
 };
 
-export default ForgotPasswordSuccessWindow;
+export default ResetSuccessWindow;

@@ -23,11 +23,11 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-interface ForgotPasswordFormProps {
+interface ResetFormProps {
   setSuccess: (v: boolean) => void;
 }
 
-const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = (props) => {
+const ResetForm: React.FC<ResetFormProps> = (props) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const { errorMessage } = useStyles(theme);
@@ -87,4 +87,4 @@ const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = (props) => {
   );
 };
 
-export default ForgotPasswordForm;
+export default ResetForm;

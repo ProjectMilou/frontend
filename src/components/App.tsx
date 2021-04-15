@@ -13,7 +13,7 @@ import AboutUs from '../pages/AboutUs';
 import Privacy from '../pages/Privacy';
 import Page404 from '../pages/Page404';
 import Confirm from '../pages/Confirm';
-import Reset from '../pages/Reset';
+import ResetChange from '../pages/ResetChange';
 import { ContextProvider } from '../state/context';
 
 declare module '@material-ui/core/styles/createPalette' {
@@ -101,7 +101,7 @@ const App: React.FC = () => (
             <Privacy path="/privacy" />
             <Profile path="/profile" />
             <Confirm path="/confirm/:id/:token" />
-            <Reset path="/reset/:id/:token" />
+            <ResetChange path="/reset/:id/:token" />
             <Page404 default />
           </Router>
         </div>

@@ -19,13 +19,12 @@ const useStyles = makeStyles((theme) =>
     },
   })
 );
-interface PasswordResetProps extends RouteComponentProps {
+interface ResetChangeProps extends RouteComponentProps {
   id?: string;
   token?: string;
 }
 
-const PasswordReset: React.FC<PasswordResetProps> = (props) => {
-  // TODO check if token is valid beforehand and only show form when it is
+const ResetChange: React.FC<ResetChangeProps> = (props) => {
   const { id, token } = props;
   const { formular } = useStyles(useTheme());
   type State = 'resetForm' | 'resetConfirmed' | 'resetFailed';
@@ -55,4 +54,4 @@ const PasswordReset: React.FC<PasswordResetProps> = (props) => {
   );
 };
 
-export default PasswordReset;
+export default ResetChange;
