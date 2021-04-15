@@ -105,7 +105,7 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
                 top={t('stock.30d')}
                 bottom={`${stock.per30d}%`}
                 colorTop="#68696b"
-                colorBottom={convertPercentToColor(stock.per30d)}
+                colorBottom={convertPercentToColor(parseInt(stock.per30d, 10))}
                 sizeBottom="1.3rem"
               />
             </div>
