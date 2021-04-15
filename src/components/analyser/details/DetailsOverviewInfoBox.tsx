@@ -5,7 +5,6 @@ import {
   useTheme,
   makeStyles,
   createStyles,
-  Theme,
   Grid,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +12,7 @@ import { Stock, StockDetails } from '../../../analyser/APIClient';
 import TextOverText from '../TextOverText';
 
 // stylesheet for the Summary section
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     infoBox: {
       outlineStyle: 'solid',
@@ -28,6 +27,9 @@ const useStyles = makeStyles((theme: Theme) =>
       // TODO: use theme color
       borderColor: 'grey',
     },
+    center : {
+      paddingTop: '1.15rem'
+    }
   })
 );
 
@@ -42,7 +44,6 @@ type DetailsOverviewProps = {
 // returns the details page header
 const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
   stockOverview,
-  stockDetails,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -55,7 +56,7 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
     return num <= 0 ? '#D64745' : '#50E2A8';
   }
   function convertToPercent(num: number): string {
-    return `${(Math.round(num * 1000) / 10).toString()}%`;
+    return `${num}%`;
   }
 
   return (
@@ -67,12 +68,12 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
         direction="row"
         className={classes.infoBox}
       >
-        <Grid item>
+        <Grid item className={classes.center}>
           {/* country */}
           <TextOverText
             top={`${stockOverview.country}`}
             bottom={t('stock.country')}
-            colorTop={theme.palette.primary.dark}
+            colorTop={theme.palette.primary.light}
             colorBottom={theme.palette.primary.dark}
           />
         </Grid>
@@ -80,7 +81,7 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
         {/* devider 2 */}
         <hr className={classes.vl} />
         {/* box section 3 */}
-        <Grid item>
+        <Grid item className={classes.center}>
           {/* currency */}
           <TextOverText
             top={`${stockOverview.currency}`}
@@ -93,7 +94,7 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
         {/* devider 2 */}
         <hr className={classes.vl} />
         {/* box section 3 */}
-        <Grid item>
+        <Grid item className={classes.center}>
           {/* industry */}
           <TextOverText
             top={`${stockOverview.industry}`}
@@ -106,7 +107,7 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
         {/* devider 2 */}
         <hr className={classes.vl} />
         {/* box section 3 */}
-        <Grid item>
+        <Grid item className={classes.center}>
           {/* dividend */}
           <TextOverText
             top={convertToPercent(stockOverview.div)}
