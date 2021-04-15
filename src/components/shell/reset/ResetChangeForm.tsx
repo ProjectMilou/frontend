@@ -73,7 +73,7 @@ const ResetChangeForm: React.FC<ResetChangeFormProps> = (props) => {
   };
 
   const handleSubmit = () => {
-    UserService.resetChange(String(id), String(token), login.password)
+    UserService.resetChange(id, token, login.password)
       .then((value) => (value ? onSuccess() : onFailure()))
       .catch(onFailure);
   };

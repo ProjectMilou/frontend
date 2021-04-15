@@ -6,11 +6,9 @@ import {
   createStyles,
   useTheme,
   Typography,
-  Button,
 } from '@material-ui/core';
 import { RouteComponentProps } from '@reach/router';
 import ResetChangeForm from '../components/shell/reset/ResetChangeForm';
-import { State } from '../components/shell/login/Login';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
