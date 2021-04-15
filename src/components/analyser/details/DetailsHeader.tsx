@@ -6,6 +6,7 @@ import {
   Typography,
   Theme,
   createStyles,
+  useTheme
 } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useTranslation } from 'react-i18next';
@@ -65,12 +66,13 @@ function convertPercentToColor(val: number): string {
 }
 
 function chooseSymbol(val: API.Stock): string {
-  return val.name.length > 25 ? val.symbol : val.name;
+  return val.name.length > 15 ? val.symbol : val.name;
 }
 
 const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const theme = useTheme();
 
   return (
     <div className={classes.header}>
@@ -95,16 +97,17 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
             {chooseSymbol(details)}
             <>&emsp;&emsp;&emsp;</>
             <StyledNumberFormat
-              value={details.price}
+              // Fix: Divided by 1 because Back-End only provides string
+              value={details.price/1}
               suffix="€"
               size="35px"
-              paintJob="#EEF1FB"
+              paintJob= {theme.palette.background.default}
             />
             <TextOverText
               top={`${details.per1d}%`}
               bottom={t('stock.1d')}
               colorTop={convertPercentToColor(details.per1d)}
-              colorBottom="#EEF1FB"
+              colorBottom= {theme.palette.background.default}
             />
             <>&emsp;&emsp;</>
             <TextOverText
