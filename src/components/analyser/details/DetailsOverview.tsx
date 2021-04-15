@@ -220,7 +220,7 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
             {t('stock.founded')}: {stockDetails.founded}
           </Typography>
           <Typography className={classes.intro}>
-            {t('stock.fullTimeEmployees')}: {stockDetails.fullTimeEmployees}
+            {t('stock.fullTimeEmployees')}: {stockDetails.employees}
           </Typography>
           <Typography className={classes.intro}>
             {t('stock.address')}: {stockDetails.address}
