@@ -27,196 +27,218 @@ exports[`DashboardTable display stock information 1`] = `
                 class="MuiTableRow-root MuiTableRow-head"
               >
                 <th
+                  aria-sort="ascending"
                   class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                   scope="col"
                 >
-                  <p
-                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  <span
+                    aria-disabled="false"
+                    class="MuiButtonBase-root MuiTableSortLabel-root MuiTableSortLabel-active"
+                    role="button"
+                    tabindex="0"
                   >
                     stock.name
-                  </p>
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                      />
+                    </svg>
+                  </span>
                 </th>
                 <th
                   class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                   scope="col"
                 >
-                  <p
-                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  <span
+                    aria-disabled="false"
+                    class="MuiButtonBase-root MuiTableSortLabel-root"
+                    role="button"
+                    tabindex="0"
                   >
                     stock.lastPrice
-                  </p>
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                      />
+                    </svg>
+                  </span>
                 </th>
                 <th
                   class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                   scope="col"
                 >
-                  <p
-                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  <span
+                    aria-disabled="false"
+                    class="MuiButtonBase-root MuiTableSortLabel-root"
+                    role="button"
+                    tabindex="0"
                   >
                     stock.7d
-                  </p>
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                      />
+                    </svg>
+                  </span>
                 </th>
                 <th
                   class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                   scope="col"
                 >
-                  <p
-                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  <span
+                    aria-disabled="false"
+                    class="MuiButtonBase-root MuiTableSortLabel-root"
+                    role="button"
+                    tabindex="0"
                   >
                     stock.365d
-                  </p>
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                      />
+                    </svg>
+                  </span>
                 </th>
                 <th
                   class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                   scope="col"
                 >
-                  <p
-                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  <span
+                    aria-disabled="false"
+                    class="MuiButtonBase-root MuiTableSortLabel-root"
+                    role="button"
+                    tabindex="0"
                   >
                     stock.marketCap
-                  </p>
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                      />
+                    </svg>
+                  </span>
                 </th>
                 <th
                   class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                   scope="col"
                 >
-                  <p
-                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  <span
+                    aria-disabled="false"
+                    class="MuiButtonBase-root MuiTableSortLabel-root"
+                    role="button"
+                    tabindex="0"
                   >
                     stock.analystsTarget
-                  </p>
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                      />
+                    </svg>
+                  </span>
                 </th>
                 <th
                   class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                   scope="col"
                 >
-                  <p
-                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  <span
+                    aria-disabled="false"
+                    class="MuiButtonBase-root MuiTableSortLabel-root"
+                    role="button"
+                    tabindex="0"
                   >
                     stock.valuation
-                  </p>
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                      />
+                    </svg>
+                  </span>
                 </th>
                 <th
                   class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                   scope="col"
                 >
-                  <p
-                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  <span
+                    aria-disabled="false"
+                    class="MuiButtonBase-root MuiTableSortLabel-root"
+                    role="button"
+                    tabindex="0"
                   >
                     stock.div
-                  </p>
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                      />
+                    </svg>
+                  </span>
                 </th>
                 <th
                   class="MuiTableCell-root makeStyles-customTableHead-7 MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-stickyHeader"
                   scope="col"
                 >
-                  <p
-                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1"
+                  <span
+                    aria-disabled="false"
+                    class="MuiButtonBase-root MuiTableSortLabel-root"
+                    role="button"
+                    tabindex="0"
                   >
                     stock.industry
-                  </p>
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                      />
+                    </svg>
+                  </span>
                 </th>
               </tr>
             </thead>
             <tbody
               class="MuiTableBody-root"
             >
-              <tr
-                class="MuiTableRow-root makeStyles-row-2"
-              >
-                <th
-                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-                  role="cell"
-                  scope="row"
-                >
-                  <div
-                    class="MuiListItemText-root MuiListItemText-multiline"
-                  >
-                    <p
-                      class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
-                    >
-                      IBM
-                    </p>
-                    <p
-                      class="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary MuiTypography-displayBlock"
-                    >
-                      International Business Machines Corporation
-                    </p>
-                  </div>
-                </th>
-                <td
-                  class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-4 MuiTableCell-alignCenter"
-                >
-                  <span
-                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-9"
-                  >
-                    175,29 €
-                  </span>
-                </td>
-                <td
-                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-                >
-                  <span
-                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-10"
-                  >
-                    1,52 %
-                  </span>
-                </td>
-                <td
-                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-                >
-                  <span
-                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-11"
-                  >
-                    40,30 %
-                  </span>
-                </td>
-                <td
-                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-                >
-                  <p
-                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
-                  >
-                    €114B
-                  </p>
-                </td>
-                <td
-                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-                >
-                  <span
-                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-12"
-                  >
-                    137,00 €
-                  </span>
-                </td>
-                <td
-                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-                >
-                  <span
-                    class="makeStyles-euroCurrency-13 makeStyles-euroCurrency-14"
-                  >
-                    20.7x
-                  </span>
-                </td>
-                <td
-                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-                >
-                  <span
-                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-15"
-                  >
-                    0,05 %
-                  </span>
-                </td>
-                <td
-                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
-                >
-                  <p
-                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
-                  >
-                    Consumer Electronics
-                  </p>
-                </td>
-              </tr>
               <tr
                 class="MuiTableRow-root makeStyles-row-2"
               >
@@ -244,7 +266,7 @@ exports[`DashboardTable display stock information 1`] = `
                   class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-4 MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-16"
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-9"
                   >
                     252,19 €
                   </span>
@@ -253,7 +275,7 @@ exports[`DashboardTable display stock information 1`] = `
                   class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-17"
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-10"
                   >
                     1,52 %
                   </span>
@@ -262,7 +284,7 @@ exports[`DashboardTable display stock information 1`] = `
                   class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-18"
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-11"
                   >
                     30,30 %
                   </span>
@@ -280,7 +302,7 @@ exports[`DashboardTable display stock information 1`] = `
                   class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-19"
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-12"
                   >
                     290,24 €
                   </span>
@@ -289,7 +311,7 @@ exports[`DashboardTable display stock information 1`] = `
                   class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-euroCurrency-13 makeStyles-euroCurrency-20"
+                    class="makeStyles-euroCurrency-13 makeStyles-euroCurrency-14"
                   >
                     27.7x
                   </span>
@@ -298,7 +320,7 @@ exports[`DashboardTable display stock information 1`] = `
                   class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-21"
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-15"
                   >
                     0,12 %
                   </span>
@@ -310,6 +332,102 @@ exports[`DashboardTable display stock information 1`] = `
                     class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
                   >
                     Information Technology Services
+                  </p>
+                </td>
+              </tr>
+              <tr
+                class="MuiTableRow-root makeStyles-row-2"
+              >
+                <th
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                  role="cell"
+                  scope="row"
+                >
+                  <div
+                    class="MuiListItemText-root MuiListItemText-multiline"
+                  >
+                    <p
+                      class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
+                    >
+                      IBM
+                    </p>
+                    <p
+                      class="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary MuiTypography-displayBlock"
+                    >
+                      International Business Machines Corporation
+                    </p>
+                  </div>
+                </th>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-4 MuiTableCell-alignCenter"
+                >
+                  <span
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-16"
+                  >
+                    175,29 €
+                  </span>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <span
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-17"
+                  >
+                    1,52 %
+                  </span>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <span
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-18"
+                  >
+                    40,30 %
+                  </span>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
+                  >
+                    €114B
+                  </p>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <span
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-19"
+                  >
+                    137,00 €
+                  </span>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <span
+                    class="makeStyles-euroCurrency-13 makeStyles-euroCurrency-20"
+                  >
+                    20.7x
+                  </span>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <span
+                    class="makeStyles-styledNumberFormat-8 makeStyles-styledNumberFormat-21"
+                  >
+                    0,05 %
+                  </span>
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+                >
+                  <p
+                    class="MuiTypography-root makeStyles-defaultText-4 MuiTypography-body1 MuiTypography-colorPrimary"
+                  >
+                    Consumer Electronics
                   </p>
                 </td>
               </tr>
