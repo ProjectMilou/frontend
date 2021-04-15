@@ -102,13 +102,13 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         />
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
-        <StyledNumberFormat value={stock.price} suffix="€" />
+        <StyledNumberFormat value={parseInt(stock.price, 10)} suffix="€" />
       </TableCell>
       <TableCell align="center">
-        <StyledNumberFormat value={stock.per7d} suffix="%" paintJob />
+        <StyledNumberFormat value={parseFloat(stock.per7d)} suffix="%" paintJob />
       </TableCell>
       <TableCell align="center">
-        <StyledNumberFormat value={stock.per365d} suffix="%" paintJob />
+        <StyledNumberFormat value={parseFloat(stock.per365d)} suffix="%" paintJob />
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>

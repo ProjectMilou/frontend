@@ -98,30 +98,31 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
             <>&emsp;&emsp;&emsp;</>
             <StyledNumberFormat
               // Fix: Divided by 1 because Back-End only provides string
-              value={details.price/1}
+              value={parseFloat(details.price)}
               suffix="€"
               size="35px"
               paintJob= {theme.palette.background.default}
             />
+            <>&nbsp;&emsp;</>
             <TextOverText
-              top={`${details.per1d}%`}
-              bottom={t('stock.1d')}
-              colorTop={convertPercentToColor(details.per1d)}
+              top={`${details.per7d.slice(0, -1)}%`}
+              bottom={t('stock.7d')}
+              colorTop={convertPercentToColor(parseFloat(details.per7d))}
               colorBottom= {theme.palette.background.default}
             />
-            <>&emsp;&emsp;</>
+            <>&nbsp;&emsp;</>
             <TextOverText
-              top={`${details.per7d}%`}
-              bottom={t('stock.7d')}
-              colorTop={convertPercentToColor(details.per7d)}
-              colorBottom="#EEF1FB"
-            />
-            <>&emsp;&emsp;</>
-            <TextOverText
-              top={`${details.per30d}%`}
+              top={`${details.per30d.slice(0, -1)}%`}
               bottom={t('stock.30d')}
-              colorTop={convertPercentToColor(details.per30d)}
-              colorBottom="#EEF1FB"
+              colorTop={convertPercentToColor(parseFloat(details.per30d))}
+              colorBottom= {theme.palette.background.default}
+            />
+            <>&nbsp;&emsp;</>
+            <TextOverText
+              top={`${details.per365d.slice(0, -1)}%`}
+              bottom={t('stock.365d')}
+              colorTop={convertPercentToColor(parseFloat(details.per365d))}
+              colorBottom= {theme.palette.background.default}
             />
           </div>
           <Typography className={classes.wknIsin}>

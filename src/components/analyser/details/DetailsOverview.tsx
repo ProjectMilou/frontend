@@ -220,7 +220,7 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
           </ListItem>
           <ListItem>
           <Typography className={classes.intro}>
-            {t('stock.fullTimeEmployees')}: {stockDetails.employees}
+            {t('stock.fullTimeEmployees')}: {stockDetails.fullTimeEmployees}
           </Typography>
           </ListItem>
           <ListItem>
