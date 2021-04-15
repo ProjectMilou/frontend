@@ -19,7 +19,7 @@ const ResetSuccessWindow: React.FC<ResetSuccessWindowProps> = (props) => {
   return (
     <Box my={3}>
       <Typography variant="h5" align="center">
-        {t('shell.forgotPassword.tokenSent')}
+        {t('shell.reset.tokenSent')}
       </Typography>
     </Box>
   );

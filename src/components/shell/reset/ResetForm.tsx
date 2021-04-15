@@ -54,7 +54,7 @@ const ResetForm: React.FC<ResetFormProps> = (props) => {
       )}
       <DialogContent>
         <Typography variant="body1" align="center">
-          {t('shell.forgotPassword.reset')}
+          {t('shell.reset.forgot')}
         </Typography>
 
         <TextField
@@ -80,7 +80,7 @@ const ResetForm: React.FC<ResetFormProps> = (props) => {
           fullWidth
           onClick={handleSubmit}
         >
-          {t('shell.forgotPassword.submit')}
+          {t('shell.reset.submit')}
         </Button>
       </DialogActions>
     </>
