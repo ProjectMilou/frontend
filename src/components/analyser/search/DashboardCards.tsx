@@ -98,14 +98,15 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
                 colorTop="#68696b"
                 bottom={`${stock.price}`}
                 euro
+                sizeBottom="1.3rem"
               />
             </div>
             <div className={classes.rightBound}>
               <TextOverText
                 top={t('stock.30d')}
-                bottom={`${stock.per30d}%`}
+                bottom={`${stock.per30d.slice(0, -1)}%`}
                 colorTop="#68696b"
-                colorBottom={convertPercentToColor(stock.per30d)}
+                colorBottom={convertPercentToColor(parseFloat(stock.per30d))}
                 sizeBottom="1.3rem"
               />
             </div>

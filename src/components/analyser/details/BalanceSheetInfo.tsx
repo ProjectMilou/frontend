@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
+import InfoButton from '../../shared/InfoButton';
 
 export type BalanceSheetProps = {
   companyReports: API.CompanyReports;
@@ -57,87 +58,183 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
+function checkValue(val: number): number {
+  let result = val;
+  if (val.toString() === 'None') {
+    result = 0;
+  }
+  return result;
+}
+
+function checkName(val: number, text: string): string {
+  let result = text;
+  if (val === 0) {
+    result = '';
+  }
+  return result;
+}
+
+// sadly not supported for now by treemap
+// eslint-disable-next-line
+function convertToInternationalCurrencySystem(val: number) {
+  // based on https://stackoverflow.com/a/36734774
+
+  if (Math.abs(Number(val)) >= 1.0e9) {
+    // Nine Zeroes for Billions
+    return `${(Math.abs(Number(val)) / 1.0e9).toFixed(2)} B`;
+  }
+  if (Math.abs(Number(val)) >= 1.0e6) {
+    // Six Zeroes for Millions
+    return `${(Math.abs(Number(val)) / 1.0e6).toFixed(2)} M`;
+  }
+  if (Math.abs(Number(val)) >= 1.0e3) {
+    // Three Zeroes for Thousands
+    return `${(Math.abs(Number(val)) / 1.0e3).toFixed(2)} K`;
+  }
+  return Math.abs(Number(val)).toString();
+}
+
 const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const theme = useTheme();
 
+  const assetSeries = {
+    cashShortTermInvestments: checkValue(
+      companyReports.annualReports[0].cashAndShortTermInvestments
+    ),
+    inventory: checkValue(companyReports.annualReports[0].inventory),
+    receivables: checkValue(
+      companyReports.annualReports[0].currentNetReceivables
+    ),
+    physicalAsssets: checkValue(
+      companyReports.annualReports[0].propertyPlantEquipment
+    ),
+    deprecationAndAmortisation: checkValue(
+      companyReports.annualReports[0].accumulatedDepreciationAmortizationPPE
+    ),
+    intangibleAssets: checkValue(
+      companyReports.annualReports[0].intangibleAssets
+    ),
+    longTermInvestements: checkValue(
+      companyReports.annualReports[0].longTermInvestments
+    ),
+    otherCurrentAssets: checkValue(
+      companyReports.annualReports[0].otherCurrentAssets
+    ),
+    otherNonCurrentAssets: checkValue(
+      companyReports.annualReports[0].otherNonCurrrentAssets
+    ),
+  };
+
   const assets = [
     {
       data: [
         {
-          x: 'Cash & Short term Investments',
-          y: companyReports.annualReports[0].cashAndShortTermInvestments,
+          x: checkName(
+            assetSeries.cashShortTermInvestments,
+            'Cash & Short term Investments'
+          ),
+          y: assetSeries.cashShortTermInvestments,
         },
         {
-          x: 'Inventory',
-          y: companyReports.annualReports[0].inventory,
+          x: checkName(assetSeries.inventory, 'Inventory'),
+          y: assetSeries.inventory,
         },
         {
-          x: 'Receivables',
-          y: companyReports.annualReports[0].currentNetReceivables,
+          x: checkName(assetSeries.receivables, 'Receivables'),
+          y: assetSeries.receivables,
         },
         {
-          x: 'Physical Assets',
-          y: companyReports.annualReports[0].propertyPlantEquipment,
+          x: checkName(assetSeries.physicalAsssets, 'Physical Assets'),
+          y: assetSeries.physicalAsssets,
         },
         {
-          x: 'Deprecation and Amortisation',
-          y:
-            companyReports.annualReports[0]
-              .accumulatedDepreciationAmortizationPPE,
+          x: checkName(
+            assetSeries.deprecationAndAmortisation,
+            'Deprecation and Amortisation'
+          ),
+          y: assetSeries.deprecationAndAmortisation,
         },
         {
-          x: 'Intangible Assets',
-          y: companyReports.annualReports[0].intangibleAssets,
+          x: checkName(assetSeries.intangibleAssets, 'Intangible Assets'),
+          y: assetSeries.intangibleAssets,
         },
         {
           x: 'Longterm & Other Assets',
           y:
-            companyReports.annualReports[0].longTermInvestments * 1 +
-            companyReports.annualReports[0].otherCurrentAssets * 1 +
-            companyReports.annualReports[0].otherNonCurrrentAssets * 1,
+            // multiplied by 1 to avoid weird string concatenation error
+            assetSeries.longTermInvestements * 1 +
+            assetSeries.otherCurrentAssets * 1 +
+            assetSeries.otherNonCurrentAssets * 1,
         },
       ],
     },
   ];
 
+  const equitiesSeries = {
+    equity: checkValue(companyReports.annualReports[0].totalShareholderEquity),
+    otherCurrentLiabilities: checkValue(
+      companyReports.annualReports[0].otherCurrentLiabilities
+    ),
+    otherNonCurrentLiabilities: checkValue(
+      companyReports.annualReports[0].otherNonCurrentLiabilities
+    ),
+    accountsPayable: checkValue(
+      companyReports.annualReports[0].currentAccountsPayable
+    ),
+    defferedRevenue: checkValue(
+      companyReports.annualReports[0].deferredRevenue
+    ),
+    capitalLeaseObligations: checkValue(
+      companyReports.annualReports[0].capitalLeaseObligations
+    ),
+    retainedEarnings: checkValue(
+      companyReports.annualReports[0].retainedEarnings
+    ),
+    debt: checkValue(companyReports.annualReports[0].currentDebt),
+  };
+
   const liabilitiesEquities = [
     {
       data: [
         {
-          x: 'Equity',
-          y: companyReports.annualReports[0].totalShareholderEquity,
+          x: checkName(equitiesSeries.equity, 'Equity'),
+          y: equitiesSeries.equity,
         },
         {
           x: 'Other Liabilities',
           y:
-            companyReports.annualReports[0].otherCurrentLiabilities * 1 +
-            companyReports.annualReports[0].otherNonCurrentLiabilities * 1,
+            // multiplied by 1 to avoid weird string concatenation error
+            equitiesSeries.otherCurrentLiabilities * 1 +
+            equitiesSeries.otherNonCurrentLiabilities * 1,
         },
         {
-          x: 'Accounts Payable',
-          y: companyReports.annualReports[0].currentAccountsPayable,
+          x: checkName(equitiesSeries.accountsPayable, 'Accounts Payable'),
+          y: equitiesSeries.accountsPayable,
         },
         {
-          x: 'Deffered Revenue',
-          y: companyReports.annualReports[0].deferredRevenue,
+          x: checkName(equitiesSeries.defferedRevenue, 'Deffered Revenue'),
+          y: equitiesSeries.defferedRevenue,
         },
         {
-          x: 'Capital Lease Obligations',
-          y: companyReports.annualReports[0].capitalLeaseObligations,
+          x: checkName(
+            equitiesSeries.capitalLeaseObligations,
+            'Capital Lease Obligations'
+          ),
+          y: equitiesSeries.capitalLeaseObligations,
         },
         {
-          x: 'Retained Earnings',
-          y: companyReports.annualReports[0].retainedEarnings,
+          x: checkName(equitiesSeries.retainedEarnings, 'Retained Earnings'),
+          y: equitiesSeries.retainedEarnings,
         },
         {
           x: '',
           y: 0,
         },
         {
-          x: 'Debt',
-          y: companyReports.annualReports[0].currentDebt,
+          x: checkName(equitiesSeries.debt, 'Debt'),
+          y: equitiesSeries.debt,
         },
       ],
     },
@@ -192,6 +289,8 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
             <div className={classes.titleWrapper}>
               <h5 className={classes.boxTitles}>
                 {t('analyser.details.BalanceSheet.Assets')}
+                <>&nbsp;</>
+                <InfoButton infotext="Assets are super important!!!" />
               </h5>
             </div>
           </div>
@@ -208,6 +307,8 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
             <div className={classes.titleWrapper}>
               <h5 className={classes.boxTitles}>
                 {t('analyser.details.BalanceSheet.Liabilities')}
+                <>&nbsp;</>
+                <InfoButton infotext="Liabilities and Equities also pretty important!" />
               </h5>
             </div>
           </div>

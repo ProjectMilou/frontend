@@ -232,6 +232,9 @@
   "portfolio.dialog.addStock.text": "Change the values below to modify the amount of this stock in your portfolios.",
   "analyser.detail.dividend.payoutratio": "Dividend Payout Ratio",
   "analyser.detail.dividend.yield": "Dividend Yield",
+  "analyser.details.DividendYield.infoButton": "It is the amount of money a company pays shareholders for owning a share of its stock divided by its current stock price. However, higher dividend yields do not always indicate attractive investment opportunities because the dividend yield of a stock may be elevated as the result of a declining stock price.",
+  "analyser.details.DividendPayoutRatio.infoButton": "The proportion of earnings paid out as dividends to shareholders, typically expressed as a percentage. If a company pays out some of its earnings as dividends, the remaining portion is retained by the business.",
+  "analyser.details.NextDate.infoButton": "The actual day when a company pays its eligible shareholders dividends.",
   "shell.profile.profile-header": "Profile",
   "shell.profile.account-details.header": "Account Details",
   "shell.profile.account-details.email": "Email",
@@ -244,5 +247,8 @@
   "shell.profile.account-details.delete-dialog.description": "Deleting your account is irreversible. All your data will be deleted!",
   "shell.profile.account-details.delete-dialog.ok": "OK",
   "shell.profile.account-details.delete-dialog.cancel": "Cancel",
-  "shell.profile.account-details.add-bankconnection": "Add bank connection"
+  "shell.profile.account-details.add-bankconnection": "Add bank connection",
+  "company.website": "Website",
+  "company.mc": "Market Capitalization",
+  "company.exchange": "Exchange"
 }
