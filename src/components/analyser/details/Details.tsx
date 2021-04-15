@@ -68,7 +68,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
   const convertPerformance = (performance: API.StockHistricPerformanceList) => {
     const unixDataPoints: number[][] = [];
     performance.dataPoints.forEach((p) => {
-      const point: number[] = [Date.parse(p.date), p.close];
+      const point: number[] = [Date.parse(p.date), parseFloat(p.close)];
       unixDataPoints.push(point);
     });
     return unixDataPoints.reverse();
@@ -209,7 +209,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
         companyReports &&
         analystRecommendations && (
           <div>
-            <DetailsHeader back={back} details={stockOverview} />
+            <DetailsHeader back={back} stock={stockOverview} />
             <Container className={classes.mainContent}>
               <DetailsOverview
                 stockOverview={stockOverview}
