@@ -7,13 +7,19 @@ import {
   createStyles,
   Theme,
   Typography,
+  Grid,
+  Paper,
+  ListItem,
+  List,
+  Accordion,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Stock, StockDetails } from '../../../analyser/APIClient';
 import TextOverText from '../TextOverText';
+import SectionDivider from './SectionDivider';
 
 // stylesheet for the Summary section
-const useStyles = makeStyles(({ palette }: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     titleContainer: {
       display: 'flex',
@@ -24,7 +30,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     },
     sectionTitle: {
       margin: 0,
-      color: palette.primary.main,
+      color: theme.palette.primary.main,
       // TODO use theme fontsize and weight
       fontSize: '2.25rem',
       fontWeight: 400,
@@ -43,7 +49,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     },
     infoBox: {
       outlineStyle: 'solid',
-      outlineColor: 'grey',
+      outlineColor: 'ba',
       outlineWidth: '0.15rem',
       margin: '1rem 0',
     },
@@ -69,10 +75,13 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       marginTop: '2rem',
     },
     imageWrapper: {
-      display: 'flex',
-      width: '20rem',
-      height: '20rem',
-      flexBasis: '35%',
+      width: "100%"
+    },
+
+    paper: {
+      padding: theme.spacing(2),
+      margin: 'auto',
+      maxWidth: 500,
     },
     // TODO center image vertically
     imageContainer: {
@@ -83,8 +92,8 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       maxHeight: '90%',
     },
     lineChartWrapper: {
-      width: '40rem',
-      height: '20rem',
+      MaxWidth: '10rem',
+      MaxHeight: '0rem',
       flexBasis: '60%',
       display: 'flex',
       flexDirection: 'column',
@@ -127,23 +136,12 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
   }
 
   return (
-    <div>
-      <div className={classes.titleContainer}>
-        <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionTitle}>
-            {t('analyser.details.summaryHeader')}
-          </h2>
-        </div>
-        <div className={classes.lineWrapper}>
-          <hr className={classes.line} />
-        </div>
-      </div>
-      <div className={classes.infoBox}>
-        <div className={classes.infoValueContainer}>
-          <div
-            className={classes.infoValueWrapper}
-            style={{ flexBasis: '55%' }}
-          >
+    <>
+      <SectionDivider section= {t('analyser.details.summaryHeader')}/>
+      <Grid container spacing={1} >
+      <Grid container xs={12} justify="space-around" direction="row" className={classes.infoBox}>
+        
+          <Grid item>
             {/* country */}
             <TextOverText
               top={`${stockOverview.country}`}
@@ -151,15 +149,12 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
               colorTop={theme.palette.primary.dark}
               colorBottom={theme.palette.primary.dark}
             />
-          </div>
+          </Grid>
 
           {/* devider 2 */}
           <hr className={classes.vl} />
           {/* box section 3 */}
-          <div
-            className={classes.infoValueWrapper}
-            style={{ flexBasis: '55%' }}
-          >
+          <Grid item>
             {/* currency */}
             <TextOverText
               top={`${stockOverview.currency}`}
@@ -167,15 +162,12 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
               colorTop={theme.palette.primary.light}
               colorBottom={theme.palette.primary.dark}
             />
-          </div>
+          </Grid>
 
           {/* devider 2 */}
           <hr className={classes.vl} />
           {/* box section 3 */}
-          <div
-            className={classes.infoValueWrapper}
-            style={{ flexBasis: '55%' }}
-          >
+          <Grid item>
             {/* industry */}
             <TextOverText
               top={`${stockOverview.industry}`}
@@ -183,15 +175,12 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
               colorTop={theme.palette.primary.light}
               colorBottom={theme.palette.primary.dark}
             />
-          </div>
+          </Grid>
 
           {/* devider 2 */}
           <hr className={classes.vl} />
           {/* box section 3 */}
-          <div
-            className={classes.infoValueWrapper}
-            style={{ flexBasis: '55%' }}
-          >
+          <Grid item>
             {/* dividend */}
             <TextOverText
               top={convertToPercent(stockOverview.div)}
@@ -199,35 +188,53 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
               colorTop={convertPerformanceToColor(stockOverview.div)}
               colorBottom={theme.palette.primary.dark}
             />
-          </div>
-        </div>
-      </div>
+          </Grid>
+      </Grid>
+    
       {/* Picture and description of company */}
-      <div className={classes.chartContainer}>
-        <div className={classes.imageWrapper}>
+      
+      <Grid container alignItems="flex-start" justify="space-evenly" direction="row" spacing={5}>
+        <Grid item xs={3}>
+          <Paper className={classes.paper}>
           <img
-            className={classes.imageContainer}
+            className={classes.imageWrapper}
             alt="Company Pictrue"
             src={stockOverview.picture.toString()}
           />
-        </div>
-        <div className={classes.lineChartWrapper}>
-          {/* Nier format */}
+          </Paper>
+
+        </Grid>
+        <Grid item xs={9}>
+          <List>
+            <ListItem>
+              <Accordion>
           <Typography className={classes.intro}>
             {stockDetails.intro}
           </Typography>
+          </Accordion>
+          </ListItem>
+          <ListItem>
           <Typography className={classes.intro}>
             {t('stock.founded')}: {stockDetails.founded}
           </Typography>
+          </ListItem>
+          <ListItem>
           <Typography className={classes.intro}>
             {t('stock.fullTimeEmployees')}: {stockDetails.employees}
           </Typography>
+          </ListItem>
+          <ListItem>
           <Typography className={classes.intro}>
             {t('stock.address')}: {stockDetails.address}
           </Typography>
-        </div>
-      </div>
-    </div>
+          </ListItem>
+          </List>
+        </Grid>
+      </Grid>
+      
+      </Grid>
+
+    </>
   );
 };
 

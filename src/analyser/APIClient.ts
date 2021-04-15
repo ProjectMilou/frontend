@@ -43,6 +43,7 @@ type StockList = {
 };
 
 // Stock details
+// all strings since there are probmens in backend
 export type StockDetails = {
   symbol: string;
   analystTargetPrice: string;
