@@ -15,7 +15,7 @@ import Login from '../shell/login/Login';
 import UserService from '../../services/UserService';
 import SearchBar from '../analyser/search/SearchBar';
 import Register from '../shell/register/Register';
-import ForgotPassword from '../shell/forgotPassword/ForgotPassword';
+import ForgotPassword from '../shell/reset/Reset';
 import { Context } from '../../state/context';
 
 const useStyles = makeStyles((theme: Theme) =>

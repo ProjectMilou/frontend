@@ -3,8 +3,8 @@ import { makeStyles, createStyles, useTheme } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import PropTypes from 'prop-types';
 import logo from '../../../assets/images/logo1.png';
-import ForgotPasswordForm from './ForgotPasswordForm';
-import ForgotPasswordSuccessWindow from './ForgotPasswordSuccessWindow';
+import ForgotPasswordForm from './ResetForm';
+import ForgotPasswordSuccessWindow from './ResetSuccessWindow';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
