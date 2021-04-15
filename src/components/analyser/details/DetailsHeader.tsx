@@ -103,25 +103,26 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
               size="35px"
               paintJob= {theme.palette.background.default}
             />
-            <TextOverText
-              top={`${details.per1d}%`}
-              bottom={t('stock.1d')}
-              colorTop={convertPercentToColor(details.per1d)}
-              colorBottom= {theme.palette.background.default}
-            />
-            <>&emsp;&emsp;</>
+            <>&nbsp;&emsp;</>
             <TextOverText
               top={`${details.per7d}%`}
               bottom={t('stock.7d')}
-              colorTop={convertPercentToColor(details.per7d)}
-              colorBottom="#EEF1FB"
+              colorTop={convertPercentToColor(details.per1d)}
+              colorBottom= {theme.palette.background.default}
             />
-            <>&emsp;&emsp;</>
+            <>&nbsp;&emsp;</>
             <TextOverText
               top={`${details.per30d}%`}
               bottom={t('stock.30d')}
+              colorTop={convertPercentToColor(details.per7d)}
+              colorBottom= {theme.palette.background.default}
+            />
+            <>&nbsp;&emsp;</>
+            <TextOverText
+              top={`${details.per365d}%`}
+              bottom={t('stock.365d')}
               colorTop={convertPercentToColor(details.per30d)}
-              colorBottom="#EEF1FB"
+              colorBottom= {theme.palette.background.default}
             />
           </div>
           <Typography className={classes.wknIsin}>
