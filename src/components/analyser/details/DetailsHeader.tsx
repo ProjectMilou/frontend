@@ -105,21 +105,21 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
             />
             <>&nbsp;&emsp;</>
             <TextOverText
-              top={`${details.per7d}%`}
+              top={`${details.per7d.slice(0, -1)}%`}
               bottom={t('stock.7d')}
               colorTop={convertPercentToColor(parseInt(details.per7d, 10))}
               colorBottom= {theme.palette.background.default}
             />
             <>&nbsp;&emsp;</>
             <TextOverText
-              top={`${details.per30d}%`}
+              top={`${details.per30d.slice(0, -1)}%`}
               bottom={t('stock.30d')}
               colorTop={convertPercentToColor(parseInt(details.per30d, 10))}
               colorBottom= {theme.palette.background.default}
             />
             <>&nbsp;&emsp;</>
             <TextOverText
-              top={`${details.per365d}%`}
+              top={`${details.per365d.slice(0, -1)}%`}
               bottom={t('stock.365d')}
               colorTop={convertPercentToColor(parseInt(details.per365d, 10))}
               colorBottom= {theme.palette.background.default}
