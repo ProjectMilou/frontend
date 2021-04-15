@@ -98,7 +98,7 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
             <>&emsp;&emsp;&emsp;</>
             <StyledNumberFormat
               // Fix: Divided by 1 because Back-End only provides string
-              value={parseInt(details.price, 10)}
+              value={parseFloat(details.price)}
               suffix="€"
               size="35px"
               paintJob= {theme.palette.background.default}
@@ -107,21 +107,21 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
             <TextOverText
               top={`${details.per7d.slice(0, -1)}%`}
               bottom={t('stock.7d')}
-              colorTop={convertPercentToColor(parseInt(details.per7d, 10))}
+              colorTop={convertPercentToColor(parseFloat(details.per7d))}
               colorBottom= {theme.palette.background.default}
             />
             <>&nbsp;&emsp;</>
             <TextOverText
               top={`${details.per30d.slice(0, -1)}%`}
               bottom={t('stock.30d')}
-              colorTop={convertPercentToColor(parseInt(details.per30d, 10))}
+              colorTop={convertPercentToColor(parseFloat(details.per30d))}
               colorBottom= {theme.palette.background.default}
             />
             <>&nbsp;&emsp;</>
             <TextOverText
               top={`${details.per365d.slice(0, -1)}%`}
               bottom={t('stock.365d')}
-              colorTop={convertPercentToColor(parseInt(details.per365d, 10))}
+              colorTop={convertPercentToColor(parseFloat(details.per365d))}
               colorBottom= {theme.palette.background.default}
             />
           </div>
