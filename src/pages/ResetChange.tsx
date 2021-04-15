@@ -6,9 +6,11 @@ import {
   createStyles,
   useTheme,
   Typography,
+  Button,
 } from '@material-ui/core';
 import { RouteComponentProps } from '@reach/router';
 import ResetChangeForm from '../components/shell/reset/ResetChangeForm';
+import { State } from '../components/shell/login/Login';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -43,11 +45,20 @@ const ResetChange: React.FC<ResetChangeProps> = (props) => {
         )}
 
         {resetState === 'resetConfirmed' && (
-          <Typography>Successfully changed your password</Typography>
+          <Typography variant="h5" align="center">
+            Successfully changed your password
+          </Typography>
         )}
 
         {resetState === 'resetFailed' && (
-          <Typography>Something happened</Typography>
+          <>
+            <Typography variant="h5" align="center" gutterBottom>
+              Something went wrong
+            </Typography>
+            <Typography variant="body1" align="center">
+              Please start the process again
+            </Typography>
+          </>
         )}
       </Paper>
     </Container>
