@@ -46,12 +46,83 @@ type StockList = {
 // all strings since there are probmens in backend
 export type StockDetails = {
   symbol: string;
-  intro: string;
-  founded: number;
-  website: URL;
-  fullTimeEmployees: number;
+  analystTargetPrice: string;
+  country: string;
+  currency: string;
+  date: string;
+  industry: string;
+  marketCapitalization: string;
+  name: string;
+  valuation: string;
+  per1d: string;
+  per30d: string;
+  per7d: string;
+  per365d: string;
   address: string;
-  assenmbly: Date;
+  assembly: string;
+  div: string;
+  employees: string;
+  founded: string;
+  growth: string;
+  isin: string;
+  intro: string;
+  picture: string;
+  website: string;
+  wkn: string;
+  assetType: string;
+  beta: string;
+  bookValue: string;
+  cik: string;
+  dilutedEPSTTM: string;
+  dividendDate: string;
+  dividendPerShare: string;
+  ebitda: string;
+  eps: string;
+  evToEbitda: string;
+  evToRevenue: string;
+  exDividendDate: string;
+  exchange: string;
+  fiscalYearEnd: string;
+  forwardAnnualDividendRate: string;
+  forwardAnnualDividendYield: string;
+  forwardPE: string;
+  grossProfitTTM: string;
+  lastSplitDate: string;
+  lastSplitFactor: string;
+  latestQuarter: string;
+  operatingMarginTTMprofitMargin: string;
+  payoutRatio: string;
+  peRatio: string;
+  pegRatio: string;
+  per200DayMovingAverage: string;
+  per50DayMovingAverage: string;
+  per52WeekHigh: string;
+  per52WeekLow: string;
+  percentInsiders: string;
+  percentInstitutions: string;
+  priceToBookRatio: string;
+  priceToSalesRatioTTM: string;
+  profitMargin: string;
+  quarterlyEarningsGrowthYOY: string;
+  quarterlyRevenueGrowthYOY: string;
+  returnOnAssetsTTM: string;
+  returnOnEquityTTM: string;
+  revenuePerShareTTM: string;
+  revenueTTM: string;
+  sharesFloat: string;
+  sharesOutstanding: string;
+  sharesShort: string;
+  sharesShortPriorMonth: string;
+  shortPercentFloat: string;
+  shortPercentOutstanding: string;
+  shortRatio: string;
+  trailingPE: string;
+  price: string;
+  mcSize: string;
+};
+
+type StockDetailsAnswer = {
+  stocks: StockDetails[];
 };
 
 // historic performance data
@@ -62,7 +133,7 @@ export type StockHistricPerformanceList = {
 export type StockHistricPerformance = {
   _id: string;
   date: string;
-  close: number;
+  close: string;
 };
 
 export type CompanyReports = {
@@ -224,8 +295,8 @@ export async function stockDetails(
     token,
     'GET',
     `details?id=${symbol}`
-  )) as StockDetails;
-  return response;
+  )) as StockDetailsAnswer;
+  return response.stocks[0] as StockDetails;
 }
 
 /**

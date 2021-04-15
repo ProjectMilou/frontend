@@ -15,7 +15,7 @@ import * as API from '../../../analyser/APIClient';
 import StyledNumberFormat from '../../shared/StyledNumberFormat';
 
 export type DetailsProps = {
-  details: API.Stock;
+  stock: API.Stock;
   // function to return to the dashboard
   back: () => void;
 };
@@ -69,7 +69,7 @@ function chooseSymbol(val: API.Stock): string {
   return val.name.length > 15 ? val.symbol : val.name;
 }
 
-const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
+const DetailsHeader: React.FC<DetailsProps> = ({ stock, back }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const theme = useTheme();
@@ -94,42 +94,42 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
                 />
               </IconButton>
             </div>
-            {chooseSymbol(details)}
+            {chooseSymbol(stock)}
             <>&emsp;&emsp;&emsp;</>
             <StyledNumberFormat
               // Fix: Divided by 1 because Back-End only provides string
-              value={parseFloat(details.price)}
+              value={parseFloat(stock.price)}
               suffix="€"
               size="35px"
               paintJob={theme.palette.background.default}
             />
             <>&nbsp;&emsp;</>
             <TextOverText
-              top={`${details.per7d.slice(0, -1)}%`}
+              top={`${stock.per7d.slice(0, -1)}%`}
               bottom={t('stock.7d')}
-              colorTop={convertPercentToColor(parseFloat(details.per7d))}
+              colorTop={convertPercentToColor(parseFloat(stock.per7d))}
               colorBottom={theme.palette.background.default}
             />
             <>&nbsp;&emsp;</>
             <TextOverText
-              top={`${details.per30d.slice(0, -1)}%`}
+              top={`${stock.per30d.slice(0, -1)}%`}
               bottom={t('stock.30d')}
-              colorTop={convertPercentToColor(parseFloat(details.per30d))}
+              colorTop={convertPercentToColor(parseFloat(stock.per30d))}
               colorBottom={theme.palette.background.default}
             />
             <>&nbsp;&emsp;</>
             <TextOverText
-              top={`${details.per365d.slice(0, -1)}%`}
+              top={`${stock.per365d.slice(0, -1)}%`}
               bottom={t('stock.365d')}
-              colorTop={convertPercentToColor(parseFloat(details.per365d))}
+              colorTop={convertPercentToColor(parseFloat(stock.per365d))}
               colorBottom={theme.palette.background.default}
             />
           </div>
           <Typography className={classes.wknIsin}>
             <>WKN: </>
-            {details.wkn}
+            {stock.wkn}
             <> / ISIN: </>
-            {details.isin}
+            {stock.isin}
           </Typography>
         </Typography>
       </Container>

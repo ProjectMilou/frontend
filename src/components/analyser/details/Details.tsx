@@ -11,7 +11,7 @@ import { isAuthenticationError } from '../../../Errors';
 import * as API from '../../../analyser/APIClient';
 import ErrorMessage from '../../shared/ErrorMessage';
 import DetailsHeader from './DetailsHeader';
-import DetailsOverviewInfoBox from './DetailsOverview';
+import DetailsOverview from './DetailsOverview';
 import KeyFigures from './KeyFigures';
 import StockChart from '../../shared/StockChart';
 import Dividends from './Dividends';
@@ -67,7 +67,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
   const convertPerformance = (performance: API.StockHistricPerformanceList) => {
     const unixDataPoints: number[][] = [];
     performance.dataPoints.forEach((p) => {
-      const point: number[] = [Date.parse(p.date), p.close];
+      const point: number[] = [Date.parse(p.date), parseFloat(p.close)];
       unixDataPoints.push(point);
     });
     return unixDataPoints.reverse();
@@ -197,9 +197,9 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
         companyReports &&
         analystRecommendations && (
           <div>
-            <DetailsHeader back={back} details={stockOverview} />
+            <DetailsHeader back={back} stock={stockOverview} />
             <Container className={classes.mainContent}>
-              <DetailsOverviewInfoBox
+              <DetailsOverview
                 stockOverview={stockOverview}
                 stockDetails={stockDetails}
               />

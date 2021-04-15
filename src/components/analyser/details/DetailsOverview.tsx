@@ -50,6 +50,7 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
   const theme = useTheme();
   const { t } = useTranslation();
 
+  console.log(stockDetails)
   return (
     <>
       <SectionDivider section={t('analyser.details.summaryHeader')} />
@@ -58,6 +59,7 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
           stockOverview={stockOverview}
           stockDetails={stockDetails}
         />
+        <p>huhu</p>
         <Grid
           container
           alignItems="flex-start"
@@ -84,10 +86,10 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
                     id="panel2a-header"
                   >
                     <Typography className={classes.intro}>
-                      {stockDetails.intro}
+                      {t('stock.intro')}
                     </Typography>
                   </AccordionSummary>
-                  <AccordionDetails>Test</AccordionDetails>
+                  <AccordionDetails>{stockDetails.employees} Test2</AccordionDetails>
                 </Accordion>
               </ListItem>
               <ListItem>
@@ -98,7 +100,7 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
               <ListItem>
                 <Typography className={classes.intro}>
                   {t('stock.fullTimeEmployees')}:{' '}
-                  {stockDetails.fullTimeEmployees}
+                  {stockDetails.employees}
                 </Typography>
               </ListItem>
               <ListItem>
@@ -107,6 +109,9 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
                 </Typography>
               </ListItem>
             </List>
+            <Typography className={classes.intro}>
+                  {t('stock.address')}: {stockDetails.address}
+                </Typography>
           </Grid>
         </Grid>
       </Grid>
