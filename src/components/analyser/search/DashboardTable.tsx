@@ -202,11 +202,6 @@ const DashboardTableHeader: React.FC<DashboardTableHeaderProps> = ({
               onClick={createSortHandler(hc.id)}
             >
               {hc.label}
-              {orderByKey === hc.id ? (
-                <span>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </span>
-              ) : null}
             </TableSortLabel>
           </TableCell>
         ))}
