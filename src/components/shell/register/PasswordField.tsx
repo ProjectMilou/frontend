@@ -9,17 +9,18 @@ import {
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { UserInput, ErrorState } from '../utils';
+import { ErrorState, PasswordInput } from '../utils';
 
 interface PasswordFieldProps {
   hasError: ErrorState;
-  login: UserInput;
+  setError: React.Dispatch<React.SetStateAction<ErrorState>>;
+  login: PasswordInput;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const PasswordField: React.FC<PasswordFieldProps> = (props) => {
   const { t } = useTranslation();
-  const { hasError, login, handleChange } = props;
+  const { hasError, setError, login, handleChange } = props;
 
   const [showPassword, setShowPassword] = useState({
     password: false,
@@ -31,7 +32,7 @@ const PasswordField: React.FC<PasswordFieldProps> = (props) => {
       <FormControl
         fullWidth
         error={hasError.password !== ''}
-        style={{ margin: '10px 0' }}
+        style={{ margin: '8px 0' }}
       >
         <InputLabel htmlFor="password">{t('shell.password')}</InputLabel>
         <Input
@@ -62,7 +63,7 @@ const PasswordField: React.FC<PasswordFieldProps> = (props) => {
       <FormControl
         fullWidth
         error={hasError.confirmPassword !== ''}
-        style={{ margin: '10px 0' }}
+        style={{ margin: '8px 0' }}
       >
         <InputLabel htmlFor="password">{t('shell.confirmPassword')}</InputLabel>
         <Input
@@ -70,6 +71,17 @@ const PasswordField: React.FC<PasswordFieldProps> = (props) => {
           type={showPassword.confirmPassword ? 'text' : 'password'}
           value={login.confirmPassword}
           onChange={handleChange}
+          onBlur={() => {
+            if (login.password !== login.confirmPassword) {
+              setError({
+                ...hasError,
+                confirmPassword: [
+                  t('error.confirmPassword'),
+                  t('error.retry'),
+                ].join(' '),
+              });
+            }
+          }}
           inputProps={{ 'data-testid': 'confirm-password' }}
           endAdornment={
             <InputAdornment position="end">

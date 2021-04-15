@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Toolbar } from '@material-ui/core';
 import DividendRatioDonut from '../../shared/DividendRatioDonut';
 import DividendLineChart from '../../shared/DividendLineChart';
+import DividendsRR from './DividendsRR';
 import InfoButton from '../../shared/InfoButton';
 
 // props type declaration
@@ -165,6 +166,8 @@ const Dividends: React.FC<DetailsProps> = ({ series }) => {
           />
         </div>
       </div>
+
+      <DividendsRR dividend={dividendYield} payoutRatio={ratio} />
     </div>
   );
 };
