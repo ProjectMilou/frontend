@@ -1,9 +1,11 @@
 import React, { ReactElement } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import { Toolbar } from '@material-ui/core';
 import DividendRatioDonut from '../../shared/DividendRatioDonut';
 import DividendLineChart from '../../shared/DividendLineChart';
 import DividendsRR from './DividendsRR';
+import InfoButton from '../../shared/InfoButton';
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
   createStyles({
@@ -77,7 +79,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       whiteSpace: 'nowrap',
     },
     infoTitleP: {
-      margin: '0.5rem 0',
+      margin: '0.5rem 0.5rem',
     },
   })
 );
@@ -85,17 +87,21 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
 // type declarations
 type InfoBlockProps = {
   title: string;
+  info: string;
   body: ReactElement;
 };
 
 // returns the details page header
-const InfoBlock: React.FC<InfoBlockProps> = ({ title, body }) => {
+const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.infoWrapper}>
       <div className={classes.infoTitle}>
-        <p className={classes.infoTitleP}>{title}</p>
+        <Toolbar disableGutters>
+          <p className={classes.infoTitleP}>{title}</p>
+          <InfoButton infotext={info}> </InfoButton>
+        </Toolbar>
       </div>
       <div className={classes.infoBody}>{body}</div>
     </div>
@@ -140,16 +146,19 @@ const Dividends: React.FC = () => {
           {/* right side with info */}
           <InfoBlock
             title={t('analyser.details.DividendYield')}
+            info={t('analyser.details.DividendYield.infoButton')}
             body={
               <p style={{ margin: 0 }}>{(dividendYield * 100).toFixed(2)}%</p>
             }
           />
           <InfoBlock
             title={t('analyser.details.DividendPayoutRatio')}
+            info={t('analyser.details.DividendPayoutRatio.infoButton')}
             body={<DividendRatioDonut ratio={ratio} />}
           />
           <InfoBlock
             title={t('analyser.details.NextDate')}
+            info={t('analyser.details.NextDate.infoButton')}
             body={<p style={{ margin: 0 }}>14.04.2021</p>}
           />
         </div>
