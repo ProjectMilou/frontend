@@ -73,8 +73,8 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
           <TextOverText
             top={`${stockOverview.country}`}
             bottom={t('stock.country')}
-            colorTop={theme.palette.primary.light}
-            colorBottom={theme.palette.primary.dark}
+            colorTop={theme.palette.lightBlue.main}
+            colorBottom={theme.palette.primary.main}
           />
         </Grid>
 
@@ -86,8 +86,8 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
           <TextOverText
             top={`${stockOverview.currency}`}
             bottom={t('stock.currency')}
-            colorTop={theme.palette.primary.light}
-            colorBottom={theme.palette.primary.dark}
+            colorTop={theme.palette.lightBlue.main}
+            colorBottom={theme.palette.primary.main}
           />
         </Grid>
 
@@ -99,8 +99,8 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
           <TextOverText
             top={`${stockOverview.industry}`}
             bottom={t('stock.industry')}
-            colorTop={theme.palette.primary.light}
-            colorBottom={theme.palette.primary.dark}
+            colorTop={theme.palette.lightBlue.main}
+            colorBottom={theme.palette.primary.main}
           />
         </Grid>
 
@@ -113,7 +113,7 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
             top={convertToPercent(stockOverview.div)}
             bottom={t('stock.div')}
             colorTop={convertPerformanceToColor(stockOverview.div)}
-            colorBottom={theme.palette.primary.dark}
+            colorBottom={theme.palette.primary.main}
           />
         </Grid>
       </Grid>
