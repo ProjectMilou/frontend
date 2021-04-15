@@ -32,11 +32,17 @@ describe('Details Edit', () => {
   test('renders and the buttons work', () => {
     render(
       <ThemeProvider theme={theme}>
-        <DetailsEdit positions={mockPositions} edit={jest.fn()} />
+        <DetailsEdit positions={mockPositions} edit={jest.fn()} id="test" />
       </ThemeProvider>
     );
-    const editButton = screen.getByText('portfolio.details.editPortfolio');
-    userEvent.click(editButton);
-    screen.getByText('portfolio.dialog.edit.title');
+    const editButton = screen.queryByText('portfolio.details.editPortfolio');
+    if (editButton) {
+      userEvent.click(editButton);
+      screen.getByText('portfolio.dialog.edit.title');
+    } else {
+      // in case a real portfolio is loaded the edit button displays different text
+      // here use get because if the query above failed this MUST exist
+      screen.getByText('portfolio.details.cannotEditPortfolio');
+    }
   });
 });

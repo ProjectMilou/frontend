@@ -77,6 +77,8 @@ const Details: React.FC<RouteComponentProps> = () => {
     <div>
       <div className={classes.topBanner}>
         <DetailsHeader
+          id={id}
+          virtual={portfolioDetails?.overview.virtual}
           name={portfolioDetails?.overview.name}
           positions={portfolioDetails?.positions}
           editPositions={async (modifications) => {
