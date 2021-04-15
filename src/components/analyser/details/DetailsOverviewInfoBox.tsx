@@ -5,7 +5,6 @@ import {
   useTheme,
   makeStyles,
   createStyles,
-  Theme,
   Grid,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +12,7 @@ import { Stock, StockDetails } from '../../../analyser/APIClient';
 import TextOverText from '../TextOverText';
 
 // stylesheet for the Summary section
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     infoBox: {
       outlineStyle: 'solid',
@@ -59,8 +58,6 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
   function convertToPercent(num: number): string {
     return `${num}%`;
   }
-
-  console.log(stockOverview.div)
 
   return (
     <>
