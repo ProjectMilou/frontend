@@ -93,7 +93,8 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, id }) => {
       <Section title={t('portfolio.details.risk')}>
         <DetailsMainRisk
           risk={portfolio.risk}
-          positions={portfolio.positions}
+          sharpeRatio={portfolio.analytics.sharpeRatio}
+          treynorRatio={portfolio.analytics.treynorRatio}
         />
       </Section>
       <Section title={t('portfolio.details.keyfigures')}>
