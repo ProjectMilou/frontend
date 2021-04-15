@@ -79,7 +79,7 @@ const Details: React.FC<RouteComponentProps> = () => {
         {/* TODO input real id and virtual */}
         <DetailsHeader
           id="CHANGE TO REAL ID"
-          virtual
+          virtual={false}
           name={portfolioDetails?.overview.name}
           positions={portfolioDetails?.positions}
           editPositions={async (modifications) => {

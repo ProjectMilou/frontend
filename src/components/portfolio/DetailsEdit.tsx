@@ -11,12 +11,19 @@ import { TableCell } from '@material-ui/core';
 import { Position, PositionQty } from '../../portfolio/APIClient';
 import EditDialog from './EditDialog';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
+import DuplicateDialog from './DuplicateDialog';
+import * as API from '../../portfolio/APIClient';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    editButton: {
-      position: 'absolute',
-      left: '6rem',
+    subContainer: {
+      height: '50%',
+      display: 'flex',
+      alignItems: 'center',
+    },
+    button: {
+      margin: '0 1rem',
+      left: '3rem',
       padding: '0.25rem 1rem',
       backgroundColor: theme.palette.lightBlue.main,
       '&:hover': {
@@ -31,31 +38,35 @@ type DetailsEditProps = {
   positions?: Position[];
   edit: (modifications: PositionQty[]) => Promise<void>;
   virtual: boolean;
+  id: string;
 };
 
 const DetailsEdit: React.FC<DetailsEditProps> = ({
   positions,
   edit,
   virtual,
+  id,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-
-  const [open, setOpen] = React.useState(false);
+  const [openDuplicate, setOpenDuplicate] = React.useState<boolean>(false);
+  const [openEdit, setOpenEdit] = React.useState(false);
 
   return (
-    <>
+    <div className={classes.subContainer}>
       <Button
         variant="contained"
-        className={classes.editButton}
-        onClick={() => setOpen(true)}
+        className={classes.button}
+        onClick={() => setOpenEdit(true)}
         disabled={!positions?.length || !virtual}
       >
-        {t('portfolio.details.editPortfolio')}
+        {virtual
+          ? t('portfolio.details.editPortfolio')
+          : t('portfolio.details.cannotEditPortfolio')}
       </Button>
       {positions && (
         <EditDialog
-          open={open}
+          open={openEdit}
           strikethroughCleared
           strings={{
             title: t('portfolio.dialog.edit.title'),
@@ -81,13 +92,33 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({
             }),
             {}
           )}
-          handleClose={() => setOpen(false)}
+          handleClose={() => setOpenEdit(false)}
           action={(v) =>
             edit(Object.entries(v).map(([symbol, qty]) => ({ symbol, qty })))
           }
         />
       )}
-    </>
+      <Button
+        variant="contained"
+        className={classes.button}
+        onClick={() => setOpenDuplicate(true)}
+      >
+        {t('portfolio.dialog.duplicate.title')}
+      </Button>
+      {/* adapted from Dashboard.tsx */}
+      {/* TODO use real name */}
+      <DuplicateDialog
+        initialName="CHANGE TO REAL NAME"
+        open={openDuplicate}
+        handleClose={() => setOpenDuplicate(false)}
+        duplicate={async (newName) => {
+          if (id) {
+            const newId = await API.duplicate(id, newName);
+            // TODO update list of portfolios in dashboard?
+          }
+        }}
+      />
+    </div>
   );
 };
 
