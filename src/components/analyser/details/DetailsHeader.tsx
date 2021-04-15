@@ -4,6 +4,8 @@ import {
   Container,
   makeStyles,
   Typography,
+  Theme,
+  createStyles,
 } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useTranslation } from 'react-i18next';
@@ -17,38 +19,44 @@ export type DetailsProps = {
   back: () => void;
 };
 
-const useStyles = makeStyles({
-  header: {
-    'background-color': '#0D1B3B',
-  },
-  text: {
-    'font-size': '35px',
-    color: '#EEF1FB',
-    padding: '50px 0',
-    minWidth: '50%',
-    maxWidth: '1000px',
-  },
-  price: {
-    paddingLeft: '6',
-  },
-  wknIsin: {
-    'font-size': '12px',
-    color: '#EEF1FB',
-    minWidth: '50%',
-    maxWidth: '1000px',
-    marginLeft: '100px',
-  },
-  infoValueWrapper: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    width: '100%',
-  },
-  backButtonContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    height: '100%',
-  },
-});
+const useStyles = makeStyles(({ palette }: Theme) =>
+  createStyles({
+    header: {
+      'background-color': '#0D1B3B',
+    },
+    text: {
+      'font-size': '35px',
+      color: '#EEF1FB',
+      padding: '50px 0',
+      minWidth: '50%',
+      maxWidth: '1000px',
+    },
+    price: {
+      paddingLeft: '6',
+    },
+    wknIsin: {
+      'font-size': '12px',
+      color: '#EEF1FB',
+      minWidth: '50%',
+      maxWidth: '1000px',
+      marginLeft: '100px',
+    },
+    infoValueWrapper: {
+      display: 'flex',
+      justifyContent: 'space-around',
+      width: '100%',
+      color: '#EEF1FB',
+    },
+    backButtonContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      height: '100%',
+    },
+    backButton: {
+      color: palette.background.default,
+    },
+  })
+);
 
 // TODO: no hard coded colors
 // takes a percent value and converts it to a color
@@ -63,6 +71,7 @@ function chooseSymbol(val: API.Stock): string {
 const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+
   return (
     <div className={classes.header}>
       <Container maxWidth="lg">
@@ -79,7 +88,7 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
               >
                 <ArrowBackIosIcon
                   fontSize="large"
-                  style={{ color: '#EEF1FB' }}
+                  className={classes.backButton}
                 />
               </IconButton>
             </div>
@@ -91,7 +100,6 @@ const DetailsHeader: React.FC<DetailsProps> = ({ details, back }) => {
               size="35px"
               paintJob="#EEF1FB"
             />
-            <>&emsp;&emsp;</>
             <TextOverText
               top={`${details.per1d}%`}
               bottom={t('stock.1d')}
