@@ -58,7 +58,7 @@ export type DashboardTableRowProps = {
 };
 
 // Rounds and adds M=Million, B=Billion and K=Thousand --> American System!!!
-function moneyFormat(val: number): string {
+export function moneyFormat(val: number): string {
   let round = '';
   if (Math.abs(val) >= 1.0e9) {
     round = `€${Math.round(Math.abs(val) / 1.0e9)}B`;

@@ -1,12 +1,7 @@
 // Based on Portfolio DetailsOverview
 
 import React from 'react';
-import {
-  useTheme,
-  makeStyles,
-  createStyles,
-  Grid,
-} from '@material-ui/core';
+import { useTheme, makeStyles, createStyles, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Stock, StockDetails } from '../../../analyser/APIClient';
 import TextOverText from '../TextOverText';
@@ -27,9 +22,9 @@ const useStyles = makeStyles(() =>
       // TODO: use theme color
       borderColor: 'grey',
     },
-    center : {
-      margin: 'auto'
-    }
+    center: {
+      margin: 'auto',
+    },
   })
 );
 
