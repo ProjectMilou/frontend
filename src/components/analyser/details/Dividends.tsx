@@ -10,7 +10,7 @@ import InfoButton from '../../shared/InfoButton';
 
 // props type declaration
 export type DetailsProps = {
-  stockOverview: API.Stock,
+  stockOverview: API.Stock;
   series: number[];
   cashFlowList: API.CashFlowList;
 };
@@ -109,13 +109,17 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
   );
 };
 
-const Dividends: React.FC<DetailsProps> = ({ stockOverview, series, cashFlowList }) => {
+const Dividends: React.FC<DetailsProps> = ({
+  stockOverview,
+  series,
+  cashFlowList,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const cashData: number[] = []
-  cashFlowList.annualReports.forEach(element => {
-    cashData.push(element.operatingCashflow/1000000);
+  const cashData: number[] = [];
+  cashFlowList.annualReports.forEach((element) => {
+    cashData.push(element.operatingCashflow / 1000000);
   });
   // TODO fetch data from backend
   // eslint-disable-next-line
@@ -132,9 +136,12 @@ const Dividends: React.FC<DetailsProps> = ({ stockOverview, series, cashFlowList
     },
   ]);
 
-  let ratio = (Math.round(stockOverview.dividendPerShare / stockOverview.revenuePerShareTTM * 100) / 100);
+  let ratio =
+    Math.round(
+      (stockOverview.dividendPerShare / stockOverview.revenuePerShareTTM) * 100
+    ) / 100;
   if (Number.isNaN(ratio)) {
-    ratio = 0.00;
+    ratio = 0.0;
   }
   const dividendYield = series[4];
   const dividendYieldText = (dividendYield * 100).toFixed(2);
@@ -166,7 +173,7 @@ const Dividends: React.FC<DetailsProps> = ({ stockOverview, series, cashFlowList
                 {' '}
                 {Number.isNaN(dividendYieldText)
                   ? `${dividendYieldText}|%`
-                  : " Dividend data is not found."}{' '}
+                  : ' Dividend data is not found.'}{' '}
               </p>
             }
           />

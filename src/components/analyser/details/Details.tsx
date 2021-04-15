@@ -235,9 +235,9 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
               <NewsComponent newsList={newsList} />
               <SectionDivider section="analyser.details.KeyFiguresHeader" />
               <KeyFigures />
-              <Dividends                 
+              <Dividends
                 stockOverview={stockOverview}
-                series={stockDividend} 
+                series={stockDividend}
                 cashFlowList={cashFlowList}
               />
               <BalanceSheetInfo companyReports={companyReports} />
