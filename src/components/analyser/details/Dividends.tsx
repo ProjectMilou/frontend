@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { Toolbar } from '@material-ui/core';
+import * as API from '../../../analyser/APIClient';
 import DividendRatioDonut from '../../shared/DividendRatioDonut';
 import DividendLineChart from '../../shared/DividendLineChart';
 import DividendsRR from './DividendsRR';
@@ -9,7 +10,9 @@ import InfoButton from '../../shared/InfoButton';
 
 // props type declaration
 export type DetailsProps = {
+  stockOverview: API.Stock,
   series: number[];
+  cashFlowList: API.CashFlowList;
 };
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
@@ -106,17 +109,21 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
   );
 };
 
-const Dividends: React.FC<DetailsProps> = ({ series }) => {
+const Dividends: React.FC<DetailsProps> = ({ stockOverview, series, cashFlowList }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
+  const cashData: number[] = []
+  cashFlowList.annualReports.forEach(element => {
+    cashData.push(element.operatingCashflow/1000000);
+  });
   // TODO fetch data from backend
   // eslint-disable-next-line
   const [seriesArray, setSeriesArray] = React.useState([
     {
       name: t('analyser.detail.dividend.payoutratio'),
       type: 'column',
-      data: [25.0, 20.35, 18.72, 21.9, 23.11],
+      data: cashData,
     },
     {
       name: t('analyser.detail.dividend.yield'),
@@ -125,8 +132,12 @@ const Dividends: React.FC<DetailsProps> = ({ series }) => {
     },
   ]);
 
-  const ratio = 0.25;
+  let ratio = (Math.round(stockOverview.dividendPerShare / stockOverview.revenuePerShareTTM * 100) / 100);
+  if (Number.isNaN(ratio)) {
+    ratio = 0.00;
+  }
   const dividendYield = series[4];
+  const dividendYieldText = (dividendYield * 100).toFixed(2);
   return (
     <div>
       <div className={classes.titleContainer}>
@@ -151,7 +162,12 @@ const Dividends: React.FC<DetailsProps> = ({ series }) => {
             title={t('analyser.details.DividendYield')}
             info={t('analyser.details.DividendYield.infoButton')}
             body={
-              <p style={{ margin: 0 }}>{(dividendYield * 100).toFixed(2)}%</p>
+              <p style={{ margin: 0 }}>
+                {' '}
+                {Number.isNaN(dividendYieldText)
+                  ? `${dividendYieldText}|%`
+                  : " Dividend data is not found."}{' '}
+              </p>
             }
           />
           <InfoBlock

@@ -51,6 +51,12 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
     companyReports,
     setCompanyReports,
   ] = React.useState<API.CompanyReports>();
+  const [
+    // eslint-disable-next-line
+    cashFlowList,
+    setCashFlowList,
+  ] = React.useState<API.CashFlowList>();
+
   // eslint-disable-next-line
   const [analystRecommendations, setAnalystRecommendations] = React.useState<
     API.AnalystsRecommendation[]
@@ -92,6 +98,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
       const sP = await API.stockPerformance(token, symbol, false);
       const sDiv = await API.stockDividend(token, symbol, false);
       const cR = await API.companyReports(token, symbol);
+      const cCash = await API.cashFlowList(token, symbol);
       const aR = await API.analystsRecommendations(token, symbol);
 
       if (isMounted.current) {
@@ -101,6 +108,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
         setStockPerformance(convertPerformance(sP));
         setStockDividend(convertDividend(sDiv));
         setCompanyReports(cR);
+        setCashFlowList(cCash);
         setNewsList([
           {
             headline: 'this is hot news, gamestonk is very high this week',
@@ -207,6 +215,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
         stockDetails &&
         newsList &&
         companyReports &&
+        cashFlowList &&
         analystRecommendations && (
           <div>
             <DetailsHeader back={back} stock={stockOverview} />
@@ -226,7 +235,11 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
               <NewsComponent newsList={newsList} />
               <SectionDivider section="analyser.details.KeyFiguresHeader" />
               <KeyFigures />
-              <Dividends series={stockDividend} />
+              <Dividends                 
+                stockOverview={stockOverview}
+                series={stockDividend} 
+                cashFlowList={cashFlowList}
+              />
               <BalanceSheetInfo companyReports={companyReports} />
               <Analysts
                 recommendations={analystRecommendations}

@@ -35,6 +35,8 @@ export type Stock = {
   industry: string;
   picture: URL;
   date: Date;
+  dividendPerShare: number;
+  revenuePerShareTTM: number;
 };
 
 // List of stocks
@@ -194,6 +196,45 @@ export type CompanyReport = {
   retainedEarnings: number;
   commonStock: number;
   commonStockSharesOutstanding: number;
+};
+
+export type CashFlowList = {
+  symbol: string;
+  annualReports: CashFlow[];
+  // quarterlyReports: CashFlow[];
+};
+
+export type CashFlow = {
+  _id: string;
+  fiscalDateEnding: number;
+  reportedCurrency: number;
+  operatingCashflow: number;
+  paymentsForOperatingActivities: number;
+  proceedsFromOperatingActivities: number;
+  changeInOperatingLiabilities: number;
+  changeInOperatingAssets: number;
+  depreciationDepletionAndAmortization: number;
+  capitalExpenditures: number;
+  changeInReceivables: number;
+  changeInInventory: number;
+  profitLoss: number;
+  cashflowFromInvestment: number;
+  cashflowFromFinancing: number;
+  proceedsFromRepaymentsOfShortTermDebt: number;
+  paymentsForRepurchaseOfCommonStock: number;
+  paymentsForRepurchaseOfEquity: number;
+  paymentsForRepurchaseOfPreferredStock: number;
+  dividendPayout: number;
+  dividendPayoutCommonStock: number;
+  dividendPayoutPreferredStock: number;
+  proceedsFromIssuanceOfCommonStock: number;
+  proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet: number;
+  proceedsFromIssuanceOfPreferredStock: number;
+  proceedsFromRepurchaseOfEquity: number;
+  proceedsFromSaleOfTreasuryStock: number;
+  changeInCashAndCashEquivalents: number;
+  changeInExchangeRate: number;
+  netIncome: number;
 };
 
 export type News = {
@@ -385,5 +426,23 @@ export async function analystsRecommendations(
     'GET',
     `charts/analysts?id=${symbol}`
   )) as AnalystsRecommendation[];
+  return response;
+}
+
+/**
+ * Gets company reports with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ */
+export async function cashFlowList(
+  token: string,
+  symbol: string
+): Promise<CashFlowList> {
+  const response = (await request(
+    token,
+    'GET',
+    `cashFlow?id=${symbol}`
+  )) as CashFlowList;
   return response;
 }
