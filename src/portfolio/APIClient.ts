@@ -647,5 +647,10 @@ export async function saveStockToPortfolios(
   symbol: string,
   modifications: PortfolioQty[]
 ): Promise<void> {
-  await request('PUT', `stock/${symbol}`, { modifications });
+  await request(
+    'PUT',
+    `stock/${symbol}`,
+    { modifications },
+    jsonContentTypeHeader
+  );
 }
