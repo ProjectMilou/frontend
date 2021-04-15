@@ -35,11 +35,14 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: '10px',
       maxWidth: '450px',
       width: '100%',
-      margin: theme.spacing(12.5, 'auto'),
+      margin: 'auto',
       height: 'min-content',
     },
     paper: {
       minWidth: '350px',
+    },
+    container: {
+      height: 'auto',
     },
   })
 );
@@ -112,7 +115,7 @@ const Header: React.FC = () => {
           open={state.openLogin}
           onClose={() => dispatch({ type: 'CLOSE_LOGIN' })}
           className={classes.dialog}
-          classes={{ paper: classes.paper }}
+          classes={{ paper: classes.paper, container: classes.container }}
         >
           <Login
             closePopUp={() => {
@@ -134,7 +137,7 @@ const Header: React.FC = () => {
           open={openRegister}
           onClose={() => setOpenRegister(false)}
           className={classes.dialog}
-          classes={{ paper: classes.paper }}
+          classes={{ paper: classes.paper, container: classes.container }}
         >
           <Register
             closePopUp={() => setOpenRegister(false)}
