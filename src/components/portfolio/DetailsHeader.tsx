@@ -46,7 +46,7 @@ export type DetailsHeaderProps = {
   // function to save modifications to portfolio positions
   editPositions: (modifications: PositionQty[]) => Promise<void>;
   // disables the Edit button if the portfolio is real
-  virtual: boolean;
+  virtual?: boolean;
 };
 
 // returns the details page header
@@ -78,6 +78,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
         edit={editPositions}
         virtual={virtual}
         id={id}
+        name={name}
       />
     </div>
   );

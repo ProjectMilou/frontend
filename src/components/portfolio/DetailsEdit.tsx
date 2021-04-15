@@ -37,7 +37,8 @@ const useStyles = makeStyles((theme: Theme) =>
 type DetailsEditProps = {
   positions?: Position[];
   edit: (modifications: PositionQty[]) => Promise<void>;
-  virtual: boolean;
+  virtual?: boolean;
+  name?: string;
   id: string;
 };
 
@@ -46,6 +47,7 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({
   edit,
   virtual,
   id,
+  name,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -106,9 +108,8 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({
         {t('portfolio.dialog.duplicate.title')}
       </Button>
       {/* adapted from Dashboard.tsx */}
-      {/* TODO use real name */}
       <DuplicateDialog
-        initialName="CHANGE TO REAL NAME"
+        initialName={name}
         open={openDuplicate}
         handleClose={() => setOpenDuplicate(false)}
         duplicate={async (newName) => {
