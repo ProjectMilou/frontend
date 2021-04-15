@@ -114,8 +114,9 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({
         handleClose={() => setOpenDuplicate(false)}
         duplicate={async (newName) => {
           if (id) {
-            const newId = await API.duplicate(id, newName);
             // TODO update list of portfolios in dashboard?
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const newId = await API.duplicate(id, newName);
           }
         }}
       />
