@@ -28,7 +28,7 @@ const useStyles = makeStyles(() =>
       borderColor: 'grey',
     },
     center : {
-      paddingTop: '1.15rem'
+      margin: 'auto'
     }
   })
 );
