@@ -82,7 +82,7 @@ const ResetChangeForm: React.FC<ResetChangeFormProps> = (props) => {
     <>
       <DialogContent>
         <Typography variant="h5" align="center">
-          Please enter your new password
+          {t('shell.resetChange.enterPassword')}
         </Typography>
         <PasswordField
           hasError={hasError}
@@ -114,7 +114,7 @@ const ResetChangeForm: React.FC<ResetChangeFormProps> = (props) => {
             login.password !== login.confirmPassword
           }
         >
-          submit
+          {t('submit')}
         </Button>
       </DialogActions>
     </>

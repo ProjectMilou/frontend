@@ -8,6 +8,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { RouteComponentProps } from '@reach/router';
+import { useTranslation } from 'react-i18next';
 import ResetChangeForm from '../components/shell/reset/ResetChangeForm';
 
 const useStyles = makeStyles((theme) =>
@@ -26,6 +27,7 @@ interface ResetChangeProps extends RouteComponentProps {
 
 const ResetChange: React.FC<ResetChangeProps> = (props) => {
   const { id, token } = props;
+  const { t } = useTranslation();
   const { formular } = useStyles(useTheme());
   type State = 'resetForm' | 'resetConfirmed' | 'resetFailed';
   const [resetState, setResetState] = useState<State>('resetForm');
@@ -44,17 +46,14 @@ const ResetChange: React.FC<ResetChangeProps> = (props) => {
 
         {resetState === 'resetConfirmed' && (
           <Typography variant="h5" align="center">
-            Successfully changed your password
+            {t('shell.resetChange.success')}
           </Typography>
         )}
 
         {resetState === 'resetFailed' && (
           <>
             <Typography variant="h5" align="center" gutterBottom>
-              Something went wrong
-            </Typography>
-            <Typography variant="body1" align="center">
-              Please start the process again
+              {t('error.retry')}
             </Typography>
           </>
         )}
