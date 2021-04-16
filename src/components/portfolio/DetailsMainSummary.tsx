@@ -4,8 +4,7 @@ import { useTranslation } from 'react-i18next';
 import ValueOverName from './ValueOverName';
 import DetailsDonut from './DetailsDonut';
 import StockChart from '../shared/StockChart';
-import Performance from '../shared/Performance';
-import EuroCurrency from '../shared/EuroCurrency';
+import StyledNumberFormat from '../shared/StyledNumberFormat';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 
 // stylesheet for the Summary section
@@ -373,21 +372,32 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
             {/* 7 day moving average */}
             <ValueOverName
               value={
-                <Performance value={portfolio.overview.perf7d} size="1em" />
+                <StyledNumberFormat
+                  value={portfolio.overview.perf7d}
+                  suffix="%"
+                  paintJob
+                />
               }
               name={t('portfolio.details.day7')}
             />
             {/* 1 year moving average */}
             <ValueOverName
               value={
-                <Performance value={portfolio.overview.perf1y} size="1em" />
+                <StyledNumberFormat
+                  value={portfolio.overview.perf1y}
+                  suffix="%"
+                  paintJob
+                />
               }
               name={t('portfolio.details.year')}
             />
             {/* total value */}
             <ValueOverName
               value={
-                <EuroCurrency value={portfolio.overview.value} size="1em" />
+                <StyledNumberFormat
+                  value={portfolio.overview.value}
+                  suffix="€"
+                />
               }
               name={t('portfolio.details.totalValue')}
             />
@@ -406,17 +416,17 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
             />
             {/* countries */}
             <ValueOverName
-              value={portfolio.risk.countries.count}
+              value={Object.keys(portfolio.risk.countries).length}
               name={t('portfolio.details.countries')}
             />
             {/* industries */}
             <ValueOverName
-              value={portfolio.risk.segments.count}
-              name={t('portfolio.details.industries')}
+              value={Object.keys(portfolio.risk.segments).length}
+              name={t('portfolio.details.segments')}
             />
             {/* currencies */}
             <ValueOverName
-              value={portfolio.risk.currency.count}
+              value={Object.keys(portfolio.risk.currency).length}
               name={t('portfolio.details.currencies')}
             />
           </div>

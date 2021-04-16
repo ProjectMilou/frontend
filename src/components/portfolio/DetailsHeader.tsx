@@ -3,6 +3,7 @@ import { IconButton, makeStyles, createStyles, Theme } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import DetailsEdit from './DetailsEdit';
 import { Position, PositionQty } from '../../portfolio/APIClient';
+import { portfolioDashboard } from '../../portfolio/Router';
 
 // stylesheet for the header of the details page
 const useStyles = makeStyles(({ typography }: Theme) =>
@@ -37,22 +38,24 @@ const useStyles = makeStyles(({ typography }: Theme) =>
 
 // type declaration of the header components props
 export type DetailsHeaderProps = {
-  // function to return to the dashboard
-  back: () => void;
+  id: string;
   // name of the portfolio
   name?: string;
   // list of positions
   positions?: Position[];
   // function to save modifications to portfolio positions
   editPositions: (modifications: PositionQty[]) => Promise<void>;
+  // disables the Edit button if the portfolio is real
+  virtual?: boolean;
 };
 
 // returns the details page header
 const DetailsHeader: React.FC<DetailsHeaderProps> = ({
-  back,
   name,
+  id,
   positions,
   editPositions,
+  virtual,
 }) => {
   const classes = useStyles();
 
@@ -62,7 +65,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
         <div className={classes.backButtonContainer}>
           <IconButton
             aria-label="back"
-            onClick={back}
+            onClick={() => portfolioDashboard()}
             style={{ backgroundColor: 'transparent' }}
           >
             <ArrowBackIosIcon fontSize="large" />
@@ -70,10 +73,15 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
         </div>
         <div>{name && <span className={classes.title}>{name}</span>}</div>
       </div>
-      <DetailsEdit positions={positions} edit={editPositions} />
+      <DetailsEdit
+        positions={positions}
+        edit={editPositions}
+        virtual={virtual}
+        id={id}
+        name={name}
+      />
     </div>
   );
 };
 
-// exports
 export default DetailsHeader;

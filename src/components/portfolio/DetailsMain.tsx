@@ -8,6 +8,8 @@ import DetailsMainKeyFigures from './DetailsMainKeyFigures';
 import DetailsMainDividens from './DetailsMainDividends';
 import DetailsMainAnalyst from './DetailsMainAnalyst';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
+import DetailsMainAnalytics from './DetailsMainAnalytics';
+import DetailMainBacktesting from './DetailsMainBacktesting';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -39,8 +41,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     lineWrapper: {
       display: 'flex',
       width: '100%',
-      // TODO: use theme color
-      borderColor: '#EEF1FB',
+      borderColor: palette.primary.contrastText,
     },
     line: {
       width: '100%',
@@ -74,9 +75,10 @@ const Section: React.FC<SectionProps> = ({ title, children }) => {
 
 type DetailsMainProps = {
   portfolio: NonEmptyPortfolioDetails;
+  id: string;
 };
 
-const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio }) => {
+const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, id }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -91,7 +93,8 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio }) => {
       <Section title={t('portfolio.details.risk')}>
         <DetailsMainRisk
           risk={portfolio.risk}
-          positions={portfolio.positions}
+          sharpeRatio={portfolio.analytics.sharpeRatio}
+          treynorRatio={portfolio.analytics.treynorRatio}
         />
       </Section>
       <Section title={t('portfolio.details.keyfigures')}>
@@ -101,7 +104,13 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio }) => {
         <DetailsMainDividens portfolio={portfolio} />
       </Section>
       <Section title={t('portfolio.details.analyst')}>
-        <DetailsMainAnalyst />
+        <DetailsMainAnalyst positions={portfolio.positions} />
+      </Section>
+      <Section title={t('portfolio.details.analytics')}>
+        <DetailsMainAnalytics portfolio={portfolio} />
+      </Section>
+      <Section title={t('portfolio.details.backtesting')}>
+        <DetailMainBacktesting id={id} />
       </Section>
     </div>
   );

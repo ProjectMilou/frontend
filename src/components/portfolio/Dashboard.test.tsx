@@ -7,7 +7,7 @@ import {
 } from '@testing-library/react';
 import * as React from 'react';
 import * as API from '../../portfolio/APIClient';
-import Dashboard, { DashboardProps } from './Dashboard';
+import Dashboard from './Dashboard';
 import { MockOverview, MockOverviewTwo } from '../../portfolio/APIMocks';
 import { AppError } from '../../Errors';
 
@@ -15,18 +15,7 @@ jest.mock('../../portfolio/APIClient');
 const mockAPI = API as jest.Mocked<typeof API>;
 
 describe('Dashboard', () => {
-  const defaultProps: DashboardProps = {
-    token: 'validToken',
-    selectPortfolio: jest.fn(),
-  };
-
-  const renderComponent = (newProps?: Partial<DashboardProps>) => {
-    const props = { ...defaultProps, ...newProps };
-    return {
-      ...render(<Dashboard {...props} />),
-      props,
-    };
-  };
+  const renderComponent = () => render(<Dashboard />);
 
   test('shows loading indicator', async () => {
     // keep loading forever

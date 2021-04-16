@@ -8,10 +8,12 @@ import {
   rename,
 } from './APIClient';
 import { MockDetails, MockOverview, MockOverviewTwo } from './APIMocks';
+import StorageService from '../services/StorageService';
 
 describe('Portfolio API client', () => {
   beforeEach(() => {
     fetchMock.resetMocks();
+    StorageService.setToken('dummy');
   });
 
   /**
@@ -29,7 +31,9 @@ describe('Portfolio API client', () => {
       fetchMock.mockRejectOnce(() =>
         Promise.reject(new Error('network error'))
       );
-      await expect(apiCall()).rejects.toMatchInlineSnapshot(`[Error: UNKNOWN]`);
+      await expect(apiCall()).rejects.toMatchInlineSnapshot(
+        `[Error: network error]`
+      );
     });
 
     test('rejects with JSON error', async () => {
@@ -44,7 +48,7 @@ describe('Portfolio API client', () => {
   };
 
   describe('list', () => {
-    const apiCall = () => list('');
+    const apiCall = () => list();
 
     // TODO: unskip when mock portfolio is removed
     test.skip('returns portfolios on success', async () => {
@@ -69,7 +73,7 @@ describe('Portfolio API client', () => {
   });
 
   describe('details', () => {
-    const apiCall = () => details('', '0');
+    const apiCall = () => details('0');
 
     test('resolves on success', async () => {
       fetchMock.mockResponseOnce(
@@ -89,7 +93,7 @@ describe('Portfolio API client', () => {
   });
 
   describe('rename', () => {
-    const apiCall = () => rename('', '0', 'newName');
+    const apiCall = () => rename('0', 'newName');
 
     test('resolves on success', async () => {
       fetchMock.mockResponseOnce(JSON.stringify({}));
@@ -100,7 +104,7 @@ describe('Portfolio API client', () => {
   });
 
   describe('duplicate', () => {
-    const apiCall = () => duplicate('', '0', 'newName');
+    const apiCall = () => duplicate('0', 'newName');
 
     test('resolves on success', async () => {
       fetchMock.mockResponseOnce(JSON.stringify({ id: '1' }));
@@ -111,7 +115,7 @@ describe('Portfolio API client', () => {
   });
 
   describe('delete', () => {
-    const apiCall = () => deletePortfolio('', '0');
+    const apiCall = () => deletePortfolio('0');
 
     test('resolves on success', async () => {
       fetchMock.mockResponseOnce(JSON.stringify({}));
@@ -122,7 +126,7 @@ describe('Portfolio API client', () => {
   });
 
   describe('create', () => {
-    const apiCall = () => create('', 'name');
+    const apiCall = () => create('name');
 
     test('resolves on success', async () => {
       fetchMock.mockResponseOnce(JSON.stringify({ id: '0' }));
@@ -133,7 +137,7 @@ describe('Portfolio API client', () => {
   });
 
   describe('modify', () => {
-    const apiCall = () => modify('', '0', [{ isin: '0', qty: 5 }]);
+    const apiCall = () => modify('0', [{ symbol: '0', qty: 5 }]);
 
     test('resolves on success', async () => {
       fetchMock.mockResponseOnce(JSON.stringify({}));

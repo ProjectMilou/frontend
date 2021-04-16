@@ -1,33 +1,40 @@
 import React, { useState } from 'react';
-import { makeStyles, useTheme } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  createStyles,
+  makeStyles,
+  Typography,
+  useTheme,
+} from '@material-ui/core';
+import { Trans } from 'react-i18next';
 import ClearIcon from '@material-ui/icons/Clear';
 import PropTypes from 'prop-types';
 import logo from '../../../assets/images/logo1.png';
 import RegisterForm from './RegisterForm';
-import RegisterFailedWindow from './RegisterFailedWindow';
-import RegisterConfirmWindow from './RegisterConfirmWindow';
 import { UserInput } from '../utils';
-import WelcomeWindow from '../login/WelcomeWindow';
 
-const useStyles = makeStyles({
-  dialog: {
-    backgroundColor: 'white',
-    borderRadius: '10px',
-    padding: '20px',
-    position: 'relative',
-  },
-  iconLogo: {
-    maxWidth: 150,
-    display: 'block',
-    margin: '10px auto',
-  },
-  iconClear: {
-    position: 'absolute',
-    right: '20px',
-    top: '20px',
-    cursor: 'pointer',
-  },
-});
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    dialog: {
+      backgroundColor: 'white',
+      borderRadius: theme.spacing(1),
+      padding: theme.spacing(2),
+      position: 'relative',
+    },
+    iconLogo: {
+      maxWidth: 150,
+      display: 'block',
+      margin: theme.spacing(1, 'auto'),
+    },
+    iconClear: {
+      position: 'absolute',
+      right: theme.spacing(2),
+      top: theme.spacing(2),
+      cursor: 'pointer',
+    },
+  })
+);
 
 interface RegisterProps {
   closePopUp: () => void;
@@ -39,11 +46,7 @@ const Register: React.FC<RegisterProps> = (props) => {
   const theme = useTheme();
   const { dialog, iconClear, iconLogo } = useStyles(theme);
 
-  type State =
-    | 'registerForm'
-    | 'registerSuccess'
-    | 'registerFail'
-    | 'registerConfirm';
+  type State = 'registerForm' | 'registerConfirmed' | 'registerFailed';
   const [registerState, setRegisterState] = useState<State>('registerForm');
 
   const [login, setLogin] = useState<UserInput>({
@@ -70,10 +73,10 @@ const Register: React.FC<RegisterProps> = (props) => {
       {registerState === 'registerForm' && (
         <RegisterForm
           onSuccess={() => {
-            setRegisterState('registerConfirm');
+            setRegisterState('registerConfirmed');
           }}
           onFail={() => {
-            setRegisterState('registerFail');
+            setRegisterState('registerFailed');
           }}
           goToLogin={goToLogin}
           login={login}
@@ -81,27 +84,36 @@ const Register: React.FC<RegisterProps> = (props) => {
         />
       )}
 
-      {registerState === 'registerConfirm' && (
-        <RegisterConfirmWindow
-          login={login}
-          onFail={() => {
-            setRegisterState('registerFail');
-          }}
-          registerConfirmed={() => {
-            setRegisterState('registerSuccess');
-          }}
-        />
+      {registerState === 'registerConfirmed' && (
+        <Box mt={3}>
+          <Trans
+            i18nKey="shell.message.confirmationEmail"
+            components={{
+              typography: <Typography align="center" />,
+              break: <br />,
+            }}
+          />
+        </Box>
       )}
 
-      {registerState === 'registerFail' && (
-        <RegisterFailedWindow goToLogin={goToLogin} />
-      )}
-
-      {registerState === 'registerSuccess' && (
-        <WelcomeWindow
-          closePopUp={closePopUp}
-          text={['Welcome to Milou!', 'You are registered.']}
-        />
+      {registerState === 'registerFailed' && (
+        <div>
+          <Trans
+            i18nKey="shell.message.haveAccount"
+            components={{
+              typography: <Typography align="center" />,
+              button: (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ margin: 'auto', marginTop: '8px' }}
+                  onClick={goToLogin}
+                />
+              ),
+              box: <Box justifyContent="center" display="flex" my={0.5} />,
+            }}
+          />
+        </div>
       )}
     </div>
   );

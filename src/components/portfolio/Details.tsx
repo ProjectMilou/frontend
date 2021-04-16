@@ -8,6 +8,7 @@ import {
   Container,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { RouteComponentProps, useParams } from '@reach/router';
 import DetailsHeader from './DetailsHeader';
 import DetailsMain from './DetailsMain';
 import * as API from '../../portfolio/APIClient';
@@ -36,28 +37,20 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
-// props type declaration
-export type DetailsProps = {
-  token: string;
-  id: string;
-  // function to return to the dashboard
-  back: () => void;
-};
-
 // functional component that takes the name of the portfolio and a function to switch back to the dashboard
 // returns the entire details page
-const Details: React.FC<DetailsProps> = ({ token, id, back }) => {
+const Details: React.FC<RouteComponentProps> = () => {
   const [portfolioDetails, setPortfolioDetails] = React.useState<
     API.PortfolioDetails | undefined
   >();
   const [error, setError] = React.useState<Error | undefined>(undefined);
-
+  const { id } = useParams();
   const isMounted = React.useRef(true);
 
   const fetch = async () => {
     setError(undefined);
     try {
-      const details = await API.details(token, id);
+      const details = await API.details(id);
       if (isMounted.current) {
         setPortfolioDetails(details);
       }
@@ -84,11 +77,12 @@ const Details: React.FC<DetailsProps> = ({ token, id, back }) => {
     <div>
       <div className={classes.topBanner}>
         <DetailsHeader
-          back={back}
+          id={id}
+          virtual={portfolioDetails?.overview.virtual}
           name={portfolioDetails?.overview.name}
           positions={portfolioDetails?.positions}
           editPositions={async (modifications) => {
-            await API.modify(token, id, modifications);
+            await API.modify(id, modifications);
             // reload portfolio details after successful edit
             await fetch();
           }}
@@ -121,6 +115,7 @@ const Details: React.FC<DetailsProps> = ({ token, id, back }) => {
           <div className={classes.main}>
             <DetailsMain
               portfolio={portfolioDetails as NonEmptyPortfolioDetails}
+              id={id}
             />
           </div>
         ) : (

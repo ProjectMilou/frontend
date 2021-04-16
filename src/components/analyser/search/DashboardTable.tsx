@@ -21,8 +21,7 @@ import {
 } from '@material-ui/core';
 import classNames from 'classnames';
 import * as API from '../../../analyser/APIClient';
-import EuroCurrency from '../../shared/EuroCurrency';
-import Performance from '../../shared/Performance';
+import StyledNumberFormat from '../../shared/StyledNumberFormat';
 import Valuation from '../../shared/Valuation';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -59,7 +58,7 @@ export type DashboardTableRowProps = {
 };
 
 // Rounds and adds M=Million, B=Billion and K=Thousand --> American System!!!
-function moneyFormat(val: number): string {
+export function moneyFormat(val: number): string {
   let round = '';
   if (Math.abs(val) >= 1.0e9) {
     round = `€${Math.round(Math.abs(val) / 1.0e9)}B`;
@@ -103,24 +102,20 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         />
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
-        <EuroCurrency
-          value={stock.price}
-          decimalSeperator="."
-          thousandSeperator=","
+        <StyledNumberFormat value={parseInt(stock.price, 10)} suffix="€" />
+      </TableCell>
+      <TableCell align="center">
+        <StyledNumberFormat
+          value={parseFloat(stock.per7d)}
+          suffix="%"
+          paintJob
         />
       </TableCell>
       <TableCell align="center">
-        <Performance
-          value={stock.per7d}
-          decimalSeperator="."
-          thousandSeperator=","
-        />
-      </TableCell>
-      <TableCell align="center">
-        <Performance
-          value={stock.per365d}
-          decimalSeperator="."
-          thousandSeperator=","
+        <StyledNumberFormat
+          value={parseFloat(stock.per365d)}
+          suffix="%"
+          paintJob
         />
       </TableCell>
       <TableCell align="center">
@@ -129,21 +124,13 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         </Typography>
       </TableCell>
       <TableCell align="center">
-        <EuroCurrency
-          value={stock.analystTargetPrice}
-          decimalSeperator="."
-          thousandSeperator=","
-        />
+        <StyledNumberFormat value={stock.analystTargetPrice} suffix="€" />
       </TableCell>
       <TableCell align="center">
         <Valuation value={stock.valuation} />
       </TableCell>
       <TableCell align="center">
-        <Performance
-          value={stock.div}
-          decimalSeperator="."
-          thousandSeperator=","
-        />
+        <StyledNumberFormat value={stock.div} suffix="%" paintJob />
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>

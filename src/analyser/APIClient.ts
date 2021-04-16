@@ -5,17 +5,26 @@ import { AppError } from '../Errors';
 export const baseURL = 'https://api.milou.io/stocks';
 const headers = { 'Content-Type': 'application/json' };
 
+// Filter object
+export type Filters = {
+  [key: string]: string[];
+  country: string[];
+  currency: string[];
+  industry: string[];
+  mc: string[];
+};
+
 // Stock type
 export type Stock = {
   symbol: string;
   isin: string;
   wkn: string;
   name: string;
-  price: number;
-  per1d: number;
-  per7d: number;
-  per30d: number;
-  per365d: number;
+  price: string;
+  per1d: string;
+  per7d: string;
+  per30d: string;
+  per365d: string;
   marketCapitalization: number;
   analystTargetPrice: number;
   valuation: number;
@@ -34,23 +43,159 @@ type StockList = {
 };
 
 // Stock details
+// all strings since there are probmens in backend
 export type StockDetails = {
   symbol: string;
-  intro: string;
-  founded: number;
-  website: URL;
-  fullTimeEmployees: number;
+  analystTargetPrice: string;
+  country: string;
+  currency: string;
+  date: string;
+  industry: string;
+  marketCapitalization: string;
+  name: string;
+  valuation: string;
+  per1d: string;
+  per30d: string;
+  per7d: string;
+  per365d: string;
   address: string;
-  assenmbly: Date;
+  assembly: string;
+  div: string;
+  employees: string;
+  founded: string;
+  growth: string;
+  isin: string;
+  intro: string;
+  picture: string;
+  website: string;
+  wkn: string;
+  assetType: string;
+  beta: string;
+  bookValue: string;
+  cik: string;
+  dilutedEPSTTM: string;
+  dividendDate: string;
+  dividendPerShare: string;
+  ebitda: string;
+  eps: string;
+  evToEbitda: string;
+  evToRevenue: string;
+  exDividendDate: string;
+  exchange: string;
+  fiscalYearEnd: string;
+  forwardAnnualDividendRate: string;
+  forwardAnnualDividendYield: string;
+  forwardPE: string;
+  grossProfitTTM: string;
+  lastSplitDate: string;
+  lastSplitFactor: string;
+  latestQuarter: string;
+  operatingMarginTTMprofitMargin: string;
+  payoutRatio: string;
+  peRatio: string;
+  pegRatio: string;
+  per200DayMovingAverage: string;
+  per50DayMovingAverage: string;
+  per52WeekHigh: string;
+  per52WeekLow: string;
+  percentInsiders: string;
+  percentInstitutions: string;
+  priceToBookRatio: string;
+  priceToSalesRatioTTM: string;
+  profitMargin: string;
+  quarterlyEarningsGrowthYOY: string;
+  quarterlyRevenueGrowthYOY: string;
+  returnOnAssetsTTM: string;
+  returnOnEquityTTM: string;
+  revenuePerShareTTM: string;
+  revenueTTM: string;
+  sharesFloat: string;
+  sharesOutstanding: string;
+  sharesShort: string;
+  sharesShortPriorMonth: string;
+  shortPercentFloat: string;
+  shortPercentOutstanding: string;
+  shortRatio: string;
+  trailingPE: string;
+  price: string;
+  mcSize: string;
 };
 
-// Filter object
-export type Filters = {
-  [key: string]: string[];
-  country: string[];
-  currency: string[];
-  industry: string[];
-  mc: string[];
+type StockDetailsAnswer = {
+  stocks: StockDetails[];
+};
+
+// historic performance data
+export type StockHistricPerformanceList = {
+  dataPoints: StockHistricPerformance[];
+};
+
+export type StockHistricPerformance = {
+  _id: string;
+  date: string;
+  close: string;
+};
+
+export type CompanyReports = {
+  symbol: string;
+  annualReports: CompanyReport[];
+};
+
+export type CompanyReport = {
+  _id: string;
+  fiscalDateEnding: Date;
+  reportedCurrency: string;
+  totalAssets: number;
+  totalCurrentAssets: number;
+  cashAndCashEquivalentsAtCarryingValue: number;
+  cashAndShortTermInvestments: number;
+  inventory: number;
+  currentNetReceivables: number;
+  totalNonCurrentAssets: number;
+  propertyPlantEquipment: number;
+  accumulatedDepreciationAmortizationPPE: number;
+  intangibleAssets: number;
+  intangibleAssetsExcludingGoodwill: number;
+  goodwill: number;
+  investments: number;
+  longTermInvestments: number;
+  shortTermInvestments: number;
+  otherCurrentAssets: number;
+  otherNonCurrrentAssets: number;
+  totalLiabilities: number;
+  totalCurrentLiabilities: number;
+  currentAccountsPayable: number;
+  deferredRevenue: number;
+  currentDebt: number;
+  shortTermDebt: number;
+  totalNonCurrentLiabilities: number;
+  capitalLeaseObligations: number;
+  longTermDebt: number;
+  currentLongTermDebt: number;
+  longTermDebtNoncurrent: number;
+  shortLongTermDebtTotal: number;
+  otherCurrentLiabilities: number;
+  otherNonCurrentLiabilities: number;
+  totalShareholderEquity: number;
+  treasuryStock: number;
+  retainedEarnings: number;
+  commonStock: number;
+  commonStockSharesOutstanding: number;
+};
+
+export type News = {
+  headline: string;
+  date: string; // TODO change to date
+  url: string; // Todo change to URL
+};
+export type AnalystsRecommendation = {
+  symbol: string;
+  buy: number;
+  hold: number;
+  sell: number;
+  strategy: string;
+  date: Date;
+  source: URL;
 };
 
 /**
@@ -75,6 +220,8 @@ async function request(
   additionalHeaders?: HeadersInit
 ): Promise<unknown> {
   // TODO: authentication
+
+  // console.log(`${baseURL}/${url}`);
   const response = await fetch(`${baseURL}/${url}`, {
     method,
     headers: { ...headers, ...additionalHeaders },
@@ -148,7 +295,63 @@ export async function stockDetails(
     token,
     'GET',
     `details?id=${symbol}`
-  )) as StockDetails;
+  )) as StockDetailsAnswer;
+  return response.stocks[0] as StockDetails;
+}
+
+/**
+ * Gets stock performance with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ * @param historic - if true all data will be returned, else only 5 years
+ */
+export async function stockPerformance(
+  token: string,
+  symbol: string,
+  historic: boolean
+): Promise<StockHistricPerformanceList> {
+  const response = (await request(
+    token,
+    'GET',
+    `charts/historic?id=${symbol}&max=${historic.toString()}`
+  )) as StockHistricPerformanceList;
+  return response;
+}
+
+/**
+ * Gets company reports with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ */
+export async function companyReports(
+  token: string,
+  symbol: string
+): Promise<CompanyReports> {
+  const response = (await request(
+    token,
+    'GET',
+    `balanceSheet?id=${symbol}`
+  )) as CompanyReports;
+  return response;
+}
+
+/**
+ * Gets analysts recommendations with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ */
+export async function analystsRecommendations(
+  token: string,
+  symbol: string
+): Promise<AnalystsRecommendation[]> {
+  const response = (await request(
+    token,
+    'GET',
+    `charts/analysts?id=${symbol}`
+  )) as AnalystsRecommendation[];
   return response;
 }
 
