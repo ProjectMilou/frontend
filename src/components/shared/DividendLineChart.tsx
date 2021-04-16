@@ -21,12 +21,14 @@ const KeyFiguresChart: React.FC<DividendsChartProps> = ({
   const { t } = useTranslation();
 
   const options = {
-    // colors: ['#4392F1', '#F6AE2D'],
     chart: {
       height: 350,
       type: 'line',
       toolbar: {
         show: false,
+      },
+      zoom: {
+        enabled: false,
       },
     },
     stroke: {

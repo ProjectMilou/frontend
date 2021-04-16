@@ -32,6 +32,9 @@ const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({
       toolbar: {
         show: false,
       },
+      zoom: {
+        enabled: false,
+      },
     },
     xaxis: {
       categories: years,
