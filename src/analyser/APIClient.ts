@@ -35,6 +35,8 @@ export type Stock = {
   industry: string;
   picture: URL;
   date: Date;
+  dividendPerShare: number;
+  revenuePerShareTTM: number;
 };
 
 // List of stocks
@@ -136,6 +138,19 @@ export type StockHistricPerformance = {
   close: string;
 };
 
+// dividend performance data
+export type StockHistricDividendList = {
+  dataPoints: StockHistricDividend[];
+  date: string;
+  quota: string;
+};
+
+export type StockHistricDividend = {
+  _id: string;
+  date: string;
+  div: number;
+};
+
 export type CompanyReports = {
   symbol: string;
   annualReports: CompanyReport[];
@@ -181,6 +196,45 @@ export type CompanyReport = {
   retainedEarnings: number;
   commonStock: number;
   commonStockSharesOutstanding: number;
+};
+
+export type CashFlowList = {
+  symbol: string;
+  annualReports: CashFlow[];
+  // quarterlyReports: CashFlow[];
+};
+
+export type CashFlow = {
+  _id: string;
+  fiscalDateEnding: number;
+  reportedCurrency: number;
+  operatingCashflow: number;
+  paymentsForOperatingActivities: number;
+  proceedsFromOperatingActivities: number;
+  changeInOperatingLiabilities: number;
+  changeInOperatingAssets: number;
+  depreciationDepletionAndAmortization: number;
+  capitalExpenditures: number;
+  changeInReceivables: number;
+  changeInInventory: number;
+  profitLoss: number;
+  cashflowFromInvestment: number;
+  cashflowFromFinancing: number;
+  proceedsFromRepaymentsOfShortTermDebt: number;
+  paymentsForRepurchaseOfCommonStock: number;
+  paymentsForRepurchaseOfEquity: number;
+  paymentsForRepurchaseOfPreferredStock: number;
+  dividendPayout: number;
+  dividendPayoutCommonStock: number;
+  dividendPayoutPreferredStock: number;
+  proceedsFromIssuanceOfCommonStock: number;
+  proceedsFromIssuanceOfLongTermDebtAndCapitalSecuritiesNet: number;
+  proceedsFromIssuanceOfPreferredStock: number;
+  proceedsFromRepurchaseOfEquity: number;
+  proceedsFromSaleOfTreasuryStock: number;
+  changeInCashAndCashEquivalents: number;
+  changeInExchangeRate: number;
+  netIncome: number;
 };
 
 export type News = {
@@ -320,6 +374,26 @@ export async function stockPerformance(
 }
 
 /**
+ * Gets stock performance with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ * @param dividend - if true all data will be returned, else only 5 years
+ */
+export async function stockDividend(
+  token: string,
+  symbol: string,
+  dividend: boolean
+): Promise<StockHistricDividendList> {
+  const response = (await request(
+    token,
+    'GET',
+    `charts/dividend?id=${symbol}&max=${dividend.toString()}`
+  )) as StockHistricDividendList;
+  return response;
+}
+
+/**
  * Gets company reports with an authenticated user.
  *
  * @param token - Authentication token
@@ -352,5 +426,23 @@ export async function analystsRecommendations(
     'GET',
     `charts/analysts?id=${symbol}`
   )) as AnalystsRecommendation[];
+  return response;
+}
+
+/**
+ * Gets company reports with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ */
+export async function cashFlowList(
+  token: string,
+  symbol: string
+): Promise<CashFlowList> {
+  const response = (await request(
+    token,
+    'GET',
+    `cashFlow?id=${symbol}`
+  )) as CashFlowList;
   return response;
 }

@@ -10,11 +10,11 @@ import {
 } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useTranslation } from 'react-i18next';
-import TextOverText from '../TextOverText';
+import TextOverText from '../../shared/TextOverText';
 import * as API from '../../../analyser/APIClient';
 import StyledNumberFormat from '../../shared/StyledNumberFormat';
 
-export type DetailsProps = {
+export type DetailsHeaderProps = {
   stock: API.Stock;
   // function to return to the dashboard
   back: () => void;
@@ -23,21 +23,21 @@ export type DetailsProps = {
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     header: {
-      'background-color': '#0D1B3B',
+      backgroundColor: palette.primary.dark, // '#0D1B3B',
     },
     text: {
-      'font-size': '35px',
-      color: '#EEF1FB',
+      fontSize: '35px',
+      color: palette.primary.contrastText,
       padding: '50px 0',
       minWidth: '50%',
       maxWidth: '1000px',
     },
     price: {
-      paddingLeft: '6',
+      paddingLeft: 6,
     },
     wknIsin: {
-      'font-size': '12px',
-      color: '#EEF1FB',
+      fontSize: '12px',
+      color: palette.primary.contrastText,
       minWidth: '50%',
       maxWidth: '1000px',
       marginLeft: '100px',
@@ -46,7 +46,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       display: 'flex',
       justifyContent: 'space-around',
       width: '100%',
-      color: '#EEF1FB',
     },
     backButtonContainer: {
       display: 'flex',
@@ -55,6 +54,10 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     },
     backButton: {
       color: palette.background.default,
+    },
+    date: {
+      paddingBottom: 10,
+      color: palette.primary.contrastText,
     },
   })
 );
@@ -69,10 +72,14 @@ function chooseSymbol(val: API.Stock): string {
   return val.name.length > 15 ? val.symbol : val.name;
 }
 
-const DetailsHeader: React.FC<DetailsProps> = ({ stock, back }) => {
+const DetailsHeader: React.FC<DetailsHeaderProps> = ({ stock, back }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const theme = useTheme();
+
+  const day = new Date(stock.date).getUTCDate();
+  const month = new Date(stock.date).getMonth();
+  const year = new Date(stock.date).getFullYear();
 
   return (
     <div className={classes.header}>
@@ -131,6 +138,9 @@ const DetailsHeader: React.FC<DetailsProps> = ({ stock, back }) => {
             <> / ISIN: </>
             {stock.isin}
           </Typography>
+        </Typography>
+        <Typography className={classes.date}>
+          Last updated: {`${day}.${month}.${year}`}
         </Typography>
       </Container>
     </div>

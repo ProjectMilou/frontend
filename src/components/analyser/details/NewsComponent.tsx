@@ -3,7 +3,7 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import NewsCard from './NewsCard';
 import * as API from '../../../analyser/APIClient';
-import SubsectionDivider from './SubsectionDivider';
+import SubsectionDivider from '../../shared/SubsectionDivider';
 
 export type NewsComponentProps = {
   newsList: API.News[];

@@ -13,7 +13,6 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
   Theme,
   Typography,
@@ -23,6 +22,7 @@ import classNames from 'classnames';
 import * as API from '../../../analyser/APIClient';
 import StyledNumberFormat from '../../shared/StyledNumberFormat';
 import Valuation from '../../shared/Valuation';
+import DashboardTableHeader from './DashboardTableHeader';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -45,16 +45,17 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       height: 800,
       overflow: 'auto',
     },
-    customTableHead: {
-      backgroundColor: 'white',
-      color: palette.primary.main,
-      borderBottom: '1px solid black',
-    },
   })
 );
 
 export type DashboardTableRowProps = {
   stock: API.Stock;
+};
+
+type Order = 'asc' | 'desc';
+
+export type DashboardTableProps = {
+  stocks: API.Stock[];
 };
 
 // Rounds and adds M=Million, B=Billion and K=Thousand --> American System!!!
@@ -141,16 +142,50 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
   );
 };
 
-export type DashboardTableProps = {
-  stocks: API.Stock[];
-};
+// desc sort comparator
+function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+}
+// function: take asc or desc order and the property to sort the stocks
+function sortStocks(
+  items: API.Stock[],
+  order: Order,
+  orderBy: keyof API.Stock
+) {
+  return order === 'desc'
+    ? items.sort((a, b) => descendingComparator(a, b, orderBy))
+    : items.sort((a, b) => -descendingComparator(a, b, orderBy));
+}
 
 const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
-  const { t } = useTranslation();
   const classes = useStyles();
 
   const [items, setItems] = React.useState<API.Stock[]>(stocks.slice(0, 10));
   const [hasMore, setHasMore] = React.useState<boolean>(true);
+
+  // default order: ascending
+  const [order, setOrder] = React.useState<Order>('asc');
+  // default order key: stock's name
+  const [orderByKey, setOrderByKey] = React.useState<keyof API.Stock>('name');
+  // sorted stocks
+  const [sortedStocks, setSortedStocks] = React.useState(() =>
+    sortStocks(items, order, orderByKey)
+  );
+  React.useEffect(() => {
+    setSortedStocks(sortStocks(items, order, orderByKey));
+  }, [items, order, orderByKey]);
+  // function to handle a sort reqeust, order wil betoggled every time.
+  const handleRequestSort = (property: keyof API.Stock) => {
+    const isAsc = orderByKey === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderByKey(property);
+  };
 
   React.useEffect(() => {
     setItems(stocks.slice(0, 10));
@@ -188,84 +223,14 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
           classes={{ root: classes.customTableContainer }}
         >
           <Table stickyHeader aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell
-                  align="center"
-                  classes={{ root: classes.customTableHead }}
-                >
-                  <Typography className={classes.defaultText}>
-                    {t('stock.name')}
-                  </Typography>
-                </TableCell>
-                <TableCell
-                  align="center"
-                  classes={{ root: classes.customTableHead }}
-                >
-                  <Typography className={classes.defaultText}>
-                    {t('stock.lastPrice')}
-                  </Typography>
-                </TableCell>
-                <TableCell
-                  align="center"
-                  classes={{ root: classes.customTableHead }}
-                >
-                  <Typography className={classes.defaultText}>
-                    {t('stock.7d')}
-                  </Typography>
-                </TableCell>
-                <TableCell
-                  align="center"
-                  classes={{ root: classes.customTableHead }}
-                >
-                  <Typography className={classes.defaultText}>
-                    {t('stock.365d')}
-                  </Typography>
-                </TableCell>
-                <TableCell
-                  align="center"
-                  classes={{ root: classes.customTableHead }}
-                >
-                  <Typography className={classes.defaultText}>
-                    {t('stock.marketCap')}
-                  </Typography>
-                </TableCell>
-                <TableCell
-                  align="center"
-                  classes={{ root: classes.customTableHead }}
-                >
-                  <Typography className={classes.defaultText}>
-                    {t('stock.analystsTarget')}
-                  </Typography>
-                </TableCell>
-                <TableCell
-                  align="center"
-                  classes={{ root: classes.customTableHead }}
-                >
-                  <Typography className={classes.defaultText}>
-                    {t('stock.valuation')}
-                  </Typography>
-                </TableCell>
-                <TableCell
-                  align="center"
-                  classes={{ root: classes.customTableHead }}
-                >
-                  <Typography className={classes.defaultText}>
-                    {t('stock.div')}
-                  </Typography>
-                </TableCell>
-                <TableCell
-                  align="center"
-                  classes={{ root: classes.customTableHead }}
-                >
-                  <Typography className={classes.defaultText}>
-                    {t('stock.industry')}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            </TableHead>
+            <DashboardTableHeader
+              onRequestSort={handleRequestSort}
+              order={order}
+              orderByKey={orderByKey}
+            />
+            {/* Table body take already sorted stocks */}
             <TableBody>
-              {items.map((s) => (
+              {sortedStocks.map((s) => (
                 <DashboardTableRow stock={s} key={s.symbol} />
               ))}
               {hasMore && <h4>Loading More Stocks...</h4>}
