@@ -1,26 +1,22 @@
-// Based on Portfolio Details
+// Initally based on Portfolio Details, since then heavily modified
 import React from 'react';
 import { RouteComponentProps, useParams } from '@reach/router';
-import {
-  LinearProgress,
-  makeStyles,
-  Container,
-  useTheme,
-} from '@material-ui/core';
+import { LinearProgress, makeStyles, Container } from '@material-ui/core';
 import { isAuthenticationError } from '../../../Errors';
 import * as API from '../../../analyser/APIClient';
 import ErrorMessage from '../../shared/ErrorMessage';
 import DetailsHeader from './DetailsHeader';
 import DetailsOverview from './DetailsOverview';
 import KeyFigures from './KeyFigures';
-import StockChart from '../../shared/StockChart';
 import Dividends from './Dividends';
 import NewsComponent from './NewsComponent';
-import SectionDivider from './SectionDivider';
+import SectionDivider from '../../shared/SectionDivider';
 import Risks from './Risks';
 import BalanceSheetInfo from './BalanceSheetInfo';
 import Analysts from './Analysts';
 import AddToPortfolioButton from '../../shared/AddToPortfolioButton';
+import DetailsOverviewInfoBox from './DetailsOverviewInfoBox';
+import DetailsStockChart from './DetailsStockChart';
 
 // props type declaration
 export interface DetailsProps extends RouteComponentProps {
@@ -179,8 +175,6 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
 
   const classes = useStyles();
 
-  const theme = useTheme();
-
   return (
     <>
       {!stockOverview ||
@@ -217,20 +211,20 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
         companyReports &&
         cashFlowList &&
         analystRecommendations && (
-          <div>
+          <>
             <DetailsHeader back={back} stock={stockOverview} />
             <Container className={classes.mainContent}>
               <DetailsOverview
                 stockOverview={stockOverview}
                 stockDetails={stockDetails}
               />
-              <StockChart
-                series={stockPerformance}
+              <DetailsStockChart
+                stockPerformance={stockPerformance}
                 setPerformanceAll={setPerformanceAll}
-                axisColor={theme.palette.secondary.contrastText}
-                buttonBackgroundColor={theme.palette.primary.main}
-                buttonTextColor={theme.palette.primary.contrastText}
-                height={450}
+              />
+              <DetailsOverviewInfoBox
+                stockOverview={stockOverview}
+                stockDetails={stockDetails}
               />
               <NewsComponent newsList={newsList} />
               <SectionDivider section="analyser.details.KeyFiguresHeader" />
@@ -248,7 +242,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
               <Risks />
               <AddToPortfolioButton symbol={symbol} />
             </Container>
-          </div>
+          </>
         )}
     </>
   );
