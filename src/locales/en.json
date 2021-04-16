@@ -250,5 +250,8 @@
   "shell.profile.account-details.delete-dialog.description": "Deleting your account is irreversible. All your data will be deleted!",
   "shell.profile.account-details.delete-dialog.ok": "OK",
   "shell.profile.account-details.delete-dialog.cancel": "Cancel",
-  "shell.profile.account-details.add-bankconnection": "Add bank connection"
+  "shell.profile.account-details.add-bankconnection": "Add bank connection",
+  "company.website": "Website",
+  "company.mc": "Market Capitalization",
+  "company.exchange": "Exchange"
 }
