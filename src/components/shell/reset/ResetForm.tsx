@@ -23,11 +23,11 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-interface ForgotPasswordFormProps {
+interface ResetFormProps {
   setSuccess: (v: boolean) => void;
 }
 
-const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = (props) => {
+const ResetForm: React.FC<ResetFormProps> = (props) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const { errorMessage } = useStyles(theme);
@@ -54,7 +54,7 @@ const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = (props) => {
       )}
       <DialogContent>
         <Typography variant="body1" align="center">
-          {t('shell.forgotPassword.reset')}
+          {t('shell.reset.forgot')}
         </Typography>
 
         <TextField
@@ -80,11 +80,11 @@ const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = (props) => {
           fullWidth
           onClick={handleSubmit}
         >
-          {t('shell.forgotPassword.submit')}
+          {t('shell.reset.submit')}
         </Button>
       </DialogActions>
     </>
   );
 };
 
-export default ForgotPasswordForm;
+export default ResetForm;

@@ -198,7 +198,7 @@ class UserService extends BaseService {
   ): Promise<boolean> {
     try {
       const response = await this.request(
-        'POST',
+        'PUT',
         `${Endpoints.Reset}/change/${id}/${token}`,
         {
           Accept: 'application/json',
