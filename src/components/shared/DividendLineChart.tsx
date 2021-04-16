@@ -2,7 +2,7 @@ import React from 'react';
 import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
 
-type DividendsChartProps = {
+type DividendLineChartProps = {
   series: Series[];
   height: number;
   textColor: string;
@@ -13,7 +13,7 @@ type Series = {
   data: number[];
 };
 
-const KeyFiguresChart: React.FC<DividendsChartProps> = ({
+const DividendLineChart: React.FC<DividendLineChartProps> = ({
   series,
   height,
   textColor,
@@ -104,4 +104,4 @@ const KeyFiguresChart: React.FC<DividendsChartProps> = ({
   );
 };
 
-export default KeyFiguresChart;
+export default DividendLineChart;
