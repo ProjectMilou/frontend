@@ -12,33 +12,34 @@ import {
   AccordionSummary,
   AccordionDetails,
   ListItemIcon,
-  ListItemText,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import BusinessIcon from '@material-ui/icons/Business';
-import LanguageIcon from '@material-ui/icons/Language';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import { useTranslation } from 'react-i18next';
 import { Stock, StockDetails } from '../../../analyser/APIClient';
 import SectionDivider from './SectionDivider';
-import DetailsOverviewInfoBox from './DetailsOverviewInfoBox';
-
-import * as DashboardTable from '../search/DashboardTable';
 import DetailsOverviewCompany from './DetailsOverviewCompany';
 
 // stylesheet for the Summary section
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    imageWrapper: {
-      width: '100%',
+    image: {
+      
+      height: '100%',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      display: 'block',
     },
     paper: {
       padding: theme.spacing(2),
-      margin: 'auto',
+      margin: theme.spacing(2),
       width: '100%',
+      height: theme.spacing(17),
     },
     card: {
       width: '100%',
+      height: '100%'
     },
     icon: {
       color: theme.palette.primary.light,
@@ -84,17 +85,17 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
           spacing={5}
         >
           {/* picture and ccompany overview */}
-          <Grid item xs={3}>
+          <Grid item sm={3} justify="center">
             <Paper className={classes.paper} variant="outlined">
               <img
-                className={classes.imageWrapper}
+                className={classes.image}
                 alt="Company Pictrue"
                 src={stockOverview.picture.toString()}
               />
             </Paper>
           </Grid>
 
-          <Grid item xs={9}>
+          <Grid item sm={9}>
             <List>
               <ListItem>
                 <Accordion className={classes.card} variant="outlined">

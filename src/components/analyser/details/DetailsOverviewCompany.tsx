@@ -13,13 +13,10 @@ import { useTranslation } from 'react-i18next';
 import LanguageIcon from '@material-ui/icons/Language';
 import GroupIcon from '@material-ui/icons/Group';
 import HomeIcon from '@material-ui/icons/Home';
-import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import ChildFriendlyIcon from '@material-ui/icons/ChildFriendly';
 import {StockDetails } from '../../../analyser/APIClient';
-import * as DashboardTable from '../search/DashboardTable';
 
-type DetailsOverviewCompanyProos = {
+type DetailsOverviewCompanyProps = {
   stockDetails: StockDetails;
 };
 
@@ -45,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const DetailsOverviewCompany: React.FC<DetailsOverviewCompanyProos> = ({
+const DetailsOverviewCompany: React.FC<DetailsOverviewCompanyProps> = ({
   stockDetails,
 }) => {
   const classes = useStyles();
@@ -78,19 +75,6 @@ const DetailsOverviewCompany: React.FC<DetailsOverviewCompanyProos> = ({
       </ListItem>
       <ListItem>
         <ListItemIcon>
-          <AccountBalanceWalletIcon className={classes.icon} />
-        </ListItemIcon>
-        <ListItemText>
-          <Typography className={classes.header}>
-            {t('company.mc')}:{' '}
-            {DashboardTable.moneyFormat(
-              parseInt(stockDetails.marketCapitalization, 10)
-            )}
-          </Typography>
-        </ListItemText>
-      </ListItem>
-      <ListItem>
-        <ListItemIcon>
           <GroupIcon className={classes.icon} />
         </ListItemIcon>
         <ListItemText>
@@ -106,16 +90,6 @@ const DetailsOverviewCompany: React.FC<DetailsOverviewCompanyProos> = ({
         <ListItemText>
           <Typography className={classes.header}>
             {t('stock.address')}: {stockDetails.address}
-          </Typography>
-        </ListItemText>
-      </ListItem>
-      <ListItem>
-        <ListItemIcon>
-          <AccountBalanceIcon className={classes.icon} />
-        </ListItemIcon>
-        <ListItemText>
-          <Typography className={classes.header}>
-            {t('company.exchange')}: {stockDetails.exchange}
           </Typography>
         </ListItemText>
       </ListItem>

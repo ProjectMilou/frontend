@@ -13,9 +13,8 @@ import { useTranslation } from 'react-i18next';
 import TextOverText from '../TextOverText';
 import * as API from '../../../analyser/APIClient';
 import StyledNumberFormat from '../../shared/StyledNumberFormat';
-import StockListOverview from '../search/StockListOverview';
 
-export type DetailsProps = {
+export type DetailsHeaderProps = {
   stock: API.Stock;
   // function to return to the dashboard
   back: () => void;
@@ -73,7 +72,7 @@ function chooseSymbol(val: API.Stock): string {
   return val.name.length > 15 ? val.symbol : val.name;
 }
 
-const DetailsHeader: React.FC<DetailsProps> = ({ stock, back }) => {
+const DetailsHeader: React.FC<DetailsHeaderProps> = ({ stock, back }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const theme = useTheme();
