@@ -142,6 +142,7 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
   );
 };
 
+// desc sort comparator
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -151,7 +152,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   }
   return 0;
 }
-
+// function: take asc or desc order and the property to sort the stocks
 function sortStocks(
   items: API.Stock[],
   order: Order,
@@ -168,14 +169,18 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
   const [items, setItems] = React.useState<API.Stock[]>(stocks.slice(0, 10));
   const [hasMore, setHasMore] = React.useState<boolean>(true);
 
+  // default order: ascending
   const [order, setOrder] = React.useState<Order>('asc');
+  // default order key: stock's name
   const [orderByKey, setOrderByKey] = React.useState<keyof API.Stock>('name');
+  // sorted stocks
   const [sortedStocks, setSortedStocks] = React.useState(() =>
     sortStocks(items, order, orderByKey)
   );
   React.useEffect(() => {
     setSortedStocks(sortStocks(items, order, orderByKey));
   }, [items, order, orderByKey]);
+  // function to handle a sort reqeust, order wil betoggled every time.
   const handleRequestSort = (property: keyof API.Stock) => {
     const isAsc = orderByKey === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -223,6 +228,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
               order={order}
               orderByKey={orderByKey}
             />
+            {/* Table body take already sorted stocks */}
             <TableBody>
               {sortedStocks.map((s) => (
                 <DashboardTableRow stock={s} key={s.symbol} />

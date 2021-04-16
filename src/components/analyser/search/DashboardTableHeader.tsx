@@ -21,6 +21,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
+// the sorting direction
 type Order = 'asc' | 'desc';
 
 export type DashboardTableHeaderProps = {
@@ -29,32 +30,13 @@ export type DashboardTableHeaderProps = {
   orderByKey: keyof API.Stock;
 };
 
+// every head cell has a property, if it's numeric, and a label
 interface HeadCell {
   id: keyof API.Stock;
   numeric: boolean;
   disablePadding: boolean;
   label: string;
 }
-
-//   function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-//     if (b[orderBy] < a[orderBy]) {
-//       return -1;
-//     }
-//     if (b[orderBy] > a[orderBy]) {
-//       return 1;
-//     }
-//     return 0;
-//   }
-
-//   function sortStocks(
-//     items: API.Stock[],
-//     order: Order,
-//     orderBy: keyof API.Stock
-//   ) {
-//     return order === 'desc'
-//       ? items.sort((a, b) => descendingComparator(a, b, orderBy))
-//       : items.sort((a, b) => -descendingComparator(a, b, orderBy));
-//   }
 
 const DashboardTableHeader: React.FC<DashboardTableHeaderProps> = ({
   onRequestSort,
@@ -64,6 +46,7 @@ const DashboardTableHeader: React.FC<DashboardTableHeaderProps> = ({
   const classes = useStyles();
   const { t } = useTranslation();
 
+  // All properties needed for stocks list.
   const headCells: HeadCell[] = [
     {
       id: 'name',
@@ -121,6 +104,7 @@ const DashboardTableHeader: React.FC<DashboardTableHeaderProps> = ({
             classes={{ root: classes.customTableHead }}
             sortDirection={orderByKey === hc.id ? order : false}
           >
+            {/* A button based label which is inside TableCell used to sort a column. A sort request will be handled on click. */}
             <TableSortLabel
               active={orderByKey === hc.id}
               direction={orderByKey === hc.id ? order : 'asc'}
