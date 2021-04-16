@@ -1,26 +1,22 @@
-// Based on Portfolio Details
+// Initally based on Portfolio Details, since then heavily modified
 import React from 'react';
 import { RouteComponentProps, useParams } from '@reach/router';
-import {
-  LinearProgress,
-  makeStyles,
-  Container,
-  useTheme,
-} from '@material-ui/core';
+import { LinearProgress, makeStyles, Container } from '@material-ui/core';
 import { isAuthenticationError } from '../../../Errors';
 import * as API from '../../../analyser/APIClient';
 import ErrorMessage from '../../shared/ErrorMessage';
 import DetailsHeader from './DetailsHeader';
 import DetailsOverview from './DetailsOverview';
 import KeyFigures from './KeyFigures';
-import StockChart from '../../shared/StockChart';
 import Dividends from './Dividends';
 import NewsComponent from './NewsComponent';
-import SectionDivider from './SectionDivider';
+import SectionDivider from '../../shared/SectionDivider';
 import Risks from './Risks';
 import BalanceSheetInfo from './BalanceSheetInfo';
 import Analysts from './Analysts';
 import AddToPortfolioButton from '../../shared/AddToPortfolioButton';
+import DetailsOverviewInfoBox from './DetailsOverviewInfoBox';
+import DetailsStockChart from './DetailsStockChart';
 
 // props type declaration
 export interface DetailsProps extends RouteComponentProps {
@@ -45,11 +41,18 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
   const [stockPerformance, setStockPerformance] = React.useState<number[][]>([
     [],
   ]);
+  const [stockDividend, setStockDividend] = React.useState<number[]>([]);
   const [
     // eslint-disable-next-line
     companyReports,
     setCompanyReports,
   ] = React.useState<API.CompanyReports>();
+  const [
+    // eslint-disable-next-line
+    cashFlowList,
+    setCashFlowList,
+  ] = React.useState<API.CashFlowList>();
+
   // eslint-disable-next-line
   const [analystRecommendations, setAnalystRecommendations] = React.useState<
     API.AnalystsRecommendation[]
@@ -72,6 +75,15 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
     });
     return unixDataPoints.reverse();
   };
+  const convertDividend = (dividend: API.StockHistricDividendList) => {
+    const unixDataPoints: number[] = [];
+    dividend.dataPoints.forEach((p) => {
+      const d = Math.round(p.div * 100) / 100;
+      const point: number = d;
+      unixDataPoints.push(point);
+    });
+    return unixDataPoints.reverse();
+  };
   const [newsList, setNewsList] = React.useState<API.News[]>();
 
   const fetch = async () => {
@@ -80,7 +92,9 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
       const sO = await API.stockOverview(token, symbol);
       const sD = await API.stockDetails(token, symbol);
       const sP = await API.stockPerformance(token, symbol, false);
+      const sDiv = await API.stockDividend(token, symbol, false);
       const cR = await API.companyReports(token, symbol);
+      const cCash = await API.cashFlowList(token, symbol);
       const aR = await API.analystsRecommendations(token, symbol);
 
       if (isMounted.current) {
@@ -88,7 +102,9 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
         setStockDetails(sD);
         // TODO get unix timestamp from backend and reverse array
         setStockPerformance(convertPerformance(sP));
+        setStockDividend(convertDividend(sDiv));
         setCompanyReports(cR);
+        setCashFlowList(cCash);
         setNewsList([
           {
             headline: 'this is hot news, gamestonk is very high this week',
@@ -159,8 +175,6 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
 
   const classes = useStyles();
 
-  const theme = useTheme();
-
   return (
     <>
       {!stockOverview ||
@@ -195,26 +209,31 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
         stockDetails &&
         newsList &&
         companyReports &&
+        cashFlowList &&
         analystRecommendations && (
-          <div>
+          <>
             <DetailsHeader back={back} stock={stockOverview} />
             <Container className={classes.mainContent}>
               <DetailsOverview
                 stockOverview={stockOverview}
                 stockDetails={stockDetails}
               />
-              <StockChart
-                series={stockPerformance}
+              <DetailsStockChart
+                stockPerformance={stockPerformance}
                 setPerformanceAll={setPerformanceAll}
-                axisColor={theme.palette.secondary.contrastText}
-                buttonBackgroundColor={theme.palette.primary.main}
-                buttonTextColor={theme.palette.primary.contrastText}
-                height={450}
+              />
+              <DetailsOverviewInfoBox
+                stockOverview={stockOverview}
+                stockDetails={stockDetails}
               />
               <NewsComponent newsList={newsList} />
               <SectionDivider section="analyser.details.KeyFiguresHeader" />
               <KeyFigures />
-              <Dividends />
+              <Dividends
+                stockOverview={stockOverview}
+                series={stockDividend}
+                cashFlowList={cashFlowList}
+              />
               <BalanceSheetInfo companyReports={companyReports} />
               <Analysts
                 recommendations={analystRecommendations}
@@ -223,7 +242,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
               <Risks />
               <AddToPortfolioButton symbol={symbol} />
             </Container>
-          </div>
+          </>
         )}
     </>
   );

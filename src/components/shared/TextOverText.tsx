@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
-import StyledNumberFormat from '../shared/StyledNumberFormat';
+import StyledNumberFormat from './StyledNumberFormat';
+import InfoButton from './InfoButton';
 
 export type TextOverTextProps = {
   top: string;
@@ -13,6 +14,7 @@ export type TextOverTextProps = {
   colorTop?: string;
   colorBottom?: string;
   alignment?: string;
+  infoText?: string;
 };
 
 const useStyles = makeStyles<Theme, TextOverTextProps, string>(
@@ -42,7 +44,7 @@ const useStyles = makeStyles<Theme, TextOverTextProps, string>(
 );
 
 const TextOverText: React.FC<TextOverTextProps> = (props) => {
-  const { top, bottom, euro } = props;
+  const { top, bottom, euro, infoText } = props;
   const classes = useStyles(props);
 
   return (
@@ -53,6 +55,12 @@ const TextOverText: React.FC<TextOverTextProps> = (props) => {
       {!euro && (
         <div className={classes.pWrapper}>
           <p className={classes.bottom}>{bottom}</p>
+          {infoText && (
+            <>
+              &nbsp;
+              <InfoButton infotext={infoText} />
+            </>
+          )}
         </div>
       )}
       {euro && (
@@ -64,6 +72,12 @@ const TextOverText: React.FC<TextOverTextProps> = (props) => {
               fontWeight={600}
               size="1.3rem"
             />
+            {infoText && (
+              <>
+                &nbsp;
+                <InfoButton infotext={infoText} />
+              </>
+            )}
           </p>
         </div>
       )}
