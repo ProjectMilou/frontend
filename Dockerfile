@@ -6,6 +6,7 @@ WORKDIR /app
 # Installing dependencies
 COPY package.json ./
 COPY yarn.lock ./
+COPY patches/. ./patches/
 RUN ["yarn", "install", "--network-timeout 100000"]
 
 # Copying source files
