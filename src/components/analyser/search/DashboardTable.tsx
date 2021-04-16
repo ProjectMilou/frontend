@@ -13,9 +13,7 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
-  TableSortLabel,
   Theme,
   Typography,
   createStyles,
@@ -24,6 +22,7 @@ import classNames from 'classnames';
 import * as API from '../../../analyser/APIClient';
 import StyledNumberFormat from '../../shared/StyledNumberFormat';
 import Valuation from '../../shared/Valuation';
+import DashboardTableHeader from './DashboardTableHeader';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -46,11 +45,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       height: 800,
       overflow: 'auto',
     },
-    customTableHead: {
-      backgroundColor: 'white',
-      color: palette.primary.main,
-      borderBottom: '1px solid black',
-    },
   })
 );
 
@@ -60,22 +54,9 @@ export type DashboardTableRowProps = {
 
 type Order = 'asc' | 'desc';
 
-export type DashboardTableHeaderProps = {
-  onRequestSort: (property: keyof API.Stock) => void;
-  order: Order;
-  orderByKey: keyof API.Stock;
-};
-
 export type DashboardTableProps = {
   stocks: API.Stock[];
 };
-
-interface HeadCell {
-  id: keyof API.Stock;
-  numeric: boolean;
-  disablePadding: boolean;
-  label: string;
-}
 
 // Rounds and adds M=Million, B=Billion and K=Thousand --> American System!!!
 export function moneyFormat(val: number): string {
@@ -180,85 +161,6 @@ function sortStocks(
     ? items.sort((a, b) => descendingComparator(a, b, orderBy))
     : items.sort((a, b) => -descendingComparator(a, b, orderBy));
 }
-
-const DashboardTableHeader: React.FC<DashboardTableHeaderProps> = ({
-  onRequestSort,
-  order,
-  orderByKey,
-}) => {
-  const classes = useStyles();
-  const { t } = useTranslation();
-
-  const headCells: HeadCell[] = [
-    {
-      id: 'name',
-      numeric: false,
-      disablePadding: false,
-      label: t('stock.name'),
-    },
-    {
-      id: 'price',
-      numeric: true,
-      disablePadding: false,
-      label: t('stock.lastPrice'),
-    },
-    { id: 'per7d', numeric: true, disablePadding: false, label: t('stock.7d') },
-    {
-      id: 'per365d',
-      numeric: true,
-      disablePadding: false,
-      label: t('stock.365d'),
-    },
-    {
-      id: 'marketCapitalization',
-      numeric: true,
-      disablePadding: false,
-      label: t('stock.marketCap'),
-    },
-    {
-      id: 'analystTargetPrice',
-      numeric: true,
-      disablePadding: false,
-      label: t('stock.analystsTarget'),
-    },
-    {
-      id: 'valuation',
-      numeric: true,
-      disablePadding: false,
-      label: t('stock.valuation'),
-    },
-    { id: 'div', numeric: true, disablePadding: false, label: t('stock.div') },
-    {
-      id: 'industry',
-      numeric: true,
-      disablePadding: false,
-      label: t('stock.industry'),
-    },
-  ];
-
-  return (
-    <TableHead>
-      <TableRow>
-        {headCells.map((hc) => (
-          <TableCell
-            key={hc.id}
-            align="center"
-            classes={{ root: classes.customTableHead }}
-            sortDirection={orderByKey === hc.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderByKey === hc.id}
-              direction={orderByKey === hc.id ? order : 'asc'}
-              onClick={() => onRequestSort(hc.id)}
-            >
-              {hc.label}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-};
 
 const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
   const classes = useStyles();
