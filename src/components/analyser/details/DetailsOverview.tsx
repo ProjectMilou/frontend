@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: 'auto',
       marginRight: 'auto',
       display: 'block',
-      maxWidth: '100%'
+      maxWidth: '100%',
     },
     paper: {
       padding: theme.spacing(2),
