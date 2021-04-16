@@ -172,79 +172,18 @@ interface HeadCell {
 }
 
 export type DashboardTableHeaderProps = {
-  onRequestSort: (
-    event: React.MouseEvent<unknown>,
-    property: keyof API.Stock
-  ) => void;
+  onRequestSort: (property: keyof API.Stock) => void;
   order: Order;
   orderByKey: keyof API.Stock;
-  headCells: HeadCell[];
 };
 
 const DashboardTableHeader: React.FC<DashboardTableHeaderProps> = ({
   onRequestSort,
   order,
   orderByKey,
-  headCells,
 }) => {
   const classes = useStyles();
-  const createSortHandler = (property: keyof API.Stock) => (
-    event: React.MouseEvent<unknown>
-  ) => {
-    onRequestSort(event, property);
-  };
-
-  return (
-    <TableHead>
-      <TableRow>
-        {headCells.map((hc) => (
-          <TableCell
-            key={hc.id}
-            align="center"
-            classes={{ root: classes.customTableHead }}
-            sortDirection={orderByKey === hc.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderByKey === hc.id}
-              direction={orderByKey === hc.id ? order : 'asc'}
-              onClick={createSortHandler(hc.id)}
-            >
-              {hc.label}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-};
-
-export type DashboardTableProps = {
-  stocks: API.Stock[];
-};
-
-const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
-  const classes = useStyles();
   const { t } = useTranslation();
-
-  const [items, setItems] = React.useState<API.Stock[]>(stocks.slice(0, 10));
-  const [hasMore, setHasMore] = React.useState<boolean>(true);
-
-  const [order, setOrder] = React.useState<Order>('asc');
-  const [orderByKey, setOrderByKey] = React.useState<keyof API.Stock>('name');
-  const [sortedStocks, setSortedStocks] = React.useState(() =>
-    sortStocks(items, order, orderByKey)
-  );
-  React.useEffect(() => {
-    setSortedStocks(sortStocks(items, order, orderByKey));
-  }, [items, order, orderByKey]);
-  const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
-    property: keyof API.Stock
-  ) => {
-    const isAsc = orderByKey === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderByKey(property);
-  };
 
   const headCells: HeadCell[] = [
     {
@@ -293,6 +232,54 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
     },
   ];
 
+  return (
+    <TableHead>
+      <TableRow>
+        {headCells.map((hc) => (
+          <TableCell
+            key={hc.id}
+            align="center"
+            classes={{ root: classes.customTableHead }}
+            sortDirection={orderByKey === hc.id ? order : false}
+          >
+            <TableSortLabel
+              active={orderByKey === hc.id}
+              direction={orderByKey === hc.id ? order : 'asc'}
+              onClick={() => onRequestSort(hc.id)}
+            >
+              {hc.label}
+            </TableSortLabel>
+          </TableCell>
+        ))}
+      </TableRow>
+    </TableHead>
+  );
+};
+
+export type DashboardTableProps = {
+  stocks: API.Stock[];
+};
+
+const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
+  const classes = useStyles();
+
+  const [items, setItems] = React.useState<API.Stock[]>(stocks.slice(0, 10));
+  const [hasMore, setHasMore] = React.useState<boolean>(true);
+
+  const [order, setOrder] = React.useState<Order>('asc');
+  const [orderByKey, setOrderByKey] = React.useState<keyof API.Stock>('name');
+  const [sortedStocks, setSortedStocks] = React.useState(() =>
+    sortStocks(items, order, orderByKey)
+  );
+  React.useEffect(() => {
+    setSortedStocks(sortStocks(items, order, orderByKey));
+  }, [items, order, orderByKey]);
+  const handleRequestSort = (property: keyof API.Stock) => {
+    const isAsc = orderByKey === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderByKey(property);
+  };
+
   React.useEffect(() => {
     setItems(stocks.slice(0, 10));
     setHasMore(true);
@@ -333,7 +320,6 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
               onRequestSort={handleRequestSort}
               order={order}
               orderByKey={orderByKey}
-              headCells={headCells}
             />
             <TableBody>
               {sortedStocks.map((s) => (
