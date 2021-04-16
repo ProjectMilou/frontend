@@ -21,6 +21,7 @@ import Risks from './Risks';
 import BalanceSheetInfo from './BalanceSheetInfo';
 import Analysts from './Analysts';
 import AddToPortfolioButton from '../../shared/AddToPortfolioButton';
+import DetailsOverviewInfoBox from './DetailsOverviewInfoBox';
 
 // props type declaration
 export interface DetailsProps extends RouteComponentProps {
@@ -211,7 +212,10 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
                 buttonTextColor={theme.palette.primary.contrastText}
                 height={450}
               />
-
+              <DetailsOverviewInfoBox
+                stockOverview={stockOverview}
+                 stockDetails={stockDetails}
+              />
               <SectionDivider section="analyser.details.KeyFiguresHeader" />
               <KeyFigures />
               <Dividends />

@@ -8,18 +8,15 @@ import {
   List,
   ListItemIcon,
   ListItemText,
-  colors,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import BusinessIcon from '@material-ui/icons/Business';
 import LanguageIcon from '@material-ui/icons/Language';
 import GroupIcon from '@material-ui/icons/Group';
 import HomeIcon from '@material-ui/icons/Home';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import ChildFriendlyIcon from '@material-ui/icons/ChildFriendly';
-import { Stock, StockDetails } from '../../../analyser/APIClient';
+import {StockDetails } from '../../../analyser/APIClient';
 import * as DashboardTable from '../search/DashboardTable';
 
 type DetailsOverviewCompanyProos = {

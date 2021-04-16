@@ -75,10 +75,7 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
     <>
       <SectionDivider section={t('analyser.details.summaryHeader')} />
       <Grid container spacing={1}>
-        <DetailsOverviewInfoBox
-          stockOverview={stockOverview}
-          stockDetails={stockDetails}
-        />
+        
         <Grid
           container
           alignItems="flex-start"

@@ -1,32 +1,28 @@
-// Based on Portfolio DetailsOverview
-
 import React from 'react';
-import { useTheme, makeStyles, createStyles, Grid } from '@material-ui/core';
+import { useTheme, makeStyles, createStyles, Table, TableRow, TableCell } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Stock, StockDetails } from '../../../analyser/APIClient';
 import TextOverText from '../TextOverText';
+
 
 // stylesheet for the Summary section
 const useStyles = makeStyles(() =>
   createStyles({
     infoBox: {
-      outlineStyle: 'solid',
+      // optional outline
+      // outlineStyle: 'solid',
       outlineColor: 'ba',
       outlineWidth: '0.15rem',
       margin: '1rem 0',
+      border: 'none'
     },
-    vl: {
-      margin: '0.5rem 1rem',
-      height: '4rem',
-      alignSelf: 'center',
-      // TODO: use theme color
-      borderColor: 'grey',
-    },
-    center: {
-      margin: 'auto',
+    tableCell: {
+      border: 'none'
     },
   })
 );
+
+
 
 // type declarations
 type DetailsOverviewProps = {
@@ -36,83 +32,113 @@ type DetailsOverviewProps = {
   stockDetails: StockDetails;
 };
 
-// returns the details page header
 const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
   stockOverview,
+  stockDetails
 }) => {
   const classes = useStyles();
   const theme = useTheme();
   const { t } = useTranslation();
 
-  // TODO: no hard coded colors
-  // TODO: update range to fit data from analytics
-  // convert a score to a color
-  function convertPerformanceToColor(num: number): string {
-    return num <= 0 ? '#D64745' : '#50E2A8';
+  const convertPerformanceToColor = (num: number) => num <= 0 ? theme.palette.error.main : theme.palette.success.main;
+  const convertToPercent = (num: number): string  => `${num}%`;
+
+  // Rounds and adds M=Million, B=Billion and K=Thousand --> American System!!!
+  const moneyFormat = (val: number) => {
+  let round = '';
+  if (Math.abs(val) >= 1.0e9) {
+    round = `${Math.round(Math.abs(val) / 1.0e9)} B`;
+  } else if (Math.abs(val) >= 1.0e6) {
+    round = `${Math.round(Math.abs(val) / 1.0e6)} M`;
+  } else if (Math.abs(val) >= 1.0e3) {
+    round = `${Math.round(Math.abs(val) / 1.0e3)} K`;
+  } else {
+    round = `${Math.abs(val)}`;
   }
-  function convertToPercent(num: number): string {
-    return `${num}%`;
-  }
+  return round;
+}
 
   return (
-    <>
-      <Grid
-        container
-        xs={12}
-        justify="space-around"
-        direction="row"
+      <Table
         className={classes.infoBox}
       >
-        <Grid item className={classes.center}>
-          {/* country */}
+        <TableRow>
+        <TableCell  className={classes.tableCell}>
           <TextOverText
             top={`${stockOverview.country}`}
             bottom={t('stock.country')}
             colorTop={theme.palette.lightBlue.main}
-            colorBottom={theme.palette.primary.main}
+            colorBottom={theme.palette.primary.light}
           />
-        </Grid>
+        </TableCell>
 
-        {/* devider 2 */}
-        <hr className={classes.vl} />
-        {/* box section 3 */}
-        <Grid item className={classes.center}>
-          {/* currency */}
+   
+        <TableCell  className={classes.tableCell}>
           <TextOverText
             top={`${stockOverview.currency}`}
             bottom={t('stock.currency')}
             colorTop={theme.palette.lightBlue.main}
-            colorBottom={theme.palette.primary.main}
+            colorBottom={theme.palette.primary.light}
           />
-        </Grid>
+        </TableCell>
 
-        {/* devider 2 */}
-        <hr className={classes.vl} />
-        {/* box section 3 */}
-        <Grid item className={classes.center}>
-          {/* industry */}
+      
+        <TableCell  className={classes.tableCell}>
           <TextOverText
             top={`${stockOverview.industry}`}
             bottom={t('stock.industry')}
             colorTop={theme.palette.lightBlue.main}
-            colorBottom={theme.palette.primary.main}
+            colorBottom={theme.palette.primary.light}
           />
-        </Grid>
-
-        {/* devider 2 */}
-        <hr className={classes.vl} />
-        {/* box section 3 */}
-        <Grid item className={classes.center}>
+        </TableCell>
+        <TableCell  className={classes.tableCell}>
+          <TextOverText
+            top={stockDetails.exchange}
+            bottom={t('company.exchange')}
+            colorTop={theme.palette.lightBlue.main}
+            colorBottom={theme.palette.primary.light}
+          />
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell  className={classes.tableCell}>
+          <TextOverText
+            top={moneyFormat(parseInt(stockDetails.marketCapitalization, 10))}
+            bottom={t('company.mc') }
+            colorTop={theme.palette.primary.main}
+            colorBottom={theme.palette.primary.light}
+            infoText= {t("info.mc")}
+          />
+        </TableCell>
+        <TableCell  className={classes.tableCell}>
+          <TextOverText
+            top={parseFloat(stockDetails.per50DayMovingAverage).toFixed(2).toString()}
+            bottom={t('stock.50dayMovingAverage')}
+            colorTop={theme.palette.primary.main}
+            colorBottom={theme.palette.primary.light}
+            infoText= {t("info.50dayMovingAverage")}
+          />
+        </TableCell>
+        <TableCell  className={classes.tableCell}>
+          <TextOverText
+            top={stockDetails.sharesFloat}
+            bottom={t('company.sharesFloat')}
+            colorTop={theme.palette.primary.main}
+            colorBottom={theme.palette.primary.light}
+            infoText= {t("info.sharesFloat")}
+          />
+        </TableCell>
+        <TableCell  className={classes.tableCell}>
           {/* dividend */}
           <TextOverText
             top={convertToPercent(stockOverview.div)}
             bottom={t('stock.div')}
             colorTop={convertPerformanceToColor(stockOverview.div)}
-            colorBottom={theme.palette.primary.main}
+            colorBottom={theme.palette.primary.light}
           />
-        </Grid>
-      </Grid>
-    </>
+        </TableCell>
+        </TableRow>
+      </Table>
   );
 };
 
