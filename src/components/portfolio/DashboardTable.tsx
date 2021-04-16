@@ -23,15 +23,16 @@ import {
 } from '../../portfolio/APIClient';
 import DashboardActions from './DashboardActions';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
+import PortfolioScore from './PortfolioScore';
 import { portfolioDetails, importPortfolio } from '../../portfolio/Router';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(({ palette }: Theme) => ({
   action: { display: 'inline-block' },
   row: {
     cursor: 'pointer',
   },
   rowHover: {
-    backgroundColor: lighten(theme.palette.primary.light, 0.85),
+    backgroundColor: lighten(palette.primary.light, 0.85),
   },
   positionCount: {
     fontSize: '24px',
@@ -76,7 +77,9 @@ const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
       className={classNames(classes.row, hover && classes.rowHover)}
     >
       <TableCell align="center">
-        {'score' in portfolio && portfolio.score}
+        {'score' in portfolio && (
+          <PortfolioScore score={portfolio.score} dashboard />
+        )}
       </TableCell>
       <TableCell align="center" component="th" scope="row">
         <ListItemText
