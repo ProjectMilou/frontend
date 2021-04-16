@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: 'auto',
       marginRight: 'auto',
       display: 'block',
+      maxWidth: '100%'
     },
     paper: {
       padding: theme.spacing(2),
@@ -87,7 +88,7 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
             <Paper className={classes.paper} variant="outlined">
               <img
                 className={classes.image}
-                alt="Company Pictrue"
+                alt="Company Symbol"
                 src={stockOverview.picture.toString()}
               />
             </Paper>
