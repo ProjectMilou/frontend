@@ -239,7 +239,7 @@ const Datetime: React.FC<StockChartProps> = ({
           <Button
             type="button"
             id="one_month"
-            variant="contained"
+            variant="outlined"
             style={buttonStyling}
             onClick={() => updateData(series, 'one_month')}
             className={selection === 'one_month' ? 'active' : ''}
@@ -250,7 +250,7 @@ const Datetime: React.FC<StockChartProps> = ({
           <Button
             type="button"
             id="three_months"
-            variant="contained"
+            variant="outlined"
             style={buttonStyling}
             onClick={() => updateData(series, 'three_months')}
             className={selection === 'six_months' ? 'active' : ''}
@@ -261,7 +261,7 @@ const Datetime: React.FC<StockChartProps> = ({
           <Button
             type="button"
             id="one_year"
-            variant="contained"
+            variant="outlined"
             style={buttonStyling}
             onClick={() => updateData(series, 'one_year')}
             className={selection === 'one_year' ? 'active' : ''}
@@ -272,7 +272,7 @@ const Datetime: React.FC<StockChartProps> = ({
           <Button
             type="button"
             id="five_years"
-            variant="contained"
+            variant="outlined"
             style={buttonStyling}
             onClick={() => updateData(series, 'five_years')}
             className={selection === 'one_year' ? 'active' : ''}
@@ -283,7 +283,7 @@ const Datetime: React.FC<StockChartProps> = ({
           <Button
             type="button"
             id="ytd"
-            variant="contained"
+            variant="outlined"
             style={buttonStyling}
             onClick={() => updateData(series, 'ytd')}
             className={selection === 'ytd' ? 'active' : ''}
@@ -294,7 +294,7 @@ const Datetime: React.FC<StockChartProps> = ({
           <Button
             type="button"
             id="all"
-            variant="contained"
+            variant="outlined"
             style={buttonStyling}
             onClick={() => {
               if (setPerformanceAll !== undefined) {

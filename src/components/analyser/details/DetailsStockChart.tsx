@@ -41,7 +41,7 @@ const DetailsStockChart: React.FC<DetailsStockChartProps> = ({
                 series={stockPerformance}
                 setPerformanceAll={setPerformanceAll}
                 axisColor={theme.palette.secondary.contrastText}
-                buttonBackgroundColor={theme.palette.primary.light}
+                buttonBackgroundColor={theme.palette.lightBlue.main}
                 buttonTextColor={theme.palette.primary.contrastText}
                 height={450}
               />
