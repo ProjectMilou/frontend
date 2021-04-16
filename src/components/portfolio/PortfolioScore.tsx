@@ -2,7 +2,6 @@ import React from 'react';
 import {
   makeStyles,
   Theme,
-  useTheme,
   darken,
   Typography,
   Tooltip,
@@ -14,55 +13,84 @@ const useStyles = makeStyles(({ palette }: Theme) => ({
     width: '75%',
     alignSelf: 'center',
     textAlign: 'center',
-    fontSize: '1.25rem',
-    fontWeight: 600,
-    padding: '0.25rem 0',
+    padding: '0.25rem',
     color: palette.secondary.contrastText,
     borderRadius: '0.75rem',
     userSelect: 'none',
   },
+  title: {
+    fontSize: '1.5rem',
+    fontWeight: 500,
+    letterSpacing: '0.05rem',
+  },
+  subTitle: {
+    fontSize: '0.9rem',
+    fontWeight: 400,
+    marginTop: '-0.25rem',
+  },
   tooltip: {
     fontSize: '0.75rem',
   },
+  darkRed: {
+    backgroundColor: darken(palette.error.main, 0.2),
+  },
+  red: {
+    backgroundColor: palette.error.main,
+  },
+  yellow: {
+    backgroundColor: palette.warning.main,
+  },
+  green: {
+    backgroundColor: palette.success.main,
+  },
+  darkGreen: {
+    backgroundColor: darken(palette.success.main, 0.2),
+  },
 }));
 
-type PortfolioScoreType = {
+type PortfolioScoreProps = {
+  dashboard?: boolean;
   score: number;
 };
 
-const PortfolioScore: React.FC<PortfolioScoreType> = ({ score }) => {
+const PortfolioScore: React.FC<PortfolioScoreProps> = ({
+  score,
+  dashboard,
+}) => {
   const classes = useStyles();
-  const { palette } = useTheme();
   const { t } = useTranslation();
 
-  // a score is mapped to one of these 5 colors
-  const scoreColors = [
-    darken(palette.error.main, 0.2),
-    palette.error.main,
-    palette.warning.main,
-    palette.success.main,
-    darken(palette.success.main, 0.2),
+  // a score is mapped to one of these 5 classes with colors
+  const scoreClasses = [
+    classes.darkRed,
+    classes.red,
+    classes.yellow,
+    classes.green,
+    classes.darkGreen,
   ];
 
   return (
     <Tooltip
       title={
-        <p className={classes.tooltip}>
+        <div className={classes.tooltip}>
           {t('portfolio.details.scoreTooltip').toString()}
-        </p>
+        </div>
       }
+      disableHoverListener={dashboard}
+      disableFocusListener={dashboard}
     >
-      <Typography
-        className={classes.box}
-        style={
-          // TODO: change to Math.floor(score * 5) if score is from 0 to 1
-          {
-            backgroundColor: scoreColors[Math.floor(score * 0.05)],
-          }
-        }
+      <div
+        // TODO: change to Math.floor(score * 5) if score is from 0 to 1
+        className={`${classes.box} ${scoreClasses[Math.floor(score * 0.05)]}`}
       >
-        {score}
-      </Typography>
+        <Typography className={classes.title}>{score}</Typography>
+        {/* Renders subTitle 'score' if in details page */}
+        {!dashboard && (
+          <Typography className={classes.subTitle}>
+            {t('portfolio.details.score')}
+          </Typography>
+        )}
+      </div>
     </Tooltip>
   );
 };

@@ -77,7 +77,9 @@ const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
       className={classNames(classes.row, hover && classes.rowHover)}
     >
       <TableCell align="center">
-        {'score' in portfolio && <PortfolioScore score={portfolio.score} />}
+        {'score' in portfolio && (
+          <PortfolioScore score={portfolio.score} dashboard />
+        )}
       </TableCell>
       <TableCell align="center" component="th" scope="row">
         <ListItemText
