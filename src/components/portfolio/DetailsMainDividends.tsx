@@ -137,7 +137,11 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
       </div>
     );
   }
-  return <div className={classes.infoBody}>No information available yet</div>;
+  return (
+    <div className={classes.infoBody}>
+      {t('portfolio.details.emptyKeyFigures')}
+    </div>
+  );
 };
 
 export default DetailsMainDividends;
