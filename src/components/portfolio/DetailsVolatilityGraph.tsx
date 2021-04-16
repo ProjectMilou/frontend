@@ -82,8 +82,8 @@ const DetailsVolatilityGraph: React.FC<DetailsVolatilityGraphProps> = ({
               tooltipText={symbol}
               color={
                 volatility > 1
-                  ? theme.palette.lightBlue.main
-                  : theme.palette.secondary.light
+                  ? theme.palette.error.main
+                  : theme.palette.success.main
               }
             />
           ))}
