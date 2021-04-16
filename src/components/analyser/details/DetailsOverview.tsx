@@ -17,17 +17,14 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import BusinessIcon from '@material-ui/icons/Business';
 import LanguageIcon from '@material-ui/icons/Language';
-import GroupIcon from '@material-ui/icons/Group';
-import HomeIcon from '@material-ui/icons/Home';
-import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
-import ChildFriendlyIcon from '@material-ui/icons/ChildFriendly';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 import { useTranslation } from 'react-i18next';
 import { Stock, StockDetails } from '../../../analyser/APIClient';
 import SectionDivider from './SectionDivider';
 import DetailsOverviewInfoBox from './DetailsOverviewInfoBox';
 
 import * as DashboardTable from '../search/DashboardTable';
+import DetailsOverviewCompany from './DetailsOverviewCompany';
 
 // stylesheet for the Summary section
 const useStyles = makeStyles((theme: Theme) =>
@@ -44,14 +41,18 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
     },
     icon: {
-      color: theme.palette.lightBlue.main,
+      color: theme.palette.primary.light,
       fontSize: 35,
     },
     header: {
       ...theme.typography.h6,
       display: 'inline',
+      color: theme.palette.primary.light,
     },
-    intro: theme.typography.body1,
+    intro: {
+      ...theme.typography.body1,
+      color: theme.palette.primary.light,
+    },
   })
 );
 
@@ -85,8 +86,9 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
           direction="row"
           spacing={5}
         >
+          {/* picture and ccompany overview */}
           <Grid item xs={3}>
-            <Paper className={classes.paper}>
+            <Paper className={classes.paper} variant="outlined">
               <img
                 className={classes.imageWrapper}
                 alt="Company Pictrue"
@@ -94,10 +96,11 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
               />
             </Paper>
           </Grid>
+
           <Grid item xs={9}>
             <List>
               <ListItem>
-                <Accordion>
+                <Accordion className={classes.card} variant="outlined">
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel2a-content"
@@ -110,7 +113,6 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
                       {stockOverview.name}
                     </Typography>
                   </AccordionSummary>
-
                   <AccordionDetails>
                     <Typography className={classes.intro}>
                       {stockDetails.intro}
@@ -119,77 +121,24 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
                 </Accordion>
               </ListItem>
               <ListItem>
-                <Paper className={classes.card}>
-                  <List>
-                    <ListItem>
-                      <ListItemIcon>
-                        <LanguageIcon className={classes.icon} />
-                      </ListItemIcon>
-                      <ListItemText>
-                        <Typography className={classes.header}>
-                          {t('company.website')}:{' '}
-                          <a href={stockDetails.website}>
-                            {stockDetails.website}
-                          </a>
-                        </Typography>
-                      </ListItemText>
-                    </ListItem>
-                    <ListItem>
-                      <ListItemIcon>
-                        <ChildFriendlyIcon className={classes.icon} />
-                      </ListItemIcon>
-                      <ListItemText>
-                        <Typography className={classes.header}>
-                          {t('stock.founded')}: {stockDetails.founded}
-                        </Typography>
-                      </ListItemText>
-                    </ListItem>
-                    <ListItem>
-                      <ListItemIcon>
-                        <AccountBalanceWalletIcon className={classes.icon} />
-                      </ListItemIcon>
-                      <ListItemText>
-                        <Typography className={classes.header}>
-                          {t('company.mc')}:{' '}
-                          {DashboardTable.moneyFormat(
-                            parseInt(stockDetails.marketCapitalization, 10)
-                          )}
-                        </Typography>
-                      </ListItemText>
-                    </ListItem>
-                    <ListItem>
-                      <ListItemIcon>
-                        <GroupIcon className={classes.icon} />
-                      </ListItemIcon>
-                      <ListItemText>
-                        <Typography className={classes.header}>
-                          {t('stock.fullTimeEmployees')}:{' '}
-                          {stockDetails.employees}
-                        </Typography>
-                      </ListItemText>
-                    </ListItem>
-                    <ListItem>
-                      <ListItemIcon>
-                        <HomeIcon className={classes.icon} />
-                      </ListItemIcon>
-                      <ListItemText>
-                        <Typography className={classes.header}>
-                          {t('stock.address')}: {stockDetails.address}
-                        </Typography>
-                      </ListItemText>
-                    </ListItem>
-                    <ListItem>
-                      <ListItemIcon>
-                        <AccountBalanceIcon className={classes.icon} />
-                      </ListItemIcon>
-                      <ListItemText>
-                        <Typography className={classes.header}>
-                          {t('company.exchange')}: {stockDetails.exchange}
-                        </Typography>
-                      </ListItemText>
-                    </ListItem>
-                  </List>
-                </Paper>
+                <Accordion className={classes.card} variant="outlined">
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel2a-content"
+                    id="panel2a-header"
+                  >
+                    <ListItemIcon>
+                      <MenuBookIcon className={classes.icon} />{' '}
+                    </ListItemIcon>
+                    <Typography className={classes.header}>
+                      Company Details
+                    </Typography>
+                  </AccordionSummary>
+
+                  <AccordionDetails>
+                    <DetailsOverviewCompany stockDetails={stockDetails} />
+                  </AccordionDetails>
+                </Accordion>
               </ListItem>
             </List>
           </Grid>

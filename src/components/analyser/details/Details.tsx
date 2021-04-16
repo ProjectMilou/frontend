@@ -207,11 +207,11 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
                 series={stockPerformance}
                 setPerformanceAll={setPerformanceAll}
                 axisColor={theme.palette.secondary.contrastText}
-                buttonBackgroundColor={theme.palette.primary.main}
+                buttonBackgroundColor={theme.palette.primary.light}
                 buttonTextColor={theme.palette.primary.contrastText}
                 height={450}
               />
-              <NewsComponent newsList={newsList} />
+
               <SectionDivider section="analyser.details.KeyFiguresHeader" />
               <KeyFigures />
               <Dividends />
@@ -221,6 +221,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
                 overview={stockOverview}
               />
               <Risks />
+              <NewsComponent newsList={newsList} />
               <AddToPortfolioButton symbol={symbol} />
             </Container>
           </div>
