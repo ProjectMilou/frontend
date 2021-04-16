@@ -25,10 +25,18 @@ const WelcomeWindow: React.FC<WelcomeWindowProps> = (props) => {
   const { closePopUp, text } = props;
   const { iconCheck } = useStyles();
 
+  const isMounted = React.useRef(true);
+
   useEffect(() => {
     setTimeout(() => {
-      closePopUp();
+      // only close the popup if it is still open
+      if (isMounted.current) {
+        closePopUp();
+      }
     }, 5000);
+    return () => {
+      isMounted.current = false;
+    };
   });
 
   const showCheckmark = true;
