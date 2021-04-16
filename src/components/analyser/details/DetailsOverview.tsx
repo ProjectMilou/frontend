@@ -18,7 +18,7 @@ import BusinessIcon from '@material-ui/icons/Business';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import { useTranslation } from 'react-i18next';
 import { Stock, StockDetails } from '../../../analyser/APIClient';
-import SectionDivider from './SectionDivider';
+import SectionDivider from '../../shared/SectionDivider';
 import DetailsOverviewCompany from './DetailsOverviewCompany';
 
 // stylesheet for the Summary section

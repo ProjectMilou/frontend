@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
-import StyledNumberFormat from '../shared/StyledNumberFormat';
-import InfoButton from '../shared/InfoButton';
+import StyledNumberFormat from './StyledNumberFormat';
+import InfoButton from './InfoButton';
 
 export type TextOverTextProps = {
   top: string;

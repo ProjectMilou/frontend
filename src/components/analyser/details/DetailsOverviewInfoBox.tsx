@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme, makeStyles, createStyles, Table, TableRow, TableCell } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Stock, StockDetails } from '../../../analyser/APIClient';
-import TextOverText from '../TextOverText';
+import TextOverText from '../../shared/TextOverText';
 
 
 // stylesheet for the Summary section
