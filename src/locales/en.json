@@ -94,6 +94,7 @@
   "shell.reset.tokenSent": "Please click on the link that we send to your email",
   "shell.resetChange.enterPassword": "Please enter your new password",
   "shell.resetChange.success": "Successfully changed your password",
+  "shell.resetChange.failure": "Couldn't change your password",
   "shell.message.haveAccount": "<typography>You already have an account.<box></typography><button>Go to Login</button></box>",
   "shell.question.confirmationEmail": "You do not find the confirmation email? Please also check your spam folder!",
   "shell.message.confirmationEmail": "<typography>We sent you an email with a confirmation link.<break/>This could take a few minutes.<break/>Please confirm your email-address by clicking on the link.</typography>",

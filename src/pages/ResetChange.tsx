@@ -6,10 +6,14 @@ import {
   createStyles,
   useTheme,
   Typography,
+  Button,
+  Dialog,
 } from '@material-ui/core';
-import { RouteComponentProps } from '@reach/router';
+import { navigate, RouteComponentProps } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import ResetChangeForm from '../components/shell/reset/ResetChangeForm';
+import { Context } from '../state/context';
+import Reset from '../components/shell/reset/Reset';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -17,6 +21,19 @@ const useStyles = makeStyles((theme) =>
       marginTop: theme.spacing(10),
       marginBottom: theme.spacing(10),
       padding: theme.spacing(5, 3),
+    },
+    button: {
+      marginTop: theme.spacing(4),
+    },
+    dialog: {
+      borderRadius: '10px',
+      maxWidth: '450px',
+      width: '100%',
+      margin: 'auto',
+      height: 'min-content',
+    },
+    paper: {
+      minWidth: '350px',
     },
   })
 );
@@ -28,9 +45,13 @@ interface ResetChangeProps extends RouteComponentProps {
 const ResetChange: React.FC<ResetChangeProps> = (props) => {
   const { id, token } = props;
   const { t } = useTranslation();
-  const { formular } = useStyles(useTheme());
+  const { dispatch } = React.useContext(Context);
+  const { formular, button, dialog, paper } = useStyles(useTheme());
+
   type State = 'resetForm' | 'resetConfirmed' | 'resetFailed';
   const [resetState, setResetState] = useState<State>('resetForm');
+
+  const [openReset, setOpenReset] = useState(false);
 
   return (
     <Container maxWidth="xs">
@@ -45,16 +66,54 @@ const ResetChange: React.FC<ResetChangeProps> = (props) => {
         )}
 
         {resetState === 'resetConfirmed' && (
-          <Typography variant="h5" align="center">
-            {t('shell.resetChange.success')}
-          </Typography>
+          <>
+            <Typography variant="h4" align="center">
+              {t('shell.resetChange.success')}
+            </Typography>
+
+            <Button
+              type="button"
+              variant="contained"
+              color="primary"
+              className={button}
+              fullWidth
+              onClick={() => {
+                navigate('/');
+                dispatch({ type: 'OPEN_LOGIN' });
+              }}
+            >
+              {t('shell.login')}
+            </Button>
+          </>
         )}
 
         {resetState === 'resetFailed' && (
           <>
-            <Typography variant="h5" align="center" gutterBottom>
-              {t('error.retry')}
+            <Typography variant="h4" align="center" gutterBottom>
+              {t('shell.resetChange.failure')}
             </Typography>
+
+            <Button
+              type="button"
+              variant="contained"
+              color="primary"
+              className={button}
+              fullWidth
+              onClick={() => {
+                setOpenReset(true);
+              }}
+            >
+              {t('error.retry')}
+            </Button>
+
+            <Dialog
+              open={openReset}
+              onClose={() => setOpenReset(false)}
+              className={dialog}
+              classes={{ paper }}
+            >
+              <Reset closePopUp={() => setOpenReset(false)} />
+            </Dialog>
           </>
         )}
       </Paper>
