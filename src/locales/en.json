@@ -3,6 +3,7 @@
   "portfolio.details.editPortfolio": "Edit Portfolio",
   "portfolio.details.cannotEditPortfolio": "Cannot edit real portfolio",
   "portfolio.details.summaryHeader": "Summary",
+  "portfolio.details.stockChartSeries": "Total Performance",
   "portfolio.dialog.edit.title": "Edit portfolio positions",
   "portfolio.dialog.edit.text": "Here you can adjust the positions of your portfolio.",
   "portfolio.details.stock": "Stock",
