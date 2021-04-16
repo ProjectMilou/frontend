@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTheme } from '@material-ui/core/styles';
 import KeyFiguresBar from '../../shared/KeyFiguresBar';
 import SubsectionDivider from '../../shared/SubsectionDivider';
 
@@ -10,8 +9,6 @@ export type KeyFigure = {
 };
 
 const KeyFigures: React.FC = () => {
-  const theme = useTheme();
-
   // portfolio team moved this mock value up from the chart
   // change this to the real api data whenever you need
   const mockSeries = {
@@ -29,7 +26,6 @@ const KeyFigures: React.FC = () => {
         keyFigures={mockSeries}
         // TODO: change to real years
         years={[2016, 2017, 2018, 2019, 2020]}
-        textColor={theme.palette.secondary.contrastText}
       />
     </div>
   );

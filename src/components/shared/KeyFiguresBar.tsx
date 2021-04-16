@@ -1,39 +1,59 @@
 import React from 'react';
-import { Toolbar } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { KeyFigure, KeyFigureSelect } from './KeyFigureSelect';
 import KeyFiguresChart from './KeyFiguresChart';
+import StyledNumberFormat from './StyledNumberFormat';
 
 type KeyFiguresBarProps = {
   keyFigures: { [keyFigure in KeyFigure]: number[] };
   years: number[];
-  textColor: string;
+  dark?: boolean;
   chartHeight: number;
 };
+
+const useStyles = makeStyles({
+  grid: {
+    marginBottom: '25px',
+  },
+});
 
 const KeyFiguresBar: React.FC<KeyFiguresBarProps> = ({
   keyFigures,
   years,
-  textColor,
+  dark,
   chartHeight,
 }) => {
   const { t } = useTranslation();
+  const classes = useStyles();
 
   const [selectedSeries, setSelectedSeries] = React.useState<KeyFigure>('PER');
 
   return (
     <div>
-      <Toolbar>
-        {Object.keys(keyFigures).map((keyFigure) => (
-          <KeyFigureSelect
-            key={keyFigure}
-            keyFigure={keyFigure as KeyFigure}
-            selected={selectedSeries === keyFigure}
-            select={setSelectedSeries}
-            textColor={textColor}
-          />
-        ))}
-      </Toolbar>
+      <Grid container spacing={2} className={classes.grid}>
+        {Object.entries(keyFigures).map(([keyFigure, values]) => {
+          const latestValue = values[values.length - 1];
+          return (
+            <Grid item md={6} xs={12}>
+              <KeyFigureSelect
+                key={keyFigure}
+                keyFigure={keyFigure as KeyFigure}
+                value={
+                  keyFigure === 'EPS' && latestValue !== undefined ? (
+                    <StyledNumberFormat value={latestValue} suffix="€" />
+                  ) : (
+                    latestValue
+                  )
+                }
+                selected={selectedSeries === keyFigure}
+                select={setSelectedSeries}
+                dark={dark}
+              />
+            </Grid>
+          );
+        })}
+      </Grid>
       <KeyFiguresChart
         height={chartHeight}
         series={{
@@ -41,7 +61,7 @@ const KeyFiguresBar: React.FC<KeyFiguresBarProps> = ({
           data: keyFigures[selectedSeries],
         }}
         years={years}
-        textColor={textColor}
+        dark={dark}
       />
     </div>
   );

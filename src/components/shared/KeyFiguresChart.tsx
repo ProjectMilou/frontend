@@ -1,5 +1,6 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
+import { useTheme } from '@material-ui/core';
 
 export type Series = {
   name: string;
@@ -9,19 +10,23 @@ export type Series = {
 type KeyFiguresChartProps = {
   series: Series;
   years: number[];
-  textColor: string;
+  dark?: boolean;
   height: number;
 };
 
 const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({
   series,
   years,
-  textColor,
+  dark,
   height,
 }) => {
+  const { palette } = useTheme();
+
+  const color = dark
+    ? palette.primary.contrastText
+    : palette.secondary.contrastText;
   const options = {
-    // Todo change hard coded colors and toggle for charts
-    colors: ['#F6AE2D'],
+    colors: [palette.teal.main],
     chart: {
       id: 'line-chart',
       toolbar: {
@@ -32,14 +37,14 @@ const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({
       categories: years,
       labels: {
         style: {
-          colors: textColor,
+          colors: color,
         },
       },
     },
     yaxis: {
       labels: {
         style: {
-          colors: textColor,
+          colors: color,
         },
       },
     },

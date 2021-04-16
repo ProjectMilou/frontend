@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, createStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import KeyFiguresBar from '../shared/KeyFiguresBar';
 import { KeyFigures } from '../../portfolio/APIClient';
 
@@ -31,7 +31,6 @@ const DetailsMainKeyFigures: React.FC<DetailsMainKeyFiguresProps> = ({
   figures,
 }) => {
   const classes = useStyles();
-  const theme = useTheme();
 
   const keyFigures = {
     PER: figures.map((f) => f.pte),
@@ -46,7 +45,7 @@ const DetailsMainKeyFigures: React.FC<DetailsMainKeyFiguresProps> = ({
         chartHeight={350}
         keyFigures={keyFigures}
         years={figures.map((f) => f.year)}
-        textColor={theme.palette.primary.contrastText}
+        dark
       />
     </div>
   );
