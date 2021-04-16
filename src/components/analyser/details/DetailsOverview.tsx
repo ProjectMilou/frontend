@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
     intro: {
       ...theme.typography.body1,
       color: theme.palette.primary.light,
-    },
+    }
   })
 );
 

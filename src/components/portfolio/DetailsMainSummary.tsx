@@ -5,6 +5,7 @@ import ValueOverName from './ValueOverName';
 import DetailsDonut from './DetailsDonut';
 import StockChart from '../shared/StockChart';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
+import PortfolioScore from './PortfolioScore';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 
 // stylesheet for the Summary section
@@ -356,11 +357,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
             style={{ flexBasis: '10%' }}
           >
             {/* total score of the portfolio */}
-            <ValueOverName
-              // TODO: Portfolio score visualization
-              value={portfolio.overview.score.toString()}
-              name={t('portfolio.details.score')}
-            />
+            <PortfolioScore score={portfolio.overview.score} />
           </div>
           {/* devider 1 */}
           <hr className={classes.vl} />

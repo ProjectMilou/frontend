@@ -15,7 +15,7 @@ import Login from '../shell/login/Login';
 import UserService from '../../services/UserService';
 import SearchBar from '../analyser/search/SearchBar';
 import Register from '../shell/register/Register';
-import ForgotPassword from '../shell/forgotPassword/ForgotPassword';
+import Reset from '../shell/reset/Reset';
 import { Context } from '../../state/context';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -154,7 +154,7 @@ const Header: React.FC = () => {
           className={classes.dialog}
           classes={{ paper: classes.paper }}
         >
-          <ForgotPassword closePopUp={() => setOpenForgotPassword(false)} />
+          <Reset closePopUp={() => setOpenForgotPassword(false)} />
         </Dialog>
       </Toolbar>
     </AppBar>
