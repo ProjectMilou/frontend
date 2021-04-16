@@ -58,6 +58,25 @@ export type DashboardTableRowProps = {
   stock: API.Stock;
 };
 
+type Order = 'asc' | 'desc';
+
+export type DashboardTableHeaderProps = {
+  onRequestSort: (property: keyof API.Stock) => void;
+  order: Order;
+  orderByKey: keyof API.Stock;
+};
+
+export type DashboardTableProps = {
+  stocks: API.Stock[];
+};
+
+interface HeadCell {
+  id: keyof API.Stock;
+  numeric: boolean;
+  disablePadding: boolean;
+  label: string;
+}
+
 // Rounds and adds M=Million, B=Billion and K=Thousand --> American System!!!
 export function moneyFormat(val: number): string {
   let round = '';
@@ -152,8 +171,6 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   return 0;
 }
 
-type Order = 'asc' | 'desc';
-
 function sortStocks(
   items: API.Stock[],
   order: Order,
@@ -163,19 +180,6 @@ function sortStocks(
     ? items.sort((a, b) => descendingComparator(a, b, orderBy))
     : items.sort((a, b) => -descendingComparator(a, b, orderBy));
 }
-
-interface HeadCell {
-  id: keyof API.Stock;
-  numeric: boolean;
-  disablePadding: boolean;
-  label: string;
-}
-
-export type DashboardTableHeaderProps = {
-  onRequestSort: (property: keyof API.Stock) => void;
-  order: Order;
-  orderByKey: keyof API.Stock;
-};
 
 const DashboardTableHeader: React.FC<DashboardTableHeaderProps> = ({
   onRequestSort,
@@ -254,10 +258,6 @@ const DashboardTableHeader: React.FC<DashboardTableHeaderProps> = ({
       </TableRow>
     </TableHead>
   );
-};
-
-export type DashboardTableProps = {
-  stocks: API.Stock[];
 };
 
 const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
