@@ -25,7 +25,6 @@ import DetailsOverviewCompany from './DetailsOverviewCompany';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     image: {
-      
       height: '100%',
       marginLeft: 'auto',
       marginRight: 'auto',
@@ -39,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     card: {
       width: '100%',
-      height: '100%'
+      height: '100%',
     },
     icon: {
       color: theme.palette.primary.light,
@@ -76,7 +75,6 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
     <>
       <SectionDivider section={t('analyser.details.summaryHeader')} />
       <Grid container spacing={1}>
-        
         <Grid
           container
           alignItems="flex-start"

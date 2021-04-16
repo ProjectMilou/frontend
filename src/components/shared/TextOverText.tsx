@@ -55,7 +55,12 @@ const TextOverText: React.FC<TextOverTextProps> = (props) => {
       {!euro && (
         <div className={classes.pWrapper}>
           <p className={classes.bottom}>{bottom}</p>
-          {infoText &&<>&nbsp;<InfoButton infotext={infoText}/></>}
+          {infoText && (
+            <>
+              &nbsp;
+              <InfoButton infotext={infoText} />
+            </>
+          )}
         </div>
       )}
       {euro && (
@@ -67,7 +72,12 @@ const TextOverText: React.FC<TextOverTextProps> = (props) => {
               fontWeight={600}
               size="1.3rem"
             />
-            {infoText &&<>&nbsp;<InfoButton infotext={infoText}/></>}
+            {infoText && (
+              <>
+                &nbsp;
+                <InfoButton infotext={infoText} />
+              </>
+            )}
           </p>
         </div>
       )}

@@ -23,7 +23,7 @@ export type DetailsHeaderProps = {
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     header: {
-      backgroundColor: palette.primary.dark // '#0D1B3B',
+      backgroundColor: palette.primary.dark, // '#0D1B3B',
     },
     text: {
       fontSize: '35px',

@@ -1,11 +1,7 @@
 // Initally based on Portfolio Details, since then heavily modified
 import React from 'react';
 import { RouteComponentProps, useParams } from '@reach/router';
-import {
-  LinearProgress,
-  makeStyles,
-  Container
-} from '@material-ui/core';
+import { LinearProgress, makeStyles, Container } from '@material-ui/core';
 import { isAuthenticationError } from '../../../Errors';
 import * as API from '../../../analyser/APIClient';
 import ErrorMessage from '../../shared/ErrorMessage';
@@ -20,7 +16,7 @@ import BalanceSheetInfo from './BalanceSheetInfo';
 import Analysts from './Analysts';
 import AddToPortfolioButton from '../../shared/AddToPortfolioButton';
 import DetailsOverviewInfoBox from './DetailsOverviewInfoBox';
-import DetailsStockChart from './DetailsStockChart'
+import DetailsStockChart from './DetailsStockChart';
 
 // props type declaration
 export interface DetailsProps extends RouteComponentProps {
@@ -201,10 +197,13 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
                 stockOverview={stockOverview}
                 stockDetails={stockDetails}
               />
-              <DetailsStockChart stockPerformance={stockPerformance} setPerformanceAll={setPerformanceAll}/> 
+              <DetailsStockChart
+                stockPerformance={stockPerformance}
+                setPerformanceAll={setPerformanceAll}
+              />
               <DetailsOverviewInfoBox
                 stockOverview={stockOverview}
-                 stockDetails={stockDetails}
+                stockDetails={stockDetails}
               />
               <NewsComponent newsList={newsList} />
               <SectionDivider section="analyser.details.KeyFiguresHeader" />

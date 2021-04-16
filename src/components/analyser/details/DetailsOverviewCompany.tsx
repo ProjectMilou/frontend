@@ -14,7 +14,7 @@ import LanguageIcon from '@material-ui/icons/Language';
 import GroupIcon from '@material-ui/icons/Group';
 import HomeIcon from '@material-ui/icons/Home';
 import ChildFriendlyIcon from '@material-ui/icons/ChildFriendly';
-import {StockDetails } from '../../../analyser/APIClient';
+import { StockDetails } from '../../../analyser/APIClient';
 
 type DetailsOverviewCompanyProps = {
   stockDetails: StockDetails;
