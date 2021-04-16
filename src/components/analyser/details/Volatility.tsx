@@ -2,6 +2,8 @@ import React, { ReactElement } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import ReactApexChart from 'react-apexcharts';
+import { Toolbar } from '@material-ui/core';
+import InfoButton from '../../shared/InfoButton';
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
   createStyles({
@@ -84,7 +86,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       whiteSpace: 'nowrap',
     },
     infoTitleP: {
-      margin: '0.5rem 0',
+      margin: '0.5rem 0.5rem',
     },
     chartContainer: {
       display: 'flex',
@@ -163,16 +165,20 @@ const marketSeries = [
 type InfoBlockProps = {
   title: string;
   body: ReactElement;
+  info: string;
 };
 
 // returns the details page header
-const InfoBlock: React.FC<InfoBlockProps> = ({ title, body }) => {
+const InfoBlock: React.FC<InfoBlockProps> = ({ title, body, info }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.infoWrapper}>
       <div className={classes.infoTitle}>
-        <p className={classes.infoTitleP}>{title}</p>
+        <Toolbar disableGutters>
+          <p className={classes.infoTitleP}>{title}</p>
+          <InfoButton infotext={info}> </InfoButton>
+        </Toolbar>
       </div>
       <div className={classes.infoBody}>{body}</div>
     </div>
@@ -241,14 +247,17 @@ const Volatility: React.FC = () => {
           <InfoBlock
             title={t('analyser.details.Volatility.BetaFactor')}
             body={<p style={{ margin: 0 }}> 0.5 </p>}
+            info={t('analyser.details.Volatility.BetaFactor.infoButton')}
           />
           <InfoBlock
             title={t('analyser.details.Volatility.SharpeRatio')}
             body={<p style={{ margin: 0 }}> 0.5 </p>}
+            info={t('analyser.details.Volatility.SharpeRatio.infoButton')}
           />
           <InfoBlock
             title={t('analyser.details.Volatility.TreynorRatio')}
             body={<p style={{ margin: 0 }}> 0.5 </p>}
+            info={t('analyser.details.Volatility.TreynorRatio.infoButton')}
           />
           <div className={classes.infoBody}>
             <p style={{ paddingLeft: 30 }}>
