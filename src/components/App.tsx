@@ -12,6 +12,10 @@ import Profile from './shell/profile/Profile';
 import Imprint from '../pages/Imprint';
 import AboutUs from '../pages/AboutUs';
 import Privacy from '../pages/Privacy';
+import Page404 from '../pages/Page404';
+import Confirm from '../pages/Confirm';
+import PasswordReset from '../pages/PasswordReset';
+import { ContextProvider } from '../state/context';
 
 declare module '@material-ui/core/styles/createPalette' {
   interface Palette {
@@ -75,33 +79,38 @@ export const theme = createMuiTheme({
 });
 
 const App: React.FC = () => (
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-      }}
-    >
-      <Header />
+  <ContextProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+        }}
+      >
+        <Header />
 
-      <div style={{ flexGrow: 1 }}>
-        <Router>
-          <LandingPage path="/" />
-          <Shell path="/shell" />
-          <Analyser path="/analyser/*" />
-          <Portfolio path="/portfolio/*" />
-          <Imprint path="/imprint" />
-          <AboutUs path="/aboutus" />
-          <Privacy path="/privacy" />
-          <Profile path="/profile" />
-        </Router>
+        <div style={{ flexGrow: 1 }}>
+          <Router>
+            <LandingPage path="/" />
+            <Shell path="/shell" />
+            <Analyser path="/analyser/*" />
+            <Portfolio path="/portfolio/*" />
+            <Imprint path="/imprint" />
+            <AboutUs path="/aboutus" />
+            <Privacy path="/privacy" />
+            <Profile path="/profile" />
+            <Confirm path="/confirm/:id/:token" />
+            <PasswordReset path="/passwordreset/:id/:token" />
+            <Page404 default />
+          </Router>
+        </div>
+
+        <Footer />
       </div>
-
-      <Footer />
-    </div>
-  </ThemeProvider>
+    </ThemeProvider>
+  </ContextProvider>
 );
 
 export default App;

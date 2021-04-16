@@ -1,101 +1,57 @@
-// Based on Portfolio DetailsOverview
-
 import React from 'react';
 import {
-  useTheme,
   makeStyles,
   createStyles,
   Theme,
   Typography,
+  Grid,
+  Paper,
+  ListItem,
+  List,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  ListItemIcon,
+  ListItemText,
 } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import BusinessIcon from '@material-ui/icons/Business';
+import LanguageIcon from '@material-ui/icons/Language';
+import GroupIcon from '@material-ui/icons/Group';
+import HomeIcon from '@material-ui/icons/Home';
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import ChildFriendlyIcon from '@material-ui/icons/ChildFriendly';
 import { useTranslation } from 'react-i18next';
 import { Stock, StockDetails } from '../../../analyser/APIClient';
-import TextOverText from '../TextOverText';
+import SectionDivider from './SectionDivider';
+import DetailsOverviewInfoBox from './DetailsOverviewInfoBox';
+
+import * as DashboardTable from '../search/DashboardTable';
 
 // stylesheet for the Summary section
-const useStyles = makeStyles(({ palette }: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    titleContainer: {
-      display: 'flex',
-      marginBottom: '2rem',
-    },
-    titleWrapper: {
-      marginRight: '1rem',
-    },
-    sectionTitle: {
-      margin: 0,
-      color: palette.primary.main,
-      // TODO use theme fontsize and weight
-      fontSize: '2.25rem',
-      fontWeight: 400,
-      whiteSpace: 'nowrap',
-    },
-    lineWrapper: {
-      display: 'flex',
-      width: '100%',
-      // TODO: use theme color
-      borderColor: 'grey',
-    },
-    line: {
-      width: '100%',
-      alignSelf: 'center',
-      paddingLeft: '2%',
-    },
-    infoBox: {
-      outlineStyle: 'solid',
-      outlineColor: 'grey',
-      outlineWidth: '0.15rem',
-      margin: '1rem 0',
-    },
-    infoValueContainer: {
-      display: 'flex',
-      justifyContent: 'space-evenly',
-    },
-    infoValueWrapper: {
-      display: 'flex',
-      justifyContent: 'space-around',
-      width: '100%',
-    },
-    vl: {
-      margin: '0.5rem 1rem',
-      height: '4rem',
-      alignSelf: 'center',
-      // TODO: use theme color
-      borderColor: 'grey',
-    },
-    chartContainer: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      marginTop: '2rem',
-    },
     imageWrapper: {
-      display: 'flex',
-      width: '20rem',
-      height: '20rem',
-      flexBasis: '35%',
+      width: '100%',
     },
-    // TODO center image vertically
-    imageContainer: {
-      justifyContent: 'center',
-      alignItems: 'center',
+    paper: {
+      padding: theme.spacing(2),
       margin: 'auto',
-      maxWidth: '90%',
-      maxHeight: '90%',
+      width: '100%',
     },
-    lineChartWrapper: {
-      width: '40rem',
-      height: '20rem',
-      flexBasis: '60%',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      // border: '2px dashed #f69c55',
+    card: {
+      width: '100%',
     },
-    intro: {
-      textAlign: 'left',
-      fontSize: '24px',
-      marginTop: '10px',
+    icon: {
+      color: theme.palette.lightBlue.main,
+      fontSize: 35,
     },
+    header: {
+      ...theme.typography.h6,
+      display: 'inline',
+    },
+    intro: theme.typography.body1,
   })
 );
 
@@ -107,127 +63,139 @@ type DetailsOverviewProps = {
   stockDetails: StockDetails;
 };
 
-// returns the details page header
 const DetailsOverview: React.FC<DetailsOverviewProps> = ({
   stockOverview,
   stockDetails,
 }) => {
   const classes = useStyles();
-  const theme = useTheme();
   const { t } = useTranslation();
 
-  // TODO: no hard coded colors
-  // TODO: update range to fit data from analytics
-  // convert a score to a color
-  function convertPerformanceToColor(num: number): string {
-    return num <= 0 ? '#D64745' : '#50E2A8';
-  }
-  function convertToPercent(num: number): string {
-    return `${(Math.round(num * 1000) / 10).toString()}%`;
-  }
-
   return (
-    <div>
-      <div className={classes.titleContainer}>
-        <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionTitle}>
-            {t('analyser.details.summaryHeader')}
-          </h2>
-        </div>
-        <div className={classes.lineWrapper}>
-          <hr className={classes.line} />
-        </div>
-      </div>
-      <div className={classes.infoBox}>
-        <div className={classes.infoValueContainer}>
-          <div
-            className={classes.infoValueWrapper}
-            style={{ flexBasis: '55%' }}
-          >
-            {/* country */}
-            <TextOverText
-              top={`${stockOverview.country}`}
-              bottom={t('stock.country')}
-              colorTop={theme.palette.primary.dark}
-              colorBottom={theme.palette.primary.dark}
-            />
-          </div>
+    <>
+      <SectionDivider section={t('analyser.details.summaryHeader')} />
+      <Grid container spacing={1}>
+        <DetailsOverviewInfoBox
+          stockOverview={stockOverview}
+          stockDetails={stockDetails}
+        />
+        <Grid
+          container
+          alignItems="flex-start"
+          justify="space-evenly"
+          direction="row"
+          spacing={5}
+        >
+          <Grid item xs={3}>
+            <Paper className={classes.paper}>
+              <img
+                className={classes.imageWrapper}
+                alt="Company Pictrue"
+                src={stockOverview.picture.toString()}
+              />
+            </Paper>
+          </Grid>
+          <Grid item xs={9}>
+            <List>
+              <ListItem>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel2a-content"
+                    id="panel2a-header"
+                  >
+                    <ListItemIcon>
+                      <BusinessIcon className={classes.icon} />{' '}
+                    </ListItemIcon>
+                    <Typography className={classes.header}>
+                      {stockOverview.name}
+                    </Typography>
+                  </AccordionSummary>
 
-          {/* devider 2 */}
-          <hr className={classes.vl} />
-          {/* box section 3 */}
-          <div
-            className={classes.infoValueWrapper}
-            style={{ flexBasis: '55%' }}
-          >
-            {/* currency */}
-            <TextOverText
-              top={`${stockOverview.currency}`}
-              bottom={t('stock.currency')}
-              colorTop={theme.palette.primary.light}
-              colorBottom={theme.palette.primary.dark}
-            />
-          </div>
-
-          {/* devider 2 */}
-          <hr className={classes.vl} />
-          {/* box section 3 */}
-          <div
-            className={classes.infoValueWrapper}
-            style={{ flexBasis: '55%' }}
-          >
-            {/* industry */}
-            <TextOverText
-              top={`${stockOverview.industry}`}
-              bottom={t('stock.industry')}
-              colorTop={theme.palette.primary.light}
-              colorBottom={theme.palette.primary.dark}
-            />
-          </div>
-
-          {/* devider 2 */}
-          <hr className={classes.vl} />
-          {/* box section 3 */}
-          <div
-            className={classes.infoValueWrapper}
-            style={{ flexBasis: '55%' }}
-          >
-            {/* dividend */}
-            <TextOverText
-              top={convertToPercent(stockOverview.div)}
-              bottom={t('stock.div')}
-              colorTop={convertPerformanceToColor(stockOverview.div)}
-              colorBottom={theme.palette.primary.dark}
-            />
-          </div>
-        </div>
-      </div>
-      {/* Picture and description of company */}
-      <div className={classes.chartContainer}>
-        <div className={classes.imageWrapper}>
-          <img
-            className={classes.imageContainer}
-            alt="Company Pictrue"
-            src={stockOverview.picture.toString()}
-          />
-        </div>
-        <div className={classes.lineChartWrapper}>
-          {/* Nier format */}
-          <Typography className={classes.intro}>
-            {stockDetails.intro}
-          </Typography>
-          <Typography className={classes.intro}>
-            {t('stock.founded')}: {stockDetails.founded}
-          </Typography>
-          <Typography className={classes.intro}>
-            {t('stock.fullTimeEmployees')}: {stockDetails.fullTimeEmployees}
-          </Typography>
-          <Typography className={classes.intro}>
-            {t('stock.address')}: {stockDetails.address}
-          </Typography>
-        </div>
-      </div>
-    </div>
+                  <AccordionDetails>
+                    <Typography className={classes.intro}>
+                      {stockDetails.intro}
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+              </ListItem>
+              <ListItem>
+                <Paper className={classes.card}>
+                  <List>
+                    <ListItem>
+                      <ListItemIcon>
+                        <LanguageIcon className={classes.icon} />
+                      </ListItemIcon>
+                      <ListItemText>
+                        <Typography className={classes.header}>
+                          {t('company.website')}:{' '}
+                          <a href={stockDetails.website}>
+                            {stockDetails.website}
+                          </a>
+                        </Typography>
+                      </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <ChildFriendlyIcon className={classes.icon} />
+                      </ListItemIcon>
+                      <ListItemText>
+                        <Typography className={classes.header}>
+                          {t('stock.founded')}: {stockDetails.founded}
+                        </Typography>
+                      </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <AccountBalanceWalletIcon className={classes.icon} />
+                      </ListItemIcon>
+                      <ListItemText>
+                        <Typography className={classes.header}>
+                          {t('company.mc')}:{' '}
+                          {DashboardTable.moneyFormat(
+                            parseInt(stockDetails.marketCapitalization, 10)
+                          )}
+                        </Typography>
+                      </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <GroupIcon className={classes.icon} />
+                      </ListItemIcon>
+                      <ListItemText>
+                        <Typography className={classes.header}>
+                          {t('stock.fullTimeEmployees')}:{' '}
+                          {stockDetails.employees}
+                        </Typography>
+                      </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <HomeIcon className={classes.icon} />
+                      </ListItemIcon>
+                      <ListItemText>
+                        <Typography className={classes.header}>
+                          {t('stock.address')}: {stockDetails.address}
+                        </Typography>
+                      </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <AccountBalanceIcon className={classes.icon} />
+                      </ListItemIcon>
+                      <ListItemText>
+                        <Typography className={classes.header}>
+                          {t('company.exchange')}: {stockDetails.exchange}
+                        </Typography>
+                      </ListItemText>
+                    </ListItem>
+                  </List>
+                </Paper>
+              </ListItem>
+            </List>
+          </Grid>
+        </Grid>
+      </Grid>
+    </>
   );
 };
 

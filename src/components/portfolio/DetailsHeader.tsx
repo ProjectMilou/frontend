@@ -38,19 +38,24 @@ const useStyles = makeStyles(({ typography }: Theme) =>
 
 // type declaration of the header components props
 export type DetailsHeaderProps = {
+  id: string;
   // name of the portfolio
   name?: string;
   // list of positions
   positions?: Position[];
   // function to save modifications to portfolio positions
   editPositions: (modifications: PositionQty[]) => Promise<void>;
+  // disables the Edit button if the portfolio is real
+  virtual?: boolean;
 };
 
 // returns the details page header
 const DetailsHeader: React.FC<DetailsHeaderProps> = ({
   name,
+  id,
   positions,
   editPositions,
+  virtual,
 }) => {
   const classes = useStyles();
 
@@ -68,10 +73,15 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
         </div>
         <div>{name && <span className={classes.title}>{name}</span>}</div>
       </div>
-      <DetailsEdit positions={positions} edit={editPositions} />
+      <DetailsEdit
+        positions={positions}
+        edit={editPositions}
+        virtual={virtual}
+        id={id}
+        name={name}
+      />
     </div>
   );
 };
 
-// exports
 export default DetailsHeader;

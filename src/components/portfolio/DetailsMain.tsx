@@ -75,11 +75,10 @@ const Section: React.FC<SectionProps> = ({ title, children }) => {
 
 type DetailsMainProps = {
   portfolio: NonEmptyPortfolioDetails;
-  token: string;
   id: string;
 };
 
-const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, token, id }) => {
+const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, id }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -94,7 +93,8 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, token, id }) => {
       <Section title={t('portfolio.details.risk')}>
         <DetailsMainRisk
           risk={portfolio.risk}
-          positions={portfolio.positions}
+          sharpeRatio={portfolio.analytics.sharpeRatio}
+          treynorRatio={portfolio.analytics.treynorRatio}
         />
       </Section>
       <Section title={t('portfolio.details.keyfigures')}>
@@ -110,7 +110,7 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, token, id }) => {
         <DetailsMainAnalytics portfolio={portfolio} />
       </Section>
       <Section title={t('portfolio.details.backtesting')}>
-        <DetailMainBacktesting id={id} token={token} />
+        <DetailMainBacktesting id={id} />
       </Section>
     </div>
   );

@@ -1,18 +1,22 @@
 import React, { ReactElement } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import { Toolbar } from '@material-ui/core';
+import * as API from '../../../analyser/APIClient';
 import DividendRatioDonut from '../../shared/DividendRatioDonut';
 import DividendLineChart from '../../shared/DividendLineChart';
+import DividendsRR from './DividendsRR';
+import InfoButton from '../../shared/InfoButton';
+
+// props type declaration
+export type DetailsProps = {
+  stockOverview: API.Stock;
+  series: number[];
+  cashFlowList: API.CashFlowList;
+};
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
   createStyles({
-    customSize: {
-      maxWidth: 500,
-    },
-    root: {
-      margin: '25px auto',
-      minWidth: '50%',
-    },
     titleContainer: {
       display: 'flex',
       marginBottom: '2rem',
@@ -22,10 +26,10 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
     },
     sectionSubTitle: {
       margin: 0,
-      color: 'primary',
+      color: palette.primary.main,
       // TODO use theme fontsize and weight
       fontSize: '2rem',
-      fontWeight: 400,
+      fontWeight: typography.fontWeightRegular,
       whiteSpace: 'nowrap',
     },
     line: {
@@ -76,7 +80,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       whiteSpace: 'nowrap',
     },
     infoTitleP: {
-      margin: '0.5rem 0',
+      margin: '0.5rem 0.5rem',
     },
   })
 );
@@ -84,44 +88,63 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
 // type declarations
 type InfoBlockProps = {
   title: string;
+  info: string;
   body: ReactElement;
 };
 
 // returns the details page header
-const InfoBlock: React.FC<InfoBlockProps> = ({ title, body }) => {
+const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.infoWrapper}>
       <div className={classes.infoTitle}>
-        <p className={classes.infoTitleP}>{title}</p>
+        <Toolbar disableGutters>
+          <p className={classes.infoTitleP}>{title}</p>
+          <InfoButton infotext={info}> </InfoButton>
+        </Toolbar>
       </div>
       <div className={classes.infoBody}>{body}</div>
     </div>
   );
 };
 
-const Dividends: React.FC = () => {
+const Dividends: React.FC<DetailsProps> = ({
+  stockOverview,
+  series,
+  cashFlowList,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
+  const cashData: number[] = [];
+  cashFlowList.annualReports.forEach((element) => {
+    cashData.push(element.operatingCashflow / 1000000);
+  });
   // TODO fetch data from backend
   // eslint-disable-next-line
   const [seriesArray, setSeriesArray] = React.useState([
     {
       name: t('analyser.detail.dividend.payoutratio'),
       type: 'column',
-      data: [25.0, 20.35, 18.72, 21.9, 23.11],
+      data: cashData,
     },
     {
       name: t('analyser.detail.dividend.yield'),
       type: 'line',
-      data: [0.58, 0.71, 0.8, 1.12, 0.97],
+      data: series,
     },
   ]);
 
-  const ratio = 0.25;
-  const dividendYield = 0.017;
+  let ratio =
+    Math.round(
+      (stockOverview.dividendPerShare / stockOverview.revenuePerShareTTM) * 100
+    ) / 100;
+  if (Number.isNaN(ratio)) {
+    ratio = 0.0;
+  }
+  const dividendYield = series[4];
+  const dividendYieldText = (dividendYield * 100).toFixed(2);
   return (
     <div>
       <div className={classes.titleContainer}>
@@ -133,26 +156,41 @@ const Dividends: React.FC = () => {
       </div>
       <div className={classes.chartContainer}>
         <div className={classes.lineChartWrapper}>
-          <DividendLineChart series={seriesArray} />
+          <DividendLineChart
+            series={seriesArray}
+            height={350}
+            // TODO: please change this to whatever color you guys want/need
+            textColor="rgba(0, 0, 0, 0.87)"
+          />
         </div>
         <div className={classes.infoContainer}>
           {/* right side with info */}
           <InfoBlock
             title={t('analyser.details.DividendYield')}
+            info={t('analyser.details.DividendYield.infoButton')}
             body={
-              <p style={{ margin: 0 }}>{(dividendYield * 100).toFixed(2)}%</p>
+              <p style={{ margin: 0 }}>
+                {' '}
+                {Number.isNaN(dividendYieldText)
+                  ? `${dividendYieldText}|%`
+                  : ' Dividend data is not found.'}{' '}
+              </p>
             }
           />
           <InfoBlock
             title={t('analyser.details.DividendPayoutRatio')}
+            info={t('analyser.details.DividendPayoutRatio.infoButton')}
             body={<DividendRatioDonut ratio={ratio} />}
           />
           <InfoBlock
             title={t('analyser.details.NextDate')}
+            info={t('analyser.details.NextDate.infoButton')}
             body={<p style={{ margin: 0 }}>14.04.2021</p>}
           />
         </div>
       </div>
+
+      <DividendsRR dividend={dividendYield} payoutRatio={ratio} />
     </div>
   );
 };

@@ -59,7 +59,7 @@ export type DashboardTableRowProps = {
 };
 
 // Rounds and adds M=Million, B=Billion and K=Thousand --> American System!!!
-function moneyFormat(val: number): string {
+export function moneyFormat(val: number): string {
   let round = '';
   if (Math.abs(val) >= 1.0e9) {
     round = `€${Math.round(Math.abs(val) / 1.0e9)}B`;
@@ -103,13 +103,21 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         />
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
-        <StyledNumberFormat value={stock.price} suffix="€" />
+        <StyledNumberFormat value={parseInt(stock.price, 10)} suffix="€" />
       </TableCell>
       <TableCell align="center">
-        <StyledNumberFormat value={stock.per7d} suffix="%" paintJob />
+        <StyledNumberFormat
+          value={parseFloat(stock.per7d)}
+          suffix="%"
+          paintJob
+        />
       </TableCell>
       <TableCell align="center">
-        <StyledNumberFormat value={stock.per365d} suffix="%" paintJob />
+        <StyledNumberFormat
+          value={parseFloat(stock.per365d)}
+          suffix="%"
+          paintJob
+        />
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>

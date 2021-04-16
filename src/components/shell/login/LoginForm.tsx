@@ -18,9 +18,9 @@ import {
 } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import Divider from '@material-ui/core/Divider';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import LinkButton from '../LinkButton';
-import { UserService } from '../../../services/UserService';
+import UserService from '../../../services/UserService';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
 interface LoginFormProps {
   setUserState: () => void;
   openRegisterPopUpWindow: () => void;
+  openForgotPasswordPopUpWindow: () => void;
   closePopUp: () => void;
 }
 
@@ -43,7 +44,11 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const { errorMessage } = useStyles(theme);
-  const { openRegisterPopUpWindow, setUserState } = props;
+  const {
+    openRegisterPopUpWindow,
+    openForgotPasswordPopUpWindow,
+    setUserState,
+  } = props;
 
   const [login, setLogin] = useState({
     email: '',
@@ -138,9 +143,9 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
       </DialogContent>
 
       <LinkButton
-        handleEvent={() => {}}
+        handleEvent={openForgotPasswordPopUpWindow}
         text={t('shell.message.forgotPassword')}
-        style={{ display: 'block', margin: '10px auto' }}
+        style={{ display: 'block', margin: '8px auto', marginTop: '0px' }}
       />
 
       <DialogActions>
@@ -160,8 +165,11 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
       <Divider style={{ margin: '20px 0' }} />
 
       <Typography variant="body1" align="center">
-        {t('shell.message.noAccount')}
-        <LinkButton handleEvent={openRegisterPopUpWindow} />
+        <Trans
+          i18nKey="shell.message.noAccount"
+          t={t}
+          components={[<LinkButton handleEvent={openRegisterPopUpWindow} />]}
+        />
       </Typography>
     </>
   );
