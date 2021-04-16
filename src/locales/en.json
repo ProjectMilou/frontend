@@ -191,7 +191,7 @@
   "analyser.details.Volatility.BetaFactor": "Beta Faktor: ",
   "analyser.details.Volatility.SharpeRatio": "Sharpe Ratio: ",
   "analyser.details.Volatility.TreynorRatio": "Treynor Ratio: ",
-  "analyser.details.Volatility.VolatilityChart": "Volatility Chart",
+  "analyser.details.Volatility.VolatilityChart": "Volatility analysis",
   "analyser.details.Volatility.CompanyShare": "Company share compared to the overall market over benchmark",
   "analyser.details.Leverage.DebtLevel": "Debt Level: ",
   "analyser.details.Leverage.DebtCoverage": "Debt Coverage by operating cash flow: ",

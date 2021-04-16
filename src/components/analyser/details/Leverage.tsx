@@ -3,6 +3,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import ReactApexChart from 'react-apexcharts';
 import * as API from '../../../analyser/APIClient';
+import InfoButton from '../../shared/InfoButton';
 
 // props type declaration
 export type DetailsProps = {
@@ -113,17 +114,22 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
 // type declarations
 type InfoBlockProps = {
   title: string;
+  info: string;
   body: ReactElement;
 };
 
 // returns the details page header
-const InfoBlock: React.FC<InfoBlockProps> = ({ title, body }) => {
+const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.infoWrapper}>
       <div className={classes.infoTitle}>
-        <p className={classes.infoTitleP}>{title}</p>
+        <p className={classes.infoTitleP}>
+          {title}
+          <>&nbsp;</>
+          <InfoButton infotext={info} />
+        </p>
       </div>
       <div className={classes.infoBody}>{body}</div>
     </div>
@@ -237,6 +243,7 @@ const Leverage: React.FC<DetailsProps> = ({
         <div className={classes.infoContainer}>
           <InfoBlock
             title={t('analyser.details.Leverage.DebtLevel')}
+            info={t('analyser.details.Leverage.DebtLevel')}
             body={
               <p style={{ margin: 0 }}>
                 {' '}
@@ -248,6 +255,7 @@ const Leverage: React.FC<DetailsProps> = ({
           />
           <InfoBlock
             title={t('analyser.details.Leverage.DebtCoverage')}
+            info={t('analyser.details.Leverage.DebtCoverage')}
             body={
               <p style={{ margin: 0 }}>
                 {' '}
@@ -260,6 +268,7 @@ const Leverage: React.FC<DetailsProps> = ({
           />
           <InfoBlock
             title={t('analyser.details.Leverage.InterestCoverage')}
+            info={t('analyser.details.Leverage.InterestCoverage')}
             body={
               <p style={{ margin: 0 }}>
                 {' '}

@@ -1,8 +1,16 @@
 import React, { ReactElement } from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  useTheme,
+  Theme,
+  createStyles,
+} from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import ReactApexChart from 'react-apexcharts';
+import Grid from '@material-ui/core/Grid';
 import * as API from '../../../analyser/APIClient';
+import VolatilityLineEntry from '../../portfolio/VolatilityLineEntry';
+import VolatilityGraphMarketAvg from '../../portfolio/VolatilityGraphMarketAvg';
+import InfoButton from '../../shared/InfoButton';
 
 // props type declaration
 export type DetailsProps = {
@@ -12,10 +20,16 @@ export type DetailsProps = {
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
   createStyles({
-    line: {
-      width: '100%',
-      alignSelf: 'center',
-      paddingLeft: '2%',
+    lineVolatility: {
+      width: '90%',
+      height: '3px',
+      margin: 'auto',
+      'background-color': palette.primary.dark,
+      position: 'relative',
+      display: 'flex',
+    },
+    wrapper: {
+      height: '250px',
     },
     lineChartWrapper: {
       float: 'right',
@@ -68,8 +82,11 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       width: '100%',
       justifyContent: 'center',
       color: palette.primary.dark,
-      fontWeight: typography.fontWeightBold,
-      fontSize: '0.8rem',
+      fontWeight: typography.fontWeightRegular,
+      fontSize: '1.2rem',
+    },
+    titleWrapper: {
+      marginRight: '1rem',
     },
   })
 );
@@ -77,17 +94,22 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
 // type declarations
 type InfoBlockProps = {
   title: string;
+  info: string;
   body: ReactElement;
 };
 
 // returns the details page header
-const InfoBlock: React.FC<InfoBlockProps> = ({ title, body }) => {
+const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.infoWrapper}>
       <div className={classes.infoTitle}>
-        <p className={classes.infoTitleP}>{title}</p>
+        <p className={classes.infoTitleP}>
+          {title}
+          <>&nbsp;</>
+          <InfoButton infotext={info} />
+        </p>
       </div>
       <div className={classes.infoBody}>{body}</div>
     </div>
@@ -97,79 +119,10 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, body }) => {
 const Volatility: React.FC<DetailsProps> = ({ details, risks }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const options = {
-    colors: ['#00e396', '#008ffb'],
-    chart: {
-      type: 'line',
-      height: 350,
-      toolbar: {
-        show: false,
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    markers: {
-      size: 0,
-      style: 'hollow',
-    },
-    labels: [2016, 2017, 2018, 2019, 2020],
-    xaxis: {
-      type: 'year',
-      tickAmount: 6,
-      labels: {
-        style: {
-          colors: 'grey',
-        },
-      },
-    },
-    yaxis: {
-      labels: {
-        style: {
-          colors: 'grey',
-        },
-      },
-    },
-    tooltip: {
-      x: {
-        format: 'dd MMM yyyy',
-      },
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        shadeIntensity: 1,
-        opacityFrom: 0.7,
-        opacityTo: 0.9,
-        stops: [10, 100],
-      },
-    },
-    noData: {
-      text: 'Loading...',
-    },
-  };
+  const theme = useTheme();
 
-  const volatileSeries: number[] = [];
-  for (let index = 0; index < 5; index += 1) {
-    const num =
-      Math.round((risks.success.volatility + 0.1 * index) * 100) / 100;
-    volatileSeries.push(num);
-  }
-
-  // risks.success.forEach((element) => {
-  //   volatileSeries.push(element.volatility);
-  // });
-
-  const marketSeries: number[] = [];
-  for (let index = 0; index < 5; index += 1) {
-    const num =
-      Math.round((risks.success.averageMarketVolatility - 0.15 * index) * 100) /
-      100;
-    marketSeries.push(num);
-  }
-  // risks.success.forEach((element) => {
-  //   marketSeries.push(element.averageMarketVolatility);
-  // });
+  const vol = risks.success.volatility;
+  const market = risks.success.averageMarketVolatility;
 
   return (
     <div>
@@ -177,6 +130,7 @@ const Volatility: React.FC<DetailsProps> = ({ details, risks }) => {
         <div className={classes.infoContainer}>
           <InfoBlock
             title={t('analyser.details.Volatility.BetaFactor')}
+            info={t('analyser.details.Volatility.TreynorRatio')}
             body={
               <p style={{ margin: 0 }}>
                 {' '}
@@ -188,36 +142,61 @@ const Volatility: React.FC<DetailsProps> = ({ details, risks }) => {
           />
           <InfoBlock
             title={t('analyser.details.Volatility.SharpeRatio')}
+            info={t('analyser.details.Volatility.TreynorRatio')}
             body={<p style={{ margin: 0 }}> 0.5 </p>}
           />
           <InfoBlock
             title={t('analyser.details.Volatility.TreynorRatio')}
-            body={<p style={{ margin: 0 }}>0.5</p>}
+            info={t('analyser.details.Volatility.TreynorRatio')}
+            body={<p style={{ margin: 0 }}> 0.5 </p>}
           />
-          <div className={classes.infoBody}>
-            <p style={{ paddingLeft: 30 }}>
-              {t('analyser.details.Volatility.CompanyShare')}
-            </p>
-          </div>
-          <div className={classes.infoBody}>
-            <p style={{ margin: 0 }}>
-              {Math.round(risks.success.averageMarketVolatility * 100) / 100}
-            </p>
-          </div>
         </div>
         <div className={classes.lineChartWrapper}>
           <div className={classes.title}>
             {t('analyser.details.Volatility.VolatilityChart')}
+            <>&nbsp;</>
+            <InfoButton
+              infotext={t('analyser.details.Volatility.VolatilityChart')}
+            />
           </div>
-          <div id="chart-timeline">
-            <ReactApexChart
-              options={options}
-              series={[
-                { name: 'Volatility', data: volatileSeries },
-                { name: 'Market', data: marketSeries },
-              ]}
-              height={300}
-              width="100%"
+          <div>
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+              className={classes.wrapper}
+            >
+              Low
+              <div className={classes.lineVolatility}>
+                <VolatilityGraphMarketAvg />
+                <VolatilityLineEntry
+                  volatilityValue={vol}
+                  tooltipText={details.symbol}
+                  color={
+                    vol > market
+                      ? theme.palette.error.main
+                      : theme.palette.success.main
+                  }
+                />
+                <VolatilityLineEntry
+                  volatilityValue={market}
+                  tooltipText="Industry"
+                  color={theme.palette.success.main}
+                />
+              </div>
+              High
+            </Grid>
+          </div>
+          <div className={classes.infoBody}>
+            <p>
+              {t('analyser.details.Volatility.CompanyShare')}
+              {': '}
+              {Math.round(risks.success.averageMarketVolatility * 100) / 100}
+            </p>
+            <>&nbsp;</>
+            <InfoButton
+              infotext={t('analyser.details.Volatility.CompanyShare')}
             />
           </div>
         </div>
