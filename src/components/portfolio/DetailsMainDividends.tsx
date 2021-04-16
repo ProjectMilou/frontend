@@ -105,34 +105,41 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
     },
   ];
 
-  return (
-    <div className={classes.dividendsWrapper}>
-      <div className={classes.chartContainer}>
-        {/* left side with graph */}
-        <DividendLineChart
-          series={series}
-          height={450}
-          textColor={theme.palette.primary.contrastText}
-        />
-      </div>
-      <div className={classes.infoContainer}>
-        {/* right side with info */}
-        <InfoBlock title={t('portfolio.details.divYield')}>
-          {portfolio.keyFigures[portfolio.keyFigures.length - 1].div}
-        </InfoBlock>
-        <InfoBlock title={t('portfolio.details.divPayout')}>
-          <RatioDonut
-            ratio={
-              portfolio.keyFigures[portfolio.keyFigures.length - 1]
-                .dividendPayoutRatio
-            }
+  if (portfolio.keyFigures.length !== 0) {
+    return (
+      <div className={classes.dividendsWrapper}>
+        <div className={classes.chartContainer}>
+          {/* left side with graph */}
+          <DividendLineChart
+            series={series}
+            height={450}
             textColor={theme.palette.primary.contrastText}
           />
-        </InfoBlock>
-        <InfoBlock title={t('portfolio.details.nextDate')}>
-          {portfolio.nextDividend.toLocaleDateString()}
-        </InfoBlock>
+        </div>
+        <div className={classes.infoContainer}>
+          {/* right side with info */}
+          <InfoBlock title={t('portfolio.details.divYield')}>
+            {portfolio.keyFigures[portfolio.keyFigures.length - 1].div}
+          </InfoBlock>
+          <InfoBlock title={t('portfolio.details.divPayout')}>
+            <RatioDonut
+              ratio={
+                portfolio.keyFigures[portfolio.keyFigures.length - 1]
+                  .dividendPayoutRatio
+              }
+              textColor={theme.palette.primary.contrastText}
+            />
+          </InfoBlock>
+          <InfoBlock title={t('portfolio.details.nextDate')}>
+            {portfolio.nextDividend.toLocaleDateString()}
+          </InfoBlock>
+        </div>
       </div>
+    );
+  }
+  return (
+    <div className={classes.infoBody}>
+      {t('portfolio.details.emptyKeyFigures')}
     </div>
   );
 };

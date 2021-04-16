@@ -38,6 +38,7 @@
   "portfolio.details.divYield": "Dividend Yield",
   "portfolio.details.divPayout": "Dividend Payout Ratio",
   "portfolio.details.nextDate": "Next Payout Date",
+  "portfolio.details.emptyKeyFigures": "No information available yet",
   "portfolio.details.analytics.volatility.vsMarket": "Portfolio Volatility vs. Market",
   "portfolio.details.analytics.volatility.total": "Portfolio Beta / Volatility of the entire portfolio:",
   "portfolio.details.analytics.volatility.marketAvg": "Market Average",
