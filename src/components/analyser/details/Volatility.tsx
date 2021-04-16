@@ -6,7 +6,8 @@ import * as API from '../../../analyser/APIClient';
 
 // props type declaration
 export type DetailsProps = {
-  details: API.Stock;
+  details: API.StockDetails;
+  risks: API.RiskList;
 };
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
@@ -73,62 +74,6 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
   })
 );
 
-const volatileSeries = [
-  [1358895600000, 38.25],
-  [1358982000000, 38.1],
-  [1359068400000, 38.32],
-  [1359327600000, 38.24],
-  [1359414000000, 38.52],
-  [1359500400000, 37.94],
-  [1359586800000, 37.83],
-  [1359673200000, 38.34],
-  [1359932400000, 38.1],
-  [1360018800000, 38.51],
-  [1360105200000, 38.4],
-  [1360191600000, 38.07],
-  [1360278000000, 39.12],
-  [1360537200000, 38.64],
-  [1360623600000, 38.89],
-  [1360710000000, 38.81],
-  [1360796400000, 38.61],
-  [1360882800000, 38.63],
-  [1361228400000, 38.99],
-  [1361314800000, 38.77],
-  [1361401200000, 38.34],
-  [1361487600000, 38.55],
-  [1361746800000, 38.11],
-  [1361833200000, 38.59],
-  [1361919600000, 39.6],
-];
-
-const marketSeries = [
-  [1358895600000, 18.25],
-  [1358982000000, 18.1],
-  [1359068400000, 18.32],
-  [1359327600000, 18.24],
-  [1359414000000, 18.52],
-  [1359500400000, 17.94],
-  [1359586800000, 17.83],
-  [1359673200000, 18.34],
-  [1359932400000, 18.1],
-  [1360018800000, 18.51],
-  [1360105200000, 18.4],
-  [1360191600000, 18.07],
-  [1360278000000, 19.12],
-  [1360537200000, 18.64],
-  [1360623600000, 18.89],
-  [1360710000000, 18.81],
-  [1360796400000, 18.61],
-  [1360882800000, 18.63],
-  [1361228400000, 18.99],
-  [1361314800000, 18.77],
-  [1361401200000, 18.34],
-  [1361487600000, 18.55],
-  [1361746800000, 18.11],
-  [1361833200000, 18.59],
-  [1361919600000, 19.6],
-];
-
 // type declarations
 type InfoBlockProps = {
   title: string;
@@ -149,7 +94,7 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, body }) => {
   );
 };
 
-const Volatility: React.FC<DetailsProps> = ({ details }) => {
+const Volatility: React.FC<DetailsProps> = ({ details, risks }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const options = {
@@ -168,9 +113,9 @@ const Volatility: React.FC<DetailsProps> = ({ details }) => {
       size: 0,
       style: 'hollow',
     },
+    labels: [2016, 2017, 2018, 2019, 2020],
     xaxis: {
-      type: 'datetime',
-      min: new Date('23 JAN 2013').getTime(),
+      type: 'year',
       tickAmount: 6,
       labels: {
         style: {
@@ -204,6 +149,28 @@ const Volatility: React.FC<DetailsProps> = ({ details }) => {
     },
   };
 
+  const volatileSeries: number[] = [];
+  for (let index = 0; index < 5; index += 1) {
+    const num =
+      Math.round((risks.success.volatility + 0.1 * index) * 100) / 100;
+    volatileSeries.push(num);
+  }
+
+  // risks.success.forEach((element) => {
+  //   volatileSeries.push(element.volatility);
+  // });
+
+  const marketSeries: number[] = [];
+  for (let index = 0; index < 5; index += 1) {
+    const num =
+      Math.round((risks.success.averageMarketVolatility - 0.15 * index) * 100) /
+      100;
+    marketSeries.push(num);
+  }
+  // risks.success.forEach((element) => {
+  //   marketSeries.push(element.averageMarketVolatility);
+  // });
+
   return (
     <div>
       <div className={classes.chartContainer}>
@@ -225,7 +192,7 @@ const Volatility: React.FC<DetailsProps> = ({ details }) => {
           />
           <InfoBlock
             title={t('analyser.details.Volatility.TreynorRatio')}
-            body={<p style={{ margin: 0 }}> 0.5 </p>}
+            body={<p style={{ margin: 0 }}>0.5</p>}
           />
           <div className={classes.infoBody}>
             <p style={{ paddingLeft: 30 }}>
@@ -233,7 +200,9 @@ const Volatility: React.FC<DetailsProps> = ({ details }) => {
             </p>
           </div>
           <div className={classes.infoBody}>
-            <p style={{ margin: 0 }}> 0.5 </p>
+            <p style={{ margin: 0 }}>
+              {Math.round(risks.success.averageMarketVolatility * 100) / 100}
+            </p>
           </div>
         </div>
         <div className={classes.lineChartWrapper}>

@@ -8,7 +8,10 @@ import Leverage from './Leverage';
 // props type declaration
 export type DetailsProps = {
   stockOverview: API.Stock;
+  stockDetails: API.StockDetails;
   companyReports: API.CompanyReports;
+  interestCoverages: API.InterestCoverageList;
+  risks: API.RiskList;
 };
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
@@ -41,7 +44,13 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
   })
 );
 
-const Risks: React.FC<DetailsProps> = ({ stockOverview, companyReports }) => {
+const Risks: React.FC<DetailsProps> = ({
+  stockOverview,
+  stockDetails,
+  companyReports,
+  interestCoverages,
+  risks,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation();
   return (
@@ -56,8 +65,12 @@ const Risks: React.FC<DetailsProps> = ({ stockOverview, companyReports }) => {
           <hr className={classes.line} />
         </div>
       </div>
-      <Volatility details={stockOverview} />
-      <Leverage stockOverview={stockOverview} companyReports={companyReports} />
+      <Volatility details={stockDetails} risks={risks} />
+      <Leverage
+        stockOverview={stockOverview}
+        companyReports={companyReports}
+        interestCoverages={interestCoverages}
+      />
     </div>
   );
 };

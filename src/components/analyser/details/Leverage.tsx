@@ -8,6 +8,7 @@ import * as API from '../../../analyser/APIClient';
 export type DetailsProps = {
   stockOverview: API.Stock;
   companyReports: API.CompanyReports;
+  interestCoverages: API.InterestCoverageList;
 };
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
@@ -109,62 +110,6 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
   })
 );
 
-const debtSeries = [
-  [1358895600000, 38.25],
-  [1358982000000, 38.1],
-  [1359068400000, 38.32],
-  [1359327600000, 38.24],
-  [1359414000000, 38.52],
-  [1359500400000, 37.94],
-  [1359586800000, 37.83],
-  [1359673200000, 38.34],
-  [1359932400000, 38.1],
-  [1360018800000, 38.51],
-  [1360105200000, 38.4],
-  [1360191600000, 38.07],
-  [1360278000000, 39.12],
-  [1360537200000, 38.64],
-  [1360623600000, 38.89],
-  [1360710000000, 38.81],
-  [1360796400000, 38.61],
-  [1360882800000, 38.63],
-  [1361228400000, 38.99],
-  [1361314800000, 38.77],
-  [1361401200000, 38.34],
-  [1361487600000, 38.55],
-  [1361746800000, 38.11],
-  [1361833200000, 38.59],
-  [1361919600000, 39.6],
-];
-
-const equitySeries = [
-  [1358895600000, 28.25],
-  [1358982000000, 28.1],
-  [1359068400000, 28.32],
-  [1359327600000, 28.24],
-  [1359414000000, 28.52],
-  [1359500400000, 27.94],
-  [1359586800000, 27.83],
-  [1359673200000, 28.34],
-  [1359932400000, 28.1],
-  [1360018800000, 28.51],
-  [1360105200000, 28.4],
-  [1360191600000, 28.07],
-  [1360278000000, 29.12],
-  [1360537200000, 28.64],
-  [1360623600000, 28.89],
-  [1360710000000, 28.81],
-  [1360796400000, 28.61],
-  [1360882800000, 28.63],
-  [1361228400000, 28.99],
-  [1361314800000, 38.77],
-  [1361401200000, 38.34],
-  [1361487600000, 38.55],
-  [1361746800000, 38.11],
-  [1361833200000, 38.59],
-  [1361919600000, 39.6],
-];
-
 // type declarations
 type InfoBlockProps = {
   title: string;
@@ -188,6 +133,7 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, body }) => {
 const Leverage: React.FC<DetailsProps> = ({
   stockOverview,
   companyReports,
+  interestCoverages,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -207,9 +153,9 @@ const Leverage: React.FC<DetailsProps> = ({
       size: 0,
       style: 'hollow',
     },
+    labels: [2016, 2017, 2018, 2019, 2020],
     xaxis: {
-      type: 'datetime',
-      min: new Date('23 JAN 2013').getTime(),
+      type: 'year',
       tickAmount: 6,
       labels: {
         style: {
@@ -244,13 +190,32 @@ const Leverage: React.FC<DetailsProps> = ({
   };
 
   const deptCoverage = (
-    companyReports.annualReports[0].cashAndCashEquivalentsAtCarryingValue /
-    companyReports.annualReports[0].currentDebt
+    companyReports.annualReports[0].currentDebt /
+    companyReports.annualReports[0].totalAssets
   ).toFixed(2);
 
-  const interestCoverage = (
-    stockOverview.ebitda / companyReports.annualReports[0].currentDebt
-  ).toFixed(2);
+  const debtSeries: number[] = [];
+  for (let index = 0; index < 5; index += 1) {
+    const num =
+      Math.round(companyReports.annualReports[index].currentDebt * 100) / 100;
+    if (Number.isNaN(num)) {
+      debtSeries.push(0);
+    } else {
+      debtSeries.push(num);
+    }
+  }
+
+  const equitySeries: number[] = [];
+  for (let index = 0; index < 5; index += 1) {
+    const num =
+      Math.round(companyReports.annualReports[index].retainedEarnings * 100) /
+      100;
+    if (Number.isNaN(num)) {
+      equitySeries.push(0);
+    } else {
+      equitySeries.push(num);
+    }
+  }
 
   return (
     <div>
@@ -298,10 +263,9 @@ const Leverage: React.FC<DetailsProps> = ({
             body={
               <p style={{ margin: 0 }}>
                 {' '}
-                {interestCoverage != null
-                  ? interestCoverage
-                  : (stockOverview.symbol,
-                    " doesn't share Interest Coverage.")}{' '}
+                {interestCoverages.success != null
+                  ? interestCoverages.success[0].interestCoverage.toFixed(2)
+                  : interestCoverages.error}{' '}
               </p>
             }
           />

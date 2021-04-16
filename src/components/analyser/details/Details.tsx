@@ -56,6 +56,12 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
   >([]);
 
   const [performanceAll, setPerformanceAll] = React.useState(false);
+  const [
+    interestCoverages,
+    setInterestCoverages,
+  ] = React.useState<API.InterestCoverageList>();
+  const [risks, setRisks] = React.useState<API.RiskList>();
+
   const [error, setError] = React.useState<Error | undefined>();
 
   // get symbol
@@ -82,6 +88,8 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
       const sP = await API.stockPerformance(token, symbol, false);
       const cR = await API.companyReports(token, symbol);
       const aR = await API.analystsRecommendations(token, symbol);
+      const iC = await API.interestCoverages(token, symbol);
+      const r = await API.risks(token, symbol);
 
       if (isMounted.current) {
         setStockOverview(sO);
@@ -89,6 +97,8 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
         // TODO get unix timestamp from backend and reverse array
         setStockPerformance(convertPerformance(sP));
         setCompanyReports(cR);
+        setInterestCoverages(iC);
+        setRisks(r);
         setNewsList([
           {
             headline: 'this is hot news, gamestonk is very high this week',
@@ -195,7 +205,9 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
         stockDetails &&
         newsList &&
         companyReports &&
-        analystRecommendations && (
+        analystRecommendations &&
+        interestCoverages &&
+        risks && (
           <div>
             <DetailsHeader back={back} stock={stockOverview} />
             <Container className={classes.mainContent}>
@@ -222,7 +234,10 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
               />
               <Risks
                 stockOverview={stockOverview}
+                stockDetails={stockDetails}
                 companyReports={companyReports}
+                interestCoverages={interestCoverages}
+                risks={risks}
               />
               <AddToPortfolioButton symbol={symbol} />
             </Container>

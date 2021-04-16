@@ -2,7 +2,7 @@
 
 import { AppError } from '../Errors';
 
-export const baseURL = 'https://api.milou.io/stocks';
+export const baseURL = 'https://api.milou.io';
 const headers = { 'Content-Type': 'application/json' };
 
 // Filter object
@@ -70,13 +70,13 @@ export type StockDetails = {
   website: string;
   wkn: string;
   assetType: string;
-  beta: string;
+  beta: number;
   bookValue: string;
   cik: string;
   dilutedEPSTTM: string;
   dividendDate: string;
   dividendPerShare: string;
-  ebitda: string;
+  ebitda: number;
   eps: string;
   evToEbitda: string;
   evToRevenue: string;
@@ -198,6 +198,25 @@ export type AnalystsRecommendation = {
   source: URL;
 };
 
+export type InterestCoverageList = {
+  error: string;
+  success: InterestCoverage[];
+};
+
+export type InterestCoverage = {
+  date: Date;
+  interestCoverage: number;
+};
+
+export type RiskList = {
+  error: string;
+  success: Risk;
+};
+
+export type Risk = {
+  volatility: number;
+  averageMarketVolatility: number;
+};
 /**
  * Makes an API call. Resolves to the JSON response if the call is successful,
  * otherwise rejects with an error that has an {@link ErrorCode} as message.
@@ -247,7 +266,7 @@ export async function listStocks(
   token: string,
   filters: Filters
 ): Promise<Stock[]> {
-  const base = 'list';
+  const base = 'stocks/list';
   let params = '';
   Object.keys(filters).forEach((key) => {
     if (filters[key].length > 0) {
@@ -276,7 +295,7 @@ export async function stockOverview(
   const response = (await request(
     token,
     'GET',
-    `overview?id=${symbol}`
+    `stocks/overview?id=${symbol}`
   )) as StockList;
   return response.stocks[0] as Stock;
 }
@@ -294,7 +313,7 @@ export async function stockDetails(
   const response = (await request(
     token,
     'GET',
-    `details?id=${symbol}`
+    `stocks/details?id=${symbol}`
   )) as StockDetailsAnswer;
   return response.stocks[0] as StockDetails;
 }
@@ -314,7 +333,7 @@ export async function stockPerformance(
   const response = (await request(
     token,
     'GET',
-    `charts/historic?id=${symbol}&max=${historic.toString()}`
+    `stocks/charts/historic?id=${symbol}&max=${historic.toString()}`
   )) as StockHistricPerformanceList;
   return response;
 }
@@ -332,7 +351,7 @@ export async function companyReports(
   const response = (await request(
     token,
     'GET',
-    `balanceSheet?id=${symbol}`
+    `stocks/balanceSheet?id=${symbol}`
   )) as CompanyReports;
   return response;
 }
@@ -350,7 +369,40 @@ export async function analystsRecommendations(
   const response = (await request(
     token,
     'GET',
-    `charts/analysts?id=${symbol}`
+    `stocks/charts/analysts?id=${symbol}`
   )) as AnalystsRecommendation[];
+  return response;
+}
+
+/**
+ * Gets interest coverages with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ */
+export async function interestCoverages(
+  token: string,
+  symbol: string
+): Promise<InterestCoverageList> {
+  const response = (await request(
+    token,
+    'GET',
+    `analytics/interestCoverage/${symbol}`
+  )) as InterestCoverageList;
+  return response;
+}
+
+/**
+ * Gets risk values with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ */
+export async function risks(token: string, symbol: string): Promise<RiskList> {
+  const response = (await request(
+    token,
+    'GET',
+    `analytics/risk/${symbol}`
+  )) as RiskList;
   return response;
 }
