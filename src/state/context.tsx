@@ -1,10 +1,15 @@
 import React, { ReactNode, useReducer } from 'react';
+import UserService from '../services/UserService';
 
 type ContextType = {
+  /** `true` if and only if the login dialog is currently open. */
   openLogin: boolean;
+  /** `true` if and only if a user is currently logged in. */
+  loggedIn: boolean;
 };
 const initialState = {
   openLogin: false,
+  loggedIn: UserService.isLoggedIn(),
 };
 
 export const Context = React.createContext<{
@@ -22,11 +27,13 @@ const Reducer = (state: ContextType, action: Action): ContextType => {
     case 'OPEN_LOGIN':
       return {
         openLogin: true,
+        loggedIn: UserService.isLoggedIn(),
       };
 
     case 'CLOSE_LOGIN':
       return {
         openLogin: false,
+        loggedIn: UserService.isLoggedIn(),
       };
     default:
       return state;
