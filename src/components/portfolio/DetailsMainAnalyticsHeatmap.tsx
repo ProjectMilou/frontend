@@ -73,13 +73,13 @@ const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
             {
               from: -1,
               to: 0,
-              color: theme.palette.error.main,
+              color: theme.palette.secondary.light,
               name: t('portfolio.details.analytics.correlations.negative'),
             },
             {
               from: 0,
               to: 1,
-              color: theme.palette.success.main,
+              color: theme.palette.lightBlue.main,
               name: t('portfolio.details.analytics.correlations.positive'),
             },
           ],

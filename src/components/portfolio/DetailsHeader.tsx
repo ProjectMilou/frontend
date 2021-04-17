@@ -1,11 +1,12 @@
 import React from 'react';
 import { IconButton, makeStyles, createStyles, Theme } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import { useTranslation } from 'react-i18next';
 import DetailsEdit from './DetailsEdit';
 import { Position, PositionQty } from '../../portfolio/APIClient';
 import { portfolioDashboard } from '../../portfolio/Router';
+import StyledNumberFormat from '../shared/StyledNumberFormat';
 
-// stylesheet for the header of the details page
 const useStyles = makeStyles(({ typography }: Theme) =>
   createStyles({
     topContainer: {
@@ -33,31 +34,35 @@ const useStyles = makeStyles(({ typography }: Theme) =>
       fontFamily: typography.fontFamily,
       whiteSpace: 'nowrap',
     },
+    value: {
+      fontSize: '2.5rem',
+      fontFamily: typography.fontFamily,
+      whiteSpace: 'nowrap',
+      marginTop: '-2rem',
+      marginLeft: '3.5rem',
+    },
   })
 );
 
-// type declaration of the header components props
 export type DetailsHeaderProps = {
   id: string;
-  // name of the portfolio
   name?: string;
-  // list of positions
   positions?: Position[];
-  // function to save modifications to portfolio positions
   editPositions: (modifications: PositionQty[]) => Promise<void>;
-  // disables the Edit button if the portfolio is real
   virtual?: boolean;
+  value?: number;
 };
 
-// returns the details page header
 const DetailsHeader: React.FC<DetailsHeaderProps> = ({
   name,
   id,
   positions,
   editPositions,
   virtual,
+  value,
 }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <div id="topContainer" className={classes.topContainer}>
@@ -73,6 +78,12 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
         </div>
         <div>{name && <span className={classes.title}>{name}</span>}</div>
       </div>
+      {value && (
+        <div className={classes.value}>
+          {`${t('portfolio.details.totalValue')}: `}
+          <StyledNumberFormat value={value} suffix="€" />
+        </div>
+      )}
       <DetailsEdit
         positions={positions}
         edit={editPositions}
