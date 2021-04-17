@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import {
   Box,
-  Button,
   Container,
   Input,
-  Link,
   List,
   ListItem,
   ListItemText,
@@ -14,8 +12,6 @@ import {
 import BankAccountService from '../../../services/BankAccountService';
 import IBank from '../../../services/models/bank/IBank';
 
-// TODO don't hardcode the api?
-const apiURL = 'https://api.milou.io/';
 const useStyles = makeStyles({
   searchResults: { maxHeight: '70vh' },
 });
@@ -38,7 +34,7 @@ const BankSearch: React.FC = () => {
         <Input
           autoFocus
           fullWidth
-          placeholder="search Bank"
+          placeholder="Search Bank"
           onChange={(e) => handleSearch(e.target.value)}
         />
 
