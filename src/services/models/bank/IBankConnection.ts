@@ -1,8 +1,8 @@
 interface IBankConnection {
   accountIds: number[];
   bankConnectionId: string;
-  created: Date;
-  modified: Date;
+  created: string;
+  modified: string;
 }
 
 export default IBankConnection;
