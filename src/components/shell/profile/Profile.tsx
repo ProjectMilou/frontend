@@ -169,7 +169,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
                       edit ? 'update' : 'edit'
                     }-details`
                   )}
-                </Button>
+                </Button>{' '}
                 <Button
                   variant="outlined"
                   color="primary"

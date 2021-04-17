@@ -10,6 +10,8 @@ import {
   makeStyles,
   useTheme,
 } from '@material-ui/core';
+import BankAccountService from '../../../services/BankAccountService';
+import IBank from '../../../services/models/bank/IBank';
 
 // TODO don't hardcode the api?
 const apiURL = 'https://api.milou.io/';
@@ -27,22 +29,12 @@ interface SearchResult {
 const BankSearch: React.FC = () => {
   const theme = useTheme();
   const style = useStyles(theme);
-  const [searchResultData, setSearchResultData] = useState<SearchResult[]>([]);
+  const [searchResultData, setSearchResultData] = useState<IBank[]>([]);
 
   const handleSearch = (search: string) => {
     if (search === '') setSearchResultData([]);
     else {
-      fetch(apiURL.concat('user/bank'), {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setSearchResultData(data.banks);
-        });
+      BankAccountService.search(search).then(setSearchResultData);
     }
   };
 
