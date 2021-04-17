@@ -287,6 +287,14 @@ function reducer(state: State, action: Actions): State {
 }
 
 const useStyles = makeStyles((theme) => ({
+  dialog: {
+    '& .MuiDialog-paper': {
+      maxHeight: '40rem',
+    },
+    '& .MuiTable-root': {
+      marginRight: '2rem',
+    },
+  },
   increase: {
     fontWeight: 'bold',
     color: theme.palette.success.main,
@@ -462,6 +470,8 @@ const EditDialog: React.FC<EditDialogProps> = ({
   strikethroughCleared,
   decimalPlaces,
 }) => {
+  const classes = useStyles();
+
   const [state, dispatch] = React.useReducer<Reducer<State, Actions>>(
     reducer,
     initialState
@@ -493,6 +503,7 @@ const EditDialog: React.FC<EditDialogProps> = ({
       // prevent closing the dialog while loading
       disableBackdropClick={state.loading}
       disableEscapeKeyDown={state.loading}
+      className={classes.dialog}
     >
       <DialogTitle>{strings.title}</DialogTitle>
       <DialogContent>
