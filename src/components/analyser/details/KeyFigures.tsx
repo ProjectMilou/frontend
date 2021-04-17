@@ -1,8 +1,6 @@
 import React from 'react';
-import { useTheme } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
 import KeyFiguresBar from '../../shared/KeyFiguresBar';
-import SubsectionDivider from './SubsectionDivider';
+import SubsectionDivider from '../../shared/SubsectionDivider';
 
 export type KeyFigure = {
   title: string;
@@ -11,37 +9,23 @@ export type KeyFigure = {
 };
 
 const KeyFigures: React.FC = () => {
-  const { t } = useTranslation();
-  const theme = useTheme();
-
   // portfolio team moved this mock value up from the chart
   // change this to the real api data whenever you need
-  const mockSeries = [
-    {
-      name: t('analyser.detail.keyfigure.PER.title'),
-      data: [30, 40, 45, 50, 50],
-    },
-    {
-      name: t('analyser.detail.keyfigure.PBR.title'),
-      data: [50, 25, 35, 80, 20],
-    },
-    {
-      name: t('analyser.detail.keyfigure.PEGR.title'),
-      data: [30, 50, 15, 40, 10],
-    },
-    {
-      name: t('analyser.detail.keyfigure.EPS.title'),
-      data: [10, 20, 25, 10, 90],
-    },
-  ];
+  const mockSeries = {
+    PER: [30, 40, 45, 50, 50],
+    PBR: [50, 25, 35, 80, 20],
+    PEGR: [30, 50, 15, 40, 10],
+    EPS: [10, 20, 25, 10, 90],
+  };
 
   return (
     <div>
       <SubsectionDivider subsection="analyser.details.KeyFiguresHeader.KeyFigures" />
       <KeyFiguresBar
         chartHeight={350}
-        series={mockSeries}
-        textColor={theme.palette.secondary.contrastText}
+        keyFigures={mockSeries}
+        // TODO: change to real years
+        years={[2016, 2017, 2018, 2019, 2020]}
       />
     </div>
   );

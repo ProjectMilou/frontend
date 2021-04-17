@@ -107,7 +107,9 @@ const Analysts: React.FC<AnalystsProps> = ({ recommendations, overview }) => {
           <>&nbsp;</>
           <StyledNumberFormat value={overview.analystTargetPrice} suffix="€" />
           <>&nbsp;&nbsp;</>
-          <InfoButton infotext="Liabilities and Equities also pretty important!" />
+          <InfoButton
+            infotext={t('analyser.details.analysts.target.infoButton')}
+          />
         </h5>
       </div>
       <AnalystBar>
