@@ -39,7 +39,7 @@ const useStyles = makeStyles(({ typography }: Theme) =>
       fontFamily: typography.fontFamily,
       whiteSpace: 'nowrap',
       marginTop: '-2rem',
-      marginLeft: '3.5rem', 
+      marginLeft: '3.5rem',
     },
   })
 );
