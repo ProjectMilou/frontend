@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   Box,
+  Button,
   Container,
   Input,
   Link,
@@ -18,13 +19,6 @@ const apiURL = 'https://api.milou.io/';
 const useStyles = makeStyles({
   searchResults: { maxHeight: '70vh' },
 });
-
-interface SearchResult {
-  id: number;
-  name: string;
-  location: string;
-  city: string;
-}
 
 const BankSearch: React.FC = () => {
   const theme = useTheme();
@@ -50,14 +44,16 @@ const BankSearch: React.FC = () => {
 
         {searchResultData.length !== 0 && (
           <List className={style.searchResults}>
-            {searchResultData.map((result) => (
-              <ListItem disableGutters>
-                <Link href={`${apiURL}user/bank?bankId=${result.id}`}>
-                  <ListItemText
-                    primary={result.name}
-                    secondary={result.location /* should be BIC */}
-                  />
-                </Link>
+            {searchResultData.map((bank) => (
+              <ListItem
+                button
+                disableGutters
+                onClick={() => BankAccountService.add(bank.id)}
+              >
+                <ListItemText
+                  primary={bank.name}
+                  secondary={bank.bic || bank.location}
+                />
               </ListItem>
             ))}
           </List>

@@ -66,4 +66,12 @@ export class BaseService {
       body
     );
   }
+
+  public static async isOk(response: Promise<Response>): Promise<boolean> {
+    try {
+      return (await response).ok;
+    } catch {
+      return false;
+    }
+  }
 }
