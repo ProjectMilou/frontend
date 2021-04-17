@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
+import { useTranslation } from 'react-i18next';
 // import ChartType from 'apexcharts'
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -169,6 +170,7 @@ const Datetime: React.FC<StockChartProps> = ({
   axisColor,
   height,
 }) => {
+  const { t } = useTranslation();
   const options = {
     colors: ['#4392F1'],
     chart: {
@@ -313,7 +315,7 @@ const Datetime: React.FC<StockChartProps> = ({
             options={options}
             series={[
               {
-                name: 'performance',
+                name: t('portfolio.details.stockChartSeries'),
                 data: series,
               },
             ]}
