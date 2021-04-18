@@ -63,45 +63,37 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
         icon={<TrendingUpIcon className={classes.trendUp} />}
         title={t('portfolio.details.backtesting.bestChange')}
         value={<StyledNumberFormat value={changeBest} suffix="€" />}
-        descriptionText={t(
-          'portfolio.details.backtesting.bestChangeDescription'
-        )}
+        infoText={t('portfolio.details.backtesting.bestChangeInfo')}
       />
       <DetailsMainBacktestingListItem
         icon={<TrendingDownIcon className={classes.trendDown} />}
         title={t('portfolio.details.backtesting.worstChange')}
         value={<StyledNumberFormat value={changeWorst} suffix="€" />}
-        descriptionText={t(
-          'portfolio.details.backtesting.worstChangeDescription'
-        )}
+        infoText={t('portfolio.details.backtesting.worstChangeInfo')}
       />
       <DetailsMainBacktestingListItem
         icon={<HeightIcon className={classes.mdd} />}
         title={t('portfolio.details.backtesting.mddMinMax')}
         value={<StyledNumberFormat value={mddMaxToMin} suffix="%" />}
-        descriptionText={t('portfolio.details.backtesting.mddDescription')}
+        infoText={t('portfolio.details.backtesting.mddInfo')}
       />
       <DetailsMainBacktestingListItem
         icon={<WarningIcon className={classes.beta} />}
         title={t('portfolio.details.backtesting.standardDeviation')}
         value={<StyledNumberFormat value={standardDeviation} suffix="%" />}
-        descriptionText={t(
-          'portfolio.details.backtesting.standardDeviationDescription'
-        )}
+        infoText={t('portfolio.details.analytics.standardDeviation.infoButton')}
       />
       <DetailsMainBacktestingListItem
         icon={<NewReleasesIcon className={classes.sharpe} />}
         title={t('portfolio.details.backtesting.sharpeRatio')}
         value={sharpeRatio}
-        descriptionText={t(
-          'portfolio.details.backtesting.sharpeRatioDescription'
-        )}
+        infoText={t('analyser.details.Volatility.SharpeRatio.infoButton')}
       />
       <DetailsMainBacktestingListItem
         icon={<SpeedIcon className={classes.cagr} />}
         title={t('portfolio.details.backtesting.cagr')}
         value={<StyledNumberFormat value={cagr} suffix="%" />}
-        descriptionText={t('portfolio.details.backtesting.cagrDescription')}
+        infoText={t('portfolio.details.backtesting.cagrInfo')}
       />
     </List>
   );

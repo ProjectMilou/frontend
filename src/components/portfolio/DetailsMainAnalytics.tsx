@@ -7,6 +7,7 @@ import StyledNumberFormat from '../shared/StyledNumberFormat';
 import DetailsAnalyticsHeatmap from './DetailsMainAnalyticsHeatmap';
 import DetailsAnalyticsDebtEquityBar from './DetailsAnalyticsDebtEquityBar';
 import DetailsVolatilityGraph from './DetailsVolatilityGraph';
+import InfoButton from '../shared/InfoButton';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -15,6 +16,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       marginBottom: '2em',
       marginTop: '2em',
       fontSize: '1.5em',
+      display: 'flex',
     },
     value: {
       marginLeft: '1em',
@@ -42,6 +44,17 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
             suffix="%"
           />
         </span>
+        <InfoButton
+          infotext={t(
+            'portfolio.details.analytics.standardDeviation.infoButton'
+          )}
+        />
+      </div>
+      <div className={classes.titleWrapper}>
+        <span>{t('portfolio.details.analytics.correlation')}</span>
+        <InfoButton
+          infotext={t('portfolio.details.analytics.correlations.info')}
+        />
       </div>
       <DetailsAnalyticsHeatmap portfolio={portfolio} height={350} />
       <div className={classes.titleWrapper}>
@@ -52,6 +65,9 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
             suffix="%"
           />
         </span>
+        <InfoButton
+          infotext={t('portfolio.details.analytics.debtEquity.infoButton')}
+        />
       </div>
       <DetailsAnalyticsDebtEquityBar portfolio={portfolio} height={350} />
       <div className={classes.titleWrapper}>
@@ -59,6 +75,9 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
         <span className={classes.value}>
           {Math.round(portfolio.analytics.volatility * 1000) / 1000}
         </span>
+        <InfoButton
+          infotext={t('analyser.details.Volatility.BetaFactor.infoButton')}
+        />
       </div>
       <div className={classes.titleWrapper}>
         {t('portfolio.details.analytics.volatility.vsMarket')}
