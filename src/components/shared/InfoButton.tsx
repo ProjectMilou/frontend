@@ -11,12 +11,14 @@ const useStyles = makeStyles(() =>
   createStyles({
     root: {
       marginLeft: '0.25rem',
+      display: 'flex',
+      alignItems: 'center',
     },
     customSize: {
       maxWidth: 500,
       fontSize: '0.9rem',
     },
-    infoText: {
+    infoIcon: {
       fontSize: 'medium',
     },
   })
@@ -32,7 +34,7 @@ const InfoButton: React.FC<InfoProps> = ({ infotext }) => {
         placement="top-start"
         classes={{ tooltip: classes.customSize }}
       >
-        <InfoOutlined className={classes.infoText} />
+        <InfoOutlined className={classes.infoIcon} />
       </Tooltip>
     </span>
   );

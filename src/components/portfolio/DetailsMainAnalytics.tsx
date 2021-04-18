@@ -16,6 +16,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       marginBottom: '2em',
       marginTop: '2em',
       fontSize: '1.5em',
+      display: 'flex',
     },
     value: {
       marginLeft: '1em',

@@ -54,6 +54,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       color: palette.primary.contrastText,
       fontSize: '1.25rem',
       fontWeight: 600,
+      display: 'flex',
     },
     infoTitleP: {
       margin: '0.5rem 0',
