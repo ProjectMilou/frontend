@@ -33,13 +33,13 @@ const useStyles = makeStyles<Theme, StyleProps>(() =>
   })
 );
 
-type VolatilityGraphPersonalPortfolioProps = {
+type LargeVolatilityLineEntryProps = {
   volatilityValue: number;
   name: string;
   textColor: string;
 };
 
-const VolatilityGraphPersonalPortfolio: React.FC<VolatilityGraphPersonalPortfolioProps> = ({
+const LargeVolatilityLineEntry: React.FC<LargeVolatilityLineEntryProps> = ({
   volatilityValue,
   name,
   textColor,
@@ -65,4 +65,4 @@ const VolatilityGraphPersonalPortfolio: React.FC<VolatilityGraphPersonalPortfoli
   );
 };
 
-export default VolatilityGraphPersonalPortfolio;
+export default LargeVolatilityLineEntry;

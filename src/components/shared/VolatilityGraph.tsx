@@ -46,11 +46,11 @@ const useStyles = makeStyles<Theme, ColorProps>(() =>
   })
 );
 
-type DetailsVolatilityGraphProps = {
+type VolatilityGraphProps = {
   color: string;
 };
 
-const DetailsVolatilityGraph: React.FC<DetailsVolatilityGraphProps> = ({
+const VolatilityGraph: React.FC<VolatilityGraphProps> = ({
   color,
   children,
 }) => {
@@ -82,4 +82,4 @@ const DetailsVolatilityGraph: React.FC<DetailsVolatilityGraphProps> = ({
   );
 };
 
-export default DetailsVolatilityGraph;
+export default VolatilityGraph;

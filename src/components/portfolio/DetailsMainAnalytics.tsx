@@ -6,8 +6,8 @@ import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
 import DetailsAnalyticsHeatmap from './DetailsMainAnalyticsHeatmap';
 import DetailsAnalyticsDebtEquityBar from './DetailsAnalyticsDebtEquityBar';
-import DetailsVolatilityGraph from '../shared/VolatilityGraph';
-import VolatilityGraphPersonalPortfolio from '../shared/LargeVolatilityLineEntry';
+import VolatilityGraph from '../shared/VolatilityGraph';
+import LargeVolatilityLineEntry from '../shared/LargeVolatilityLineEntry';
 import VolatilityLineEntry from './VolatilityLineEntry';
 import InfoButton from '../shared/InfoButton';
 
@@ -103,8 +103,8 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
       <div className={classes.titleWrapper}>
         {t('portfolio.details.analytics.volatility.vsMarket')}
       </div>
-      <DetailsVolatilityGraph color={palette.primary.contrastText}>
-        <VolatilityGraphPersonalPortfolio
+      <VolatilityGraph color={palette.primary.contrastText}>
+        <LargeVolatilityLineEntry
           volatilityValue={portfolio.analytics.volatility}
           name={t(
             'portfolio.details.analytics.volatility.myPortfolio'
@@ -119,7 +119,7 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
             color={volatility > 1 ? palette.error.main : palette.success.main}
           />
         ))}
-      </DetailsVolatilityGraph>
+      </VolatilityGraph>
     </>
   );
 };
