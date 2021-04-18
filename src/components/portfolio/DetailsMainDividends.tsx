@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import RatioDonut from '../shared/RatioDonut';
 import DividendLineChart from '../shared/DividendLineChart';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
+import InfoButton from '../shared/InfoButton';
 
 // stylesheet for the dividend section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -53,6 +54,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       color: palette.primary.contrastText,
       fontSize: '1.25rem',
       fontWeight: 600,
+      display: 'flex',
     },
     infoTitleP: {
       margin: '0.5rem 0',
@@ -68,16 +70,18 @@ type DetailsMainDividendsProps = {
 // type declarations
 type InfoBlockProps = {
   title: string;
+  infoText: string;
 };
 
 // returns the details page header
-const InfoBlock: React.FC<InfoBlockProps> = ({ title, children }) => {
+const InfoBlock: React.FC<InfoBlockProps> = ({ title, children, infoText }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.infoWrapper}>
       <div className={classes.infoTitle}>
-        <p className={classes.infoTitleP}>{title}</p>
+        <span className={classes.infoTitleP}>{title}</span>
+        <InfoButton infotext={infoText} />
       </div>
       <div className={classes.infoBody}>{children}</div>
     </div>
@@ -118,10 +122,16 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
         </div>
         <div className={classes.infoContainer}>
           {/* right side with info */}
-          <InfoBlock title={t('portfolio.details.divYield')}>
+          <InfoBlock
+            title={t('portfolio.details.divYield')}
+            infoText={t('analyser.details.DividendYield.infoButton')}
+          >
             {portfolio.keyFigures[portfolio.keyFigures.length - 1].div}
           </InfoBlock>
-          <InfoBlock title={t('portfolio.details.divPayout')}>
+          <InfoBlock
+            title={t('portfolio.details.divPayout')}
+            infoText={t('analyser.details.DividendPayoutRatio.infoButton')}
+          >
             <RatioDonut
               ratio={
                 portfolio.keyFigures[portfolio.keyFigures.length - 1]
@@ -130,7 +140,10 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
               textColor={theme.palette.primary.contrastText}
             />
           </InfoBlock>
-          <InfoBlock title={t('portfolio.details.nextDate')}>
+          <InfoBlock
+            title={t('portfolio.details.nextDate')}
+            infoText={t('analyser.details.NextDate.infoButton')}
+          >
             {portfolio.nextDividend.toLocaleDateString()}
           </InfoBlock>
         </div>
