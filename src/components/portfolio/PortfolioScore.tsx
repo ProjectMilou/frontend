@@ -7,6 +7,7 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import InfoButton from '../shared/InfoButton';
 
 const useStyles = makeStyles(({ palette }: Theme) => ({
   box: {
@@ -14,7 +15,6 @@ const useStyles = makeStyles(({ palette }: Theme) => ({
     alignSelf: 'center',
     textAlign: 'center',
     padding: '0.25rem',
-    color: palette.secondary.contrastText,
     borderRadius: '0.75rem',
     userSelect: 'none',
   },
@@ -46,6 +46,10 @@ const useStyles = makeStyles(({ palette }: Theme) => ({
   darkGreen: {
     backgroundColor: darken(palette.success.main, 0.2),
   },
+  scoreAndInfo: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
 }));
 
 type PortfolioScoreProps = {
@@ -70,28 +74,21 @@ const PortfolioScore: React.FC<PortfolioScoreProps> = ({
   ];
 
   return (
-    <Tooltip
-      title={
-        <div className={classes.tooltip}>
-          {t('portfolio.details.scoreTooltip').toString()}
-        </div>
-      }
-      disableHoverListener={dashboard}
-      disableFocusListener={dashboard}
+    <div
+      // TODO: change to Math.floor(score * 5) if score is from 0 to 1
+      className={`${classes.box} ${scoreClasses[Math.floor(score * 0.05)]}`}
     >
-      <div
-        // TODO: change to Math.floor(score * 5) if score is from 0 to 1
-        className={`${classes.box} ${scoreClasses[Math.floor(score * 0.05)]}`}
-      >
-        <Typography className={classes.title}>{score}</Typography>
-        {/* Renders subTitle 'score' if in details page */}
-        {!dashboard && (
+      <Typography className={classes.title}>{score}</Typography>
+      {/* Renders subTitle 'score' if in details page */}
+      {!dashboard && (
+        <div className={classes.scoreAndInfo}>
           <Typography className={classes.subTitle}>
             {t('portfolio.details.score')}
           </Typography>
-        )}
-      </div>
-    </Tooltip>
+          <InfoButton infotext={t('portfolio.details.scoreTooltip')} />
+        </div>
+      )}
+    </div>
   );
 };
 

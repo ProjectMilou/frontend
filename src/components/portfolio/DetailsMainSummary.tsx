@@ -9,7 +9,7 @@ import PortfolioScore from './PortfolioScore';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 
 // stylesheet for the Summary section
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     infoBox: {
       outlineStyle: 'solid',
@@ -25,6 +25,7 @@ const useStyles = makeStyles(() =>
       display: 'flex',
       justifyContent: 'space-around',
       width: '100%',
+      color: theme.palette.primary.contrastText,
     },
     vl: {
       margin: '0.5rem 1rem',
