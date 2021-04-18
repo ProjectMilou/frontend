@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  makeStyles,
-  Theme,
-  darken,
-  Typography,
-  Tooltip,
-} from '@material-ui/core';
+import { makeStyles, Theme, darken, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import InfoButton from '../shared/InfoButton';
 
