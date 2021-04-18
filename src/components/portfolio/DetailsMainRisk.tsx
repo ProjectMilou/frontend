@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import DetailsDonut from './DetailsDonut';
 import { RiskAnalysis } from '../../portfolio/APIClient';
 import { RiskBundle, getRiskBundle } from '../../portfolio/Risk';
+import InfoButton from '../shared/InfoButton';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
 
 // stylesheet for the risk analysis section
@@ -187,6 +188,9 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
             suffix=""
             paintJob={ratioToColor(sharpeRatio)}
           />
+          <InfoButton
+            infotext={t('analyser.details.Volatility.SharpeRatio.infoButton')}
+          />
         </Typography>
         <Typography className={classes.ratioText}>
           {t('portfolio.details.treynor')}
@@ -194,6 +198,9 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
             value={treynorRatio}
             suffix=""
             paintJob={ratioToColor(treynorRatio)}
+          />
+          <InfoButton
+            infotext={t('analyser.details.Volatility.TreynorRatio.infoButton')}
           />
         </Typography>
       </div>
