@@ -49,6 +49,12 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
           )}
         />
       </div>
+      <div className={classes.titleWrapper}>
+        <span>{t('portfolio.details.analytics.correlation')}</span>
+        <InfoButton
+          infotext={t('portfolio.details.analytics.correlations.info')}
+        />
+      </div>
       <DetailsAnalyticsHeatmap portfolio={portfolio} height={350} />
       <div className={classes.titleWrapper}>
         <span>{t('portfolio.details.analytics.debtEquity.total')}</span>
