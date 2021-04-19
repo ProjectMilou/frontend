@@ -66,4 +66,17 @@ export class BaseService {
       body
     );
   }
+
+  /**
+   * Checks if a response is ok.
+   * @param response Response to be checked.
+   * @returns True if response ok, false if not.
+   */
+  public static async isOk(response: Promise<Response>): Promise<boolean> {
+    try {
+      return (await response).ok;
+    } catch {
+      return false;
+    }
+  }
 }

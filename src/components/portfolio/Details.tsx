@@ -86,6 +86,7 @@ const Details: React.FC<RouteComponentProps> = () => {
             // reload portfolio details after successful edit
             await fetch();
           }}
+          value={portfolioDetails?.overview.value}
         />
       </div>
       {!portfolioDetails && !error && <LinearProgress color="secondary" />}
