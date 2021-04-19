@@ -64,6 +64,7 @@ const StyledNumberFormat: React.FC<StyledNumberFormatProps> = (props) => {
       fixedDecimalScale
       decimalSeparator=","
       className={classes.styledNumberFormat}
+      isNumericString
     />
   );
 };
