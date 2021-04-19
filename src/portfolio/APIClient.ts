@@ -150,26 +150,26 @@ export type BacktestingResponse = {
   success:
     | {
         bestYear: {
-          changeBest: string;
+          changeBest: number;
           yearBest: string;
-          growthRateBest: string;
+          growthRateBest: number;
         };
         worstYear: {
-          changeWorst: string;
+          changeWorst: number;
           yearWorst: string;
-          growthRateWorst: string;
+          growthRateWorst: number;
         };
         finalPortfolioBalance: number;
         CAGR: number;
         standardDeviation: number;
         sharpeRatio: number;
-        MDDMaxToMin: string;
-        MDDInitialToMin: string;
+        MDDMaxToMin: number;
+        MDDInitialToMin: number;
         dateMax: string;
         dateMin: string;
-        maxValue: string;
-        minValue: string;
-        initialValue: string;
+        maxValue: number;
+        minValue: number;
+        initialValue: number;
       }
     | Record<string, never>;
 };
@@ -178,26 +178,26 @@ type NonEmptyBacktestingResponse = {
   error: string;
   success: {
     bestYear: {
-      changeBest: string;
+      changeBest: number;
       yearBest: string;
-      growthRateBest: string;
+      growthRateBest: number;
     };
     worstYear: {
-      changeWorst: string;
+      changeWorst: number;
       yearWorst: string;
-      growthRateWorst: string;
+      growthRateWorst: number;
     };
     finalPortfolioBalance: number;
     CAGR: number;
     standardDeviation: number;
     sharpeRatio: number;
-    MDDMaxToMin: string;
-    MDDInitialToMin: string;
+    MDDMaxToMin: number;
+    MDDInitialToMin: number;
     dateMax: string;
     dateMin: string;
-    maxValue: string;
-    minValue: string;
-    initialValue: string;
+    maxValue: number;
+    minValue: number;
+    initialValue: number;
   };
 };
 
@@ -448,23 +448,8 @@ function convertBacktesting(
   const { success } = response;
   return {
     ...success,
-    bestYear: {
-      changeBest: parseFloat(success.bestYear.changeBest),
-      yearBest: success.bestYear.yearBest,
-      growthRateBest: parseFloat(success.bestYear.growthRateBest),
-    },
-    worstYear: {
-      changeWorst: parseFloat(success.worstYear.changeWorst),
-      yearWorst: success.worstYear.yearWorst,
-      growthRateWorst: parseFloat(success.worstYear.growthRateWorst),
-    },
-    MDDMaxToMin: parseFloat(success.MDDMaxToMin),
-    MDDInitialToMin: parseFloat(success.MDDInitialToMin),
     dateMin: new Date(success.dateMin),
     dateMax: new Date(success.dateMax),
-    maxValue: parseFloat(success.maxValue),
-    minValue: parseFloat(success.minValue),
-    initialValue: parseFloat(success.initialValue),
   };
 }
 
