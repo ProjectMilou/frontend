@@ -9,9 +9,9 @@ import { useTranslation } from 'react-i18next';
 import { Toolbar } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import * as API from '../../../analyser/APIClient';
-import VolatilityLineEntry from '../../portfolio/VolatilityLineEntry';
 import InfoButton from '../../shared/InfoButton';
 import VolatilityGraph from '../../shared/VolatilityGraph';
+import LargeVolatilityLineEntry from '../../shared/LargeVolatilityLineEntry';
 
 // props type declaration
 export type DetailsProps = {
@@ -21,14 +21,6 @@ export type DetailsProps = {
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
   createStyles({
-    lineVolatility: {
-      width: '90%',
-      height: '3px',
-      margin: 'auto',
-      'background-color': palette.primary.dark,
-      position: 'relative',
-      display: 'flex',
-    },
     wrapper: {
       height: '250px',
     },
@@ -85,9 +77,6 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       color: palette.primary.dark,
       fontWeight: typography.fontWeightRegular,
       fontSize: '1.2rem',
-    },
-    titleWrapper: {
-      marginRight: '1rem',
     },
   })
 );
@@ -169,10 +158,11 @@ const Volatility: React.FC<DetailsProps> = ({ details, risks }) => {
               className={classes.wrapper}
             >
               <VolatilityGraph color={palette.primary.main}>
-                <VolatilityLineEntry
+                <LargeVolatilityLineEntry
                   volatilityValue={vol}
-                  tooltipText={details.symbol}
-                  color={
+                  marketValue={market}
+                  name={details.symbol}
+                  textColor={
                     vol > market
                       ? theme.palette.error.main
                       : theme.palette.success.main
@@ -185,7 +175,7 @@ const Volatility: React.FC<DetailsProps> = ({ details, risks }) => {
             <p>
               {t('analyser.details.Volatility.CompanyShare')}
               {': '}
-              {Math.round(risks.success.averageMarketVolatility * 100) / 100}
+              {Math.round((vol / market) * 100) / 100}
             </p>
             <>&nbsp;</>
             <InfoButton

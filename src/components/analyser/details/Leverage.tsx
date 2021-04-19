@@ -160,11 +160,6 @@ const Leverage: React.FC<DetailsProps> = ({
     },
   };
 
-  const deptCoverage = (
-    companyReports.annualReports[0].currentDebt /
-    companyReports.annualReports[0].totalAssets
-  ).toFixed(2);
-
   const debtSeries: number[] = [];
   for (let index = 0; index < 5; index += 1) {
     const num =
@@ -211,25 +206,17 @@ const Leverage: React.FC<DetailsProps> = ({
             body={
               <p style={{ margin: 0 }}>
                 {' '}
-                {companyReports.annualReports[0].currentDebt != null
-                  ? companyReports.annualReports[0].currentDebt
+                {companyReports.annualReports[0].currentDebt != null &&
+                companyReports.annualReports[0].totalAssets != null
+                  ? Math.round(
+                      (companyReports.annualReports[0].currentDebt /
+                        companyReports.annualReports[0].totalAssets) *
+                        1000
+                    ) / 1000
                   : (stockOverview.symbol, " doesn't share Debt Level.")}{' '}
               </p>
             }
             info={t('analyser.details.Leverage.DebtLevel')}
-          />
-          <InfoBlock
-            title={t('analyser.details.Leverage.DebtCoverage')}
-            body={
-              <p style={{ margin: 0 }}>
-                {' '}
-                {deptCoverage != null
-                  ? deptCoverage
-                  : (stockOverview.symbol,
-                    " doesn't share Debt Coverage.")}{' '}
-              </p>
-            }
-            info={t('analyser.details.Leverage.DebtCoverage')}
           />
           <InfoBlock
             title={t('analyser.details.Leverage.InterestCoverage')}
