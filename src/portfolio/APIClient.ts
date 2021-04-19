@@ -120,13 +120,6 @@ export type PortfolioStock = {
 };
 
 export type Backtesting = {
-  MDDMaxToMin: number;
-  MDDInitialToMin: number;
-  dateMax: Date;
-  dateMin: Date;
-  maxValue: number;
-  minValue: number;
-  initialValue: number;
   bestYear: {
     changeBest: number;
     yearBest: string;
@@ -141,6 +134,13 @@ export type Backtesting = {
   CAGR: number;
   standardDeviation: number;
   sharpeRatio: number;
+  MDDMaxToMin: number;
+  MDDInitialToMin: number;
+  dateMax: Date;
+  dateMin: Date;
+  maxValue: number;
+  minValue: number;
+  initialValue: number;
 };
 
 // Types describing the JSON response of API calls.
@@ -150,13 +150,6 @@ export type BacktestingResponse = {
   error: string;
   success:
     | {
-        MDDMaxToMin: number;
-        MDDInitialToMin: number;
-        dateMax: string;
-        dateMin: string;
-        maxValue: number;
-        minValue: number;
-        initialValue: number;
         bestYear: {
           changeBest: number;
           yearBest: string;
@@ -171,6 +164,13 @@ export type BacktestingResponse = {
         CAGR: number;
         standardDeviation: number;
         sharpeRatio: number;
+        MDDMaxToMin: number;
+        MDDInitialToMin: number;
+        dateMax: string;
+        dateMin: string;
+        maxValue: number;
+        minValue: number;
+        initialValue: number;
       }
     | Record<string, never>;
 };
