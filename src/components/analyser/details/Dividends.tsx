@@ -9,8 +9,7 @@ import DividendsRR from './DividendsRR';
 import InfoButton from '../../shared/InfoButton';
 
 // props type declaration
-export type DetailsProps = {
-  stockOverview: API.Stock;
+export type DividendsProps = {
   series: number[];
   cashFlowList: API.CashFlowList;
 };
@@ -109,11 +108,7 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
   );
 };
 
-const Dividends: React.FC<DetailsProps> = ({
-  stockOverview,
-  series,
-  cashFlowList,
-}) => {
+const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -138,7 +133,10 @@ const Dividends: React.FC<DetailsProps> = ({
 
   let ratio =
     Math.round(
-      (stockOverview.dividendPerShare / stockOverview.revenuePerShareTTM) * 100
+      // TODO
+      // This values do not exists, pls fix
+      // (stockOverview.dividendPerShare / stockOverview.revenuePerShareTTM) * 100
+      100
     ) / 100;
   if (Number.isNaN(ratio)) {
     ratio = 0.0;
