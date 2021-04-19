@@ -35,8 +35,7 @@ export type Stock = {
   industry: string;
   picture: URL;
   date: Date;
-  dividendPerShare: number;
-  revenuePerShareTTM: number;
+  mcSize: string;
 };
 
 // List of stocks

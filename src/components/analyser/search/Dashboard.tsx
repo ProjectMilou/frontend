@@ -58,7 +58,6 @@ const Dashboard: React.FC<DashboardProps> = ({ token }) => {
 
   React.useEffect(() => {
     fetch();
-    // deps must be empty because the function should only be called on mount.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
 
