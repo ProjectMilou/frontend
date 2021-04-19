@@ -19,7 +19,7 @@ import { makeStyles, Theme } from '@material-ui/core';
  */
 type StyledNumberFormatProps = {
   value: number;
-  suffix: '€' | '%' | '';
+  suffix?: '€' | '%';
   size?: string;
   fontWeight?: number;
   paintJob?: boolean | string;
@@ -59,7 +59,7 @@ const StyledNumberFormat: React.FC<StyledNumberFormatProps> = (props) => {
       value={value}
       displayType="text"
       thousandSeparator="."
-      suffix={'\u00a0'.concat(suffix)}
+      suffix={suffix ? '\u00a0'.concat(suffix) : undefined}
       decimalScale={2}
       fixedDecimalScale
       decimalSeparator=","

@@ -192,7 +192,6 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
           </span>
           <StyledNumberFormat
             value={sharpeRatio}
-            suffix=""
             paintJob={ratioToColor(sharpeRatio)}
           />
           <InfoButton
@@ -205,7 +204,6 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
           </span>
           <StyledNumberFormat
             value={treynorRatio}
-            suffix=""
             paintJob={ratioToColor(treynorRatio)}
           />
           <InfoButton

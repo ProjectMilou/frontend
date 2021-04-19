@@ -88,7 +88,7 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
       <DetailsMainBacktestingListItem
         icon={<NewReleasesIcon className={classes.sharpe} />}
         title={t('portfolio.details.backtesting.sharpeRatio')}
-        value={<StyledNumberFormat value={sharpeRatio} suffix="" />}
+        value={<StyledNumberFormat value={sharpeRatio} />}
         infoText={t('analyser.details.Volatility.SharpeRatio.infoButton')}
       />
       <DetailsMainBacktestingListItem
