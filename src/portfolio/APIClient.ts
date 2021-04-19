@@ -440,7 +440,6 @@ function convertPortfolioOverview(
 /**
  * Converts a {@link BacktestingResponse} object as received from the API
  * to a {@link Backtesting} object for use by the application.
- * formats all the string numbers to actual numbers
  */
 function convertBacktesting(
   response: NonEmptyBacktestingResponse
