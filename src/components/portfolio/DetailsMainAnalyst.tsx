@@ -52,10 +52,10 @@ const DetailsMainAnalyst: React.FC<DetailsMainAnalystProps> = ({
   // please keep in mind while adding to this section that this calculation happens every re-render
   if (positions) {
     Object.values(positions)
-      // sort by total value
-      .sort((a, b) => (a.qty * a.stock.price > b.qty * b.stock.price ? 1 : -1))
+      // sort by total value (largest to smallest)
+      .sort((a, b) => b.qty * b.stock.price - a.qty * a.stock.price)
       // take the top 5
-      .slice(positions.length > 5 ? positions.length - 5 : 0)
+      .slice(0, 4)
       .forEach((p) => {
         const score = Math.round(p.stock.score * 100);
 

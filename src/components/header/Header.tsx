@@ -52,7 +52,6 @@ const Header: React.FC = () => {
   const { state, dispatch } = React.useContext(Context);
   const [openRegister, setOpenRegister] = useState(false);
   const [openForgotPassword, setOpenForgotPassword] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(UserService.isLoggedIn());
 
   return (
     <AppBar position="sticky" color="inherit">
@@ -67,7 +66,7 @@ const Header: React.FC = () => {
         <div className={classes.grow} />
 
         <SearchBar />
-        {loggedIn ? (
+        {state.loggedIn ? (
           <>
             <Button
               className={classes.button}
@@ -75,7 +74,7 @@ const Header: React.FC = () => {
               color="primary"
               onClick={() => {
                 UserService.logout();
-                setLoggedIn(false);
+                dispatch({ type: 'CLOSE_LOGIN' });
               }}
             >
               Logout
@@ -120,7 +119,6 @@ const Header: React.FC = () => {
           <Login
             closePopUp={() => {
               dispatch({ type: 'CLOSE_LOGIN' });
-              setLoggedIn(UserService.isLoggedIn());
             }}
             openRegisterPopUp={() => {
               dispatch({ type: 'CLOSE_LOGIN' });

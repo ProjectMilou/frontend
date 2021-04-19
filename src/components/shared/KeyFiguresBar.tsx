@@ -1,66 +1,66 @@
 import React from 'react';
-import { Toolbar } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { OneKeyFigure } from './OneKeyFigure';
-import KeyFiguresChart, { Series } from './KeyFiguresChart';
+import { KeyFigure, KeyFigureSelect } from './KeyFigureSelect';
+import KeyFiguresChart from './KeyFiguresChart';
+import StyledNumberFormat from './StyledNumberFormat';
 
 type KeyFiguresBarProps = {
-  series: Series[];
-  textColor: string;
+  keyFigures: { [keyFigure in KeyFigure]: number[] };
+  years: number[];
+  dark?: boolean;
   chartHeight: number;
 };
 
+const useStyles = makeStyles({
+  grid: {
+    marginBottom: '25px',
+  },
+});
+
 const KeyFiguresBar: React.FC<KeyFiguresBarProps> = ({
-  series,
-  textColor,
+  keyFigures,
+  years,
+  dark,
   chartHeight,
 }) => {
   const { t } = useTranslation();
+  const classes = useStyles();
 
-  // filters
-  const [filteredNames, setFilteredNames] = React.useState<string[]>([]);
-
-  const toggleFilter = (filter: string) => {
-    // remove from filter
-    if (filteredNames.includes(filter))
-      setFilteredNames(filteredNames.filter((names) => names !== filter));
-    // add to filter
-    if (!filteredNames.includes(filter))
-      setFilteredNames([...filteredNames, filter]);
-  };
+  const [selectedSeries, setSelectedSeries] = React.useState<KeyFigure>('PER');
 
   return (
     <div>
-      <Toolbar>
-        <OneKeyFigure
-          title={t('analyser.detail.keyfigure.PER.title')}
-          definition={t('analyser.detail.keyfigure.PER.definition')}
-          toggleFilter={toggleFilter}
-          textColor={textColor}
-        />
-        <OneKeyFigure
-          title={t('analyser.detail.keyfigure.PBR.title')}
-          definition={t('analyser.detail.keyfigure.PER.definition')}
-          toggleFilter={toggleFilter}
-          textColor={textColor}
-        />
-        <OneKeyFigure
-          title={t('analyser.detail.keyfigure.PEGR.title')}
-          definition={t('analyser.detail.keyfigure.PEGR.definition')}
-          toggleFilter={toggleFilter}
-          textColor={textColor}
-        />
-        <OneKeyFigure
-          title={t('analyser.detail.keyfigure.EPS.title')}
-          definition={t('analyser.detail.keyfigure.EPS.definition')}
-          toggleFilter={toggleFilter}
-          textColor={textColor}
-        />
-      </Toolbar>
+      <Grid container spacing={2} className={classes.grid}>
+        {Object.entries(keyFigures).map(([keyFigure, values]) => {
+          const latestValue = values[values.length - 1];
+          return (
+            <Grid item md={6} xs={12} key={keyFigure}>
+              <KeyFigureSelect
+                keyFigure={keyFigure as KeyFigure}
+                value={
+                  keyFigure === 'EPS' && latestValue !== undefined ? (
+                    <StyledNumberFormat value={latestValue} suffix="€" />
+                  ) : (
+                    latestValue
+                  )
+                }
+                selected={selectedSeries === keyFigure}
+                select={setSelectedSeries}
+                dark={dark}
+              />
+            </Grid>
+          );
+        })}
+      </Grid>
       <KeyFiguresChart
         height={chartHeight}
-        series={series.filter((s) => !filteredNames.includes(s.name))}
-        textColor={textColor}
+        series={{
+          name: t(`analyser.detail.keyfigure.${selectedSeries}.title`),
+          data: keyFigures[selectedSeries],
+        }}
+        years={years}
+        dark={dark}
       />
     </div>
   );
