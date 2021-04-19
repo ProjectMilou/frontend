@@ -50,16 +50,16 @@ const Filter: React.FC<FilterProps> = ({ stocks, filters, setFilters }) => {
     const currencies: Set<string> = new Set(ogFilters.currency);
     const mc: Set<string> = new Set(ogFilters.mc);
     stocks.forEach((s) => {
-      contries.add(s.country);
-      industries.add(s.industry);
-      currencies.add(s.currency);
-      // TODO add market Capitalisation
+      if (s.country) contries.add(s.country);
+      if (s.industry) industries.add(s.industry);
+      if (s.currency) currencies.add(s.currency);
+      if (s.mcSize) mc.add(s.mcSize);
     });
     setOgFilters({
       country: Array.from(contries).sort(),
       industry: Array.from(industries).sort(),
       currency: Array.from(currencies).sort(),
-      mc: Array.from(mc),
+      mc: Array.from(mc).sort(),
     });
   };
 
@@ -90,6 +90,9 @@ const Filter: React.FC<FilterProps> = ({ stocks, filters, setFilters }) => {
         case 'Currency':
           setFilters({ ...filters, currency: [] });
           break;
+        case 'Market Cap':
+          setFilters({ ...filters, mc: [] });
+          break;
         default:
           break;
       }
@@ -103,6 +106,9 @@ const Filter: React.FC<FilterProps> = ({ stocks, filters, setFilters }) => {
           break;
         case 'Currency':
           setFilters({ ...filters, currency: temp });
+          break;
+        case 'Market Cap':
+          setFilters({ ...filters, mc: temp });
           break;
         default:
           break;
