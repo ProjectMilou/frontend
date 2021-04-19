@@ -167,48 +167,6 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
   const [state, dispatch] = useReducer(reducer, initialState);
   const isMounted = React.useRef(true);
 
-  // TODO delete when real api works
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const mockFetch = async (from: Date, to: Date) => {
-    dispatch({ type: 'setError', payload: undefined });
-    try {
-      if (isMounted.current) {
-        const backtestingMock: Backtesting = {
-          MDDMaxToMin: -65,
-          MDDInitialToMin: -65,
-          dateMax: new Date('2019-02-10'),
-          dateMin: new Date('2020-03-04'),
-          maxValue: 1250.55,
-          minValue: 512.67,
-          initialValue: 840.56,
-          bestYear: {
-            changeBest: 210.5,
-            yearBest: '2020',
-            growthRateBest: 10.5,
-          },
-          worstYear: {
-            changeWorst: -70.56,
-            yearWorst: '2019',
-            growthRateWorst: -5.6,
-          },
-          finalPortfolioBalance: 970.43,
-          CAGR: 5.42,
-          standardDeviation: 12.1,
-          sharpeRatio: 0.65,
-        };
-        setTimeout(
-          () => dispatch({ type: 'setBacktesting', payload: backtestingMock }),
-          2000
-        );
-      }
-    } catch (e) {
-      if (isMounted.current) {
-        dispatch({ type: 'setError', payload: e });
-      }
-    }
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const fetch = async (from: Date, to: Date) => {
     dispatch({ type: 'setError', payload: undefined });
     try {
@@ -225,7 +183,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
 
   // on initial mount
   useEffect(() => {
-    mockFetch(state.selectedFrom, state.selectedTo);
+    fetch(state.selectedFrom, state.selectedTo);
     return () => {
       isMounted.current = false;
     };
@@ -243,7 +201,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
       dispatch({ type: 'setValid', payload: false });
     } else {
       dispatch({ type: 'setBacktesting', payload: undefined });
-      mockFetch(state.selectedFrom, state.selectedTo);
+      fetch(state.selectedFrom, state.selectedTo);
     }
   };
 
