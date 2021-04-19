@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '@material-ui/core';
 import ReactApexChart from 'react-apexcharts';
 import * as API from '../../../analyser/APIClient';
 import InfoButton from '../../shared/InfoButton';
@@ -108,8 +109,10 @@ const Leverage: React.FC<DetailsProps> = ({
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const theme = useTheme();
+
   const options = {
-    colors: ['#00e396', '#008ffb'],
+    colors: [theme.palette.success.main, theme.palette.lightBlue.main],
     chart: {
       type: 'line',
       height: 350,
@@ -213,7 +216,8 @@ const Leverage: React.FC<DetailsProps> = ({
                         companyReports.annualReports[0].totalAssets) *
                         1000
                     ) / 1000
-                  : (stockOverview.symbol, " doesn't share Debt Level.")}{' '}
+                  : (stockOverview.symbol,
+                    t('analyser.details.Leverage.ErrorMessage'))}{' '}
               </p>
             }
             info={t('analyser.details.Leverage.DebtLevel')}

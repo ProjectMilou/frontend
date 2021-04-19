@@ -14,7 +14,7 @@ import VolatilityGraph from '../../shared/VolatilityGraph';
 import LargeVolatilityLineEntry from '../../shared/LargeVolatilityLineEntry';
 
 // props type declaration
-export type DetailsProps = {
+export type VolatilityProps = {
   details: API.StockDetails;
   risks: API.RiskList;
 };
@@ -105,7 +105,7 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, body, info }) => {
   );
 };
 
-const Volatility: React.FC<DetailsProps> = ({ details, risks }) => {
+const Volatility: React.FC<VolatilityProps> = ({ details, risks }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const theme = useTheme();
@@ -126,7 +126,10 @@ const Volatility: React.FC<DetailsProps> = ({ details, risks }) => {
                 {' '}
                 {details.beta != null
                   ? details.beta
-                  : (details.symbol, " doesn't share beta factor.")}{' '}
+                  : (details.symbol,
+                    t(
+                      'analyser.details.Volatility.BetaFactor.ErrorMessage'
+                    ))}{' '}
               </p>
             }
           />
