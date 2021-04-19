@@ -18,6 +18,7 @@ import {
   createStyles,
   useTheme,
 } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import classNames from 'classnames';
 import * as API from '../../../analyser/APIClient';
 import StyledNumberFormat from '../../shared/StyledNumberFormat';
@@ -42,6 +43,9 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       fontSize: "1rem",
       fontWeight: 600,
       color: palette.lightBlue.main
+    },
+    loading:{
+      margin:'15px',
     },
     disabled: {
       cursor: 'not-allowed',
@@ -169,6 +173,7 @@ function sortStocks(
 
 const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   const [items, setItems] = React.useState<API.Stock[]>(stocks.slice(0, 10));
   const [hasMore, setHasMore] = React.useState<boolean>(true);
@@ -237,7 +242,10 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
               {sortedStocks.map((s) => (
                 <DashboardTableRow stock={s} key={s.symbol} />
               ))}
-              {hasMore && <h4>Loading More Stocks...</h4>}
+              {hasMore && 
+              <Typography className={classes.loading}>
+                <CircularProgress color='primary'/>
+              </Typography>}
             </TableBody>
           </Table>
         </TableContainer>
