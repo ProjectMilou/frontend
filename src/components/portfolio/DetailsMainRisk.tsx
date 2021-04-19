@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import DetailsDonut from './DetailsDonut';
 import { RiskAnalysis } from '../../portfolio/APIClient';
-import { RiskBundle, getRiskBundle } from '../../portfolio/Risk';
+import { RiskBundle, getRiskBundle } from '../../portfolio/Helper';
 import InfoButton from '../shared/InfoButton';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
 

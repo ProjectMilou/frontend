@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import AnalystBar from '../shared/AnalystBar';
 import AnalystBarIndicator from '../shared/AnalystBarIndicator';
 import { Position } from '../../portfolio/APIClient';
+import { collectStocks, CollectedStocks } from '../../portfolio/Helper';
 
 // stylesheet for the analyst section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -31,10 +32,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
-type BarDataType = {
-  [key: number]: string;
-};
-
 type DetailsMainAnalystProps = {
   positions: Position[];
 };
@@ -46,28 +43,7 @@ const DetailsMainAnalyst: React.FC<DetailsMainAnalystProps> = ({
   const theme = useTheme();
   const { t } = useTranslation();
 
-  // an object that keeps only the data that is needed to display the analyst bar
-  const barData: BarDataType = {};
-
-  // please keep in mind while adding to this section that this calculation happens every re-render
-  if (positions) {
-    Object.values(positions)
-      // sort by total value (largest to smallest)
-      .sort((a, b) => b.qty * b.stock.price - a.qty * a.stock.price)
-      // take the top 5
-      .slice(0, 4)
-      .forEach((p) => {
-        const score = Math.round(p.stock.score * 100);
-
-        if (!barData[score]) {
-          // if there is no entry with this score create one
-          barData[score] = p.stock.name;
-        } else {
-          // otherwise add on to an existing score
-          barData[score] = barData[score].concat(`\n${p.stock.name}`);
-        }
-      });
-  }
+  const barData: CollectedStocks = collectStocks(positions, false);
 
   return (
     <div className={classes.analystWrapper}>
