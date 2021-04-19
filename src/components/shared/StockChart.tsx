@@ -209,6 +209,7 @@ const Datetime: React.FC<StockChartProps> = ({
           colors: axisColor,
         },
       },
+      decimalsInFloat: 2,
     },
     tooltip: {
       x: {
