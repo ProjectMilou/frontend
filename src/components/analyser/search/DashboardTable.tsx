@@ -105,7 +105,7 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         <TextOverText
           top={`${stock.symbol}`}
           bottom={`${stock.name}`}
-          colorTop="#68696b"
+          colorTop={theme.palette.grey[700]}
           colorBottom={theme.palette.lightBlue.main}
           sizeBottom="1rem"
           alignment="left"
