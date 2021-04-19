@@ -78,6 +78,7 @@ const DetailsVolatilityGraph: React.FC<DetailsVolatilityGraphProps> = ({
           />
           {Object.entries(sortedStocks).map(([symbol, volatility]) => (
             <VolatilityLineEntry
+              key={symbol}
               volatilityValue={volatility}
               tooltipText={symbol}
               color={
