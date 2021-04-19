@@ -11,7 +11,6 @@ import {
   GridList,
   ButtonBase,
 } from '@material-ui/core';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import TextOverText from '../../shared/TextOverText';
@@ -54,9 +53,6 @@ const useStyles = makeStyles(() => ({
   },
   grid: {
     overflow: 'hidden' /* Hide scrollbars */,
-  },
-  loading: {
-    margin: '15px',
   },
 }));
 
@@ -166,11 +162,7 @@ const DashboardCards: React.FC<DashboardCardsProps> = ({ stocks }) => {
           {items.map((s) => (
             <DashboardCardsRow stock={s} key={s.symbol} />
           ))}
-          {hasMore && (
-            <div className={classes.loading}>
-              <CircularProgress color="primary" />
-            </div>
-          )}
+          {hasMore && <h4>Loading...</h4>}
         </GridList>
       </Grid>
     </InfiniteScroll>
