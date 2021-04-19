@@ -14,41 +14,6 @@ export type DetailsProps = {
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
   createStyles({
-    customSize: {
-      maxWidth: 500,
-    },
-    root: {
-      margin: '25px auto',
-      minWidth: '50%',
-    },
-    titleContainer: {
-      display: 'flex',
-      marginBottom: '2rem',
-    },
-    titleWrapper: {
-      marginRight: '1rem',
-    },
-    sectionTitle: {
-      margin: 0,
-      color: palette.primary.main,
-      // TODO use theme fontsize and weight
-      fontSize: '2.25rem',
-      fontWeight: 400,
-      whiteSpace: 'nowrap',
-    },
-    sectionSubTitle: {
-      margin: 0,
-      color: palette.primary.main,
-      // TODO use theme fontsize and weight
-      fontSize: '2rem',
-      fontWeight: typography.fontWeightRegular,
-      whiteSpace: 'nowrap',
-    },
-    lineWrapper: {
-      display: 'flex',
-      width: '100%',
-      borderColor: palette.primary.main,
-    },
     line: {
       width: '100%',
       alignSelf: 'center',
@@ -243,7 +208,6 @@ const Leverage: React.FC<DetailsProps> = ({
         <div className={classes.infoContainer}>
           <InfoBlock
             title={t('analyser.details.Leverage.DebtLevel')}
-            info={t('analyser.details.Leverage.DebtLevel')}
             body={
               <p style={{ margin: 0 }}>
                 {' '}
@@ -252,10 +216,10 @@ const Leverage: React.FC<DetailsProps> = ({
                   : (stockOverview.symbol, " doesn't share Debt Level.")}{' '}
               </p>
             }
+            info={t('analyser.details.Leverage.DebtLevel')}
           />
           <InfoBlock
             title={t('analyser.details.Leverage.DebtCoverage')}
-            info={t('analyser.details.Leverage.DebtCoverage')}
             body={
               <p style={{ margin: 0 }}>
                 {' '}
@@ -265,10 +229,10 @@ const Leverage: React.FC<DetailsProps> = ({
                     " doesn't share Debt Coverage.")}{' '}
               </p>
             }
+            info={t('analyser.details.Leverage.DebtCoverage')}
           />
           <InfoBlock
             title={t('analyser.details.Leverage.InterestCoverage')}
-            info={t('analyser.details.Leverage.InterestCoverage')}
             body={
               <p style={{ margin: 0 }}>
                 {' '}
@@ -277,6 +241,7 @@ const Leverage: React.FC<DetailsProps> = ({
                   : interestCoverages.error}{' '}
               </p>
             }
+            info={t('analyser.details.Leverage.InterestCoverage')}
           />
         </div>
       </div>

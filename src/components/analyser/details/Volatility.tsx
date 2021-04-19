@@ -6,13 +6,12 @@ import {
   createStyles,
 } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import ReactApexChart from 'react-apexcharts';
 import { Toolbar } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import * as API from '../../../analyser/APIClient';
 import VolatilityLineEntry from '../../portfolio/VolatilityLineEntry';
-import VolatilityGraphMarketAvg from '../../portfolio/VolatilityGraphMarketAvg';
 import InfoButton from '../../shared/InfoButton';
+import VolatilityGraph from '../../shared/VolatilityGraph';
 
 // props type declaration
 export type DetailsProps = {
@@ -121,6 +120,7 @@ const Volatility: React.FC<DetailsProps> = ({ details, risks }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const theme = useTheme();
+  const { palette } = useTheme();
 
   const vol = risks.success.volatility;
   const market = risks.success.averageMarketVolatility;
@@ -168,9 +168,7 @@ const Volatility: React.FC<DetailsProps> = ({ details, risks }) => {
               alignItems="center"
               className={classes.wrapper}
             >
-              Low
-              <div className={classes.lineVolatility}>
-                <VolatilityGraphMarketAvg />
+              <VolatilityGraph color={palette.primary.main}>
                 <VolatilityLineEntry
                   volatilityValue={vol}
                   tooltipText={details.symbol}
@@ -180,13 +178,7 @@ const Volatility: React.FC<DetailsProps> = ({ details, risks }) => {
                       : theme.palette.success.main
                   }
                 />
-                <VolatilityLineEntry
-                  volatilityValue={market}
-                  tooltipText="Industry"
-                  color={theme.palette.success.main}
-                />
-              </div>
-              High
+              </VolatilityGraph>
             </Grid>
           </div>
           <div className={classes.infoBody}>
