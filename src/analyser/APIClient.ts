@@ -407,7 +407,7 @@ export async function stockDividend(
   const response = (await request(
     token,
     'GET',
-    `charts/dividend?id=${symbol}&max=${dividend.toString()}`
+    `stocks/charts/dividend?id=${symbol}&max=${dividend.toString()}`
   )) as StockHistricDividendList;
   return response;
 }
@@ -488,7 +488,7 @@ export async function cashFlowList(
   const response = (await request(
     token,
     'GET',
-    `cashFlow?id=${symbol}`
+    `stocks/cashFlow?id=${symbol}`
   )) as CashFlowList;
   return response;
 }

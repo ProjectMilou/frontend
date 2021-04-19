@@ -96,7 +96,6 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
 // type declarations
 type InfoBlockProps = {
   title: string;
-  info: string;
   body: ReactElement;
   info: string;
 };
@@ -144,13 +143,11 @@ const Volatility: React.FC<DetailsProps> = ({ details, risks }) => {
           />
           <InfoBlock
             title={t('analyser.details.Volatility.SharpeRatio')}
-            info={t('analyser.details.Volatility.TreynorRatio')}
             body={<p style={{ margin: 0 }}> 0.5 </p>}
             info={t('analyser.details.Volatility.SharpeRatio.infoButton')}
           />
           <InfoBlock
             title={t('analyser.details.Volatility.TreynorRatio')}
-            info={t('analyser.details.Volatility.TreynorRatio')}
             body={<p style={{ margin: 0 }}> 0.5 </p>}
             info={t('analyser.details.Volatility.TreynorRatio.infoButton')}
           />

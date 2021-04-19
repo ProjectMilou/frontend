@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import ReactApexChart from 'react-apexcharts';
-import { Toolbar } from '@material-ui/core';
 import * as API from '../../../analyser/APIClient';
 import InfoButton from '../../shared/InfoButton';
 
@@ -115,7 +114,6 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
 // type declarations
 type InfoBlockProps = {
   title: string;
-  info: string;
   body: ReactElement;
   info: string;
 };

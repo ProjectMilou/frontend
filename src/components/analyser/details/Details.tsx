@@ -114,6 +114,8 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
         setCompanyReports(cR);
         setInterestCoverages(iC);
         setRisks(r);
+        setCashFlowList(cCash);
+
         setNewsList([
           {
             headline: 'this is hot news, gamestonk is very high this week',
@@ -220,7 +222,8 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
         companyReports &&
         analystRecommendations &&
         interestCoverages &&
-        risks && (
+        risks &&
+        cashFlowList && (
           <div>
             <DetailsHeader back={back} stock={stockOverview} />
             <Container className={classes.mainContent}>
@@ -258,6 +261,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
               />
               <AddToPortfolioButton symbol={symbol} />
             </Container>
+          </div>
         )}
     </>
   );
