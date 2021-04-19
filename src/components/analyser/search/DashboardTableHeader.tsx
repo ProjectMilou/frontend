@@ -17,7 +17,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       backgroundColor: 'white',
       color: palette.primary.main,
       borderBottom: '1px solid black',
-      fontSize: "1rem",
+      fontSize: '1rem',
       fontWeight: 600,
     },
   })

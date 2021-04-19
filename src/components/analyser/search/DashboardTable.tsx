@@ -36,16 +36,16 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       backgroundColor: lighten(palette.primary.light, 0.85),
     },
     defaultText: {
-      fontSize: "1.3rem",
+      fontSize: '1.3rem',
       fontWeight: 600,
     },
-    highlightText:{
-      fontSize: "1rem",
+    highlightText: {
+      fontSize: '1rem',
       fontWeight: 600,
-      color: palette.lightBlue.main
+      color: palette.lightBlue.main,
     },
-    loading:{
-      margin:'15px',
+    loading: {
+      margin: '15px',
     },
     disabled: {
       cursor: 'not-allowed',
@@ -54,7 +54,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       overflowX: 'initial',
       height: 800,
       overflow: 'auto',
-      borderRadius: 5
+      borderRadius: 5,
     },
   })
 );
@@ -101,18 +101,22 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
       onMouseLeave={() => setHover(false)}
       className={classNames(classes.row, hover && classes.rowHover)}
     >
-      <TableCell  component="th" scope="row">
-      <TextOverText
-            top={`${stock.symbol}`}
-            bottom={`${stock.name}`}
-            colorTop="#68696b"
-            colorBottom={theme.palette.lightBlue.main}
-            sizeBottom="1rem"
-            alignment="left"
-          />
+      <TableCell component="th" scope="row">
+        <TextOverText
+          top={`${stock.symbol}`}
+          bottom={`${stock.name}`}
+          colorTop="#68696b"
+          colorBottom={theme.palette.lightBlue.main}
+          sizeBottom="1rem"
+          alignment="left"
+        />
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
-        <StyledNumberFormat value={parseInt(stock.price, 10)} suffix="€" paintJob={theme.palette.primary.main}/>
+        <StyledNumberFormat
+          value={parseInt(stock.price, 10)}
+          suffix="€"
+          paintJob={theme.palette.primary.main}
+        />
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
         <StyledNumberFormat
@@ -134,10 +138,14 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         </Typography>
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
-        <StyledNumberFormat value={parseFloat(stock.analystTargetPrice)} suffix="€" paintJob={theme.palette.primary.main}/>
+        <StyledNumberFormat
+          value={parseFloat(stock.analystTargetPrice)}
+          suffix="€"
+          paintJob={theme.palette.primary.main}
+        />
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
-        <Valuation value={stock.valuation} size="1.3rem"/>
+        <Valuation value={stock.valuation} size="1.3rem" />
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
         <StyledNumberFormat value={parseFloat(stock.div)} suffix="%" paintJob />
@@ -242,10 +250,11 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
               {sortedStocks.map((s) => (
                 <DashboardTableRow stock={s} key={s.symbol} />
               ))}
-              {hasMore && 
-              <Typography className={classes.loading}>
-                <CircularProgress color='primary'/>
-              </Typography>}
+              {hasMore && (
+                <Typography className={classes.loading}>
+                  <CircularProgress color="primary" />
+                </Typography>
+              )}
             </TableBody>
           </Table>
         </TableContainer>

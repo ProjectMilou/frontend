@@ -55,8 +55,8 @@ const useStyles = makeStyles(() => ({
   grid: {
     overflow: 'hidden' /* Hide scrollbars */,
   },
-  loading:{
-    margin:'15px',
+  loading: {
+    margin: '15px',
   },
 }));
 
@@ -166,11 +166,11 @@ const DashboardCards: React.FC<DashboardCardsProps> = ({ stocks }) => {
           {items.map((s) => (
             <DashboardCardsRow stock={s} key={s.symbol} />
           ))}
-          {hasMore && 
-          <div className={classes.loading}>
-            <CircularProgress color='primary'/>
-          </div>
-          }
+          {hasMore && (
+            <div className={classes.loading}>
+              <CircularProgress color="primary" />
+            </div>
+          )}
         </GridList>
       </Grid>
     </InfiniteScroll>
