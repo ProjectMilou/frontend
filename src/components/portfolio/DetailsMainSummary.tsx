@@ -358,7 +358,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
             style={{ flexBasis: '10%' }}
           >
             {/* total score of the portfolio */}
-            <PortfolioScore score={portfolio.overview.score} />
+            <PortfolioScore score={Math.round(portfolio.overview.score)} />
           </div>
           {/* devider 1 */}
           <hr className={classes.vl} />
