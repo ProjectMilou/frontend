@@ -4,7 +4,6 @@ import { BaseService, MethodType } from '../services/BaseService';
 // TODO: Create a PortfolioService that extends BaseService
 
 const endpoint = 'portfolio';
-const analyticsEndpoint = 'analytics';
 const jsonContentTypeHeader = { 'Content-Type': 'application/json' };
 
 // Types used by the frontend
@@ -503,7 +502,7 @@ function convertPortfolioDetails(response: DetailsResponse): PortfolioDetails {
  * @param url - An URL relative to {@link baseURL}
  * @param body - The request body
  * @param headers - Additional request headers
- * @param isAnalytics - if set to true the endpoint is changed to the analytics endpoint
+ * @param customEndpoint - choose a custom waypoint to make the request, default is /portfolio
 
  *
  * @return Parsed JSON response if the API call succeeds
@@ -513,11 +512,11 @@ async function request(
   url: string,
   body?: Record<string, unknown>,
   headers?: HeadersInit,
-  isAnalytics?: boolean
+  customEndpoint?: string
 ): Promise<unknown> {
   const response = await BaseService.authenticatedRequest(
     method,
-    `${isAnalytics ? analyticsEndpoint : endpoint}/${url}`,
+    `${customEndpoint || endpoint}/${url}`,
     body,
     headers
   );
@@ -561,7 +560,7 @@ export async function backtesting(
     }`,
     undefined,
     undefined,
-    true
+    'analytics'
   )) as BacktestingResponse;
   if (
     response.error.length > 0 ||
