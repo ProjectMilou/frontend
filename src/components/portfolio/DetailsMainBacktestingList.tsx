@@ -74,25 +74,27 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
       <DetailsMainBacktestingListItem
         icon={<HeightIcon className={classes.mdd} />}
         title={t('portfolio.details.backtesting.mddMinMax')}
-        value={<StyledNumberFormat value={mddMaxToMin} suffix="%" />}
+        value={<StyledNumberFormat value={mddMaxToMin * 100} suffix="%" />}
         infoText={t('portfolio.details.backtesting.mddInfo')}
       />
       <DetailsMainBacktestingListItem
         icon={<WarningIcon className={classes.beta} />}
         title={t('portfolio.details.backtesting.standardDeviation')}
-        value={<StyledNumberFormat value={standardDeviation} suffix="%" />}
+        value={
+          <StyledNumberFormat value={standardDeviation * 100} suffix="%" />
+        }
         infoText={t('portfolio.details.analytics.standardDeviation.infoButton')}
       />
       <DetailsMainBacktestingListItem
         icon={<NewReleasesIcon className={classes.sharpe} />}
         title={t('portfolio.details.backtesting.sharpeRatio')}
-        value={sharpeRatio}
+        value={<StyledNumberFormat value={sharpeRatio} />}
         infoText={t('analyser.details.Volatility.SharpeRatio.infoButton')}
       />
       <DetailsMainBacktestingListItem
         icon={<SpeedIcon className={classes.cagr} />}
         title={t('portfolio.details.backtesting.cagr')}
-        value={<StyledNumberFormat value={cagr} suffix="%" />}
+        value={<StyledNumberFormat value={cagr * 100} suffix="%" />}
         infoText={t('portfolio.details.backtesting.cagrInfo')}
       />
     </List>
