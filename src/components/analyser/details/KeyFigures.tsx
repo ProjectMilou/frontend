@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import KeyFiguresBar from '../../shared/KeyFiguresBar';
-import SubsectionDivider from './SubsectionDivider';
+import SubsectionDivider from '../../shared/SubsectionDivider';
 
 export type KeyFigure = {
   title: string;

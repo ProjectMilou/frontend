@@ -6,6 +6,8 @@ import {
   createStyles,
 } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import ReactApexChart from 'react-apexcharts';
+import { Toolbar } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import * as API from '../../../analyser/APIClient';
 import VolatilityLineEntry from '../../portfolio/VolatilityLineEntry';
@@ -69,7 +71,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       whiteSpace: 'nowrap',
     },
     infoTitleP: {
-      margin: '0.5rem 0',
+      margin: '0.5rem 0.5rem',
     },
     chartContainer: {
       display: 'flex',
@@ -96,20 +98,20 @@ type InfoBlockProps = {
   title: string;
   info: string;
   body: ReactElement;
+  info: string;
 };
 
 // returns the details page header
-const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
+const InfoBlock: React.FC<InfoBlockProps> = ({ title, body, info }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.infoWrapper}>
       <div className={classes.infoTitle}>
-        <p className={classes.infoTitleP}>
-          {title}
-          <>&nbsp;</>
-          <InfoButton infotext={info} />
-        </p>
+        <Toolbar disableGutters>
+          <p className={classes.infoTitleP}>{title}</p>
+          <InfoButton infotext={info}> </InfoButton>
+        </Toolbar>
       </div>
       <div className={classes.infoBody}>{body}</div>
     </div>
@@ -144,11 +146,13 @@ const Volatility: React.FC<DetailsProps> = ({ details, risks }) => {
             title={t('analyser.details.Volatility.SharpeRatio')}
             info={t('analyser.details.Volatility.TreynorRatio')}
             body={<p style={{ margin: 0 }}> 0.5 </p>}
+            info={t('analyser.details.Volatility.SharpeRatio.infoButton')}
           />
           <InfoBlock
             title={t('analyser.details.Volatility.TreynorRatio')}
             info={t('analyser.details.Volatility.TreynorRatio')}
             body={<p style={{ margin: 0 }}> 0.5 </p>}
+            info={t('analyser.details.Volatility.TreynorRatio.infoButton')}
           />
         </div>
         <div className={classes.lineChartWrapper}>

@@ -3,8 +3,8 @@ import { makeStyles, createStyles, useTheme } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import PropTypes from 'prop-types';
 import logo from '../../../assets/images/logo1.png';
-import ForgotPasswordForm from './ForgotPasswordForm';
-import ForgotPasswordSuccessWindow from './ForgotPasswordSuccessWindow';
+import ResetForm from './ResetForm';
+import ResetSuccessWindow from './ResetSuccessWindow';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -28,11 +28,11 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-interface ForgotPasswordProps {
+interface ResetProps {
   closePopUp: () => void;
 }
 
-const ForgotPassword: React.FC<ForgotPasswordProps> = (props) => {
+const Reset: React.FC<ResetProps> = (props) => {
   const { closePopUp } = props;
   const theme = useTheme();
   const { dialog, iconLogo, iconClear } = useStyles(theme);
@@ -52,16 +52,16 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = (props) => {
       <img src={logo} alt="milou-logo" className={iconLogo} />
 
       {hasSuccess ? (
-        <ForgotPasswordSuccessWindow closePopUp={closePopUp} />
+        <ResetSuccessWindow closePopUp={closePopUp} />
       ) : (
-        <ForgotPasswordForm setSuccess={setSuccess} />
+        <ResetForm setSuccess={setSuccess} />
       )}
     </div>
   );
 };
 
-ForgotPassword.propTypes = {
+Reset.propTypes = {
   closePopUp: PropTypes.func.isRequired,
 };
 
-export default ForgotPassword;
+export default Reset;

@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import ReactApexChart from 'react-apexcharts';
+import { Toolbar } from '@material-ui/core';
 import * as API from '../../../analyser/APIClient';
 import InfoButton from '../../shared/InfoButton';
 
@@ -92,7 +93,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       whiteSpace: 'nowrap',
     },
     infoTitleP: {
-      margin: '0.5rem 0',
+      margin: '0.5rem 0.5rem',
     },
     chartContainer: {
       display: 'flex',
@@ -116,10 +117,11 @@ type InfoBlockProps = {
   title: string;
   info: string;
   body: ReactElement;
+  info: string;
 };
 
 // returns the details page header
-const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
+const InfoBlock: React.FC<InfoBlockProps> = ({ title, body, info }) => {
   const classes = useStyles();
 
   return (

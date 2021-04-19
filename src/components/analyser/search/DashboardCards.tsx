@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
-import TextOverText from '../TextOverText';
+import TextOverText from '../../shared/TextOverText';
 
 const useStyles = makeStyles(() => ({
   card: {
