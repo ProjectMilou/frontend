@@ -26,7 +26,7 @@ export type Stock = {
   per30d: string;
   per365d: string;
   marketCapitalization: number;
-  analystTargetPrice: number;
+  analystTargetPrice: string;
   valuation: number;
   growth: number;
   div: string;

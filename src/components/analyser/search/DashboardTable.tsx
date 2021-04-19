@@ -54,6 +54,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       overflowX: 'initial',
       height: 800,
       overflow: 'auto',
+      borderRadius: 5
     },
   })
 );
@@ -133,7 +134,7 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         </Typography>
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
-        <StyledNumberFormat value={stock.analystTargetPrice} suffix="€" paintJob={theme.palette.primary.main}/>
+        <StyledNumberFormat value={parseFloat(stock.analystTargetPrice)} suffix="€" paintJob={theme.palette.primary.main}/>
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
         <Valuation value={stock.valuation} size="1.3rem"/>
