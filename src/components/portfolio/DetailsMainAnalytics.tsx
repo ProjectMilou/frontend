@@ -31,7 +31,7 @@ type DetailsMainAnalyticsProps = {
 };
 
 type VolatilityLineData = {
-  [symbol: string]: number;
+  [value: number]: string;
 };
 
 const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
@@ -51,7 +51,15 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
       .slice(0, 4)
       .map((p) => p.stock)
       .forEach((s) => {
-        sortedStocks[s.symbol] = s.volatility;
+        const val = Math.round(s.volatility * 100) / 100;
+
+        if (!sortedStocks[val]) {
+          // if there is no entry with this score create one
+          sortedStocks[val] = s.name;
+        } else {
+          // otherwise add on to an existing score
+          sortedStocks[val] = sortedStocks[val].concat(`\n${s.name}`);
+        }
       });
   }
 
@@ -111,12 +119,16 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
           ).toString()}
           textColor={palette.primary.contrastText}
         />
-        {Object.entries(sortedStocks).map(([symbol, volatility]) => (
+        {Object.entries(sortedStocks).map(([volatility, symbol]) => (
           <VolatilityLineEntry
             key={symbol}
-            volatilityValue={volatility}
+            volatilityValue={parseFloat(volatility)}
             tooltipText={symbol}
-            color={volatility > 1 ? palette.error.main : palette.success.main}
+            color={
+              parseFloat(volatility) > 1
+                ? palette.error.main
+                : palette.success.main
+            }
           />
         ))}
       </VolatilityGraph>

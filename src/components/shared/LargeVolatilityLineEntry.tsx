@@ -39,6 +39,17 @@ type LargeVolatilityLineEntryProps = {
   textColor: string;
 };
 
+/**
+ * This component represents the long line with text below it to be used in the volatility graph
+ * In the portfolio view it represents the portfolios weighted average of all volatilities.
+ * In the analyzer view it represents the singular stocks volatility.
+ *
+ * @param volatilityValue - The volatility which determines how far right the indicator is shifted on the graph
+ * @param name - The string to be desplayed below the indicator line
+ * @param textColor - The color of the text.
+ * Please not that the indicator line color is determined by whether it is below (green) or above (red) the merket average
+ */
+
 const LargeVolatilityLineEntry: React.FC<LargeVolatilityLineEntryProps> = ({
   volatilityValue,
   name,
@@ -59,7 +70,7 @@ const LargeVolatilityLineEntry: React.FC<LargeVolatilityLineEntryProps> = ({
     <>
       <div className={classes.volatilityValue}>
         <div className={classes.line} />
-        <div className={classes.text}>{`${name}: ${volatilityValue}`}</div>
+        <div className={classes.text}>{name}</div>
       </div>
     </>
   );
