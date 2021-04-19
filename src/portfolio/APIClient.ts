@@ -151,26 +151,26 @@ export type BacktestingResponse = {
   success:
     | {
         bestYear: {
-          changeBest: number;
+          changeBest: string;
           yearBest: string;
-          growthRateBest: number;
+          growthRateBest: string;
         };
         worstYear: {
-          changeWorst: number;
+          changeWorst: string;
           yearWorst: string;
-          growthRateWorst: number;
+          growthRateWorst: string;
         };
         finalPortfolioBalance: number;
         CAGR: number;
         standardDeviation: number;
         sharpeRatio: number;
-        MDDMaxToMin: number;
-        MDDInitialToMin: number;
+        MDDMaxToMin: string;
+        MDDInitialToMin: string;
         dateMax: string;
         dateMin: string;
-        maxValue: number;
-        minValue: number;
-        initialValue: number;
+        maxValue: string;
+        minValue: string;
+        initialValue: string;
       }
     | Record<string, never>;
 };
@@ -178,27 +178,27 @@ export type BacktestingResponse = {
 type NonEmptyBacktestingResponse = {
   error: string;
   success: {
-    MDDMaxToMin: number;
-    MDDInitialToMin: number;
-    dateMax: string;
-    dateMin: string;
-    maxValue: number;
-    minValue: number;
-    initialValue: number;
     bestYear: {
-      changeBest: number;
+      changeBest: string;
       yearBest: string;
-      growthRateBest: number;
+      growthRateBest: string;
     };
     worstYear: {
-      changeWorst: number;
+      changeWorst: string;
       yearWorst: string;
-      growthRateWorst: number;
+      growthRateWorst: string;
     };
     finalPortfolioBalance: number;
     CAGR: number;
     standardDeviation: number;
     sharpeRatio: number;
+    MDDMaxToMin: string;
+    MDDInitialToMin: string;
+    dateMax: string;
+    dateMin: string;
+    maxValue: string;
+    minValue: string;
+    initialValue: string;
   };
 };
 
@@ -441,6 +441,7 @@ function convertPortfolioOverview(
 /**
  * Converts a {@link BacktestingResponse} object as received from the API
  * to a {@link Backtesting} object for use by the application.
+ * formats all the string numbers to actual numbers
  */
 function convertBacktesting(
   response: NonEmptyBacktestingResponse
@@ -448,8 +449,23 @@ function convertBacktesting(
   const { success } = response;
   return {
     ...success,
+    bestYear: {
+      changeBest: parseFloat(success.bestYear.changeBest),
+      yearBest: success.bestYear.yearBest,
+      growthRateBest: parseFloat(success.bestYear.growthRateBest),
+    },
+    worstYear: {
+      changeWorst: parseFloat(success.worstYear.changeWorst),
+      yearWorst: success.worstYear.yearWorst,
+      growthRateWorst: parseFloat(success.worstYear.growthRateWorst),
+    },
+    MDDMaxToMin: parseFloat(success.MDDMaxToMin),
+    MDDInitialToMin: parseFloat(success.MDDInitialToMin),
     dateMin: new Date(success.dateMin),
     dateMax: new Date(success.dateMax),
+    maxValue: parseFloat(success.maxValue),
+    minValue: parseFloat(success.minValue),
+    initialValue: parseFloat(success.initialValue),
   };
 }
 
