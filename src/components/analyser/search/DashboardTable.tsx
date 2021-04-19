@@ -139,7 +139,7 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         <Valuation value={stock.valuation} size="1.3rem"/>
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
-        <StyledNumberFormat value={stock.div} suffix="%" paintJob />
+        <StyledNumberFormat value={parseFloat(stock.div)} suffix="%" paintJob />
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.highlightText}>
@@ -173,7 +173,6 @@ function sortStocks(
 
 const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
   const classes = useStyles();
-  const { t } = useTranslation();
 
   const [items, setItems] = React.useState<API.Stock[]>(stocks.slice(0, 10));
   const [hasMore, setHasMore] = React.useState<boolean>(true);

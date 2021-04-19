@@ -29,7 +29,7 @@ export type Stock = {
   analystTargetPrice: number;
   valuation: number;
   growth: number;
-  div: number;
+  div: string;
   currency: string;
   country: string;
   industry: string;
