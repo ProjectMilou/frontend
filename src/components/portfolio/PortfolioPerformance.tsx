@@ -16,6 +16,13 @@ const useStyles = makeStyles(({ palette }) => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  errorContainer: {
+    display: 'flex',
+    height: '100%',
+    '& > *': {
+      flex: '1',
+    },
+  },
   infoBody: {
     display: 'flex',
     alignSelf: 'center',
@@ -63,11 +70,13 @@ const PortfolioPerformance: React.FC<PortfolioPerformanceProps> = ({ id }) => {
 
   if (error) {
     return (
-      <ErrorMessage
-        error={error}
-        messageKey="portfolio.performance.errorMessage"
-        handling={{ buttonText: 'error.action.retry', action: fetch }}
-      />
+      <div className={classes.errorContainer}>
+        <ErrorMessage
+          error={error}
+          messageKey="portfolio.performance.errorMessage"
+          handling={{ buttonText: 'error.action.retry', action: fetch }}
+        />
+      </div>
     );
   }
 
