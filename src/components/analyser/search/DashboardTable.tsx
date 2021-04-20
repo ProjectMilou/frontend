@@ -73,13 +73,13 @@ export type DashboardTableProps = {
 export function moneyFormat(val: number): string {
   let round = '';
   if (Math.abs(val) >= 1.0e9) {
-    round = `€${Math.round(Math.abs(val) / 1.0e9)}B`;
+    round = `${Math.round(Math.abs(val) / 1.0e9)}B`;
   } else if (Math.abs(val) >= 1.0e6) {
-    round = `€${Math.round(Math.abs(val) / 1.0e6)}M`;
+    round = `${Math.round(Math.abs(val) / 1.0e6)}M`;
   } else if (Math.abs(val) >= 1.0e3) {
-    round = `€${Math.round(Math.abs(val) / 1.0e3)}K`;
+    round = `${Math.round(Math.abs(val) / 1.0e3)}K`;
   } else {
-    round = `€${Math.abs(val)}`;
+    round = `${Math.abs(val)}`;
   }
   return round;
 }
@@ -141,7 +141,7 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>
-          {moneyFormat(stock.marketCapitalization)}
+          {currencySymbol() + moneyFormat(stock.marketCapitalization)}
         </Typography>
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
