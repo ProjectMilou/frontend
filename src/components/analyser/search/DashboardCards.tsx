@@ -101,7 +101,7 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
                 top="Last Price"
                 colorTop="#68696b"
                 bottom={`${stock.price}`}
-                euro
+                currency={`${stock.currency}`}
                 sizeBottom="1.3rem"
               />
             </div>
