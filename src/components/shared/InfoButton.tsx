@@ -29,13 +29,13 @@ const InfoButton: React.FC<InfoProps> = ({ infotext }) => {
 
   return (
     // <span className={classes.root}>
-      <Tooltip
-        title={infotext}
-        placement="top-start"
-        classes={{ tooltip: classes.customSize }}
-      >
-        <InfoOutlined className={classes.infoIcon} />
-      </Tooltip>
+    <Tooltip
+      title={infotext}
+      placement="top-start"
+      classes={{ tooltip: classes.customSize }}
+    >
+      <InfoOutlined className={classes.infoIcon} />
+    </Tooltip>
     // </span>
   );
 };
