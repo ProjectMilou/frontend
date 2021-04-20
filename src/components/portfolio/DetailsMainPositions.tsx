@@ -109,6 +109,9 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
                     />
                     <br />
                     <span>{`${t('portfolio.details.amount')}: ${p.qty}`}</span>
+                    <br />
+                    <span>{`${t('portfolio.details.perShare')}: `}</span>
+                    <StyledNumberFormat value={p.stock.price} suffix="€" />
                   </div>
                 </div>
                 <div className={classes.cardContentLower}>

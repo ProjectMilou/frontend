@@ -9,6 +9,7 @@
   "portfolio.details.stock": "Stock",
   "portfolio.details.price": "Price",
   "portfolio.details.amount": "Amount",
+  "portfolio.details.perShare": "Per share",
   "portfolio.details.discardChanges": "Discard changes",
   "portfolio.details.saveChanges": "Save changes",
   "portfolio.details.score": "Score",
