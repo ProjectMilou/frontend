@@ -5,14 +5,14 @@ import PasswordField from './PasswordField';
 const renderPasswordField = () => {
   const props = {
     hasError: {
-      email: "",
-      password: "invalid",
-      confirmPassword: "pwd-invalid"
+      email: '',
+      password: 'invalid',
+      confirmPassword: 'pwd-invalid',
     },
     setError: jest.fn(),
     login: {
-      password: "pwd",
-      confirmPassword: "pwd-invalid"
+      password: 'pwd',
+      confirmPassword: 'pwd-invalid',
     },
     handleChange: jest.fn(),
   };
@@ -46,7 +46,7 @@ describe('PasswordField', () => {
   });
 
   test('should render input', async () => {
-    const { component, handleChange} = renderPasswordField();
+    const { component, handleChange } = renderPasswordField();
     const { findByTestId } = component;
 
     const password = await findByTestId('password');
@@ -55,6 +55,6 @@ describe('PasswordField', () => {
     fireEvent.change(password, { target: { value: 'pwd' } });
     fireEvent.change(confirmPassword, { target: { value: 'pwd-2' } });
 
-    expect(handleChange).toHaveBeenCalledTimes(1)
+    expect(handleChange).toHaveBeenCalledTimes(1);
   });
-})
+});

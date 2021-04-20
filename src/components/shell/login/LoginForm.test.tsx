@@ -1,4 +1,10 @@
-import { render, fireEvent, screen, act, waitFor } from '@testing-library/react';
+import {
+  render,
+  fireEvent,
+  screen,
+  act,
+  waitFor,
+} from '@testing-library/react';
 import * as React from 'react';
 import userEvent from '@testing-library/user-event';
 import LoginForm from './LoginForm';
@@ -82,34 +88,43 @@ describe('LoginForm', () => {
 
     const passwordInput = (await findByTestId('password')) as HTMLInputElement;
     const emailInput = (await findByTestId('email')) as HTMLInputElement;
-    const button = screen.getByText(/shell.login/i)
+    const button = screen.getByText(/shell.login/i);
 
     fireEvent.change(passwordInput, { target: { value: 'pwd' } });
     fireEvent.change(emailInput, { target: { value: 'email' } });
 
-    fetchMock.mockResponseOnce(JSON.stringify("false"));
+    fetchMock.mockResponseOnce(JSON.stringify('false'));
 
     act(() => {
       fireEvent.click(button);
     });
 
     expect(window.fetch).toHaveBeenCalledWith(
-      "https://api.milou.io/user/login",
-      expect.objectContaining( {"body": "{\"email\":\"email\",\"password\":\"pwd\"}", "headers": {"Accept": "application/json", "Content-Type": "application/json"}, "method": "POST"}),
-    )
-    expect(window.fetch).toHaveBeenCalledTimes(1)
-    await waitFor(() =>{
-      expect(screen.getByText(/error.invalidEmailOrPassword/i)).toBeInTheDocument()
+      'https://api.milou.io/user/login',
+      expect.objectContaining({
+        body: '{"email":"email","password":"pwd"}',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
       })
+    );
+    expect(window.fetch).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(
+        screen.getByText(/error.invalidEmailOrPassword/i)
+      ).toBeInTheDocument();
+    });
   });
 
   test('should submit registered user', async () => {
-    const { component, setUserState} = renderLoginForm();
+    const { component, setUserState } = renderLoginForm();
     const { findByTestId } = component;
 
     const passwordInput = (await findByTestId('password')) as HTMLInputElement;
     const emailInput = (await findByTestId('email')) as HTMLInputElement;
-    const button = screen.getByText(/shell.login/i)
+    const button = screen.getByText(/shell.login/i);
 
     fireEvent.change(passwordInput, { target: { value: 'pwd' } });
     fireEvent.change(emailInput, { target: { value: 'email' } });
@@ -129,12 +144,19 @@ describe('LoginForm', () => {
     });
 
     expect(window.fetch).toHaveBeenCalledWith(
-      "https://api.milou.io/user/login",
-      expect.objectContaining( {"body": "{\"email\":\"email\",\"password\":\"pwd\"}", "headers": {"Accept": "application/json", "Content-Type": "application/json"}, "method": "POST"}),
-    )
-    expect(window.fetch).toHaveBeenCalledTimes(1)
+      'https://api.milou.io/user/login',
+      expect.objectContaining({
+        body: '{"email":"email","password":"pwd"}',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      })
+    );
+    expect(window.fetch).toHaveBeenCalledTimes(1);
     await waitFor(() => {
-      expect(setUserState).toHaveBeenCalledTimes(1)
-    })
+      expect(setUserState).toHaveBeenCalledTimes(1);
+    });
   });
 });
