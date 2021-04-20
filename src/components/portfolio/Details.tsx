@@ -87,6 +87,7 @@ const Details: React.FC<RouteComponentProps> = () => {
             await fetch();
           }}
           value={portfolioDetails?.overview.value}
+          error={error}
         />
       </div>
       {!portfolioDetails && !error && <LinearProgress color="secondary" />}
