@@ -333,7 +333,7 @@ exports[`DashboardTable display portfolio information 1`] = `
               <p
                 class="MuiTypography-root makeStyles-title-14 MuiTypography-body1"
               >
-                0.6
+                1
               </p>
             </div>
           </td>
