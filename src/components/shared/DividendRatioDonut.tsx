@@ -1,6 +1,11 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  createStyles,
+  Theme,
+  useTheme,
+} from '@material-ui/core/styles';
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
   createStyles({
@@ -35,6 +40,7 @@ type RatioDonutProps = {
 
 const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
   const classes = useStyles();
+  const theme = useTheme();
 
   const series = [ratio, 1 - ratio];
   const options = {
@@ -63,7 +69,7 @@ const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
       enabled: true,
     },
     fill: {
-      colors: ['#00e396', '#008ffb'],
+      colors: [theme.palette.success, theme.palette.lightBlue],
     },
     chart: {
       redrawOnWindowResize: false,

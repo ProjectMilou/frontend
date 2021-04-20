@@ -20,7 +20,7 @@ import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     topBanner: {
-      backgroundColor: '#EEF1FB',
+      backgroundColor: palette.background.default,
       width: '100%',
       height: '15rem',
     },
