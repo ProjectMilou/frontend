@@ -162,11 +162,11 @@ const Volatility: React.FC<VolatilityProps> = ({ details, risks }) => {
             >
               <VolatilityGraph color={palette.primary.main}>
                 <LargeVolatilityLineEntry
-                  volatilityValue={vol}
-                  marketValue={market}
+                  volatilityValue={details.beta}
+                  // marketValue={market}
                   name={details.symbol}
                   textColor={
-                    vol > market
+                    details.beta > 1
                       ? theme.palette.error.main
                       : theme.palette.success.main
                   }

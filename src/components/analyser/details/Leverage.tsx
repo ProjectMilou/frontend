@@ -174,6 +174,7 @@ const Leverage: React.FC<DetailsProps> = ({
     }
   }
 
+  let countNegativeEquity = 0;
   const equitySeries: number[] = [];
   for (let index = 0; index < 5; index += 1) {
     const num =
@@ -182,7 +183,16 @@ const Leverage: React.FC<DetailsProps> = ({
     if (Number.isNaN(num)) {
       equitySeries.push(0);
     } else {
+      if (num < 0) {
+        countNegativeEquity += 1;
+      }
       equitySeries.push(num);
+    }
+  }
+
+  if (countNegativeEquity === 5) {
+    for (let index = 0; index < 5; index += 1) {
+      equitySeries[index] = -equitySeries[index];
     }
   }
 
