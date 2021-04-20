@@ -78,7 +78,7 @@ const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
     >
       <TableCell align="center">
         {'score' in portfolio && (
-          <PortfolioScore score={Math.round(portfolio.score)} dashboard />
+          <PortfolioScore score={portfolio.score} dashboard />
         )}
       </TableCell>
       <TableCell align="center" component="th" scope="row">
