@@ -106,7 +106,12 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
   };
 
   return (
-    <>
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        handleSubmit();
+      }}
+    >
       <DialogContent>
         <TextField
           error={hasError.email !== ''}
@@ -167,7 +172,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
 
       <DialogActions>
         <Button
-          type="button"
+          type="submit"
           disabled={
             login.email === '' ||
             Object.values(hasError).join('').length > 0 ||
@@ -177,7 +182,6 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
           variant="contained"
           color="primary"
           fullWidth
-          onClick={handleSubmit}
           data-testid="register"
         >
           {t('shell.register')}
@@ -193,7 +197,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
           components={[<LinkButton handleEvent={goToLogin} />]}
         />
       </Typography>
-    </>
+    </form>
   );
 };
 export default RegisterForm;
