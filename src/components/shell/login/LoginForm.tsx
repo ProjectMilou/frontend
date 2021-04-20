@@ -91,13 +91,17 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
         setLoginError(true);
         return;
       }
-
       setUserState();
     });
   };
 
   return (
-    <>
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        handleSubmit();
+      }}
+    >
       {loginError && (
         <Typography variant="body1" className={errorMessage}>
           {t('error.invalidEmailOrPassword')} {t('error.retry')}
@@ -150,12 +154,11 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
 
       <DialogActions>
         <Button
-          type="button"
+          type="submit"
           disabled={login.email === '' || login.password === ''}
           variant="contained"
           color="primary"
           fullWidth
-          onClick={handleSubmit}
           data-testid="login"
         >
           {t('shell.login')}
@@ -171,7 +174,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
           components={[<LinkButton handleEvent={openRegisterPopUpWindow} />]}
         />
       </Typography>
-    </>
+    </form>
   );
 };
 

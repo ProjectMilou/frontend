@@ -45,7 +45,7 @@ const Login: React.FC<LoginProps> = (props) => {
   const theme = useTheme();
   const { dialog, iconLogo, iconClear } = useStyles(theme);
 
-  type State = 'loggedIn' | 'loggedOut' | 'loading';
+  type State = 'loggedIn' | 'loggedOut';
   const initialState = localStorage.getItem('token') ? 'loggedIn' : 'loggedOut';
   const [userState, setUserState] = useState<State>(initialState);
 
@@ -61,6 +61,12 @@ const Login: React.FC<LoginProps> = (props) => {
         color="primary"
         role="button"
         onClick={closePopUp}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter') {
+            closePopUp();
+            event.preventDefault();
+          }
+        }}
         tabIndex={0}
         data-testid="icon"
       />
