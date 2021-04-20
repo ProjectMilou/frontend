@@ -1,26 +1,18 @@
 import React from 'react';
-import {
-  Container,
-  createStyles,
-  makeStyles,
-  Theme,
-  Typography,
-} from '@material-ui/core';
+import { Container, makeStyles, Typography } from '@material-ui/core';
 
-const useStyles = makeStyles(({ palette }: Theme) =>
-  createStyles({
-    header: {
-      'background-color': palette.primary.dark,
-    },
-    text: {
-      fontSize: '48px',
-      color: palette.background.default,
-      padding: '50px 0',
-      minWidth: '50%',
-      maxWidth: '1000px',
-    },
-  })
-);
+const useStyles = makeStyles({
+  header: {
+    'background-color': '#0D1B3B',
+  },
+  text: {
+    'font-size': '48px',
+    color: '#EEF1FB',
+    padding: '50px 0',
+    minWidth: '50%',
+    maxWidth: '1000px',
+  },
+});
 
 const DashboardHeader: React.FC = ({ children }) => {
   const classes = useStyles();

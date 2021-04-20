@@ -252,14 +252,14 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
       },
     },
     colors: [
-      theme.palette.success,
-      theme.palette.success,
-      theme.palette.success,
-      theme.palette.success,
-      theme.palette.success,
-      theme.palette.success,
-      theme.palette.success,
-      theme.palette.error,
+      '#50E2A8',
+      '#50E2A8',
+      '#50E2A8',
+      '#50E2A8',
+      '#50E2A8',
+      '#50E2A8',
+      '#50E2A8',
+      '#D64745',
     ],
     plotOptions: {
       treemap: {
