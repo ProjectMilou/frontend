@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme: Theme) =>
       textDecoration: 'none',
       textTransform: 'none',
       textAlign: 'left',
-      padding: 0,
       width: '100%',
       fontSize: theme.typography.body1.fontSize,
     },
@@ -27,6 +26,7 @@ const SearchOption: React.FC<SearchOptionProps> = ({ stock }) => {
   const { navlink } = useStyles();
 
   return (
+    // Link is needed to highlight current selected stock
     <Link
       to={route}
       className={navlink}

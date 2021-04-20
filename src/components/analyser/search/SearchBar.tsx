@@ -7,6 +7,7 @@ import {
   Theme,
   TextFieldProps,
 } from '@material-ui/core';
+import { navigate } from '@reach/router';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Search from '@material-ui/icons/Search';
 import * as API from '../../../analyser/APIClient';
@@ -80,8 +81,12 @@ const SearchBar: React.FC = () => {
             }
             setInputValue(value);
           }}
-          onChange={() => {
+          onChange={(event, value) => {
             setOpen(false);
+            // navigate to new page if value is of type stock
+            if (typeof value === 'object' && value !== null) {
+              navigate(`/analyser/${value.symbol}`);
+            }
           }}
           renderOption={(option: API.Stock) => <SearchOption stock={option} />}
           renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (
