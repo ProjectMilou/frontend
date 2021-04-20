@@ -35,9 +35,8 @@ const KeyFiguresBar: React.FC<KeyFiguresBarProps> = ({
         {Object.entries(keyFigures).map(([keyFigure, values]) => {
           const latestValue = values[values.length - 1];
           return (
-            <Grid item md={6} xs={12}>
+            <Grid item md={6} xs={12} key={keyFigure}>
               <KeyFigureSelect
-                key={keyFigure}
                 keyFigure={keyFigure as KeyFigure}
                 value={
                   keyFigure === 'EPS' && latestValue !== undefined ? (

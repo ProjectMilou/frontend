@@ -119,13 +119,6 @@ export type PortfolioStock = {
 };
 
 export type Backtesting = {
-  MDDMaxToMin: number;
-  MDDInitialToMin: number;
-  dateMax: Date;
-  dateMin: Date;
-  maxValue: number;
-  minValue: number;
-  initialValue: number;
   bestYear: {
     changeBest: number;
     yearBest: string;
@@ -140,7 +133,17 @@ export type Backtesting = {
   CAGR: number;
   standardDeviation: number;
   sharpeRatio: number;
+  MDDMaxToMin: number;
+  MDDInitialToMin: number;
+  dateMax: Date;
+  dateMin: Date;
+  maxValue: number;
+  minValue: number;
+  initialValue: number;
 };
+
+// The first number is a timestamp, the second number is the portfolio value at that time.
+export type Performance = [number, number][];
 
 // Types describing the JSON response of API calls.
 // The correctness of these types is assumed, no checks are performed.
@@ -149,13 +152,6 @@ export type BacktestingResponse = {
   error: string;
   success:
     | {
-        MDDMaxToMin: number;
-        MDDInitialToMin: number;
-        dateMax: string;
-        dateMin: string;
-        maxValue: number;
-        minValue: number;
-        initialValue: number;
         bestYear: {
           changeBest: number;
           yearBest: string;
@@ -170,6 +166,13 @@ export type BacktestingResponse = {
         CAGR: number;
         standardDeviation: number;
         sharpeRatio: number;
+        MDDMaxToMin: number;
+        MDDInitialToMin: number;
+        dateMax: string;
+        dateMin: string;
+        maxValue: number;
+        minValue: number;
+        initialValue: number;
       }
     | Record<string, never>;
 };
@@ -177,13 +180,6 @@ export type BacktestingResponse = {
 type NonEmptyBacktestingResponse = {
   error: string;
   success: {
-    MDDMaxToMin: number;
-    MDDInitialToMin: number;
-    dateMax: string;
-    dateMin: string;
-    maxValue: number;
-    minValue: number;
-    initialValue: number;
     bestYear: {
       changeBest: number;
       yearBest: string;
@@ -198,6 +194,13 @@ type NonEmptyBacktestingResponse = {
     CAGR: number;
     standardDeviation: number;
     sharpeRatio: number;
+    MDDMaxToMin: number;
+    MDDInitialToMin: number;
+    dateMax: string;
+    dateMin: string;
+    maxValue: number;
+    minValue: number;
+    initialValue: number;
   };
 };
 
@@ -251,6 +254,8 @@ type CreateResponse = {
 };
 
 type PortfolioStockResponse = { portfolios: PortfolioStock[] };
+
+type PerformanceResponse = { chart: Performance };
 
 // mock portfolio while the api is not finished yet (copied from APIMocks.ts).
 // TODO: remove this
@@ -486,6 +491,8 @@ function convertPortfolioDetails(response: DetailsResponse): PortfolioDetails {
  * @param url - An URL relative to {@link baseURL}
  * @param body - The request body
  * @param headers - Additional request headers
+ * @param customEndpoint - choose a custom waypoint to make the request, default is /portfolio
+
  *
  * @return Parsed JSON response if the API call succeeds
  */
@@ -493,11 +500,12 @@ async function request(
   method: MethodType,
   url: string,
   body?: Record<string, unknown>,
-  headers?: HeadersInit
+  headers?: HeadersInit,
+  customEndpoint?: string
 ): Promise<unknown> {
   const response = await BaseService.authenticatedRequest(
     method,
-    `${endpoint}/${url}`,
+    `${customEndpoint || endpoint}/${url}`,
     body,
     headers
   );
@@ -536,9 +544,12 @@ export async function backtesting(
 ): Promise<Backtesting> {
   const response = (await request(
     'GET',
-    `/analytics/backtest/${id}?${from.toISOString().split('T')[0]}&${
+    `backtest/${id}?fromDate=${from.toISOString().split('T')[0]}&toDate=${
       to.toISOString().split('T')[0]
-    }`
+    }`,
+    undefined,
+    undefined,
+    'analytics'
   )) as BacktestingResponse;
   if (
     response.error.length > 0 ||
@@ -653,4 +664,17 @@ export async function saveStockToPortfolios(
     { modifications },
     jsonContentTypeHeader
   );
+}
+
+/**
+ * Gets the performance of a portfolio to display in a chart.
+ *
+ * @param id - Portfolio ID
+ */
+export async function performance(id: string): Promise<Performance> {
+  const response = (await request(
+    'GET',
+    `performance/${id}`
+  )) as PerformanceResponse;
+  return response.chart;
 }

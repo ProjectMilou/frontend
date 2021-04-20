@@ -10,7 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import DetailsDonut from './DetailsDonut';
 import { RiskAnalysis } from '../../portfolio/APIClient';
-import { RiskBundle, getRiskBundle } from '../../portfolio/Risk';
+import { RiskBundle, getRiskBundle } from '../../portfolio/Helper';
+import InfoButton from '../shared/InfoButton';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
 
 // stylesheet for the risk analysis section
@@ -38,6 +39,8 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       borderStyle: 'solid',
       borderRadius: '0.75rem',
       borderColor: palette.primary.contrastText,
+      display: 'flex',
+      justifyContent: 'space-between',
     },
     riskWrapper: {
       display: 'flex',
@@ -81,6 +84,9 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       margin: '0.1rem 0',
       fontSize: '1rem',
       color: palette.primary.contrastText,
+    },
+    ratioName: {
+      marginRight: '0.5rem',
     },
   })
 );
@@ -181,19 +187,27 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
     <>
       <div className={classes.ratioWrapper}>
         <Typography className={classes.ratioText}>
-          {t('portfolio.details.sharpe')}
+          <span className={classes.ratioName}>
+            {t('portfolio.details.sharpe')}
+          </span>
           <StyledNumberFormat
             value={sharpeRatio}
-            suffix=""
             paintJob={ratioToColor(sharpeRatio)}
+          />
+          <InfoButton
+            infotext={t('analyser.details.Volatility.SharpeRatio.infoButton')}
           />
         </Typography>
         <Typography className={classes.ratioText}>
-          {t('portfolio.details.treynor')}
+          <span className={classes.ratioName}>
+            {t('portfolio.details.treynor')}
+          </span>
           <StyledNumberFormat
             value={treynorRatio}
-            suffix=""
             paintJob={ratioToColor(treynorRatio)}
+          />
+          <InfoButton
+            infotext={t('analyser.details.Volatility.TreynorRatio.infoButton')}
           />
         </Typography>
       </div>
