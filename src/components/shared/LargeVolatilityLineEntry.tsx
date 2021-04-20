@@ -35,6 +35,10 @@ const useStyles = makeStyles<Theme, StyleProps>(() =>
 
 type LargeVolatilityLineEntryProps = {
   volatilityValue: number;
+<<<<<<< HEAD
+=======
+  marketValue: number;
+>>>>>>> main
   name: string;
   textColor: string;
 };
@@ -45,6 +49,10 @@ type LargeVolatilityLineEntryProps = {
  * In the analyzer view it represents the singular stocks volatility.
  *
  * @param volatilityValue - The volatility which determines how far right the indicator is shifted on the graph
+<<<<<<< HEAD
+=======
+ * @param marketValue - The market avarage that can be used to compare a stock volatality over market.
+>>>>>>> main
  * @param name - The string to be desplayed below the indicator line
  * @param textColor - The color of the text.
  * Please not that the indicator line color is determined by whether it is below (green) or above (red) the merket average
@@ -52,16 +60,27 @@ type LargeVolatilityLineEntryProps = {
 
 const LargeVolatilityLineEntry: React.FC<LargeVolatilityLineEntryProps> = ({
   volatilityValue,
+<<<<<<< HEAD
+=======
+  marketValue,
+>>>>>>> main
   name,
   textColor,
 }) => {
   const { palette } = useTheme();
 
   const styleProps: StyleProps = {
+<<<<<<< HEAD
     left: `${Math.round(((volatilityValue / 2.0) * 1000) / 10)}%`,
     textColor,
     backgroundColor:
       volatilityValue > 1 ? palette.error.main : palette.success.main,
+=======
+    left: `${Math.round((volatilityValue / 2.0) * 1000) / 10 / marketValue}%`,
+    textColor,
+    backgroundColor:
+      volatilityValue > marketValue ? palette.error.main : palette.success.main,
+>>>>>>> main
   };
 
   const classes = useStyles(styleProps);

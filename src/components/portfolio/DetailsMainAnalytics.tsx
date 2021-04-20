@@ -10,6 +10,7 @@ import VolatilityGraph from '../shared/VolatilityGraph';
 import LargeVolatilityLineEntry from '../shared/LargeVolatilityLineEntry';
 import VolatilityLineEntry from './VolatilityLineEntry';
 import InfoButton from '../shared/InfoButton';
+import { collectStocks, CollectedStocks } from '../../portfolio/Helper';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -30,10 +31,6 @@ type DetailsMainAnalyticsProps = {
   portfolio: NonEmptyPortfolioDetails;
 };
 
-type VolatilityLineData = {
-  [value: number]: string;
-};
-
 const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
   portfolio,
 }) => {
@@ -41,27 +38,10 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const sortedStocks: VolatilityLineData = {};
-
-  if (portfolio.positions) {
-    Object.values(portfolio.positions)
-      // sort by total value (largest to smallest)
-      .sort((a, b) => b.qty * b.stock.price - a.qty * a.stock.price)
-      // take the top 5
-      .slice(0, 4)
-      .map((p) => p.stock)
-      .forEach((s) => {
-        const val = Math.round(s.volatility * 100) / 100;
-
-        if (!sortedStocks[val]) {
-          // if there is no entry with this score create one
-          sortedStocks[val] = s.name;
-        } else {
-          // otherwise add on to an existing score
-          sortedStocks[val] = sortedStocks[val].concat(`\n${s.name}`);
-        }
-      });
-  }
+  const sortedStocks: CollectedStocks = collectStocks(
+    portfolio.positions,
+    true
+  );
 
   return (
     <>
@@ -114,6 +94,7 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
       <VolatilityGraph color={palette.primary.contrastText}>
         <LargeVolatilityLineEntry
           volatilityValue={portfolio.analytics.volatility}
+          marketValue={1}
           name={t(
             'portfolio.details.analytics.volatility.myPortfolio'
           ).toString()}
