@@ -288,12 +288,19 @@ function reducer(state: State, action: Actions): State {
 
 const useStyles = makeStyles((theme) => ({
   dialog: {
+    '& .MuiDialog-container': {
+      minWidth: '15rem',
+    },
     '& .MuiDialog-paper': {
       maxHeight: '40rem',
     },
     '& .MuiTable-root': {
       marginRight: '2rem',
+      minWidth: '35rem',
     },
+  },
+  amountTableCell: {
+    paddingLeft: '6rem',
   },
   increase: {
     fontWeight: 'bold',
@@ -515,7 +522,9 @@ const EditDialog: React.FC<EditDialogProps> = ({
             <TableRow>
               <TableCell>{strings.displayNameHeader}</TableCell>
               {additionalTableHeadCells}
-              <TableCell>{strings.valueHeader}</TableCell>
+              <TableCell className={classes.amountTableCell}>
+                {strings.valueHeader}
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
