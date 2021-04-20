@@ -31,8 +31,11 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const SearchBar: React.FC = () => {
-  const [stocks, setStocks] = React.useState<API.Stock[]>();
   const classes = useStyles();
+
+  const [stocks, setStocks] = React.useState<API.Stock[]>();
+  const [open, setOpen] = useState(false);
+  const [inputValue, setInputValue] = React.useState('');
 
   const fetch = async () => {
     try {
@@ -56,35 +59,42 @@ const SearchBar: React.FC = () => {
     fetch();
   }, []);
 
-  const [open, setOpen] = useState(false);
   return (
     <div style={{ width: 300 }}>
       {stocks && (
         <Autocomplete
           id="search"
           freeSolo
+          inputValue={inputValue}
+          disableClearable
           open={open}
           options={stocks}
           getOptionLabel={(option: API.Stock) =>
             `${option.symbol} ${option.name}${option.isin}${option.wkn}`
           }
-          onInputChange={(e, v, r) => {
-            if (r.startsWith('input') && !!v) {
+          onInputChange={(event, value, reason) => {
+            if (reason.startsWith('input') && !!value) {
               setOpen(true);
             } else {
               setOpen(false);
             }
+            setInputValue(value);
           }}
-          onChange={() => setOpen(false)}
+          onChange={() => {
+            setOpen(false);
+          }}
           renderOption={(option: API.Stock) => <SearchOption stock={option} />}
           renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (
             <TextField
+              // clear input whenever textfield is clicked
+              onClick={() => setInputValue('')}
               variant="outlined"
               className={classes.textField}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...params}
               InputProps={{
                 ...params.InputProps,
+                type: 'search',
                 className: classes.input,
                 startAdornment: (
                   <InputAdornment position="start">
@@ -95,6 +105,10 @@ const SearchBar: React.FC = () => {
               // label="Search"
               margin="normal"
               placeholder="Name, Symbol, ISIN or WKN"
+              onSubmit={() => {
+                console.log('submit');
+                console.log(params);
+              }}
             />
           )}
         />
