@@ -28,7 +28,7 @@ export type FilterBarProps = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     typography: {
-      color: '#0D1B3B',
+      color: theme.palette.primary.dark,
     },
     formControl: {
       margin: theme.spacing(2),
