@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 // import ChartType from 'apexcharts'
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import { useTheme } from '@material-ui/core';
 
 // TODO  find type
 // eslint-disable-next-line
@@ -172,9 +171,8 @@ const Datetime: React.FC<StockChartProps> = ({
   height,
 }) => {
   const { t } = useTranslation();
-  const theme = useTheme();
   const options = {
-    colors: [theme.palette.lightBlue],
+    colors: ['#4392F1'],
     chart: {
       id: 'area-datetime',
       type: 'area',
@@ -183,7 +181,7 @@ const Datetime: React.FC<StockChartProps> = ({
         enabled: true,
         autoScaleYaxis: true,
       },
-      color: theme.palette.secondary.contrastText,
+      color: '#00000',
       toolbar: {
         show: false,
       },
