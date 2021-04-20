@@ -102,7 +102,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
   };
 
   const openPrivacyTab = () => {
-    window.open(window.location.href.concat('privacy'), '_blank');
+    window.open(window.location.origin.concat('/privacy'), '_blank');
   };
 
   return (
@@ -153,7 +153,12 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
                 aria-label="Privacy"
                 tabIndex={0}
                 onClick={() => openPrivacyTab()}
-                onKeyDown={() => openPrivacyTab()}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    openPrivacyTab();
+                    event.preventDefault();
+                  }
+                }}
               />,
             ]}
           />

@@ -66,6 +66,12 @@ const Register: React.FC<RegisterProps> = (props) => {
         className={iconClear}
         color="primary"
         onClick={closePopUp}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter') {
+            closePopUp();
+            event.preventDefault();
+          }
+        }}
         tabIndex={0}
         data-testid="icon"
       />
