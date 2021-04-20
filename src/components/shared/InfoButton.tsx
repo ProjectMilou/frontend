@@ -28,7 +28,7 @@ const InfoButton: React.FC<InfoProps> = ({ infotext }) => {
   const classes = useStyles();
 
   return (
-    <span className={classes.root}>
+    // <span className={classes.root}>
       <Tooltip
         title={infotext}
         placement="top-start"
@@ -36,7 +36,7 @@ const InfoButton: React.FC<InfoProps> = ({ infotext }) => {
       >
         <InfoOutlined className={classes.infoIcon} />
       </Tooltip>
-    </span>
+    // </span>
   );
 };
 
