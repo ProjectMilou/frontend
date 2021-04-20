@@ -108,6 +108,8 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
                       suffix="€"
                     />
                     <br />
+                    <span>{`${t('portfolio.details.amount')}: ${p.qty}`}</span>
+                    <br />
                     <span>{`${t('portfolio.details.perShare')}: `}</span>
                     <StyledNumberFormat value={p.stock.price} suffix="€" />
                   </div>
