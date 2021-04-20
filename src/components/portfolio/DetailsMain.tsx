@@ -85,7 +85,7 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, id }) => {
   return (
     <div className={classes.mainWrapper}>
       <Section title={t('portfolio.details.summaryHeader')}>
-        <DetailsMainSummary portfolio={portfolio} />
+        <DetailsMainSummary portfolio={portfolio} id={id} />
       </Section>
       <Section title={t('portfolio.details.positionsTitle')}>
         <DetailsMainPositions positions={portfolio.positions} />
