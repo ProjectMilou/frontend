@@ -70,7 +70,7 @@ const SearchBar: React.FC = () => {
           open={open}
           options={stocks}
           getOptionLabel={(option: API.Stock) =>
-            `${option.symbol} ${option.name}${option.isin}${option.wkn}`
+            `${option.symbol}: ${option.name}`
           }
           onInputChange={(event, value, reason) => {
             if (reason.startsWith('input') && !!value) {
@@ -105,10 +105,6 @@ const SearchBar: React.FC = () => {
               // label="Search"
               margin="normal"
               placeholder="Name, Symbol, ISIN or WKN"
-              onSubmit={() => {
-                console.log('submit');
-                console.log(params);
-              }}
             />
           )}
         />

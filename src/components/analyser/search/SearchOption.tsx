@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
       textTransform: 'none',
       textAlign: 'left',
       padding: 0,
-      width: 100,
+      width: '100%',
       fontSize: theme.typography.body1.fontSize,
     },
   })
@@ -23,24 +23,21 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SearchOption: React.FC<SearchOptionProps> = ({ stock }) => {
   const { symbol, name } = stock;
-  const toDetail = `analyser/${symbol}`;
+  const route = `/analyser/${symbol}`;
   const { navlink } = useStyles();
 
   return (
-    <div>
-      <Link
-        to={toDetail}
-        className={navlink}
-        getProps={({ isCurrent }) => ({
-          style: {
-            fontWeight: isCurrent ? 'bold' : 'normal',
-          },
-        })}
-        replace
-      >
-        {name}
-      </Link>
-    </div>
+    <Link
+      to={route}
+      className={navlink}
+      getProps={({ isCurrent }) => ({
+        style: {
+          fontWeight: isCurrent ? 'bold' : 'normal',
+        },
+      })}
+    >
+      {name}
+    </Link>
   );
 };
 

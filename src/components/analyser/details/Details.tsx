@@ -36,6 +36,8 @@ const useStyles = makeStyles({
 });
 
 const Details: React.FC<DetailsProps> = ({ token, back }) => {
+  const classes = useStyles();
+
   const [stockOverview, setStockOverview] = React.useState<API.Stock>();
   const [stockDetails, setStockDetails] = React.useState<API.StockDetails>();
   const [stockPerformance, setStockPerformance] = React.useState<number[][]>([
@@ -61,11 +63,11 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
   const [performanceAll, setPerformanceAll] = React.useState(false);
   const [error, setError] = React.useState<Error | undefined>();
 
-  // get symbol
+  // get symbol from current route
   const { id } = useParams();
   const symbol: string = id;
 
-  const isMounted = React.useRef(true);
+  const isMounted = React.useRef(false);
 
   const convertPerformance = (performance: API.StockHistricPerformanceList) => {
     const unixDataPoints: number[][] = [];
@@ -97,52 +99,48 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
       const cCash = await API.cashFlowList(token, symbol);
       const aR = await API.analystsRecommendations(token, symbol);
 
-      if (isMounted.current) {
-        setStockOverview(sO);
-        setStockDetails(sD);
-        // TODO get unix timestamp from backend and reverse array
-        setStockPerformance(convertPerformance(sP));
-        setStockDividend(convertDividend(sDiv));
-        setCompanyReports(cR);
-        setCashFlowList(cCash);
-        setNewsList([
-          {
-            headline: 'this is hot news, gamestonk is very high this week',
-            url: 'wallstreet.com',
-            date: '1st April',
-          },
-          {
-            headline: 'Elon Musk now officially called Master of Coin',
-            url: 'news.com',
-            date: '12 April',
-          },
-          {
-            headline: 'Elon Musk now officially called Master of Coin',
-            url: 'news.com',
-            date: '12 April',
-          },
-          {
-            headline: 'Elon Musk now officially called Master of Coin',
-            url: 'news.com',
-            date: '12 April',
-          },
-          {
-            headline: 'Elon Musk now officially called Master of Coin',
-            url: 'news.com',
-            date: '12 April',
-          },
-          {
-            headline: 'Elon Musk now officially called Master of Coin',
-            url: 'news.com',
-            date: '12 April',
-          },
-        ]);
-        setAnalystRecommendations(aR);
-      }
+      setStockOverview(sO);
+      setStockDetails(sD);
+      // TODO get unix timestamp from backend and reverse array
+      setStockPerformance(convertPerformance(sP));
+      setStockDividend(convertDividend(sDiv));
+      setCompanyReports(cR);
+      setCashFlowList(cCash);
+      setNewsList([
+        {
+          headline: 'this is hot news, gamestonk is very high this week',
+          url: 'wallstreet.com',
+          date: '1st April',
+        },
+        {
+          headline: 'Elon Musk now officially called Master of Coin',
+          url: 'news.com',
+          date: '12 April',
+        },
+        {
+          headline: 'Elon Musk now officially called Master of Coin',
+          url: 'news.com',
+          date: '12 April',
+        },
+        {
+          headline: 'Elon Musk now officially called Master of Coin',
+          url: 'news.com',
+          date: '12 April',
+        },
+        {
+          headline: 'Elon Musk now officially called Master of Coin',
+          url: 'news.com',
+          date: '12 April',
+        },
+        {
+          headline: 'Elon Musk now officially called Master of Coin',
+          url: 'news.com',
+          date: '12 April',
+        },
+      ]);
+      setAnalystRecommendations(aR);
     } catch (e) {
-      if (isMounted.current) {
-        setError(e);
-      }
+      setError(e);
     }
   };
 
@@ -167,13 +165,11 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
   React.useEffect(() => {
     fetch();
     return () => {
-      isMounted.current = false;
+      isMounted.current = true;
     };
     // deps must be empty because the function should only be called on mount.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const classes = useStyles();
+  }, [symbol]);
 
   return (
     <>
