@@ -94,6 +94,7 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
       <VolatilityGraph color={palette.primary.contrastText}>
         <LargeVolatilityLineEntry
           volatilityValue={portfolio.analytics.volatility}
+          marketValue={1}
           name={t(
             'portfolio.details.analytics.volatility.myPortfolio'
           ).toString()}
