@@ -23,6 +23,15 @@ type VolatilityLineEntryProps = {
   color: string;
 };
 
+/**
+ * This component represents a small vertical line to be used in the volatility graph
+ * On hover it shows the names of the stocks at a given point on the volatility graph.
+ *
+ * @param volatilityValue - The volatility which determines how far right the indicator is shifted on the graph
+ * @param tooltipText - The string to be desplayed on hover
+ * @param color - The color of the line.
+ */
+
 const VolatilityLineEntry: React.FC<VolatilityLineEntryProps> = ({
   volatilityValue,
   tooltipText,
