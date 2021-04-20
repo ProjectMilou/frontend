@@ -45,6 +45,12 @@ const Reset: React.FC<ResetProps> = (props) => {
         color="primary"
         role="button"
         onClick={closePopUp}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter') {
+            closePopUp();
+            event.preventDefault();
+          }
+        }}
         tabIndex={0}
         data-testid="icon"
       />
