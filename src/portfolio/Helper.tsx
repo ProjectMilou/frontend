@@ -2,6 +2,7 @@ import React from 'react';
 import CheckIcon from '@material-ui/icons/Check';
 import WarningIcon from '@material-ui/icons/Warning';
 import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
+import { Position } from './APIClient';
 
 /** Icons to be used in the risk section */
 const exclamationIcon = (color: string) => (
@@ -81,4 +82,47 @@ export function getRiskBundle(
         warnings: [],
       };
   }
+}
+
+export type CollectedStocks = {
+  [key: number]: string;
+};
+
+/**
+ * @param positions - The positions of a givin portfolio
+ * @param volatility - Whether this accumulation is for the volatility section (false for analyst)
+ * @return An object containing the value as a key and the names of all stocks with that given value
+ */
+
+export function collectStocks(
+  positions: Position[],
+  volatility: boolean
+): CollectedStocks {
+  const collectedStocks: CollectedStocks = {};
+
+  if (positions) {
+    Object.values(positions)
+      // sort by total value (largest to smallest)
+      .sort((a, b) => b.qty * b.stock.price - a.qty * a.stock.price)
+      // take the top 5
+      .slice(0, 5)
+      .forEach((p) => {
+        // check whether volatility or stock score is to be used as the key
+        const val = volatility
+          ? Math.round(p.stock.volatility * 100) / 100
+          : Math.round(p.stock.score * 100);
+
+        if (!collectedStocks[val]) {
+          // if there is no entry with this score create one
+          collectedStocks[val] = p.stock.name;
+        } else {
+          // otherwise add on to an existing score
+          collectedStocks[val] = collectedStocks[val].concat(
+            `\n${p.stock.name}`
+          );
+        }
+      });
+  }
+
+  return collectedStocks;
 }
