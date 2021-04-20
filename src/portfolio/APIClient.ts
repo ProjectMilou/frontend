@@ -142,6 +142,9 @@ export type Backtesting = {
   initialValue: number;
 };
 
+// The first number is a timestamp, the second number is the portfolio value at that time.
+export type Performance = [number, number][];
+
 // Types describing the JSON response of API calls.
 // The correctness of these types is assumed, no checks are performed.
 
@@ -251,6 +254,8 @@ type CreateResponse = {
 };
 
 type PortfolioStockResponse = { portfolios: PortfolioStock[] };
+
+type PerformanceResponse = { chart: Performance };
 
 // mock portfolio while the api is not finished yet (copied from APIMocks.ts).
 // TODO: remove this
@@ -659,4 +664,17 @@ export async function saveStockToPortfolios(
     { modifications },
     jsonContentTypeHeader
   );
+}
+
+/**
+ * Gets the performance of a portfolio to display in a chart.
+ *
+ * @param id - Portfolio ID
+ */
+export async function performance(id: string): Promise<Performance> {
+  const response = (await request(
+    'GET',
+    `performance/${id}`
+  )) as PerformanceResponse;
+  return response.chart;
 }
