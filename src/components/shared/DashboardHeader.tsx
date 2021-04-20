@@ -13,7 +13,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       'background-color': palette.primary.dark,
     },
     text: {
-      'font-size': '48px',
+      fontSize: '48px',
       color: palette.background.default,
       padding: '50px 0',
       minWidth: '50%',
