@@ -6,8 +6,6 @@ import {
   Container,
   Toolbar,
   AppBar,
-  createStyles,
-  Theme,
 } from '@material-ui/core';
 import { RouteComponentProps } from '@reach/router';
 import { useTranslation } from 'react-i18next';
@@ -22,21 +20,19 @@ export interface DashboardProps extends RouteComponentProps {
   token: string;
 }
 
-const useStyles = makeStyles(({ palette }: Theme) =>
-  createStyles({
-    createButton: {
-      marginTop: '25px',
-    },
-    dashboard: {
-      margin: '25px auto',
-    },
-    filter: {
-      'background-color': palette.primary.contrastText,
-      minWidth: '50%',
-      maxWidth: '100%',
-    },
-  })
-);
+const useStyles = makeStyles({
+  createButton: {
+    marginTop: '25px',
+  },
+  dashboard: {
+    margin: '25px auto',
+  },
+  filter: {
+    'background-color': '#EEF1FB',
+    minWidth: '50%',
+    maxWidth: '100%',
+  },
+});
 
 const Dashboard: React.FC<DashboardProps> = ({ token }) => {
   const { t } = useTranslation();
