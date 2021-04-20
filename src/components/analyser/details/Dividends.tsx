@@ -114,7 +114,7 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
 
   const cashData: number[] = [];
   cashFlowList.annualReports.forEach((element) => {
-    cashData.push(element.operatingCashflow / 1000000);
+    cashData.push(element.operatingCashflow);
   });
   // TODO fetch data from backend
   // eslint-disable-next-line
