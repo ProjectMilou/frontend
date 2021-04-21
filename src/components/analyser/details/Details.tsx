@@ -54,6 +54,11 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
     cashFlowList,
     setCashFlowList,
   ] = React.useState<API.CashFlowList>();
+  const [
+    // eslint-disable-next-line
+    keyFigures,
+    setKeyFigures,
+  ] = React.useState<API.KeyFigures>();
 
   // eslint-disable-next-line
   const [analystRecommendations, setAnalystRecommendations] = React.useState<
@@ -106,6 +111,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
       const cR = await API.companyReports(token, symbol);
       const cCash = await API.cashFlowList(token, symbol);
       const aR = await API.analystsRecommendations(token, symbol);
+      const kF = await API.keyFigures(token, symbol);
       const iC = await API.interestCoverages(token, symbol);
       const r = await API.risks(token, symbol);
 
@@ -118,7 +124,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
       setInterestCoverages(iC);
       setRisks(r);
       setCashFlowList(cCash);
-
+      setKeyFigures(kF);
       setNewsList([
         {
           headline: 'this is hot news, gamestonk is very high this week',
@@ -225,6 +231,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
             analystRecommendations &&
             interestCoverages &&
             risks &&
+            keyFigures &&
             cashFlowList && (
               <Container className={classes.mainContent}>
                 <DetailsOverview
@@ -241,7 +248,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
                 />
                 <NewsComponent newsList={newsList} />
                 <SectionDivider section="analyser.details.KeyFiguresHeader" />
-                <KeyFigures />
+                <KeyFigures keyFigures={keyFigures} />
                 <Dividends series={stockDividend} cashFlowList={cashFlowList} />
                 <BalanceSheetInfo companyReports={companyReports} />
                 <Analysts
