@@ -12,13 +12,12 @@ const KeyFigures: React.FC<KeyFigureProps> = ({ keyFigures} ) => {
   // change this to the real api data whenever you need
 
   const years = keyFigures.success.map((f) => new Date(f.date).getFullYear())
-  
 
   const mockSeries = {
-    PER: [30, 40, 45, 50, 50],
-    PBR: [50, 25, 35, 80, 20],
-    PEGR: [30, 50, 15, 40, 10],
-    EPS: [10, 20, 25, 10, 90],
+    PER: keyFigures.success.map((f) => f.PERatio),
+    PBR: keyFigures.success.map((f) => f.PBRatio),
+    PEGR: keyFigures.success.map((f) => f.PEGrowthRatio),
+    EPS: keyFigures.success.map((f) => parseFloat(f.EPS)),
   };
 
   return (
