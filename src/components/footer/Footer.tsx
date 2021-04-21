@@ -7,6 +7,7 @@ import {
   Theme,
 } from '@material-ui/core';
 import { Link } from '@reach/router';
+import { useTranslation } from 'react-i18next';
 import logo from '../../assets/images/logo2.png';
 import Ellipse from './Ellipse';
 
@@ -46,6 +47,7 @@ const useStyles = makeStyles((theme: Theme) => {
 
 const Footer: React.FC = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
   return (
     <div className={classes.root}>
       <Grid
@@ -58,12 +60,12 @@ const Footer: React.FC = () => {
         <Grid container xs={4} justify="flex-start" spacing={8} item>
           <Grid item>
             <Link to="/aboutus" className={classes.link}>
-              About us
+              {t("footer.aboutUs")}
             </Link>
           </Grid>
           <Grid item>
             <Link to="/mobileapp" className={classes.link}>
-              Mobile App
+              {t("footer.mobileApp")}
             </Link>
           </Grid>
         </Grid>
@@ -83,12 +85,12 @@ const Footer: React.FC = () => {
         >
           <Grid item>
             <Link to="/imprint" className={classes.link}>
-              Imprint
+              {t("footer.imprint")}
             </Link>
           </Grid>
           <Grid item>
             <Link to="/privacy" className={classes.link}>
-              Privacy Policy
+              {t("footer.privacy")}
             </Link>
           </Grid>
         </Grid>
@@ -109,7 +111,7 @@ const Footer: React.FC = () => {
           <Ellipse />
         </Grid>
         <Grid item className={classes.copyrightText}>
-          © Photo, Inc. 2019. We love our users!
+          {t("footer.copyright")}
         </Grid>
       </Grid>
     </div>

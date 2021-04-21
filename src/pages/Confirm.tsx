@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import { navigate, RouteComponentProps } from '@reach/router';
 import ClearIcon from '@material-ui/icons/Clear';
-import { Trans } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import WelcomeWindow from '../components/shell/login/WelcomeWindow';
 import logo from '../assets/images/logo1.png';
 
@@ -47,6 +47,7 @@ const url = 'https://api.milou.io';
 
 const Confirm: React.FC<ConfirmProps> = (props) => {
   const { id, token } = props;
+  const { t } = useTranslation()
   const { dialog, paper, iconClear, iconLogo } = useStyles();
   const [openDialog, setOpenDialog] = useState<boolean>(true);
 
@@ -95,7 +96,7 @@ const Confirm: React.FC<ConfirmProps> = (props) => {
       {state === 'registerConfirmed' && (
         <WelcomeWindow
           closePopUp={closePopUp}
-          text={['Welcome to Milou!', 'You are registered.']}
+          text={[t("shell.message.welcome"), t("shell.message.registered")]}
         />
       )}
 
