@@ -132,6 +132,6 @@ export function collectStocks(
  * E.g. used for the y-axis formatting of apex-charts components
  * @param value - Numeric value that needs to be rounded
  */
-export function roundAxis(value: number) {
+export function roundAxis(value: number): number {
   return Math.round(value * 10000) / 10000;
 }
