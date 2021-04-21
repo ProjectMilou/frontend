@@ -8,16 +8,14 @@ export type KeyFigureProps = {
 };
 
 const KeyFigures: React.FC<KeyFigureProps> = ({ keyFigures} ) => {
-  // portfolio team moved this mock value up from the chart
-  // change this to the real api data whenever you need
 
   const years = keyFigures.success.map((f) => new Date(f.date).getFullYear())
 
   const mockSeries = {
-    PER: keyFigures.success.map((f) => f.PERatio),
-    PBR: keyFigures.success.map((f) => f.PBRatio),
-    PEGR: keyFigures.success.map((f) => f.PEGrowthRatio),
-    EPS: keyFigures.success.map((f) => parseFloat(f.EPS)),
+    PER: keyFigures.success.map((f) => Math.round(f.PERatio*100)/100),
+    PBR: keyFigures.success.map((f) => Math.round(f.PBRatio*100)/100),
+    PEGR: keyFigures.success.map((f) => Math.round(f.PEGrowthRatio*100)/100),
+    EPS: keyFigures.success.map((f) => Math.round(parseFloat(f.EPS))),
   };
 
   return (
@@ -26,7 +24,6 @@ const KeyFigures: React.FC<KeyFigureProps> = ({ keyFigures} ) => {
       <KeyFiguresBar
         chartHeight={350}
         keyFigures={mockSeries}
-        // TODO: change to real years
         years={years}
       />
     </div>
