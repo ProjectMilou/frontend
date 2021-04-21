@@ -2,7 +2,6 @@ import React from 'react';
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import { Router } from '@reach/router';
 import LandingPage from '../pages/LandingPage';
-import Shell from './shell/Shell';
 import Analyser from './analyser/Analyser';
 import Portfolio from './portfolio/Portfolio';
 import Header from './header/Header';
@@ -93,7 +92,6 @@ const App: React.FC = () => (
         <div style={{ flexGrow: 1 }}>
           <Router>
             <LandingPage path="/" />
-            <Shell path="/shell" />
             <Analyser path="/analyser/*" />
             <Portfolio path="/portfolio/*" />
             <Imprint path="/imprint" />
