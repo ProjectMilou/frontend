@@ -299,8 +299,14 @@ const useStyles = makeStyles((theme) => ({
       minWidth: '35rem',
     },
   },
+  nameCell: {
+    overflowWrap: 'anywhere',
+  },
   amountTableCell: {
     paddingLeft: '6rem',
+  },
+  actionCell: {
+    minWidth: '22rem',
   },
   increase: {
     fontWeight: 'bold',
@@ -405,12 +411,13 @@ const EditEntry: React.FC<EditEntryProps> = ({
           [classes.decrease]: entry.value && (!value || value < entry.value),
           [classes.strikethrough]:
             strikethroughCleared && !value && entry.value,
+          [classes.nameCell]: true,
         })}
       >
         {entry.displayName}
       </TableCell>
       {entry.additionalTableCells}
-      <TableCell>
+      <TableCell className={classes.actionCell}>
         <IconButton
           disabled={entry.disabled || !value}
           onClick={() => dispatch({ type: 'decreaseValue', payload: { id } })}
