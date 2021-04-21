@@ -1,5 +1,6 @@
 {
   "portfolio": "Portfolio",
+  "portfolio.portfolioAverage": "Portfolio Average",
   "portfolio.details.editPortfolio": "Edit Portfolio",
   "portfolio.details.cannotEditPortfolio": "Cannot edit real portfolio",
   "portfolio.details.summaryHeader": "Summary",
