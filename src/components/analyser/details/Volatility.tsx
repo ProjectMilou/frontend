@@ -12,6 +12,7 @@ import * as API from '../../../analyser/APIClient';
 import InfoButton from '../../shared/InfoButton';
 import VolatilityGraph from '../../shared/VolatilityGraph';
 import LargeVolatilityLineEntry from '../../shared/LargeVolatilityLineEntry';
+import SubsectionDivider from '../../shared/SubsectionDivider';
 
 // props type declaration
 export type VolatilityProps = {
@@ -116,6 +117,7 @@ const Volatility: React.FC<VolatilityProps> = ({ details, risks }) => {
 
   return (
     <div>
+      <SubsectionDivider subsection="analyser.details.Volatility" />
       <div className={classes.chartContainer}>
         <div className={classes.infoContainer}>
           <InfoBlock
@@ -149,7 +151,9 @@ const Volatility: React.FC<VolatilityProps> = ({ details, risks }) => {
             {t('analyser.details.Volatility.VolatilityChart')}
             <>&nbsp;</>
             <InfoButton
-              infotext={t('analyser.details.Volatility.VolatilityChart')}
+              infotext={t(
+                'analyser.details.Volatility.VolatilityChart.infoButton'
+              )}
             />
           </div>
           <div>
@@ -182,7 +186,9 @@ const Volatility: React.FC<VolatilityProps> = ({ details, risks }) => {
             </p>
             <>&nbsp;</>
             <InfoButton
-              infotext={t('analyser.details.Volatility.CompanyShare')}
+              infotext={t(
+                'analyser.details.Volatility.CompanyShare.infoButton'
+              )}
             />
           </div>
         </div>
