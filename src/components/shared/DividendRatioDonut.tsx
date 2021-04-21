@@ -35,6 +35,7 @@ type RatioDonutProps = {
 
 const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
   const classes = useStyles();
+  // const theme = useTheme();
 
   const series = [ratio, 1 - ratio];
   const options = {

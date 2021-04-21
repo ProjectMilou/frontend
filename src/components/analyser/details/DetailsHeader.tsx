@@ -89,6 +89,13 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ stock, back }) => {
     return '';
   };
 
+  function currencySymbol(): '€' | '$' {
+    if (stock && stock.currency === 'USD') {
+      return '$';
+    }
+    return '€';
+  }
+
   return (
     <div className={classes.header}>
       {
@@ -117,7 +124,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ stock, back }) => {
                 <StyledNumberFormat
                   // Fix: Divided by 1 because Back-End only provides string
                   value={parseFloat(stock.price)}
-                  suffix="€"
+                  suffix={currencySymbol()}
                   size="35px"
                   paintJob={theme.palette.background.default}
                 />
