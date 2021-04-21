@@ -52,6 +52,11 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
     cashFlowList,
     setCashFlowList,
   ] = React.useState<API.CashFlowList>();
+  const [
+    // eslint-disable-next-line
+    keyFiguresEPS,
+    setKeyFiguresEPS,
+  ] = React.useState<API.KeyFiguresEPS>();
 
   // eslint-disable-next-line
   const [analystRecommendations, setAnalystRecommendations] = React.useState<
@@ -84,6 +89,15 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
     });
     return unixDataPoints.reverse();
   };
+  const convertEPS = (eps: API.KeyFiguresEPS) => {
+    const unixDataPoints: number[] = [];
+    eps.keyFiguresEPS.forEach((p) => {
+      const d = Math.round(parseFloat(p.estimatedEPS) * 100) / 100;
+      const point: number = d;
+      unixDataPoints.push(point);
+    });
+    return unixDataPoints.reverse();
+  };
   const [newsList, setNewsList] = React.useState<API.News[]>();
 
   const fetch = async () => {
@@ -96,6 +110,8 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
       const cR = await API.companyReports(token, symbol);
       const cCash = await API.cashFlowList(token, symbol);
       const aR = await API.analystsRecommendations(token, symbol);
+      /* const kF = await API.keyFiguresEPS(token, symbol, false);
+      console.log(kF) */
 
       if (isMounted.current) {
         setStockOverview(sO);

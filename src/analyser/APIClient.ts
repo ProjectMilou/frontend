@@ -251,6 +251,20 @@ export type AnalystsRecommendation = {
   source: URL;
 };
 
+export type KeyFigureEPS = {
+  fiscalDateEnding: string;
+  reportedDate: string;
+  reportedEPS: string;
+  estimatedEPS: string;
+  surprise: string;
+  surprisePercentage: string;
+};
+
+export type KeyFiguresEPS = {
+  symbol: string;
+  keyFiguresEPS: KeyFigureEPS[];
+}
+
 /**
  * Makes an API call. Resolves to the JSON response if the call is successful,
  * otherwise rejects with an error that has an {@link ErrorCode} as message.
@@ -443,5 +457,25 @@ export async function cashFlowList(
     'GET',
     `cashFlow?id=${symbol}`
   )) as CashFlowList;
+  return response;
+}
+
+/**
+ * Gets EPS Data with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ * @param historic - if true all data will be returned, else only 5 years
+ */
+export async function keyFiguresEPS(
+  token: string,
+  symbol: string,
+  historic: boolean
+): Promise<KeyFiguresEPS> {
+  const response = (await request(
+    token,
+    'GET',
+    `key_figures?id=${symbol}&max=${historic.toString()}`
+  )) as KeyFiguresEPS;
   return response;
 }
