@@ -67,11 +67,13 @@ const SearchBar: React.FC = () => {
           id="search"
           freeSolo
           inputValue={inputValue}
+          // removes clear button
           disableClearable
           open={open}
           options={stocks}
           getOptionLabel={(option: API.Stock) =>
-            `${option.symbol}: ${option.name}`
+            // use '%' as seperator to display only symbol and name
+            `${option.symbol}: ${option.name}%${option.isin}${option.wkn}`
           }
           onInputChange={(event, value, reason) => {
             if (reason.startsWith('input') && !!value) {
@@ -79,7 +81,8 @@ const SearchBar: React.FC = () => {
             } else {
               setOpen(false);
             }
-            setInputValue(value);
+            // prevent isin and wkn from being displayed. Dirty fix, but currently the only one possible with Material-UI autocomplete
+            setInputValue(value.split('%')[0]);
           }}
           onChange={(event, value) => {
             setOpen(false);
@@ -88,6 +91,7 @@ const SearchBar: React.FC = () => {
               navigate(`/analyser/${value.symbol}`);
             }
           }}
+          onBlur={() => setOpen(false)}
           renderOption={(option: API.Stock) => <SearchOption stock={option} />}
           renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (
             <TextField
