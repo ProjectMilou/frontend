@@ -10,6 +10,7 @@ type KeyFiguresBarProps = {
   years: number[];
   dark?: boolean;
   chartHeight: number;
+  outlined?: boolean;
 };
 
 const useStyles = makeStyles({
@@ -23,6 +24,7 @@ const KeyFiguresBar: React.FC<KeyFiguresBarProps> = ({
   years,
   dark,
   chartHeight,
+  outlined
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();
@@ -48,6 +50,7 @@ const KeyFiguresBar: React.FC<KeyFiguresBarProps> = ({
                 selected={selectedSeries === keyFigure}
                 select={setSelectedSeries}
                 dark={dark}
+                outlined={outlined ? 'outlined' : 'elevation'}
               />
             </Grid>
           );
