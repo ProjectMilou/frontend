@@ -5,6 +5,7 @@ import { useTheme } from '@material-ui/core';
 import ReactApexChart from 'react-apexcharts';
 import * as API from '../../../analyser/APIClient';
 import InfoButton from '../../shared/InfoButton';
+import SubsectionDivider from '../../shared/SubsectionDivider';
 
 // props type declaration
 export type DetailsProps = {
@@ -198,6 +199,7 @@ const Leverage: React.FC<DetailsProps> = ({
 
   return (
     <div>
+      <SubsectionDivider subsection="analyser.details.Leverage" />
       <div className={classes.chartContainer}>
         <div className={classes.lineChartWrapper}>
           <div className={classes.title}>
@@ -230,7 +232,7 @@ const Leverage: React.FC<DetailsProps> = ({
                     t('analyser.details.Leverage.ErrorMessage'))}{' '}
               </p>
             }
-            info={t('analyser.details.Leverage.DebtLevel')}
+            info={t('analyser.details.Leverage.DebtLevel.infoButton')}
           />
           <InfoBlock
             title={t('analyser.details.Leverage.InterestCoverage')}
@@ -242,7 +244,7 @@ const Leverage: React.FC<DetailsProps> = ({
                   : interestCoverages.error}{' '}
               </p>
             }
-            info={t('analyser.details.Leverage.InterestCoverage')}
+            info={t('analyser.details.Leverage.InterestCoverage.infoButton')}
           />
         </div>
       </div>
