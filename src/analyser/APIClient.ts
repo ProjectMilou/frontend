@@ -252,17 +252,17 @@ export type AnalystsRecommendation = {
 };
 
 export type KeyFigureEPS = {
-  fiscalDateEnding: string;
+  date: string;
   reportedDate: string;
-  reportedEPS: string;
-  estimatedEPS: string;
-  surprise: string;
-  surprisePercentage: string;
+  PERatio: number;
+  EPS: string;
+  PEGrowthRatio: number;
+  PBRatio: number;
 };
 
 export type KeyFiguresEPS = {
-  symbol: string;
-  keyFiguresEPS: KeyFigureEPS[];
+  error: string;
+  success: KeyFigureEPS[];
 }
 
 export type InterestCoverageList = {
@@ -515,13 +515,12 @@ export async function cashFlowList(
  */
 export async function keyFiguresEPS(
   token: string,
-  symbol: string,
-  historic: boolean
+  symbol: string
 ): Promise<KeyFiguresEPS> {
   const response = (await request(
     token,
     'GET',
-    `stocks/key_figures?id=${symbol}&max=${historic.toString()}`
+    `stocks/analytics/keyfigures?symbol=${symbol}`
   )) as KeyFiguresEPS;
   return response;
 }

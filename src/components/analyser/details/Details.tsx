@@ -95,15 +95,6 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
     });
     return unixDataPoints.reverse();
   };
-  const convertEPS = (eps: API.KeyFiguresEPS) => {
-    const unixDataPoints: number[] = [];
-    eps.keyFiguresEPS.forEach((p) => {
-      const d = Math.round(parseFloat(p.estimatedEPS) * 100) / 100;
-      const point: number = d;
-      unixDataPoints.push(point);
-    });
-    return unixDataPoints.reverse();
-  };
   const [newsList, setNewsList] = React.useState<API.News[]>();
 
   const fetch = async () => {
@@ -116,8 +107,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
       const cR = await API.companyReports(token, symbol);
       const cCash = await API.cashFlowList(token, symbol);
       const aR = await API.analystsRecommendations(token, symbol);
-      /* const kF = await API.keyFiguresEPS(token, symbol, false);
-      console.log(kF) */
+      const kF = await API.keyFiguresEPS(token, symbol);
       const iC = await API.interestCoverages(token, symbol);
       const r = await API.risks(token, symbol);
 
@@ -131,7 +121,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
         setInterestCoverages(iC);
         setRisks(r);
         setCashFlowList(cCash);
-
+        setKeyFiguresEPS(kF);
         setNewsList([
           {
             headline: 'this is hot news, gamestonk is very high this week',
@@ -239,6 +229,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
         analystRecommendations &&
         interestCoverages &&
         risks &&
+        keyFiguresEPS &&
         cashFlowList && (
           <div>
             <DetailsHeader back={back} stock={stockOverview} />
