@@ -10,7 +10,7 @@ export type KeyFigureProps = {
 const KeyFigures: React.FC<KeyFigureProps> = ({ keyFigures }) => {
   const years = keyFigures.success.map((f) => new Date(f.date).getFullYear());
 
-  const mockSeries = {
+  const series = {
     PER: keyFigures.success.map((f) => Math.round(f.PERatio * 100) / 100),
     PBR: keyFigures.success.map((f) => Math.round(f.PBRatio * 100) / 100),
     PEGR: keyFigures.success.map(
@@ -22,7 +22,7 @@ const KeyFigures: React.FC<KeyFigureProps> = ({ keyFigures }) => {
   return (
     <div>
       <SubsectionDivider subsection="analyser.details.KeyFiguresHeader.KeyFigures" />
-      <KeyFiguresBar chartHeight={350} keyFigures={mockSeries} years={years} />
+      <KeyFiguresBar chartHeight={350} keyFigures={series} years={years} />
     </div>
   );
 };
