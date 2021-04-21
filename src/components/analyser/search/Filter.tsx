@@ -5,25 +5,29 @@ import {
   makeStyles,
   Container,
   Typography,
+  Theme,
+  createStyles,
 } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import { FilterBar } from './FilterBar';
 
-const useStyles = makeStyles({
-  filterContainer: {
-    'background-color': '#EEF1FB',
-    minWidth: '50%',
-    maxWidth: 'sm',
-    minHeight: '90px',
-  },
-  buttonGroup: {
-    marginTop: '20px',
-    marginBottom: '20px',
-    marginLeft: '20px',
-  },
-});
+const useStyles = makeStyles(({ palette }: Theme) =>
+  createStyles({
+    filterContainer: {
+      'background-color': palette.background.default,
+      minWidth: '50%',
+      maxWidth: 'sm',
+      minHeight: '90px',
+    },
+    buttonGroup: {
+      marginTop: '20px',
+      marginBottom: '20px',
+      marginLeft: '20px',
+    },
+  })
+);
 
 export type FilterProps = {
   stocks: API.Stock[];
