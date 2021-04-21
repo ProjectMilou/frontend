@@ -4,28 +4,25 @@ import SubsectionDivider from '../../shared/SubsectionDivider';
 import * as API from '../../../analyser/APIClient';
 
 export type KeyFigureProps = {
-  keyFigures: API.KeyFigures
+  keyFigures: API.KeyFigures;
 };
 
-const KeyFigures: React.FC<KeyFigureProps> = ({ keyFigures} ) => {
-
-  const years = keyFigures.success.map((f) => new Date(f.date).getFullYear())
+const KeyFigures: React.FC<KeyFigureProps> = ({ keyFigures }) => {
+  const years = keyFigures.success.map((f) => new Date(f.date).getFullYear());
 
   const mockSeries = {
-    PER: keyFigures.success.map((f) => Math.round(f.PERatio*100)/100),
-    PBR: keyFigures.success.map((f) => Math.round(f.PBRatio*100)/100),
-    PEGR: keyFigures.success.map((f) => Math.round(f.PEGrowthRatio*100)/100),
+    PER: keyFigures.success.map((f) => Math.round(f.PERatio * 100) / 100),
+    PBR: keyFigures.success.map((f) => Math.round(f.PBRatio * 100) / 100),
+    PEGR: keyFigures.success.map(
+      (f) => Math.round(f.PEGrowthRatio * 100) / 100
+    ),
     EPS: keyFigures.success.map((f) => Math.round(parseFloat(f.EPS))),
   };
 
   return (
     <div>
       <SubsectionDivider subsection="analyser.details.KeyFiguresHeader.KeyFigures" />
-      <KeyFiguresBar
-        chartHeight={350}
-        keyFigures={mockSeries}
-        years={years}
-      />
+      <KeyFiguresBar chartHeight={350} keyFigures={mockSeries} years={years} />
     </div>
   );
 };

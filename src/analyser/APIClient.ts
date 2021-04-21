@@ -263,7 +263,7 @@ export type KeyFigure = {
 export type KeyFigures = {
   error: string;
   success: KeyFigure[];
-}
+};
 
 export type InterestCoverageList = {
   error: string;
