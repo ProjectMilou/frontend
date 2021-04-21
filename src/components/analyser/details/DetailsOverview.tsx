@@ -1,100 +1,58 @@
-// Based on Portfolio DetailsOverview
-
 import React from 'react';
 import {
-  useTheme,
   makeStyles,
   createStyles,
   Theme,
   Typography,
+  Grid,
+  Paper,
+  ListItem,
+  List,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  ListItemIcon,
 } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import BusinessIcon from '@material-ui/icons/Business';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 import { useTranslation } from 'react-i18next';
-import ValueOverName from '../../shared/ValueOverName';
 import { Stock, StockDetails } from '../../../analyser/APIClient';
+import SectionDivider from '../../shared/SectionDivider';
+import DetailsOverviewCompany from './DetailsOverviewCompany';
 
 // stylesheet for the Summary section
-const useStyles = makeStyles(({ palette }: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    titleContainer: {
-      display: 'flex',
-      marginBottom: '2rem',
+    image: {
+      height: '100%',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      display: 'block',
+      maxWidth: '100%',
     },
-    titleWrapper: {
-      marginRight: '1rem',
-    },
-    sectionTitle: {
-      margin: 0,
-      color: palette.primary.main,
-      // TODO use theme fontsize and weight
-      fontSize: '2.25rem',
-      fontWeight: 400,
-      whiteSpace: 'nowrap',
-    },
-    lineWrapper: {
-      display: 'flex',
+    paper: {
+      padding: theme.spacing(2),
+      margin: theme.spacing(2),
       width: '100%',
-      // TODO: use theme color
-      borderColor: 'grey',
+      height: theme.spacing(17),
     },
-    line: {
+    card: {
       width: '100%',
-      alignSelf: 'center',
-      paddingLeft: '2%',
+      height: '100%',
     },
-    infoBox: {
-      outlineStyle: 'solid',
-      outlineColor: 'grey',
-      outlineWidth: '0.15rem',
-      margin: '1rem 0',
+    icon: {
+      color: theme.palette.primary.light,
+      fontSize: 35,
     },
-    infoValueContainer: {
-      display: 'flex',
-      justifyContent: 'space-evenly',
-    },
-    infoValueWrapper: {
-      display: 'flex',
-      justifyContent: 'space-around',
-      width: '100%',
-    },
-    vl: {
-      margin: '0.5rem 1rem',
-      height: '4rem',
-      alignSelf: 'center',
-      // TODO: use theme color
-      borderColor: 'grey',
-    },
-    chartContainer: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      marginTop: '2rem',
-    },
-    imageWrapper: {
-      display: 'flex',
-      width: '20rem',
-      height: '20rem',
-      flexBasis: '35%',
-    },
-    // TODO center image vertically
-    imageContainer: {
-      justifyContent: 'center',
-      alignItems: 'center',
-      margin: 'auto',
-      maxWidth: '90%',
-      maxHeight: '90%',
-    },
-    lineChartWrapper: {
-      width: '40rem',
-      height: '20rem',
-      flexBasis: '60%',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      // border: '2px dashed #f69c55',
+    header: {
+      ...theme.typography.h6,
+      display: 'inline',
+      color: theme.palette.primary.light,
     },
     intro: {
-      textAlign: 'left',
-      fontSize: '24px',
-      marginTop: '10px',
+      ...theme.typography.body1,
+      color: theme.palette.primary.light,
     },
   })
 );
@@ -107,127 +65,83 @@ type DetailsOverviewProps = {
   stockDetails: StockDetails;
 };
 
-// returns the details page header
 const DetailsOverview: React.FC<DetailsOverviewProps> = ({
   stockOverview,
   stockDetails,
 }) => {
   const classes = useStyles();
-  const theme = useTheme();
   const { t } = useTranslation();
 
-  // TODO: no hard coded colors
-  // TODO: update range to fit data from analytics
-  // convert a score to a color
-  function convertPerformanceToColor(num: number): string {
-    return num <= 0 ? '#D64745' : '#50E2A8';
-  }
-  function convertToPercent(num: number): string {
-    return `${(Math.round(num * 1000) / 10).toString()}%`;
-  }
-
   return (
-    <div>
-      <div className={classes.titleContainer}>
-        <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionTitle}>
-            {t('analyser.details.summaryHeader')}
-          </h2>
-        </div>
-        <div className={classes.lineWrapper}>
-          <hr className={classes.line} />
-        </div>
-      </div>
-      <div className={classes.infoBox}>
-        <div className={classes.infoValueContainer}>
-          <div
-            className={classes.infoValueWrapper}
-            style={{ flexBasis: '55%' }}
-          >
-            {/* country */}
-            <ValueOverName
-              value={`${stockOverview.country}`}
-              name={t('stock.country')}
-              valueColor={theme.palette.primary.dark}
-              nameColor={theme.palette.primary.dark}
-            />
-          </div>
+    <>
+      <SectionDivider section={t('analyser.details.summaryHeader')} />
+      <Grid container spacing={1}>
+        <Grid
+          container
+          alignItems="flex-start"
+          justify="space-evenly"
+          direction="row"
+          spacing={5}
+        >
+          {/* picture and ccompany overview */}
+          <Grid item sm={3} justify="center">
+            <Paper className={classes.paper} variant="outlined">
+              <img
+                className={classes.image}
+                alt="Company Symbol"
+                src={stockOverview.picture.toString()}
+              />
+            </Paper>
+          </Grid>
 
-          {/* devider 2 */}
-          <hr className={classes.vl} />
-          {/* box section 3 */}
-          <div
-            className={classes.infoValueWrapper}
-            style={{ flexBasis: '55%' }}
-          >
-            {/* currency */}
-            <ValueOverName
-              value={`${stockOverview.currency}`}
-              name={t('stock.currency')}
-              valueColor={theme.palette.primary.light}
-              nameColor={theme.palette.primary.dark}
-            />
-          </div>
+          <Grid item sm={9}>
+            <List>
+              <ListItem>
+                <Accordion className={classes.card} variant="outlined">
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel2a-content"
+                    id="panel2a-header"
+                  >
+                    <ListItemIcon>
+                      <BusinessIcon className={classes.icon} />{' '}
+                    </ListItemIcon>
+                    <Typography className={classes.header}>
+                      {stockOverview.name}
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography className={classes.intro}>
+                      {stockDetails.intro}
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+              </ListItem>
+              <ListItem>
+                <Accordion className={classes.card} variant="outlined">
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel2a-content"
+                    id="panel2a-header"
+                  >
+                    <ListItemIcon>
+                      <MenuBookIcon className={classes.icon} />{' '}
+                    </ListItemIcon>
+                    <Typography className={classes.header}>
+                      Company Details
+                    </Typography>
+                  </AccordionSummary>
 
-          {/* devider 2 */}
-          <hr className={classes.vl} />
-          {/* box section 3 */}
-          <div
-            className={classes.infoValueWrapper}
-            style={{ flexBasis: '55%' }}
-          >
-            {/* industry */}
-            <ValueOverName
-              value={`${stockOverview.industry}`}
-              name={t('stock.industry')}
-              valueColor={theme.palette.primary.light}
-              nameColor={theme.palette.primary.dark}
-            />
-          </div>
-
-          {/* devider 2 */}
-          <hr className={classes.vl} />
-          {/* box section 3 */}
-          <div
-            className={classes.infoValueWrapper}
-            style={{ flexBasis: '55%' }}
-          >
-            {/* dividend */}
-            <ValueOverName
-              value={convertToPercent(stockOverview.div)}
-              name={t('stock.div')}
-              valueColor={convertPerformanceToColor(stockOverview.div)}
-              nameColor={theme.palette.primary.dark}
-            />
-          </div>
-        </div>
-      </div>
-      {/* Picture and description of company */}
-      <div className={classes.chartContainer}>
-        <div className={classes.imageWrapper}>
-          <img
-            className={classes.imageContainer}
-            alt="Company Pictrue"
-            src={stockOverview.picture.toString()}
-          />
-        </div>
-        <div className={classes.lineChartWrapper}>
-          {/* Nier format */}
-          <Typography className={classes.intro}>
-            {stockDetails.intro}
-          </Typography>
-          <Typography className={classes.intro}>
-            {t('stock.founded')}: {stockDetails.founded}
-          </Typography>
-          <Typography className={classes.intro}>
-            {t('stock.fullTimeEmployees')}: {stockDetails.fullTimeEmployees}
-          </Typography>
-          <Typography className={classes.intro}>
-            {t('stock.address')}: {stockDetails.address}
-          </Typography>
-        </div>
-      </div>
-    </div>
+                  <AccordionDetails>
+                    <DetailsOverviewCompany stockDetails={stockDetails} />
+                  </AccordionDetails>
+                </Accordion>
+              </ListItem>
+            </List>
+          </Grid>
+        </Grid>
+      </Grid>
+    </>
   );
 };
 

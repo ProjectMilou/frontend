@@ -45,5 +45,22 @@ jest.mock('react-i18next', () => ({
   ),
 }));
 
+// mock apex
+// credit to https://github.com/apexcharts/react-apexcharts/issues/260#issuecomment-794481122
+jest.mock('react-apexcharts', () => ({
+  __esModule: true,
+  default: () => <div>mocked chart</div>,
+}));
+
 // mock fetch
 fetchMock.enableMocks();
+
+// mock portfolio router
+export const mockPortfolioRouter = jest.mock('./portfolio/Router.ts', () => ({
+  portfolioDetails: jest.fn(),
+  portfolioDashboard: jest.fn(),
+  stockDetails: jest.fn(),
+  importPortfolio: jest.fn(),
+}));
+
+export default {};

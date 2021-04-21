@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import {
   makeStyles,
   createStyles,
@@ -7,7 +7,9 @@ import {
 } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import RatioDonut from '../shared/RatioDonut';
-import KeyFiguresChart from '../shared/KeyFiguresChart';
+import DividendLineChart from '../shared/DividendLineChart';
+import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
+import InfoButton from '../shared/InfoButton';
 
 // stylesheet for the dividend section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -52,6 +54,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       color: palette.primary.contrastText,
       fontSize: '1.25rem',
       fontWeight: 600,
+      display: 'flex',
     },
     infoTitleP: {
       margin: '0.5rem 0',
@@ -61,76 +64,95 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 
 // type declarations
 type DetailsMainDividendsProps = {
-  nextDividend: number;
-  dividendPayoutRatio: number;
+  portfolio: NonEmptyPortfolioDetails;
 };
 
 // type declarations
 type InfoBlockProps = {
   title: string;
-  body: ReactElement;
+  infoText: string;
 };
 
 // returns the details page header
-const InfoBlock: React.FC<InfoBlockProps> = ({ title, body }) => {
+const InfoBlock: React.FC<InfoBlockProps> = ({ title, children, infoText }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.infoWrapper}>
       <div className={classes.infoTitle}>
-        <p className={classes.infoTitleP}>{title}</p>
+        <span className={classes.infoTitleP}>{title}</span>
+        <InfoButton infotext={infoText} />
       </div>
-      <div className={classes.infoBody}>{body}</div>
+      <div className={classes.infoBody}>{children}</div>
     </div>
   );
 };
 
 // returns the details page header
 const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
-  nextDividend,
-  dividendPayoutRatio,
+  portfolio,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const mockSeries = [
+  const series = [
     {
-      name: 'Dividend Yield',
-      data: [30, 40, 45, 50, 50],
+      name: t('portfolio.details.divPayout'),
+      type: 'column',
+      data: portfolio.keyFigures.map((k) => k.dividendPayoutRatio),
+    },
+    {
+      name: t('portfolio.details.divYield'),
+      type: 'line',
+      data: portfolio.keyFigures.map((k) => k.div),
     },
   ];
 
-  return (
-    <div className={classes.dividendsWrapper}>
-      <div className={classes.chartContainer}>
-        {/* left side with graph */}
-        <KeyFiguresChart
-          series={mockSeries}
-          height={450}
-          textColor={theme.palette.primary.contrastText}
-        />
-      </div>
-      <div className={classes.infoContainer}>
-        {/* right side with info */}
-        <InfoBlock
-          title={t('portfolio.details.divYield')}
-          body={<p style={{ margin: 0 }}>tmp</p>}
-        />
-        <InfoBlock
-          title={t('portfolio.details.payout')}
-          body={
+  if (portfolio.keyFigures.length !== 0) {
+    return (
+      <div className={classes.dividendsWrapper}>
+        <div className={classes.chartContainer}>
+          {/* left side with graph */}
+          <DividendLineChart
+            series={series}
+            height={450}
+            textColor={theme.palette.primary.contrastText}
+          />
+        </div>
+        <div className={classes.infoContainer}>
+          {/* right side with info */}
+          <InfoBlock
+            title={t('portfolio.details.divYield')}
+            infoText={t('analyser.details.DividendYield.infoButton')}
+          >
+            {portfolio.keyFigures[portfolio.keyFigures.length - 1].div}
+          </InfoBlock>
+          <InfoBlock
+            title={t('portfolio.details.divPayout')}
+            infoText={t('analyser.details.DividendPayoutRatio.infoButton')}
+          >
             <RatioDonut
-              ratio={dividendPayoutRatio}
+              ratio={
+                portfolio.keyFigures[portfolio.keyFigures.length - 1]
+                  .dividendPayoutRatio
+              }
               textColor={theme.palette.primary.contrastText}
             />
-          }
-        />
-        <InfoBlock
-          title={t('portfolio.details.nextDate')}
-          body={<p style={{ margin: 0 }}>{nextDividend}</p>}
-        />
+          </InfoBlock>
+          <InfoBlock
+            title={t('portfolio.details.nextDate')}
+            infoText={t('analyser.details.NextDate.infoButton')}
+          >
+            {portfolio.nextDividend.toLocaleDateString()}
+          </InfoBlock>
+        </div>
       </div>
+    );
+  }
+  return (
+    <div className={classes.infoBody}>
+      {t('portfolio.details.emptyKeyFigures')}
     </div>
   );
 };

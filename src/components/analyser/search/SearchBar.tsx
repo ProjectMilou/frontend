@@ -35,8 +35,21 @@ const SearchBar: React.FC = () => {
   const classes = useStyles();
 
   const fetch = async () => {
-    const s = await API.listStocks('');
-    setStocks(s);
+    try {
+      const emptyFilters: API.Filters = {
+        country: [],
+        industry: [],
+        currency: [],
+        mc: [],
+      };
+      const s = await API.listStocks('', emptyFilters);
+      setStocks(s);
+    } catch (err) {
+      setStocks(undefined);
+      // TODO: implement proper error handling
+      // eslint-disable-next-line no-console
+      console.error('uncaught error when requesting listStocks!', err);
+    }
   };
 
   React.useEffect(() => {
@@ -53,7 +66,7 @@ const SearchBar: React.FC = () => {
           open={open}
           options={stocks}
           getOptionLabel={(option: API.Stock) =>
-            `${option.symbol} ${option.name}${option.ISIN}${option.WKN}`
+            `${option.symbol} ${option.name}${option.isin}${option.wkn}`
           }
           onInputChange={(e, v, r) => {
             if (r.startsWith('input') && !!v) {

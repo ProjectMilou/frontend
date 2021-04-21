@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     logo: {
       maxWidth: 130,
-      marginRight: '10px',
+      marginRight: theme.spacing(1.25),
     },
     link: {
       color: contrastText,
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     root: {
       backgroundColor: main,
-      padding: 50,
+      padding: theme.spacing(6.25),
     },
     divider: {
       backgroundColor: 'white',
@@ -36,10 +36,10 @@ const useStyles = makeStyles((theme: Theme) => {
       fontSize: 11.5,
     },
     iconGrid: {
-      padding: 20,
+      padding: theme.spacing(2.5),
     },
     linkGrid: {
-      paddingBottom: 20,
+      paddingBottom: theme.spacing(2.5),
     },
   });
 });
@@ -89,11 +89,6 @@ const Footer: React.FC = () => {
           <Grid item>
             <Link to="/privacy" className={classes.link}>
               Privacy Policy
-            </Link>
-          </Grid>
-          <Grid item>
-            <Link to="/terms" className={classes.link}>
-              Terms and Conditions
             </Link>
           </Grid>
         </Grid>

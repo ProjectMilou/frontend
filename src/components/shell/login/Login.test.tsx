@@ -8,6 +8,7 @@ describe('Login', () => {
     const props = {
       closePopUp: jest.fn(),
       openRegisterPopUp: jest.fn(),
+      openForgotPasswordPopUp: jest.fn(),
     };
     return {
       component: render(<Login {...props} />),

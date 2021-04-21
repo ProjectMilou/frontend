@@ -27,7 +27,7 @@ const useStyles = makeStyles(({ typography }: Theme) =>
 );
 
 type RatioDonutProps = {
-  // decimal between 0 and 1
+  // a number between 0 and 100 representing the ratio
   ratio: number;
   textColor: string;
 };
@@ -35,7 +35,7 @@ type RatioDonutProps = {
 const RatioDonut: React.FC<RatioDonutProps> = ({ ratio, textColor }) => {
   const classes = useStyles();
 
-  const series = [ratio, 1 - ratio];
+  const series = [ratio, 100 - ratio];
   const options = {
     states: {
       normal: {
@@ -95,7 +95,7 @@ const RatioDonut: React.FC<RatioDonutProps> = ({ ratio, textColor }) => {
           width="100%"
         />
         <div className={classes.textWrapper}>
-          <p style={{ margin: 0, color: textColor }}>{`${ratio * 100}%`}</p>
+          <span style={{ margin: 0, color: textColor }}>{`${ratio}%`}</span>
         </div>
       </div>
     </div>

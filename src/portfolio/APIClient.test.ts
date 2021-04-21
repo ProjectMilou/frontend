@@ -1,9 +1,19 @@
-import { create, deletePortfolio, duplicate, list, rename } from './APIClient';
-import { MockOverview, MockOverviewTwo } from './APIMocks';
+import {
+  create,
+  deletePortfolio,
+  details,
+  duplicate,
+  list,
+  modify,
+  rename,
+} from './APIClient';
+import { MockDetails, MockOverview, MockOverviewTwo } from './APIMocks';
+import StorageService from '../services/StorageService';
 
 describe('Portfolio API client', () => {
   beforeEach(() => {
     fetchMock.resetMocks();
+    StorageService.setToken('dummy');
   });
 
   /**
@@ -21,7 +31,9 @@ describe('Portfolio API client', () => {
       fetchMock.mockRejectOnce(() =>
         Promise.reject(new Error('network error'))
       );
-      await expect(apiCall()).rejects.toMatchInlineSnapshot(`[Error: UNKNOWN]`);
+      await expect(apiCall()).rejects.toMatchInlineSnapshot(
+        `[Error: network error]`
+      );
     });
 
     test('rejects with JSON error', async () => {
@@ -36,31 +48,19 @@ describe('Portfolio API client', () => {
   };
 
   describe('list', () => {
-    const apiCall = () => list('');
+    const apiCall = () => list();
 
-    test('returns portfolios on success', async () => {
+    // TODO: unskip when mock portfolio is removed
+    test.skip('returns portfolios on success', async () => {
       fetchMock.mockResponseOnce(
         JSON.stringify({
           portfolios: [
             {
-              id: 1,
-              name: 'test',
-              virtual: true,
-              positionCount: 3,
-              value: 9,
-              perf7d: -1.23,
-              perf1y: 13.37,
+              ...MockOverview,
               modified: 0,
             },
             {
-              id: 2,
-              name: 'testTwo',
-              virtual: false,
-              positionCount: 4,
-              value: 3,
-              score: 20,
-              perf7d: 0,
-              perf1y: -1,
+              ...MockOverviewTwo,
               modified: 1616086585,
             },
           ],
@@ -72,8 +72,28 @@ describe('Portfolio API client', () => {
     errorHandlingTests(apiCall);
   });
 
+  describe('details', () => {
+    const apiCall = () => details('0');
+
+    test('resolves on success', async () => {
+      fetchMock.mockResponseOnce(
+        JSON.stringify({
+          ...MockDetails,
+          overview: {
+            ...MockDetails.overview,
+            modified: 1616086585,
+          },
+          nextDividend: 0,
+        })
+      );
+      await expect(apiCall()).resolves.toEqual(MockDetails);
+    });
+
+    errorHandlingTests(apiCall);
+  });
+
   describe('rename', () => {
-    const apiCall = () => rename('', '0', 'newName');
+    const apiCall = () => rename('0', 'newName');
 
     test('resolves on success', async () => {
       fetchMock.mockResponseOnce(JSON.stringify({}));
@@ -84,7 +104,7 @@ describe('Portfolio API client', () => {
   });
 
   describe('duplicate', () => {
-    const apiCall = () => duplicate('', '0', 'newName');
+    const apiCall = () => duplicate('0', 'newName');
 
     test('resolves on success', async () => {
       fetchMock.mockResponseOnce(JSON.stringify({ id: '1' }));
@@ -95,7 +115,7 @@ describe('Portfolio API client', () => {
   });
 
   describe('delete', () => {
-    const apiCall = () => deletePortfolio('', '0');
+    const apiCall = () => deletePortfolio('0');
 
     test('resolves on success', async () => {
       fetchMock.mockResponseOnce(JSON.stringify({}));
@@ -106,11 +126,22 @@ describe('Portfolio API client', () => {
   });
 
   describe('create', () => {
-    const apiCall = () => create('', 'name');
+    const apiCall = () => create('name');
 
     test('resolves on success', async () => {
       fetchMock.mockResponseOnce(JSON.stringify({ id: '0' }));
       await expect(apiCall()).resolves.toEqual('0');
+    });
+
+    errorHandlingTests(apiCall);
+  });
+
+  describe('modify', () => {
+    const apiCall = () => modify('0', [{ symbol: '0', qty: 5 }]);
+
+    test('resolves on success', async () => {
+      fetchMock.mockResponseOnce(JSON.stringify({}));
+      await expect(apiCall()).resolves.toBeUndefined();
     });
 
     errorHandlingTests(apiCall);

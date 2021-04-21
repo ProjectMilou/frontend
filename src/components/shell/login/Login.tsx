@@ -1,30 +1,32 @@
 import React, { useState } from 'react';
-import { makeStyles, useTheme } from '@material-ui/core';
+import { createStyles, makeStyles, useTheme } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import PropTypes from 'prop-types';
 import logo from '../../../assets/images/logo1.png';
 import LoginForm from './LoginForm';
 import WelcomeWindow from './WelcomeWindow';
 
-const useStyles = makeStyles({
-  dialog: {
-    backgroundColor: 'white',
-    borderRadius: '10px',
-    padding: '20px',
-    position: 'relative',
-  },
-  iconLogo: {
-    maxWidth: 150,
-    display: 'block',
-    margin: '10px auto',
-  },
-  iconClear: {
-    position: 'absolute',
-    right: '20px',
-    top: '20px',
-    cursor: 'pointer',
-  },
-});
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    dialog: {
+      backgroundColor: 'white',
+      borderRadius: theme.spacing(1),
+      padding: theme.spacing(2),
+      position: 'relative',
+    },
+    iconLogo: {
+      maxWidth: 150,
+      display: 'block',
+      margin: theme.spacing(1, 'auto'),
+    },
+    iconClear: {
+      position: 'absolute',
+      right: theme.spacing(2),
+      top: theme.spacing(2),
+      cursor: 'pointer',
+    },
+  })
+);
 
 export enum State {
   loggedIn,
@@ -35,10 +37,11 @@ export enum State {
 interface LoginProps {
   closePopUp: () => void;
   openRegisterPopUp: () => void;
+  openForgotPasswordPopUp: () => void;
 }
 
 const Login: React.FC<LoginProps> = (props) => {
-  const { closePopUp, openRegisterPopUp } = props;
+  const { closePopUp, openRegisterPopUp, openForgotPasswordPopUp } = props;
   const theme = useTheme();
   const { dialog, iconLogo, iconClear } = useStyles(theme);
 
@@ -73,6 +76,7 @@ const Login: React.FC<LoginProps> = (props) => {
       {userState === 'loggedOut' && (
         <LoginForm
           openRegisterPopUpWindow={openRegisterPopUpWindow}
+          openForgotPasswordPopUpWindow={openForgotPasswordPopUp}
           setUserState={() => setUserState('loggedIn')}
           closePopUp={closePopUp}
         />
@@ -84,6 +88,7 @@ const Login: React.FC<LoginProps> = (props) => {
 Login.propTypes = {
   closePopUp: PropTypes.func.isRequired,
   openRegisterPopUp: PropTypes.func.isRequired,
+  openForgotPasswordPopUp: PropTypes.func.isRequired,
 };
 
 export default Login;

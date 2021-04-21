@@ -1,10 +1,18 @@
 import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  createStyles,
+  Theme,
+  useTheme,
+  darken,
+} from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
-import CheckIcon from '@material-ui/icons/Check';
-import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 import DetailsDonut from './DetailsDonut';
-import { RiskAnalysis, Risk, Position } from './DetailsTypes';
+import { RiskAnalysis } from '../../portfolio/APIClient';
+import { RiskBundle, getRiskBundle } from '../../portfolio/Helper';
+import InfoButton from '../shared/InfoButton';
+import StyledNumberFormat from '../shared/StyledNumberFormat';
 
 // stylesheet for the risk analysis section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -13,6 +21,26 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       display: 'flex',
       justifyContent: 'space-between',
       margin: '1rem 0',
+    },
+    ratioWrapper: {
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      margin: '4rem 0',
+    },
+    ratioText: {
+      width: 'min-content',
+      margin: '0 4rem',
+      padding: '1rem',
+      color: palette.primary.contrastText,
+      fontSize: '1.5rem',
+      fontWeight: 600,
+      whiteSpace: 'nowrap',
+      borderStyle: 'solid',
+      borderRadius: '0.75rem',
+      borderColor: palette.primary.contrastText,
+      display: 'flex',
+      justifyContent: 'space-between',
     },
     riskWrapper: {
       display: 'flex',
@@ -48,64 +76,50 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       fontWeight: 600,
       color: palette.primary.contrastText,
     },
+    icon: {
+      width: '100%',
+      height: '100%',
+    },
     warnings: {
       margin: '0.1rem 0',
       fontSize: '1rem',
-      // TODO: change to theme color
-      color: '#EEF1FB',
+      color: palette.primary.contrastText,
+    },
+    ratioName: {
+      marginRight: '0.5rem',
     },
   })
 );
 
 // type declarations
 type RiskCompProps = {
-  risk: Risk;
   title: string;
+  bundle: RiskBundle;
   labels: string[];
   portions: number[];
 };
 
 type DetailsMainRiskProps = {
   risk: RiskAnalysis;
-  positions: Position[];
+  sharpeRatio: number;
+  treynorRatio: number;
 };
 
 // A component consisting of the title, chart and warnings of a given risk type
 const RiskComp: React.FC<RiskCompProps> = ({
-  risk,
   title,
+  bundle,
   labels,
   portions,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  // TODO: no hard coded colors
-  // TODO: update range to fit data from analytics
-  // convert a score to a color
-  function convertScoreToColor(val: number): string {
-    return val < 0.5 ? '#D64745' : '#50E2A8';
-  }
-
-  function convertScoreToIcon(val: number): React.ReactElement {
-    const iconStyle = {
-      color: convertScoreToColor(val),
-      width: '100%',
-      height: '100%',
-    };
-
-    return val < 0.5 ? (
-      <PriorityHighIcon style={iconStyle} aria-label="exclamationMark" />
-    ) : (
-      <CheckIcon style={iconStyle} aria-label="checkMark" />
-    );
-  }
-
   return (
     <div className={classes.riskWrapper}>
       {/* title */}
       <div>
-        <p className={classes.riskTitle}>{title}</p>
+        <span className={classes.riskTitle}>{title}</span>
       </div>
       {/* body with chart */}
       <div className={classes.riskPieWrapper}>
@@ -121,25 +135,20 @@ const RiskComp: React.FC<RiskCompProps> = ({
       <div>
         {/* icon + number + title */}
         <div className={classes.statContainer}>
-          <div className={classes.iconWrapper}>
-            {convertScoreToIcon(risk.score)}
-          </div>
+          <div className={classes.iconWrapper}>{bundle.riskIcon}</div>
           <div className={classes.countWrapper}>
-            {/* TODO: change to actuall count, not score */}
-            <p style={{ color: convertScoreToColor(risk.score), margin: 0 }}>
-              {risk.score}
-            </p>
+            <div style={{ color: bundle.riskColor }}>{bundle.count}</div>
           </div>
           <div className={classes.subtitleWrapper}>
-            <p>{title}</p>
+            <span>{title}</span>
           </div>
         </div>
         {/* warnings */}
         <div>
-          {risk.warnings.map((w) => (
-            <p key={w} className={classes.warnings}>
+          {bundle.warnings.map((w) => (
+            <span key={w} className={classes.warnings}>
               {t(w)}
-            </p>
+            </span>
           ))}
         </div>
       </div>
@@ -150,39 +159,106 @@ const RiskComp: React.FC<RiskCompProps> = ({
 // returns the details page header
 const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
   risk,
-  positions,
+  sharpeRatio,
+  treynorRatio,
 }) => {
   const classes = useStyles();
+  const { palette } = useTheme();
   const { t } = useTranslation();
 
+  const red = palette.error.main;
+  const yellow = palette.warning.main;
+  const green = palette.success.main;
+
+  function ratioToColor(ratio: number): string {
+    switch (true) {
+      case ratio < 0.5:
+        return red;
+      case ratio < 1:
+        return yellow;
+      case ratio < 2:
+        return darken(green, 0.25);
+      default:
+        return green;
+    }
+  }
+
   return (
-    <div className={classes.riskContainer}>
-      <RiskComp
-        risk={risk.countries}
-        title={t('portfolio.details.countries')}
-        // TODO: deal with overflow (too many names)
-        labels={Array.from(new Set(positions.map((p) => p.stock.country)))}
-        // TODO: replace with actuall count
-        portions={[3, 1]}
-      />
-      <RiskComp
-        risk={risk.segments}
-        title={t('portfolio.details.segments')}
-        // TODO: deal with overflow (too many names)
-        labels={Array.from(new Set(positions.map((p) => p.stock.industry)))}
-        // TODO: replace with actuall count
-        portions={[6, 1]}
-      />
-      <RiskComp
-        risk={risk.currency}
-        title={t('portfolio.details.currency')}
-        // TODO: deal with overflow (too many names)
-        // TODO: replace with actuall currency
-        labels={Array.from(new Set(positions.map((p) => p.stock.country)))}
-        // TODO: replace with actuall count
-        portions={[1, 1]}
-      />
-    </div>
+    <>
+      <div className={classes.ratioWrapper}>
+        <Typography className={classes.ratioText}>
+          <span className={classes.ratioName}>
+            {t('portfolio.details.sharpe')}
+          </span>
+          <StyledNumberFormat
+            value={sharpeRatio}
+            paintJob={ratioToColor(sharpeRatio)}
+          />
+          <InfoButton
+            infotext={t('analyser.details.Volatility.SharpeRatio.infoButton')}
+          />
+        </Typography>
+        <Typography className={classes.ratioText}>
+          <span className={classes.ratioName}>
+            {t('portfolio.details.treynor')}
+          </span>
+          <StyledNumberFormat
+            value={treynorRatio}
+            paintJob={ratioToColor(treynorRatio)}
+          />
+          <InfoButton
+            infotext={t('analyser.details.Volatility.TreynorRatio.infoButton')}
+          />
+        </Typography>
+      </div>
+      <div className={classes.riskContainer}>
+        <RiskComp
+          title={t('portfolio.details.countries')}
+          bundle={getRiskBundle(
+            'country',
+            Object.entries(risk.countries).length,
+            3,
+            5,
+            red,
+            yellow,
+            green
+          )}
+          // TODO: deal with overflow (too many names)
+          labels={Object.keys(risk.countries)}
+          portions={Object.values(risk.countries)}
+        />
+        <RiskComp
+          title={t('portfolio.details.segments')}
+          bundle={getRiskBundle(
+            'segment',
+            Object.entries(risk.segments).length,
+            4,
+            6,
+            red,
+            yellow,
+            green
+          )}
+          // TODO: deal with overflow (too many names)
+          labels={Object.keys(risk.segments)}
+          portions={Object.values(risk.segments)}
+        />
+        <RiskComp
+          title={t('portfolio.details.currencies')}
+          bundle={getRiskBundle(
+            'currency',
+            Object.entries(risk.currency).length,
+            2,
+            4,
+            red,
+            yellow,
+            green
+          )}
+          // TODO: deal with overflow (too many names)
+          labels={Object.keys(risk.currency)}
+          portions={Object.values(risk.currency)}
+        />
+      </div>
+    </>
   );
 };
 

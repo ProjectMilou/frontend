@@ -10,15 +10,16 @@ import {
 } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import { useTranslation } from 'react-i18next';
-import { Position } from './DetailsTypes';
-import ValueOverName from '../shared/ValueOverName';
+import StyledNumberFormat from '../shared/StyledNumberFormat';
+import ValueOverName from './ValueOverName';
+import { Position } from '../../portfolio/APIClient';
+import { stockDetails } from '../../portfolio/Router';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     button: {
       textTransform: 'none',
-      // TODO: use theme color
-      color: '#EEF1FB',
+      color: palette.primary.contrastText,
       padding: 0,
     },
     gridListWrapper: {
@@ -39,14 +40,14 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     },
     cardTitle: {
       color: palette.primary.contrastText,
-      fontSize: '1.2rem',
+      fontSize: '1.5rem',
       fontWeight: 600,
     },
     cardSubtitle: {
-      // TODO: use theme color
-      color: '#EEF1FB',
+      color: palette.primary.contrastText,
       fontSize: '1rem',
       fontWeight: 500,
+      marginTop: '10px',
     },
     cardContentLower: {
       display: 'flex',
@@ -61,6 +62,10 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 type DetailsMainPositionsProps = {
   positions: Position[];
 };
+
+// TODO delete mock and replace with value from refactored props object in map statement
+const sevDayAbsolute = -8.1;
+const oneYearAbsolute = 35.6;
 
 const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
   positions,
@@ -84,29 +89,82 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
         style={{ margin: '0 auto' }}
       >
         {positions.map((p) => (
-          <GridListTile key={p.stock.isin}>
+          <GridListTile key={p.stock.symbol}>
             <Card
               variant="outlined"
               className={classes.card}
-              style={{ borderColor: convertPercentToColor(p.stock.perf7d) }}
+              style={{
+                borderColor: convertPercentToColor(p.totalReturnPercent),
+              }}
             >
+              {/* TODO replace mock primary and secondary value and color with correct values from props */}
               <CardContent>
                 <div className={classes.cardContentUpper}>
                   <div className={classes.cardTitle}>{p.stock.name}</div>
-                  <div
-                    className={classes.cardSubtitle}
-                  >{`$${p.stock.price}`}</div>
+                  <div className={classes.cardSubtitle}>
+                    <span>{`${t('portfolio.details.holding')}: `}</span>
+                    <StyledNumberFormat
+                      value={p.stock.price * p.qty}
+                      suffix="€"
+                    />
+                    <br />
+                    <span>{`${t('portfolio.details.amount')}: ${p.qty}`}</span>
+                    <br />
+                    <span>{`${t('portfolio.details.perShare')}: `}</span>
+                    <StyledNumberFormat value={p.stock.price} suffix="€" />
+                  </div>
                 </div>
                 <div className={classes.cardContentLower}>
                   <ValueOverName
-                    value={`${p.stock.perf7d}%`}
+                    value={
+                      <StyledNumberFormat
+                        value={p.stock.perf7d}
+                        suffix="%"
+                        paintJob
+                      />
+                    }
                     name={t('portfolio.details.day7')}
-                    valueColor={convertPercentToColor(p.stock.perf7d)}
+                    secondValue={
+                      <StyledNumberFormat
+                        value={sevDayAbsolute}
+                        suffix="€"
+                        paintJob
+                      />
+                    }
                   />
                   <ValueOverName
-                    value={`${p.stock.perf1y}%`}
+                    value={
+                      <StyledNumberFormat
+                        value={p.stock.perf1y}
+                        suffix="%"
+                        paintJob
+                      />
+                    }
                     name={t('portfolio.details.year')}
-                    valueColor={convertPercentToColor(p.stock.perf1y)}
+                    secondValue={
+                      <StyledNumberFormat
+                        value={oneYearAbsolute}
+                        suffix="€"
+                        paintJob
+                      />
+                    }
+                  />
+                  <ValueOverName
+                    value={
+                      <StyledNumberFormat
+                        value={p.totalReturnPercent}
+                        suffix="%"
+                        paintJob
+                      />
+                    }
+                    name={t('portfolio.details.totalReturn')}
+                    secondValue={
+                      <StyledNumberFormat
+                        value={p.totalReturn}
+                        suffix="€"
+                        paintJob
+                      />
+                    }
                   />
                 </div>
               </CardContent>
@@ -121,8 +179,7 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
                   }
                   className={classes.button}
                   style={{ backgroundColor: 'transparent' }}
-                  // TODO: handle button click
-                  onClick={() => null}
+                  onClick={() => stockDetails(p.stock.symbol)}
                 >
                   {t('portfolio.details.viewMore')}
                 </Button>

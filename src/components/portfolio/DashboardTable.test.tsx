@@ -2,14 +2,15 @@ import { render, fireEvent } from '@testing-library/react';
 import * as React from 'react';
 import DashboardTable, { DashboardTableProps } from './DashboardTable';
 import { MockOverview, MockOverviewTwo } from '../../portfolio/APIMocks';
+import { portfolioDetails } from '../../portfolio/Router';
 
 describe('DashboardTable', () => {
   const defaultProps: DashboardTableProps = {
     portfolios: [MockOverview, MockOverviewTwo],
-    selectPortfolio: jest.fn(),
     renamePortfolio: jest.fn(),
     duplicatePortfolio: jest.fn(),
     deletePortfolio: jest.fn(),
+    createPortfolio: jest.fn(),
   };
 
   const renderComponent = (newProps?: Partial<DashboardTableProps>) => {
@@ -20,6 +21,12 @@ describe('DashboardTable', () => {
     };
   };
 
+  test('show no table if no portfolios exist', () => {
+    const { container } = renderComponent({ portfolios: [] });
+    // no table
+    expect(container.querySelector('table')).toBeNull();
+  });
+
   test('display portfolio information', () => {
     const { container } = renderComponent();
     expect(container).toMatchSnapshot();
@@ -28,9 +35,9 @@ describe('DashboardTable', () => {
   test('select portfolio on click', () => {
     const { props, getByText } = renderComponent();
     fireEvent.click(getByText(props.portfolios[0].name));
-    expect(props.selectPortfolio).toHaveBeenCalledWith(props.portfolios[0].id);
+    expect(portfolioDetails).toHaveBeenCalledWith(props.portfolios[0].id);
     fireEvent.click(getByText(props.portfolios[1].name));
-    expect(props.selectPortfolio).toHaveBeenCalledWith(props.portfolios[1].id);
+    expect(portfolioDetails).toHaveBeenCalledWith(props.portfolios[1].id);
   });
 
   test('rename portfolio on click', () => {
@@ -39,7 +46,7 @@ describe('DashboardTable', () => {
     expect(props.renamePortfolio).toHaveBeenCalledWith(props.portfolios[0].id);
     fireEvent.click(document.querySelectorAll('button svg')[3]);
     expect(props.renamePortfolio).toHaveBeenCalledWith(props.portfolios[1].id);
-    expect(props.selectPortfolio).not.toHaveBeenCalled();
+    expect(portfolioDetails).not.toHaveBeenCalled();
   });
 
   test('duplicate portfolio on click', () => {
@@ -52,7 +59,7 @@ describe('DashboardTable', () => {
     expect(props.duplicatePortfolio).toHaveBeenCalledWith(
       props.portfolios[1].id
     );
-    expect(props.selectPortfolio).not.toHaveBeenCalled();
+    expect(portfolioDetails).not.toHaveBeenCalled();
   });
 
   test('delete portfolio on click', () => {
@@ -61,6 +68,6 @@ describe('DashboardTable', () => {
     expect(props.deletePortfolio).not.toHaveBeenCalled();
     fireEvent.click(document.querySelectorAll('button svg')[2]);
     expect(props.deletePortfolio).toHaveBeenCalledWith(props.portfolios[0].id);
-    expect(props.selectPortfolio).not.toHaveBeenCalled();
+    expect(portfolioDetails).not.toHaveBeenCalled();
   });
 });

@@ -1,4 +1,6 @@
 import React from 'react';
+import { navigate } from '@reach/router';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import {
   Card,
   CardContent,
@@ -9,9 +11,10 @@ import {
   GridList,
   ButtonBase,
 } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
-import TextOverText from '../TextOverText';
+import TextOverText from '../../shared/TextOverText';
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -49,11 +52,16 @@ const useStyles = makeStyles(() => ({
   paddingBottom: {
     paddingBottom: 40,
   },
+  grid: {
+    overflow: 'hidden' /* Hide scrollbars */,
+  },
+  loading: {
+    margin: '15px',
+  },
 }));
 
 export type DashboardCardsRowProps = {
   stock: API.Stock;
-  selectStock: (id: string) => void;
 };
 
 function convertPercentToColor(val: number): string {
@@ -62,7 +70,6 @@ function convertPercentToColor(val: number): string {
 
 export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
   stock,
-  selectStock,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -71,9 +78,7 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
     <Card className={classes.card}>
       <ButtonBase
         className={classes.cardAction}
-        onClick={() => {
-          selectStock(stock.symbol);
-        }}
+        onClick={() => navigate(`analyser/${stock.symbol}`)}
       >
         <CardMedia
           className={classes.media}
@@ -97,14 +102,15 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
                 colorTop="#68696b"
                 bottom={`${stock.price}`}
                 euro
+                sizeBottom="1.3rem"
               />
             </div>
             <div className={classes.rightBound}>
               <TextOverText
                 top={t('stock.30d')}
-                bottom={`${stock['30d']}%`}
+                bottom={`${stock.per30d.slice(0, -1)}%`}
                 colorTop="#68696b"
-                colorBottom={convertPercentToColor(stock['30d'])}
+                colorBottom={convertPercentToColor(parseFloat(stock.per30d))}
                 sizeBottom="1.3rem"
               />
             </div>
@@ -117,20 +123,58 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
 
 export type DashboardCardsProps = {
   stocks: API.Stock[];
-  selectStock: (symbol: string) => void;
 };
 
-const DashboardCards: React.FC<DashboardCardsProps> = ({
-  stocks,
-  selectStock,
-}) => (
-  <Grid>
-    <GridList>
-      {stocks.map((s) => (
-        <DashboardCardsRow stock={s} selectStock={selectStock} key={s.symbol} />
-      ))}
-    </GridList>
-  </Grid>
-);
+const DashboardCards: React.FC<DashboardCardsProps> = ({ stocks }) => {
+  const classes = useStyles();
+
+  const [items, setItems] = React.useState<API.Stock[]>(stocks.slice(0, 10));
+  const [hasMore, setHasMore] = React.useState<boolean>(true);
+
+  React.useEffect(() => {
+    setItems(stocks.slice(0, 10));
+    setHasMore(true);
+  }, [stocks]);
+
+  const fetchMoreData = () => {
+    if (items.length >= stocks.length) {
+      setHasMore(false);
+      return;
+    }
+    setHasMore(true);
+    // a fake async api call like which sends
+    // 5 more stocks in 1.5 secs
+    // TODO replace with async API call
+    setTimeout(() => {
+      const newItems = items.concat(
+        stocks.slice(items.length, items.length + 5)
+      );
+      setItems(newItems);
+    }, 1500);
+  };
+  return (
+    <InfiniteScroll
+      dataLength={items.length}
+      next={fetchMoreData}
+      hasMore={hasMore}
+      loader={<></>}
+      scrollableTarget="scrollableTable"
+      endMessage={<></>}
+    >
+      <Grid className={classes.grid}>
+        <GridList>
+          {items.map((s) => (
+            <DashboardCardsRow stock={s} key={s.symbol} />
+          ))}
+          {hasMore && (
+            <div className={classes.loading}>
+              <CircularProgress color="primary" />
+            </div>
+          )}
+        </GridList>
+      </Grid>
+    </InfiniteScroll>
+  );
+};
 
 export default DashboardCards;

@@ -1,8 +1,18 @@
 import React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  createStyles,
+  Theme,
+  useTheme,
+} from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
+import AnalystBar from '../shared/AnalystBar';
+import AnalystBarIndicator from '../shared/AnalystBarIndicator';
+import { Position } from '../../portfolio/APIClient';
+import { collectStocks, CollectedStocks } from '../../portfolio/Helper';
 
 // stylesheet for the analyst section
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     riskContainer: {
       display: 'flex',
@@ -13,25 +23,43 @@ const useStyles = makeStyles(() =>
       display: 'flex',
       flexDirection: 'column',
       width: '100%',
-      // TODO: delete fixed height
-      height: '30rem',
+    },
+    description: {
+      color: palette.primary.contrastText,
+      textAlign: 'center',
+      fontSize: '1.15rem',
     },
   })
 );
 
-// type declarations
 type DetailsMainAnalystProps = {
-  // props
+  positions: Position[];
 };
 
-// returns the details page header
-const DetailsMainAnalyst: React.FC<DetailsMainAnalystProps> = () => {
+const DetailsMainAnalyst: React.FC<DetailsMainAnalystProps> = ({
+  positions,
+}) => {
   const classes = useStyles();
+  const theme = useTheme();
+  const { t } = useTranslation();
+
+  const barData: CollectedStocks = collectStocks(positions, false);
 
   return (
     <div className={classes.analystWrapper}>
-      {/* body placeholder */}
-      <div />
+      <p className={classes.description}>
+        {t('portfolio.details.analystSubtext')}
+      </p>
+      <AnalystBar>
+        {Object.entries(barData).map(([score, names]) => (
+          <AnalystBarIndicator
+            key={score}
+            tooltipText={names}
+            score={parseInt(score, 10)}
+            color={theme.palette.primary.contrastText}
+          />
+        ))}
+      </AnalystBar>
     </div>
   );
 };

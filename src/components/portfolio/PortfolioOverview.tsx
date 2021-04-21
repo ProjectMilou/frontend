@@ -6,13 +6,14 @@ import DashboardViewSelect, {
   DashboardView,
 } from '../shared/DashboardViewSelect';
 import DashboardTable from './DashboardTable';
+import DashboardCards from './DashboardCards';
 
 export type PortfolioOverviewProps = {
   portfolios: API.PortfolioOverview[];
-  selectPortfolio: (id: string) => void;
   renamePortfolio: (id: string) => void;
   duplicatePortfolio: (id: string) => void;
   deletePortfolio: (id: string) => void;
+  createPortfolio: () => void;
 };
 
 const useStyles = makeStyles({
@@ -23,14 +24,17 @@ const useStyles = makeStyles({
     lineHeight: '72px',
     letterSpacing: '-0.015em',
   },
+  subtext: {
+    margin: '2rem 0',
+  },
 });
 
 const PortfolioOverview: React.FC<PortfolioOverviewProps> = ({
   portfolios,
-  selectPortfolio,
   renamePortfolio,
   duplicatePortfolio,
   deletePortfolio,
+  createPortfolio,
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();
@@ -39,26 +43,30 @@ const PortfolioOverview: React.FC<PortfolioOverviewProps> = ({
     <>
       <div className={classes.header}>
         <div className={classes.title}>{t('portfolio.dashboard.title')}</div>
-        {!!portfolios.length && (
-          <DashboardViewSelect view={view} setView={setView} />
-        )}
+        <DashboardViewSelect view={view} setView={setView} />
       </div>
       {!portfolios.length && (
-        <Typography>{t('portfolio.dashboard.noPortfolios')}</Typography>
+        <Typography className={classes.subtext}>
+          {t('portfolio.dashboard.noPortfolios')}
+        </Typography>
       )}
-      {!!portfolios.length &&
-        (view === DashboardView.Table ? (
-          <DashboardTable
-            portfolios={portfolios}
-            selectPortfolio={selectPortfolio}
-            renamePortfolio={renamePortfolio}
-            duplicatePortfolio={duplicatePortfolio}
-            deletePortfolio={deletePortfolio}
-          />
-        ) : (
-          // TODO: implement card view
-          <div>cards</div>
-        ))}
+      {view === DashboardView.Table ? (
+        <DashboardTable
+          portfolios={portfolios}
+          renamePortfolio={renamePortfolio}
+          duplicatePortfolio={duplicatePortfolio}
+          deletePortfolio={deletePortfolio}
+          createPortfolio={createPortfolio}
+        />
+      ) : (
+        <DashboardCards
+          portfolios={portfolios}
+          renamePortfolio={renamePortfolio}
+          duplicatePortfolio={duplicatePortfolio}
+          deletePortfolio={deletePortfolio}
+          createPortfolio={createPortfolio}
+        />
+      )}
     </>
   );
 };
