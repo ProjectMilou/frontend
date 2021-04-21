@@ -24,7 +24,7 @@ const KeyFiguresBar: React.FC<KeyFiguresBarProps> = ({
   years,
   dark,
   chartHeight,
-  outlined
+  outlined,
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();

@@ -22,7 +22,12 @@ const KeyFigures: React.FC<KeyFigureProps> = ({ keyFigures }) => {
   return (
     <div>
       <SubsectionDivider subsection="analyser.details.KeyFiguresHeader.KeyFigures" />
-      <KeyFiguresBar chartHeight={350} keyFigures={series} years={years} outlined/>
+      <KeyFiguresBar
+        chartHeight={350}
+        keyFigures={series}
+        years={years}
+        outlined
+      />
     </div>
   );
 };

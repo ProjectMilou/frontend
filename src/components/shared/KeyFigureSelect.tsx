@@ -57,7 +57,7 @@ export const KeyFigureSelect: React.FC<KeyFigureSelectProps> = ({
   selected,
   select,
   dark,
-  outlined
+  outlined,
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();
