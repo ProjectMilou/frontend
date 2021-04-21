@@ -512,6 +512,9 @@ async function request(
   if (response.ok) {
     return Promise.resolve(response.json()); // valid response
   }
+  if (response.status === 401) {
+    return Promise.reject(new AppError('AUTH_TOKEN_INVALID')); // Unauthorized
+  }
   const json = await response
     .json()
     .catch(() => Promise.reject(new AppError('UNKNOWN'))); // server error without JSON response
