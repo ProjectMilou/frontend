@@ -4,12 +4,16 @@ import SubsectionDivider from '../../shared/SubsectionDivider';
 import * as API from '../../../analyser/APIClient';
 
 export type KeyFigureProps = {
-  keyFigures: API.KeyFiguresEPS
+  keyFigures: API.KeyFigures
 };
 
 const KeyFigures: React.FC<KeyFigureProps> = ({ keyFigures} ) => {
   // portfolio team moved this mock value up from the chart
   // change this to the real api data whenever you need
+
+  const years = keyFigures.success.map((f) => new Date(f.date).getFullYear())
+  
+
   const mockSeries = {
     PER: [30, 40, 45, 50, 50],
     PBR: [50, 25, 35, 80, 20],
@@ -24,7 +28,7 @@ const KeyFigures: React.FC<KeyFigureProps> = ({ keyFigures} ) => {
         chartHeight={350}
         keyFigures={mockSeries}
         // TODO: change to real years
-        years={[2016, 2017, 2018, 2019, 2020]}
+        years={years}
       />
     </div>
   );

@@ -251,7 +251,7 @@ export type AnalystsRecommendation = {
   source: URL;
 };
 
-export type KeyFigureEPS = {
+export type KeyFigure = {
   date: string;
   reportedDate: string;
   PERatio: number;
@@ -260,9 +260,9 @@ export type KeyFigureEPS = {
   PBRatio: number;
 };
 
-export type KeyFiguresEPS = {
+export type KeyFigures = {
   error: string;
-  success: KeyFigureEPS[];
+  success: KeyFigure[];
 }
 
 export type InterestCoverageList = {
@@ -513,14 +513,14 @@ export async function cashFlowList(
  * @param symbol - Stock Symbol to search for
  * @param historic - if true all data will be returned, else only 5 years
  */
-export async function keyFiguresEPS(
+export async function keyFigures(
   token: string,
   symbol: string
-): Promise<KeyFiguresEPS> {
+): Promise<KeyFigures> {
   const response = (await request(
     token,
     'GET',
-    `stocks/analytics/keyfigures?symbol=${symbol}`
-  )) as KeyFiguresEPS;
+    `analytics/keyfigures/${symbol}`
+  )) as KeyFigures;
   return response;
 }

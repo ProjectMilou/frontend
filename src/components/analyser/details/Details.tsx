@@ -56,9 +56,9 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
   ] = React.useState<API.CashFlowList>();
   const [
     // eslint-disable-next-line
-    keyFiguresEPS,
-    setKeyFiguresEPS,
-  ] = React.useState<API.KeyFiguresEPS>();
+    keyFigures,
+    setKeyFigures,
+  ] = React.useState<API.KeyFigures>();
 
   // eslint-disable-next-line
   const [analystRecommendations, setAnalystRecommendations] = React.useState<
@@ -111,7 +111,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
       const cR = await API.companyReports(token, symbol);
       const cCash = await API.cashFlowList(token, symbol);
       const aR = await API.analystsRecommendations(token, symbol);
-      const kF = await API.keyFiguresEPS(token, symbol);
+      const kF = await API.keyFigures(token, symbol);
       const iC = await API.interestCoverages(token, symbol);
       const r = await API.risks(token, symbol);
 
@@ -124,7 +124,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
       setInterestCoverages(iC);
       setRisks(r);
       setCashFlowList(cCash);
-      setKeyFiguresEPS(kF);
+      setKeyFigures(kF);
       setNewsList([
         {
           headline: 'this is hot news, gamestonk is very high this week',
@@ -231,7 +231,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
             analystRecommendations &&
             interestCoverages &&
             risks &&
-            keyFiguresEPS &&
+            keyFigures &&
             cashFlowList && (
               <Container className={classes.mainContent}>
                 <DetailsOverview
@@ -248,7 +248,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
                 />
                 <NewsComponent newsList={newsList} />
                 <SectionDivider section="analyser.details.KeyFiguresHeader" />
-                <KeyFigures keyFigures={keyFiguresEPS}/>
+                <KeyFigures keyFigures={keyFigures}/>
                 <Dividends series={stockDividend} cashFlowList={cashFlowList} />
                 <BalanceSheetInfo companyReports={companyReports} />
                 <Analysts
