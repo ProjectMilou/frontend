@@ -92,6 +92,13 @@ const Analysts: React.FC<AnalystsProps> = ({ recommendations, overview }) => {
   const { t } = useTranslation();
   const theme = useTheme();
 
+  function currencySymbol(): '€' | '$' {
+    if (overview.currency === 'USD') {
+      return '$';
+    }
+    return '€';
+  }
+
   return (
     <p>
       <div className={classes.titleContainer}>
@@ -107,7 +114,7 @@ const Analysts: React.FC<AnalystsProps> = ({ recommendations, overview }) => {
           <>&nbsp;</>
           <StyledNumberFormat
             value={parseFloat(overview.analystTargetPrice)}
-            suffix="€"
+            suffix={currencySymbol()}
           />
           <>&nbsp;&nbsp;</>
           <InfoButton
