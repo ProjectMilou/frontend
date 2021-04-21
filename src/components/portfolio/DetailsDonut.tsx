@@ -20,6 +20,11 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({
   const theme = useTheme();
 
   const options = {
+    tooltip: {
+      y: {
+        formatter: (value: number) => Math.round(value * 10000) / 10000,
+      },
+    },
     labels,
     fill: {
       // TODO use theme colors

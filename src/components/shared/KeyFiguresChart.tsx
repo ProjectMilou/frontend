@@ -26,6 +26,11 @@ const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({
     ? palette.primary.contrastText
     : palette.secondary.contrastText;
   const options = {
+    tooltip: {
+      y: {
+        formatter: (value: number) => Math.round(value * 10000) / 10000,
+      },
+    },
     colors: [palette.teal.main],
     chart: {
       id: 'line-chart',

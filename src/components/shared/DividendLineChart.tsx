@@ -21,6 +21,11 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({
   const { t } = useTranslation();
 
   const options = {
+    tooltip: {
+      y: {
+        formatter: (value: number) => Math.round(value * 10000) / 10000,
+      },
+    },
     chart: {
       height: 350,
       type: 'line',

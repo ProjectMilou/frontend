@@ -55,6 +55,11 @@ const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
   }));
 
   const options = {
+    tooltip: {
+      y: {
+        formatter: (value: number) => Math.round(value * 10000) / 10000,
+      },
+    },
     legend: {
       onItemHover: {
         highlightDataSeries: false,
