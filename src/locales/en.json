@@ -112,6 +112,8 @@
   "shell.message.resend": "To re-sent the email click ",
   "shell.message.welcome": "Welcome to Milou!",
   "shell.message.registered": "You are registered.",
+  "shell.message.welcome.login": "Welcome back!",
+  "shell.message.login": "You are logged in.",
   "error.invalidEmail": "Invalid email address.",
   "error.invalidPassword": "Invalid password.",
   "error.invalidEmailOrPassword": "The given email-address or password were not correct.",
