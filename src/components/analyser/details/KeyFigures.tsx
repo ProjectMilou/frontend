@@ -1,21 +1,22 @@
 import React from 'react';
 import KeyFiguresBar from '../../shared/KeyFiguresBar';
 import SubsectionDivider from '../../shared/SubsectionDivider';
+import * as API from '../../../analyser/APIClient';
 
-export type KeyFigure = {
-  title: string;
-  definition: string;
-  // value?: number;
+export type KeyFigureProps = {
+  keyFigures: API.KeyFigures;
 };
 
-const KeyFigures: React.FC = () => {
-  // portfolio team moved this mock value up from the chart
-  // change this to the real api data whenever you need
-  const mockSeries = {
-    PER: [30, 40, 45, 50, 50],
-    PBR: [50, 25, 35, 80, 20],
-    PEGR: [30, 50, 15, 40, 10],
-    EPS: [10, 20, 25, 10, 90],
+const KeyFigures: React.FC<KeyFigureProps> = ({ keyFigures }) => {
+  const years = keyFigures.success.map((f) => new Date(f.date).getFullYear());
+
+  const series = {
+    PER: keyFigures.success.map((f) => Math.round(f.PERatio * 100) / 100),
+    PBR: keyFigures.success.map((f) => Math.round(f.PBRatio * 100) / 100),
+    PEGR: keyFigures.success.map(
+      (f) => Math.round(f.PEGrowthRatio * 100) / 100
+    ),
+    EPS: keyFigures.success.map((f) => Math.round(parseFloat(f.EPS))),
   };
 
   return (
@@ -23,9 +24,9 @@ const KeyFigures: React.FC = () => {
       <SubsectionDivider subsection="analyser.details.KeyFiguresHeader.KeyFigures" />
       <KeyFiguresBar
         chartHeight={350}
-        keyFigures={mockSeries}
-        // TODO: change to real years
-        years={[2016, 2017, 2018, 2019, 2020]}
+        keyFigures={series}
+        years={years}
+        outlined
       />
     </div>
   );

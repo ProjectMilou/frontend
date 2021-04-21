@@ -134,9 +134,9 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
         <TableCell className={classes.tableCell}>
           {/* dividend */}
           <TextOverText
-            top={convertToPercent(stockOverview.div)}
+            top={convertToPercent(parseFloat(stockOverview.div))}
             bottom={t('stock.div')}
-            colorTop={convertPerformanceToColor(stockOverview.div)}
+            colorTop={convertPerformanceToColor(parseFloat(stockOverview.div))}
             colorBottom={theme.palette.primary.light}
           />
         </TableCell>
