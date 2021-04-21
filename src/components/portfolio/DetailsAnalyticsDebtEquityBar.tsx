@@ -3,6 +3,7 @@ import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@material-ui/core';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
+import { roundAxis } from '../../portfolio/Helper';
 
 type DetailsAnalyticsDebtEquityBarProps = {
   portfolio: NonEmptyPortfolioDetails;
@@ -33,7 +34,7 @@ const DetailsAnalyticsDebtEquityBar: React.FC<DetailsAnalyticsDebtEquityBarProps
   const options = {
     tooltip: {
       y: {
-        formatter: (value: number) => Math.round(value * 10000) / 10000,
+        formatter: roundAxis,
       },
     },
     chart: {

@@ -1,6 +1,7 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
 import { useTheme } from '@material-ui/core';
+import { roundAxis } from '../../portfolio/Helper';
 
 export type Series = {
   name: string;
@@ -28,7 +29,7 @@ const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({
   const options = {
     tooltip: {
       y: {
-        formatter: (value: number) => Math.round(value * 10000) / 10000,
+        formatter: roundAxis,
       },
     },
     colors: [palette.teal.main],

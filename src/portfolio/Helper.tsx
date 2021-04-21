@@ -126,3 +126,12 @@ export function collectStocks(
 
   return collectedStocks;
 }
+
+/**
+ * This function takes in a number and returns a number with a maximum of four digits after the comma
+ * E.g. used for the y-axis formatting of apex-charts components
+ * @param value - Numeric value that needs to be rounded
+ */
+export function roundAxis(value: number) {
+  return Math.round(value * 10000) / 10000;
+}

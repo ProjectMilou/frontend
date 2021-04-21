@@ -1,6 +1,7 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
+import { roundAxis } from '../../portfolio/Helper';
 
 type DividendLineChartProps = {
   series: Series[];
@@ -23,7 +24,7 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({
   const options = {
     tooltip: {
       y: {
-        formatter: (value: number) => Math.round(value * 10000) / 10000,
+        formatter: roundAxis,
       },
     },
     chart: {

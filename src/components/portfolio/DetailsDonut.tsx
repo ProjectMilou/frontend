@@ -1,6 +1,7 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
 import { useTheme } from '@material-ui/core/styles';
+import { roundAxis } from '../../portfolio/Helper';
 
 type DetailsDonutProps = {
   portions: number[];
@@ -22,7 +23,7 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({
   const options = {
     tooltip: {
       y: {
-        formatter: (value: number) => Math.round(value * 10000) / 10000,
+        formatter: roundAxis,
       },
     },
     labels,
