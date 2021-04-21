@@ -35,8 +35,8 @@ const LinkButton: React.FC<LinkButtonProps> = (props) => {
       onClick={() => {
         handleEvent();
       }}
-      onKeyDown={() => {
-        handleEvent();
+      onKeyDown={(event) => {
+        if (event.key === 'Enter') handleEvent();
       }}
       style={style}
     >

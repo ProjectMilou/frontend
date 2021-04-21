@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { createStyles, makeStyles, useTheme } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import logo from '../../../assets/images/logo1.png';
 import LoginForm from './LoginForm';
@@ -42,10 +43,11 @@ interface LoginProps {
 
 const Login: React.FC<LoginProps> = (props) => {
   const { closePopUp, openRegisterPopUp, openForgotPasswordPopUp } = props;
+  const { t } = useTranslation();
   const theme = useTheme();
   const { dialog, iconLogo, iconClear } = useStyles(theme);
 
-  type State = 'loggedIn' | 'loggedOut' | 'loading';
+  type State = 'loggedIn' | 'loggedOut';
   const initialState = localStorage.getItem('token') ? 'loggedIn' : 'loggedOut';
   const [userState, setUserState] = useState<State>(initialState);
 
@@ -61,6 +63,12 @@ const Login: React.FC<LoginProps> = (props) => {
         color="primary"
         role="button"
         onClick={closePopUp}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter') {
+            closePopUp();
+            event.preventDefault();
+          }
+        }}
         tabIndex={0}
         data-testid="icon"
       />
@@ -69,7 +77,7 @@ const Login: React.FC<LoginProps> = (props) => {
       {userState === 'loggedIn' && (
         <WelcomeWindow
           closePopUp={closePopUp}
-          text={['Welcome back!', 'You are logged in.']}
+          text={[t('shell.message.welcome.login'), t('shell.message.login')]}
         />
       )}
 
