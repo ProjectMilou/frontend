@@ -1,14 +1,13 @@
 import React from 'react';
 import KeyFiguresBar from '../../shared/KeyFiguresBar';
 import SubsectionDivider from '../../shared/SubsectionDivider';
+import * as API from '../../../analyser/APIClient';
 
-export type KeyFigure = {
-  title: string;
-  definition: string;
-  // value?: number;
+export type KeyFigureProps = {
+  keyFigures: API.KeyFiguresEPS
 };
 
-const KeyFigures: React.FC = () => {
+const KeyFigures: React.FC<KeyFigureProps> = ({ keyFigures} ) => {
   // portfolio team moved this mock value up from the chart
   // change this to the real api data whenever you need
   const mockSeries = {

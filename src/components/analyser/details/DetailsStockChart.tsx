@@ -6,7 +6,6 @@ import {
   Paper,
   Theme,
 } from '@material-ui/core';
-
 import StockChart from '../../shared/StockChart';
 
 const useStyles = makeStyles((theme: Theme) =>
