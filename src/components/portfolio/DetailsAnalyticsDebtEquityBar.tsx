@@ -3,6 +3,7 @@ import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@material-ui/core';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
+import { roundAxis } from '../../portfolio/Helper';
 
 type DetailsAnalyticsDebtEquityBarProps = {
   portfolio: NonEmptyPortfolioDetails;
@@ -24,24 +25,37 @@ const DetailsAnalyticsDebtEquityBar: React.FC<DetailsAnalyticsDebtEquityBarProps
   const series = [
     {
       name: t('portfolio.details.analytics.debtEquity'),
-      data: biggestTen.map((pos) => pos.stock.debtEquity),
+      data: biggestTen
+        .map((pos) => pos.stock.debtEquity)
+        .concat([portfolio.analytics.debtEquity]),
     },
   ];
 
   const options = {
+    tooltip: {
+      y: {
+        formatter: roundAxis,
+      },
+    },
     chart: {
       type: 'bar',
       toolbar: {
         show: false,
       },
     },
-    colors: [theme.palette.lightBlue.main],
+    legend: {
+      show: false,
+    },
     plotOptions: {
       bar: {
+        distributed: true,
         borderRadius: 5,
         horizontal: true,
       },
     },
+    colors: Array(biggestTen.length)
+      .fill(theme.palette.lightBlue.main, 0, biggestTen.length)
+      .concat([theme.palette.secondary.light]),
     dataLabels: {
       enabled: false,
     },
@@ -52,7 +66,9 @@ const DetailsAnalyticsDebtEquityBar: React.FC<DetailsAnalyticsDebtEquityBarProps
       },
     },
     xaxis: {
-      categories: biggestTen.map((pos) => pos.stock.symbol),
+      categories: biggestTen
+        .map((pos) => pos.stock.symbol)
+        .concat([t('portfolio.portfolioAverage')]),
       labels: {
         style: {
           colors: theme.palette.primary.contrastText,

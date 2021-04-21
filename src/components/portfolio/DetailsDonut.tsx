@@ -1,6 +1,7 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
 import { useTheme } from '@material-ui/core/styles';
+import { roundAxis } from '../../portfolio/Helper';
 
 type DetailsDonutProps = {
   portions: number[];
@@ -20,6 +21,11 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({
   const theme = useTheme();
 
   const options = {
+    tooltip: {
+      y: {
+        formatter: roundAxis,
+      },
+    },
     labels,
     fill: {
       // TODO use theme colors
