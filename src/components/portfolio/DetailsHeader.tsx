@@ -51,6 +51,8 @@ export type DetailsHeaderProps = {
   editPositions: (modifications: PositionQty[]) => Promise<void>;
   virtual?: boolean;
   value?: number;
+  loading?: boolean;
+  error?: Error;
 };
 
 const DetailsHeader: React.FC<DetailsHeaderProps> = ({
@@ -60,6 +62,8 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
   editPositions,
   virtual,
   value,
+  loading,
+  error,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -84,13 +88,15 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
           <StyledNumberFormat value={value} suffix="€" />
         </div>
       )}
-      <DetailsEdit
-        positions={positions}
-        edit={editPositions}
-        virtual={virtual}
-        id={id}
-        name={name}
-      />
+      {!loading && !error && (
+        <DetailsEdit
+          positions={positions}
+          edit={editPositions}
+          virtual={virtual}
+          id={id}
+          name={name}
+        />
+      )}
     </div>
   );
 };
