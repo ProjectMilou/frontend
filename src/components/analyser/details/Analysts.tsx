@@ -44,21 +44,21 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     redDot: {
       height: '25px',
       width: '25px',
-      backgroundColor: '#cc0000',
+      backgroundColor: '#cc0000', // palette.error
       borderRadius: '50%',
       display: 'inline-block',
     },
     yellowDot: {
       height: '25px',
       width: '25px',
-      backgroundColor: '#d99600',
+      backgroundColor: '#d99600', // palette.warning
       borderRadius: '50%',
       display: 'inline-block',
     },
     greenDot: {
       height: '25px',
       width: '25px',
-      backgroundColor: '#00ba09',
+      backgroundColor: '#00ba09', // palette.teal/success
       borderRadius: '50%',
       display: 'inline-block',
     },
@@ -105,7 +105,10 @@ const Analysts: React.FC<AnalystsProps> = ({ recommendations, overview }) => {
         <h5 className={classes.boxTitles}>
           {t('analyser.details.analysts.target')}
           <>&nbsp;</>
-          <StyledNumberFormat value={overview.analystTargetPrice} suffix="€" />
+          <StyledNumberFormat
+            value={parseFloat(overview.analystTargetPrice)}
+            suffix="€"
+          />
           <>&nbsp;&nbsp;</>
           <InfoButton
             infotext={t('analyser.details.analysts.target.infoButton')}

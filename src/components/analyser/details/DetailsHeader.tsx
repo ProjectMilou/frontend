@@ -15,7 +15,7 @@ import * as API from '../../../analyser/APIClient';
 import StyledNumberFormat from '../../shared/StyledNumberFormat';
 
 export type DetailsHeaderProps = {
-  stock: API.Stock;
+  stock?: API.Stock;
   // function to return to the dashboard
   back: () => void;
 };
@@ -23,7 +23,9 @@ export type DetailsHeaderProps = {
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     header: {
-      backgroundColor: palette.primary.dark, // '#0D1B3B',
+      backgroundColor: palette.primary.dark,
+      width: '100%',
+      height: 220,
     },
     text: {
       fontSize: '35px',
@@ -77,72 +79,90 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ stock, back }) => {
   const { t } = useTranslation();
   const theme = useTheme();
 
-  const day = new Date(stock.date).getUTCDate();
-  const month = new Date(stock.date).getMonth();
-  const year = new Date(stock.date).getFullYear();
+  const getLastUpdated = () => {
+    if (stock) {
+      const day = new Date(stock.date).getUTCDate();
+      const month = new Date(stock.date).getMonth();
+      const year = new Date(stock.date).getFullYear();
+      return `${day}.${month}.${year}`;
+    }
+    return '';
+  };
+
+  function currencySymbol(): '€' | '$' {
+    if (stock && stock.currency === 'USD') {
+      return '$';
+    }
+    return '€';
+  }
 
   return (
     <div className={classes.header}>
-      <Container maxWidth="lg">
-        <Typography className={classes.text}>
-          <div
-            className={classes.infoValueWrapper}
-            style={{ flexBasis: '35%' }}
-          >
-            <div className={classes.backButtonContainer}>
-              <IconButton
-                aria-label="back"
-                onClick={back}
-                style={{ backgroundColor: 'transparent' }}
+      {
+        // stock can also be undefined, in this case we return an empty blue div
+        stock !== undefined && (
+          <Container maxWidth="lg">
+            <Typography className={classes.text}>
+              <div
+                className={classes.infoValueWrapper}
+                style={{ flexBasis: '35%' }}
               >
-                <ArrowBackIosIcon
-                  fontSize="large"
-                  className={classes.backButton}
+                <div className={classes.backButtonContainer}>
+                  <IconButton
+                    aria-label="back"
+                    onClick={back}
+                    style={{ backgroundColor: 'transparent' }}
+                  >
+                    <ArrowBackIosIcon
+                      fontSize="large"
+                      className={classes.backButton}
+                    />
+                  </IconButton>
+                </div>
+                {chooseSymbol(stock)}
+                <>&emsp;&emsp;&emsp;</>
+                <StyledNumberFormat
+                  // Fix: Divided by 1 because Back-End only provides string
+                  value={parseFloat(stock.price)}
+                  suffix={currencySymbol()}
+                  size="35px"
+                  paintJob={theme.palette.background.default}
                 />
-              </IconButton>
-            </div>
-            {chooseSymbol(stock)}
-            <>&emsp;&emsp;&emsp;</>
-            <StyledNumberFormat
-              // Fix: Divided by 1 because Back-End only provides string
-              value={parseFloat(stock.price)}
-              suffix="€"
-              size="35px"
-              paintJob={theme.palette.background.default}
-            />
-            <>&nbsp;&emsp;</>
-            <TextOverText
-              top={`${stock.per7d.slice(0, -1)}%`}
-              bottom={t('stock.7d')}
-              colorTop={convertPercentToColor(parseFloat(stock.per7d))}
-              colorBottom={theme.palette.background.default}
-            />
-            <>&nbsp;&emsp;</>
-            <TextOverText
-              top={`${stock.per30d.slice(0, -1)}%`}
-              bottom={t('stock.30d')}
-              colorTop={convertPercentToColor(parseFloat(stock.per30d))}
-              colorBottom={theme.palette.background.default}
-            />
-            <>&nbsp;&emsp;</>
-            <TextOverText
-              top={`${stock.per365d.slice(0, -1)}%`}
-              bottom={t('stock.365d')}
-              colorTop={convertPercentToColor(parseFloat(stock.per365d))}
-              colorBottom={theme.palette.background.default}
-            />
-          </div>
-          <Typography className={classes.wknIsin}>
-            <>WKN: </>
-            {stock.wkn}
-            <> / ISIN: </>
-            {stock.isin}
-          </Typography>
-        </Typography>
-        <Typography className={classes.date}>
-          Last updated: {`${day}.${month}.${year}`}
-        </Typography>
-      </Container>
+                <>&nbsp;&emsp;</>
+                <TextOverText
+                  top={`${stock.per7d.slice(0, -1)}%`}
+                  bottom={t('stock.7d')}
+                  colorTop={convertPercentToColor(parseFloat(stock.per7d))}
+                  colorBottom={theme.palette.background.default}
+                />
+                <>&nbsp;&emsp;</>
+                <TextOverText
+                  top={`${stock.per30d.slice(0, -1)}%`}
+                  bottom={t('stock.30d')}
+                  colorTop={convertPercentToColor(parseFloat(stock.per30d))}
+                  colorBottom={theme.palette.background.default}
+                />
+                <>&nbsp;&emsp;</>
+                <TextOverText
+                  top={`${stock.per365d.slice(0, -1)}%`}
+                  bottom={t('stock.365d')}
+                  colorTop={convertPercentToColor(parseFloat(stock.per365d))}
+                  colorBottom={theme.palette.background.default}
+                />
+              </div>
+              <Typography className={classes.wknIsin}>
+                <>WKN: </>
+                {stock.wkn}
+                <> / ISIN: </>
+                {stock.isin}
+              </Typography>
+            </Typography>
+            <Typography className={classes.date}>
+              Last updated: {getLastUpdated()}
+            </Typography>
+          </Container>
+        )
+      }
     </div>
   );
 };

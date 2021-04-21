@@ -6,6 +6,7 @@ import {
   Correlations,
   NonEmptyPortfolioDetails,
 } from '../../portfolio/APIClient';
+import { roundAxis } from '../../portfolio/Helper';
 
 type HeatMapSeries = {
   name: string;
@@ -55,6 +56,11 @@ const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
   }));
 
   const options = {
+    tooltip: {
+      y: {
+        formatter: roundAxis,
+      },
+    },
     legend: {
       onItemHover: {
         highlightDataSeries: false,
