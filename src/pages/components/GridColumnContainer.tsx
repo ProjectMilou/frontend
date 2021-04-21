@@ -9,7 +9,7 @@ const GridColumnContainer: React.FC<{
 }> = ({ classNameGrid, title, content, titleClass }) => (
   <Grid
     item
-    xs
+    md
     container
     direction="column"
     spacing={2}

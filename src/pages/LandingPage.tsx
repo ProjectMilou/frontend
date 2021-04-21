@@ -2,6 +2,7 @@ import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 
 import {
+  Container,
   Button,
   Box,
   Grid,
@@ -38,12 +39,17 @@ import portfolio from '../assets/images/Portfolio.png';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    container: {
+      margin: '0px',
+      padding: '0px',
+      display: 'inline',
+    },
     mediaSmall: {
       maxWidth: '480px',
       maxHeight: '396px',
       display: 'auto',
       objectFit: 'scale-down',
-      padding: '100px',
+      padding: '80px',
     },
     mediaLarge: {
       width: '500px',
@@ -83,6 +89,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     gridItem: {
       paddingInline: '100px',
+      width: '50px',
     },
     smallIcon: {
       fontSize: '54px',
@@ -103,13 +110,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     error: {
       color: theme.palette.error.main,
-    },
-    box: {
-      backgroundColor: theme.palette.primary.main,
-      padding: '80px',
-      marginBottom: '60px',
-      display: 'flex',
-      justifyContent: 'center',
     },
     typography: {
       color: '#50aaff',
@@ -132,7 +132,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const LandingPage: React.FC<RouteComponentProps> = () => {
   const classes = useStyles();
   return (
-    <Box>
+    <Container maxWidth="lg" className={classes.container}>
       <Card />
       <Divider className={classes.divider} />
       <Box className={classes.box1}>
@@ -410,7 +410,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
           </Grid>
         </Grid>
       </Box>
-    </Box>
+    </Container>
   );
 };
 

@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
     box: {
       backgroundColor: theme.palette.primary.main,
       padding: '80px',
-      display: 'flex',
+      marginRight: '0px',
       justifyContent: 'center',
       marginBottom: '70px',
     },

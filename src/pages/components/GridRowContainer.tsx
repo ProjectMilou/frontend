@@ -25,7 +25,8 @@ const GridRowContainer: React.FC<{
     return (
       <Grid
         container
-        spacing={4}
+        spacing={2}
+        md
         justify-content="center"
         direction="row"
         alignItems="center"
@@ -43,7 +44,14 @@ const GridRowContainer: React.FC<{
     );
   }
   return (
-    <Grid container justify="space-between" direction="row" alignItems="center">
+    <Grid
+      container
+      spacing={2}
+      md
+      justify-content="center"
+      direction="row"
+      alignItems="center"
+    >
       <GridColumnContainer
         classNameGrid={classNameGrid}
         title={title}
