@@ -253,7 +253,6 @@ export type AnalystsRecommendation = {
 
 export type KeyFigure = {
   date: string;
-  reportedDate: string;
   PERatio: number;
   EPS: string;
   PEGrowthRatio: number;
