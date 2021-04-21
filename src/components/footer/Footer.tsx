@@ -60,12 +60,12 @@ const Footer: React.FC = () => {
         <Grid container xs={4} justify="flex-start" spacing={8} item>
           <Grid item>
             <Link to="/aboutus" className={classes.link}>
-              {t("footer.aboutUs")}
+              {t('footer.aboutUs')}
             </Link>
           </Grid>
           <Grid item>
             <Link to="/mobileapp" className={classes.link}>
-              {t("footer.mobileApp")}
+              {t('footer.mobileApp')}
             </Link>
           </Grid>
         </Grid>
@@ -85,12 +85,12 @@ const Footer: React.FC = () => {
         >
           <Grid item>
             <Link to="/imprint" className={classes.link}>
-              {t("footer.imprint")}
+              {t('footer.imprint')}
             </Link>
           </Grid>
           <Grid item>
             <Link to="/privacy" className={classes.link}>
-              {t("footer.privacy")}
+              {t('footer.privacy')}
             </Link>
           </Grid>
         </Grid>
@@ -111,7 +111,7 @@ const Footer: React.FC = () => {
           <Ellipse />
         </Grid>
         <Grid item className={classes.copyrightText}>
-          {t("footer.copyright")}
+          {t('footer.copyright')}
         </Grid>
       </Grid>
     </div>

@@ -47,7 +47,7 @@ const url = 'https://api.milou.io';
 
 const Confirm: React.FC<ConfirmProps> = (props) => {
   const { id, token } = props;
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const { dialog, paper, iconClear, iconLogo } = useStyles();
   const [openDialog, setOpenDialog] = useState<boolean>(true);
 
@@ -96,7 +96,7 @@ const Confirm: React.FC<ConfirmProps> = (props) => {
       {state === 'registerConfirmed' && (
         <WelcomeWindow
           closePopUp={closePopUp}
-          text={[t("shell.message.welcome"), t("shell.message.registered")]}
+          text={[t('shell.message.welcome'), t('shell.message.registered')]}
         />
       )}
 

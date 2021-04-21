@@ -77,7 +77,7 @@ const Login: React.FC<LoginProps> = (props) => {
       {userState === 'loggedIn' && (
         <WelcomeWindow
           closePopUp={closePopUp}
-          text={[t("shell.message.welcome.login"), t("shell.message.login")]}
+          text={[t('shell.message.welcome.login'), t('shell.message.login')]}
         />
       )}
 

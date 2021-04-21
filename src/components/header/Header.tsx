@@ -61,10 +61,10 @@ const Header: React.FC = () => {
         <Link to="/">
           <img src={logo} alt="milou-logo" className={classes.logo} />
         </Link>
-        <NavLink to="/">{t("shell.home")}</NavLink>
-        <NavLink to="/portfolio">{t("portfolio")}</NavLink>
-        <NavLink to="/analyser">{t("analyser")}</NavLink>
-        <NavLink to="/academy">{t("shell.academy")}</NavLink>
+        <NavLink to="/">{t('shell.home')}</NavLink>
+        <NavLink to="/portfolio">{t('portfolio')}</NavLink>
+        <NavLink to="/analyser">{t('analyser')}</NavLink>
+        <NavLink to="/academy">{t('shell.academy')}</NavLink>
         <div className={classes.grow} />
 
         <SearchBar />
@@ -79,7 +79,7 @@ const Header: React.FC = () => {
                 dispatch({ type: 'CLOSE_LOGIN' });
               }}
             >
-              {t("shell.logout")}
+              {t('shell.logout')}
             </Button>
             <Button
               className={classes.button}
@@ -88,7 +88,7 @@ const Header: React.FC = () => {
               component={Link}
               to="/profile"
             >
-              {t("shell.profile.profile-header")}
+              {t('shell.profile.profile-header')}
             </Button>
           </>
         ) : (
@@ -99,7 +99,7 @@ const Header: React.FC = () => {
               color="primary"
               onClick={() => dispatch({ type: 'OPEN_LOGIN' })}
             >
-              {t("shell.login")}
+              {t('shell.login')}
             </Button>
             <Button
               className={classes.button}
@@ -107,7 +107,7 @@ const Header: React.FC = () => {
               color="primary"
               onClick={() => setOpenRegister(true)}
             >
-              {t("shell.register")}
+              {t('shell.register')}
             </Button>
           </>
         )}
