@@ -82,7 +82,7 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
         onClick={() => navigate(`analyser/${stock.symbol}`)}
       >
         <CardMedia>
-        <CompanyLogo stockOverview={stock} style={classes.media}/>
+          <CompanyLogo stockOverview={stock} style={classes.media} />
         </CardMedia>
         <CardContent className={classes.content}>
           <TextOverText

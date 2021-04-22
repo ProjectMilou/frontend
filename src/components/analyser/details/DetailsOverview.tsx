@@ -87,7 +87,10 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
           {/* picture and ccompany overview */}
           <Grid item sm={3} justify="center">
             <Paper className={classes.paper} variant="outlined">
-              <CompanyLogo stockOverview={stockOverview} style={classes.image}/>
+              <CompanyLogo
+                stockOverview={stockOverview}
+                style={classes.image}
+              />
             </Paper>
           </Grid>
 
