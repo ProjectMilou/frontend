@@ -148,7 +148,7 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
             title={t('portfolio.details.nextDate')}
             infoText={t('analyser.details.NextDate.infoButton')}
           >
-            {portfolio.nextDividend.toLocaleDateString()}
+            {portfolio.nextDividend.toISOString().split('T')[0]}
           </InfoBlock>
         </div>
       </div>
