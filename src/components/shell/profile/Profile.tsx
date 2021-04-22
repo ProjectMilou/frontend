@@ -18,8 +18,10 @@ import {
 import { navigate, RouteComponentProps } from '@reach/router';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import BankAccountService from '../../../services/BankAccountService';
 import UserService from '../../../services/UserService';
-import BankSearch from '../bankSearch/BankSearch';
+import BankSearch from '../bank/BankSearch';
+import BankConnections from '../bank/BankConnections';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -150,6 +152,10 @@ const Profile: React.FC<RouteComponentProps> = () => {
                 <Typography variant="h5" gutterBottom>
                   Bank accounts
                 </Typography>
+
+                <BankConnections />
+
+                <br />
                 <Button
                   variant="contained"
                   color="primary"
@@ -165,8 +171,11 @@ const Profile: React.FC<RouteComponentProps> = () => {
                 >
                   <BankSearch />
                 </Dialog>
-                <br />
-                <br />
+              </Box>
+
+              <Divider />
+
+              <Box my={3}>
                 <Button
                   variant="contained"
                   color="primary"
