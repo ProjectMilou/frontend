@@ -15,6 +15,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import TextOverText from '../../shared/TextOverText';
+import CompanyLogo from '../CompanyLogo';
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -80,11 +81,9 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
         className={classes.cardAction}
         onClick={() => navigate(`analyser/${stock.symbol}`)}
       >
-        <CardMedia
-          className={classes.media}
-          component="img"
-          image={stock.picture.toString()}
-        />
+        <CardMedia>
+        <CompanyLogo stockOverview={stock} style={classes.media}/>
+        </CardMedia>
         <CardContent className={classes.content}>
           <TextOverText
             top={`${stock.symbol}`}
