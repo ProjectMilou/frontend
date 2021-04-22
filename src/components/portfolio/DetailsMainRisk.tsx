@@ -195,7 +195,9 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
             paintJob={ratioToColor(sharpeRatio)}
           />
           <InfoButton
-            infotext={t('analyser.details.Volatility.SharpeRatio.infoButton')}
+            infotext={`${t(
+              `analyser.details.Volatility.SharpeRatio.infoButton`
+            )}\n\n${t('source.investopedia')}`}
           />
         </Typography>
         <Typography className={classes.ratioText}>
@@ -207,7 +209,9 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
             paintJob={ratioToColor(treynorRatio)}
           />
           <InfoButton
-            infotext={t('analyser.details.Volatility.TreynorRatio.infoButton')}
+            infotext={`${t(
+              `analyser.details.Volatility.TreynorRatio.infoButton`
+            )}\n\n${t('source.investopedia')}`}
           />
         </Typography>
       </div>

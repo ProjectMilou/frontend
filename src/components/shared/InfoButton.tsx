@@ -17,6 +17,7 @@ const useStyles = makeStyles(() =>
     customSize: {
       maxWidth: 500,
       fontSize: '0.9rem',
+      whiteSpace: 'pre-line',
     },
     infoIcon: {
       fontSize: 'medium',
