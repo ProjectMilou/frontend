@@ -13,6 +13,7 @@ import {
   TextField,
   Theme,
   Typography,
+  Box,
 } from '@material-ui/core';
 import { navigate, RouteComponentProps } from '@reach/router';
 import React, { useEffect, useState } from 'react';
@@ -22,11 +23,8 @@ import BankSearch from '../bankSearch/BankSearch';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    heading1: {
-      margin: 0,
-    },
-    subpaper: {
-      padding: theme.spacing(4),
+    divider: {
+      margin: theme.spacing(3, 0),
     },
     label: {
       color: theme.palette.primary.dark,
@@ -90,13 +88,17 @@ const Profile: React.FC<RouteComponentProps> = () => {
       <Grid container justify="center">
         <Grid item xs={8}>
           <Paper square>
-            <div className={classes.subpaper}>
-              <h1 className={classes.heading1}>
+            <Box p={4}>
+              <Typography variant="h3" gutterBottom>
                 {t('shell.profile.profile-header')}
-              </h1>
+              </Typography>
+
               <Divider />
-              <h2>{t('shell.profile.account-details.header')}</h2>
-              <div className={classes.details}>
+
+              <Box my={3} maxWidth="xs" className={classes.details}>
+                <Typography variant="h5" gutterBottom>
+                  {t('shell.profile.account-details.header')}
+                </Typography>
                 <Typography className={classes.label}>
                   {t('shell.profile.account-details.email')}
                 </Typography>
@@ -140,8 +142,14 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   fullWidth
                   disabled={!edit}
                 />
-                <br />
-                <br />
+              </Box>
+
+              <Divider />
+
+              <Box my={3}>
+                <Typography variant="h5" gutterBottom>
+                  Bank accounts
+                </Typography>
                 <Button
                   variant="contained"
                   color="primary"
@@ -177,8 +185,8 @@ const Profile: React.FC<RouteComponentProps> = () => {
                 >
                   {t('shell.profile.account-details.delete-account')}
                 </Button>
-              </div>
-            </div>
+              </Box>
+            </Box>
           </Paper>
         </Grid>
       </Grid>
