@@ -10,7 +10,7 @@ import {
   makeStyles,
   GridList,
   ButtonBase,
-  useTheme
+  useTheme,
 } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useTranslation } from 'react-i18next';
