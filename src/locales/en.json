@@ -1,5 +1,6 @@
 {
   "portfolio": "Portfolio",
+  "source.investopedia": "Source: investopedia.com",
   "portfolio.portfolioAverage": "Portfolio Average",
   "portfolio.details.editPortfolio": "Edit Portfolio",
   "portfolio.details.cannotEditPortfolio": "Cannot edit real portfolio",
