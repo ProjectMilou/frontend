@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: 'auto',
       display: 'block',
       maxWidth: '100%',
+      maxHeight: theme.spacing(13),
     },
     paper: {
       padding: theme.spacing(2),
@@ -87,7 +88,7 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
           {/* picture and ccompany overview */}
           <Grid item sm={3} justify="center">
             <Paper className={classes.paper} variant="outlined">
-              <CompanyLogo stockOverview={stockOverview} />
+              <CompanyLogo stockOverview={stockOverview} style={classes.image}/>
             </Paper>
           </Grid>
 

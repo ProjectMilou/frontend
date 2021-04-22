@@ -1,41 +1,35 @@
 import React from 'react';
-import {
-    makeStyles,
-    createStyles,
-  } from '@material-ui/core';
 import { Stock } from '../../analyser/APIClient';
+import logo from '../../assets/images/logo1.png';
 
 
 type LogoProps = {
     stockOverview: Stock;
+    style: string;
 }
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    image: {
-        height: '100%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        display: 'block',
-        maxWidth: '100%',
-      },
-})
-);
 
 const CompanyLogo: React.FC<LogoProps> = ({
     stockOverview,
+    style
   }) => {
-    const classes = useStyles();
-
-    return (
-        <div>
+    if(stockOverview.picture.toString() !== ''){
+      return (
             <img
-                className={classes.image}
-                alt="../../assets/images/logo1.png"
+                className={style}
+                alt='Company Logo'
                 src={stockOverview.picture.toString()}
-              />
-        </div>   
+              />  
     );
+    }
+    return (
+      <div>
+          <img
+              className={style}
+              alt='Company Logo'
+              src={logo}
+            />
+      </div>   
+      )
 };
 
 export default CompanyLogo;
