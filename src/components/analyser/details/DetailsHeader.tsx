@@ -81,10 +81,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ stock, back }) => {
 
   const getLastUpdated = () => {
     if (stock) {
-      const day = new Date(stock.date).getUTCDate();
-      const month = new Date(stock.date).getMonth();
-      const year = new Date(stock.date).getFullYear();
-      return `${day}.${month}.${year}`;
+      return new Date(stock.date).toISOString().split('T')[0];
     }
     return '';
   };
