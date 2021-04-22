@@ -1,10 +1,11 @@
 import React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
 import KeyFiguresBar from '../shared/KeyFiguresBar';
 import { KeyFigures } from '../../portfolio/APIClient';
 
 // stylesheet for the key figure section
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     riskContainer: {
       display: 'flex',
@@ -17,6 +18,14 @@ const useStyles = makeStyles(() =>
       width: '100%',
       // TODO: delete fixed height
       height: '30rem',
+    },
+    infoBody: {
+      display: 'flex',
+      alignSelf: 'center',
+      width: '100%',
+      justifyContent: 'center',
+      color: palette.primary.contrastText,
+      fontSize: '1.15rem',
     },
   })
 );
@@ -31,6 +40,7 @@ const DetailsMainKeyFigures: React.FC<DetailsMainKeyFiguresProps> = ({
   figures,
 }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   const keyFigures = {
     PER: figures.map((f) => f.pte),
@@ -38,6 +48,14 @@ const DetailsMainKeyFigures: React.FC<DetailsMainKeyFiguresProps> = ({
     PEGR: figures.map((f) => f.ptg),
     EPS: figures.map((f) => f.eps),
   };
+
+  if (figures.length === 0) {
+    return (
+      <div className={classes.infoBody}>
+        {t('portfolio.details.emptyKeyFigures')}
+      </div>
+    );
+  }
 
   return (
     <div className={classes.figureWrapper}>
