@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import {
   makeStyles,
   createStyles,
@@ -124,13 +124,17 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
           {/* right side with info */}
           <InfoBlock
             title={t('portfolio.details.divYield')}
-            infoText={t('analyser.details.DividendYield.infoButton')}
+            infoText={`${t('analyser.details.DividendYield.infoButton')}\n\n${t(
+              'source.investopedia'
+            )}`}
           >
             {portfolio.keyFigures[portfolio.keyFigures.length - 1].div}
           </InfoBlock>
           <InfoBlock
             title={t('portfolio.details.divPayout')}
-            infoText={t('analyser.details.DividendPayoutRatio.infoButton')}
+            infoText={`${t(
+              'analyser.details.DividendPayoutRatio.infoButton'
+            )}\n\n${t('source.investopedia')}`}
           >
             <RatioDonut
               ratio={
