@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: 'auto',
       display: 'block',
       maxWidth: '100%',
-      maxHeight: theme.spacing(13),
     },
     paper: {
       padding: theme.spacing(2),

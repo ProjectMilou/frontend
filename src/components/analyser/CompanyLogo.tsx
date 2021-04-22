@@ -22,13 +22,11 @@ const CompanyLogo: React.FC<LogoProps> = ({
     );
     }
     return (
-      <div>
           <img
               className={style}
               alt='Company Logo'
               src={logo}
-            />
-      </div>   
+            /> 
       )
 };
 
