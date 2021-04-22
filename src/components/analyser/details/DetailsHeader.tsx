@@ -79,13 +79,6 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ stock, back }) => {
   const { t } = useTranslation();
   const theme = useTheme();
 
-  const getLastUpdated = () => {
-    if (stock) {
-      return new Date(stock.date).toISOString().split('T')[0];
-    }
-    return '';
-  };
-
   function currencySymbol(): '€' | '$' {
     if (stock && stock.currency === 'USD') {
       return '$';
@@ -155,7 +148,10 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ stock, back }) => {
               </Typography>
             </Typography>
             <Typography className={classes.date}>
-              Last updated: {getLastUpdated()}
+              Last updated:{' '}
+              {stock
+                ? new Date(stock.date).toISOString().split('T')[0]
+                : undefined}
             </Typography>
           </Container>
         )
