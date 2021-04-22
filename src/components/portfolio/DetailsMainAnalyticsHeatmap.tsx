@@ -1,12 +1,30 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
-import { useTheme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import {
+  makeStyles,
+  useTheme,
+  createStyles,
+  Theme,
+} from '@material-ui/core/styles';
 import {
   Correlations,
   NonEmptyPortfolioDetails,
 } from '../../portfolio/APIClient';
 import { roundAxis } from '../../portfolio/Helper';
+
+const useStyles = makeStyles(({ palette }: Theme) =>
+  createStyles({
+    infoBody: {
+      display: 'flex',
+      alignSelf: 'center',
+      width: '100%',
+      justifyContent: 'center',
+      color: palette.primary.contrastText,
+      fontSize: '1.15rem',
+    },
+  })
+);
 
 type HeatMapSeries = {
   name: string;
@@ -38,6 +56,7 @@ const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
   portfolio,
   height,
 }) => {
+  const classes = useStyles();
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -124,6 +143,13 @@ const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
     },
   };
 
+  if (series.length < 2) {
+    return (
+      <div className={classes.infoBody}>
+        {t('portfolio.details.analytics.correlations.disabledChart')}
+      </div>
+    );
+  }
   return (
     <Chart type="heatmap" height={height} series={series} options={options} />
   );
