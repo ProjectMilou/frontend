@@ -287,6 +287,27 @@ function reducer(state: State, action: Actions): State {
 }
 
 const useStyles = makeStyles((theme) => ({
+  dialog: {
+    '& .MuiDialog-container': {
+      minWidth: '15rem',
+    },
+    '& .MuiDialog-paper': {
+      maxHeight: '40rem',
+    },
+    '& .MuiTable-root': {
+      marginRight: '2rem',
+      minWidth: '35rem',
+    },
+  },
+  nameCell: {
+    overflowWrap: 'anywhere',
+  },
+  amountTableCell: {
+    paddingLeft: '6rem',
+  },
+  actionCell: {
+    minWidth: '22rem',
+  },
   increase: {
     fontWeight: 'bold',
     color: theme.palette.success.main,
@@ -390,12 +411,13 @@ const EditEntry: React.FC<EditEntryProps> = ({
           [classes.decrease]: entry.value && (!value || value < entry.value),
           [classes.strikethrough]:
             strikethroughCleared && !value && entry.value,
+          [classes.nameCell]: true,
         })}
       >
         {entry.displayName}
       </TableCell>
       {entry.additionalTableCells}
-      <TableCell>
+      <TableCell className={classes.actionCell}>
         <IconButton
           disabled={entry.disabled || !value}
           onClick={() => dispatch({ type: 'decreaseValue', payload: { id } })}
@@ -462,6 +484,8 @@ const EditDialog: React.FC<EditDialogProps> = ({
   strikethroughCleared,
   decimalPlaces,
 }) => {
+  const classes = useStyles();
+
   const [state, dispatch] = React.useReducer<Reducer<State, Actions>>(
     reducer,
     initialState
@@ -493,6 +517,7 @@ const EditDialog: React.FC<EditDialogProps> = ({
       // prevent closing the dialog while loading
       disableBackdropClick={state.loading}
       disableEscapeKeyDown={state.loading}
+      className={classes.dialog}
     >
       <DialogTitle>{strings.title}</DialogTitle>
       <DialogContent>
@@ -504,7 +529,9 @@ const EditDialog: React.FC<EditDialogProps> = ({
             <TableRow>
               <TableCell>{strings.displayNameHeader}</TableCell>
               {additionalTableHeadCells}
-              <TableCell>{strings.valueHeader}</TableCell>
+              <TableCell className={classes.amountTableCell}>
+                {strings.valueHeader}
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
