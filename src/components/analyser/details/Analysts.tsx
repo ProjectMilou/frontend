@@ -36,7 +36,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     boxTitles: {
       margin: 0,
       color: palette.primary.main,
-      // TODO use theme fontsize and weight
       fontSize: '1.5rem',
       fontWeight: 400,
       whiteSpace: 'nowrap',
