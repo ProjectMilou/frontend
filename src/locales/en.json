@@ -94,6 +94,7 @@
   "shell.login": "Login",
   "shell.logout": "Logout",
   "shell.register": "Register",
+  "shell.bank.connection.error": "Failed to get Bank connections",
   "shell.confirm": "Confirm your email-address",
   "shell.confirmPassword": "Confirm your password",
   "shell.message.forgotPassword": "Forgot password?",
