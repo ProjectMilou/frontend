@@ -82,7 +82,9 @@ export const KeyFigureSelect: React.FC<KeyFigureSelectProps> = ({
       {value !== undefined && <div className={classes.item}>{value}</div>}
       <div className={classes.item}>
         <InfoButton
-          infotext={t(`analyser.detail.keyfigure.${keyFigure}.definition`)}
+          infotext={`${t(
+            `analyser.detail.keyfigure.${keyFigure}.definition`
+          )}\n\n${t('source.investopedia')}`}
         />
       </div>
     </Paper>
