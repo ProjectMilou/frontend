@@ -1,6 +1,14 @@
 import React from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core';
 import NameDialog from './NameDialog';
+import LimitedLength from './LimitedLength';
+
+const useStyles = makeStyles({
+  initialName: {
+    fontWeight: 700,
+  },
+});
 
 function validateName(newName?: string, oldName?: string): boolean {
   const n = newName?.trim();
@@ -32,17 +40,19 @@ const DuplicateDialog: React.FC<DuplicateDialogProps> = ({
   }, [open, initialName]);
 
   const { t } = useTranslation();
+  const classes = useStyles();
 
   return (
     <NameDialog
       open={open}
       dialogTitle={t('portfolio.dialog.duplicate.title')}
       dialogText={
-        <Trans
-          i18nKey="portfolio.dialog.duplicate.text"
-          values={{ name }}
-          components={{ portfolioName: <b /> }}
-        />
+        <>
+          {`${t('portfolio.dialog.duplicate.text')} `}
+          <span className={classes.initialName}>
+            <LimitedLength value={initialName || ''} />
+          </span>
+        </>
       }
       labelKey="portfolio.name"
       actionKey="portfolio.duplicate"

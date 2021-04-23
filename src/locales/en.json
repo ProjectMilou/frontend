@@ -156,7 +156,7 @@
   "portfolio.dialog.rename.title": "Rename Portfolio",
   "portfolio.dialog.rename.text": "Enter a new name for the portfolio:",
   "portfolio.dialog.duplicate.title": "Duplicate Portfolio",
-  "portfolio.dialog.duplicate.text": "Enter a name for the copy of the portfolio <portfolioName>{{name}}</portfolioName>.",
+  "portfolio.dialog.duplicate.text": "Enter a name for the copy of the portfolio: ",
   "portfolio.dialog.duplicate.defaultName": "Copy of {{name}}",
   "portfolio.dialog.delete.title": "Delete Portfolio",
   "portfolio.dialog.delete.text": "You are about to delete the portfolio <portfolioName>{{name}}</portfolioName>. This action cannot be undone.",
