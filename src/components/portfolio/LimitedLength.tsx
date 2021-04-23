@@ -26,7 +26,7 @@ const LimitedLength: React.FC<LimitedLengthProps> = ({ value, length }) => {
     <>
       {value.toString().length > maxLength ? (
         <Tooltip classes={{ tooltip: classes.tooltip }} title={value}>
-          <span>{limitLength(value)}</span>
+          <span>{limitLength(value, maxLength)}</span>
         </Tooltip>
       ) : (
         <span>{value}</span>
