@@ -233,6 +233,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             </Typography>
             <div style={{ margin: 'auto' }}>
               <Button
+                href="/analyser"
                 style={{
                   backgroundColor: '#FFC43B',
                   color: 'white',
