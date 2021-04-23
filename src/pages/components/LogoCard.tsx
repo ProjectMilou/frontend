@@ -5,7 +5,6 @@ import {
   Typography,
   GridList,
   GridListTile,
-  Theme,
   createStyles,
   makeStyles,
 } from '@material-ui/core';
@@ -18,7 +17,7 @@ import img4 from '../../assets/images/tech-talents.png';
 import img5 from '../../assets/images/tumlogo.png';
 import manage from '../../assets/images/manage.png';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     logo: {
       maxWidth: '200px',
