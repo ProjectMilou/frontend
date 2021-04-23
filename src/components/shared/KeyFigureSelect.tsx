@@ -20,6 +20,7 @@ export type KeyFigureSelectProps = {
   selected: boolean;
   select: (keyFigure: KeyFigure) => void;
   dark?: boolean;
+  outlined: 'outlined' | 'elevation';
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -56,6 +57,7 @@ export const KeyFigureSelect: React.FC<KeyFigureSelectProps> = ({
   selected,
   select,
   dark,
+  outlined,
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();
@@ -63,6 +65,7 @@ export const KeyFigureSelect: React.FC<KeyFigureSelectProps> = ({
   return (
     <Paper
       className={classNames(classes.keyFigureSelect, dark && classes.dark)}
+      variant={outlined}
     >
       <FormControlLabel
         control={
@@ -79,7 +82,9 @@ export const KeyFigureSelect: React.FC<KeyFigureSelectProps> = ({
       {value !== undefined && <div className={classes.item}>{value}</div>}
       <div className={classes.item}>
         <InfoButton
-          infotext={t(`analyser.detail.keyfigure.${keyFigure}.definition`)}
+          infotext={`${t(
+            `analyser.detail.keyfigure.${keyFigure}.definition`
+          )}\n\n${t('source.investopedia')}`}
         />
       </div>
     </Paper>

@@ -10,7 +10,7 @@ import InfoButton from '../../shared/InfoButton';
 
 // props type declaration
 export type DividendsProps = {
-  dividendYields: number[];
+  series: number[];
   cashFlowList: API.CashFlowList;
 };
 
@@ -108,10 +108,7 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
   );
 };
 
-const Dividends: React.FC<DividendsProps> = ({
-  dividendYields,
-  cashFlowList,
-}) => {
+const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -131,7 +128,7 @@ const Dividends: React.FC<DividendsProps> = ({
     {
       name: t('analyser.detail.dividend.yield'),
       type: 'line',
-      data: dividendYields,
+      data: series,
     },
   ]);
 
@@ -145,7 +142,7 @@ const Dividends: React.FC<DividendsProps> = ({
   if (Number.isNaN(dividendPayoutRatio)) {
     dividendPayoutRatio = 0.0;
   }
-  const dividendYield = dividendYields[dividendYields.length - 1];
+  const dividendYield = series[series.length - 1];
   return (
     <div>
       <div className={classes.titleContainer}>
@@ -183,10 +180,11 @@ const Dividends: React.FC<DividendsProps> = ({
             info={t('analyser.details.DividendPayoutRatio.infoButton')}
             body={<DividendRatioDonut ratio={dividendPayoutRatio} />}
           />
+          {/* TODO replace with actual date in YYYY-MM-DD format => .toISOString().split('T')[0] */}
           <InfoBlock
             title={t('analyser.details.NextDate')}
             info={t('analyser.details.NextDate.infoButton')}
-            body={<p style={{ margin: 0 }}>14.04.2021</p>}
+            body={<p style={{ margin: 0 }}>2021-04-14</p>}
           />
         </div>
       </div>

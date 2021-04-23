@@ -1,6 +1,7 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
+import { roundAxis } from '../../portfolio/Helper';
 
 type DividendLineChartProps = {
   series: Series[];
@@ -21,6 +22,11 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({
   const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
   const options = {
+    tooltip: {
+      y: {
+        formatter: roundAxis,
+      },
+    },
     chart: {
       height: 350,
       type: 'line',

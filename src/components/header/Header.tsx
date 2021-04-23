@@ -9,6 +9,7 @@ import {
   Toolbar,
 } from '@material-ui/core';
 import { Link } from '@reach/router';
+import { useTranslation } from 'react-i18next';
 import logo from '../../assets/images/logo1.png';
 import NavLink from './NavLink';
 import Login from '../shell/login/Login';
@@ -50,6 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const Header: React.FC = () => {
   const classes = useStyles();
   const { state, dispatch } = React.useContext(Context);
+  const { t } = useTranslation();
   const [openRegister, setOpenRegister] = useState(false);
   const [openForgotPassword, setOpenForgotPassword] = useState(false);
 
@@ -59,10 +61,10 @@ const Header: React.FC = () => {
         <Link to="/">
           <img src={logo} alt="milou-logo" className={classes.logo} />
         </Link>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/portfolio">Portfolio</NavLink>
-        <NavLink to="/analyser">Analyser</NavLink>
-        <NavLink to="/academy">Academy</NavLink>
+        <NavLink to="/">{t('shell.home')}</NavLink>
+        <NavLink to="/portfolio">{t('portfolio')}</NavLink>
+        <NavLink to="/analyser">{t('analyser')}</NavLink>
+        <NavLink to="/academy">{t('shell.academy')}</NavLink>
         <div className={classes.grow} />
 
         <SearchBar />
@@ -77,7 +79,7 @@ const Header: React.FC = () => {
                 dispatch({ type: 'CLOSE_LOGIN' });
               }}
             >
-              Logout
+              {t('shell.logout')}
             </Button>
             <Button
               className={classes.button}
@@ -86,7 +88,7 @@ const Header: React.FC = () => {
               component={Link}
               to="/profile"
             >
-              Profile
+              {t('shell.profile.profile-header')}
             </Button>
           </>
         ) : (
@@ -97,7 +99,7 @@ const Header: React.FC = () => {
               color="primary"
               onClick={() => dispatch({ type: 'OPEN_LOGIN' })}
             >
-              Login
+              {t('shell.login')}
             </Button>
             <Button
               className={classes.button}
@@ -105,7 +107,7 @@ const Header: React.FC = () => {
               color="primary"
               onClick={() => setOpenRegister(true)}
             >
-              Register
+              {t('shell.register')}
             </Button>
           </>
         )}

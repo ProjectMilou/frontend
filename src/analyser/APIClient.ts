@@ -251,6 +251,19 @@ export type AnalystsRecommendation = {
   source: URL;
 };
 
+export type KeyFigure = {
+  date: string;
+  PERatio: number;
+  EPS: string;
+  PEGrowthRatio: number;
+  PBRatio: number;
+};
+
+export type KeyFigures = {
+  error: string;
+  success: KeyFigure[];
+};
+
 export type InterestCoverageList = {
   error: string;
   success: InterestCoverage[];
@@ -489,5 +502,24 @@ export async function cashFlowList(
     'GET',
     `stocks/cashFlow?id=${symbol}`
   )) as CashFlowList;
+  return response;
+}
+
+/**
+ * Gets EPS Data with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ * @param historic - if true all data will be returned, else only 5 years
+ */
+export async function keyFigures(
+  token: string,
+  symbol: string
+): Promise<KeyFigures> {
+  const response = (await request(
+    token,
+    'GET',
+    `analytics/keyfigures/${symbol}`
+  )) as KeyFigures;
   return response;
 }

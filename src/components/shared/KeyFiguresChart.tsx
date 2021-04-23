@@ -1,6 +1,7 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
 import { useTheme } from '@material-ui/core';
+import { roundAxis } from '../../portfolio/Helper';
 
 export type Series = {
   name: string;
@@ -26,6 +27,11 @@ const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({
     ? palette.primary.contrastText
     : palette.secondary.contrastText;
   const options = {
+    tooltip: {
+      y: {
+        formatter: roundAxis,
+      },
+    },
     colors: [palette.teal.main],
     chart: {
       id: 'line-chart',

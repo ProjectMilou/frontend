@@ -102,11 +102,16 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
   };
 
   const openPrivacyTab = () => {
-    window.open(window.location.href.concat('privacy'), '_blank');
+    window.open(window.location.origin.concat('/privacy'), '_blank');
   };
 
   return (
-    <>
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        handleSubmit();
+      }}
+    >
       <DialogContent>
         <TextField
           error={hasError.email !== ''}
@@ -153,7 +158,12 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
                 aria-label="Privacy"
                 tabIndex={0}
                 onClick={() => openPrivacyTab()}
-                onKeyDown={() => openPrivacyTab()}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    openPrivacyTab();
+                    event.preventDefault();
+                  }
+                }}
               />,
             ]}
           />
@@ -162,7 +172,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
 
       <DialogActions>
         <Button
-          type="button"
+          type="submit"
           disabled={
             login.email === '' ||
             Object.values(hasError).join('').length > 0 ||
@@ -172,7 +182,6 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
           variant="contained"
           color="primary"
           fullWidth
-          onClick={handleSubmit}
           data-testid="register"
         >
           {t('shell.register')}
@@ -188,7 +197,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
           components={[<LinkButton handleEvent={goToLogin} />]}
         />
       </Typography>
-    </>
+    </form>
   );
 };
 export default RegisterForm;
