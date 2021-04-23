@@ -17,8 +17,9 @@ import UserService from '../../../services/UserService';
 import PasswordRequirement from './PasswordRequirement';
 import { checkPasswordRequirements, IRequirements } from './util-password';
 import PasswordField from './PasswordField';
+import InitialPasswordRequirements from './initialRequirement';
 
-interface RegisterFormProps {
+export interface RegisterFormProps {
   onSuccess: () => void;
   onFail: () => void;
   goToLogin: () => void;
@@ -47,26 +48,9 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
     confirmPassword: '',
   } as ErrorState);
 
-  const [requirements, setRequirements] = useState({
-    requirement: [
-      {
-        text: t('error.passwordRequirement.length'),
-        done: false,
-      },
-      {
-        text: t('error.passwordRequirement.cases'),
-        done: false,
-      },
-      {
-        text: t('error.passwordRequirement.number'),
-        done: false,
-      },
-      {
-        text: t('error.passwordRequirement.specialCharacter'),
-        done: false,
-      },
-    ],
-  } as IRequirements);
+  const [requirements, setRequirements] = useState<IRequirements>(
+    InitialPasswordRequirements()
+  );
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // update state
@@ -95,7 +79,6 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
       });
       return;
     }
-
     UserService.register(login.email, login.password).then((ok) =>
       ok ? onSuccess() : onFail()
     );

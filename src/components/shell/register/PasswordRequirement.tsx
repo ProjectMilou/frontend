@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Theme } from '@material-ui/core/styles';
 
-interface PasswordRequirementProps {
+export interface PasswordRequirementProps {
   done: boolean;
   text: string;
 }
