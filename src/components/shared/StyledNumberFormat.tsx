@@ -77,7 +77,7 @@ const StyledNumberFormat: React.FC<StyledNumberFormatProps> = (props) => {
 
   return (
     <>
-      {doLimit ? (
+      {doLimit && Math.abs(value) > 1000000 ? (
         <Tooltip
           classes={{ tooltip: classes.tooltip }}
           title={nonLimitedFormat}
