@@ -60,7 +60,7 @@ const DetailsMainBacktestingTimelineItem: React.FC<DetailsMainBacktestingTimelin
   return (
     <TimelineItem className={classes.timelineItem}>
       <TimelineOppositeContent className={classes.oppositeContent}>
-        <Typography>{date.toLocaleDateString()}</Typography>
+        <Typography>{date.toISOString().split('T')[0]}</Typography>
       </TimelineOppositeContent>
       <TimelineSeparator>
         <TimelineDot color="primary">{icon}</TimelineDot>
