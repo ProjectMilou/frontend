@@ -20,53 +20,8 @@ import manage from '../../assets/images/manage.png';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    media1: {
-      maxWidth: '450px',
-      maxHeight: '390px',
-      display: 'auto',
-      objectFit: 'scale-down',
-      padding: '10px',
-    },
-    media2: {
-      width: '500px',
-      height: '732px',
-      padding: '50px',
-      objectFit: 'scale-down',
-    },
-    logos: {
+    logo: {
       maxWidth: '200px',
-    },
-    icon: {
-      width: '20px',
-      height: '20px',
-    },
-    divider: {
-      light: false,
-      variant: 'middle',
-      marginInline: '200px',
-      color: theme.palette.primary.dark,
-    },
-    box1: {
-      paddingTop: '50px',
-      paddingBottom: '50px',
-    },
-    typography1: {
-      color: theme.palette.primary.dark,
-      fontSize: '24px',
-    },
-    boxMain: {
-      paddingLeft: '300px',
-      paddingRight: '300px',
-      paddingTop: '100px',
-      paddingBottom: '100px',
-      backgroundColor: '#EEF1FB',
-    },
-    gridItem: {
-      paddingInline: '100px',
-    },
-    smallIcon: {
-      fontSize: '54px',
-      color: theme.palette.secondary.light,
     },
   })
 );
@@ -87,22 +42,22 @@ const LogoCard: React.FC = () => {
         <Grid container item alignItems="center" justify="center">
           <GridList cols={6} cellHeight={120} spacing={18}>
             <GridListTile>
-              <Media image={img} className={classes.logos} />
+              <Media image={img} className={classes.logo} />
             </GridListTile>
             <GridListTile>
-              <Media image={img1} className={classes.logos} />
+              <Media image={img1} className={classes.logo} />
             </GridListTile>
             <GridListTile>
-              <Media image={img5} className={classes.logos} />
+              <Media image={img5} className={classes.logo} />
             </GridListTile>
             <GridListTile>
-              <Media image={manage} className={classes.logos} />
+              <Media image={manage} className={classes.logo} />
             </GridListTile>
             <GridListTile>
-              <Media image={img4} className={classes.logos} />
+              <Media image={img4} className={classes.logo} />
             </GridListTile>
             <GridListTile>
-              <Media image={img3} className={classes.logos} />
+              <Media image={img3} className={classes.logo} />
             </GridListTile>
           </GridList>
         </Grid>
