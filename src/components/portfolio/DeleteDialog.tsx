@@ -1,5 +1,5 @@
 import React from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import {
   Button,
   Dialog,
@@ -7,10 +7,21 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  makeStyles,
   Typography,
 } from '@material-ui/core';
 import ProgressButton from './ProgressButton';
 import { errorMessageKey, errorTitleKey } from '../../Errors';
+import LimitedLength from './LimitedLength';
+
+const useStyles = makeStyles({
+  initialName: {
+    fontWeight: 700,
+  },
+  lineBreak: {
+    whiteSpace: 'pre-line',
+  },
+});
 
 export type DeleteDialogProps = {
   initialName?: string;
@@ -41,6 +52,7 @@ const DeleteDialog: React.FC<DeleteDialogProps> = ({
   }, [open, initialName]);
 
   const { t } = useTranslation();
+  const classes = useStyles();
 
   return (
     <Dialog
@@ -53,11 +65,13 @@ const DeleteDialog: React.FC<DeleteDialogProps> = ({
       <DialogTitle>{t('portfolio.dialog.delete.title')}</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          <Trans
-            i18nKey="portfolio.dialog.delete.text"
-            values={{ name }}
-            components={{ portfolioName: <b /> }}
-          />
+          <div className={classes.lineBreak}>
+            {`${t('portfolio.dialog.delete.text')} `}
+            <span className={classes.initialName}>
+              <LimitedLength value={name || ''} />
+            </span>
+            {`\n${t('portfolio.dialog.delete.warning')}`}
+          </div>
         </DialogContentText>
         {error && (
           <Typography color="error">
