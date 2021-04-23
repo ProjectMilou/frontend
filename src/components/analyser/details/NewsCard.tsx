@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
   divider: {
     display: 'inline-block',
-    margin: '0 2px',
+    margin: '0 10px',
     transform: 'scale(0.8)',
   },
   title: {
@@ -33,7 +33,7 @@ const useStyles = makeStyles({
 
 const News: React.FC<NewsCardProps> = ({ news }) => {
   const classes = useStyles();
-  const divider = <span className={classes.divider}>|</span>;
+  const divider = <span className={classes.divider}> </span>;
   const { t } = useTranslation();
 
   return (
@@ -44,14 +44,15 @@ const News: React.FC<NewsCardProps> = ({ news }) => {
             <Typography variant="h5" component="h2" className={classes.pos}>
               {t(news.headline)}
             </Typography>
+            <Typography className={classes.pos}>{t(news.summary)}</Typography>
             <Typography
               className={classes.title}
               color="textSecondary"
               gutterBottom
             >
-              {news.date}
+              {new Date(news.publishedAt).toISOString().split('T')[0]}
               {divider}
-              {news.url}
+              {news.url.split('/')[2]}
             </Typography>
           </CardContent>
         </Card>

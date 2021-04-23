@@ -6,7 +6,7 @@ import * as API from '../../../analyser/APIClient';
 import SubsectionDivider from '../../shared/SubsectionDivider';
 
 export type NewsComponentProps = {
-  newsList: API.News[];
+  newsList: API.NewsList;
 };
 
 const useStyles = makeStyles(() =>
@@ -27,15 +27,25 @@ const useStyles = makeStyles(() =>
 
 const NewsComponent: React.FC<NewsComponentProps> = ({ newsList }) => {
   const classes = useStyles();
-
   return (
     <>
       <SubsectionDivider subsection="1.2 Milou News" />
       <div className={classes.root}>
         <GridList className={classes.gridList} cols={2.5}>
-          {newsList.map((news) => (
-            <NewsCard news={news} />
-          ))}
+          {newsList.news
+            .sort((n1, n2) => {
+              if (
+                new Date(n1.publishedAt).getTime() -
+                  new Date(n2.publishedAt).getTime() <
+                0
+              ) {
+                return -1;
+              }
+              return 1;
+            })
+            .map((news) => (
+              <NewsCard news={news} key={news.headline} />
+            ))}
         </GridList>
       </div>
     </>
