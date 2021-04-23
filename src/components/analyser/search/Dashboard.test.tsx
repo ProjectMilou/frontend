@@ -3,7 +3,7 @@ import * as React from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import * as API from '../../../analyser/APIClient';
 import Dashboard, { DashboardProps } from './Dashboard';
-import MockOverview from '../../../analyser/APIMocks';
+import { MockOverview, MockOverviewTwo } from '../../../analyser/APIMocks';
 import { AppError } from '../../../Errors';
 
 jest.mock('../../../analyser/APIClient');
@@ -88,6 +88,7 @@ describe('Dashboard', () => {
   test('shows stocks', async () => {
     const mockStockOverview = mockAPI.listStocks.mockResolvedValue([
       MockOverview,
+      MockOverviewTwo,
     ]);
     const { container, queryByText } = renderComponent();
     await act(async () => {
@@ -101,6 +102,7 @@ describe('Dashboard', () => {
     expect(queryByText('analyser.dashboard.title')).toBeInTheDocument();
     expect(container.querySelector('.MuiLinearProgress-bar')).toBeNull();
     expect(queryByText(MockOverview.symbol)).toBeInTheDocument();
+    expect(queryByText(MockOverviewTwo.symbol)).toBeInTheDocument();
   });
 
   test('shows error message and loads stocks again on retry', async () => {

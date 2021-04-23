@@ -1,14 +1,14 @@
 import { render, fireEvent } from '@testing-library/react';
 import * as React from 'react';
 import StockListOverview, { StockListOverviewProps } from './StockListOverview';
-import MockOverview from '../../../analyser/APIMocks';
+import { MockOverview, MockOverviewTwo} from '../../../analyser/APIMocks';
 
 jest.mock('./DashboardTable', () => () => <table />);
 jest.mock('./DashboardCards', () => () => <ul />);
 
 describe('PortfolioOverview', () => {
   const defaultProps: StockListOverviewProps = {
-    stocks: [MockOverview],
+    stocks: [MockOverview, MockOverviewTwo],
   };
 
   const renderComponent = (newProps?: Partial<StockListOverviewProps>) => {

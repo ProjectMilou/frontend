@@ -11,7 +11,7 @@
 
 import { Stock } from './APIClient';
 
-const MockOverview: Stock = {
+export const MockOverview: Stock = {
   symbol: 'IBM',
   isin: 'US8566568478',
   wkn: '188585',
@@ -35,5 +35,27 @@ const MockOverview: Stock = {
   ),
   mcSize: 'large',
 };
-
-export default MockOverview;
+export const MockOverviewTwo: Stock = {
+  symbol: 'APPLE',
+  isin: 'US8566568478',
+  wkn: '188585',
+  name: 'International Business Machines Corporation',
+  price: '138.16',
+  per1d: '1.038',
+  per30d: '1.058',
+  per7d: '1.053',
+  per365d: '1.108',
+  marketCapitalization: 118955229184,
+  analystTargetPrice: '139.18',
+  valuation: 21.3573,
+  growth: 0,
+  div: '6.51',
+  currency: 'USD',
+  country: 'USA',
+  industry: 'Information Technology Services',
+  picture: new URL('https://finnhub.io/api/logo?symbol=IBM'),
+  date: new Date(
+    'Wed Apr 21 2021 02:16:50 GMT+0000 (Coordinated Universal Time)'
+  ),
+  mcSize: 'large',
+};

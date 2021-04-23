@@ -2,7 +2,7 @@ import { render, fireEvent } from '@testing-library/react';
 import * as React from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import DashboardTable, { DashboardTableProps } from './DashboardTable';
-import MockOverview from '../../../analyser/APIMocks';
+import { MockOverview, MockOverviewTwo} from '../../../analyser/APIMocks';
 
 const theme = createMuiTheme({
   typography: {
@@ -55,7 +55,7 @@ const theme = createMuiTheme({
 
 describe('DashboardTable', () => {
   const defaultProps: DashboardTableProps = {
-    stocks: [MockOverview],
+    stocks: [MockOverview, MockOverviewTwo],
   };
 
   const renderComponent = (newProps?: Partial<DashboardTableProps>) => {
@@ -84,7 +84,9 @@ describe('DashboardTable', () => {
 
   test('select stock on click', () => {
     const { props, getByText, queryByText } = renderComponent();
-    fireEvent.click(getByText(props.stocks[0].name));
-    expect(queryByText(props.stocks[0].name)).toBeInTheDocument();
+    fireEvent.click(getByText(props.stocks[0].symbol));
+    expect(queryByText(props.stocks[0].symbol)).toBeInTheDocument();
+    fireEvent.click(getByText(props.stocks[1].symbol));
+    expect(queryByText(props.stocks[1].symbol)).toBeInTheDocument();
   });
 });
