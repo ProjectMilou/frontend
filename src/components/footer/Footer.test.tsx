@@ -6,7 +6,6 @@ describe('Footer', () => {
   test('should renders all buttons', () => {
     render(<Footer />);
     expect(screen.getByText(/footer.imprint/i)).toBeInTheDocument();
-    expect(screen.getByText(/footer.mobileApp/i)).toBeInTheDocument();
     expect(screen.getByText(/footer.privacy/i)).toBeInTheDocument();
     expect(screen.getByText(/footer.aboutUs/i)).toBeInTheDocument();
   });
@@ -16,10 +15,6 @@ describe('Footer', () => {
     const imprintLink = screen.getByText(/footer.imprint/i);
     fireEvent.click(imprintLink);
     expect(window.location.pathname).toBe('/imprint');
-
-    const mobileAppLink = screen.getByText(/footer.mobileApp/i);
-    fireEvent.click(mobileAppLink);
-    expect(window.location.pathname).toBe('/mobileapp');
 
     const privacyLink = screen.getByText(/footer.privacy/i);
     fireEvent.click(privacyLink);

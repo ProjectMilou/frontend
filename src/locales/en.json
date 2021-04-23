@@ -291,8 +291,6 @@
   "info.50dayMovingAverage": "Moving average of the stock price in the last 50 days",
   "info.sharesFloat": "The number of shares currently circulating on the market",
   "footer.aboutUs": "About us",
-  "footer.mobileApp": "Mobile App",
   "footer.privacy": "Privacy Policy",
-  "footer.imprint": "Imprint",
-  "footer.copyright": "© Photo, Inc. 2019. We love our users!"
+  "footer.imprint": "Imprint"
 }
