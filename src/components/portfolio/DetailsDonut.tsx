@@ -1,7 +1,7 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
 import { useTheme } from '@material-ui/core/styles';
-import { roundAxis } from '../../portfolio/Helper';
+import { limitLength, roundAxis } from '../../portfolio/Helper';
 
 type DetailsDonutProps = {
   portions: number[];
@@ -50,7 +50,7 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({
       fontSize: '18px',
       fontFamily: theme.typography.fontFamily,
       fontWeight: 400,
-      formatter: undefined,
+      formatter: (label: string) => limitLength(label, 15),
       inverseOrder: false,
       width: undefined,
       height: undefined,
