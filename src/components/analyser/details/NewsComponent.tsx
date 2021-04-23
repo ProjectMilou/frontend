@@ -39,9 +39,9 @@ const NewsComponent: React.FC<NewsComponentProps> = ({ newsList }) => {
                   new Date(n2.publishedAt).getTime() <
                 0
               ) {
-                return -1;
+                return 1;
               }
-              return 1;
+              return -1;
             })
             .map((news) => (
               <NewsCard news={news} key={news.headline} />
