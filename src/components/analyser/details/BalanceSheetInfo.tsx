@@ -260,7 +260,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
       theme.palette.success.main,
       theme.palette.success.main,
       theme.palette.error.main,
-      ],
+    ],
     plotOptions: {
       treemap: {
         distributed: true,
