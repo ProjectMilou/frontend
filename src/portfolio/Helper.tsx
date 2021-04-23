@@ -148,6 +148,6 @@ export function limitLength(value: string | number, length = 20): string {
     if (value >= 100000000) return `${value / 1000000}M`;
     return value.toString();
   }
-  if (value.length > length) return `${value.substring(0, 21)}...`;
+  if (value.length > length) return `${value.substring(0, length + 1)}...`;
   return value;
 }
