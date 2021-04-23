@@ -5,6 +5,8 @@ import { navigate } from '@reach/router';
  *
  * @param symbol - A stock symbol.
  */
-export async function stockDetails(symbol: string): Promise<void> {
+async function stockDetails(symbol: string): Promise<void> {
   await navigate(`/analyser/${symbol}`);
 }
+
+export default stockDetails;

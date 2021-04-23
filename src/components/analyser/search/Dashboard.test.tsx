@@ -1,21 +1,15 @@
-import {
-  render,
-  fireEvent,
-  act,
-  waitFor,
-  screen,
-} from '@testing-library/react';
+import { render, fireEvent, act, waitFor } from '@testing-library/react';
 import * as React from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import * as API from '../../../analyser/APIClient';
 import Dashboard, { DashboardProps } from './Dashboard';
-import { MockOverview } from '../../../analyser/APIMocks';
+import MockOverview from '../../../analyser/APIMocks';
 import { AppError } from '../../../Errors';
 
 jest.mock('../../../analyser/APIClient');
 const mockAPI = API as jest.Mocked<typeof API>;
 
-export const theme = createMuiTheme({
+const theme = createMuiTheme({
   typography: {
     fontFamily: [
       '-apple-system',
@@ -94,7 +88,7 @@ describe('Dashboard', () => {
   test('shows stocks', async () => {
     const mockStockOverview = mockAPI.listStocks.mockResolvedValue([
       MockOverview,
-    ]);    
+    ]);
     const { container, queryByText } = renderComponent();
     await act(async () => {
       // wait until the component is rendered
@@ -128,9 +122,7 @@ describe('Dashboard', () => {
     expect(queryByText('error.message.UNKNOWN')).toBeInTheDocument();
 
     // click retry
-    mockStockOverview = mockAPI.listStocks.mockResolvedValue([
-      MockOverview,
-    ]);
+    mockStockOverview = mockAPI.listStocks.mockResolvedValue([MockOverview]);
     fireEvent.click(getByText('error.action.retry'));
     await act(async () => {
       // wait until the component is rendered
@@ -145,5 +137,4 @@ describe('Dashboard', () => {
     expect(container.querySelector('.MuiLinearProgress-bar')).toBeNull();
     expect(queryByText(MockOverview.name)).toBeInTheDocument();
   });
-
 });

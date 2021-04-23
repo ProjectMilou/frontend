@@ -9,11 +9,9 @@
  * TL;DR: Never import this file, except for tests.
  */
 
-import {
-  Stock,
-} from './APIClient';
+import { Stock } from './APIClient';
 
-export const MockOverview: Stock = {
+const MockOverview: Stock = {
   symbol: 'IBM',
   isin: 'US8566568478',
   wkn: '188585',
@@ -32,6 +30,10 @@ export const MockOverview: Stock = {
   country: 'USA',
   industry: 'Information Technology Services',
   picture: new URL('https://finnhub.io/api/logo?symbol=IBM'),
-  date: new Date('Wed Apr 21 2021 02:16:50 GMT+0000 (Coordinated Universal Time)'),
+  date: new Date(
+    'Wed Apr 21 2021 02:16:50 GMT+0000 (Coordinated Universal Time)'
+  ),
   mcSize: 'large',
 };
+
+export default MockOverview;

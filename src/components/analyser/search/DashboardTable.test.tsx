@@ -2,10 +2,9 @@ import { render, fireEvent } from '@testing-library/react';
 import * as React from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import DashboardTable, { DashboardTableProps } from './DashboardTable';
-import { MockOverview } from '../../../analyser/APIMocks';
-import { stockDetails } from '../../../analyser/Router';
+import MockOverview from '../../../analyser/APIMocks';
 
-export const theme = createMuiTheme({
+const theme = createMuiTheme({
   typography: {
     fontFamily: [
       '-apple-system',
@@ -71,10 +70,11 @@ describe('DashboardTable', () => {
     };
   };
 
-  test('show no table if no stocks exist', () => {
+  test('show empty table if no stocks exist', () => {
     const { container, queryByText } = renderComponent({ stocks: [] });
-    // no table & no error message
+    // empty table & no error message
     expect(queryByText('analyser.dashboard.errorMessage')).toBeNull();
+    expect(container.querySelector('table')).toBeInTheDocument();
   });
 
   test('display stock information', () => {
