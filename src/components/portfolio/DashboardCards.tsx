@@ -19,7 +19,7 @@ import { PortfolioOverview } from '../../portfolio/APIClient';
 import DashboardActions from './DashboardActions';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
 import { importPortfolio, portfolioDetails } from '../../portfolio/Router';
-import LimitedLength from './LimitedLength';
+import LimitedString from './LimitedString';
 
 const useStyles = makeStyles(({ palette }) => ({
   gridList: {
@@ -97,7 +97,7 @@ const CardComponent: React.FC<CardComponentProps> = ({
     >
       <CardContent className={classes.cardContent}>
         <Typography className={classes.portName}>
-          <LimitedLength value={portfolio.name} />
+          <LimitedString value={portfolio.name} />
         </Typography>
         <Typography color={portfolio.virtual ? 'textSecondary' : 'secondary'}>
           {portfolio.virtual ? t('portfolio.virtual') : t('portfolio.real')}

@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import ProgressButton from './ProgressButton';
 import { errorMessageKey, errorTitleKey } from '../../Errors';
-import LimitedLength from './LimitedLength';
+import LimitedString from './LimitedString';
 
 const useStyles = makeStyles({
   initialName: {
@@ -68,7 +68,7 @@ const DeleteDialog: React.FC<DeleteDialogProps> = ({
           <div className={classes.lineBreak}>
             {`${t('portfolio.dialog.delete.text')} `}
             <span className={classes.initialName}>
-              <LimitedLength value={name || ''} />
+              <LimitedString value={name || ''} />
             </span>
             {`\n${t('portfolio.dialog.delete.warning')}`}
           </div>

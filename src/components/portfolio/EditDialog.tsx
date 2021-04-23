@@ -27,7 +27,7 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import ProgressButton from './ProgressButton';
 import { errorMessageKey, errorTitleKey } from '../../Errors';
-import LimitedLength from './LimitedLength';
+import LimitedString from './LimitedString';
 
 export type EditDialogProps = {
   /** Whether the dialog is open. */
@@ -415,7 +415,7 @@ const EditEntry: React.FC<EditEntryProps> = ({
           [classes.nameCell]: true,
         })}
       >
-        <LimitedLength value={entry.displayName} />
+        <LimitedString value={entry.displayName} />
       </TableCell>
       {entry.additionalTableCells}
       <TableCell className={classes.actionCell}>

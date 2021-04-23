@@ -6,7 +6,7 @@ import DetailsEdit from './DetailsEdit';
 import { Position, PositionQty } from '../../portfolio/APIClient';
 import { portfolioDashboard } from '../../portfolio/Router';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
-import LimitedLength from './LimitedLength';
+import LimitedString from './LimitedString';
 
 const useStyles = makeStyles(({ typography }: Theme) =>
   createStyles({
@@ -82,7 +82,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
           </IconButton>
         </div>
         <div className={classes.title}>
-          {name && <LimitedLength value={name} />}
+          {name && <LimitedString value={name} />}
         </div>
       </div>
       {value && (

@@ -137,17 +137,12 @@ export function roundAxis(value: number): number {
 }
 
 /**
- * This function limits a string or a number to a certain length
- * strings are of default length 20 and numbers will receive a M instead of million
+ * This function limits a string to a certain length
  * E.g. used for the y-axis formatting of apex-charts components
- * @param value - String or number that is to be limited
- * @param length - max length if the value is a string, default is 20
+ * @param value - String that is to be limited
+ * @param length - max length of the string, default is 20 characters
  */
-export function limitLength(value: string | number, length = 20): string {
-  if (typeof value === 'number') {
-    if (value >= 100000000) return `${value / 1000000}M`;
-    return value.toString();
-  }
+export function limitString(value: string, length = 20): string {
   if (value.length > length) return `${value.substring(0, length + 1)}...`;
   return value;
 }

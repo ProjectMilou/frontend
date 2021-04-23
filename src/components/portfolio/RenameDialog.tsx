@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 import NameDialog from './NameDialog';
-import LimitedLength from './LimitedLength';
+import LimitedString from './LimitedString';
 
 const useStyles = makeStyles({
   oldName: {
@@ -49,7 +49,7 @@ const RenameDialog: React.FC<RenameDialogProps> = ({
         <>
           {`${t('portfolio.dialog.rename.text')} `}
           <span className={classes.oldName}>
-            <LimitedLength value={oldName || ''} />
+            <LimitedString value={oldName || ''} />
           </span>
         </>
       }

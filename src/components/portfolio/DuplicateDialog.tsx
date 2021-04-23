@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 import NameDialog from './NameDialog';
-import LimitedLength from './LimitedLength';
+import LimitedString from './LimitedString';
 
 const useStyles = makeStyles({
   initialName: {
@@ -50,7 +50,7 @@ const DuplicateDialog: React.FC<DuplicateDialogProps> = ({
         <>
           {`${t('portfolio.dialog.duplicate.text')} `}
           <span className={classes.initialName}>
-            <LimitedLength value={initialName || ''} />
+            <LimitedString value={initialName || ''} />
           </span>
         </>
       }

@@ -24,7 +24,7 @@ import {
 import DashboardActions from './DashboardActions';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
 import { portfolioDetails, importPortfolio } from '../../portfolio/Router';
-import LimitedLength from './LimitedLength';
+import LimitedString from './LimitedString';
 
 const useStyles = makeStyles(({ palette }: Theme) => ({
   action: { display: 'inline-block' },
@@ -80,7 +80,7 @@ const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         <ListItemText
           primary={
             <Typography color="primary">
-              <LimitedLength value={portfolio.name} />
+              <LimitedString value={portfolio.name} />
             </Typography>
           }
           secondary={
