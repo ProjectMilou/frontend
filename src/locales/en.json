@@ -154,7 +154,7 @@
   "portfolio.dialog.create.title": "New virtual portfolio",
   "portfolio.dialog.create.text": "Enter a name for the new virtual portfolio.",
   "portfolio.dialog.rename.title": "Rename Portfolio",
-  "portfolio.dialog.rename.text": "Enter a new name for the portfolio <portfolioName>{{name}}</portfolioName>.",
+  "portfolio.dialog.rename.text": "Enter a new name for the portfolio:",
   "portfolio.dialog.duplicate.title": "Duplicate Portfolio",
   "portfolio.dialog.duplicate.text": "Enter a name for the copy of the portfolio <portfolioName>{{name}}</portfolioName>.",
   "portfolio.dialog.duplicate.defaultName": "Copy of {{name}}",
