@@ -124,13 +124,17 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
           {/* right side with info */}
           <InfoBlock
             title={t('portfolio.details.divYield')}
-            infoText={t('analyser.details.DividendYield.infoButton')}
+            infoText={`${t('analyser.details.DividendYield.infoButton')}\n\n${t(
+              'source.investopedia'
+            )}`}
           >
             {portfolio.keyFigures[portfolio.keyFigures.length - 1].div}
           </InfoBlock>
           <InfoBlock
             title={t('portfolio.details.divPayout')}
-            infoText={t('analyser.details.DividendPayoutRatio.infoButton')}
+            infoText={`${t(
+              'analyser.details.DividendPayoutRatio.infoButton'
+            )}\n\n${t('source.investopedia')}`}
           >
             <RatioDonut
               ratio={
@@ -144,7 +148,7 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
             title={t('portfolio.details.nextDate')}
             infoText={t('analyser.details.NextDate.infoButton')}
           >
-            {portfolio.nextDividend.toLocaleDateString()}
+            {portfolio.nextDividend.toISOString().split('T')[0]}
           </InfoBlock>
         </div>
       </div>
