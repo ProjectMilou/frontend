@@ -77,7 +77,7 @@ const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
     >
       <TableCell align="center" component="th" scope="row">
         <ListItemText
-          primary={<Typography color="primary">{portfolio.name}</Typography>}
+          primary={<Typography color="primary">Allare</Typography>}
           secondary={
             portfolio.virtual ? t('portfolio.virtual') : t('portfolio.real')
           }

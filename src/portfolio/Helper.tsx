@@ -3,6 +3,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import WarningIcon from '@material-ui/icons/Warning';
 import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 import { Position } from './APIClient';
+import { type } from 'os';
 
 /** Icons to be used in the risk section */
 const exclamationIcon = (color: string) => (
@@ -142,7 +143,19 @@ export function roundAxis(value: number): number {
  * @param str - String to be limited
  * @param length - max length of the returned string (plus ...)
  */
-export function limitString(str: string, length = 20): string {
+export function limitString(str: string | number, length = 20): string {
+  if (typeof str === 'number') {
+  }
   if (str.length <= length) return str;
   return `${str.substring(0, 21)}...`;
+}
+
+/**
+ * This function makes long numbers short by adding a M for millions at the end
+ * @param nmb - number that is being shortened
+ * @return A string representation of that number
+ */
+export function limitNumber(nmb: number): string {
+  if (nmb >= 100000000) return `${nmb / 1000000}M`;
+  return nmb.toString();
 }
