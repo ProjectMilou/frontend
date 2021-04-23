@@ -143,6 +143,6 @@ export function roundAxis(value: number): number {
  * @param length - max length of the returned string (plus ...)
  */
 export function limitString(str: string, length = 20): string {
-  if (str.length <= 20) return str;
+  if (str.length <= length) return str;
   return `${str.substring(0, 21)}...`;
 }
