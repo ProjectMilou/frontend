@@ -3,7 +3,6 @@ import CheckIcon from '@material-ui/icons/Check';
 import WarningIcon from '@material-ui/icons/Warning';
 import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 import { Position } from './APIClient';
-import { type } from 'os';
 
 /** Icons to be used in the risk section */
 const exclamationIcon = (color: string) => (
@@ -138,24 +137,17 @@ export function roundAxis(value: number): number {
 }
 
 /**
- * This function limits a string to a certain length (default is 20)
+ * This function limits a string or a number to a certain length
+ * strings are of default length 20 and numbers will receive a M instead of million
  * E.g. used for the y-axis formatting of apex-charts components
- * @param str - String to be limited
- * @param length - max length of the returned string (plus ...)
+ * @param value - String or number that is to be limited
+ * @param length - max length if the value is a string, default is 20
  */
-export function limitString(str: string | number, length = 20): string {
-  if (typeof str === 'number') {
+export function limitLength(value: string | number, length = 20): string {
+  if (typeof value === 'number') {
+    if (value >= 100000000) return `${value / 1000000}M`;
+    return value.toString();
   }
-  if (str.length <= length) return str;
-  return `${str.substring(0, 21)}...`;
-}
-
-/**
- * This function makes long numbers short by adding a M for millions at the end
- * @param nmb - number that is being shortened
- * @return A string representation of that number
- */
-export function limitNumber(nmb: number): string {
-  if (nmb >= 100000000) return `${nmb / 1000000}M`;
-  return nmb.toString();
+  if (value.length > length) return `${value.substring(0, 21)}...`;
+  return value;
 }

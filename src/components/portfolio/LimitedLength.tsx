@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tooltip } from '@material-ui/core';
-import { limitNumber, limitString } from '../../portfolio/Helper';
+import { limitLength } from '../../portfolio/Helper';
 
 type LimitedLengthProps = {
   value: string | number;
@@ -9,13 +9,18 @@ type LimitedLengthProps = {
 
 const LimitedLength: React.FC<LimitedLengthProps> = ({ value, length }) => {
   const maxLength = length || 20;
-  const type = typeof value;
 
   return (
     <>
       {value.toString().length > maxLength ? (
-        <Tooltip title={type === "string" ? limitString(value) : limitNumber(value)}
+        <Tooltip title={value}>
+          <span>{limitLength(value)}</span>
+        </Tooltip>
+      ) : (
+        <span>{value}</span>
       )}
     </>
-  )
+  );
 };
+
+export default LimitedLength;
