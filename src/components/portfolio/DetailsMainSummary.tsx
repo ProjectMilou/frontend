@@ -106,6 +106,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
                 <StyledNumberFormat
                   value={portfolio.overview.value}
                   suffix="€"
+                  doLimit
                 />
               }
               name={t('portfolio.details.totalValue')}

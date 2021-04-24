@@ -62,13 +62,13 @@ const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
       <DetailsMainBacktestingListItem
         icon={<TrendingUpIcon className={classes.trendUp} />}
         title={t('portfolio.details.backtesting.bestChange')}
-        value={<StyledNumberFormat value={changeBest} suffix="€" />}
+        value={<StyledNumberFormat value={changeBest} suffix="€" doLimit />}
         infoText={t('portfolio.details.backtesting.bestChangeInfo')}
       />
       <DetailsMainBacktestingListItem
         icon={<TrendingDownIcon className={classes.trendDown} />}
         title={t('portfolio.details.backtesting.worstChange')}
-        value={<StyledNumberFormat value={changeWorst} suffix="€" />}
+        value={<StyledNumberFormat value={changeWorst} suffix="€" doLimit />}
         infoText={t('portfolio.details.backtesting.worstChangeInfo')}
       />
       <DetailsMainBacktestingListItem
