@@ -19,9 +19,9 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       // TODO: delete fixed height
       height: '30rem',
     },
-    infoBody: {
+    placeholderInfo: {
       display: 'flex',
-      alignSelf: 'center',
+      margin: '15rem 0',
       width: '100%',
       justifyContent: 'center',
       color: palette.primary.contrastText,
@@ -51,7 +51,7 @@ const DetailsMainKeyFigures: React.FC<DetailsMainKeyFiguresProps> = ({
 
   if (figures.length === 0) {
     return (
-      <div className={classes.infoBody}>
+      <div className={classes.placeholderInfo}>
         {t('portfolio.details.emptyKeyFigures')}
       </div>
     );

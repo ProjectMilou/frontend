@@ -15,9 +15,9 @@ import { roundAxis } from '../../portfolio/Helper';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
-    infoBody: {
+    placeholderInfo: {
       display: 'flex',
-      alignSelf: 'center',
+      margin: '15rem 0',
       width: '100%',
       justifyContent: 'center',
       color: palette.primary.contrastText,
@@ -145,7 +145,7 @@ const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
 
   if (series.length < 2) {
     return (
-      <div className={classes.infoBody}>
+      <div className={classes.placeholderInfo}>
         {t('portfolio.details.analytics.correlations.disabledChart')}
       </div>
     );
