@@ -131,11 +131,11 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, body, info }) => {
   return (
     <div className={classes.infoWrapper}>
       <div className={classes.infoTitle}>
-        <p className={classes.infoTitleP}>
+        <div className={classes.infoTitleP}>
           {title}
           <>&nbsp;</>
           <InfoButton infotext={info} />
-        </p>
+        </div>
       </div>
       <div className={classes.infoBody}>{body}</div>
     </div>
@@ -225,7 +225,7 @@ const Leverage: React.FC<DetailsProps> = ({
           <InfoBlock
             title={t('analyser.details.Leverage.DebtLevel')}
             body={
-              <p style={{ margin: 0 }}>
+              <div style={{ margin: 0 }}>
                 {' '}
                 {companyReports.annualReports[0].currentDebt != null &&
                 companyReports.annualReports[0].totalAssets != null
@@ -236,19 +236,19 @@ const Leverage: React.FC<DetailsProps> = ({
                     ) / 1000
                   : (stockOverview.symbol,
                     t('analyser.details.Leverage.ErrorMessage'))}{' '}
-              </p>
+              </div>
             }
             info={t('analyser.details.Leverage.DebtLevel.infoButton')}
           />
           <InfoBlock
             title={t('analyser.details.Leverage.InterestCoverage')}
             body={
-              <p style={{ margin: 0 }}>
+              <div style={{ margin: 0 }}>
                 {' '}
                 {interestCoverages.success != null
                   ? interestCoverages.success[0].interestCoverage.toFixed(2)
                   : interestCoverages.error}{' '}
-              </p>
+              </div>
             }
             info={t('analyser.details.Leverage.InterestCoverage.infoButton')}
           />

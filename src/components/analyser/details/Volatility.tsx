@@ -97,7 +97,7 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, body, info }) => {
     <div className={classes.infoWrapper}>
       <div className={classes.infoTitle}>
         <Toolbar disableGutters>
-          <p className={classes.infoTitleP}>{title}</p>
+          <div className={classes.infoTitleP}>{title}</div>
           <InfoButton infotext={info}> </InfoButton>
         </Toolbar>
       </div>
@@ -124,7 +124,7 @@ const Volatility: React.FC<VolatilityProps> = ({ details, risks }) => {
             title={t('analyser.details.Volatility.BetaFactor')}
             info={t('analyser.details.Volatility.TreynorRatio')}
             body={
-              <p style={{ margin: 0 }}>
+              <div style={{ margin: 0 }}>
                 {' '}
                 {details.beta != null
                   ? details.beta
@@ -132,7 +132,7 @@ const Volatility: React.FC<VolatilityProps> = ({ details, risks }) => {
                     t(
                       'analyser.details.Volatility.BetaFactor.ErrorMessage'
                     ))}{' '}
-              </p>
+              </div>
             }
           />
           <InfoBlock

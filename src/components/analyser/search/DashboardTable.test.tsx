@@ -2,7 +2,7 @@ import { render, fireEvent } from '@testing-library/react';
 import * as React from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import DashboardTable, { DashboardTableProps } from './DashboardTable';
-import { MockOverview, MockOverviewTwo} from '../../../analyser/APIMocks';
+import { MockOverview, MockOverviewTwo } from '../../../analyser/APIMocks';
 
 const theme = createMuiTheme({
   typography: {
