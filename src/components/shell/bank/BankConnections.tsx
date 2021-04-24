@@ -15,7 +15,7 @@ import IBankConnection from '../../../services/models/bank/IBankConnection';
 
 const BankConnections: React.FC = () => {
   const { t } = useTranslation();
-  const [connections, setConnections] = useState<IBankConnection[]>();
+  const [connections, setConnections] = useState<IBankConnection[]>([]);
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
@@ -36,6 +36,8 @@ const BankConnections: React.FC = () => {
     return (
       <Typography color="error">{t('shell.bank.connection.error')}</Typography>
     );
+  if (connections.length === 0)
+    return <Typography>{t('shell.bank.connection.noAccounts')}</Typography>;
 
   return (
     <Paper>

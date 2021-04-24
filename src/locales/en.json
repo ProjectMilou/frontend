@@ -99,6 +99,7 @@
   "shell.bank.add.dialog.subheadline": "Make sure to check the Store PIN checkbox",
   "shell.bank.add.dialog.toWebform": "To webform",
   "shell.bank.connection.error": "Failed to get Bank connections",
+  "shell.bank.connection.noAccounts": "You didn't add any accounts yet",
   "shell.bank.search.enter": "Enter bankname or BIC",
   "shell.confirm": "Confirm your email-address",
   "shell.confirmPassword": "Confirm your password",
