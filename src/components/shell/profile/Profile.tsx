@@ -18,9 +18,8 @@ import {
 import { navigate, RouteComponentProps } from '@reach/router';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import BankAccountService from '../../../services/BankAccountService';
 import UserService from '../../../services/UserService';
-import BankSearch from '../bank/BankSearch';
+import BankSearch from '../bank/BankAdd';
 import BankConnections from '../bank/BankConnections';
 
 const useStyles = makeStyles((theme: Theme) =>

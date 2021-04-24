@@ -1,5 +1,5 @@
 import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import BankService from '../../../services/BankAccountService';
 import IBankConnection from '../../../services/models/bank/IBankConnection';
@@ -9,14 +9,15 @@ const BankConnections: React.FC = () => {
   const [connections, setConnections] = useState<IBankConnection[]>();
   const [hasError, setHasError] = useState(false);
 
-  BankService.getConnections()
-    .then((v) => {
-      setConnections(v);
-    })
-    .catch((e) => {
-      setHasError(true);
-      console.log(e);
-    });
+  useEffect(() => {
+    BankService.getConnections()
+      .then((v) => {
+        setConnections(v);
+      })
+      .catch(() => {
+        setHasError(true);
+      });
+  }, []);
 
   if (hasError)
     return (

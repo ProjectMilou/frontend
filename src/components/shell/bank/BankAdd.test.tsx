@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
-import BankSearch from './BankSearch';
+import BankSearch from './BankAdd';
 
 describe('BankSearch', () => {
   test('Search field exists', () => {
