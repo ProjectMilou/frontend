@@ -95,6 +95,7 @@
   "shell.logout": "Logout",
   "shell.register": "Register",
   "shell.bank.connection.error": "Failed to get Bank connections",
+  "shell.bank.search.enter": "Enter bankname or BIC",
   "shell.confirm": "Confirm your email-address",
   "shell.confirmPassword": "Confirm your password",
   "shell.message.forgotPassword": "Forgot password?",

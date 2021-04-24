@@ -9,6 +9,7 @@ import {
   makeStyles,
   useTheme,
 } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import BankAccountService from '../../../services/BankAccountService';
 import IBank from '../../../services/models/bank/IBank';
 
@@ -20,6 +21,7 @@ const BankSearch: React.FC = () => {
   const theme = useTheme();
   const style = useStyles(theme);
   const [searchResultData, setSearchResultData] = useState<IBank[]>([]);
+  const { t } = useTranslation();
 
   const handleSearch = (search: string) => {
     if (search === '') setSearchResultData([]);
@@ -34,7 +36,7 @@ const BankSearch: React.FC = () => {
         <Input
           autoFocus
           fullWidth
-          placeholder="Search Bank"
+          placeholder={t('shell.bank.search.enter')}
           onChange={(e) => handleSearch(e.target.value)}
         />
 
