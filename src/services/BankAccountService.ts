@@ -37,7 +37,7 @@ class BankAccountService extends BaseService {
     );
     const link: IAddResponse = await response.json();
 
-    return link.webform;
+    return link.link;
   }
 
   /**

@@ -1,5 +1,5 @@
 interface IAddResponse {
-  webform: string;
+  link: string;
 }
 
 export default IAddResponse;
