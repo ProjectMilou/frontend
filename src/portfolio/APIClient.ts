@@ -553,7 +553,9 @@ export async function backtesting(
   )) as BacktestingResponse;
   if (
     response.error.length > 0 ||
-    Object.entries(response.success).length === 0
+    Object.entries(response.success).length === 0 ||
+    Number.isNaN(new Date(response.success.dateMin).getTime()) ||
+    Number.isNaN(new Date(response.success.dateMax).getTime())
   )
     throw new Error(response.error);
   return convertBacktesting(response as NonEmptyBacktestingResponse);

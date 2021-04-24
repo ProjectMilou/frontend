@@ -1,6 +1,14 @@
 import React from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core';
 import NameDialog from './NameDialog';
+import LimitedString from './LimitedString';
+
+const useStyles = makeStyles({
+  oldName: {
+    fontWeight: 700,
+  },
+});
 
 function validateName(newName?: string, oldName?: string): boolean {
   const n = newName?.trim();
@@ -31,17 +39,19 @@ const RenameDialog: React.FC<RenameDialogProps> = ({
   }, [open, initialName]);
 
   const { t } = useTranslation();
+  const classes = useStyles();
 
   return (
     <NameDialog
       open={open}
       dialogTitle={t('portfolio.dialog.rename.title')}
       dialogText={
-        <Trans
-          i18nKey="portfolio.dialog.rename.text"
-          values={{ name: oldName }}
-          components={{ portfolioName: <b /> }}
-        />
+        <>
+          {`${t('portfolio.dialog.rename.text')} `}
+          <span className={classes.oldName}>
+            <LimitedString value={oldName || ''} />
+          </span>
+        </>
       }
       labelKey="portfolio.name"
       actionKey="portfolio.rename"
