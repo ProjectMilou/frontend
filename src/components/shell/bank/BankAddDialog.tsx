@@ -1,16 +1,20 @@
 import React from 'react';
-import { Box, Button, Typography } from '@material-ui/core';
+import { Box, Button, makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-// TODO: Screenshot the webform checkbox
-import ImgInstruction from '../../../assets/images/analyse.png';
+import ImgInstruction from '../../../assets/images/instructions.png';
 
 interface BankAddDialogProps {
   link: string;
 }
 
+const useStyles = makeStyles({
+  instruction: { width: '50%', display: 'block', margin: 'auto' },
+});
+
 const BankAddDialog: React.FC<BankAddDialogProps> = (props) => {
   const { link } = props;
   const { t } = useTranslation();
+  const style = useStyles();
 
   return (
     <Box my={3}>
@@ -21,12 +25,18 @@ const BankAddDialog: React.FC<BankAddDialogProps> = (props) => {
         {t('shell.bank.add.dialog.subheadline')}
       </Typography>
       <img
-        width="100%"
+        className={style.instruction}
         src={ImgInstruction}
-        alt="Make sure to click the checkbox!"
+        alt={t('shell.bank.add.dialog.subheadline')}
       />
 
-      <Button variant="contained" color="primary" fullWidth href={link}>
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        href={link}
+        target="_blank"
+      >
         {t('shell.bank.add.dialog.toWebform')}
       </Button>
     </Box>

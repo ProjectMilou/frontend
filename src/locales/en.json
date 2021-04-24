@@ -96,7 +96,7 @@
   "shell.logout": "Logout",
   "shell.register": "Register",
   "shell.bank.add.dialog.headline": "Go to the webform and enter your data",
-  "shell.bank.add.dialog.subheadline": "Make sure to check the X checkbox",
+  "shell.bank.add.dialog.subheadline": "Make sure to check the Store PIN checkbox",
   "shell.bank.add.dialog.toWebform": "To webform",
   "shell.bank.connection.error": "Failed to get Bank connections",
   "shell.bank.search.enter": "Enter bankname or BIC",

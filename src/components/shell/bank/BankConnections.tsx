@@ -1,5 +1,4 @@
 import {
-  Divider,
   IconButton,
   List,
   ListItem,
