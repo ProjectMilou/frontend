@@ -66,8 +66,12 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const portions = portfolio.positions.map((p) => p.qty * p.stock.price);
-  const companyNames = portfolio.positions.map((p) => p.stock.name);
+  const sortedPos = portfolio.positions.sort(
+    (a, b) => b.qty * b.stock.price - a.qty * a.stock.price
+  );
+
+  const portions = sortedPos.map((p) => p.qty * p.stock.price);
+  const companyNames = sortedPos.map((p) => p.stock.name);
 
   return (
     <>
@@ -144,13 +148,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
       </div>
       <div className={classes.chartContainer}>
         <div className={classes.pieChartWrapper}>
-          <DetailsDonut
-            portions={portions}
-            labels={companyNames}
-            size={600}
-            graphOffsetX={0}
-            showLegendOnScale
-          />
+          <DetailsDonut portions={portions} labels={companyNames} size={600} />
         </div>
         <div className={classes.lineChartWrapper}>
           <PortfolioPerformance id={id} />

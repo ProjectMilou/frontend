@@ -9,7 +9,7 @@ import {
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import DetailsDonut from './DetailsDonut';
-import { RiskAnalysis } from '../../portfolio/APIClient';
+import { RiskAnalysis, Diversification } from '../../portfolio/APIClient';
 import { RiskBundle, getRiskBundle } from '../../portfolio/Helper';
 import InfoButton from '../shared/InfoButton';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
@@ -53,9 +53,9 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       color: palette.primary.contrastText,
     },
     riskPieWrapper: {
+      display: 'flex',
       margin: '1rem 0',
       width: '100%',
-      alignSelf: 'center',
     },
     statContainer: {
       display: 'flex',
@@ -123,13 +123,7 @@ const RiskComp: React.FC<RiskCompProps> = ({
       </div>
       {/* body with chart */}
       <div className={classes.riskPieWrapper}>
-        <DetailsDonut
-          portions={portions}
-          labels={labels}
-          size={300}
-          graphOffsetX={-40}
-          showLegendOnScale={false}
-        />
+        <DetailsDonut portions={portions} labels={labels} size={300} />
       </div>
       {/* footer with warnings */}
       <div>
@@ -183,6 +177,10 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
     }
   }
 
+  function sort(type: Diversification) {
+    return Object.entries(type).sort((a, b) => b[1] - a[1]);
+  }
+
   return (
     <>
       <div className={classes.ratioWrapper}>
@@ -227,9 +225,8 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
             yellow,
             green
           )}
-          // TODO: deal with overflow (too many names)
-          labels={Object.keys(risk.countries)}
-          portions={Object.values(risk.countries)}
+          labels={sort(risk.countries).map((sc) => sc[0])}
+          portions={sort(risk.countries).map((sc) => sc[1])}
         />
         <RiskComp
           title={t('portfolio.details.segments')}
@@ -242,9 +239,8 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
             yellow,
             green
           )}
-          // TODO: deal with overflow (too many names)
-          labels={Object.keys(risk.segments)}
-          portions={Object.values(risk.segments)}
+          labels={sort(risk.segments).map((sc) => sc[0])}
+          portions={sort(risk.segments).map((sc) => sc[1])}
         />
         <RiskComp
           title={t('portfolio.details.currencies')}
@@ -257,9 +253,8 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
             yellow,
             green
           )}
-          // TODO: deal with overflow (too many names)
-          labels={Object.keys(risk.currency)}
-          portions={Object.values(risk.currency)}
+          labels={sort(risk.currency).map((sc) => sc[0])}
+          portions={sort(risk.currency).map((sc) => sc[1])}
         />
       </div>
     </>
