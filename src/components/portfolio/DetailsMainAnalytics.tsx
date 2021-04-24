@@ -71,10 +71,7 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
       <div className={classes.titleWrapper}>
         <span>{t('portfolio.details.analytics.debtEquity.total')}</span>
         <span className={classes.value}>
-          <StyledNumberFormat
-            value={portfolio.analytics.debtEquity * 100}
-            suffix="%"
-          />
+          <StyledNumberFormat value={portfolio.analytics.debtEquity} />
         </span>
         <InfoButton
           infotext={`${t(
