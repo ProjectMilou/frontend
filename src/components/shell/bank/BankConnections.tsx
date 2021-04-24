@@ -9,11 +9,6 @@ const BankConnections: React.FC = () => {
   const [connections, setConnections] = useState<IBankConnection[]>();
   const [hasError, setHasError] = useState(false);
 
-  /* This keeps raising an
-    SyntaxError: Unexpected end of JSON input
-    at Function.getConnections (BankAccountService.ts:43)
-  */
-
   BankService.getConnections()
     .then((v) => {
       setConnections(v);
@@ -22,8 +17,6 @@ const BankConnections: React.FC = () => {
       setHasError(true);
       console.log(e);
     });
-
-  console.log(connections);
 
   if (hasError)
     return (
