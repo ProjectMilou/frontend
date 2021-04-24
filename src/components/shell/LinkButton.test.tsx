@@ -10,13 +10,23 @@ describe('LinkButton', () => {
     expect(screen.getByText(text)).toBeInTheDocument();
   });
 
-  test('should handle event', async () => {
+  test('should handle click event', async () => {
     const handleEvent = jest.fn();
     const text = 'Button';
     const { getByRole } = render(
       <LinkButton handleEvent={handleEvent} text={text} />
     );
     fireEvent.click(getByRole('button'));
+    expect(handleEvent).toHaveBeenCalledTimes(1);
+  });
+
+  test('should handle keydown event', async () => {
+    const handleEvent = jest.fn();
+    const text = 'Button';
+    const { getByRole } = render(
+      <LinkButton handleEvent={handleEvent} text={text} />
+    );
+    fireEvent.keyDown(getByRole('button'), { key: 'Enter', code: 'Enter' });
     expect(handleEvent).toHaveBeenCalledTimes(1);
   });
 });

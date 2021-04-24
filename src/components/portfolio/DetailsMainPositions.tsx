@@ -14,6 +14,7 @@ import StyledNumberFormat from '../shared/StyledNumberFormat';
 import ValueOverName from './ValueOverName';
 import { Position } from '../../portfolio/APIClient';
 import { stockDetails } from '../../portfolio/Router';
+import LimitedString from './LimitedString';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -100,15 +101,19 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
               {/* TODO replace mock primary and secondary value and color with correct values from props */}
               <CardContent>
                 <div className={classes.cardContentUpper}>
-                  <div className={classes.cardTitle}>{p.stock.name}</div>
+                  <div className={classes.cardTitle}>
+                    <LimitedString value={p.stock.name} />
+                  </div>
                   <div className={classes.cardSubtitle}>
                     <span>{`${t('portfolio.details.holding')}: `}</span>
                     <StyledNumberFormat
                       value={p.stock.price * p.qty}
                       suffix="€"
+                      doLimit
                     />
                     <br />
-                    <span>{`${t('portfolio.details.amount')}: ${p.qty}`}</span>
+                    <span>{`${t('portfolio.details.amount')}: `}</span>
+                    <LimitedString value={p.qty.toString()} />
                     <br />
                     <span>{`${t('portfolio.details.perShare')}: `}</span>
                     <StyledNumberFormat value={p.stock.price} suffix="€" />
@@ -129,6 +134,7 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
                         value={sevDayAbsolute}
                         suffix="€"
                         paintJob
+                        doLimit
                       />
                     }
                   />
@@ -146,6 +152,7 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
                         value={oneYearAbsolute}
                         suffix="€"
                         paintJob
+                        doLimit
                       />
                     }
                   />
@@ -163,6 +170,7 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
                         value={p.totalReturn}
                         suffix="€"
                         paintJob
+                        doLimit
                       />
                     }
                   />
