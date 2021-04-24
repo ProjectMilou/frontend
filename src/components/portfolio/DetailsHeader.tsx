@@ -82,7 +82,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
           </IconButton>
         </div>
         <div className={classes.title}>
-          {name && <LimitedString value={name} />}
+          {name && <LimitedString value={name} length={60} />}
         </div>
       </div>
       {value && (
