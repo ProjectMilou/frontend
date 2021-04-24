@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import ValueOverName from './ValueOverName';
 import DetailsDonut from './DetailsDonut';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
-import PortfolioScore from './PortfolioScore';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 import PortfolioPerformance from './PortfolioPerformance';
 
@@ -77,16 +76,6 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
           {/* box section 1 */}
           <div
             className={classes.infoValueWrapper}
-            style={{ flexBasis: '10%' }}
-          >
-            {/* total score of the portfolio */}
-            <PortfolioScore score={portfolio.overview.score} />
-          </div>
-          {/* devider 1 */}
-          <hr className={classes.vl} />
-          {/* box section 2 */}
-          <div
-            className={classes.infoValueWrapper}
             style={{ flexBasis: '35%' }}
           >
             {/* 7 day moving average */}
@@ -117,14 +106,15 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
                 <StyledNumberFormat
                   value={portfolio.overview.value}
                   suffix="€"
+                  doLimit
                 />
               }
               name={t('portfolio.details.totalValue')}
             />
           </div>
-          {/* devider 2 */}
+          {/* devider 1 */}
           <hr className={classes.vl} />
-          {/* box section 3 */}
+          {/* box section 2 */}
           <div
             className={classes.infoValueWrapper}
             style={{ flexBasis: '55%' }}

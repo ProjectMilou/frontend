@@ -54,15 +54,17 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
           />
         </span>
         <InfoButton
-          infotext={t(
-            'portfolio.details.analytics.standardDeviation.infoButton'
-          )}
+          infotext={`${t(
+            `portfolio.details.analytics.standardDeviation.infoButton`
+          )}\n\n${t('source.investopedia')}`}
         />
       </div>
       <div className={classes.titleWrapper}>
         <span>{t('portfolio.details.analytics.correlation')}</span>
         <InfoButton
-          infotext={t('portfolio.details.analytics.correlations.info')}
+          infotext={`${t(
+            'portfolio.details.analytics.correlations.info'
+          )}\n\n${t('source.investopedia')}`}
         />
       </div>
       <DetailsAnalyticsHeatmap portfolio={portfolio} height={350} />
@@ -75,7 +77,9 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
           />
         </span>
         <InfoButton
-          infotext={t('portfolio.details.analytics.debtEquity.infoButton')}
+          infotext={`${t(
+            'portfolio.details.analytics.debtEquity.infoButton'
+          )}\n\n${t('source.investopedia')}`}
         />
       </div>
       <DetailsAnalyticsDebtEquityBar portfolio={portfolio} height={350} />
@@ -85,7 +89,9 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
           {Math.round(portfolio.analytics.volatility * 1000) / 1000}
         </span>
         <InfoButton
-          infotext={t('analyser.details.Volatility.BetaFactor.infoButton')}
+          infotext={`${t(
+            'analyser.details.Volatility.BetaFactor.infoButton'
+          )}\n\n${t('source.investopedia')}`}
         />
       </div>
       <div className={classes.titleWrapper}>

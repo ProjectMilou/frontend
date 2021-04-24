@@ -1,5 +1,6 @@
 {
   "portfolio": "Portfolio",
+  "source.investopedia": "Source: investopedia.com",
   "portfolio.portfolioAverage": "Portfolio Average",
   "portfolio.details.editPortfolio": "Edit Portfolio",
   "portfolio.details.cannotEditPortfolio": "Cannot edit real portfolio",
@@ -158,12 +159,13 @@
   "portfolio.dialog.create.title": "New virtual portfolio",
   "portfolio.dialog.create.text": "Enter a name for the new virtual portfolio.",
   "portfolio.dialog.rename.title": "Rename Portfolio",
-  "portfolio.dialog.rename.text": "Enter a new name for the portfolio <portfolioName>{{name}}</portfolioName>.",
+  "portfolio.dialog.rename.text": "Enter a new name for the portfolio:",
   "portfolio.dialog.duplicate.title": "Duplicate Portfolio",
-  "portfolio.dialog.duplicate.text": "Enter a name for the copy of the portfolio <portfolioName>{{name}}</portfolioName>.",
+  "portfolio.dialog.duplicate.text": "Enter a name for the copy of the portfolio: ",
   "portfolio.dialog.duplicate.defaultName": "Copy of {{name}}",
   "portfolio.dialog.delete.title": "Delete Portfolio",
-  "portfolio.dialog.delete.text": "You are about to delete the portfolio <portfolioName>{{name}}</portfolioName>. This action cannot be undone.",
+  "portfolio.dialog.delete.text": "You are about to delete the portfolio ",
+  "portfolio.dialog.delete.warning": "This action cannot be undone.",
   "error.message.default": "An error has occurred.",
   "error.title.AUTH_USER_NOT_LOGGED_IN": "Not logged in",
   "error.message.AUTH_USER_NOT_LOGGED_IN": "You are currently not logged in. Please log in or create an account.",
@@ -295,8 +297,6 @@
   "info.50dayMovingAverage": "Moving average of the stock price in the last 50 days",
   "info.sharesFloat": "The number of shares currently circulating on the market",
   "footer.aboutUs": "About us",
-  "footer.mobileApp": "Mobile App",
   "footer.privacy": "Privacy Policy",
-  "footer.imprint": "Imprint",
-  "footer.copyright": "© Photo, Inc. 2019. We love our users!"
+  "footer.imprint": "Imprint"
 }
