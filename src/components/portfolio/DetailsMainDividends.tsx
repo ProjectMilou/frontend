@@ -10,6 +10,7 @@ import RatioDonut from '../shared/RatioDonut';
 import DividendLineChart from '../shared/DividendLineChart';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 import InfoButton from '../shared/InfoButton';
+import StyledNumberFormat from '../shared/StyledNumberFormat';
 
 // stylesheet for the dividend section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -128,7 +129,9 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
               'source.investopedia'
             )}`}
           >
-            {portfolio.keyFigures[portfolio.keyFigures.length - 1].div}
+            <StyledNumberFormat
+              value={portfolio.keyFigures[portfolio.keyFigures.length - 1].div}
+            />
           </InfoBlock>
           <InfoBlock
             title={t('portfolio.details.divPayout')}

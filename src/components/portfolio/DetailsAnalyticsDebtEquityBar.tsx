@@ -34,7 +34,7 @@ const DetailsAnalyticsDebtEquityBar: React.FC<DetailsAnalyticsDebtEquityBarProps
   const options = {
     tooltip: {
       y: {
-        formatter: (tooltipValue: number) => roundAxis(tooltipValue, 100),
+        formatter: (tooltipValue: number) => roundAxis(tooltipValue),
       },
     },
     chart: {

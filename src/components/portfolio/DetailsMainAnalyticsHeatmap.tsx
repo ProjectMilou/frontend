@@ -58,7 +58,7 @@ const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
   const options = {
     tooltip: {
       y: {
-        formatter: roundAxis,
+        formatter: (tooltipValue: number) => roundAxis(tooltipValue),
       },
     },
     legend: {

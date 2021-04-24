@@ -133,6 +133,7 @@ export function collectStocks(
  * @param value - Numeric value that needs to be rounded
  * @param decimals - Number that represents the digits after comma, default is 10000 (4 digits after comma)
  */
-export function roundAxis(value: number, decimals = 10000): number {
+export function roundAxis(value: number, decimals = 100): number {
+  console.log(decimals);
   return Math.round(value * decimals) / decimals;
 }
