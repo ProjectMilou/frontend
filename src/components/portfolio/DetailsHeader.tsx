@@ -6,6 +6,7 @@ import DetailsEdit from './DetailsEdit';
 import { Position, PositionQty } from '../../portfolio/APIClient';
 import { portfolioDashboard } from '../../portfolio/Router';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
+import LimitedString from './LimitedString';
 
 const useStyles = makeStyles(({ typography }: Theme) =>
   createStyles({
@@ -80,7 +81,9 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
             <ArrowBackIosIcon fontSize="large" />
           </IconButton>
         </div>
-        <div>{name && <span className={classes.title}>{name}</span>}</div>
+        <div className={classes.title}>
+          {name && <LimitedString value={name} length={60} />}
+        </div>
       </div>
       {value && (
         <div className={classes.value}>
