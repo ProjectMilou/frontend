@@ -74,6 +74,10 @@ class BankAccountService extends BaseService {
       this.authenticatedRequest('DELETE', Endpoints.Connections)
     );
   }
+
+  public static async refresh(): Promise<boolean> {
+    return this.isOk(this.authenticatedRequest('GET', Endpoints.Refresh));
+  }
 }
 
 export default BankAccountService;

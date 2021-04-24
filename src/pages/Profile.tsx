@@ -22,6 +22,7 @@ import UserService from '../services/UserService';
 import BankAdd from '../components/shell/bank/BankAdd';
 import BankConnections from '../components/shell/bank/BankConnections';
 import DashboardHeader from '../components/shared/DashboardHeader';
+import BankAccountService from '../services/BankAccountService';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -164,7 +165,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   variant="outlined"
                   color="primary"
                   onClick={() => {
-                    /* TODO: The backend team requested this button to be notified if the user wants to fetch the newest data */
+                    BankAccountService.refresh();
                   }}
                 >
                   {t('shell.profile.account-details.update-bankconnection')}
