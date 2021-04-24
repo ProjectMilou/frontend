@@ -151,9 +151,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
                 <Typography variant="h5" gutterBottom>
                   Bank accounts
                 </Typography>
-
                 <BankConnections />
-
                 <br />
                 <Button
                   variant="contained"
@@ -161,6 +159,15 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   onClick={() => setAddBankIsOpen(true)}
                 >
                   {t(`shell.profile.account-details.add-bankconnection`)}
+                </Button>{' '}
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => {
+                    /* TODO: The backend team requested this button to be notified if the user wants to fetch the newest data */
+                  }}
+                >
+                  {t('shell.profile.account-details.update-bankconnection')}
                 </Button>
                 <Dialog
                   open={addBankIsOpen}
