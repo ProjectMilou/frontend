@@ -7,13 +7,13 @@ import {
   DialogContentText,
   DialogTitle,
   Divider,
-  Grid,
   makeStyles,
   Paper,
   TextField,
   Theme,
   Typography,
   Box,
+  Container,
 } from '@material-ui/core';
 import { navigate, RouteComponentProps } from '@reach/router';
 import React, { useEffect, useState } from 'react';
@@ -21,6 +21,7 @@ import { useTranslation } from 'react-i18next';
 import UserService from '../services/UserService';
 import BankAdd from '../components/shell/bank/BankAdd';
 import BankConnections from '../components/shell/bank/BankConnections';
+import DashboardHeader from '../components/shared/DashboardHeader';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -86,17 +87,16 @@ const Profile: React.FC<RouteComponentProps> = () => {
 
   return (
     <>
-      <Grid container justify="center">
-        <Grid item xs={8}>
+      <DashboardHeader>{t('shell.profile.profile-subheader')}</DashboardHeader>
+      <Container maxWidth="lg">
+        <Box my={2.5}>
+          <Typography variant="h3" gutterBottom>
+            {t('shell.profile.profile-header')}
+          </Typography>
+
           <Paper square>
             <Box p={4}>
-              <Typography variant="h3" gutterBottom>
-                {t('shell.profile.profile-header')}
-              </Typography>
-
-              <Divider />
-
-              <Box my={3} maxWidth="xs" className={classes.details}>
+              <Box mb={3} maxWidth="xs" className={classes.details}>
                 <Typography variant="h5" gutterBottom>
                   {t('shell.profile.account-details.header')}
                 </Typography>
@@ -203,8 +203,9 @@ const Profile: React.FC<RouteComponentProps> = () => {
               </Box>
             </Box>
           </Paper>
-        </Grid>
-      </Grid>
+        </Box>
+      </Container>
+
       <Dialog
         open={dialogOpen}
         onClose={handleDialogClose}
