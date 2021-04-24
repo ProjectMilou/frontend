@@ -81,7 +81,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       height: '100%',
     },
     warnings: {
-      margin: '0.1rem 0',
+      margin: '0.15rem',
       fontSize: '1rem',
       color: palette.primary.contrastText,
     },
@@ -126,7 +126,7 @@ const RiskComp: React.FC<RiskCompProps> = ({
         <DetailsDonut
           portions={portions}
           labels={labels}
-          size={200}
+          size={300}
           graphOffsetX={-40}
           showLegendOnScale={false}
         />
