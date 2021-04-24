@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Typography, Grid } from '@material-ui/core';
 import { RouteComponentProps } from '@reach/router';
-import ProfileCard from './components/ProfileCard';
-import LogoCard from './components/LogoCard';
+import ProfileCard from '../components/shell/landingPage/ProfileCard';
+import LogoCard from '../components/shell/landingPage/LogoCard';
 
 import linda from '../assets/images/linda.png';
 import chris from '../assets/images/chris.png';
