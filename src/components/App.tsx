@@ -6,7 +6,7 @@ import Analyser from './analyser/Analyser';
 import Portfolio from './portfolio/Portfolio';
 import Header from './header/Header';
 import Footer from './footer/Footer';
-import Profile from './shell/profile/Profile';
+import Profile from '../pages/Profile';
 import Imprint from '../pages/Imprint';
 import AboutUs from '../pages/AboutUs';
 import Privacy from '../pages/Privacy';

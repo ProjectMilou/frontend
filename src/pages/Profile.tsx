@@ -18,9 +18,9 @@ import {
 import { navigate, RouteComponentProps } from '@reach/router';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import UserService from '../../../services/UserService';
-import BankSearch from '../bank/BankAdd';
-import BankConnections from '../bank/BankConnections';
+import UserService from '../services/UserService';
+import BankAdd from '../components/shell/bank/BankAdd';
+import BankConnections from '../components/shell/bank/BankConnections';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -175,7 +175,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   className={classes.dialog}
                   classes={{ paper: classes.paper }}
                 >
-                  <BankSearch />
+                  <BankAdd />
                 </Dialog>
               </Box>
 

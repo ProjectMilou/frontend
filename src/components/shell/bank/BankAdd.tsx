@@ -10,7 +10,7 @@ export enum State {
   success,
 }
 
-const BankSearch: React.FC = () => {
+const BankAdd: React.FC = () => {
   type State = 'search' | 'add' | 'success';
   const [link, setLink] = useState('');
   const [userState, setUserState] = useState<State>('search');
@@ -30,4 +30,4 @@ const BankSearch: React.FC = () => {
   );
 };
 
-export default BankSearch;
+export default BankAdd;
