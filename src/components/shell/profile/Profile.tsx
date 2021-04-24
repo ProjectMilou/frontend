@@ -147,7 +147,7 @@ const Profile: React.FC<RouteComponentProps> = () => {
 
               <Divider />
 
-              <Box my={3}>
+              <Box my={3} className={classes.details}>
                 <Typography variant="h5" gutterBottom>
                   Bank accounts
                 </Typography>
