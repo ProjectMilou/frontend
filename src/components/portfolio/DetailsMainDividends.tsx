@@ -60,6 +60,14 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     infoTitleP: {
       margin: '0.5rem 0',
     },
+    placeholderInfo: {
+      display: 'flex',
+      margin: '15rem 0',
+      width: '100%',
+      justifyContent: 'center',
+      color: palette.primary.contrastText,
+      fontSize: '1.15rem',
+    },
   })
 );
 
@@ -158,7 +166,7 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
     );
   }
   return (
-    <div className={classes.infoBody}>
+    <div className={classes.placeholderInfo}>
       {t('portfolio.details.emptyKeyFigures')}
     </div>
   );

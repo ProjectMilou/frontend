@@ -136,3 +136,14 @@ export function collectStocks(
 export function roundAxis(value: number, decimals = 100): number {
   return Math.round(value * decimals) / decimals;
 }
+
+/**
+ * This function limits a string to a certain length
+ * E.g. used for the y-axis formatting of apex-charts components
+ * @param value - String that is to be limited
+ * @param length - max length of the string, default is 20 characters
+ */
+export function limitString(value: string, length = 20): string {
+  if (value.length > length) return `${value.substring(0, length + 1)}...`;
+  return value;
+}
