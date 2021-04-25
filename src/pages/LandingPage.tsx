@@ -14,19 +14,14 @@ import {
 
 import MoneyIcon from '@material-ui/icons/Money';
 import LoyaltyIcon from '@material-ui/icons/Loyalty';
-import CastForEducationIcon from '@material-ui/icons/CastForEducation';
-import InfoIcon from '@material-ui/icons/Info';
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
-import WarningIcon from '@material-ui/icons/Warning';
 
-import Card from './components/Card';
-import Media from './components/Media';
-import GridRowContainer from './components/GridRowContainer';
-import img2 from '../assets/images/media2.png';
 import analyse from '../assets/images/analyse.png';
 import lernen from '../assets/images/lernen.png';
 import portfolio from '../assets/images/Portfolio.png';
 import LogoCard from './components/LogoCard';
+import Card from './components/Card';
+import InfoCard from './components/InfoCard';
+import GridRowContainer from './components/GridRowContainer';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -77,10 +72,6 @@ const useStyles = makeStyles((theme: Theme) =>
     smallIcon: {
       fontSize: '54px',
       color: theme.palette.secondary.light,
-    },
-    largeIcon: {
-      width: '60px',
-      height: '60px',
     },
     span: {
       color: theme.palette.secondary.light,
@@ -243,115 +234,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
         </Grid>
       </Box>
 
-      <Box className={classes.boxMain}>
-        <Grid
-          container
-          direction="row"
-          spacing={4}
-          alignItems="center"
-          justify-content="center"
-        >
-          <Grid item>
-            <Media image={img2} className={classes.mediaLarge} />
-          </Grid>
-          <Grid
-            item
-            xs
-            container
-            direction="column"
-            alignItems="center"
-            justify-content="center"
-          >
-            <Grid
-              item
-              container
-              direction="row"
-              alignItems="center"
-              spacing={4}
-              style={{ width: '500px', height: '180px' }}
-            >
-              <Grid item>
-                <CastForEducationIcon
-                  className={`${classes.success} ${classes.largeIcon}`}
-                />
-              </Grid>
-              <Grid item xs container direction="column">
-                <Typography variant="h5">LEARNING PLATFORM</Typography>
-                <Typography variant="body1">
-                  Our learning journey picks you up where you are. With our
-                  short tutorials you can acquire new knowledge within a very
-                  short time and thus become an investor yourself.
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid
-              item
-              container
-              direction="row"
-              alignItems="center"
-              spacing={4}
-              style={{ width: '500px', height: '180px' }}
-            >
-              <Grid item>
-                <InfoIcon
-                  className={`${classes.warning} ${classes.largeIcon}`}
-                />
-              </Grid>
-              <Grid item xs container direction="column">
-                <Typography variant="h5">INFO BOXES</Typography>
-                <Typography variant="body1">
-                  With the help of our info boxes, you can also view
-                  explanations of key figures and values in the app at any time
-                  and acquire knowledge.
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid
-              item
-              container
-              direction="row"
-              alignItems="center"
-              spacing={4}
-              style={{ width: '500px', height: '180px' }}
-            >
-              <Grid item>
-                <TrendingUpIcon
-                  className={`${classes.span} ${classes.largeIcon}`}
-                />
-              </Grid>
-              <Grid item xs container direction="column">
-                <Typography variant="h5">SIMPLE VISUALIZATION</Typography>
-                <Typography variant="body1">
-                  With the help of simple graphics and diagrams, you get
-                  information at a glance and can draw conclusions about
-                  individual stocks and your portfolio.
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid
-              item
-              container
-              direction="row"
-              alignItems="center"
-              spacing={4}
-              style={{ width: '500px', height: '180px' }}
-            >
-              <Grid item>
-                <WarningIcon
-                  className={`${classes.error} ${classes.largeIcon}`}
-                />
-              </Grid>
-              <Grid item xs container direction="column">
-                <Typography variant="h5">RISK WARNING</Typography>
-                <Typography variant="body1">
-                  Identify risks across your entire portfolio with simple
-                  warnings and learn how to counteract them.
-                </Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Box>
+      <InfoCard />
       <LogoCard />
     </Box>
   );
