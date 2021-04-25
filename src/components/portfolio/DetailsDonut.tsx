@@ -11,16 +11,22 @@ type StyleProps = {
 
 const useStyles = makeStyles<Theme, StyleProps>(({ palette }: Theme) =>
   createStyles({
-    chart: {
-      flexBasis: '50%',
+    graphWrapper: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%',
+      marginTop: '1rem',
     },
+    chart: {},
     legend: {
-      flexBasis: '50%',
+      margin: '1rem',
+      alignSelf: 'center',
     },
     legendItem: {
       display: 'flex',
       alignItems: 'center',
       color: palette.primary.contrastText,
+      marginBottom: '0.5rem',
     },
     legendDot: {
       minWidth: '0.8rem',
@@ -28,6 +34,10 @@ const useStyles = makeStyles<Theme, StyleProps>(({ palette }: Theme) =>
       borderRadius: '50%',
       backgroundColor: (props) => props.color,
       marginRight: '0.5rem',
+    },
+    otherText: {
+      userSelect: 'none',
+      color: palette.primary.contrastText,
     },
   })
 );
@@ -165,7 +175,7 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({
   const hiddenLegendItems: JSX.Element[] = legendItems.slice(legendLength);
 
   return (
-    <>
+    <div className={classes.graphWrapper}>
       <div className={classes.chart}>
         <Chart
           options={options}
@@ -179,11 +189,13 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({
         {shownLegendItems}
         {!!hiddenLegendItems.length && (
           <Tooltip title={hiddenLegendItems}>
-            <span>{t('portfolio.details.other')}</span>
+            <span className={classes.otherText}>
+              {t('portfolio.details.other')}
+            </span>
           </Tooltip>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
