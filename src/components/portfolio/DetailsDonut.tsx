@@ -1,7 +1,7 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
 import { useTheme } from '@material-ui/core/styles';
-import { roundAxis } from '../../portfolio/Helper';
+import { limitString, roundAxis } from '../../portfolio/Helper';
 
 type DetailsDonutProps = {
   portions: number[];
@@ -23,7 +23,7 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({
   const options = {
     tooltip: {
       y: {
-        formatter: roundAxis,
+        formatter: (tooltipValue: number) => roundAxis(tooltipValue),
       },
     },
     labels,
@@ -50,7 +50,7 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({
       fontSize: '18px',
       fontFamily: theme.typography.fontFamily,
       fontWeight: 400,
-      formatter: undefined,
+      formatter: (label: string) => limitString(label, 15),
       inverseOrder: false,
       width: undefined,
       height: undefined,
