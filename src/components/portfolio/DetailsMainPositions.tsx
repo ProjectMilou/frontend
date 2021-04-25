@@ -1,20 +1,7 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import {
-  Card,
-  CardActions,
-  CardContent,
-  GridList,
-  GridListTile,
-  Button,
-} from '@material-ui/core';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import { useTranslation } from 'react-i18next';
-import StyledNumberFormat from '../shared/StyledNumberFormat';
-import ValueOverName from './ValueOverName';
+import { GridList, GridListTile } from '@material-ui/core';
 import { Position } from '../../portfolio/APIClient';
-import { stockDetails } from '../../portfolio/Router';
-import LimitedString from './LimitedString';
 import DetailsMainPositionsCard from './DetailsMainPositionsCard';
 import ShowMoreAccordion from './ShowMoreAccordion';
 
@@ -51,26 +38,24 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
           className={classes.gridList}
           style={{ margin: '0 auto' }}
         >
-          {positions.length <= 4 &&
+          {positions.length <= 8 &&
             positions.map((p) => (
               <GridListTile key={p.stock.symbol}>
                 <DetailsMainPositionsCard p={p} />
               </GridListTile>
             ))}
-          {positions.length > 4 &&
-            positions.slice(0, 4).map((p) => (
+          {positions.length > 8 &&
+            positions.slice(0, 8).map((p) => (
               <GridListTile key={p.stock.symbol}>
                 <DetailsMainPositionsCard p={p} />
               </GridListTile>
             ))}
         </GridList>
       </div>
-      {positions.length > 4 && (
-        <div className={classes.gridListWrapper}>
-          <ShowMoreAccordion
-            positions={positions.slice(4, positions.length + 1)}
-          />
-        </div>
+      {positions.length > 8 && (
+        <ShowMoreAccordion
+          positions={positions.slice(8, positions.length + 1)}
+        />
       )}
     </>
   );
