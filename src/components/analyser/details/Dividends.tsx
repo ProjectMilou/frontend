@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import { Toolbar } from '@material-ui/core';
 import * as API from '../../../analyser/APIClient';
 import DividendRatioDonut from '../../shared/DividendRatioDonut';
 import DividendLineChart from '../../shared/DividendLineChart';
@@ -79,7 +78,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       whiteSpace: 'nowrap',
     },
     infoTitleP: {
-      margin: '0.5rem 0.5rem',
+      margin: '0.5rem 0rem',
     },
   })
 );
@@ -98,10 +97,11 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
   return (
     <div className={classes.infoWrapper}>
       <div className={classes.infoTitle}>
-        <Toolbar disableGutters>
-          <p className={classes.infoTitleP}>{title}</p>
+        <p className={classes.infoTitleP}>
+          {title}
+          <>&nbsp;</>
           <InfoButton infotext={info}> </InfoButton>
-        </Toolbar>
+        </p>
       </div>
       <div className={classes.infoBody}>{body}</div>
     </div>
