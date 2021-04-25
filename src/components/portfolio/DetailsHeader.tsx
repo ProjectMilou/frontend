@@ -85,7 +85,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
           {name && <LimitedString value={name} length={60} />}
         </div>
       </div>
-      {value && (
+      {!!value && (
         <div className={classes.value}>
           {`${t('portfolio.details.totalValue')}: `}
           <StyledNumberFormat value={value} suffix="€" />
