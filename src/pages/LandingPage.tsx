@@ -6,10 +6,7 @@ import {
   Box,
   Grid,
   Typography,
-  GridListTile,
   Divider,
-  GridList,
-  Input,
   makeStyles,
   Theme,
   createStyles,
@@ -25,16 +22,11 @@ import WarningIcon from '@material-ui/icons/Warning';
 import Card from './components/Card';
 import Media from './components/Media';
 import GridRowContainer from './components/GridRowContainer';
-import img from '../assets/images/180.png';
-import img1 from '../assets/images/getThumb.gif';
 import img2 from '../assets/images/media2.png';
-import img3 from '../assets/images/start.png';
-import img4 from '../assets/images/tech-talents.png';
-import img5 from '../assets/images/tumlogo.png';
-import manage from '../assets/images/manage.png';
 import analyse from '../assets/images/analyse.png';
 import lernen from '../assets/images/lernen.png';
 import portfolio from '../assets/images/Portfolio.png';
+import LogoCard from './components/LogoCard';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,9 +42,6 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '732px',
       padding: '50px',
       objectFit: 'scale-down',
-    },
-    logo: {
-      maxWidth: '200px',
     },
     icon: {
       width: '20px',
@@ -233,6 +222,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             </Typography>
             <div style={{ margin: 'auto' }}>
               <Button
+                href="/analyser"
                 style={{
                   backgroundColor: '#FFC43B',
                   color: 'white',
@@ -351,65 +341,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
           </Grid>
         </Grid>
       </Box>
-      <Box bgcolor="#0c1a3a" color="white" py={8}>
-        <Grid container>
-          <Grid item xs container direction="column" alignItems="center">
-            <Typography variant="h3">Our supporters</Typography>
-            <Typography variant="body1" gutterBottom>
-              Thank you for your help!
-            </Typography>
-          </Grid>
-        </Grid>
-        <Box py={8}>
-          <Grid container item alignItems="center" justify="center">
-            <GridList cols={6} cellHeight={120} spacing={18}>
-              <GridListTile>
-                <Media image={img} className={classes.logo} />
-              </GridListTile>
-              <GridListTile>
-                <Media image={img1} className={classes.logo} />
-              </GridListTile>
-              <GridListTile>
-                <Media image={img5} className={classes.logo} />
-              </GridListTile>
-              <GridListTile>
-                <Media image={manage} className={classes.logo} />
-              </GridListTile>
-              <GridListTile>
-                <Media image={img4} className={classes.logo} />
-              </GridListTile>
-              <GridListTile>
-                <Media image={img3} className={classes.logo} />
-              </GridListTile>
-            </GridList>
-          </Grid>
-        </Box>
-      </Box>
-      <Box py={16} px={8}>
-        <Grid container direction="row">
-          <Grid item xs={6} container direction="column">
-            <Typography variant="h4">Stay informed.</Typography>
-            <Typography variant="body1">
-              Sign-up for our newsletter to get more information and stay in
-              contact.
-            </Typography>
-          </Grid>
-          <Grid item>
-            <form noValidate>
-              <Input placeholder="First Name" />
-              <Input placeholder="Last Name" />
-              <div>
-                <Input placeholder="Email Address" required />
-              </div>
-              <div style={{ marginTop: '6px' }}>
-                <Button variant="contained" color="primary">
-                  Submit
-                </Button>
-              </div>
-            </form>
-          </Grid>
-        </Grid>
-      </Box>
+      <LogoCard />
     </Box>
   );
 };

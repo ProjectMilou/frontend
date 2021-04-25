@@ -39,10 +39,18 @@ class UserService extends BaseService {
     lastName: string
   ): Promise<boolean> {
     try {
-      const response = await this.authenticatedRequest('PUT', Endpoints.Edit, {
-        firstName,
-        lastName,
-      });
+      const response = await this.authenticatedRequest(
+        'PUT',
+        Endpoints.Edit,
+        {
+          firstName,
+          lastName,
+        },
+        {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }
+      );
 
       return response.ok;
     } catch {
