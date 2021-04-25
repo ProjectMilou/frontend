@@ -6,7 +6,7 @@ import LimitString from './LimitedString';
 import { roundAxis } from '../../portfolio/Helper';
 
 type StyleProps = {
-  color: string;
+  color?: string;
 };
 
 const useStyles = makeStyles<Theme, StyleProps>(({ palette }: Theme) =>
@@ -62,6 +62,7 @@ type DetailsDonutProps = {
   portions: number[];
   labels: string[];
   size: number;
+  displayRow?: boolean;
 };
 
 const DetailsDonut: React.FC<DetailsDonutProps> = ({
@@ -69,7 +70,7 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({
   labels,
   size,
 }) => {
-  const classes = useStyles({ color: '' });
+  const classes = useStyles({});
   const { t } = useTranslation();
 
   // all possible colors that this graph can use
@@ -101,9 +102,6 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({
       },
     },
     labels,
-    // chart: {
-    //   offsetX: graphOffsetX,
-    // },
     colors,
     stroke: {
       show: false,
@@ -116,44 +114,24 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({
     },
     // this scales the chart at certain break points to make
     // sure the chart stays visible at all screen sizes
-    // responsive: [
-    //   {
-    //     breakpoint: 10000,
-    //     options: {
-    //       chart: {
-    //         height: size,
-    //       },
-    //       legend: {
-    //         show: true,
-    //         position: 'right',
-    //       },
-    //     },
-    //   },
-    //   {
-    //     breakpoint: 1550,
-    //     options: {
-    //       chart: {
-    //         height: size / 1.5,
-    //       },
-    //       legend: {
-    //         show: true,
-    //         position: 'right',
-    //       },
-    //     },
-    //   },
-    //   {
-    //     breakpoint: 1100,
-    //     options: {
-    //       chart: {
-    //         height: size / 1.5,
-    //       },
-    //       legend: {
-    //         show: showLegendOnScale,
-    //         position: 'bottom',
-    //       },
-    //     },
-    //   },
-    // ],
+    responsive: [
+      {
+        breakpoint: 10000,
+        options: {
+          chart: {
+            height: size,
+          },
+        },
+      },
+      {
+        breakpoint: 1200,
+        options: {
+          chart: {
+            height: size / 1.2,
+          },
+        },
+      },
+    ],
   };
 
   // not including 'other ...'

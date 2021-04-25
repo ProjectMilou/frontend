@@ -39,15 +39,11 @@ const useStyles = makeStyles((theme) =>
       marginTop: '2rem',
     },
     pieChartWrapper: {
-      display: 'flex',
-      width: '20rem',
-      height: '20rem',
       flexBasis: '35%',
     },
     lineChartWrapper: {
       width: '40rem',
-      height: '20rem',
-      flexBasis: '60%',
+      flexBasis: '65%',
     },
   })
 );
@@ -148,7 +144,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
       </div>
       <div className={classes.chartContainer}>
         <div className={classes.pieChartWrapper}>
-          <DetailsDonut portions={portions} labels={companyNames} size={600} />
+          <DetailsDonut portions={portions} labels={companyNames} size={300} />
         </div>
         <div className={classes.lineChartWrapper}>
           <PortfolioPerformance id={id} />
