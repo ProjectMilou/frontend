@@ -63,11 +63,6 @@ const Footer: React.FC = () => {
               {t('footer.aboutUs')}
             </Link>
           </Grid>
-          <Grid item>
-            <Link to="/mobileapp" className={classes.link}>
-              {t('footer.mobileApp')}
-            </Link>
-          </Grid>
         </Grid>
         <Grid container xs={4} justify="center" item>
           <Grid item>
@@ -109,9 +104,6 @@ const Footer: React.FC = () => {
           <Ellipse />
           <Ellipse />
           <Ellipse />
-        </Grid>
-        <Grid item className={classes.copyrightText}>
-          {t('footer.copyright')}
         </Grid>
       </Grid>
     </div>

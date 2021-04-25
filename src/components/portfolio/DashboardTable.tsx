@@ -23,8 +23,8 @@ import {
 } from '../../portfolio/APIClient';
 import DashboardActions from './DashboardActions';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
-import PortfolioScore from './PortfolioScore';
 import { portfolioDetails, importPortfolio } from '../../portfolio/Router';
+import LimitedString from './LimitedString';
 
 const useStyles = makeStyles(({ palette }: Theme) => ({
   action: { display: 'inline-block' },
@@ -76,14 +76,13 @@ const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
       onMouseLeave={() => setHover(false)}
       className={classNames(classes.row, hover && classes.rowHover)}
     >
-      <TableCell align="center">
-        {'score' in portfolio && (
-          <PortfolioScore score={portfolio.score} dashboard />
-        )}
-      </TableCell>
       <TableCell align="center" component="th" scope="row">
         <ListItemText
-          primary={<Typography color="primary">{portfolio.name}</Typography>}
+          primary={
+            <Typography color="primary">
+              <LimitedString value={portfolio.name} />
+            </Typography>
+          }
           secondary={
             portfolio.virtual ? t('portfolio.virtual') : t('portfolio.real')
           }
@@ -157,7 +156,6 @@ export const DashboardTableHead: React.FC<DashboardTableHeadProps> = ({
 }) => {
   const { t } = useTranslation();
   const headCells: SortableHeadCell[] = [
-    { id: 'score', numeric: true, label: t('portfolio.score') },
     { id: 'name', numeric: false, label: t('portfolio.name') },
     {
       id: 'positionCount',

@@ -4,6 +4,9 @@ import {
   screen,
   act,
   waitFor,
+  waitForOptions,
+  MatcherOptions,
+  Matcher,
 } from '@testing-library/react';
 import * as React from 'react';
 import userEvent from '@testing-library/user-event';
@@ -29,14 +32,24 @@ const renderLoginForm = () => {
   };
 };
 
+const getFields = async (
+  findByTestId: (
+    text: Matcher,
+    options?: MatcherOptions | undefined,
+    ForElementOptions?: waitForOptions | undefined
+  ) => Promise<HTMLElement>
+) => {
+  const passwordInput = (await findByTestId('password')) as HTMLInputElement;
+  const emailInput = (await findByTestId('email')) as HTMLInputElement;
+  const button = (await findByTestId('login')) as HTMLButtonElement;
+  return { passwordInput, emailInput, button };
+};
+
 describe('LoginForm', () => {
   test('should render email and password input', async () => {
     const { component } = renderLoginForm();
     const { findByTestId } = component;
-
-    const passwordInput = await findByTestId('password');
-    const emailInput = await findByTestId('email');
-
+    const { passwordInput, emailInput } = await getFields(findByTestId);
     expect(passwordInput).toBeInTheDocument();
     expect(emailInput).toBeInTheDocument();
   });
@@ -44,10 +57,7 @@ describe('LoginForm', () => {
   test('should put in text and enable submit-button', async () => {
     const { component } = renderLoginForm();
     const { findByTestId } = component;
-
-    const passwordInput = (await findByTestId('password')) as HTMLInputElement;
-    const emailInput = (await findByTestId('email')) as HTMLInputElement;
-    const button = (await findByTestId('login')) as HTMLButtonElement;
+    const { passwordInput, emailInput, button } = await getFields(findByTestId);
 
     fireEvent.change(emailInput, { target: { value: 'email' } });
     fireEvent.change(passwordInput, { target: { value: 'pwd' } });
@@ -62,10 +72,7 @@ describe('LoginForm', () => {
   test('should disable submit-button', async () => {
     const { component } = renderLoginForm();
     const { findByTestId } = component;
-
-    const passwordInput = (await findByTestId('password')) as HTMLInputElement;
-    const emailInput = (await findByTestId('email')) as HTMLInputElement;
-    const button = (await findByTestId('login')) as HTMLButtonElement;
+    const { passwordInput, emailInput, button } = await getFields(findByTestId);
 
     expect(emailInput.getAttribute('aria-invalid')).toBe('false');
 
@@ -82,23 +89,20 @@ describe('LoginForm', () => {
     expect(button).toBeDisabled();
   });
 
-  test('should submit wrong user', async () => {
+  test('should display error message', async () => {
     const { component } = renderLoginForm();
     const { findByTestId } = component;
+    const { passwordInput, emailInput } = await getFields(findByTestId);
 
-    const passwordInput = (await findByTestId('password')) as HTMLInputElement;
-    const emailInput = (await findByTestId('email')) as HTMLInputElement;
     const button = screen.getByText(/shell.login/i);
 
     fireEvent.change(passwordInput, { target: { value: 'pwd' } });
     fireEvent.change(emailInput, { target: { value: 'email' } });
 
     fetchMock.mockResponseOnce(JSON.stringify('false'));
-
     act(() => {
       fireEvent.click(button);
     });
-
     expect(window.fetch).toHaveBeenCalledWith(
       'https://api.milou.io/user/login',
       expect.objectContaining({
@@ -121,16 +125,15 @@ describe('LoginForm', () => {
   test('should submit registered user', async () => {
     const { component, setUserState } = renderLoginForm();
     const { findByTestId } = component;
+    const { passwordInput, emailInput } = await getFields(findByTestId);
 
-    const passwordInput = (await findByTestId('password')) as HTMLInputElement;
-    const emailInput = (await findByTestId('email')) as HTMLInputElement;
     const button = screen.getByText(/shell.login/i);
 
     fireEvent.change(passwordInput, { target: { value: 'pwd' } });
     fireEvent.change(emailInput, { target: { value: 'email' } });
 
     const mock: ILoginResponse = {
-      token: 'abcd',
+      token: 'validToken',
       user: {
         id: 'test@milo.de',
         email: 'test@milo.de',
@@ -138,11 +141,9 @@ describe('LoginForm', () => {
     };
 
     fetchMock.mockResponseOnce(JSON.stringify(mock));
-
     act(() => {
       fireEvent.click(button);
     });
-
     expect(window.fetch).toHaveBeenCalledWith(
       'https://api.milou.io/user/login',
       expect.objectContaining({

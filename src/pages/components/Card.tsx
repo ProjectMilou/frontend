@@ -52,7 +52,11 @@ const Card: React.FC = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <Button className={classes.button} variant="contained">
+          <Button
+            className={classes.button}
+            variant="contained"
+            href="/analyser"
+          >
             Start now
           </Button>
         </Grid>
