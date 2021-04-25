@@ -115,10 +115,9 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
   const cashData: number[] = [];
   cashFlowList.annualReports.forEach((element) => {
     cashData.push(
-      Math.floor((element.dividendPayout / element.netIncome) * 100) / 100
+      Math.round((element.dividendPayout / element.netIncome) * 10000) / 100
     );
   });
-  // TODO fetch data from backend
   // eslint-disable-next-line
   const [seriesArray, setSeriesArray] = React.useState([
     {
@@ -133,18 +132,17 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
     },
   ]);
 
-  let ratio =
+  const lastAnnualReports =
+    cashFlowList.annualReports[cashFlowList.annualReports.length - 1];
+  let dividendPayoutRatio =
     Math.round(
-      // TODO
-      // This values do not exists, pls fix
-      // (stockOverview.dividendPerShare / stockOverview.revenuePerShareTTM) * 100
-      100
+      (lastAnnualReports.dividendPayout / lastAnnualReports.netIncome) * 100
     ) / 100;
-  if (Number.isNaN(ratio)) {
-    ratio = 0.0;
+  // (stockOverview.dividendPerShare / stockOverview.revenuePerShareTTM) * 100
+  if (Number.isNaN(dividendPayoutRatio)) {
+    dividendPayoutRatio = 0.0;
   }
-  const dividendYield = series[4];
-  const dividendYieldText = (dividendYield * 100).toFixed(2);
+  const dividendYield = series[series.length - 1];
   return (
     <div>
       <div className={classes.titleContainer}>
@@ -171,16 +169,16 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
             body={
               <p style={{ margin: 0 }}>
                 {' '}
-                {Number.isNaN(dividendYieldText)
-                  ? `${dividendYieldText}|%`
-                  : ' Dividend data is not found.'}{' '}
+                {Number.isNaN(dividendYield)
+                  ? ' Dividend data is not found.'
+                  : `${dividendYield}%`}{' '}
               </p>
             }
           />
           <InfoBlock
             title={t('analyser.details.DividendPayoutRatio')}
             info={t('analyser.details.DividendPayoutRatio.infoButton')}
-            body={<DividendRatioDonut ratio={ratio} />}
+            body={<DividendRatioDonut ratio={dividendPayoutRatio} />}
           />
           {/* TODO replace with actual date in YYYY-MM-DD format => .toISOString().split('T')[0] */}
           <InfoBlock
@@ -191,7 +189,7 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
         </div>
       </div>
 
-      <DividendsRR dividend={dividendYield} payoutRatio={ratio} />
+      <DividendsRR dividend={dividendYield} payoutRatio={dividendPayoutRatio} />
     </div>
   );
 };
