@@ -77,15 +77,6 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
   };
 
   const handleSubmit = () => {
-    if (login.email === '') {
-      setError({ ...hasError, email: t('msg-text-missing') });
-      return;
-    }
-    if (login.password === '') {
-      setError({ ...hasError, email: t('msg-text-missing') });
-      return;
-    }
-
     UserService.login(login.email, login.password).then((ok) => {
       if (!ok) {
         setLoginError(true);

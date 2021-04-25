@@ -23,7 +23,7 @@ describe('DeleteDialog', () => {
     renderComponent();
     expect(screen.getByText('portfolio.delete')).toBeInTheDocument();
     expect(
-      screen.getByText('portfolio.dialog.delete.text')
+      screen.getByText('portfolio.dialog.delete.text', { exact: false })
     ).toBeInTheDocument();
     expect(
       screen.getByText('portfolio.dialog.delete.title')
