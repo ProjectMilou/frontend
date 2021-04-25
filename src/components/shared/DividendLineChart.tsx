@@ -24,7 +24,7 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({
   const options = {
     tooltip: {
       y: {
-        formatter: roundAxis,
+        formatter: (tooltipValue: number) => roundAxis(tooltipValue),
       },
     },
     chart: {
