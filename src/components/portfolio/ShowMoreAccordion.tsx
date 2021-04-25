@@ -28,6 +28,7 @@ type ShowMoreAccordionProps = {
 
 const ShowMoreAccordion: React.FC<ShowMoreAccordionProps> = ({ positions }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Accordion>
@@ -36,7 +37,9 @@ const ShowMoreAccordion: React.FC<ShowMoreAccordionProps> = ({ positions }) => {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <div>Show More</div>
+        <div>
+          {t('portfolio.details.positions.showMore')} ({`${positions.length}`})
+        </div>
       </AccordionSummary>
       <AccordionDetails>
         <GridList

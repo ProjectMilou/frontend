@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  GridListTile,
-} from '@material-ui/core';
+import { Button, Card, CardActions, CardContent } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
