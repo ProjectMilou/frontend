@@ -69,6 +69,7 @@ const SearchBar: React.FC = () => {
           inputValue={inputValue}
           // removes clear button
           disableClearable
+          autoHighlight
           open={open}
           options={stocks}
           getOptionLabel={(option: API.Stock) =>
