@@ -31,11 +31,11 @@ import LogoCard from './components/LogoCard';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     mediaSmall: {
-      maxWidth: '480px',
-      maxHeight: '396px',
+      maxWidth: '450px',
+      maxHeight: '250px',
       display: 'auto',
       objectFit: 'scale-down',
-      padding: '100px',
+      padding: '20px',
     },
     mediaLarge: {
       width: '500px',
@@ -56,6 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
       background: theme.palette.secondary.contrastText,
     },
     box1: {
+      paddingInline: '50px',
       paddingTop: '50px',
       paddingBottom: '50px',
     },
@@ -66,12 +67,12 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: '120px',
     },
     boxMain: {
-      paddingLeft: '180px',
-      paddingRight: '180px',
+      paddingInline: '50px',
+      marginBlock: '100px',
       backgroundColor: theme.palette.primary.contrastText,
     },
     gridItem: {
-      paddingInline: '100px',
+      paddingInline: '0px',
     },
     smallIcon: {
       fontSize: '54px',
@@ -140,7 +141,14 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
       </Box>
       <Divider className={classes.divider} />
       <Box className={classes.boxMain}>
-        <Box style={{ paddingBlock: '40px' }}>
+        <Grid
+          container
+          direction="column"
+          justify-content="center"
+          justify="center"
+          alignItems="center"
+          spacing={10}
+        >
           <GridRowContainer
             image={lernen}
             title="LEARN"
@@ -169,7 +177,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             type="even"
             titleClass={`${classes.success} ${classes.title}`}
           />
-        </Box>
+        </Grid>
       </Box>
 
       <Box bgcolor="#0c1a3a" color="white" px={20} pt={4} pb={18}>
@@ -235,13 +243,13 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
         </Grid>
       </Box>
 
-      <Box className={classes.boxMain} display="flex">
+      <Box className={classes.boxMain}>
         <Grid
           container
           direction="row"
           spacing={4}
           alignItems="center"
-          justify="space-between"
+          justify-content="center"
         >
           <Grid item>
             <Media image={img2} className={classes.mediaLarge} />
@@ -251,7 +259,6 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
             xs
             container
             direction="column"
-            spacing={4}
             alignItems="center"
             justify-content="center"
           >
@@ -261,6 +268,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
               direction="row"
               alignItems="center"
               spacing={4}
+              style={{ width: '500px', height: '180px' }}
             >
               <Grid item>
                 <CastForEducationIcon
@@ -282,6 +290,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
               direction="row"
               alignItems="center"
               spacing={4}
+              style={{ width: '500px', height: '180px' }}
             >
               <Grid item>
                 <InfoIcon
@@ -303,6 +312,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
               direction="row"
               alignItems="center"
               spacing={4}
+              style={{ width: '500px', height: '180px' }}
             >
               <Grid item>
                 <TrendingUpIcon
@@ -324,6 +334,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
               direction="row"
               alignItems="center"
               spacing={4}
+              style={{ width: '500px', height: '180px' }}
             >
               <Grid item>
                 <WarningIcon
