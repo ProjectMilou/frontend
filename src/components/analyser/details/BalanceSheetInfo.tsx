@@ -9,6 +9,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import InfoButton from '../../shared/InfoButton';
+import SubsectionDivider from '../../shared/SubsectionDivider';
 
 export type BalanceSheetProps = {
   companyReports: API.CompanyReports;
@@ -35,18 +36,9 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     titleWrapper: {
       marginRight: '1rem',
     },
-    sectionSubTitle: {
-      margin: 0,
-      color: palette.primary.main,
-      // TODO use theme fontsize and weight
-      fontSize: '2rem',
-      fontWeight: 400,
-      whiteSpace: 'nowrap',
-    },
     boxTitles: {
       margin: 0,
       color: palette.primary.main,
-      // TODO use theme fontsize and weight
       fontSize: '1.5rem',
       fontWeight: 400,
       whiteSpace: 'nowrap',
@@ -228,6 +220,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
           x: checkName(equitiesSeries.retainedEarnings, 'Retained Earnings'),
           y: equitiesSeries.retainedEarnings,
         },
+        // Place Holder to allow for red coloring of debt Fiel in Tree Map
         {
           x: '',
           y: 0,
@@ -252,14 +245,15 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
       },
     },
     colors: [
-      '#50E2A8',
-      '#50E2A8',
-      '#50E2A8',
-      '#50E2A8',
-      '#50E2A8',
-      '#50E2A8',
-      '#50E2A8',
-      '#D64745',
+      // Togehter with PLace Holder allows for specific coloring of debt field in Tree Map
+      theme.palette.success.main,
+      theme.palette.success.main,
+      theme.palette.success.main,
+      theme.palette.success.main,
+      theme.palette.success.main,
+      theme.palette.success.main,
+      theme.palette.success.main,
+      theme.palette.error.main,
     ],
     plotOptions: {
       treemap: {
@@ -276,13 +270,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
 
   return (
     <div className={classes.contentWrapper}>
-      <div className={classes.titleContainer}>
-        <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionSubTitle}>
-            {t('analyser.details.BalanceSheetHeader')}
-          </h2>
-        </div>
-      </div>
+      <SubsectionDivider subsection="analyser.details.BalanceSheetHeader" />
       <div className={classes.infoContainer}>
         <div className={classes.MapWrapper}>
           <div className={classes.titleContainer}>

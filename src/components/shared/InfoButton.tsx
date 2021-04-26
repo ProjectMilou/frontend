@@ -29,15 +29,15 @@ const InfoButton: React.FC<InfoProps> = ({ infotext }) => {
   const classes = useStyles();
 
   return (
-    <span className={classes.root}>
-      <Tooltip
-        title={infotext}
-        placement="top-start"
-        classes={{ tooltip: classes.customSize }}
-      >
-        <InfoOutlined className={classes.infoIcon} />
-      </Tooltip>
-    </span>
+    // <span className={classes.root}>
+    <Tooltip
+      title={infotext}
+      placement="top-start"
+      classes={{ tooltip: classes.customSize }}
+    >
+      <InfoOutlined className={classes.infoIcon} />
+    </Tooltip>
+    // </span>
   );
 };
 
