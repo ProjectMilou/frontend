@@ -24,9 +24,6 @@ export interface DashboardProps extends RouteComponentProps {
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
-    createButton: {
-      marginTop: '25px',
-    },
     dashboard: {
       margin: '25px auto',
     },
