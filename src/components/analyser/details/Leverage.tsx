@@ -78,6 +78,45 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
   })
 );
 
+function getDebtSeries(companyReports: API.CompanyReports): number[] {
+  const debtSeries: number[] = [];
+  for (let index = 0; index < 5; index += 1) {
+    const num =
+      Math.round(companyReports.annualReports[index].currentDebt * 100) / 100;
+    if (Number.isNaN(num)) {
+      debtSeries.push(0);
+    } else {
+      debtSeries.push(num);
+    }
+  }
+  return debtSeries;
+}
+
+function getEquitySeries(companyReports: API.CompanyReports): number[] {
+  let countNegativeEquity = 0;
+  const equitySeries: number[] = [];
+  for (let index = 0; index < 5; index += 1) {
+    const num =
+      Math.round(companyReports.annualReports[index].retainedEarnings * 100) /
+      100;
+    if (Number.isNaN(num)) {
+      equitySeries.push(0);
+    } else {
+      if (num < 0) {
+        countNegativeEquity += 1;
+      }
+      equitySeries.push(num);
+    }
+  }
+
+  if (countNegativeEquity === 5) {
+    for (let index = 0; index < 5; index += 1) {
+      equitySeries[index] = -equitySeries[index];
+    }
+  }
+  return equitySeries;
+}
+
 // type declarations
 type InfoBlockProps = {
   title: string;
@@ -164,39 +203,6 @@ const Leverage: React.FC<DetailsProps> = ({
     },
   };
 
-  const debtSeries: number[] = [];
-  for (let index = 0; index < 5; index += 1) {
-    const num =
-      Math.round(companyReports.annualReports[index].currentDebt * 100) / 100;
-    if (Number.isNaN(num)) {
-      debtSeries.push(0);
-    } else {
-      debtSeries.push(num);
-    }
-  }
-
-  let countNegativeEquity = 0;
-  const equitySeries: number[] = [];
-  for (let index = 0; index < 5; index += 1) {
-    const num =
-      Math.round(companyReports.annualReports[index].retainedEarnings * 100) /
-      100;
-    if (Number.isNaN(num)) {
-      equitySeries.push(0);
-    } else {
-      if (num < 0) {
-        countNegativeEquity += 1;
-      }
-      equitySeries.push(num);
-    }
-  }
-
-  if (countNegativeEquity === 5) {
-    for (let index = 0; index < 5; index += 1) {
-      equitySeries[index] = -equitySeries[index];
-    }
-  }
-
   return (
     <div>
       <SubsectionDivider subsection="analyser.details.Leverage" />
@@ -208,8 +214,8 @@ const Leverage: React.FC<DetailsProps> = ({
           <ReactApexChart
             options={options}
             series={[
-              { name: 'Debt', data: debtSeries },
-              { name: 'Equity', data: equitySeries },
+              { name: 'Debt', data: getDebtSeries(companyReports) },
+              { name: 'Equity', data: getEquitySeries(companyReports) },
             ]}
             height={300}
             width="100%"
