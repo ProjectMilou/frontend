@@ -112,7 +112,7 @@ const Analysts: React.FC<AnalystsProps> = ({ recommendations, overview }) => {
           {t('analyser.details.analysts.target')}
           <>&nbsp;</>
           <StyledNumberFormat
-            value={parseFloat(overview.analystTargetPrice)}
+            value={overview.analystTargetPrice}
             suffix={currencySymbol()}
           />
           <>&nbsp;&nbsp;</>
