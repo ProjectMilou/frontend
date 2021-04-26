@@ -55,7 +55,6 @@ const Profile: React.FC<RouteComponentProps> = () => {
   });
   const [dialogOpen, setDialogOpen] = useState(false);
   const [addBankIsOpen, setAddBankIsOpen] = useState(false);
-  const [edit, setEdit] = useState(false);
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -71,10 +70,8 @@ const Profile: React.FC<RouteComponentProps> = () => {
       .catch(() => navigate('/'));
   }, []);
 
-  const onEdit = () => {
-    UserService.editProfile(user.firstName, user.lastName).finally(() =>
-      setEdit(false)
-    );
+  const onUpdate = () => {
+    UserService.editProfile(user.firstName, user.lastName);
   };
 
   const handleDialogClose = () => setDialogOpen(false);
@@ -122,7 +119,6 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   }
                   size="small"
                   fullWidth
-                  disabled={!edit}
                 />
                 <br />
                 <br />
@@ -138,7 +134,6 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   }
                   size="small"
                   fullWidth
-                  disabled={!edit}
                 />
                 <br />
                 <br />
@@ -159,16 +154,8 @@ const Profile: React.FC<RouteComponentProps> = () => {
                 </Dialog>
                 <br />
                 <br />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={edit ? onEdit : () => setEdit(true)}
-                >
-                  {t(
-                    `shell.profile.account-details.${
-                      edit ? 'update' : 'edit'
-                    }-details`
-                  )}
+                <Button variant="contained" color="primary" onClick={onUpdate}>
+                  {t(`shell.profile.account-details.update-details`)}
                 </Button>{' '}
                 <Button
                   variant="outlined"
