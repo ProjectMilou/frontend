@@ -79,6 +79,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
     },
     infoTitleP: {
       margin: '0.5rem 0rem',
+      display: 'flex',
     },
   })
 );
