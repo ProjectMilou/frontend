@@ -113,30 +113,30 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ stock, back }) => {
                 <>&emsp;&emsp;&emsp;</>
                 <StyledNumberFormat
                   // Fix: Divided by 1 because Back-End only provides string
-                  value={parseFloat(stock.price)}
+                  value={stock.price}
                   suffix={currencySymbol()}
                   size="35px"
                   paintJob={theme.palette.background.default}
                 />
                 <>&nbsp;&emsp;</>
                 <TextOverText
-                  top={`${stock.per7d.slice(0, -1)}%`}
+                  top={`${stock.per7d.toFixed(2)} %`}
                   bottom={t('stock.7d')}
-                  colorTop={convertPercentToColor(parseFloat(stock.per7d))}
+                  colorTop={convertPercentToColor(stock.per7d)}
                   colorBottom={theme.palette.background.default}
                 />
                 <>&nbsp;&emsp;</>
                 <TextOverText
-                  top={`${stock.per30d.slice(0, -1)}%`}
+                  top={`${stock.per30d.toFixed(2)} %`}
                   bottom={t('stock.30d')}
-                  colorTop={convertPercentToColor(parseFloat(stock.per30d))}
+                  colorTop={convertPercentToColor(stock.per30d)}
                   colorBottom={theme.palette.background.default}
                 />
                 <>&nbsp;&emsp;</>
                 <TextOverText
-                  top={`${stock.per365d.slice(0, -1)}%`}
+                  top={`${stock.per365d.toFixed(2)} %`}
                   bottom={t('stock.365d')}
-                  colorTop={convertPercentToColor(parseFloat(stock.per365d))}
+                  colorTop={convertPercentToColor(stock.per365d)}
                   colorBottom={theme.palette.background.default}
                 />
               </div>
