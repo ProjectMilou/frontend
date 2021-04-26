@@ -10,6 +10,7 @@ import RatioDonut from '../shared/RatioDonut';
 import DividendLineChart from '../shared/DividendLineChart';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 import InfoButton from '../shared/InfoButton';
+import StyledNumberFormat from '../shared/StyledNumberFormat';
 
 // stylesheet for the dividend section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -58,6 +59,14 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     },
     infoTitleP: {
       margin: '0.5rem 0',
+    },
+    placeholderInfo: {
+      display: 'flex',
+      margin: '15rem 0',
+      width: '100%',
+      justifyContent: 'center',
+      color: palette.primary.contrastText,
+      fontSize: '1.15rem',
     },
   })
 );
@@ -124,13 +133,19 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
           {/* right side with info */}
           <InfoBlock
             title={t('portfolio.details.divYield')}
-            infoText={t('analyser.details.DividendYield.infoButton')}
+            infoText={`${t('analyser.details.DividendYield.infoButton')}\n\n${t(
+              'source.investopedia'
+            )}`}
           >
-            {portfolio.keyFigures[portfolio.keyFigures.length - 1].div}
+            <StyledNumberFormat
+              value={portfolio.keyFigures[portfolio.keyFigures.length - 1].div}
+            />
           </InfoBlock>
           <InfoBlock
             title={t('portfolio.details.divPayout')}
-            infoText={t('analyser.details.DividendPayoutRatio.infoButton')}
+            infoText={`${t(
+              'analyser.details.DividendPayoutRatio.infoButton'
+            )}\n\n${t('source.investopedia')}`}
           >
             <RatioDonut
               ratio={
@@ -144,14 +159,14 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
             title={t('portfolio.details.nextDate')}
             infoText={t('analyser.details.NextDate.infoButton')}
           >
-            {portfolio.nextDividend.toLocaleDateString()}
+            {portfolio.nextDividend.toISOString().split('T')[0]}
           </InfoBlock>
         </div>
       </div>
     );
   }
   return (
-    <div className={classes.infoBody}>
+    <div className={classes.placeholderInfo}>
       {t('portfolio.details.emptyKeyFigures')}
     </div>
   );

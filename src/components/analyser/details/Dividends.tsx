@@ -162,10 +162,11 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
             info={t('analyser.details.DividendPayoutRatio.infoButton')}
             body={<DividendRatioDonut ratio={ratio} />}
           />
+          {/* TODO replace with actual date in YYYY-MM-DD format => .toISOString().split('T')[0] */}
           <InfoBlock
             title={t('analyser.details.NextDate')}
             info={t('analyser.details.NextDate.infoButton')}
-            body={<p style={{ margin: 0 }}>14.04.2021</p>}
+            body={<p style={{ margin: 0 }}>2021-04-14</p>}
           />
         </div>
       </div>

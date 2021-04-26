@@ -11,7 +11,7 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { ErrorState, PasswordInput } from '../utils';
 
-interface PasswordFieldProps {
+export interface PasswordFieldProps {
   hasError: ErrorState;
   setError: React.Dispatch<React.SetStateAction<ErrorState>>;
   login: PasswordInput;
@@ -45,6 +45,7 @@ const PasswordField: React.FC<PasswordFieldProps> = (props) => {
             <InputAdornment position="end">
               <IconButton
                 aria-label="toggle password visibility"
+                data-testid="password-visibility"
                 onClick={() =>
                   setShowPassword({
                     ...showPassword,
@@ -87,6 +88,7 @@ const PasswordField: React.FC<PasswordFieldProps> = (props) => {
             <InputAdornment position="end">
               <IconButton
                 aria-label="toggle password visibility"
+                data-testid="confirm-password-visibility"
                 onClick={() =>
                   setShowPassword({
                     ...showPassword,

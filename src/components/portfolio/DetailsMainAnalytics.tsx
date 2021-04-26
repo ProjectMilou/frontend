@@ -54,38 +54,41 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
           />
         </span>
         <InfoButton
-          infotext={t(
-            'portfolio.details.analytics.standardDeviation.infoButton'
-          )}
+          infotext={`${t(
+            `portfolio.details.analytics.standardDeviation.infoButton`
+          )}\n\n${t('source.investopedia')}`}
         />
       </div>
       <div className={classes.titleWrapper}>
         <span>{t('portfolio.details.analytics.correlation')}</span>
         <InfoButton
-          infotext={t('portfolio.details.analytics.correlations.info')}
+          infotext={`${t(
+            'portfolio.details.analytics.correlations.info'
+          )}\n\n${t('source.investopedia')}`}
         />
       </div>
       <DetailsAnalyticsHeatmap portfolio={portfolio} height={350} />
       <div className={classes.titleWrapper}>
         <span>{t('portfolio.details.analytics.debtEquity.total')}</span>
         <span className={classes.value}>
-          <StyledNumberFormat
-            value={portfolio.analytics.debtEquity * 100}
-            suffix="%"
-          />
+          <StyledNumberFormat value={portfolio.analytics.debtEquity} />
         </span>
         <InfoButton
-          infotext={t('portfolio.details.analytics.debtEquity.infoButton')}
+          infotext={`${t(
+            'portfolio.details.analytics.debtEquity.infoButton'
+          )}\n\n${t('source.investopedia')}`}
         />
       </div>
       <DetailsAnalyticsDebtEquityBar portfolio={portfolio} height={350} />
       <div className={classes.titleWrapper}>
         {t('portfolio.details.analytics.volatility.total')}
         <span className={classes.value}>
-          {Math.round(portfolio.analytics.volatility * 1000) / 1000}
+          <StyledNumberFormat value={portfolio.analytics.volatility} />
         </span>
         <InfoButton
-          infotext={t('analyser.details.Volatility.BetaFactor.infoButton')}
+          infotext={`${t(
+            'analyser.details.Volatility.BetaFactor.infoButton'
+          )}\n\n${t('source.investopedia')}`}
         />
       </div>
       <div className={classes.titleWrapper}>

@@ -218,7 +218,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
             </span>
             <KeyboardDatePicker
               inputVariant="outlined"
-              format="MM/DD/YYYY"
+              format="YYYY-MM-DD"
               InputProps={{ className: classes.datePickerInput }}
               KeyboardButtonProps={{ className: classes.innerButton }}
               error={!state.inputValid}
@@ -239,7 +239,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
             </span>
             <KeyboardDatePicker
               inputVariant="outlined"
-              format="MM/DD/YYYY"
+              format="YYYY-MM-DD"
               InputProps={{ className: classes.datePickerInput }}
               KeyboardButtonProps={{ className: classes.innerButton }}
               FormHelperTextProps={{ className: classes.helperText }}

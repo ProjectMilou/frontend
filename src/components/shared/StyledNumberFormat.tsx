@@ -1,6 +1,6 @@
 import React from 'react';
 import NumberFormat from 'react-number-format';
-import { makeStyles, Theme } from '@material-ui/core';
+import { makeStyles, Theme, Tooltip } from '@material-ui/core';
 
 /**
  * Component for number formatting and optional styling
@@ -16,6 +16,7 @@ import { makeStyles, Theme } from '@material-ui/core';
  *    - true will color green for positive values and red for negative values
  *    - if a hex-string is passed (e.g. '#fff') the text will be painted in that color
  *    - default/false is to inherit from parent (sets color to undefined)
+ * @param doLimit - optional if set to true the number will be limited in length
  */
 type StyledNumberFormatProps = {
   value: number;
@@ -23,6 +24,7 @@ type StyledNumberFormatProps = {
   size?: string;
   fontWeight?: number;
   paintJob?: boolean | string;
+  doLimit?: boolean;
 };
 
 const useStyles = makeStyles<Theme, StyledNumberFormatProps, string>(
@@ -47,14 +49,19 @@ const useStyles = makeStyles<Theme, StyledNumberFormatProps, string>(
         }
       },
     },
+    tooltip: {
+      maxWidth: 500,
+      fontSize: '0.9rem',
+      whiteSpace: 'pre-line',
+    },
   })
 );
 
 const StyledNumberFormat: React.FC<StyledNumberFormatProps> = (props) => {
-  const { value, suffix } = props;
+  const { value, suffix, doLimit } = props;
   const classes = useStyles(props);
 
-  return (
+  const nonLimitedFormat = (
     <NumberFormat
       value={value}
       displayType="text"
@@ -66,6 +73,31 @@ const StyledNumberFormat: React.FC<StyledNumberFormatProps> = (props) => {
       className={classes.styledNumberFormat}
       isNumericString
     />
+  );
+
+  return (
+    <>
+      {doLimit && Math.abs(value) > 1000000 ? (
+        <Tooltip
+          classes={{ tooltip: classes.tooltip }}
+          title={nonLimitedFormat}
+        >
+          <NumberFormat
+            value={value / 1000000}
+            displayType="text"
+            thousandSeparator="."
+            suffix={suffix ? 'M\u00a0'.concat(suffix) : undefined}
+            decimalScale={2}
+            fixedDecimalScale
+            decimalSeparator=","
+            className={classes.styledNumberFormat}
+            isNumericString
+          />
+        </Tooltip>
+      ) : (
+        <>{nonLimitedFormat}</>
+      )}
+    </>
   );
 };
 
