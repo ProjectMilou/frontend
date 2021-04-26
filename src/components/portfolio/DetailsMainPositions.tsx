@@ -53,9 +53,7 @@ const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
         </GridList>
       </div>
       {positions.length > 8 && (
-        <ShowMoreAccordion
-          positions={positions.slice(8, positions.length + 1)}
-        />
+        <ShowMoreAccordion positions={positions.slice(8, positions.length)} />
       )}
     </>
   );

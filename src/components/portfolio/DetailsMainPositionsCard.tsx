@@ -1,5 +1,11 @@
 import React from 'react';
-import { Button, Card, CardActions, CardContent } from '@material-ui/core';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  useTheme,
+} from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
@@ -48,20 +54,16 @@ type DetailsMainPositionsCardProps = {
   p: Position;
 };
 
-// TODO delete mock and replace with value from refactored props object in map statement
-const sevDayAbsolute = -8.1;
-const oneYearAbsolute = 35.6;
-
 const DetailsMainPositionsCard: React.FC<DetailsMainPositionsCardProps> = ({
   p,
 }) => {
+  const theme = useTheme();
   const classes = useStyles();
   const { t } = useTranslation();
 
-  // TODO: no hard coded colors
   // takes a percent value and converts it to a color
   function convertPercentToColor(val: number): string {
-    return val < 0 ? '#D64745' : '#50E2A8';
+    return val < 0 ? theme.palette.error.main : theme.palette.success.main;
   }
 
   return (
@@ -72,7 +74,6 @@ const DetailsMainPositionsCard: React.FC<DetailsMainPositionsCardProps> = ({
         borderColor: convertPercentToColor(p.totalReturnPercent),
       }}
     >
-      {/* TODO replace mock primary and secondary value and color with correct values from props */}
       <CardContent>
         <div className={classes.cardContentUpper}>
           <div className={classes.cardTitle}>
@@ -96,12 +97,16 @@ const DetailsMainPositionsCard: React.FC<DetailsMainPositionsCardProps> = ({
         <div className={classes.cardContentLower}>
           <ValueOverName
             value={
-              <StyledNumberFormat value={p.stock.perf7d} suffix="%" paintJob />
+              <StyledNumberFormat
+                value={p.stock.perf7dPercent}
+                suffix="%"
+                paintJob
+              />
             }
             name={t('portfolio.details.day7')}
             secondValue={
               <StyledNumberFormat
-                value={sevDayAbsolute}
+                value={p.stock.perf7d}
                 suffix="€"
                 paintJob
                 doLimit
@@ -110,12 +115,16 @@ const DetailsMainPositionsCard: React.FC<DetailsMainPositionsCardProps> = ({
           />
           <ValueOverName
             value={
-              <StyledNumberFormat value={p.stock.perf1y} suffix="%" paintJob />
+              <StyledNumberFormat
+                value={p.stock.perf1yPercent}
+                suffix="%"
+                paintJob
+              />
             }
             name={t('portfolio.details.year')}
             secondValue={
               <StyledNumberFormat
-                value={oneYearAbsolute}
+                value={p.stock.perf1y}
                 suffix="€"
                 paintJob
                 doLimit
