@@ -16,8 +16,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       width: '100%',
-      // TODO: delete fixed height
-      height: '30rem',
     },
     placeholderInfo: {
       display: 'flex',
