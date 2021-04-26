@@ -238,9 +238,15 @@ export type CashFlow = {
 
 export type News = {
   headline: string;
-  date: string; // TODO change to date
-  url: string; // Todo change to URL
+  summary: string;
+  url: string; // TODO change to URL
+  publishedAt: string; // TODO change to URL
 };
+
+export type NewsList = {
+  news: News[];
+};
+
 export type AnalystsRecommendation = {
   symbol: string;
   buy: number;
@@ -461,6 +467,42 @@ export async function analystsRecommendations(
 }
 
 /**
+ * Gets cash newsData with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ */
+export async function newsList(
+  token: string,
+  symbol: string
+): Promise<NewsList> {
+  const response = (await request(
+    token,
+    'GET',
+    `stocks/news?id=${symbol}`
+  )) as NewsList;
+  return response;
+}
+
+/**
+ * Gets cash flow  Data with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ */
+export async function cashFlowList(
+  token: string,
+  symbol: string
+): Promise<CashFlowList> {
+  const response = (await request(
+    token,
+    'GET',
+    `stocks/cashFlow?id=${symbol}`
+  )) as CashFlowList;
+  return response;
+}
+
+/**
  * Gets interest coverages with an authenticated user.
  *
  * @param token - Authentication token
@@ -490,18 +532,6 @@ export async function risks(token: string, symbol: string): Promise<RiskList> {
     'GET',
     `analytics/risk/${symbol}`
   )) as RiskList;
-  return response;
-}
-
-export async function cashFlowList(
-  token: string,
-  symbol: string
-): Promise<CashFlowList> {
-  const response = (await request(
-    token,
-    'GET',
-    `stocks/cashFlow?id=${symbol}`
-  )) as CashFlowList;
   return response;
 }
 
