@@ -190,20 +190,32 @@ function sortStocks(
 const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
   const classes = useStyles();
 
+  // currently dispayled stocks in lazy loading
   const [items, setItems] = React.useState<API.Stock[]>(stocks.slice(0, 10));
+  // boolean if more stocks are available for loading
   const [hasMore, setHasMore] = React.useState<boolean>(true);
-
   // default order: ascending
   const [order, setOrder] = React.useState<Order>('asc');
   // default order key: stock's name
-  const [orderByKey, setOrderByKey] = React.useState<keyof API.Stock>('name');
+  const [orderByKey, setOrderByKey] = React.useState<keyof API.Stock>('symbol');
   // sorted stocks
-  const [sortedStocks, setSortedStocks] = React.useState(() =>
-    sortStocks(items, order, orderByKey)
+  const [sortedStocks, setSortedStocks] = React.useState<API.Stock[]>(
+    sortStocks(stocks, order, orderByKey)
   );
+
+  // update sorted stocks if new sotck, new items, new order or new orderByKey
   React.useEffect(() => {
-    setSortedStocks(sortStocks(items, order, orderByKey));
-  }, [items, order, orderByKey]);
+    setSortedStocks(sortStocks(stocks, order, orderByKey));
+    setItems(sortedStocks.slice(0, 10));
+    // setItems(sortStocks(items, order, orderByKey))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stocks, order, orderByKey]);
+
+  React.useEffect(() => {
+    setItems(sortedStocks.slice(0, 10));
+    setHasMore(true);
+  }, [sortedStocks]);
+
   // function to handle a sort reqeust, order wil betoggled every time.
   const handleRequestSort = (property: keyof API.Stock) => {
     const isAsc = orderByKey === property && order === 'asc';
@@ -211,13 +223,11 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
     setOrderByKey(property);
   };
 
-  React.useEffect(() => {
-    setItems(stocks.slice(0, 10));
-    setHasMore(true);
-  }, [stocks]);
-
+  // fetch more data (currently mocked)
   const fetchMoreData = () => {
-    if (items.length >= stocks.length) {
+    console.log(items);
+    console.log(sortedStocks.slice(0, 20));
+    if (items.length >= sortedStocks.length) {
       setHasMore(false);
       return;
     }
@@ -227,11 +237,13 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
     // TODO replace with async API call
     setTimeout(() => {
       const newItems = items.concat(
-        stocks.slice(items.length, items.length + 5)
+        sortedStocks.slice(items.length, items.length + 5)
       );
       setItems(newItems);
     }, 1500);
   };
+
+  // component
   return (
     <InfiniteScroll
       dataLength={items.length}
@@ -252,9 +264,8 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
               order={order}
               orderByKey={orderByKey}
             />
-            {/* Table body take already sorted stocks */}
             <TableBody>
-              {sortedStocks.map((s) => (
+              {items.map((s) => (
                 <DashboardTableRow stock={s} key={s.symbol} />
               ))}
               {hasMore && (

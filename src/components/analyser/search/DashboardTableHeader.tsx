@@ -51,7 +51,7 @@ const DashboardTableHeader: React.FC<DashboardTableHeaderProps> = ({
   // All properties needed for stocks list.
   const headCells: HeadCell[] = [
     {
-      id: 'name',
+      id: 'symbol',
       numeric: false,
       disablePadding: false,
       label: t('stock.name'),
