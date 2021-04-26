@@ -9,7 +9,6 @@ import {
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import InfoButton from '../../shared/InfoButton';
-import SubsectionDivider from '../../shared/SubsectionDivider';
 
 export type BalanceSheetProps = {
   companyReports: API.CompanyReports;
@@ -36,6 +35,13 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     titleWrapper: {
       marginRight: '1rem',
     },
+    sectionSubTitle: {
+      margin: 0,
+      color: palette.primary.main,
+      fontSize: '2rem',
+      fontWeight: 400,
+      whiteSpace: 'nowrap',
+    },
     boxTitles: {
       margin: 0,
       color: palette.primary.main,
@@ -52,38 +58,22 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 
 function checkValue(val: number): number {
   let result = val;
-  if (val.toString() === 'None') {
+  if (val.toString() === 'NaN') {
     result = 0;
+  } else {
+    result = val / 1000000;
   }
-  return result;
+  return parseFloat(result.toFixed(2));
 }
 
 function checkName(val: number, text: string): string {
   let result = text;
   if (val === 0) {
     result = '';
+  } else {
+    result = `${result} in Million €`;
   }
   return result;
-}
-
-// sadly not supported for now by treemap
-// eslint-disable-next-line
-function convertToInternationalCurrencySystem(val: number) {
-  // based on https://stackoverflow.com/a/36734774
-
-  if (Math.abs(Number(val)) >= 1.0e9) {
-    // Nine Zeroes for Billions
-    return `${(Math.abs(Number(val)) / 1.0e9).toFixed(2)} B`;
-  }
-  if (Math.abs(Number(val)) >= 1.0e6) {
-    // Six Zeroes for Millions
-    return `${(Math.abs(Number(val)) / 1.0e6).toFixed(2)} M`;
-  }
-  if (Math.abs(Number(val)) >= 1.0e3) {
-    // Three Zeroes for Thousands
-    return `${(Math.abs(Number(val)) / 1.0e3).toFixed(2)} K`;
-  }
-  return Math.abs(Number(val)).toString();
 }
 
 const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
@@ -265,12 +255,21 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
       style: {
         colors: [theme.palette.primary.main],
       },
+      noData: {
+        text: 'Currently no Data available ;(',
+      },
     },
   };
 
   return (
     <div className={classes.contentWrapper}>
-      <SubsectionDivider subsection="analyser.details.BalanceSheetHeader" />
+      <div className={classes.titleContainer}>
+        <div className={classes.titleWrapper}>
+          <h2 className={classes.sectionSubTitle}>
+            {t('analyser.details.BalanceSheetHeader')}
+          </h2>
+        </div>
+      </div>
       <div className={classes.infoContainer}>
         <div className={classes.MapWrapper}>
           <div className={classes.titleContainer}>
