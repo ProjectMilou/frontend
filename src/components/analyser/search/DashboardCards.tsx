@@ -10,13 +10,11 @@ import {
   makeStyles,
   GridList,
   ButtonBase,
-  useTheme,
 } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import TextOverText from '../../shared/TextOverText';
-import CompanyLogo from '../CompanyLogo';
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -75,7 +73,6 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const theme = useTheme();
 
   return (
     <Card className={classes.card}>
@@ -83,14 +80,17 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
         className={classes.cardAction}
         onClick={() => navigate(`analyser/${stock.symbol}`)}
       >
-        <CardMedia>
-          <CompanyLogo stockOverview={stock} style={classes.media} />
-        </CardMedia>
+        <CardMedia
+          className={classes.media}
+          component="img"
+          image={stock.picture.toString()}
+        />
         <CardContent className={classes.content}>
           <TextOverText
             top={`${stock.symbol}`}
             bottom={`${stock.name}`}
-            colorTop={theme.palette.grey[700]}
+            colorTop="#68696b"
+            colorBottom="#122654"
             sizeBottom="1.3rem"
             alignment="left"
           />
@@ -98,8 +98,8 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
           <div className={classes.paddingBottom}>
             <div className={classes.leftBound}>
               <TextOverText
-                top={t('analyser.dashboard.view.cards.lastPrice')}
-                colorTop={theme.palette.grey[700]}
+                top="Last Price"
+                colorTop="#68696b"
                 bottom={`${stock.price}`}
                 currency={`${stock.currency}`}
                 sizeBottom="1.3rem"
@@ -109,7 +109,7 @@ export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
               <TextOverText
                 top={t('stock.30d')}
                 bottom={`${stock.per30d.slice(0, -1)}%`}
-                colorTop={theme.palette.grey[700]}
+                colorTop="#68696b"
                 colorBottom={convertPercentToColor(parseFloat(stock.per30d))}
                 sizeBottom="1.3rem"
               />

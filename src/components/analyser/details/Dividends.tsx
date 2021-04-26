@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import { Toolbar } from '@material-ui/core';
 import * as API from '../../../analyser/APIClient';
 import DividendRatioDonut from '../../shared/DividendRatioDonut';
 import DividendLineChart from '../../shared/DividendLineChart';
@@ -78,7 +79,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       whiteSpace: 'nowrap',
     },
     infoTitleP: {
-      margin: '0.5rem 0rem',
+      margin: '0.5rem 0.5rem',
     },
   })
 );
@@ -97,11 +98,10 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
   return (
     <div className={classes.infoWrapper}>
       <div className={classes.infoTitle}>
-        <p className={classes.infoTitleP}>
-          {title}
-          <>&nbsp;</>
+        <Toolbar disableGutters>
+          <p className={classes.infoTitleP}>{title}</p>
           <InfoButton infotext={info}> </InfoButton>
-        </p>
+        </Toolbar>
       </div>
       <div className={classes.infoBody}>{body}</div>
     </div>
@@ -115,9 +115,10 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
   const cashData: number[] = [];
   cashFlowList.annualReports.forEach((element) => {
     cashData.push(
-      Math.round((element.dividendPayout / element.netIncome) * 10000) / 100
+      Math.floor((element.dividendPayout / element.netIncome) * 100) / 100
     );
   });
+  // TODO fetch data from backend
   // eslint-disable-next-line
   const [seriesArray, setSeriesArray] = React.useState([
     {
@@ -132,17 +133,18 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
     },
   ]);
 
-  const lastAnnualReports =
-    cashFlowList.annualReports[cashFlowList.annualReports.length - 1];
-  let dividendPayoutRatio =
+  let ratio =
     Math.round(
-      (lastAnnualReports.dividendPayout / lastAnnualReports.netIncome) * 100
+      // TODO
+      // This values do not exists, pls fix
+      // (stockOverview.dividendPerShare / stockOverview.revenuePerShareTTM) * 100
+      100
     ) / 100;
-  // (stockOverview.dividendPerShare / stockOverview.revenuePerShareTTM) * 100
-  if (Number.isNaN(dividendPayoutRatio)) {
-    dividendPayoutRatio = 0.0;
+  if (Number.isNaN(ratio)) {
+    ratio = 0.0;
   }
-  const dividendYield = series[series.length - 1];
+  const dividendYield = series[4];
+  const dividendYieldText = (dividendYield * 100).toFixed(2);
   return (
     <div>
       <div className={classes.titleContainer}>
@@ -169,16 +171,16 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
             body={
               <p style={{ margin: 0 }}>
                 {' '}
-                {Number.isNaN(dividendYield)
-                  ? ' Dividend data is not found.'
-                  : `${dividendYield}%`}{' '}
+                {Number.isNaN(dividendYieldText)
+                  ? `${dividendYieldText}|%`
+                  : ' Dividend data is not found.'}{' '}
               </p>
             }
           />
           <InfoBlock
             title={t('analyser.details.DividendPayoutRatio')}
             info={t('analyser.details.DividendPayoutRatio.infoButton')}
-            body={<DividendRatioDonut ratio={dividendPayoutRatio} />}
+            body={<DividendRatioDonut ratio={ratio} />}
           />
           {/* TODO replace with actual date in YYYY-MM-DD format => .toISOString().split('T')[0] */}
           <InfoBlock
@@ -189,7 +191,7 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
         </div>
       </div>
 
-      <DividendsRR dividend={dividendYield} payoutRatio={dividendPayoutRatio} />
+      <DividendsRR dividend={dividendYield} payoutRatio={ratio} />
     </div>
   );
 };

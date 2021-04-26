@@ -20,7 +20,6 @@ import { useTranslation } from 'react-i18next';
 import { Stock, StockDetails } from '../../../analyser/APIClient';
 import SectionDivider from '../../shared/SectionDivider';
 import DetailsOverviewCompany from './DetailsOverviewCompany';
-import CompanyLogo from '../CompanyLogo';
 
 // stylesheet for the Summary section
 const useStyles = makeStyles((theme: Theme) =>
@@ -87,9 +86,10 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
           {/* picture and ccompany overview */}
           <Grid item sm={3} justify="center">
             <Paper className={classes.paper} variant="outlined">
-              <CompanyLogo
-                stockOverview={stockOverview}
-                style={classes.image}
+              <img
+                className={classes.image}
+                alt="Company Symbol"
+                src={stockOverview.picture.toString()}
               />
             </Paper>
           </Grid>

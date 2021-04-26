@@ -20,7 +20,7 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({
   textColor,
 }) => {
   const { t } = useTranslation();
-  const currentYear = new Date().getFullYear();
+
   const options = {
     tooltip: {
       y: {
@@ -51,13 +51,7 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({
       enabled: true,
       enabledOnSeries: [1],
     },
-    labels: [
-      currentYear - 4,
-      currentYear - 3,
-      currentYear - 2,
-      currentYear - 1,
-      currentYear,
-    ],
+    labels: [2016, 2017, 2018, 2019, 2020],
     xaxis: {
       type: 'year',
       labels: {
