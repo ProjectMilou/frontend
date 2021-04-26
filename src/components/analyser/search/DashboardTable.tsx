@@ -76,26 +76,6 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
     sortStocks(stocks, order, orderByKey)
   );
 
-  // update sorted stocks if new sotck, new items, new order or new orderByKey
-  React.useEffect(() => {
-    setSortedStocks(sortStocks(stocks, order, orderByKey));
-    setItems(sortedStocks.slice(0, 10));
-    // setItems(sortStocks(items, order, orderByKey))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stocks, order, orderByKey]);
-
-  React.useEffect(() => {
-    setItems(sortedStocks.slice(0, 10));
-    setHasMore(true);
-  }, [sortedStocks]);
-
-  // function to handle a sort reqeust, order wil betoggled every time.
-  const handleRequestSort = (property: keyof API.Stock) => {
-    const isAsc = orderByKey === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderByKey(property);
-  };
-
   // fetch more data (currently mocked)
   const fetchMoreData = () => {
     if (items.length >= sortedStocks.length) {
@@ -113,6 +93,30 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
       setItems(newItems);
     }, 1500);
   };
+
+   // function to handle a sort reqeust, order wil betoggled every time.
+   const handleRequestSort = (property: keyof API.Stock) => {
+    const isAsc = orderByKey === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderByKey(property);
+  };
+
+  // update sorted stocks if new sotck, new items, new order or new orderByKey
+  React.useEffect(() => {
+    setSortedStocks(sortStocks(stocks, order, orderByKey));
+    setItems(sortedStocks.slice(0, 10));
+
+    if (items.length >= sortedStocks.length) {
+      setHasMore(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stocks, order, orderByKey]);
+
+  React.useEffect(() => {
+    setItems(sortedStocks.slice(0, 10));
+    setHasMore(true);
+  }, [sortedStocks]);
+
 
   // component
   return (
