@@ -113,7 +113,7 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({
       },
     },
     noData: {
-      text: 'No Data about Dividends are Found.',
+      text: 'No Data about Dividends is Found.',
       align: 'center',
       verticalAlign: 'middle',
       offsetX: 0,
