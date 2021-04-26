@@ -82,6 +82,7 @@
   "portfolio.details.backtesting.mddInfo": "A maximum drawdown (MDD) is the maximum observed loss from a peak to a trough of a portfolio, before a new peak is attained. Maximum drawdown is an indicator of downside risk over a specified time period.",
   "portfolio.details.backtesting.cagrInfo": "Compound annual growth rate (CAGR) is the rate of return that would be required for an investment to grow from its beginning balance to its ending balance, assuming the profits were reinvested at the end of each year of the investment’s lifespan.",
   "portfolio.performance.errorMessage": "Loading portfolio performance failed.",
+  "portfolio.details.stockChartSeries": "Total Performance",
   "cancel": "Cancel",
   "submit": "Submit",
   "shell.home": "Home",
