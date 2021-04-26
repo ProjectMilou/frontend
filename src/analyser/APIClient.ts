@@ -20,16 +20,16 @@ export type Stock = {
   isin: string;
   wkn: string;
   name: string;
-  price: string;
-  per1d: string;
-  per7d: string;
-  per30d: string;
-  per365d: string;
+  price: number;
+  per1d: number;
+  per7d: number;
+  per30d: number;
+  per365d: number;
   marketCapitalization: number;
-  analystTargetPrice: string;
+  analystTargetPrice: number;
   valuation: number;
   growth: number;
-  div: string;
+  div: number;
   currency: string;
   country: string;
   industry: string;
@@ -369,7 +369,21 @@ export async function stockOverview(
     'GET',
     `stocks/overview?id=${symbol}`
   )) as StockList;
-  return response.stocks[0] as Stock;
+
+  // TODO fix in backend, this is total BS
+  const apiStock = response.stocks[0]
+  return {...apiStock,
+          price: parseFloat(apiStock.price.toString()),
+          per1d: parseFloat(apiStock.per1d.toString()),
+  per7d: parseFloat(apiStock.per7d.toString()),
+  per30d: parseFloat(apiStock.per30d.toString()),
+  per365d: parseFloat(apiStock.per365d.toString()),
+  marketCapitalization: parseInt(apiStock.marketCapitalization.toString(), 10),
+  analystTargetPrice: parseFloat(apiStock.analystTargetPrice.toString()),
+  valuation: parseInt(apiStock.valuation.toString(), 10),
+  growth: parseFloat(apiStock.growth.toString()),
+  div: parseFloat(apiStock.div.toString()),
+        } as Stock 
 }
 
 /**
