@@ -94,8 +94,8 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
     }, 1500);
   };
 
-   // function to handle a sort reqeust, order wil betoggled every time.
-   const handleRequestSort = (property: keyof API.Stock) => {
+  // function to handle a sort request, order will be toggled every time.
+  const handleRequestSort = (property: keyof API.Stock) => {
     const isAsc = orderByKey === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderByKey(property);
@@ -116,7 +116,6 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
     setItems(sortedStocks.slice(0, 10));
     setHasMore(true);
   }, [sortedStocks]);
-
 
   // component
   return (
