@@ -9,6 +9,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import InfoButton from '../../shared/InfoButton';
+import SubsectionDivider from '../../shared/SubsectionDivider';
 
 export type BalanceSheetProps = {
   companyReports: API.CompanyReports;
@@ -34,13 +35,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     },
     titleWrapper: {
       marginRight: '1rem',
-    },
-    sectionSubTitle: {
-      margin: 0,
-      color: palette.primary.main,
-      fontSize: '2rem',
-      fontWeight: 400,
-      whiteSpace: 'nowrap',
     },
     boxTitles: {
       margin: 0,
@@ -276,13 +270,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
 
   return (
     <div className={classes.contentWrapper}>
-      <div className={classes.titleContainer}>
-        <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionSubTitle}>
-            {t('analyser.details.BalanceSheetHeader')}
-          </h2>
-        </div>
-      </div>
+      <SubsectionDivider subsection="analyser.details.BalanceSheetHeader" />
       <div className={classes.infoContainer}>
         <div className={classes.MapWrapper}>
           <div className={classes.titleContainer}>
