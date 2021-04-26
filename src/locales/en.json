@@ -21,6 +21,7 @@
   "portfolio.details.totalValue": "Total Value",
   "portfolio.details.totalReturn": "Total",
   "portfolio.details.holding": "Holding",
+  "portfolio.details.other": "other ...",
   "portfolio.details.sharpe": "Sharpe Ratio: ",
   "portfolio.details.treynor": "Treynor Ratio: ",
   "portfolio.details.warnings.country0": "Very low country diversification",
