@@ -108,15 +108,20 @@ export function collectStocks(
       // take the top 5
       .slice(0, 5)
       .forEach((p) => {
+        let val;
+
         // check whether volatility or stock score is to be used as the key
-        const val = volatility
-          ? Math.round(p.stock.volatility * 100) / 100
-          : // make sure score is between 0 and 100
-          p.stock.score < 0
-          ? 0
-          : p.stock.score > 100
-          ? 100
-          : Math.round(p.stock.score);
+        if (volatility) {
+          val = Math.round(p.stock.volatility * 100) / 100;
+
+          // make sure score is between 0 and 100
+        } else if (p.stock.score < 0) {
+          val = 0;
+        } else if (p.stock.score > 100) {
+          val = 100;
+        } else {
+          val = Math.round(p.stock.score);
+        }
 
         if (!collectedStocks[val]) {
           // if there is no entry with this score create one

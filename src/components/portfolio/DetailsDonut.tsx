@@ -79,6 +79,7 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({
     '#00E396',
     '#FF4560',
     '#775DD0',
+    '#c7f464',
     '#3f51b5',
     '#4caf50',
     '#f9ce1d',
@@ -134,13 +135,12 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({
     ],
   };
 
-  // not including 'other ...'
+  // including 'other ...'
   const legendLength = 5;
 
   const legendItems: JSX.Element[] = [];
 
-  // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < labels.length; i++) {
+  for (let i = 0; i < labels.length; i += 1) {
     legendItems[i] = (
       <LegendItem key={i} name={labels[i]} color={colors[i % colors.length]} />
     );
