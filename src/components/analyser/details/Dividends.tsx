@@ -134,14 +134,12 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
 
   const lastAnnualReports =
     cashFlowList.annualReports[cashFlowList.annualReports.length - 1];
-  let dividendPayoutRatio =
+  const dividendPayoutRatio =
     Math.round(
       (lastAnnualReports.dividendPayout / lastAnnualReports.netIncome) * 100
     ) / 100;
   // (stockOverview.dividendPerShare / stockOverview.revenuePerShareTTM) * 100
-  if (Number.isNaN(dividendPayoutRatio)) {
-    dividendPayoutRatio = 0.0;
-  }
+
   const dividendYield = series[series.length - 1];
   const year = cashFlowList.annualReports[0].fiscalDateEnding.substring(0, 4);
   return (
