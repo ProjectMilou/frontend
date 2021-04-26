@@ -23,7 +23,7 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({
   const options = {
     tooltip: {
       y: {
-        formatter: roundAxis,
+        formatter: (tooltipValue: number) => roundAxis(tooltipValue),
       },
     },
     labels,

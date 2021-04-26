@@ -71,10 +71,7 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
       <div className={classes.titleWrapper}>
         <span>{t('portfolio.details.analytics.debtEquity.total')}</span>
         <span className={classes.value}>
-          <StyledNumberFormat
-            value={portfolio.analytics.debtEquity * 100}
-            suffix="%"
-          />
+          <StyledNumberFormat value={portfolio.analytics.debtEquity} />
         </span>
         <InfoButton
           infotext={`${t(
@@ -86,7 +83,7 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
       <div className={classes.titleWrapper}>
         {t('portfolio.details.analytics.volatility.total')}
         <span className={classes.value}>
-          {Math.round(portfolio.analytics.volatility * 1000) / 1000}
+          <StyledNumberFormat value={portfolio.analytics.volatility} />
         </span>
         <InfoButton
           infotext={`${t(
