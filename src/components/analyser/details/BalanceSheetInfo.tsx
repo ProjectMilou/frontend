@@ -48,6 +48,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       fontSize: '1.5rem',
       fontWeight: 400,
       whiteSpace: 'nowrap',
+      display: 'flex',
     },
     contentWrapper: {
       paddingBottom: '2rem',
