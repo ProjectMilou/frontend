@@ -55,7 +55,7 @@ function checkValue(val: number): number {
   if (val.toString() === 'NaN') {
     result = 0;
   } else {
-    result = val /1000000;
+    result = val / 1000000;
   }
   return parseFloat(result.toFixed(2));
 }
@@ -64,10 +64,9 @@ function checkName(val: number, text: string): string {
   let result = text;
   if (val === 0) {
     result = '';
-  }
-  else {
+  } else {
     result = `${result} in Million €`;
-  } 
+  }
   return result;
 }
 
