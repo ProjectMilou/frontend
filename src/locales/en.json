@@ -194,6 +194,7 @@
   "analyser.dashboard.errorMessage": "There has been an error while loading your stocks.",
   "analyser.dashboard.view.table": "Table view",
   "analyser.dashboard.view.cards": "Cards view",
+  "analyser.dashboard.view.cards.lastPrice": "Last Price",
   "analyser.filter.title": "Filter Options",
   "analyser.filter.clear": "Clear filters",
   "analyser.dashboard.noStocks": "We can't show you any stoks right now :(",
