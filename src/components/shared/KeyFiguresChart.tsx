@@ -63,6 +63,9 @@ const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({
     stroke: {
       width: 2,
     },
+    noData: {
+      text: 'Currently no Data available ;(',
+    },
   };
   return (
     <div>
