@@ -1,11 +1,11 @@
 import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { GridList, GridListTile } from '@material-ui/core';
 import { Position } from '../../portfolio/APIClient';
 import DetailsMainPositionsCard from './DetailsMainPositionsCard';
 import ShowMoreAccordion from './ShowMoreAccordion';
 
-const useStyles = makeStyles(({ palette }: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     gridListWrapper: {
       width: '100%',

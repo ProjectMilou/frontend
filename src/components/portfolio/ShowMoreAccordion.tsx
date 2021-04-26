@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
 import { Position } from '../../portfolio/APIClient';
 import DetailsMainPositionsCard from './DetailsMainPositionsCard';
 
@@ -25,30 +24,18 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       height: 'auto',
     },
     accordionBorder: {
-      '&:before': {
-        display: 'none',
-      },
-      '&$expanded': {
-        margin: 'auto',
-      },
-      expanded: {},
-    },
-    accordionSummary: {
-      backgroundColor: 'rgba(0, 0, 0, .03)',
-      marginBottom: -1,
-      minHeight: 56,
-      '&$expanded': {
-        minHeight: 56,
-      },
-      expanded: {},
+      boxShadow: 'none',
+      marginTop: '2.5rem',
     },
     accordionContent: {
-      backgroundColor: palette.primary.main,
+      backgroundColor: palette.primary.light,
       color: palette.primary.contrastText,
+      marginBottom: -1,
+      minHeight: 60,
       '&$expanded': {
-        margin: '12px 0',
+        margin: 'auto',
+        minHeight: 60,
       },
-      expanded: {},
     },
     accordionDetails: {
       backgroundColor: palette.primary.main,
@@ -72,10 +59,7 @@ const ShowMoreAccordion: React.FC<ShowMoreAccordionProps> = ({ positions }) => {
   return (
     <Accordion className={classes.accordionBorder}>
       <AccordionSummary
-        className={classNames(
-          classes.accordionSummary,
-          classes.accordionContent
-        )}
+        className={classes.accordionContent}
         expandIcon={<ExpandMoreIcon className={classes.expandIcon} />}
       >
         <Typography>
