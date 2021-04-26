@@ -127,6 +127,7 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
             series={series}
             height={450}
             textColor={theme.palette.primary.contrastText}
+            year={portfolio.keyFigures[0].year}
           />
         </div>
         <div className={classes.infoContainer}>

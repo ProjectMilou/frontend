@@ -143,6 +143,7 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
     dividendPayoutRatio = 0.0;
   }
   const dividendYield = series[series.length - 1];
+  const year = cashFlowList.annualReports[0].fiscalDateEnding.substring(0, 4);
   return (
     <div>
       <div className={classes.titleContainer}>
@@ -159,6 +160,7 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
             height={350}
             // TODO: please change this to whatever color you guys want/need
             textColor="rgba(0, 0, 0, 0.87)"
+            year={parseInt(year, 10)}
           />
         </div>
         <div className={classes.infoContainer}>
@@ -170,7 +172,7 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
               <p style={{ margin: 0 }}>
                 {' '}
                 {Number.isNaN(dividendYield)
-                  ? ' Dividend data is not found.'
+                  ? ' Dividend is not paid this year.'
                   : `${dividendYield}%`}{' '}
               </p>
             }
