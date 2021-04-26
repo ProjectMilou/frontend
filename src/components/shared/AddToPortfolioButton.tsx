@@ -15,14 +15,18 @@ const useStyles = makeStyles((theme: Theme) =>
     addButton: {
       '& > *': {
         margin: theme.spacing(1),
+        color: theme.palette.background.default,
       },
       margin: 0,
       top: 'auto',
-      right: 20,
-      bottom: 20,
+      right: 30,
+      bottom: 30,
       left: 'auto',
       position: 'fixed',
-      color: 'primary',
+      backgroundColor: theme.palette.secondary.main,
+      '&:hover': {
+        backgroundColor: theme.palette.primary.main,
+      },
     },
     root: {
       '& > *': {
@@ -184,7 +188,7 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonProps> = ({
       <Fab
         className={classes.addButton}
         onClick={() => openDialog()}
-        color="primary"
+        size="large"
         aria-label="add"
         variant="extended"
       >
