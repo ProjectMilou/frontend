@@ -2,7 +2,6 @@ import React from 'react';
 import KeyFiguresBar from '../../shared/KeyFiguresBar';
 import SubsectionDivider from '../../shared/SubsectionDivider';
 import * as API from '../../../analyser/APIClient';
-import SectionDivider from '../../shared/SectionDivider';
 
 export type KeyFigureProps = {
   keyFigures: API.KeyFigures;
@@ -22,7 +21,6 @@ const KeyFigures: React.FC<KeyFigureProps> = ({ keyFigures }) => {
 
   return (
     <div>
-      <SectionDivider section="analyser.details.KeyFiguresHeader" />
       <SubsectionDivider subsection="analyser.details.KeyFiguresHeader.KeyFigures" />
       <KeyFiguresBar
         chartHeight={350}
