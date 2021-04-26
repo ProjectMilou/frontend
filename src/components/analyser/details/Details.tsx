@@ -99,7 +99,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
     });
     return unixDataPoints.reverse();
   };
-  const [newsList, setNewsList] = React.useState<API.NewsList>();
+  const [newsList, setNewsList] = React.useState<API.News[]>();
 
   const fetch = async () => {
     setError(undefined);
@@ -109,11 +109,10 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
       const sP = await API.stockPerformance(token, symbol, false);
       const sDiv = await API.stockDividend(token, symbol, false);
       const cR = await API.companyReports(token, symbol);
-      const iC = await API.interestCoverages(token, symbol);
       const cCash = await API.cashFlowList(token, symbol);
-      const kF = await API.keyFigures(token, symbol);
       const aR = await API.analystsRecommendations(token, symbol);
-      const nL = await API.newsList(token, symbol);
+      const kF = await API.keyFigures(token, symbol);
+      const iC = await API.interestCoverages(token, symbol);
       const r = await API.risks(token, symbol);
 
       setStockOverview(sO);
@@ -123,11 +122,42 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
       setStockDividend(convertDividend(sDiv));
       setCompanyReports(cR);
       setInterestCoverages(iC);
+      setRisks(r);
       setCashFlowList(cCash);
       setKeyFigures(kF);
-      setNewsList(nL);
+      setNewsList([
+        {
+          headline: 'this is hot news, gamestonk is very high this week',
+          url: 'wallstreet.com',
+          date: '1st April',
+        },
+        {
+          headline: 'Elon Musk now officially called Master of Coin',
+          url: 'news.com',
+          date: '12 April',
+        },
+        {
+          headline: 'Elon Musk now officially called Master of Coin',
+          url: 'news.com',
+          date: '12 April',
+        },
+        {
+          headline: 'Elon Musk now officially called Master of Coin',
+          url: 'news.com',
+          date: '12 April',
+        },
+        {
+          headline: 'Elon Musk now officially called Master of Coin',
+          url: 'news.com',
+          date: '12 April',
+        },
+        {
+          headline: 'Elon Musk now officially called Master of Coin',
+          url: 'news.com',
+          date: '12 April',
+        },
+      ]);
       setAnalystRecommendations(aR);
-      setRisks(r);
     } catch (e) {
       setError(e);
     }
@@ -202,7 +232,6 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
             interestCoverages &&
             risks &&
             keyFigures &&
-            newsList &&
             cashFlowList && (
               <Container className={classes.mainContent}>
                 <DetailsOverview

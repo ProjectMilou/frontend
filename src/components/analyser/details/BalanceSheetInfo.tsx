@@ -38,6 +38,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     sectionSubTitle: {
       margin: 0,
       color: palette.primary.main,
+      // TODO use theme fontsize and weight
       fontSize: '2rem',
       fontWeight: 400,
       whiteSpace: 'nowrap',
@@ -45,6 +46,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     boxTitles: {
       margin: 0,
       color: palette.primary.main,
+      // TODO use theme fontsize and weight
       fontSize: '1.5rem',
       fontWeight: 400,
       whiteSpace: 'nowrap',
@@ -226,7 +228,6 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
           x: checkName(equitiesSeries.retainedEarnings, 'Retained Earnings'),
           y: equitiesSeries.retainedEarnings,
         },
-        // Place Holder to allow for red coloring of debt Fiel in Tree Map
         {
           x: '',
           y: 0,
@@ -251,15 +252,14 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
       },
     },
     colors: [
-      // Togehter with PLace Holder allows for specific coloring of debt field in Tree Map
-      theme.palette.success.main,
-      theme.palette.success.main,
-      theme.palette.success.main,
-      theme.palette.success.main,
-      theme.palette.success.main,
-      theme.palette.success.main,
-      theme.palette.success.main,
-      theme.palette.error.main,
+      '#50E2A8',
+      '#50E2A8',
+      '#50E2A8',
+      '#50E2A8',
+      '#50E2A8',
+      '#50E2A8',
+      '#50E2A8',
+      '#D64745',
     ],
     plotOptions: {
       treemap: {

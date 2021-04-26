@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from '@reach/router';
 import { makeStyles, Typography, Card, CardContent } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
@@ -10,16 +11,14 @@ export type NewsCardProps = {
 const useStyles = makeStyles({
   root: {
     width: 275,
-    height: 300,
   },
   divider: {
     display: 'inline-block',
-    margin: '0 10px',
+    margin: '0 2px',
     transform: 'scale(0.8)',
   },
   title: {
     fontSize: 14,
-    display: 'inline-block',
   },
   pos: {
     marginBottom: 12,
@@ -30,49 +29,33 @@ const useStyles = makeStyles({
   card: {
     margin: 15,
   },
-  footer: {
-    position: 'fixed',
-    bottom: 30,
-  },
 });
-
-const headlineMaxLength = 80;
-const summaryMaxLength = 80;
 
 const News: React.FC<NewsCardProps> = ({ news }) => {
   const classes = useStyles();
-  const divider = <span className={classes.divider}> </span>;
+  const divider = <span className={classes.divider}>|</span>;
   const { t } = useTranslation();
 
   return (
     <div className={classes.card}>
-      <a href={news.url.toString()} className={classes.link}>
+      <Link to={news.url.toString()} className={classes.link}>
         <Card className={classes.root} variant="outlined">
           <CardContent>
-            <Typography variant="h6" component="h2" className={classes.pos}>
-              {news.headline.length > headlineMaxLength
-                ? `${t(news.headline.substring(0, headlineMaxLength))}...`
-                : news.headline}
+            <Typography variant="h5" component="h2" className={classes.pos}>
+              {t(news.headline)}
             </Typography>
-            <Typography className={classes.pos}>
-              {news.summary.length > summaryMaxLength
-                ? `${t(news.summary.substring(0, summaryMaxLength))}...`
-                : news.summary}
+            <Typography
+              className={classes.title}
+              color="textSecondary"
+              gutterBottom
+            >
+              {news.date}
+              {divider}
+              {news.url}
             </Typography>
-            <div className={classes.footer}>
-              <Typography
-                className={classes.title}
-                color="textSecondary"
-                gutterBottom
-              >
-                {new Date(news.publishedAt).toISOString().split('T')[0]}
-                {divider}
-                {news.url.split('/')[2]}
-              </Typography>
-            </div>
           </CardContent>
         </Card>
-      </a>
+      </Link>
     </div>
   );
 };
