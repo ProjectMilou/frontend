@@ -47,21 +47,25 @@ const Dashboard: React.FC<DashboardProps> = ({ token }) => {
     mc: [],
   });
 
-
   // filter undefined or faulty stocks we get from the backend
   const stockCleanup = (unfilteredStocks: API.Stock[]) => {
-    if(unfilteredStocks) {
-      const polishedStocks = unfilteredStocks.filter(s => 
-        s.industry !== undefined
-      )
-      return polishedStocks
+    if (unfilteredStocks) {
+      const polishedStocks = unfilteredStocks.filter(
+        (s) => s.industry !== undefined
+      );
+      // polishedStocks.forEach((s) => {
+      //   console.log(s.div);
+      //   console.log(typeof s.price);
+      // });
+
+      return polishedStocks;
       // polishedStocks = polishedStocks.map((s) => {
       //   s = {...s,
       //     price: parseFloat(s.price.toString())}
       //   })
     }
-    return undefined
-  }
+    return undefined;
+  };
 
   const fetch = async () => {
     setError(undefined);
@@ -77,7 +81,6 @@ const Dashboard: React.FC<DashboardProps> = ({ token }) => {
     fetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
-
 
   const classes = useStyles();
 

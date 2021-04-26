@@ -126,18 +126,10 @@ export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
         />
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
-        <StyledNumberFormat
-          value={stock.per7d}
-          suffix="%"
-          paintJob
-        />
+        <StyledNumberFormat value={stock.per7d} suffix="%" paintJob />
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
-        <StyledNumberFormat
-          value={stock.per365d}
-          suffix="%"
-          paintJob
-        />
+        <StyledNumberFormat value={stock.per365d} suffix="%" paintJob />
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>
@@ -225,8 +217,6 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
 
   // fetch more data (currently mocked)
   const fetchMoreData = () => {
-    console.log(items);
-    console.log(sortedStocks.slice(0, 20));
     if (items.length >= sortedStocks.length) {
       setHasMore(false);
       return;

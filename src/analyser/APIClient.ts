@@ -289,6 +289,30 @@ export type Risk = {
   volatility: number;
   averageMarketVolatility: number;
 };
+
+// this method is used to convert string to number format in the stock overview
+// has to be used since backend is not providing any numbers yet, everything is a string
+const convertStockOverview = (apiStock:Stock):Stock =>
+  ({
+    ...apiStock,
+    ...(apiStock.price) && {price: parseFloat(apiStock.price.toString())},
+    ...(apiStock.per1d) && {per1d: parseFloat(apiStock.per1d.toString())},
+    ...(apiStock.per7d) && {per7d: parseFloat(apiStock.per7d.toString())},
+    ...(apiStock.per30d) && {per30d: parseFloat(apiStock.per30d.toString())},
+    ...(apiStock.per365d) && {per365d: parseFloat(apiStock.per365d.toString())},
+    ...(apiStock.marketCapitalization) && {marketCapitalization: parseInt(
+      apiStock.marketCapitalization.toString(),
+      10
+    )},
+    ...(apiStock.analystTargetPrice) && { analystTargetPrice: parseFloat(apiStock.analystTargetPrice.toString())},
+    ...(apiStock.valuation) &&  {valuation: parseInt(apiStock.valuation.toString(), 10)},
+    ...(apiStock.growth) && {growth: parseFloat(apiStock.growth.toString())},
+    ...(apiStock.div) && {div:
+      apiStock.div.toString() === 'None'
+        ? 0.0
+        : parseFloat(apiStock.div.toString())},
+  } as Stock);
+
 /**
  * Makes an API call. Resolves to the JSON response if the call is successful,
  * otherwise rejects with an error that has an {@link ErrorCode} as message.
@@ -351,7 +375,7 @@ export async function listStocks(
     }
   });
   const response = (await request(token, 'GET', base + params)) as StockList;
-  return response.stocks;
+  return response.stocks.map(s => convertStockOverview(s))
 }
 
 /**
@@ -371,19 +395,8 @@ export async function stockOverview(
   )) as StockList;
 
   // TODO fix in backend, this is total BS
-  const apiStock = response.stocks[0]
-  return {...apiStock,
-          price: parseFloat(apiStock.price.toString()),
-          per1d: parseFloat(apiStock.per1d.toString()),
-  per7d: parseFloat(apiStock.per7d.toString()),
-  per30d: parseFloat(apiStock.per30d.toString()),
-  per365d: parseFloat(apiStock.per365d.toString()),
-  marketCapitalization: parseInt(apiStock.marketCapitalization.toString(), 10),
-  analystTargetPrice: parseFloat(apiStock.analystTargetPrice.toString()),
-  valuation: parseInt(apiStock.valuation.toString(), 10),
-  growth: parseFloat(apiStock.growth.toString()),
-  div: parseFloat(apiStock.div.toString()),
-        } as Stock 
+  const apiStock = response.stocks[0];
+  return convertStockOverview(apiStock);
 }
 
 /**
