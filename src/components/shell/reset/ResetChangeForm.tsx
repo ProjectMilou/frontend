@@ -15,6 +15,7 @@ import {
   IRequirements,
 } from '../register/util-password';
 import UserService from '../../../services/UserService';
+import InitialPasswordRequirements from '../register/initialRequirement';
 
 interface ResetChangeFormProps {
   id: string;
@@ -37,26 +38,9 @@ const ResetChangeForm: React.FC<ResetChangeFormProps> = (props) => {
     confirmPassword: '',
   } as ErrorState);
 
-  const [requirements, setRequirements] = useState({
-    requirement: [
-      {
-        text: t('error.passwordRequirement.length'),
-        done: false,
-      },
-      {
-        text: t('error.passwordRequirement.cases'),
-        done: false,
-      },
-      {
-        text: t('error.passwordRequirement.number'),
-        done: false,
-      },
-      {
-        text: t('error.passwordRequirement.specialCharacter'),
-        done: false,
-      },
-    ],
-  } as IRequirements);
+  const [requirements, setRequirements] = useState<IRequirements>(
+    InitialPasswordRequirements()
+  );
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLogin((prevState) => ({

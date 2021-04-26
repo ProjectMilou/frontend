@@ -24,6 +24,7 @@ import {
 import DashboardActions from './DashboardActions';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
 import { portfolioDetails, importPortfolio } from '../../portfolio/Router';
+import LimitedString from './LimitedString';
 
 const useStyles = makeStyles(({ palette }: Theme) => ({
   action: { display: 'inline-block' },
@@ -77,7 +78,11 @@ const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
     >
       <TableCell align="center" component="th" scope="row">
         <ListItemText
-          primary={<Typography color="primary">{portfolio.name}</Typography>}
+          primary={
+            <Typography color="primary">
+              <LimitedString value={portfolio.name} />
+            </Typography>
+          }
           secondary={
             portfolio.virtual ? t('portfolio.virtual') : t('portfolio.real')
           }

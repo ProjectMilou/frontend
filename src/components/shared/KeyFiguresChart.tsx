@@ -29,7 +29,7 @@ const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({
   const options = {
     tooltip: {
       y: {
-        formatter: roundAxis,
+        formatter: (tooltipValue: number) => roundAxis(tooltipValue),
       },
     },
     colors: [palette.teal.main],
