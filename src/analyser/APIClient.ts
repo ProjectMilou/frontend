@@ -292,25 +292,35 @@ export type Risk = {
 
 // this method is used to convert string to number format in the stock overview
 // has to be used since backend is not providing any numbers yet, everything is a string
-const convertStockOverview = (apiStock:Stock):Stock =>
+const convertStockOverview = (apiStock: Stock): Stock =>
   ({
     ...apiStock,
-    ...(apiStock.price) && {price: parseFloat(apiStock.price.toString())},
-    ...(apiStock.per1d) && {per1d: parseFloat(apiStock.per1d.toString())},
-    ...(apiStock.per7d) && {per7d: parseFloat(apiStock.per7d.toString())},
-    ...(apiStock.per30d) && {per30d: parseFloat(apiStock.per30d.toString())},
-    ...(apiStock.per365d) && {per365d: parseFloat(apiStock.per365d.toString())},
-    ...(apiStock.marketCapitalization) && {marketCapitalization: parseInt(
-      apiStock.marketCapitalization.toString(),
-      10
-    )},
-    ...(apiStock.analystTargetPrice) && { analystTargetPrice: parseFloat(apiStock.analystTargetPrice.toString())},
-    ...(apiStock.valuation) &&  {valuation: parseInt(apiStock.valuation.toString(), 10)},
-    ...(apiStock.growth) && {growth: parseFloat(apiStock.growth.toString())},
-    ...(apiStock.div) && {div:
-      apiStock.div.toString() === 'None'
-        ? 0.0
-        : parseFloat(apiStock.div.toString())},
+    ...(apiStock.price && { price: parseFloat(apiStock.price.toString()) }),
+    ...(apiStock.per1d && { per1d: parseFloat(apiStock.per1d.toString()) }),
+    ...(apiStock.per7d && { per7d: parseFloat(apiStock.per7d.toString()) }),
+    ...(apiStock.per30d && { per30d: parseFloat(apiStock.per30d.toString()) }),
+    ...(apiStock.per365d && {
+      per365d: parseFloat(apiStock.per365d.toString()),
+    }),
+    ...(apiStock.marketCapitalization && {
+      marketCapitalization: parseInt(
+        apiStock.marketCapitalization.toString(),
+        10
+      ),
+    }),
+    ...(apiStock.analystTargetPrice && {
+      analystTargetPrice: parseFloat(apiStock.analystTargetPrice.toString()),
+    }),
+    ...(apiStock.valuation && {
+      valuation: parseInt(apiStock.valuation.toString(), 10),
+    }),
+    ...(apiStock.growth && { growth: parseFloat(apiStock.growth.toString()) }),
+    ...(apiStock.div && {
+      div:
+        apiStock.div.toString() === 'None'
+          ? 0.0
+          : parseFloat(apiStock.div.toString()),
+    }),
   } as Stock);
 
 /**
@@ -375,7 +385,7 @@ export async function listStocks(
     }
   });
   const response = (await request(token, 'GET', base + params)) as StockList;
-  return response.stocks.map(s => convertStockOverview(s))
+  return response.stocks.map((s) => convertStockOverview(s));
 }
 
 /**

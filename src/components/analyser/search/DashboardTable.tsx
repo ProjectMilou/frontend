@@ -1,57 +1,28 @@
-// Based on Portfolio's DashboardTable.tsx Will be later either replaced by Material-UI list or refactored
+// Initally based on Portfolio's DashboardTable.tsx
 
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { navigate } from '@reach/router';
-import { useTranslation } from 'react-i18next';
 import {
-  lighten,
   makeStyles,
   Paper,
   Table,
   TableBody,
-  TableCell,
   TableContainer,
-  TableRow,
-  Theme,
   Typography,
   createStyles,
-  useTheme,
 } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import classNames from 'classnames';
 import * as API from '../../../analyser/APIClient';
-import StyledNumberFormat from '../../shared/StyledNumberFormat';
-import Valuation from '../../shared/Valuation';
 import DashboardTableHeader from './DashboardTableHeader';
-import TextOverText from '../../shared/TextOverText';
+import DashboardTableRow from './DasboardTableRow';
 
-const useStyles = makeStyles(({ palette }: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
-    action: { display: 'inline-block' },
-    row: {
-      cursor: 'pointer',
-    },
-    rowHover: {
-      backgroundColor: lighten(palette.primary.light, 0.85),
-    },
     table: {
-      tableLayout: 'fixed'
-    },
-    defaultText: {
-      fontSize: '1.3rem',
-      fontWeight: 600,
-    },
-    highlightText: {
-      fontSize: '1rem',
-      fontWeight: 600,
-      color: palette.lightBlue.main,
+      tableLayout: 'fixed',
     },
     loading: {
       margin: '15px',
-    },
-    disabled: {
-      cursor: 'not-allowed',
     },
     customTableContainer: {
       overflowX: 'initial',
@@ -62,103 +33,10 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
-export type DashboardTableRowProps = {
-  stock: API.Stock;
-};
-
 type Order = 'asc' | 'desc';
 
 export type DashboardTableProps = {
   stocks: API.Stock[];
-};
-
-// Rounds and adds M=Million, B=Billion and K=Thousand --> American System!!!
-export function moneyFormat(val: number): string {
-  let round = '';
-  if (Math.abs(val) >= 1.0e9) {
-    round = `${Math.round(Math.abs(val) / 1.0e9)}B`;
-  } else if (Math.abs(val) >= 1.0e6) {
-    round = `${Math.round(Math.abs(val) / 1.0e6)}M`;
-  } else if (Math.abs(val) >= 1.0e3) {
-    round = `${Math.round(Math.abs(val) / 1.0e3)}K`;
-  } else {
-    round = `${Math.abs(val)}`;
-  }
-  return round;
-}
-
-// Numbers are output in different colors need clear approach!
-export const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
-  stock,
-}) => {
-  const [hover, setHover] = React.useState<boolean>(false);
-
-  const { t } = useTranslation();
-  const classes = useStyles();
-  const theme = useTheme();
-
-  function currencySymbol(): '€' | '$' {
-    if (stock.currency === 'USD') {
-      return '$';
-    }
-    return '€';
-  }
-
-  return (
-    <TableRow
-      onClick={() => navigate(`analyser/${stock.symbol}`)}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      className={classNames(classes.row, hover && classes.rowHover)}
-    >
-      <TableCell component="th" scope="row">
-        <TextOverText
-          top={`${stock.symbol}`}
-          bottom={`${stock.name}`}
-          colorTop={theme.palette.grey[700]}
-          colorBottom={theme.palette.lightBlue.main}
-          sizeBottom="1rem"
-          alignment="left"
-        />
-      </TableCell>
-      <TableCell align="center" className={classes.defaultText}>
-        <StyledNumberFormat
-          value={stock.price}
-          suffix={currencySymbol()}
-          paintJob={theme.palette.primary.main}
-        />
-      </TableCell>
-      <TableCell align="center" className={classes.defaultText}>
-        <StyledNumberFormat value={stock.per7d} suffix="%" paintJob />
-      </TableCell>
-      <TableCell align="center" className={classes.defaultText}>
-        <StyledNumberFormat value={stock.per365d} suffix="%" paintJob />
-      </TableCell>
-      <TableCell align="center">
-        <Typography color="primary" className={classes.defaultText}>
-          {currencySymbol() + moneyFormat(stock.marketCapitalization)}
-        </Typography>
-      </TableCell>
-      <TableCell align="center" className={classes.defaultText}>
-        <StyledNumberFormat
-          value={stock.analystTargetPrice}
-          suffix={currencySymbol()}
-          paintJob={theme.palette.primary.main}
-        />
-      </TableCell>
-      <TableCell align="center" className={classes.defaultText}>
-        <Valuation value={stock.valuation} size="1.3rem" />
-      </TableCell>
-      <TableCell align="center" className={classes.defaultText}>
-        <StyledNumberFormat value={stock.div} suffix="%" paintJob />
-      </TableCell>
-      <TableCell align="center">
-        <Typography color="primary" className={classes.highlightText}>
-          {t(`${stock.industry}`)}
-        </Typography>
-      </TableCell>
-    </TableRow>
-  );
 };
 
 // desc sort comparator
@@ -251,7 +129,11 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
           id="scrollableTable"
           classes={{ root: classes.customTableContainer }}
         >
-          <Table stickyHeader aria-label="simple table" className={classes.table}>
+          <Table
+            stickyHeader
+            aria-label="simple table"
+            className={classes.table}
+          >
             <DashboardTableHeader
               onRequestSort={handleRequestSort}
               order={order}
