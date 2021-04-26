@@ -4,9 +4,9 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Button,
   GridList,
   GridListTile,
+  Typography,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useTranslation } from 'react-i18next';
@@ -25,10 +25,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       height: 'auto',
     },
     accordionBorder: {
-      boxShadow: 'none',
-      '&:not(:last-child)': {
-        borderBottom: 0,
-      },
       '&:before': {
         display: 'none',
       },
@@ -62,10 +58,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     expandIcon: {
       color: palette.primary.contrastText,
     },
-    showLessButton: {
-      color: palette.primary.contrastText,
-      textTransform: 'none',
-    },
   })
 );
 
@@ -85,12 +77,10 @@ const ShowMoreAccordion: React.FC<ShowMoreAccordionProps> = ({ positions }) => {
           classes.accordionContent
         )}
         expandIcon={<ExpandMoreIcon className={classes.expandIcon} />}
-        aria-controls="panel1a-content"
-        id="panel1a-header"
       >
-        <div>
+        <Typography>
           {t('portfolio.details.positions.showMore')} ({`${positions.length}`})
-        </div>
+        </Typography>
       </AccordionSummary>
       <AccordionDetails className={classes.accordionDetails}>
         <div className={classes.gridListWrapper}>
@@ -108,9 +98,6 @@ const ShowMoreAccordion: React.FC<ShowMoreAccordionProps> = ({ positions }) => {
             ))}
           </GridList>
         </div>
-        <Button size="small" className={classes.showLessButton}>
-          {t('portfolio.details.positions.showLess')}
-        </Button>
       </AccordionDetails>
     </Accordion>
   );
