@@ -41,9 +41,9 @@ type RatioDonutProps = {
 const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
   const classes = useStyles();
   const theme = useTheme();
-  let series: number[] = [];
+  const [series, setSeries] = React.useState<number[]>([]);
   if (!Number.isNaN(ratio)) {
-    series = [ratio, 1 - ratio];
+    setSeries([ratio, 1 - ratio]);
   }
   const options = {
     states: {
