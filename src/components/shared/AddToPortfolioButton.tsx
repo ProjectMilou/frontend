@@ -1,5 +1,5 @@
 import React, { Reducer } from 'react';
-import { createStyles, makeStyles, Theme, } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { Alert } from '@material-ui/lab';
 import Fab from '@material-ui/core/Fab';
@@ -188,7 +188,7 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonProps> = ({
       <Fab
         className={classes.addButton}
         onClick={() => openDialog()}
-        size='large'
+        size="large"
         aria-label="add"
         variant="extended"
       >
