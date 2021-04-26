@@ -35,6 +35,9 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     rowHover: {
       backgroundColor: lighten(palette.primary.light, 0.85),
     },
+    table: {
+      tableLayout: 'fixed'
+    },
     defaultText: {
       fontSize: '1.3rem',
       fontWeight: 600,
@@ -248,7 +251,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
           id="scrollableTable"
           classes={{ root: classes.customTableContainer }}
         >
-          <Table stickyHeader aria-label="simple table">
+          <Table stickyHeader aria-label="simple table" className={classes.table}>
             <DashboardTableHeader
               onRequestSort={handleRequestSort}
               order={order}

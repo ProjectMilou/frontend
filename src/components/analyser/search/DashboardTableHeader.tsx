@@ -59,26 +59,26 @@ const DashboardTableHeader: React.FC<DashboardTableHeaderProps> = ({
     {
       id: 'price',
       numeric: true,
-      disablePadding: false,
+      disablePadding: true,
       label: t('stock.lastPrice'),
     },
-    { id: 'per7d', numeric: true, disablePadding: false, label: t('stock.7d') },
+    { id: 'per7d', numeric: true, disablePadding: true, label: t('stock.7d') },
     {
       id: 'per365d',
       numeric: true,
-      disablePadding: false,
+      disablePadding: true,
       label: t('stock.365d'),
     },
     {
       id: 'marketCapitalization',
       numeric: true,
-      disablePadding: false,
+      disablePadding: true,
       label: t('stock.marketCap'),
     },
     {
       id: 'analystTargetPrice',
       numeric: true,
-      disablePadding: false,
+      disablePadding: true,
       label: t('stock.analystsTarget'),
     },
     {
@@ -105,6 +105,7 @@ const DashboardTableHeader: React.FC<DashboardTableHeaderProps> = ({
             align="center"
             classes={{ root: classes.customTableHead }}
             sortDirection={orderByKey === hc.id ? order : false}
+            padding={hc.disablePadding ? 'none' : 'default'}
           >
             {/* A button based label which is inside TableCell used to sort a column. A sort request will be handled on click. */}
             <TableSortLabel
