@@ -19,14 +19,14 @@ import InfoIcon from '@material-ui/icons/Info';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import WarningIcon from '@material-ui/icons/Warning';
 
-import Card from './components/Card';
-import Media from './components/Media';
-import GridRowContainer from './components/GridRowContainer';
+import Card from '../components/shell/landingPage/Card';
+import Media from '../components/shell/landingPage/Media';
+import GridRowContainer from '../components/shell/landingPage/GridRowContainer';
 import img2 from '../assets/images/media2.png';
 import analyse from '../assets/images/analyse.png';
 import lernen from '../assets/images/lernen.png';
 import portfolio from '../assets/images/Portfolio.png';
-import LogoCard from './components/LogoCard';
+import LogoCard from '../components/shell/landingPage/LogoCard';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
