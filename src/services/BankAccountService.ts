@@ -3,6 +3,7 @@ import IBank from './models/bank/IBank';
 import IBankConnection from './models/bank/IBankConnection';
 import IConnectionsResponse from './models/bank/IConnectionsResponse';
 import ISearchResponse from './models/bank/ISearchResponse';
+import IAddResponse from './models/bank/IAddResponse';
 
 enum Endpoints {
   Search = '/user/bank/search/',
@@ -27,12 +28,16 @@ class BankAccountService extends BaseService {
   /**
    * Adds a bank to a user.
    * @param bankId BankID of bank to be added.
-   * @returns True if successful, false if not.
+   * @returns Link to FinAPI webform
    */
-  public static async add(bankId: number): Promise<boolean> {
-    return this.isOk(
-      this.authenticatedRequest('POST', Endpoints.AddConnections + bankId)
+  public static async add(bankId: number): Promise<string> {
+    const response = await this.authenticatedRequest(
+      'POST',
+      Endpoints.AddConnections + bankId
     );
+    const link: IAddResponse = await response.json();
+
+    return link.link;
   }
 
   /**
@@ -68,6 +73,10 @@ class BankAccountService extends BaseService {
     return this.isOk(
       this.authenticatedRequest('DELETE', Endpoints.Connections)
     );
+  }
+
+  public static async refresh(): Promise<boolean> {
+    return this.isOk(this.authenticatedRequest('GET', Endpoints.Refresh));
   }
 }
 
