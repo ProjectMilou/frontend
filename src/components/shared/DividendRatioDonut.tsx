@@ -42,9 +42,12 @@ const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [series, setSeries] = React.useState<number[]>([]);
-  if (!Number.isNaN(ratio)) {
-    setSeries([ratio, 1 - ratio]);
-  }
+  React.useEffect(() => {
+    if (!Number.isNaN(ratio)) {
+      setSeries([ratio, 1 - ratio]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ratio, 1 - ratio]);
   const options = {
     states: {
       normal: {
