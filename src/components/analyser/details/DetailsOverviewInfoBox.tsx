@@ -113,22 +113,22 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
         </TableCell>
         <TableCell className={classes.tableCell}>
           <TextOverText
-            top={`${parseFloat(stockDetails.per52WeekLow)
+            top={parseFloat(stockDetails.per50DayMovingAverage)
               .toFixed(2)
-              .toString()}€`}
-            bottom={t('stock.per52WeekLow')}
+              .toString()}
+            bottom={t('stock.50dayMovingAverage')}
             colorTop={theme.palette.primary.main}
             colorBottom={theme.palette.primary.light}
+            infoText={t('info.50dayMovingAverage')}
           />
         </TableCell>
         <TableCell className={classes.tableCell}>
           <TextOverText
-            top={`${parseFloat(stockDetails.per52WeekHigh)
-              .toFixed(2)
-              .toString()}€`}
-            bottom={t('company.per52WeekHigh')}
+            top={stockDetails.sharesFloat}
+            bottom={t('company.sharesFloat')}
             colorTop={theme.palette.primary.main}
             colorBottom={theme.palette.primary.light}
+            infoText={t('info.sharesFloat')}
           />
         </TableCell>
         <TableCell className={classes.tableCell}>
