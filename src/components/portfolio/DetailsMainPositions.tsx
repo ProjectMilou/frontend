@@ -9,7 +9,6 @@ const useStyles = makeStyles(() =>
   createStyles({
     gridListWrapper: {
       width: '100%',
-      margin: '0 -16px',
     },
     gridList: {
       width: '100%',

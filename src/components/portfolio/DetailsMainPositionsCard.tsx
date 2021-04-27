@@ -23,13 +23,22 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       padding: 0,
     },
     card: {
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
       backgroundColor: palette.primary.main,
       padding: '0 8px',
+    },
+    cardContent: {
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
     },
     cardContentUpper: {
       marginBottom: '2rem',
     },
     cardTitle: {
+      marginBottom: 'auto',
       color: palette.primary.contrastText,
       fontSize: '1.5rem',
       fontWeight: 600,
@@ -74,11 +83,11 @@ const DetailsMainPositionsCard: React.FC<DetailsMainPositionsCardProps> = ({
         borderColor: convertPercentToColor(p.totalReturnPercent),
       }}
     >
-      <CardContent>
+      <CardContent className={classes.cardContent}>
+        <div className={classes.cardTitle}>
+          <LimitedString value={p.stock.name} />
+        </div>
         <div className={classes.cardContentUpper}>
-          <div className={classes.cardTitle}>
-            <LimitedString value={p.stock.name} />
-          </div>
           <div className={classes.cardSubtitle}>
             <span>{`${t('portfolio.details.holding')}: `}</span>
             <StyledNumberFormat
