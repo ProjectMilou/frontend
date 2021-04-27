@@ -290,7 +290,6 @@
   "shell.profile.account-details.first-name": "First Name",
   "shell.profile.account-details.last-name": "Last Name",
   "shell.profile.account-details.update-details": "Update Details",
-  "shell.profile.account-details.edit-details": "Edit Details",
   "shell.profile.account-details.delete-account": "Delete Account",
   "shell.profile.account-details.delete-dialog.title": "Are you sure you want to delete your account?",
   "shell.profile.account-details.delete-dialog.description": "Deleting your account is irreversible. All your data will be deleted!",

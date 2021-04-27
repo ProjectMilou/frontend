@@ -56,7 +56,6 @@ const Profile: React.FC<RouteComponentProps> = () => {
   });
   const [dialogOpen, setDialogOpen] = useState(false);
   const [addBankIsOpen, setAddBankIsOpen] = useState(false);
-  const [edit, setEdit] = useState(false);
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -72,10 +71,8 @@ const Profile: React.FC<RouteComponentProps> = () => {
       .catch(() => navigate('/'));
   }, []);
 
-  const onEdit = () => {
-    UserService.editProfile(user.firstName, user.lastName).finally(() =>
-      setEdit(false)
-    );
+  const onUpdate = () => {
+    UserService.editProfile(user.firstName, user.lastName);
   };
 
   const handleDialogClose = () => setDialogOpen(false);
@@ -126,7 +123,6 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   }
                   size="small"
                   fullWidth
-                  disabled={!edit}
                 />
                 <br />
                 <br />
@@ -142,8 +138,20 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   }
                   size="small"
                   fullWidth
-                  disabled={!edit}
                 />
+              </Box>
+
+              <Box my={3}>
+                <Button variant="contained" color="primary" onClick={onUpdate}>
+                  {t(`shell.profile.account-details.update-details`)}
+                </Button>{' '}
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => setDialogOpen(true)}
+                >
+                  {t('shell.profile.account-details.delete-account')}
+                </Button>
               </Box>
 
               <Divider />
@@ -178,29 +186,6 @@ const Profile: React.FC<RouteComponentProps> = () => {
                 >
                   <BankAdd />
                 </Dialog>
-              </Box>
-
-              <Divider />
-
-              <Box my={3}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={edit ? onEdit : () => setEdit(true)}
-                >
-                  {t(
-                    `shell.profile.account-details.${
-                      edit ? 'update' : 'edit'
-                    }-details`
-                  )}
-                </Button>{' '}
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={() => setDialogOpen(true)}
-                >
-                  {t('shell.profile.account-details.delete-account')}
-                </Button>
               </Box>
             </Box>
           </Paper>
