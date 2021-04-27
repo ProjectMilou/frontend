@@ -95,8 +95,6 @@ const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
       text: 'Dividend is not paid this year.',
       align: 'left',
       verticalAlign: 'middle',
-      offsetX: 0,
-      offsetY: 0,
       style: {
         color: theme.palette.primary.dark,
         fontFamily: theme.typography.fontFamily,

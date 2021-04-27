@@ -116,8 +116,6 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({
       text: 'No Data about Dividends is Found.',
       align: 'center',
       verticalAlign: 'middle',
-      offsetX: 0,
-      offsetY: 0,
       style: {
         color: theme.palette.primary.dark,
         fontFamily: theme.typography.fontFamily,
