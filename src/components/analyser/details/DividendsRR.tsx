@@ -32,9 +32,9 @@ const DividendsRR: React.FC<DividendsRRProps> = ({ dividend, payoutRatio }) => {
   };
 
   const goodPayoutRatio: Test = {
-    pass: payoutRatio > 0,
+    pass: payoutRatio > 0 && payoutRatio < 0.5,
     category: 'analyser.details.DividendPayoutRatio',
-    passText: 'A good payout ratio is provided',
+    passText: 'A good payout ratio is provided which is below 50%',
     failText:
       'The company is making loss and does not provide a good payout ratio',
   };
