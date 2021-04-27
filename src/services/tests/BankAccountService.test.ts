@@ -17,6 +17,7 @@ describe('BankAccountService', () => {
           bankConnectionId: 'asdfa',
           created: 'date 1',
           modified: 'date 2',
+          name: 'bankname',
         },
       ],
       userId: 'random',

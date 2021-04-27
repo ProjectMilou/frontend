@@ -39,6 +39,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       fontSize: '1.5rem',
       fontWeight: 400,
       whiteSpace: 'nowrap',
+      display: 'flex',
     },
     redDot: {
       height: '25px',
@@ -112,7 +113,7 @@ const Analysts: React.FC<AnalystsProps> = ({ recommendations, overview }) => {
           {t('analyser.details.analysts.target')}
           <>&nbsp;</>
           <StyledNumberFormat
-            value={parseFloat(overview.analystTargetPrice)}
+            value={overview.analystTargetPrice}
             suffix={currencySymbol()}
           />
           <>&nbsp;&nbsp;</>
