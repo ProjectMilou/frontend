@@ -1,5 +1,11 @@
 import React from 'react';
-import { Box, Button, makeStyles, Typography } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  createStyles,
+  makeStyles,
+  Typography,
+} from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import ImgInstruction from '../../../assets/images/instructions.png';
 
@@ -7,9 +13,15 @@ interface BankAddDialogProps {
   link: string;
 }
 
-const useStyles = makeStyles({
-  instruction: { width: '50%', display: 'block', margin: 'auto' },
-});
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    instruction: {
+      width: '50%',
+      display: 'block',
+      margin: theme.spacing(2, 'auto'),
+    },
+  })
+);
 
 const BankAddDialog: React.FC<BankAddDialogProps> = (props) => {
   const { link } = props;
@@ -21,7 +33,7 @@ const BankAddDialog: React.FC<BankAddDialogProps> = (props) => {
       <Typography align="center" variant="h5" gutterBottom>
         {t('shell.bank.add.dialog.headline')}
       </Typography>
-      <Typography align="center" variant="body1" gutterBottom>
+      <Typography align="center" variant="body1">
         {t('shell.bank.add.dialog.subheadline')}
       </Typography>
       <img
