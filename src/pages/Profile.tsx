@@ -7,26 +7,27 @@ import {
   DialogContentText,
   DialogTitle,
   Divider,
-  Grid,
   makeStyles,
   Paper,
   TextField,
   Theme,
   Typography,
+  Box,
+  Container,
 } from '@material-ui/core';
 import { navigate, RouteComponentProps } from '@reach/router';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import UserService from '../../../services/UserService';
-import BankSearch from '../bankSearch/BankSearch';
+import UserService from '../services/UserService';
+import BankAdd from '../components/shell/bank/BankAdd';
+import BankConnections from '../components/shell/bank/BankConnections';
+import DashboardHeader from '../components/shared/DashboardHeader';
+import BankAccountService from '../services/BankAccountService';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    heading1: {
-      margin: 0,
-    },
-    subpaper: {
-      padding: theme.spacing(4),
+    divider: {
+      margin: theme.spacing(3, 0),
     },
     label: {
       color: theme.palette.primary.dark,
@@ -84,16 +85,19 @@ const Profile: React.FC<RouteComponentProps> = () => {
 
   return (
     <>
-      <Grid container justify="center">
-        <Grid item xs={8}>
+      <DashboardHeader>{t('shell.profile.profile-subheader')}</DashboardHeader>
+      <Container maxWidth="lg">
+        <Box my={2.5}>
+          <Typography variant="h3" gutterBottom>
+            {t('shell.profile.profile-header')}
+          </Typography>
+
           <Paper square>
-            <div className={classes.subpaper}>
-              <h1 className={classes.heading1}>
-                {t('shell.profile.profile-header')}
-              </h1>
-              <Divider />
-              <h2>{t('shell.profile.account-details.header')}</h2>
-              <div className={classes.details}>
+            <Box p={4}>
+              <Box mb={3} maxWidth="xs" className={classes.details}>
+                <Typography variant="h5" gutterBottom>
+                  {t('shell.profile.account-details.header')}
+                </Typography>
                 <Typography className={classes.label}>
                   {t('shell.profile.account-details.email')}
                 </Typography>
@@ -135,25 +139,9 @@ const Profile: React.FC<RouteComponentProps> = () => {
                   size="small"
                   fullWidth
                 />
-                <br />
-                <br />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => setAddBankIsOpen(true)}
-                >
-                  {t(`shell.profile.account-details.add-bankconnection`)}
-                </Button>
-                <Dialog
-                  open={addBankIsOpen}
-                  onClose={() => setAddBankIsOpen(false)}
-                  className={classes.dialog}
-                  classes={{ paper: classes.paper }}
-                >
-                  <BankSearch />
-                </Dialog>
-                <br />
-                <br />
+              </Box>
+
+              <Box my={3}>
                 <Button variant="contained" color="primary" onClick={onUpdate}>
                   {t(`shell.profile.account-details.update-details`)}
                 </Button>{' '}
@@ -164,11 +152,46 @@ const Profile: React.FC<RouteComponentProps> = () => {
                 >
                   {t('shell.profile.account-details.delete-account')}
                 </Button>
-              </div>
-            </div>
+              </Box>
+
+              <Divider />
+
+              <Box my={3} className={classes.details}>
+                <Typography variant="h5" gutterBottom>
+                  Bank accounts
+                </Typography>
+                <BankConnections />
+                <br />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => setAddBankIsOpen(true)}
+                >
+                  {t(`shell.profile.account-details.add-bankconnection`)}
+                </Button>{' '}
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => {
+                    BankAccountService.refresh();
+                  }}
+                >
+                  {t('shell.profile.account-details.update-bankconnection')}
+                </Button>
+                <Dialog
+                  open={addBankIsOpen}
+                  onClose={() => setAddBankIsOpen(false)}
+                  className={classes.dialog}
+                  classes={{ paper: classes.paper }}
+                >
+                  <BankAdd />
+                </Dialog>
+              </Box>
+            </Box>
           </Paper>
-        </Grid>
-      </Grid>
+        </Box>
+      </Container>
+
       <Dialog
         open={dialogOpen}
         onClose={handleDialogClose}

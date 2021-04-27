@@ -60,6 +60,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
     },
     infoTitleP: {
       margin: '0.5rem 0.5rem',
+      display: 'flex',
     },
     chartContainer: {
       display: 'flex',
@@ -74,6 +75,13 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       color: palette.primary.dark,
       fontWeight: typography.fontWeightBold,
       fontSize: '0.8rem',
+    },
+    boxTitles: {
+      margin: 0,
+      color: palette.primary.main,
+      fontSize: '1.5rem',
+      fontWeight: 400,
+      whiteSpace: 'nowrap',
     },
   })
 );
@@ -183,6 +191,19 @@ const Leverage: React.FC<DetailsProps> = ({
           colors: 'grey',
         },
       },
+      title: {
+        text: t('analyser.details.Leverage.DebtLevelYAxis'),
+        rotate: -90,
+        offsetX: 0,
+        offsetY: 0,
+        style: {
+          color: 'grey',
+          fontSize: '12px',
+          fontFamily: 'Helvetica, Arial, sans-serif',
+          fontWeight: 600,
+          cssClass: 'apexcharts-yaxis-title',
+        },
+      },
     },
     tooltip: {
       x: {
@@ -190,7 +211,6 @@ const Leverage: React.FC<DetailsProps> = ({
       },
     },
     fill: {
-      type: 'gradient',
       gradient: {
         shadeIntensity: 1,
         opacityFrom: 0.7,
@@ -222,24 +242,27 @@ const Leverage: React.FC<DetailsProps> = ({
           />
         </div>
         <div className={classes.infoContainer}>
-          <InfoBlock
-            title={t('analyser.details.Leverage.DebtLevel')}
-            body={
-              <p style={{ margin: 0 }}>
-                {' '}
-                {companyReports.annualReports[0].currentDebt != null &&
-                companyReports.annualReports[0].totalAssets != null
-                  ? Math.round(
-                      (companyReports.annualReports[0].currentDebt /
-                        companyReports.annualReports[0].totalAssets) *
-                        1000
-                    ) / 1000
-                  : (stockOverview.symbol,
-                    t('analyser.details.Leverage.ErrorMessage'))}{' '}
-              </p>
-            }
-            info={t('analyser.details.Leverage.DebtLevel.infoButton')}
-          />
+          <div className={classes.boxTitles}>
+            <InfoBlock
+              title={t('analyser.details.Leverage.DebtLevel')}
+              body={
+                <p style={{ margin: 0 }}>
+                  {' '}
+                  {companyReports.annualReports[0].currentDebt != null &&
+                  companyReports.annualReports[0].totalAssets != null
+                    ? Math.round(
+                        (companyReports.annualReports[0].currentDebt /
+                          companyReports.annualReports[0].totalAssets) *
+                          1000
+                      ) / 1000
+                    : (stockOverview.symbol,
+                      t('analyser.details.Leverage.ErrorMessage'))}{' '}
+                </p>
+              }
+              info={t('analyser.details.Leverage.DebtLevel.infoButton')}
+            />
+          </div>
+
           <InfoBlock
             title={t('analyser.details.Leverage.InterestCoverage')}
             body={
