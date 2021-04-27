@@ -46,8 +46,7 @@ const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
     if (!Number.isNaN(ratio)) {
       setSeries([ratio, 1 - ratio]);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ratio, 1 - ratio]);
+  }, []);
   const options = {
     states: {
       normal: {
