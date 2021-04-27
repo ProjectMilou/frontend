@@ -29,7 +29,7 @@ const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({
   const options = {
     tooltip: {
       y: {
-        formatter: roundAxis,
+        formatter: (tooltipValue: number) => roundAxis(tooltipValue),
       },
     },
     colors: [palette.teal.main],
@@ -62,6 +62,9 @@ const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({
     },
     stroke: {
       width: 2,
+    },
+    noData: {
+      text: 'Currently no Data available ;(',
     },
   };
   return (

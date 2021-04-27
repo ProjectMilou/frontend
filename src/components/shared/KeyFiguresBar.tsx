@@ -44,7 +44,7 @@ const KeyFiguresBar: React.FC<KeyFiguresBarProps> = ({
                   keyFigure === 'EPS' && latestValue !== undefined ? (
                     <StyledNumberFormat value={latestValue} suffix="€" />
                   ) : (
-                    latestValue
+                    <StyledNumberFormat value={latestValue} />
                   )
                 }
                 selected={selectedSeries === keyFigure}

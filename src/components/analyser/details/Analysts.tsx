@@ -36,10 +36,10 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     boxTitles: {
       margin: 0,
       color: palette.primary.main,
-      // TODO use theme fontsize and weight
       fontSize: '1.5rem',
       fontWeight: 400,
       whiteSpace: 'nowrap',
+      display: 'flex',
     },
     redDot: {
       height: '25px',
@@ -92,6 +92,13 @@ const Analysts: React.FC<AnalystsProps> = ({ recommendations, overview }) => {
   const { t } = useTranslation();
   const theme = useTheme();
 
+  function currencySymbol(): '€' | '$' {
+    if (overview.currency === 'USD') {
+      return '$';
+    }
+    return '€';
+  }
+
   return (
     <p>
       <div className={classes.titleContainer}>
@@ -106,8 +113,8 @@ const Analysts: React.FC<AnalystsProps> = ({ recommendations, overview }) => {
           {t('analyser.details.analysts.target')}
           <>&nbsp;</>
           <StyledNumberFormat
-            value={parseFloat(overview.analystTargetPrice)}
-            suffix="€"
+            value={overview.analystTargetPrice}
+            suffix={currencySymbol()}
           />
           <>&nbsp;&nbsp;</>
           <InfoButton

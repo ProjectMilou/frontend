@@ -50,11 +50,7 @@ const AnalystBarIndicator: React.FC<AnalystBarIndicatorProps> = ({
 
   return (
     <Tooltip title={<p className={classes.tooltip}>{tooltipText}</p>}>
-      <div
-        className={classes.barIndicator}
-        // eslint-disable-next-line no-nested-ternary
-        style={{ left: `${score < 0 ? 0 : score > 100 ? 100 : score}%` }}
-      >
+      <div className={classes.barIndicator} style={{ left: `${score}%` }}>
         <div
           className={classes.indicatorLine}
           style={{ backgroundColor: color }}

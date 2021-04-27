@@ -60,6 +60,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
     },
     infoTitleP: {
       margin: '0.5rem 0.5rem',
+      display: 'flex',
     },
     chartContainer: {
       display: 'flex',
@@ -75,8 +76,54 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       fontWeight: typography.fontWeightBold,
       fontSize: '0.8rem',
     },
+    boxTitles: {
+      margin: 0,
+      color: palette.primary.main,
+      fontSize: '1.5rem',
+      fontWeight: 400,
+      whiteSpace: 'nowrap',
+    },
   })
 );
+
+function getDebtSeries(companyReports: API.CompanyReports): number[] {
+  const debtSeries: number[] = [];
+  for (let index = 0; index < 5; index += 1) {
+    const num =
+      Math.round(companyReports.annualReports[index].currentDebt * 100) / 100;
+    if (Number.isNaN(num)) {
+      debtSeries.push(0);
+    } else {
+      debtSeries.push(num);
+    }
+  }
+  return debtSeries;
+}
+
+function getEquitySeries(companyReports: API.CompanyReports): number[] {
+  let countNegativeEquity = 0;
+  const equitySeries: number[] = [];
+  for (let index = 0; index < 5; index += 1) {
+    const num =
+      Math.round(companyReports.annualReports[index].retainedEarnings * 100) /
+      100;
+    if (Number.isNaN(num)) {
+      equitySeries.push(0);
+    } else {
+      if (num < 0) {
+        countNegativeEquity += 1;
+      }
+      equitySeries.push(num);
+    }
+  }
+
+  if (countNegativeEquity === 5) {
+    for (let index = 0; index < 5; index += 1) {
+      equitySeries[index] = -equitySeries[index];
+    }
+  }
+  return equitySeries;
+}
 
 // type declarations
 type InfoBlockProps = {
@@ -144,6 +191,19 @@ const Leverage: React.FC<DetailsProps> = ({
           colors: 'grey',
         },
       },
+      title: {
+        text: t('analyser.details.Leverage.DebtLevelYAxis'),
+        rotate: -90,
+        offsetX: 0,
+        offsetY: 0,
+        style: {
+          color: 'grey',
+          fontSize: '12px',
+          fontFamily: 'Helvetica, Arial, sans-serif',
+          fontWeight: 600,
+          cssClass: 'apexcharts-yaxis-title',
+        },
+      },
     },
     tooltip: {
       x: {
@@ -151,7 +211,6 @@ const Leverage: React.FC<DetailsProps> = ({
       },
     },
     fill: {
-      type: 'gradient',
       gradient: {
         shadeIntensity: 1,
         opacityFrom: 0.7,
@@ -164,39 +223,6 @@ const Leverage: React.FC<DetailsProps> = ({
     },
   };
 
-  const debtSeries: number[] = [];
-  for (let index = 0; index < 5; index += 1) {
-    const num =
-      Math.round(companyReports.annualReports[index].currentDebt * 100) / 100;
-    if (Number.isNaN(num)) {
-      debtSeries.push(0);
-    } else {
-      debtSeries.push(num);
-    }
-  }
-
-  let countNegativeEquity = 0;
-  const equitySeries: number[] = [];
-  for (let index = 0; index < 5; index += 1) {
-    const num =
-      Math.round(companyReports.annualReports[index].retainedEarnings * 100) /
-      100;
-    if (Number.isNaN(num)) {
-      equitySeries.push(0);
-    } else {
-      if (num < 0) {
-        countNegativeEquity += 1;
-      }
-      equitySeries.push(num);
-    }
-  }
-
-  if (countNegativeEquity === 5) {
-    for (let index = 0; index < 5; index += 1) {
-      equitySeries[index] = -equitySeries[index];
-    }
-  }
-
   return (
     <div>
       <SubsectionDivider subsection="analyser.details.Leverage" />
@@ -208,32 +234,35 @@ const Leverage: React.FC<DetailsProps> = ({
           <ReactApexChart
             options={options}
             series={[
-              { name: 'Debt', data: debtSeries },
-              { name: 'Equity', data: equitySeries },
+              { name: 'Debt', data: getDebtSeries(companyReports) },
+              { name: 'Equity', data: getEquitySeries(companyReports) },
             ]}
             height={300}
             width="100%"
           />
         </div>
         <div className={classes.infoContainer}>
-          <InfoBlock
-            title={t('analyser.details.Leverage.DebtLevel')}
-            body={
-              <p style={{ margin: 0 }}>
-                {' '}
-                {companyReports.annualReports[0].currentDebt != null &&
-                companyReports.annualReports[0].totalAssets != null
-                  ? Math.round(
-                      (companyReports.annualReports[0].currentDebt /
-                        companyReports.annualReports[0].totalAssets) *
-                        1000
-                    ) / 1000
-                  : (stockOverview.symbol,
-                    t('analyser.details.Leverage.ErrorMessage'))}{' '}
-              </p>
-            }
-            info={t('analyser.details.Leverage.DebtLevel.infoButton')}
-          />
+          <div className={classes.boxTitles}>
+            <InfoBlock
+              title={t('analyser.details.Leverage.DebtLevel')}
+              body={
+                <p style={{ margin: 0 }}>
+                  {' '}
+                  {companyReports.annualReports[0].currentDebt != null &&
+                  companyReports.annualReports[0].totalAssets != null
+                    ? Math.round(
+                        (companyReports.annualReports[0].currentDebt /
+                          companyReports.annualReports[0].totalAssets) *
+                          1000
+                      ) / 1000
+                    : (stockOverview.symbol,
+                      t('analyser.details.Leverage.ErrorMessage'))}{' '}
+                </p>
+              }
+              info={t('analyser.details.Leverage.DebtLevel.infoButton')}
+            />
+          </div>
+
           <InfoBlock
             title={t('analyser.details.Leverage.InterestCoverage')}
             body={
