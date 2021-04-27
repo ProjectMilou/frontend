@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import * as React from 'react';
 import Profile from './Profile';
 
@@ -15,18 +15,14 @@ describe('Profile', () => {
     expect(lastName).toBeInTheDocument();
   });
 
-  test('should not be able to change textfields', async () => {
+  test('should not be able to change email textfields', async () => {
     const { findByTestId } = render(<Profile />);
 
     const email = (await findByTestId('email')) as HTMLInputElement;
-    const firstName = (await findByTestId('firstname')) as HTMLInputElement;
-    const lastName = (await findByTestId('lastname')) as HTMLInputElement;
 
     fireEvent.change(email, { target: { value: 'email' } });
 
     expect(email.value).not.toBe('email');
-    expect(firstName).toBeDisabled();
-    expect(lastName).toBeDisabled();
   });
 
   test('delete button opens popup', async () => {
@@ -40,15 +36,8 @@ describe('Profile', () => {
     expect(screen.getByText(/Cancel/i)).toBeInTheDocument();
   });
 
-  test('edit button should change button text and enable textfields', async () => {
+  test('Update button is present and textfields are enabled', async () => {
     const { findByTestId } = render(<Profile />);
-    const edit = screen.getByText(
-      /shell.profile.account-details.edit-details/i
-    );
-    expect(edit).toBeInTheDocument();
-    act(() => {
-      fireEvent.click(edit);
-    });
     const update = screen.getByText(
       /shell.profile.account-details.update-details/i
     );
