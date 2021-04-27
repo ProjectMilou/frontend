@@ -211,7 +211,6 @@ const Leverage: React.FC<DetailsProps> = ({
       },
     },
     fill: {
-      type: 'gradient',
       gradient: {
         shadeIntensity: 1,
         opacityFrom: 0.7,
