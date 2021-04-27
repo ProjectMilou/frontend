@@ -1,3 +1,4 @@
+import { useTheme } from '@material-ui/core';
 import React from 'react';
 import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
@@ -22,6 +23,25 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({
   year,
 }) => {
   const { t } = useTranslation();
+  const theme = useTheme();
+  const [seriesArr, setSeriesArr] = React.useState<Series[]>([]);
+  let noData = false;
+  series[0].data.forEach((element) => {
+    if (Number.isNaN(element)) {
+      noData = true;
+    }
+  });
+  series[1].data.forEach((element) => {
+    if (Number.isNaN(element)) {
+      noData = true;
+    }
+  });
+  React.useEffect(() => {
+    if (!noData) {
+      setSeriesArr(series);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const options = {
     tooltip: {
       y: {
@@ -95,13 +115,24 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({
         colors: textColor,
       },
     },
+    noData: {
+      text: 'No Data about Dividends is Found.',
+      align: 'center',
+      verticalAlign: 'middle',
+      style: {
+        color: theme.palette.primary.dark,
+        fontFamily: theme.typography.fontFamily,
+        fontSize: '1.15rem',
+        fontWeight: 600,
+      },
+    },
   };
 
   return (
     <div>
       <Chart
         options={options}
-        series={series}
+        series={seriesArr}
         type="line"
         width="100%"
         min-width="800px"
