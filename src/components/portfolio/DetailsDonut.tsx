@@ -135,8 +135,8 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({
     ],
   };
 
-  // including 'other ...'
-  const legendLength = 5;
+  // excluding 'other ...'
+  const legendLength = 4;
 
   const legendItems: JSX.Element[] = [];
 
@@ -146,10 +146,7 @@ const DetailsDonut: React.FC<DetailsDonutProps> = ({
     );
   }
 
-  const shownLegendItems: JSX.Element[] = legendItems.slice(
-    0,
-    legendLength - 1
-  );
+  const shownLegendItems: JSX.Element[] = legendItems.slice(0, legendLength);
   const hiddenLegendItems: JSX.Element[] = legendItems.slice(legendLength);
 
   return (

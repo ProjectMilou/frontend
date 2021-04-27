@@ -32,6 +32,7 @@
   "portfolio.details.warnings.currency1": "Low currency diversification",
   "portfolio.details.positions": "Positions",
   "portfolio.details.positions.showMore": "Show More",
+  "portfolio.details.positions.showLess": "Show Less",
   "portfolio.details.countries": "Countries",
   "portfolio.details.segments": "Segments",
   "portfolio.details.currencies": "Currencies",
