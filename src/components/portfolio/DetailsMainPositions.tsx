@@ -13,7 +13,6 @@ const useStyles = makeStyles(() =>
     gridList: {
       width: '100%',
       height: 'auto',
-      maxHeight: '50rem',
     },
   })
 );
