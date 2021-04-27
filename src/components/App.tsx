@@ -32,7 +32,7 @@ interface ScrollToTopProps {
   path: string;
 }
 
-export function ScrollToTop({ children, path }: ScrollToTopProps): JSX.Element {
+function ScrollToTop({ children, path }: ScrollToTopProps): JSX.Element {
   // workaround eslint/no-unused-vars, because every child of @reach-router/Router needs a pth prop
   path.concat('');
 
