@@ -27,23 +27,18 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({
   const [seriesArr, setSeriesArr] = React.useState<Series[]>([]);
 
   React.useEffect(() => {
-    // let noData = false;
-    // series[0].data.forEach((element) => {
-    //   if (Number.isNaN(element)) {
-    //     noData = true;
-    //   }
-    // });
-    // series[1].data.forEach((element) => {
-    //   if (Number.isNaN(element)) {
-    //     noData = true;
-    //   }
-    // });
-    // if (!noData) {
-    //   setSeriesArr(series);
-    // } else {
-    //   setSeriesArr([]);
-    // }
-    if (!Number.isNaN(series[0].data[0])) {
+    let noData = false;
+    series[0].data.forEach((element) => {
+      if (Number.isNaN(element)) {
+        noData = true;
+      }
+    });
+    series[1].data.forEach((element) => {
+      if (Number.isNaN(element)) {
+        noData = true;
+      }
+    });
+    if (!noData) {
       setSeriesArr(series);
     } else {
       setSeriesArr([]);
