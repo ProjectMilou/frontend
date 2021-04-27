@@ -26,6 +26,8 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     accordionBorder: {
       boxShadow: 'none',
       marginTop: '2.5rem',
+      display: 'flex',
+      flexDirection: 'column-reverse',
     },
     accordionContent: {
       backgroundColor: palette.primary.light,
@@ -56,14 +58,23 @@ const ShowMoreAccordion: React.FC<ShowMoreAccordionProps> = ({ positions }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
+  const [expanded, setExpanded] = React.useState<boolean>(false);
+
   return (
-    <Accordion className={classes.accordionBorder}>
+    <Accordion
+      className={classes.accordionBorder}
+      expanded={expanded}
+      onChange={() => setExpanded(!expanded)}
+    >
       <AccordionSummary
         className={classes.accordionContent}
         expandIcon={<ExpandMoreIcon className={classes.expandIcon} />}
       >
         <Typography>
-          {t('portfolio.details.positions.showMore')} ({`${positions.length}`})
+          {expanded
+            ? t('portfolio.details.positions.showLess')
+            : t('portfolio.details.positions.showMore')}
+          {` (${positions.length})`}
         </Typography>
       </AccordionSummary>
       <AccordionDetails className={classes.accordionDetails}>
