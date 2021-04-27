@@ -10,12 +10,12 @@ import {
 } from '@material-ui/core';
 
 import Media from './Media';
-import img from '../../assets/images/180.png';
-import img1 from '../../assets/images/getThumb.gif';
-import img3 from '../../assets/images/start.png';
-import img4 from '../../assets/images/tech-talents.png';
-import img5 from '../../assets/images/tumlogo.png';
-import manage from '../../assets/images/manage.png';
+import img from '../../../assets/images/180.png';
+import img1 from '../../../assets/images/getThumb.gif';
+import img3 from '../../../assets/images/start.png';
+import img4 from '../../../assets/images/tech-talents.png';
+import img5 from '../../../assets/images/tumlogo.png';
+import manage from '../../../assets/images/manage.png';
 
 const useStyles = makeStyles(() =>
   createStyles({
