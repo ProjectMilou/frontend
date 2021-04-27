@@ -6,7 +6,6 @@ import DividendRatioDonut from '../../shared/DividendRatioDonut';
 import DividendLineChart from '../../shared/DividendLineChart';
 import DividendsRR from './DividendsRR';
 import InfoButton from '../../shared/InfoButton';
-import SubsectionDivider from '../../shared/SubsectionDivider';
 
 // props type declaration
 export type DividendsProps = {
@@ -16,6 +15,21 @@ export type DividendsProps = {
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
   createStyles({
+    titleContainer: {
+      display: 'flex',
+      marginBottom: '2rem',
+    },
+    titleWrapper: {
+      marginRight: '1rem',
+    },
+    sectionSubTitle: {
+      margin: 0,
+      color: palette.primary.main,
+      // TODO use theme fontsize and weight
+      fontSize: '2rem',
+      fontWeight: typography.fontWeightRegular,
+      whiteSpace: 'nowrap',
+    },
     line: {
       width: '100%',
       alignSelf: 'center',
@@ -65,6 +79,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
     },
     infoTitleP: {
       margin: '0.5rem 0rem',
+      display: 'flex',
     },
   })
 );
@@ -131,7 +146,13 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
   const dividendYield = series[series.length - 1];
   return (
     <div>
-      <SubsectionDivider subsection="analyser.details.DividendsHeader" />
+      <div className={classes.titleContainer}>
+        <div className={classes.titleWrapper}>
+          <h2 className={classes.sectionSubTitle}>
+            {t('analyser.details.DividendsHeader')}
+          </h2>
+        </div>
+      </div>
       <div className={classes.chartContainer}>
         <div className={classes.lineChartWrapper}>
           <DividendLineChart

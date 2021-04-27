@@ -10,6 +10,7 @@ import DetailsOverview from './DetailsOverview';
 import KeyFigures from './KeyFigures';
 import Dividends from './Dividends';
 import NewsComponent from './NewsComponent';
+import SectionDivider from '../../shared/SectionDivider';
 import Risks from './Risks';
 import BalanceSheetInfo from './BalanceSheetInfo';
 import Analysts from './Analysts';
@@ -217,6 +218,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
                   stockDetails={stockDetails}
                 />
                 <NewsComponent newsList={newsList} />
+                <SectionDivider section="analyser.details.KeyFiguresHeader" />
                 <KeyFigures keyFigures={keyFigures} />
                 <Dividends series={stockDividend} cashFlowList={cashFlowList} />
                 <BalanceSheetInfo companyReports={companyReports} />
@@ -229,7 +231,6 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
                   stockDetails={stockDetails}
                   companyReports={companyReports}
                   interestCoverages={interestCoverages}
-                  risks={risks}
                 />
                 <AddToPortfolioButton symbol={symbol} />
               </Container>
