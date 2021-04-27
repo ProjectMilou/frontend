@@ -205,7 +205,7 @@ export type CashFlowList = {
 
 export type CashFlow = {
   _id: string;
-  fiscalDateEnding: string;
+  fiscalDateEnding: number;
   reportedCurrency: number;
   operatingCashflow: number;
   paymentsForOperatingActivities: number;
