@@ -25,23 +25,31 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({
   const { t } = useTranslation();
   const theme = useTheme();
   const [seriesArr, setSeriesArr] = React.useState<Series[]>([]);
-  let noData = false;
-  series[0].data.forEach((element) => {
-    if (Number.isNaN(element)) {
-      noData = true;
-    }
-  });
-  series[1].data.forEach((element) => {
-    if (Number.isNaN(element)) {
-      noData = true;
-    }
-  });
+
   React.useEffect(() => {
-    if (!noData) {
+    // let noData = false;
+    // series[0].data.forEach((element) => {
+    //   if (Number.isNaN(element)) {
+    //     noData = true;
+    //   }
+    // });
+    // series[1].data.forEach((element) => {
+    //   if (Number.isNaN(element)) {
+    //     noData = true;
+    //   }
+    // });
+    // if (!noData) {
+    //   setSeriesArr(series);
+    // } else {
+    //   setSeriesArr([]);
+    // }
+    if (!Number.isNaN(series[0].data[0])) {
       setSeriesArr(series);
+    } else {
+      setSeriesArr([]);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [series]);
+
   const options = {
     tooltip: {
       y: {

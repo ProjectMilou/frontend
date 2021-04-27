@@ -119,8 +119,7 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
       Math.round((element.dividendPayout / element.netIncome) * 10000) / 100
     );
   });
-  // eslint-disable-next-line
-  const [seriesArray, setSeriesArray] = React.useState([
+  const seriesArray = [
     {
       name: t('analyser.detail.dividend.payoutratio'),
       type: 'column',
@@ -131,8 +130,7 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
       type: 'line',
       data: series,
     },
-  ]);
-
+  ];
   const lastAnnualReports =
     cashFlowList.annualReports[cashFlowList.annualReports.length - 1];
   const dividendPayoutRatio =
