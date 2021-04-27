@@ -505,7 +505,7 @@ const EditDialog: React.FC<EditDialogProps> = ({
     (acc, [id, value]) => ({
       ...acc,
       // only include modified values
-      ...(value === entries[id].value ? {} : { [id]: value }),
+      ...(value === entries[id]?.value ? {} : { [id]: value }),
     }),
     {}
   );
