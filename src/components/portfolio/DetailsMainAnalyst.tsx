@@ -36,6 +36,13 @@ type DetailsMainAnalystProps = {
   positions: Position[];
 };
 
+/**
+ *
+ * @param positions - The stock positions of a portfolio
+ * @returns The analyst section which includes a short desciption text,
+ * a red to green gradient bar and score indicators of the top 5 stock
+ */
+
 const DetailsMainAnalyst: React.FC<DetailsMainAnalystProps> = ({
   positions,
 }) => {
