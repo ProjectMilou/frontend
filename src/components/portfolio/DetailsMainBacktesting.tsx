@@ -90,6 +90,12 @@ type DetailsMainBacktestingProps = {
   id: string;
 };
 
+/**
+ * @property selectedFrom - The current date picked in the From-Picker
+ * @property selectedTo - The current date picked in the To-Picker
+ * @property inputValid - Tells you if the currently picked time range is valid
+ * @property error - Holds a possible error that might have occurred during an api call
+ */
 type State = {
   selectedFrom: Date;
   selectedTo: Date;
@@ -109,6 +115,8 @@ const initialState: State = {
   backtesting: undefined,
   error: undefined,
 };
+
+// the following are the types used for the reducer pattern
 
 type SetFromAction = {
   type: 'setFrom';
@@ -159,6 +167,12 @@ const reducer = (state: State, action: Actions) => {
   }
 };
 
+/**
+ * This is the main backtesting component that is being rendered into the details page.
+ * It holds among others the {@link DetailsMainBacktestingTimeline} and {@link DetailsMainBacktestingList} components.
+ *
+ * @param id - The portfolio id used to fetch backtesting data from the api
+ */
 const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
   id,
 }) => {
@@ -181,7 +195,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
     }
   };
 
-  // on initial mount
+  // on initial mount backtesting data for the default time range (see above) is fetched
   useEffect(() => {
     fetch(state.selectedFrom, state.selectedTo);
     return () => {
@@ -191,8 +205,9 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // is triggered when the update button besides the To-Picker is clicked
   const onClickUpdate = () => {
-    // remove error from last click
+    // removes possible invalid state from last try
     dispatch({ type: 'setValid', payload: true });
     if (
       state.selectedTo < state.selectedFrom ||
