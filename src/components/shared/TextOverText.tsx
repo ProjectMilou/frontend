@@ -47,13 +47,6 @@ const TextOverText: React.FC<TextOverTextProps> = (props) => {
   const { top, bottom, currency, infoText } = props;
   const classes = useStyles(props);
 
-  function currencySymbol(): '€' | '$' {
-    if (currency === 'USD') {
-      return '$';
-    }
-    return '€';
-  }
-
   return (
     <div className={classes.compContainer}>
       <div className={classes.pWrapper}>
@@ -75,7 +68,7 @@ const TextOverText: React.FC<TextOverTextProps> = (props) => {
           <p className={classes.bottom}>
             <StyledNumberFormat
               value={parseInt(bottom, 10)}
-              suffix={currencySymbol()}
+              suffix="€"
               fontWeight={600}
               size="1.3rem"
             />
