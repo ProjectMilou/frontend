@@ -1,7 +1,7 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { Link } from '@reach/router';
 import React from 'react';
-import * as API from '../../../analyser/APIClient';
+import * as API from '../../analyser/APIClient';
 
 export type SearchOptionProps = {
   stock: API.Stock;

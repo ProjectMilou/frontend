@@ -25,7 +25,7 @@ import React, { Reducer } from 'react';
 import NumberFormat, { NumberFormatValues } from 'react-number-format';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import SearchBar from '../analyser/search/SearchBar';
+import SearchBar from '../shared/SearchBar';
 import ProgressButton from './ProgressButton';
 import { errorMessageKey, errorTitleKey } from '../../Errors';
 import LimitedString from './LimitedString';

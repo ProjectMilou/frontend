@@ -14,7 +14,7 @@ import logo from '../../assets/images/logo1.png';
 import NavLink from './NavLink';
 import Login from '../shell/login/Login';
 import UserService from '../../services/UserService';
-import SearchBar from '../analyser/search/SearchBar';
+import SearchBar from '../shared/SearchBar';
 import Register from '../shell/register/Register';
 import Reset from '../shell/reset/Reset';
 import { Context } from '../../state/context';

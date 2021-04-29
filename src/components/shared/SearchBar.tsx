@@ -10,9 +10,9 @@ import {
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Search from '@material-ui/icons/Search';
 import { navigate } from '@reach/router';
-import * as API from '../../../analyser/APIClient';
+import * as API from '../../analyser/APIClient';
 import SearchOption from './SearchOption';
-import { saveStockToPortfolios } from '../../../portfolio/APIClient';
+import { saveStockToPortfolios } from '../../portfolio/APIClient';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
