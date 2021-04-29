@@ -68,6 +68,7 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({
       </Button>
       {positions && (
         <EditDialog
+          portfolioId={id}
           open={openEdit}
           strikethroughCleared
           strings={{

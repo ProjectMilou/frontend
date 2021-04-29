@@ -7,11 +7,12 @@ import {
   Theme,
   TextFieldProps,
 } from '@material-ui/core';
-import { navigate } from '@reach/router';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Search from '@material-ui/icons/Search';
+import { navigate } from '@reach/router';
 import * as API from '../../../analyser/APIClient';
 import SearchOption from './SearchOption';
+import { saveStockToPortfolios } from '../../../portfolio/APIClient';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,7 +32,15 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const SearchBar: React.FC = () => {
+/**
+ * if id is given then the search bar is displayed on the portfolio page and different onclick
+ * inside the search bar is called. Otherwise it is assumed that search bar is displayed on analyzer page
+ */
+type SearchBarProps = {
+  id?: string;
+};
+
+const SearchBar: React.FC<SearchBarProps> = ({ id }) => {
   const classes = useStyles();
 
   const [stocks, setStocks] = React.useState<API.Stock[]>();
@@ -87,13 +96,25 @@ const SearchBar: React.FC = () => {
           }}
           onChange={(event, value) => {
             setOpen(false);
-            // navigate to new page if value is of type stock
+            // if id is null (on analyzer page) navigate to new page if value is of type stock
+            // if id is non null (portfolio page) make api request
             if (typeof value === 'object' && value !== null) {
-              navigate(`/analyser/${value.symbol}`);
+              if (id) {
+                saveStockToPortfolios(value.symbol, [{ id, qty: 1 }]);
+              } else {
+                navigate(`/analyser/${value.symbol}`);
+              }
             }
           }}
           onBlur={() => setOpen(false)}
-          renderOption={(option: API.Stock) => <SearchOption stock={option} />}
+          renderOption={(option: API.Stock) =>
+            id ? (
+              // if on portfolio page disable the navigation link
+              <SearchOption stock={option} disableLink />
+            ) : (
+              <SearchOption stock={option} />
+            )
+          }
           renderInput={(params: JSX.IntrinsicAttributes & TextFieldProps) => (
             <TextField
               // clear input whenever textfield is clicked

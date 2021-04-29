@@ -5,6 +5,7 @@ import * as API from '../../../analyser/APIClient';
 
 export type SearchOptionProps = {
   stock: API.Stock;
+  disableLink?: boolean;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -20,24 +21,31 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const SearchOption: React.FC<SearchOptionProps> = ({ stock }) => {
+const SearchOption: React.FC<SearchOptionProps> = ({ stock, disableLink }) => {
   const { symbol, name } = stock;
   const route = `/analyser/${symbol}`;
   const { navlink } = useStyles();
 
   return (
     // Link is needed to highlight current selected stock
-    <Link
-      to={route}
-      className={navlink}
-      getProps={({ isCurrent }) => ({
-        style: {
-          fontWeight: isCurrent ? 'bold' : 'normal',
-        },
-      })}
-    >
-      {name}
-    </Link>
+    // if search bar is used in portfolio then the link is disabled
+    <>
+      {disableLink ? (
+        <div className={navlink}>{name}</div>
+      ) : (
+        <Link
+          to={route}
+          className={navlink}
+          getProps={({ isCurrent }) => ({
+            style: {
+              fontWeight: isCurrent ? 'bold' : 'normal',
+            },
+          })}
+        >
+          {name}
+        </Link>
+      )}
+    </>
   );
 };
 

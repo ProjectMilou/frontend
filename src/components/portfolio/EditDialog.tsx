@@ -25,11 +25,14 @@ import React, { Reducer } from 'react';
 import NumberFormat, { NumberFormatValues } from 'react-number-format';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
+import SearchBar from '../analyser/search/SearchBar';
 import ProgressButton from './ProgressButton';
 import { errorMessageKey, errorTitleKey } from '../../Errors';
 import LimitedString from './LimitedString';
 
 export type EditDialogProps = {
+  /** Optional - if given display search bar inside. */
+  portfolioId?: string;
   /** Whether the dialog is open. */
   open: boolean;
   /** The data to display and edit. */
@@ -475,6 +478,7 @@ const EditEntry: React.FC<EditEntryProps> = ({
  * A dialog that displays entries with a number value in a table and allows editing.
  */
 const EditDialog: React.FC<EditDialogProps> = ({
+  portfolioId,
   open,
   entries,
   handleClose,
@@ -522,6 +526,7 @@ const EditDialog: React.FC<EditDialogProps> = ({
     >
       <DialogTitle>{strings.title}</DialogTitle>
       <DialogContent>
+        {portfolioId && <SearchBar id={portfolioId} />}
         {additionalContent !== undefined && (
           <DialogContentText>{additionalContent}</DialogContentText>
         )}
