@@ -276,7 +276,7 @@ exports[`DashboardTable display stock information 1`] = `
                   <span
                     class="makeStyles-styledNumberFormat-22 makeStyles-styledNumberFormat-34"
                   >
-                    138,16 $
+                    138,16 €
                   </span>
                 </td>
                 <td
@@ -303,7 +303,8 @@ exports[`DashboardTable display stock information 1`] = `
                   <p
                     class="MuiTypography-root makeStyles-defaultText-12 MuiTypography-body1 MuiTypography-colorPrimary"
                   >
-                    $119B
+                    €
+                    119B
                   </p>
                 </td>
                 <td
@@ -312,7 +313,7 @@ exports[`DashboardTable display stock information 1`] = `
                   <span
                     class="makeStyles-styledNumberFormat-22 makeStyles-styledNumberFormat-37"
                   >
-                    139,18 $
+                    139,18 €
                   </span>
                 </td>
                 <td
@@ -380,7 +381,7 @@ exports[`DashboardTable display stock information 1`] = `
                   <span
                     class="makeStyles-styledNumberFormat-22 makeStyles-styledNumberFormat-24"
                   >
-                    138,16 $
+                    138,16 €
                   </span>
                 </td>
                 <td
@@ -407,7 +408,8 @@ exports[`DashboardTable display stock information 1`] = `
                   <p
                     class="MuiTypography-root makeStyles-defaultText-12 MuiTypography-body1 MuiTypography-colorPrimary"
                   >
-                    $119B
+                    €
+                    119B
                   </p>
                 </td>
                 <td
@@ -416,7 +418,7 @@ exports[`DashboardTable display stock information 1`] = `
                   <span
                     class="makeStyles-styledNumberFormat-22 makeStyles-styledNumberFormat-27"
                   >
-                    139,18 $
+                    139,18 €
                   </span>
                 </td>
                 <td
