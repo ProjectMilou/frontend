@@ -104,7 +104,9 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
       <TableRow>
         <TableCell className={classes.tableCell}>
           <TextOverText
-            top={moneyFormat(parseInt(stockDetails.marketCapitalization, 10))}
+            top={`${moneyFormat(
+              parseInt(stockDetails.marketCapitalization, 10)
+            )}€`}
             bottom={t('company.mc')}
             colorTop={theme.palette.primary.main}
             colorBottom={theme.palette.primary.light}

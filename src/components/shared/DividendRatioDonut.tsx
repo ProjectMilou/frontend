@@ -121,7 +121,7 @@ const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
         />
         <div className={classes.textWrapper}>
           {!Number.isNaN(ratio) && (
-            <p style={{ margin: 0 }}>{`${ratio * 100}%`}</p>
+            <p style={{ margin: 0 }}>{`${(ratio * 100).toFixed(0)}%`}</p>
           )}
         </div>
       </div>
