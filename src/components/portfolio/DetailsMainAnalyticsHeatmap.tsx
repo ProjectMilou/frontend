@@ -82,6 +82,14 @@ const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
     ),
   }));
 
+  if (series.length < 2) {
+    return (
+      <div className={classes.placeholderInfo}>
+        {t('portfolio.details.analytics.correlations.disabledChart')}
+      </div>
+    );
+  }
+
   const options = {
     tooltip: {
       y: {
@@ -151,13 +159,6 @@ const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
     },
   };
 
-  if (series.length < 2) {
-    return (
-      <div className={classes.placeholderInfo}>
-        {t('portfolio.details.analytics.correlations.disabledChart')}
-      </div>
-    );
-  }
   return (
     <Chart type="heatmap" height={height} series={series} options={options} />
   );
