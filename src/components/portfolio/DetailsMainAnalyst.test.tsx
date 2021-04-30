@@ -19,11 +19,11 @@ test('Analyst section renders the bar with a least 1 indicator', async () => {
   screen.getByText('portfolio.details.analystSubtext');
   // check for bar
   expect(
-    container.querySelector('[class ^= makeStyles-barContainer]')
+    container.querySelector('[class *= makeStyles-barContainer]')
   ).toBeInTheDocument();
   // check for at least one indicator
   expect(
-    container.querySelectorAll('[class ^= makeStyles-barContainer]')[0]
+    container.querySelectorAll('[class *= makeStyles-barContainer]')[0]
       .childNodes.length > 0
   ).toBeTruthy();
 });

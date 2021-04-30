@@ -101,7 +101,9 @@ const RatioDonut: React.FC<RatioDonutProps> = ({ ratio, textColor }) => {
           width="100%"
         />
         <div className={classes.textWrapper}>
-          <span style={{ margin: 0, color: textColor }}>{`${ratio}%`}</span>
+          <span style={{ margin: 0, color: textColor }}>{`${ratio.toFixed(
+            0
+          )}%`}</span>
         </div>
       </div>
     </div>
