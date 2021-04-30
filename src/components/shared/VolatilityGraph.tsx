@@ -51,11 +51,11 @@ type VolatilityGraphProps = {
 };
 
 /**
- * A custom made graph component to visualize the volitility of a stock or portfolio
+ * A custom made graph component to visualize the volatility of a stock or portfolio
  * in relation to the market average of 1
  *
  * @param color - The color of the icons, text and market average indicator
- * @param children - These should be the indicators along the volatility line (VilatilityLineEntry or LargeVilatilityLineEntry)
+ * @param children - These should be the indicators along the volatility line (VolatilityLineEntry or LargeVolatilityLineEntry)
  */
 
 const VolatilityGraph: React.FC<VolatilityGraphProps> = ({
@@ -82,7 +82,7 @@ const VolatilityGraph: React.FC<VolatilityGraphProps> = ({
           </div>
           <div className={classes.lineMiddle} />
         </div>
-        {/* children in form of VilatilityLineEntry */}
+        {/* children in form of VolatilityLineEntry */}
         {children}
       </div>
       <FlashOnIcon className={classes.icons} />
