@@ -62,6 +62,7 @@ const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
 
   const { correlations } = portfolio.analytics;
 
+  // TODO remove as soon as the response consistently sends a correlation field (even if its just an empty object)
   if (!correlations) {
     return (
       <div className={classes.placeholderInfo}>
