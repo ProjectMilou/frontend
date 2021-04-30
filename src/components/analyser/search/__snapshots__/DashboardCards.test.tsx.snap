@@ -1,0 +1,270 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DashboardCards display stock information 1`] = `
+<div>
+  <div
+    class="infinite-scroll-component__outerdiv"
+  >
+    <div
+      class="infinite-scroll-component "
+      style="height: auto; overflow: auto;"
+    >
+      <div
+        class="MuiGrid-root makeStyles-grid-19"
+      >
+        <ul
+          class="MuiGridList-root"
+          style="margin: -2px;"
+        >
+          <div
+            class="MuiPaper-root MuiCard-root makeStyles-card-11 MuiPaper-elevation1 MuiPaper-rounded"
+          >
+            <button
+              class="MuiButtonBase-root makeStyles-cardAction-15"
+              tabindex="0"
+              type="button"
+            >
+              <div
+                class="MuiCardMedia-root"
+              >
+                <img
+                  alt="Company Logo"
+                  class="makeStyles-media-12"
+                  src="https://finnhub.io/api/logo?symbol=IBM"
+                />
+              </div>
+              <div
+                class="MuiCardContent-root makeStyles-content-13"
+              >
+                <div
+                  class="makeStyles-compContainer-23"
+                >
+                  <div
+                    class="makeStyles-pWrapper-24 makeStyles-pWrapper-27"
+                  >
+                    <p
+                      class="makeStyles-top-21 makeStyles-top-25"
+                    >
+                      IBM
+                    </p>
+                  </div>
+                  <div
+                    class="makeStyles-pWrapper-24 makeStyles-pWrapper-27"
+                  >
+                    <p
+                      class="makeStyles-bottom-22 makeStyles-bottom-26"
+                    >
+                      International Business Machines Corporation
+                    </p>
+                  </div>
+                </div>
+                <hr
+                  class="MuiDivider-root makeStyles-divider-14 MuiDivider-light"
+                />
+                <div
+                  class="makeStyles-paddingBottom-18"
+                >
+                  <div
+                    class="makeStyles-leftBound-17"
+                  >
+                    <div
+                      class="makeStyles-compContainer-23"
+                    >
+                      <div
+                        class="makeStyles-pWrapper-24 makeStyles-pWrapper-30"
+                      >
+                        <p
+                          class="makeStyles-top-21 makeStyles-top-28"
+                        >
+                          analyser.dashboard.view.cards.lastPrice
+                        </p>
+                      </div>
+                      <div
+                        class="makeStyles-pWrapper-24 makeStyles-pWrapper-30"
+                      >
+                        <p
+                          class="makeStyles-bottom-22 makeStyles-bottom-29"
+                        >
+                          <span
+                            class="makeStyles-styledNumberFormat-31 makeStyles-styledNumberFormat-33"
+                          >
+                            138,00 $
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="makeStyles-rightBound-16"
+                  >
+                    <div
+                      class="makeStyles-compContainer-23"
+                    >
+                      <div
+                        class="makeStyles-pWrapper-24 makeStyles-pWrapper-36"
+                      >
+                        <p
+                          class="makeStyles-top-21 makeStyles-top-34"
+                        >
+                          stock.30d
+                        </p>
+                      </div>
+                      <div
+                        class="makeStyles-pWrapper-24 makeStyles-pWrapper-36"
+                      >
+                        <p
+                          class="makeStyles-bottom-22 makeStyles-bottom-35"
+                        >
+                          1.06%
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span
+                class="MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+          <div
+            class="MuiPaper-root MuiCard-root makeStyles-card-11 MuiPaper-elevation1 MuiPaper-rounded"
+          >
+            <button
+              class="MuiButtonBase-root makeStyles-cardAction-15"
+              tabindex="0"
+              type="button"
+            >
+              <div
+                class="MuiCardMedia-root"
+              >
+                <img
+                  alt="Company Logo"
+                  class="makeStyles-media-12"
+                  src="https://finnhub.io/api/logo?symbol=IBM"
+                />
+              </div>
+              <div
+                class="MuiCardContent-root makeStyles-content-13"
+              >
+                <div
+                  class="makeStyles-compContainer-23"
+                >
+                  <div
+                    class="makeStyles-pWrapper-24 makeStyles-pWrapper-39"
+                  >
+                    <p
+                      class="makeStyles-top-21 makeStyles-top-37"
+                    >
+                      APPLE
+                    </p>
+                  </div>
+                  <div
+                    class="makeStyles-pWrapper-24 makeStyles-pWrapper-39"
+                  >
+                    <p
+                      class="makeStyles-bottom-22 makeStyles-bottom-38"
+                    >
+                      International Business Machines Corporation
+                    </p>
+                  </div>
+                </div>
+                <hr
+                  class="MuiDivider-root makeStyles-divider-14 MuiDivider-light"
+                />
+                <div
+                  class="makeStyles-paddingBottom-18"
+                >
+                  <div
+                    class="makeStyles-leftBound-17"
+                  >
+                    <div
+                      class="makeStyles-compContainer-23"
+                    >
+                      <div
+                        class="makeStyles-pWrapper-24 makeStyles-pWrapper-42"
+                      >
+                        <p
+                          class="makeStyles-top-21 makeStyles-top-40"
+                        >
+                          analyser.dashboard.view.cards.lastPrice
+                        </p>
+                      </div>
+                      <div
+                        class="makeStyles-pWrapper-24 makeStyles-pWrapper-42"
+                      >
+                        <p
+                          class="makeStyles-bottom-22 makeStyles-bottom-41"
+                        >
+                          <span
+                            class="makeStyles-styledNumberFormat-31 makeStyles-styledNumberFormat-43"
+                          >
+                            138,00 $
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="makeStyles-rightBound-16"
+                  >
+                    <div
+                      class="makeStyles-compContainer-23"
+                    >
+                      <div
+                        class="makeStyles-pWrapper-24 makeStyles-pWrapper-46"
+                      >
+                        <p
+                          class="makeStyles-top-21 makeStyles-top-44"
+                        >
+                          stock.30d
+                        </p>
+                      </div>
+                      <div
+                        class="makeStyles-pWrapper-24 makeStyles-pWrapper-46"
+                      >
+                        <p
+                          class="makeStyles-bottom-22 makeStyles-bottom-45"
+                        >
+                          1.06%
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span
+                class="MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+          <div
+            class="makeStyles-loading-20"
+            style="width: 50%; height: 184px; padding: 2px;"
+          >
+            <div
+              class="MuiCircularProgress-root MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
+              role="progressbar"
+              style="width: 40px; height: 40px;"
+            >
+              <svg
+                class="MuiCircularProgress-svg"
+                viewBox="22 22 44 44"
+              >
+                <circle
+                  class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
+                  cx="44"
+                  cy="44"
+                  fill="none"
+                  r="20.2"
+                  stroke-width="3.6"
+                />
+              </svg>
+            </div>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+`;
