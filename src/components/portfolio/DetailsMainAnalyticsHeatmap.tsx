@@ -62,6 +62,14 @@ const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
 
   const { correlations } = portfolio.analytics;
 
+  if (!correlations) {
+    return (
+      <div className={classes.placeholderInfo}>
+        {t('portfolio.details.analytics.correlations.disabledChart')}
+      </div>
+    );
+  }
+
   // categories for x-axis
   const chartCategories = Array.from(
     new Set(Object.keys(correlations).flatMap((key) => key.split(';')))
