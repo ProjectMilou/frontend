@@ -90,9 +90,9 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
       <TableRow>
         <TableCell className={classes.tableCell}>
           <TextOverText
-            top={`${moneyFormat(
+            top={`€${moneyFormat(
               parseInt(stockDetails.marketCapitalization, 10)
-            )}€`}
+            )}`}
             bottom={t('company.mc')}
             colorTop={theme.palette.primary.main}
             colorBottom={theme.palette.primary.light}
@@ -107,6 +107,7 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
             bottom={t('stock.per52WeekLow')}
             colorTop={theme.palette.primary.main}
             colorBottom={theme.palette.primary.light}
+            infoText={t('info.per52WeekHigh')}
           />
         </TableCell>
         <TableCell className={classes.tableCell}>
@@ -114,9 +115,10 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
             top={`${parseFloat(stockDetails.per52WeekHigh)
               .toFixed(2)
               .toString()}€`}
-            bottom={t('company.per52WeekHigh')}
+            bottom={t('stock.per52WeekHigh')}
             colorTop={theme.palette.primary.main}
             colorBottom={theme.palette.primary.light}
+            infoText={t('info.per52WeekLow')}
           />
         </TableCell>
         <TableCell className={classes.tableCell}>

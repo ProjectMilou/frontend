@@ -241,6 +241,21 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
         text: 'Currently no Data available ;(',
       },
     },
+    tooltip: {
+      x: {
+        show: false,
+        format: 'dd MMM yyyy',
+      },
+      y: {
+        formatter: (seriesName: string) => `€${seriesName}M`,
+        title: {
+          formatter: (seriesName: string) => `${seriesName}:`,
+        },
+      },
+      marker: {
+        show: false,
+      },
+    },
   };
 
   return (
