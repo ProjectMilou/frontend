@@ -26,8 +26,8 @@ test('Risk section renders correctly', async () => {
 
   // check for both info buttons (sharpe and treynor)
   expect(
-    container.querySelectorAll('[class *= makeStyles-infoIcon]').length === 2
-  ).toBeTruthy();
+    container.querySelectorAll('[class *= makeStyles-infoIcon]')
+  ).toHaveLength(2);
 
   // check for countries title
   screen.getAllByText('portfolio.details.countries');
