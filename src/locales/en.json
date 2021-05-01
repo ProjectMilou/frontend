@@ -3,7 +3,7 @@
   "source.investopedia": "Source: investopedia.com",
   "portfolio.portfolioAverage": "Portfolio Average",
   "portfolio.details.editPortfolio": "Edit Portfolio",
-  "portfolio.details.cannotEditPortfolio": "Cannot edit real portfolio",
+  "portfolio.details.cannotEditPortfolio": "You cannot edit a real portfolio. Please duplicate to a virtual portfolio to start simulating changes.",
   "portfolio.details.summaryHeader": "1. Summary",
   "portfolio.details.stockChartSeries": "Total Performance",
   "portfolio.dialog.edit.title": "Edit portfolio positions",

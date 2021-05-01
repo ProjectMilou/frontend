@@ -38,6 +38,11 @@ const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
       left: '3rem',
       cursor: (props) => (props.virtual ? 'url' : 'not-allowed'),
     },
+    tooltip: {
+      maxWidth: 400,
+      fontSize: '0.9rem',
+      whiteSpace: 'pre-line',
+    },
   })
 );
 
@@ -67,6 +72,7 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({
         title={
           virtual ? '' : t('portfolio.details.cannotEditPortfolio').toString()
         }
+        classes={{ tooltip: classes.tooltip }}
       >
         <div className={classes.buttonWrapper}>
           <Button
