@@ -62,12 +62,10 @@ describe('Details Edit', () => {
     const editButton = screen.queryByText('portfolio.details.editPortfolio');
     expect(editButton).toBeInTheDocument();
     if (editButton) {
-      userEvent.hover(editButton);
-      screen.getByText('portfolio.details.cannotEditPortfolio');
       userEvent.click(editButton);
     }
     expect(
-      screen.getByText('portfolio.dialog.edit.title')
+      screen.queryByText('portfolio.dialog.edit.title')
     ).not.toBeInTheDocument();
   });
 });

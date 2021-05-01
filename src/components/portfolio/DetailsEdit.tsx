@@ -26,13 +26,16 @@ const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
     },
     button: {
       margin: '0 1rem',
-      left: '3rem',
       padding: '0.25rem 1rem',
       backgroundColor: theme.palette.lightBlue.main,
       '&:hover': {
         backgroundColor: lighten(theme.palette.lightBlue.main, 0.35),
       },
       whiteSpace: 'nowrap',
+    },
+    buttonWrapper: {
+      position: 'relative',
+      left: '3rem',
       cursor: (props) => (props.virtual ? 'url' : 'not-allowed'),
     },
   })
@@ -65,14 +68,16 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({
           virtual ? '' : t('portfolio.details.cannotEditPortfolio').toString()
         }
       >
-        <Button
-          variant="contained"
-          className={classes.button}
-          onClick={() => setOpenEdit(true)}
-          disabled={!positions?.length || !virtual}
-        >
-          {t('portfolio.details.editPortfolio')}
-        </Button>
+        <div className={classes.buttonWrapper}>
+          <Button
+            variant="contained"
+            className={classes.button}
+            onClick={() => setOpenEdit(true)}
+            disabled={!positions?.length || !virtual}
+          >
+            {t('portfolio.details.editPortfolio')}
+          </Button>
+        </div>
       </Tooltip>
       {positions && (
         <EditDialog
@@ -108,13 +113,15 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({
           }
         />
       )}
-      <Button
-        variant="contained"
-        className={classes.button}
-        onClick={() => setOpenDuplicate(true)}
-      >
-        {t('portfolio.dialog.duplicate.title')}
-      </Button>
+      <div className={classes.buttonWrapper}>
+        <Button
+          variant="contained"
+          className={classes.button}
+          onClick={() => setOpenDuplicate(true)}
+        >
+          {t('portfolio.dialog.duplicate.title')}
+        </Button>
+      </div>
       {/* adapted from Dashboard.tsx */}
       <DuplicateDialog
         initialName={name}
