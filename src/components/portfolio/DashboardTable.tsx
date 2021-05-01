@@ -49,6 +49,9 @@ const useStyles = makeStyles(({ palette }: Theme) => ({
       marginLeft: '0px',
     },
   },
+  actionsCell: {
+    minWidth: '12rem',
+  },
 }));
 
 type DashboardTableRowProps = {
@@ -120,7 +123,7 @@ const DashboardTableRow: React.FC<DashboardTableRowProps> = ({
           paintJob
         />
       </TableCell>
-      <TableCell align="center">
+      <TableCell align="center" className={classes.actionsCell}>
         <DashboardActions
           portfolio={portfolio}
           renamePortfolio={renamePortfolio}
