@@ -67,8 +67,10 @@ describe('Backtesting', () => {
         expect(mockBacktesting).toHaveBeenCalledTimes(1);
       });
     });
-    const updateButton = backtestingComponent.getByText('backtesting.update');
+    const updateButton = backtestingComponent.getByRole('button', {
+      name: 'backtesting.update.button',
+    });
     userEvent.click(updateButton);
-    expect(updateButton).toHaveAttribute('disabled', 'true');
+    expect(updateButton).toBeDisabled();
   });
 });
