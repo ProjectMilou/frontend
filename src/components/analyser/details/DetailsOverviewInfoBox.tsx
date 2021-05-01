@@ -10,7 +10,11 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Stock, StockDetails } from '../../../analyser/APIClient';
 import TextOverText from '../../shared/TextOverText';
-import { moneyFormat, convertToPercent, convertPercentToColor } from '../../../analyser/Helper';
+import {
+  moneyFormat,
+  convertToPercent,
+  convertPercentToColor,
+} from '../../../analyser/Helper';
 
 // stylesheet for the Summary section
 const useStyles = makeStyles(() =>
