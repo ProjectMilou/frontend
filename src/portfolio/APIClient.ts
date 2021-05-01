@@ -267,177 +267,6 @@ type KeyFiguresResponse = {
   dividendPayoutRatio?: number | null;
 };
 
-// mock portfolio while the api is not finished yet (copied from APIMocks.ts).
-// TODO: remove this
-const MockCorrelations: Correlations = {
-  'BMW;Apple': 0.33,
-  'Apple;TUM': 0.56,
-  'Apple;Faber': 0.55,
-  'TUM;BMW': -0.3,
-  'BMW;Faber': -0.8,
-  'Faber;TUM': 0.1,
-};
-
-const MockAnalytics: Analytics = {
-  volatility: 1.45,
-  standardDeviation: 0.12,
-  sharpeRatio: 0.45,
-  treynorRatio: 1.2,
-  debtEquity: 0.55,
-  correlations: MockCorrelations,
-};
-
-const mockPortfolio: NonEmptyPortfolioDetails = {
-  overview: {
-    id: 'MOCK',
-    name: 'mock portfolio',
-    virtual: true,
-    positionCount: 4,
-    value: 174.98,
-    score: 0.6,
-    perf7d: 0,
-    perf7dPercent: 0,
-    perf1y: -1,
-    perf1yPercent: -0.5,
-    modified: new Date(1616086585),
-  },
-  positions: [
-    {
-      stock: {
-        symbol: 'BMW',
-        name: 'BMW',
-        price: 23.25,
-        perf7d: -1,
-        perf7dPercent: -0.3,
-        perf1y: 5,
-        perf1yPercent: 2,
-        volatility: 0.3,
-        debtEquity: 0.8,
-        score: 0.7,
-      },
-      qty: 1,
-      totalReturn: 6.5,
-      totalReturnPercent: 25,
-    },
-    {
-      stock: {
-        symbol: 'MRC',
-        name: 'Mercedes',
-        price: 19.51,
-        perf7d: 3,
-        perf7dPercent: 2.4,
-        perf1y: -15,
-        perf1yPercent: 10.5,
-        volatility: 1.3,
-        debtEquity: 1.5,
-        score: 0.4,
-      },
-      qty: 2,
-      totalReturn: -2.21,
-      totalReturnPercent: -10.03,
-    },
-    {
-      stock: {
-        symbol: 'MCL',
-        name: 'McLaren',
-        price: 12.11,
-        perf7d: 15,
-        perf7dPercent: 12,
-        perf1y: 10,
-        perf1yPercent: 8.5,
-        volatility: 0.8,
-        debtEquity: 0.5,
-        score: 0.8,
-      },
-      qty: 3,
-      totalReturn: 3.21,
-      totalReturnPercent: 34.32,
-    },
-    {
-      stock: {
-        symbol: 'QQQ',
-        name: 'QQQ',
-        price: 120.11,
-        perf7d: 1,
-        perf7dPercent: 1,
-        perf1y: 2,
-        perf1yPercent: 0.4,
-        score: 0.9,
-        volatility: 1.33,
-        debtEquity: 1.45,
-      },
-      qty: 4,
-      totalReturn: -1.23,
-      totalReturnPercent: -0.97,
-    },
-  ],
-  risk: {
-    countries: {
-      USA: 2,
-      GER: 3,
-    },
-    segments: {
-      'Financial Service': 2,
-      HealthCare: 5,
-    },
-    currency: {
-      Dollar: 2,
-      Euro: 3,
-    },
-  },
-  keyFigures: [
-    {
-      year: 2016,
-      pte: 30,
-      ptb: 50,
-      ptg: 30,
-      eps: 10,
-      div: 30,
-      dividendPayoutRatio: 25,
-    },
-    {
-      year: 2017,
-      pte: 40,
-      ptb: 25,
-      ptg: 50,
-      eps: 20,
-      div: 40,
-      dividendPayoutRatio: 25,
-    },
-    {
-      year: 2018,
-      pte: 45,
-      ptb: 35,
-      ptg: 15,
-      eps: 25,
-      div: 45,
-      dividendPayoutRatio: 25,
-    },
-    {
-      year: 2019,
-      pte: 50,
-      ptb: 80,
-      ptg: 40,
-      eps: 10,
-      div: 50,
-      dividendPayoutRatio: 25,
-    },
-    {
-      year: 2020,
-      pte: 50,
-      ptb: 20,
-      ptg: 10,
-      eps: 90,
-      div: 50,
-      dividendPayoutRatio: 25,
-    },
-  ],
-  nextDividend: new Date(),
-  totalReturn: 75.43,
-  totalReturnPercent: 12.34,
-  analytics: MockAnalytics,
-};
-
 /**
  * Converts a {@link PortfolioOverviewResponse} object as received from the API
  * to a {@link PortfolioOverview} object for use by the application.
@@ -540,11 +369,7 @@ async function request(
  */
 export async function list(): Promise<PortfolioOverview[]> {
   const response = (await request('GET', 'list')) as ListResponse;
-  // TODO: remove mock when api is implemented
-  return [
-    ...response.portfolios.map(convertPortfolioOverview),
-    mockPortfolio.overview,
-  ];
+  return response.portfolios.map(convertPortfolioOverview);
 }
 
 /**
@@ -579,12 +404,6 @@ export async function backtesting(
 }
 
 export async function details(id: string): Promise<PortfolioDetails> {
-  // TODO: remove mock when api is implemented
-  if (id === 'MOCK') {
-    return new Promise((resolve) =>
-      setTimeout(() => resolve(mockPortfolio), 1000)
-    );
-  }
   const response = (await request('GET', `details/${id}`)) as DetailsResponse;
   return convertPortfolioDetails(response);
 }
