@@ -25,12 +25,11 @@ const useStyles = makeStyles((theme) => ({
   mdd: {
     color: theme.palette.primary.contrastText,
   },
-  // TODO replace hard coded
   beta: {
     color: theme.palette.orange.main,
   },
   sharpe: {
-    color: '#ffa500',
+    color: theme.palette.darkOrange.main,
   },
   cagr: {
     color: theme.palette.lightBlue.main,
