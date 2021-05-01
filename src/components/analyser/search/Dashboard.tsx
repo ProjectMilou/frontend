@@ -16,7 +16,6 @@ import ErrorMessage from '../../shared/ErrorMessage';
 import StockListOverview from './StockListOverview';
 import DashboardHeader from '../../shared/DashboardHeader';
 import Filter from './Filter';
-import { isAuthenticationError } from '../../../Errors';
 
 export interface DashboardProps extends RouteComponentProps {
   token: string;
@@ -104,19 +103,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token }) => {
           <ErrorMessage
             error={error}
             messageKey="analyser.dashboard.errorMessage"
-            handling={
-              isAuthenticationError(error)
-                ? {
-                    buttonText: 'error.action.login',
-                    action: async () => {
-                      // TODO: go back to login
-                    },
-                  }
-                : {
-                    buttonText: 'error.action.retry',
-                    action: fetch,
-                  }
-            }
+            retry={fetch}
           />
         )}
         {stocks && (

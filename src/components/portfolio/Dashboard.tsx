@@ -10,7 +10,6 @@ import RenameDialog from './RenameDialog';
 import DuplicateDialog from './DuplicateDialog';
 import DeleteDialog from './DeleteDialog';
 import CreateDialog from './CreateDialog';
-import { isAuthenticationError } from '../../Errors';
 
 enum DialogType {
   None,
@@ -256,19 +255,7 @@ const Dashboard: React.FC<RouteComponentProps> = () => {
           <ErrorMessage
             error={state.error}
             messageKey="portfolio.dashboard.errorMessage"
-            handling={
-              isAuthenticationError(state.error)
-                ? {
-                    buttonText: 'error.action.login',
-                    action: async () => {
-                      // TODO: go back to login
-                    },
-                  }
-                : {
-                    buttonText: 'error.action.retry',
-                    action: fetch,
-                  }
-            }
+            retry={fetch}
           />
         )}
         {state.portfolios && (
