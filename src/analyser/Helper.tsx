@@ -35,7 +35,11 @@ export function checkValue(val: number): number {
   return parseFloat(result.toFixed(2));
 }
 
-// Used In BalanceSheetInfo returns empty String when number is zero for styling purposes and adds in Milllion €
+/** Used In BalanceSheetInfo returns empty String when number is zero for styling purposes and adds in Milllion €
+ * 
+ * @param val Amount in BalanceSheet Category
+ * @param text Name of BalanceSheet Category
+ */
 export function checkName(val: number, text: string): string {
   let result = text;
   if (val === 0) {
@@ -46,7 +50,6 @@ export function checkName(val: number, text: string): string {
   return result;
 }
 
-// TODO: no hard coded colors
 // takes a percent value and converts it to a color
 export function convertPercentToColor(val: number): string {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -59,7 +62,7 @@ export function chooseSymbol(val: API.Stock): string {
   return val.name.length > 15 ? val.symbol : val.name;
 }
 
-// Rounds and adds M=Million, B=Billion and K=Thousand --> American System!!!
+// Rounds and adds M=Million, B=Billion and K=Thousand --> American System
 export const moneyFormat = (val: number): string => {
   let round = '';
   if (Math.abs(val) >= 1.0e9) {
