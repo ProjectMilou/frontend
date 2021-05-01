@@ -168,7 +168,6 @@ export const MockDetails: NonEmptyPortfolioDetails = {
   positions: MockPositions,
   risk: MockRisk,
   keyFigures: MockFigures,
-  nextDividend: new Date(0),
   totalReturn: 75.43,
   totalReturnPercent: 12.34,
   analytics: MockAnalytics,
