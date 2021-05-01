@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   // TODO replace hard coded
   beta: {
-    color: '#ffff00',
+    color: theme.palette.orange.main,
   },
   sharpe: {
     color: '#ffa500',
