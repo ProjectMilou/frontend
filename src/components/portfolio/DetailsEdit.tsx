@@ -5,16 +5,19 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
-import { TableCell } from '@material-ui/core';
+import { TableCell, Tooltip, Button } from '@material-ui/core';
 import { Position, PositionQty } from '../../portfolio/APIClient';
 import EditDialog from './EditDialog';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
 import DuplicateDialog from './DuplicateDialog';
 import * as API from '../../portfolio/APIClient';
 
-const useStyles = makeStyles((theme: Theme) =>
+type StyleProps = {
+  virtual?: boolean;
+};
+
+const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
   createStyles({
     subContainer: {
       height: '50%',
@@ -30,6 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
         backgroundColor: lighten(theme.palette.lightBlue.main, 0.35),
       },
       whiteSpace: 'nowrap',
+      cursor: (props) => (props.virtual ? 'auto' : 'not-allowed'),
     },
   })
 );
@@ -49,23 +53,27 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({
   id,
   name,
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({ virtual });
   const { t } = useTranslation();
   const [openDuplicate, setOpenDuplicate] = React.useState<boolean>(false);
   const [openEdit, setOpenEdit] = React.useState(false);
 
   return (
     <div className={classes.subContainer}>
-      <Button
-        variant="contained"
-        className={classes.button}
-        onClick={() => setOpenEdit(true)}
-        disabled={!positions?.length || !virtual}
+      <Tooltip
+        title={
+          virtual ? '' : t('portfolio.details.cannotEditPortfolio').toString()
+        }
       >
-        {virtual
-          ? t('portfolio.details.editPortfolio')
-          : t('portfolio.details.cannotEditPortfolio')}
-      </Button>
+        <Button
+          variant="contained"
+          className={classes.button}
+          onClick={() => setOpenEdit(true)}
+          disabled={!positions?.length || !virtual}
+        >
+          {t('portfolio.details.editPortfolio')}
+        </Button>
+      </Tooltip>
       {positions && (
         <EditDialog
           open={openEdit}
