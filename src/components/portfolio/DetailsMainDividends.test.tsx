@@ -23,8 +23,6 @@ test('Dividens section renders correctly', async () => {
 
   // check for next date title
   screen.getByText('portfolio.details.nextDate');
-  // check for correct next date value
-  screen.getByText(`${MockDetails.nextDividend.toISOString().split('T')[0]}`);
 
   // check for both graphs
   expect(
