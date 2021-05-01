@@ -66,8 +66,8 @@ export type KeyFigures = {
   ptb: number;
   ptg: number;
   eps: number;
-  div: number;
-  dividendPayoutRatio: number;
+  div?: number;
+  dividendPayoutRatio?: number;
 };
 
 export type Correlations = {
@@ -93,7 +93,7 @@ export type NonEmptyPortfolioDetails = {
   positions: Position[];
   risk: RiskAnalysis;
   keyFigures: KeyFigures[];
-  nextDividend: Date;
+  nextDividend?: Date;
   totalReturn: number;
   totalReturnPercent: number;
   analytics: Analytics;
@@ -235,9 +235,9 @@ type NonEmptyDetailsResponse = {
   overview: PortfolioOverviewResponse;
   positions: Position[];
   risk: RiskAnalysis;
-  keyFigures: KeyFigures[];
+  keyFigures: KeyFiguresResponse[];
   /** UNIX timestamp */
-  nextDividend: number;
+  nextDividend?: number | null;
   totalReturn: number;
   totalReturnPercent: number;
   analytics: Analytics;
@@ -256,6 +256,16 @@ type CreateResponse = {
 type PortfolioStockResponse = { portfolios: PortfolioStock[] };
 
 type PerformanceResponse = { chart: Performance };
+
+type KeyFiguresResponse = {
+  year: number;
+  pte: number;
+  ptb: number;
+  ptg: number;
+  eps: number;
+  div?: number | null;
+  dividendPayoutRatio?: number | null;
+};
 
 // mock portfolio while the api is not finished yet (copied from APIMocks.ts).
 // TODO: remove this
@@ -472,7 +482,14 @@ function convertPortfolioDetails(response: DetailsResponse): PortfolioDetails {
       overview: convertPortfolioOverview(
         r.overview
       ) as NonEmptyPortfolioOverview,
-      nextDividend: new Date(r.nextDividend),
+      nextDividend: r.nextDividend ? new Date(r.nextDividend) : undefined,
+      // div and dividendPayoutRatio can be null
+      keyFigures: r.keyFigures.map<KeyFigures>((k) => ({
+        ...k,
+        div: k.div === null ? undefined : k.div,
+        dividendPayoutRatio:
+          k.dividendPayoutRatio === null ? undefined : k.dividendPayoutRatio,
+      })),
     };
   }
   // portfolio is empty

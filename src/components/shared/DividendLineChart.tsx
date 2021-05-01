@@ -11,9 +11,10 @@ type DividendLineChartProps = {
   year: number;
 };
 
-type Series = {
+export type Series = {
   name: string;
   data: number[];
+  type: 'column' | 'line';
 };
 
 const DividendLineChart: React.FC<DividendLineChartProps> = ({
