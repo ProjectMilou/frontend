@@ -41,6 +41,7 @@ export type Stock = {
   volatility: number;
   debtEquity: number;
   score: number;
+  missingData: boolean;
 };
 
 export type Position = {

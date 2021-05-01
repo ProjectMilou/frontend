@@ -1,5 +1,11 @@
 import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core';
+import {
+  makeStyles,
+  createStyles,
+  Theme,
+  List,
+  ListItem,
+} from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import DetailsMainSummary from './DetailsMainSummary';
 import DetailsMainPositions from './DetailsMainPositions';
@@ -7,17 +13,15 @@ import DetailsMainRisk from './DetailsMainRisk';
 import DetailsMainKeyFigures from './DetailsMainKeyFigures';
 import DetailsMainDividens from './DetailsMainDividends';
 import DetailsMainAnalyst from './DetailsMainAnalyst';
-import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
+import { Stock, NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 import DetailsMainAnalytics from './DetailsMainAnalytics';
 import DetailMainBacktesting from './DetailsMainBacktesting';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     mainWrapper: {
-      // TODO use theme margin
       margin: '0 auto',
       padding: '0 4rem',
-      // TODO: use theme max-width
       maxWidth: '80rem',
     },
     sectionWrapper: {
@@ -33,7 +37,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     sectionTitle: {
       margin: 0,
       color: palette.primary.contrastText,
-      // TODO use theme fontsize and weight
       fontSize: '2.25rem',
       fontWeight: 400,
       whiteSpace: 'nowrap',
@@ -73,6 +76,24 @@ const Section: React.FC<SectionProps> = ({ title, children }) => {
   );
 };
 
+type MissingDataMessageProps = {
+  stocks: Stock[];
+};
+
+const MissingDataMessage: React.FC<MissingDataMessageProps> = ({ stocks }) => {
+  const { t } = useTranslation();
+  return (
+    <div>
+      <span>{t('portfolio.details.missingDataMessage')}</span>
+      <List>
+        {stocks.map((stock) => (
+          <ListItem>{stock.symbol}</ListItem>
+        ))}
+      </List>
+    </div>
+  );
+};
+
 type DetailsMainProps = {
   portfolio: NonEmptyPortfolioDetails;
   id: string;
@@ -81,10 +102,16 @@ type DetailsMainProps = {
 const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, id }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const stocksWithMissingInfo = portfolio.positions
+    .map((position) => position.stock)
+    .filter((stock) => stock.missingData);
 
   return (
     <div className={classes.mainWrapper}>
       <Section title={t('portfolio.details.summaryHeader')}>
+        {stocksWithMissingInfo.length > 0 && (
+          <MissingDataMessage stocks={stocksWithMissingInfo} />
+        )}
         <DetailsMainSummary portfolio={portfolio} id={id} />
       </Section>
       <Section title={t('portfolio.details.positionsTitle')}>
