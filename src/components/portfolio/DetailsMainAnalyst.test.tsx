@@ -5,7 +5,7 @@ import DetailsMainAnalyst from './DetailsMainAnalyst';
 import { MockPositions } from '../../portfolio/APIMocks';
 import { theme } from '../App';
 
-test('Analyst section renders the bar with a least 1 indicator', async () => {
+test('Analyst section renders the bar with at least 1 indicator', async () => {
   const renderComponent = () =>
     render(
       <ThemeProvider theme={theme}>
