@@ -304,5 +304,6 @@
   "info.mc": "The total money invested in the company from all sharesholder",
   "footer.aboutUs": "About us",
   "footer.privacy": "Privacy Policy",
-  "footer.imprint": "Imprint"
+  "footer.imprint": "Imprint",
+  "unknown": "unknown"
 }
