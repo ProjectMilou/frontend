@@ -9,6 +9,7 @@ import { theme } from '../App';
 const mockPositions: Position[] = [
   {
     stock: {
+      missingData: false,
       symbol: 'BMW',
       name: 'BMW',
       price: 23.25,
