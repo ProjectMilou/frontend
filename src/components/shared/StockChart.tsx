@@ -214,7 +214,17 @@ const Datetime: React.FC<StockChartProps> = ({
     },
     tooltip: {
       x: {
+        show: false,
         format: 'dd MMM yyyy',
+      },
+      y: {
+        formatter: (seriesName: string) => `${seriesName}€`,
+        title: {
+          formatter: (seriesName: string) => `${seriesName}:`,
+        },
+      },
+      marker: {
+        show: false,
       },
     },
     fill: {
@@ -317,7 +327,7 @@ const Datetime: React.FC<StockChartProps> = ({
             options={options}
             series={[
               {
-                name: t('portfolio.details.stockChartSeries'),
+                name: t('analyser.details.stockChartSeries'),
                 data: series,
               },
             ]}
