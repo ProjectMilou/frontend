@@ -52,16 +52,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token }) => {
       const polishedStocks = unfilteredStocks.filter(
         (s) => s.industry !== undefined
       );
-      // polishedStocks.forEach((s) => {
-      //   console.log(s.div);
-      //   console.log(typeof s.price);
-      // });
-
       return polishedStocks;
-      // polishedStocks = polishedStocks.map((s) => {
-      //   s = {...s,
-      //     price: parseFloat(s.price.toString())}
-      //   })
     }
     return undefined;
   };

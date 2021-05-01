@@ -1,3 +1,4 @@
+import { useTheme } from '@material-ui/core/styles';
 import * as API from './APIClient';
 
 // Calculates percentage buy/sell/hold for Analysts section
@@ -48,7 +49,9 @@ export function checkName(val: number, text: string): string {
 // TODO: no hard coded colors
 // takes a percent value and converts it to a color
 export function convertPercentToColor(val: number): string {
-  return val < 0 ? '#D64745' : '#50E2A8';
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const theme = useTheme();
+  return val < 0 ? theme.palette.error.main : theme.palette.success.main;
 }
 
 // Used in DetailsHeader to display the Symbol when the name is to Long to Display
