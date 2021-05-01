@@ -25,12 +25,11 @@ const useStyles = makeStyles((theme) => ({
   mdd: {
     color: theme.palette.primary.contrastText,
   },
-  // TODO replace hard coded
   beta: {
-    color: '#ffff00',
+    color: theme.palette.orange.main,
   },
   sharpe: {
-    color: '#ffa500',
+    color: theme.palette.darkOrange.main,
   },
   cagr: {
     color: theme.palette.lightBlue.main,
@@ -46,6 +45,17 @@ type DetailsMainBacktestingListProps = {
   cagr: number;
 };
 
+/**
+ * This component renders all relevant KPIs with a fitting icon and the value
+ * It holds the {@link DetailsMainBacktestingListItem} component which resembles one of the KPI fields.
+ *
+ * @param changeBest - The best change in monetary value that the portfolio had during the period
+ * @param changeWorst - The worst change in monetary value that the portfolio had during the period
+ * @param mddMaxToMin - The maximum draw down of the portfolio during the period
+ * @param standardDeviation - The standard deviation of the portfolio during the period
+ * @param sharpeRatio - The sharpe ratio of the portfolio during the period
+ * @param cagr - The compound annual growth rate of the portfolio for that period
+ */
 const DetailsMainBacktestingList: React.FC<DetailsMainBacktestingListProps> = ({
   changeBest,
   changeWorst,
