@@ -307,5 +307,6 @@
   "info.per52WeekLow": "Lowest price in  the last 52 weeks",
   "footer.aboutUs": "About us",
   "footer.privacy": "Privacy Policy",
-  "footer.imprint": "Imprint"
+  "footer.imprint": "Imprint",
+  "unknown": "unknown"
 }

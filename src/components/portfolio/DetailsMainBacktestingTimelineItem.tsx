@@ -48,6 +48,15 @@ type DetailsMainBacktestingTimelineItemProps = {
   lastItem?: boolean;
 };
 
+/**
+ * This component represents one value inside the backtesting timeline with icon and date
+ *
+ * @param date - Date that is being displayed on the left
+ * @param icon - Icon that is being displayed in the middle to aid visual representation
+ * @param title - Label inside the paper on the right that describes the event (e.g. best value)
+ * @param value - Value of the event
+ * @param lastItem - Marks the last item of the timeline. No further connector line is drawn
+ */
 const DetailsMainBacktestingTimelineItem: React.FC<DetailsMainBacktestingTimelineItemProps> = ({
   date,
   icon,
