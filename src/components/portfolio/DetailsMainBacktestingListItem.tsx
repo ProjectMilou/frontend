@@ -16,15 +16,22 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1em',
   },
   valueText: {
-    textAlign: 'right',
+    display: 'flex',
+    justifyContent: 'end',
+    alignItems: 'center',
+    minWidth: 'auto',
   },
   listIcon: {
+    width: 'min-content',
     justifyContent: 'center',
     alignItems: 'center',
+    margin: '0 0.5rem',
+    minWidth: '0 !important',
   },
   textAndInfoButton: {
     display: 'flex',
     alignItems: 'center',
+    margin: '0 0.5rem',
   },
 }));
 

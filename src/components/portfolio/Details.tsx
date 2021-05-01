@@ -22,6 +22,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     topBanner: {
       backgroundColor: '#EEF1FB',
       width: '100%',
+      minWidth: '50rem',
       height: '15rem',
     },
     main: {

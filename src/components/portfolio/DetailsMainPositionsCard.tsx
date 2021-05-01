@@ -110,6 +110,7 @@ const DetailsMainPositionsCard: React.FC<DetailsMainPositionsCardProps> = ({
                 value={p.stock.perf7dPercent}
                 suffix="%"
                 paintJob
+                doLimit
               />
             }
             name={t('portfolio.details.day7')}
@@ -128,6 +129,7 @@ const DetailsMainPositionsCard: React.FC<DetailsMainPositionsCardProps> = ({
                 value={p.stock.perf1yPercent}
                 suffix="%"
                 paintJob
+                doLimit
               />
             }
             name={t('portfolio.details.year')}
@@ -146,6 +148,7 @@ const DetailsMainPositionsCard: React.FC<DetailsMainPositionsCardProps> = ({
                 value={p.totalReturnPercent}
                 suffix="%"
                 paintJob
+                doLimit
               />
             }
             name={t('portfolio.details.totalReturn')}
