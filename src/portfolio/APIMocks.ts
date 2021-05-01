@@ -10,6 +10,7 @@
 
 import {
   Analytics,
+  Backtesting,
   Correlations,
   KeyFigures,
   NonEmptyPortfolioDetails,
@@ -171,4 +172,29 @@ export const MockDetails: NonEmptyPortfolioDetails = {
   totalReturn: 75.43,
   totalReturnPercent: 12.34,
   analytics: MockAnalytics,
+};
+
+export const MockBacktesting: Backtesting = {
+  bestYear: {
+    // changeBest: -4.0,
+    changeBest: 420,
+    yearBest: '2019',
+    growthRateBest: -0.1481,
+  },
+  worstYear: {
+    changeWorst: -15.0,
+    yearWorst: '2020',
+    growthRateWorst: -0.6522,
+  },
+  finalPortfolioBalance: 0,
+  CAGR: -0.7027173293657337,
+  standardDeviation: 0.8692327347807322,
+  sharpeRatio: -0.05275282418223807,
+  MDDMaxToMin: -0.75,
+  MDDInitialToMin: -0.7407407407407407,
+  dateMax: new Date('2019-05-03'),
+  dateMin: new Date('2020-04-03'),
+  maxValue: 28,
+  minValue: 7,
+  initialValue: 27,
 };
