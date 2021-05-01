@@ -27,10 +27,16 @@ const useStyles = makeStyles(({ typography }: Theme) =>
 );
 
 type RatioDonutProps = {
-  // a number between 0 and 100 representing the ratio
   ratio: number;
   textColor: string;
 };
+
+/**
+ * A small donut chart with inner text.
+ *
+ * @param ratio -  A number between 0 and 100 representing the ratio
+ * @param textColor - The color of the inner text
+ */
 
 const RatioDonut: React.FC<RatioDonutProps> = ({ ratio, textColor }) => {
   const classes = useStyles();
