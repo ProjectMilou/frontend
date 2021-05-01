@@ -115,7 +115,12 @@ type DetailsMainRiskProps = {
   treynorRatio: number;
 };
 
-// A component consisting of the title, chart and warnings of a given risk type
+/**
+ * A component consisting of the title, chart and warnings of a given risk type.
+ *
+ * @param title - The title of this risk category
+ * @param bundle - An object containing the color, icon and warnings of a category
+ */
 const RiskComp: React.FC<RiskCompProps> = ({ title, bundle }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -144,7 +149,14 @@ const RiskComp: React.FC<RiskCompProps> = ({ title, bundle }) => {
   );
 };
 
-// returns the details page header
+/**
+ * The risk section of a portfolio details page. It contains two ratio boxes
+ * and the three risk categories (country, segment, currency) with graphs and warnings.
+ *
+ * @param risk - Information of type RiskAnalysis
+ * @param sharpeRatio - The sharpe ratio to be displayed
+ * @param treynorRatio - The treynor ratio to be displayed
+ */
 const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
   risk,
   sharpeRatio,

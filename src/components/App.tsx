@@ -19,11 +19,15 @@ declare module '@material-ui/core/styles/createPalette' {
   interface Palette {
     lightBlue: Palette['primary'];
     teal: Palette['primary'];
+    orange: Palette['primary'];
+    darkOrange: Palette['primary'];
   }
 
   interface PaletteOptions {
     lightBlue?: PaletteOptions['primary'];
     teal?: PaletteOptions['primary'];
+    orange?: PaletteOptions['primary'];
+    darkOrange?: PaletteOptions['primary'];
   }
 }
 
@@ -88,6 +92,12 @@ export const theme = createMuiTheme({
     },
     teal: {
       main: '#34CFB2',
+    },
+    orange: {
+      main: '#F6AE2D',
+    },
+    darkOrange: {
+      main: '#D75D1B',
     },
   },
 });

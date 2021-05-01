@@ -10,10 +10,7 @@ describe('ErrorMessage', () => {
 
   const defaultProps: ErrorMessageProps = {
     error: new AppError('UNKNOWN'),
-    handling: {
-      buttonText: 'button',
-      action: jest.fn(),
-    },
+    retry: jest.fn(),
     messageKey: 'message',
   };
 
@@ -28,15 +25,28 @@ describe('ErrorMessage', () => {
   test('show and handle error message', () => {
     const { container, props, getByText } = renderComponent();
     expect(container).toMatchSnapshot();
-    fireEvent.click(getByText(props.handling!.buttonText));
-    expect(props.handling!.action).toHaveBeenCalled();
+    fireEvent.click(getByText('error.action.retry'));
+    expect(props.retry).toHaveBeenCalled();
   });
 
   test('show error without message that cannot be handled', () => {
     const { container } = renderComponent({
-      handling: undefined,
+      retry: undefined,
       messageKey: undefined,
     });
     expect(container).toMatchSnapshot();
+  });
+
+  test('handle authentication error', async () => {
+    jest.useFakeTimers();
+
+    const { container, props, getByText } = renderComponent({
+      error: new AppError('AUTH_TOKEN_INVALID'),
+    });
+    expect(container).toMatchSnapshot();
+
+    // does not call retry immediately
+    fireEvent.click(getByText('error.action.login'));
+    expect(props.retry).not.toHaveBeenCalled();
   });
 });

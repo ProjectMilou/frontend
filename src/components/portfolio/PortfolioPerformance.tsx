@@ -74,7 +74,7 @@ const PortfolioPerformance: React.FC<PortfolioPerformanceProps> = ({ id }) => {
         <ErrorMessage
           error={error}
           messageKey="portfolio.performance.errorMessage"
-          handling={{ buttonText: 'error.action.retry', action: fetch }}
+          retry={fetch}
         />
       </div>
     );
