@@ -29,20 +29,45 @@ const mockPositions: Position[] = [
 // TODO: Test the EditDialog component.
 
 describe('Details Edit', () => {
-  test('renders and the buttons work', () => {
+  test('renders and the edit button works for virtual', () => {
     render(
       <ThemeProvider theme={theme}>
-        <DetailsEdit positions={mockPositions} edit={jest.fn()} id="test" />
+        <DetailsEdit
+          positions={mockPositions}
+          edit={jest.fn()}
+          id="test"
+          virtual
+        />
       </ThemeProvider>
     );
     const editButton = screen.queryByText('portfolio.details.editPortfolio');
+    expect(editButton).toBeInTheDocument();
     if (editButton) {
       userEvent.click(editButton);
       screen.getByText('portfolio.dialog.edit.title');
-    } else {
-      // in case a real portfolio is loaded the edit button displays different text
-      // here use get because if the query above failed this MUST exist
-      screen.getByText('portfolio.details.cannotEditPortfolio');
     }
+  });
+
+  test('renders and the edit button does not work for real', () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <DetailsEdit
+          positions={mockPositions}
+          edit={jest.fn()}
+          id="test"
+          virtual={false}
+        />
+      </ThemeProvider>
+    );
+    const editButton = screen.queryByText('portfolio.details.editPortfolio');
+    expect(editButton).toBeInTheDocument();
+    if (editButton) {
+      userEvent.hover(editButton);
+      screen.getByText('portfolio.details.cannotEditPortfolio');
+      userEvent.click(editButton);
+    }
+    expect(
+      screen.getByText('portfolio.dialog.edit.title')
+    ).not.toBeInTheDocument();
   });
 });

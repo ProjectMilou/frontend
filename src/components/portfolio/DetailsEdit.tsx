@@ -33,7 +33,7 @@ const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
         backgroundColor: lighten(theme.palette.lightBlue.main, 0.35),
       },
       whiteSpace: 'nowrap',
-      cursor: (props) => (props.virtual ? 'auto' : 'not-allowed'),
+      cursor: (props) => (props.virtual ? 'url' : 'not-allowed'),
     },
   })
 );
