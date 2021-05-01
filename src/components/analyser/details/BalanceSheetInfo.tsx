@@ -9,6 +9,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import InfoButton from '../../shared/InfoButton';
+import { checkValue, checkName } from '../../../analyser/Helper';
 
 export type BalanceSheetProps = {
   companyReports: API.CompanyReports;
@@ -56,26 +57,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     },
   })
 );
-
-function checkValue(val: number): number {
-  let result = val;
-  if (val.toString() === 'NaN') {
-    result = 0;
-  } else {
-    result = val / 1000000;
-  }
-  return parseFloat(result.toFixed(2));
-}
-
-function checkName(val: number, text: string): string {
-  let result = text;
-  if (val === 0) {
-    result = '';
-  } else {
-    result = `${result} in Million €`;
-  }
-  return result;
-}
 
 const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
   const classes = useStyles();
