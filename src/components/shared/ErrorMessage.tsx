@@ -10,15 +10,24 @@ import {
   makeStyles,
   Typography,
 } from '@material-ui/core';
-import { errorMessageKey, errorTitleKey } from '../../Errors';
+import {
+  errorMessageKey,
+  errorTitleKey,
+  isAuthenticationError,
+} from '../../Errors';
+import { Context } from '../../state/context';
+import StorageService from '../../services/StorageService';
 
 export type ErrorMessageProps = {
+  /**
+   * An optional translation key for a message that is displayed in addition to the error message.
+   * Can be used to provide additional context to the user.
+   */
   messageKey?: string;
+  /** The error to display. */
   error: Error;
-  handling?: {
-    buttonText: string;
-    action: () => void;
-  };
+  /** Optional retry action. If set, a retry button is rendered. */
+  retry?: () => void;
 };
 
 const useStyles = makeStyles({
@@ -26,13 +35,35 @@ const useStyles = makeStyles({
   icon: { backgroundColor: '#B80C09' },
 });
 
+/**
+ * Displays an error message with an optional retry button.
+ *
+ * * For authentication errors, the retry button opens the login dialog and
+ *   removes the currently stored (invalid) token. After logging in
+ *   successfully, the retry callback is called. Inside a {@link LoginWrapper},
+ *   closing the dialog without logging in causes the LoginWrapper to navigate
+ *   to the fallback URL.
+ *
+ * * For all other errors, the retry callback is called immediately on click.
+ */
 const ErrorMessage: React.FC<ErrorMessageProps> = ({
   messageKey,
   error,
-  handling,
+  retry,
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();
+
+  const { state, dispatch } = React.useContext(Context);
+  const [loginOpened, setLoginOpened] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    if (retry && loginOpened && state.loggedIn && !state.openLogin) {
+      retry();
+      setLoginOpened(false);
+    }
+  }, [retry, loginOpened, state]);
+
   return (
     <Card className={classes.card}>
       <CardHeader
@@ -49,11 +80,24 @@ const ErrorMessage: React.FC<ErrorMessageProps> = ({
           {t(errorMessageKey(error))}
         </Typography>
       </CardContent>
-      {handling && (
+      {retry && (
         <CardActions>
-          <Button size="small" onClick={handling.action}>
-            {t(handling.buttonText)}
-          </Button>
+          {isAuthenticationError(error) ? (
+            <Button
+              size="small"
+              onClick={() => {
+                dispatch({ type: 'OPEN_LOGIN' });
+                StorageService.removeToken();
+                setLoginOpened(true);
+              }}
+            >
+              {t('error.action.login')}
+            </Button>
+          ) : (
+            <Button size="small" onClick={retry}>
+              {t('error.action.retry')}
+            </Button>
+          )}
         </CardActions>
       )}
     </Card>
