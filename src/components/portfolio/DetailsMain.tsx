@@ -105,6 +105,14 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, id }) => {
   const stocksWithMissingInfo = portfolio.positions
     .map((position) => position.stock)
     .filter((stock) => stock.missingData);
+  /**
+   * This is the portfolio without the stocks that are missing data. This will be supplied anywhere except summary and positions section.
+   * Thus stocks with missing data will not be taken into consideration e.g. in the analytics or dividends section.
+   */
+  const portfolioWithoutMissingData = {
+    ...portfolio,
+    positions: portfolio.positions.filter((pos) => !pos.stock.missingData),
+  };
 
   return (
     <div className={classes.mainWrapper}>
@@ -115,9 +123,11 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, id }) => {
         <DetailsMainSummary portfolio={portfolio} id={id} />
       </Section>
       <Section title={t('portfolio.details.positionsTitle')}>
+        {/* TODO handle stocks with missing data (leave out performance) */}
         <DetailsMainPositions positions={portfolio.positions} />
       </Section>
       <Section title={t('portfolio.details.risk')}>
+        {/* TODO handle stocks with missing data (empty countries, segments and currency at times) */}
         <DetailsMainRisk
           risk={portfolio.risk}
           sharpeRatio={portfolio.analytics.sharpeRatio}
@@ -125,18 +135,20 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, id }) => {
         />
       </Section>
       <Section title={t('portfolio.details.keyfigures')}>
+        {/* TODO handle stocks with missing data */}
         <DetailsMainKeyFigures figures={portfolio.keyFigures} />
       </Section>
       <Section title={t('portfolio.details.dividends')}>
-        <DetailsMainDividens portfolio={portfolio} />
+        <DetailsMainDividens portfolio={portfolioWithoutMissingData} />
       </Section>
       <Section title={t('portfolio.details.analyst')}>
-        <DetailsMainAnalyst positions={portfolio.positions} />
+        <DetailsMainAnalyst positions={portfolioWithoutMissingData.positions} />
       </Section>
       <Section title={t('portfolio.details.analytics')}>
-        <DetailsMainAnalytics portfolio={portfolio} />
+        <DetailsMainAnalytics portfolio={portfolioWithoutMissingData} />
       </Section>
       <Section title={t('portfolio.details.backtesting')}>
+        {/* TODO handle stocks with missing */}
         <DetailMainBacktesting id={id} />
       </Section>
     </div>
