@@ -117,7 +117,6 @@ const initialState: State = {
 };
 
 // the following are the types used for the reducer pattern
-
 type SetFromAction = {
   type: 'setFrom';
   payload: Date;
@@ -181,6 +180,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
   const [state, dispatch] = useReducer(reducer, initialState);
   const isMounted = React.useRef(true);
 
+  // fetches the backtesting data from the api
   const fetch = async (from: Date, to: Date) => {
     dispatch({ type: 'setError', payload: undefined });
     try {
@@ -274,7 +274,6 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
               }
               disableFuture
             />
-
             <Button
               className={classes.updateButton}
               variant="contained"
