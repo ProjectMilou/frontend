@@ -36,7 +36,7 @@ export function checkValue(val: number): number {
 }
 
 /** Used In BalanceSheetInfo returns empty String when number is zero for styling purposes and adds in Milllion €
- * 
+ *
  * @param val Amount in BalanceSheet Category
  * @param text Name of BalanceSheet Category
  */
@@ -52,8 +52,8 @@ export function checkName(val: number, text: string): string {
 
 // takes a percent value and converts it to a color
 export function convertPercentToColor(val: number): string {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const theme = useTheme();
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const theme = useTheme();
   return val < 0 ? theme.palette.error.main : theme.palette.success.main;
 }
 
