@@ -68,13 +68,10 @@ function checkValue(val: number): number {
 }
 
 function checkName(val: number, text: string): string {
-  let result = text;
   if (val === 0) {
-    result = '';
-  } else {
-    result = `${result} in Million €`;
+    return '';
   }
-  return result;
+  return text;
 }
 
 const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
@@ -258,6 +255,21 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
       },
       noData: {
         text: 'Currently no Data available ;(',
+      },
+    },
+    tooltip: {
+      x: {
+        show: false,
+        format: 'dd MMM yyyy',
+      },
+      y: {
+        formatter: (seriesName: string) => `€${seriesName}M`,
+        title: {
+          formatter: (seriesName: string) => `${seriesName}:`,
+        },
+      },
+      marker: {
+        show: false,
       },
     },
   };
