@@ -59,7 +59,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 
 function checkValue(val: number): number {
   let result = val;
-  if (val.toString() === 'NaN') {
+  if (val === undefined || val.toString() === 'NaN') {
     result = 0;
   } else {
     result = val / 1000000;
@@ -103,7 +103,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
       companyReports.annualReports[0].otherCurrentAssets
     ),
     otherNonCurrentAssets: checkValue(
-      companyReports.annualReports[0].otherNonCurrrentAssets
+      companyReports.annualReports[0].otherNonCurrentAssets
     ),
   };
 

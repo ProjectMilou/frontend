@@ -17,9 +17,7 @@ import StockListOverview from './StockListOverview';
 import DashboardHeader from '../../shared/DashboardHeader';
 import Filter from './Filter';
 
-export interface DashboardProps extends RouteComponentProps {
-  token: string;
-}
+
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -34,7 +32,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
-const Dashboard: React.FC<DashboardProps> = ({ token }) => {
+const Dashboard: React.FC<RouteComponentProps> = () => {
   const { t } = useTranslation();
 
   const [stocks, setStocks] = React.useState<API.Stock[]>();
@@ -69,7 +67,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token }) => {
   const fetch = async () => {
     setError(undefined);
     try {
-      const s = await API.listStocks(token, filters).then();
+      const s = await API.listStocks( filters).then();
       setStocks(stockCleanup(s));
     } catch (e) {
       setError(e);

@@ -1,9 +1,9 @@
-// Based on Portfolio API Client
+// Initially based on Portfolio API Client
 
 import { AppError } from '../Errors';
+import { BaseService, MethodType } from '../services/BaseService';
 
-export const baseURL = 'https://api.milou.io';
-const headers = { 'Content-Type': 'application/json' };
+const endpoint = 'stocks';
 
 // Filter object
 export type Filters = {
@@ -44,7 +44,7 @@ type StockList = {
 };
 
 // Stock details
-// all strings since there are probmens in backend
+// all strings since there are problems in backend
 export type StockDetails = {
   symbol: string;
   analystTargetPrice: string;
@@ -128,23 +128,23 @@ type StockDetailsAnswer = {
 
 // historic performance data
 export type StockHistricPerformanceList = {
-  dataPoints: StockHistricPerformance[];
+  dataPoints: StockHistoricPerformance[];
 };
 
-export type StockHistricPerformance = {
+export type StockHistoricPerformance = {
   _id: string;
   date: string;
   close: string;
 };
 
 // dividend performance data
-export type StockHistricDividendList = {
-  dataPoints: StockHistricDividend[];
+export type StockHistoricDividendList = {
+  dataPoints: StockHistoricDividend[];
   date: string;
   quota: string;
 };
 
-export type StockHistricDividend = {
+export type StockHistoricDividend = {
   _id: string;
   date: string;
   div: number;
@@ -175,7 +175,7 @@ export type CompanyReport = {
   longTermInvestments: number;
   shortTermInvestments: number;
   otherCurrentAssets: number;
-  otherNonCurrrentAssets: number;
+  otherNonCurrentAssets: number;
   totalLiabilities: number;
   totalCurrentLiabilities: number;
   currentAccountsPayable: number;
@@ -200,7 +200,6 @@ export type CompanyReport = {
 export type CashFlowList = {
   symbol: string;
   annualReports: CashFlow[];
-  // quarterlyReports: CashFlow[];
 };
 
 export type CashFlow = {
@@ -239,8 +238,8 @@ export type CashFlow = {
 export type News = {
   headline: string;
   summary: string;
-  url: string; // TODO change to URL
-  publishedAt: string; // TODO change to URL
+  url: string; // TODO change to URL in backend
+  publishedAt: string; // TODO change to URL in backend
 };
 
 export type NewsList = {
@@ -290,8 +289,11 @@ export type Risk = {
   averageMarketVolatility: number;
 };
 
-// this method is used to convert string to number format in the stock overview
-// has to be used since backend is not providing any numbers yet, everything is a string
+ 
+/**
+ * this method is used to convert string to number format in the {@link stockOverview}.
+ * Has to be used since backend is not providing any numbers yet, everything is a string
+ */
 const convertStockOverview = (apiStock: Stock): Stock =>
   ({
     ...apiStock,
@@ -326,34 +328,35 @@ const convertStockOverview = (apiStock: Stock): Stock =>
 /**
  * Makes an API call. Resolves to the JSON response if the call is successful,
  * otherwise rejects with an error that has an {@link ErrorCode} as message.
+ * This method was originally written by the portfolio team and is the same.
  *
- * TODO: Merge with portfolio request
- *
- * @param token - Authentication token
  * @param method - Request method (GET, POST, etc.)
  * @param url - An URL relative to {@link baseURL}
  * @param body - The request body
- * @param additionalHeaders - Additional request headers
+ * @param headers - Additional request headers
+ * @param customEndpoint - choose a custom waypoint to make the request, default is /portfolio
  *
  * @return Parsed JSON response if the API call succeeds
  */
-async function request(
-  token: string,
-  method: string,
+ async function request(
+  method: MethodType,
   url: string,
-  body?: string,
-  additionalHeaders?: HeadersInit
+  body?: Record<string, unknown>,
+  headers?: HeadersInit,
+  customEndpoint?: string
 ): Promise<unknown> {
-  // TODO: authentication
-
-  // console.log(`${baseURL}/${url}`);
-  const response = await fetch(`${baseURL}/${url}`, {
+  // console.log(`${customEndpoint || endpoint}/${url}`)
+  const response = await BaseService.authenticatedRequest(
     method,
-    headers: { ...headers, ...additionalHeaders },
+    `${customEndpoint || endpoint}/${url}`,
     body,
-  }).catch(() => Promise.reject(new AppError('UNKNOWN'))); // network error etc.
+    headers
+  );
   if (response.ok) {
     return Promise.resolve(response.json()); // valid response
+  }
+  if (response.status === 401) {
+    return Promise.reject(new AppError('AUTH_TOKEN_INVALID')); // Unauthorized
   }
   const json = await response
     .json()
@@ -361,18 +364,17 @@ async function request(
   return Promise.reject(new AppError(json.error)); // JSON error
 }
 
+
 /**
  * Gets an overview over all stocks with an authenticated user.
  *
- * @param token - Authentication token
  * @param filters - Object including all filters
  *
  */
 export async function listStocks(
-  token: string,
   filters: Filters
 ): Promise<Stock[]> {
-  const base = 'stocks/list';
+  const base = 'list';
   let params = '';
   Object.keys(filters).forEach((key) => {
     if (filters[key].length > 0) {
@@ -384,24 +386,22 @@ export async function listStocks(
       }
     }
   });
-  const response = (await request(token, 'GET', base + params)) as StockList;
+  const response = (await request( 'GET', base + params)) as StockList;
   return response.stocks.map((s) => convertStockOverview(s));
 }
 
 /**
  * Gets an overview over a single stock with an authenticated user.
  *
- * @param token - Authentication token
  * @param symbol - Stock Symbol to search for
  */
 export async function stockOverview(
-  token: string,
   symbol: string
 ): Promise<Stock> {
   const response = (await request(
-    token,
+    
     'GET',
-    `stocks/overview?id=${symbol}`
+    `overview?id=${symbol}`
   )) as StockList;
 
   // TODO fix in backend, this is total BS
@@ -412,17 +412,14 @@ export async function stockOverview(
 /**
  * Gets a details over a single stock with an authenticated user.
  *
- * @param token - Authentication token
  * @param symbol - Stock Symbol to search for
  */
 export async function stockDetails(
-  token: string,
   symbol: string
 ): Promise<StockDetails> {
   const response = (await request(
-    token,
     'GET',
-    `stocks/details?id=${symbol}`
+    `details?id=${symbol}`
   )) as StockDetailsAnswer;
   return response.stocks[0] as StockDetails;
 }
@@ -430,19 +427,17 @@ export async function stockDetails(
 /**
  * Gets stock performance with an authenticated user.
  *
- * @param token - Authentication token
  * @param symbol - Stock Symbol to search for
  * @param historic - if true all data will be returned, else only 5 years
  */
 export async function stockPerformance(
-  token: string,
   symbol: string,
   historic: boolean
 ): Promise<StockHistricPerformanceList> {
   const response = (await request(
-    token,
+    
     'GET',
-    `stocks/charts/historic?id=${symbol}&max=${historic.toString()}`
+    `charts/historic?id=${symbol}&max=${historic.toString()}`
   )) as StockHistricPerformanceList;
   return response;
 }
@@ -450,37 +445,33 @@ export async function stockPerformance(
 /**
  * Gets stock performance with an authenticated user.
  *
- * @param token - Authentication token
  * @param symbol - Stock Symbol to search for
  * @param dividend - if true all data will be returned, else only 5 years
  */
 export async function stockDividend(
-  token: string,
   symbol: string,
   dividend: boolean
-): Promise<StockHistricDividendList> {
+): Promise<StockHistoricDividendList> {
   const response = (await request(
-    token,
+    
     'GET',
-    `stocks/charts/dividend?id=${symbol}&max=${dividend.toString()}`
-  )) as StockHistricDividendList;
+    `charts/dividend?id=${symbol}&max=${dividend.toString()}`
+  )) as StockHistoricDividendList;
   return response;
 }
 
 /**
  * Gets company reports with an authenticated user.
  *
- * @param token - Authentication token
  * @param symbol - Stock Symbol to search for
  */
 export async function companyReports(
-  token: string,
   symbol: string
 ): Promise<CompanyReports> {
   const response = (await request(
-    token,
+    
     'GET',
-    `stocks/balanceSheet?id=${symbol}`
+    `balanceSheet?id=${symbol}`
   )) as CompanyReports;
   return response;
 }
@@ -488,17 +479,15 @@ export async function companyReports(
 /**
  * Gets analysts recommendations with an authenticated user.
  *
- * @param token - Authentication token
  * @param symbol - Stock Symbol to search for
  */
 export async function analystsRecommendations(
-  token: string,
   symbol: string
 ): Promise<AnalystsRecommendation[]> {
   const response = (await request(
-    token,
+    
     'GET',
-    `stocks/charts/analysts?id=${symbol}`
+    `charts/analysts?id=${symbol}`
   )) as AnalystsRecommendation[];
   return response;
 }
@@ -506,17 +495,15 @@ export async function analystsRecommendations(
 /**
  * Gets cash newsData with an authenticated user.
  *
- * @param token - Authentication token
  * @param symbol - Stock Symbol to search for
  */
 export async function newsList(
-  token: string,
   symbol: string
 ): Promise<NewsList> {
   const response = (await request(
-    token,
+    
     'GET',
-    `stocks/news?id=${symbol}`
+    `news?id=${symbol}`
   )) as NewsList;
   return response;
 }
@@ -524,17 +511,15 @@ export async function newsList(
 /**
  * Gets cash flow  Data with an authenticated user.
  *
- * @param token - Authentication token
  * @param symbol - Stock Symbol to search for
  */
 export async function cashFlowList(
-  token: string,
   symbol: string
 ): Promise<CashFlowList> {
   const response = (await request(
-    token,
+    
     'GET',
-    `stocks/cashFlow?id=${symbol}`
+    `cashFlow?id=${symbol}`
   )) as CashFlowList;
   return response;
 }
@@ -542,17 +527,18 @@ export async function cashFlowList(
 /**
  * Gets interest coverages with an authenticated user.
  *
- * @param token - Authentication token
  * @param symbol - Stock Symbol to search for
  */
 export async function interestCoverages(
-  token: string,
   symbol: string
 ): Promise<InterestCoverageList> {
   const response = (await request(
-    token,
+    
     'GET',
-    `analytics/interestCoverage/${symbol}`
+    `interestCoverage/${symbol}`,
+    undefined,
+    undefined,
+    'analytics'
   )) as InterestCoverageList;
   return response;
 }
@@ -560,14 +546,16 @@ export async function interestCoverages(
 /**
  * Gets risk values with an authenticated user.
  *
- * @param token - Authentication token
  * @param symbol - Stock Symbol to search for
  */
-export async function risks(token: string, symbol: string): Promise<RiskList> {
+export async function risks(symbol: string): Promise<RiskList> {
   const response = (await request(
-    token,
+    
     'GET',
-    `analytics/risk/${symbol}`
+    `risk/${symbol}`,
+    undefined,
+    undefined,
+    'analytics'
   )) as RiskList;
   return response;
 }
@@ -575,18 +563,19 @@ export async function risks(token: string, symbol: string): Promise<RiskList> {
 /**
  * Gets EPS Data with an authenticated user.
  *
- * @param token - Authentication token
  * @param symbol - Stock Symbol to search for
  * @param historic - if true all data will be returned, else only 5 years
  */
 export async function keyFigures(
-  token: string,
   symbol: string
 ): Promise<KeyFigures> {
   const response = (await request(
-    token,
+    
     'GET',
-    `analytics/keyfigures/${symbol}`
+    `keyfigures/${symbol}`,
+    undefined,
+    undefined,
+    'analytics'
   )) as KeyFigures;
   return response;
 }

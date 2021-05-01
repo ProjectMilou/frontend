@@ -46,7 +46,7 @@ const SearchBar: React.FC = () => {
         currency: [],
         mc: [],
       };
-      const s = await API.listStocks('', emptyFilters);
+      const s = await API.listStocks(emptyFilters);
       setStocks(s);
     } catch (err) {
       setStocks(undefined);
