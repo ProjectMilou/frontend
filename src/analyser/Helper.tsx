@@ -2,7 +2,7 @@ import { useTheme } from '@material-ui/core/styles';
 import * as API from './APIClient';
 
 /**  Calculates percentage buy/sell/hold for Analysts section 
-multiplied by 1 to prevent issue with string concatenation */ 
+multiplied by 1 to prevent issue with string concatenation */
 export function getPercentage(val: API.AnalystsRecommendation[]): number {
   let percentage = 0;
   if (val.length > 0) {
@@ -50,19 +50,19 @@ export function checkName(val: number, text: string): string {
   return result;
 }
 
-/** takes a percent value and converts it to a color */ 
+/** takes a percent value and converts it to a color */
 export function convertPercentToColor(val: number): string {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const theme = useTheme();
   return val < 0 ? theme.palette.error.main : theme.palette.success.main;
 }
 
-/** Used in DetailsHeader to display the Symbol when the name is to Long to Display */ 
+/** Used in DetailsHeader to display the Symbol when the name is to Long to Display */
 export function chooseSymbol(val: API.Stock): string {
   return val.name.length > 15 ? val.symbol : val.name;
 }
 
-/** Rounds and adds M=Million, B=Billion and K=Thousand --> American System */ 
+/** Rounds and adds M=Million, B=Billion and K=Thousand --> American System */
 export const moneyFormat = (val: number): string => {
   let round = '';
   if (Math.abs(val) >= 1.0e9) {
@@ -77,5 +77,5 @@ export const moneyFormat = (val: number): string => {
   return round;
 };
 
-/** Adds % Symbol */ 
+/** Adds % Symbol */
 export const convertToPercent = (num: number): string => `${num}%`;
