@@ -29,6 +29,5 @@ test('Dividens section renders correctly', async () => {
   // check for both graphs
   expect(
     container.querySelectorAll('[class *= makeStyles-chartContainer]')
-      .length === 2
-  ).toBeTruthy();
+  ).toHaveLength(2);
 });

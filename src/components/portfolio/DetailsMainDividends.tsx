@@ -83,11 +83,11 @@ type InfoBlockProps = {
 };
 
 /**
+ * A small infoblock used in the dividends section.
  *
  * @param title - The title to display
  * @param infoText - The information to be displayed when the info icon is hovered
  * @param children - The body of this InfoBlock
- * @returns A small infoblock used in the dividends section
  */
 const InfoBlock: React.FC<InfoBlockProps> = ({ title, children, infoText }) => {
   const classes = useStyles();

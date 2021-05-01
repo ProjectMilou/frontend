@@ -38,9 +38,8 @@ test('Risk section renders correctly', async () => {
 
   // check for all three graphs
   expect(
-    container.querySelectorAll('[class *= makeStyles-graphWrapper]').length ===
-      3
-  ).toBeTruthy();
+    container.querySelectorAll('[class *= makeStyles-graphWrapper]')
+  ).toHaveLength(3);
 
   // check that the legends combined have no more than 12 visible entries
   expect(
@@ -50,6 +49,5 @@ test('Risk section renders correctly', async () => {
   // check for all three warning segments
   expect(
     container.querySelectorAll('[class *= makeStyles-riskCompWrapper]')
-      .length === 3
-  ).toBeTruthy();
+  ).toHaveLength(3);
 });
