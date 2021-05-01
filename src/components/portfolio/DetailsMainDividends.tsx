@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import RatioDonut from '../shared/RatioDonut';
-import DividendLineChart from '../shared/DividendLineChart';
+import DividendLineChart, { Series } from '../shared/DividendLineChart';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 import InfoButton from '../shared/InfoButton';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
@@ -105,20 +105,28 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const series = [
-    {
-      name: t('portfolio.details.divPayout'),
-      type: 'column',
-      data: portfolio.keyFigures.map((k) => k.dividendPayoutRatio),
-    },
-    {
-      name: t('portfolio.details.divYield'),
-      type: 'line',
-      data: portfolio.keyFigures.map((k) => k.div),
-    },
-  ];
+  if (
+    portfolio.keyFigures.length !== 0 &&
+    !portfolio.keyFigures.map((k) => k.div).includes(undefined) &&
+    !portfolio.keyFigures.map((k) => k.dividendPayoutRatio).includes(undefined)
+  ) {
+    const lastKeyFigures =
+      portfolio.keyFigures[portfolio.keyFigures.length - 1];
+    const series: Series[] = [
+      {
+        name: t('portfolio.details.divPayout'),
+        type: 'column',
+        data: portfolio.keyFigures.map(
+          (k) => k.dividendPayoutRatio
+        ) as number[],
+      },
+      {
+        name: t('portfolio.details.divYield'),
+        type: 'line',
+        data: portfolio.keyFigures.map((k) => k.div) as number[],
+      },
+    ];
 
-  if (portfolio.keyFigures.length !== 0) {
     return (
       <div className={classes.dividendsWrapper}>
         <div className={classes.chartContainer}>
@@ -138,9 +146,11 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
               'source.investopedia'
             )}`}
           >
-            <StyledNumberFormat
-              value={portfolio.keyFigures[portfolio.keyFigures.length - 1].div}
-            />
+            {lastKeyFigures.div !== undefined ? (
+              <StyledNumberFormat value={lastKeyFigures.div} />
+            ) : (
+              t('unknown')
+            )}
           </InfoBlock>
           <InfoBlock
             title={t('portfolio.details.divPayout')}
@@ -148,19 +158,22 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
               'analyser.details.DividendPayoutRatio.infoButton'
             )}\n\n${t('source.investopedia')}`}
           >
-            <RatioDonut
-              ratio={
-                portfolio.keyFigures[portfolio.keyFigures.length - 1]
-                  .dividendPayoutRatio
-              }
-              textColor={theme.palette.primary.contrastText}
-            />
+            {lastKeyFigures.dividendPayoutRatio !== undefined ? (
+              <RatioDonut
+                ratio={lastKeyFigures.dividendPayoutRatio}
+                textColor={theme.palette.primary.contrastText}
+              />
+            ) : (
+              t('unknown')
+            )}
           </InfoBlock>
           <InfoBlock
             title={t('portfolio.details.nextDate')}
             infoText={t('analyser.details.NextDate.infoButton')}
           >
-            {portfolio.nextDividend.toISOString().split('T')[0]}
+            {portfolio.nextDividend
+              ? portfolio.nextDividend.toISOString().split('T')[0]
+              : t('unknown')}
           </InfoBlock>
         </div>
       </div>

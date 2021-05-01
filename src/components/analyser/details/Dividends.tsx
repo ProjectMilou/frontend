@@ -3,7 +3,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import DividendRatioDonut from '../../shared/DividendRatioDonut';
-import DividendLineChart from '../../shared/DividendLineChart';
+import DividendLineChart, { Series } from '../../shared/DividendLineChart';
 import DividendsRR from './DividendsRR';
 import InfoButton from '../../shared/InfoButton';
 
@@ -119,7 +119,7 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
       Math.round((element.dividendPayout / element.netIncome) * 10000) / 100
     );
   });
-  const seriesArray = [
+  const seriesArray: Series[] = [
     {
       name: t('analyser.detail.dividend.payoutratio'),
       type: 'column',
