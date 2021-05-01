@@ -32,7 +32,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Details: React.FC<DetailsProps> = ({  back }) => {
+const Details: React.FC<DetailsProps> = ({ back }) => {
   const classes = useStyles();
 
   const [stockOverview, setStockOverview] = React.useState<API.Stock>();
@@ -42,18 +42,11 @@ const Details: React.FC<DetailsProps> = ({  back }) => {
   ]);
   const [stockDividend, setStockDividend] = React.useState<number[]>([]);
   const [
-    
     companyReports,
     setCompanyReports,
   ] = React.useState<API.CompanyReports>();
-  const [
-    cashFlowList,
-    setCashFlowList,
-  ] = React.useState<API.CashFlowList>();
-  const [
-    keyFigures,
-    setKeyFigures,
-  ] = React.useState<API.KeyFigures>();
+  const [cashFlowList, setCashFlowList] = React.useState<API.CashFlowList>();
+  const [keyFigures, setKeyFigures] = React.useState<API.KeyFigures>();
   const [analystRecommendations, setAnalystRecommendations] = React.useState<
     API.AnalystsRecommendation[]
   >([]);
@@ -93,22 +86,21 @@ const Details: React.FC<DetailsProps> = ({  back }) => {
     });
     return unixDataPoints.reverse();
   };
-  
 
   const fetch = async () => {
     setError(undefined);
     try {
-      const sO = await API.stockOverview( symbol);
-      const sD = await API.stockDetails( symbol);
-      const sP = await API.stockPerformance( symbol, false);
-      const sDiv = await API.stockDividend( symbol, false);
-      const cR = await API.companyReports( symbol);
-      const iC = await API.interestCoverages( symbol);
-      const cCash = await API.cashFlowList( symbol);
-      const kF = await API.keyFigures( symbol);
-      const aR = await API.analystsRecommendations( symbol);
-      const nL = await API.newsList( symbol);
-      const r = await API.risks( symbol);
+      const sO = await API.stockOverview(symbol);
+      const sD = await API.stockDetails(symbol);
+      const sP = await API.stockPerformance(symbol, false);
+      const sDiv = await API.stockDividend(symbol, false);
+      const cR = await API.companyReports(symbol);
+      const iC = await API.interestCoverages(symbol);
+      const cCash = await API.cashFlowList(symbol);
+      const kF = await API.keyFigures(symbol);
+      const aR = await API.analystsRecommendations(symbol);
+      const nL = await API.newsList(symbol);
+      const r = await API.risks(symbol);
 
       setStockOverview(sO);
       setStockDetails(sD);
@@ -131,7 +123,7 @@ const Details: React.FC<DetailsProps> = ({  back }) => {
   // used if more than 5 years of performance is requested
   const fetchAllPerformaneData = async () => {
     try {
-      const sP = await API.stockPerformance( symbol, true);
+      const sP = await API.stockPerformance(symbol, true);
       setStockPerformance(convertPerformance(sP));
       setPerformanceAll(true);
     } catch (e) {

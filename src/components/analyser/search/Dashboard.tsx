@@ -17,8 +17,6 @@ import StockListOverview from './StockListOverview';
 import DashboardHeader from '../../shared/DashboardHeader';
 import Filter from './Filter';
 
-
-
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     dashboard: {
@@ -67,7 +65,7 @@ const Dashboard: React.FC<RouteComponentProps> = () => {
   const fetch = async () => {
     setError(undefined);
     try {
-      const s = await API.listStocks( filters).then();
+      const s = await API.listStocks(filters).then();
       setStocks(stockCleanup(s));
     } catch (e) {
       setError(e);

@@ -289,7 +289,6 @@ export type Risk = {
   averageMarketVolatility: number;
 };
 
- 
 /**
  * this method is used to convert string to number format in the {@link stockOverview}.
  * Has to be used since backend is not providing any numbers yet, everything is a string
@@ -328,7 +327,8 @@ const convertStockOverview = (apiStock: Stock): Stock =>
 /**
  * Makes an API call. Resolves to the JSON response if the call is successful,
  * otherwise rejects with an error that has an {@link ErrorCode} as message.
- * This method was originally written by the portfolio team and is the same.
+ *
+ * This method is a copy of portfolio teams request function.
  *
  * @param method - Request method (GET, POST, etc.)
  * @param url - An URL relative to {@link baseURL}
@@ -338,13 +338,14 @@ const convertStockOverview = (apiStock: Stock): Stock =>
  *
  * @return Parsed JSON response if the API call succeeds
  */
- async function request(
+async function request(
   method: MethodType,
   url: string,
   body?: Record<string, unknown>,
   headers?: HeadersInit,
   customEndpoint?: string
 ): Promise<unknown> {
+  // can be used for debugging
   // console.log(`${customEndpoint || endpoint}/${url}`)
   const response = await BaseService.authenticatedRequest(
     method,
@@ -364,16 +365,13 @@ const convertStockOverview = (apiStock: Stock): Stock =>
   return Promise.reject(new AppError(json.error)); // JSON error
 }
 
-
 /**
  * Gets an overview over all stocks with an authenticated user.
  *
  * @param filters - Object including all filters
  *
  */
-export async function listStocks(
-  filters: Filters
-): Promise<Stock[]> {
+export async function listStocks(filters: Filters): Promise<Stock[]> {
   const base = 'list';
   let params = '';
   Object.keys(filters).forEach((key) => {
@@ -386,7 +384,7 @@ export async function listStocks(
       }
     }
   });
-  const response = (await request( 'GET', base + params)) as StockList;
+  const response = (await request('GET', base + params)) as StockList;
   return response.stocks.map((s) => convertStockOverview(s));
 }
 
@@ -395,14 +393,8 @@ export async function listStocks(
  *
  * @param symbol - Stock Symbol to search for
  */
-export async function stockOverview(
-  symbol: string
-): Promise<Stock> {
-  const response = (await request(
-    
-    'GET',
-    `overview?id=${symbol}`
-  )) as StockList;
+export async function stockOverview(symbol: string): Promise<Stock> {
+  const response = (await request('GET', `overview?id=${symbol}`)) as StockList;
 
   // TODO fix in backend, this is total BS
   const apiStock = response.stocks[0];
@@ -414,9 +406,7 @@ export async function stockOverview(
  *
  * @param symbol - Stock Symbol to search for
  */
-export async function stockDetails(
-  symbol: string
-): Promise<StockDetails> {
+export async function stockDetails(symbol: string): Promise<StockDetails> {
   const response = (await request(
     'GET',
     `details?id=${symbol}`
@@ -435,7 +425,6 @@ export async function stockPerformance(
   historic: boolean
 ): Promise<StockHistricPerformanceList> {
   const response = (await request(
-    
     'GET',
     `charts/historic?id=${symbol}&max=${historic.toString()}`
   )) as StockHistricPerformanceList;
@@ -453,7 +442,6 @@ export async function stockDividend(
   dividend: boolean
 ): Promise<StockHistoricDividendList> {
   const response = (await request(
-    
     'GET',
     `charts/dividend?id=${symbol}&max=${dividend.toString()}`
   )) as StockHistoricDividendList;
@@ -465,11 +453,8 @@ export async function stockDividend(
  *
  * @param symbol - Stock Symbol to search for
  */
-export async function companyReports(
-  symbol: string
-): Promise<CompanyReports> {
+export async function companyReports(symbol: string): Promise<CompanyReports> {
   const response = (await request(
-    
     'GET',
     `balanceSheet?id=${symbol}`
   )) as CompanyReports;
@@ -485,7 +470,6 @@ export async function analystsRecommendations(
   symbol: string
 ): Promise<AnalystsRecommendation[]> {
   const response = (await request(
-    
     'GET',
     `charts/analysts?id=${symbol}`
   )) as AnalystsRecommendation[];
@@ -497,14 +481,8 @@ export async function analystsRecommendations(
  *
  * @param symbol - Stock Symbol to search for
  */
-export async function newsList(
-  symbol: string
-): Promise<NewsList> {
-  const response = (await request(
-    
-    'GET',
-    `news?id=${symbol}`
-  )) as NewsList;
+export async function newsList(symbol: string): Promise<NewsList> {
+  const response = (await request('GET', `news?id=${symbol}`)) as NewsList;
   return response;
 }
 
@@ -513,11 +491,8 @@ export async function newsList(
  *
  * @param symbol - Stock Symbol to search for
  */
-export async function cashFlowList(
-  symbol: string
-): Promise<CashFlowList> {
+export async function cashFlowList(symbol: string): Promise<CashFlowList> {
   const response = (await request(
-    
     'GET',
     `cashFlow?id=${symbol}`
   )) as CashFlowList;
@@ -533,7 +508,6 @@ export async function interestCoverages(
   symbol: string
 ): Promise<InterestCoverageList> {
   const response = (await request(
-    
     'GET',
     `interestCoverage/${symbol}`,
     undefined,
@@ -550,7 +524,6 @@ export async function interestCoverages(
  */
 export async function risks(symbol: string): Promise<RiskList> {
   const response = (await request(
-    
     'GET',
     `risk/${symbol}`,
     undefined,
@@ -566,11 +539,8 @@ export async function risks(symbol: string): Promise<RiskList> {
  * @param symbol - Stock Symbol to search for
  * @param historic - if true all data will be returned, else only 5 years
  */
-export async function keyFigures(
-  symbol: string
-): Promise<KeyFigures> {
+export async function keyFigures(symbol: string): Promise<KeyFigures> {
   const response = (await request(
-    
     'GET',
     `keyfigures/${symbol}`,
     undefined,
