@@ -67,13 +67,6 @@ const DashboardTableRow: React.FC<DashboardTableRowProps> = ({ stock }) => {
   const classes = useStyles();
   const theme = useTheme();
 
-  function currencySymbol(): '€' | '$' {
-    if (stock.currency === 'USD') {
-      return '$';
-    }
-    return '€';
-  }
-
   return (
     <TableRow
       onClick={() => navigate(`analyser/${stock.symbol}`)}
@@ -94,7 +87,7 @@ const DashboardTableRow: React.FC<DashboardTableRowProps> = ({ stock }) => {
       <TableCell align="center" className={classes.defaultText}>
         <StyledNumberFormat
           value={stock.price}
-          suffix={currencySymbol()}
+          suffix="€"
           paintJob={theme.palette.primary.main}
         />
       </TableCell>
@@ -106,13 +99,13 @@ const DashboardTableRow: React.FC<DashboardTableRowProps> = ({ stock }) => {
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>
-          {currencySymbol() + moneyFormat(stock.marketCapitalization)}
+          €{moneyFormat(stock.marketCapitalization)}
         </Typography>
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
         <StyledNumberFormat
           value={stock.analystTargetPrice}
-          suffix={currencySymbol()}
+          suffix="€"
           paintJob={theme.palette.primary.main}
         />
       </TableCell>
