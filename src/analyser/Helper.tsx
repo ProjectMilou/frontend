@@ -1,4 +1,3 @@
-import React from 'react';
 import * as API from './APIClient';
 
 // Calculates percentage buy/sell/hold for Analysts section
