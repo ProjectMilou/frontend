@@ -276,6 +276,7 @@ const DetailsMainBacktesting: React.FC<DetailsMainBacktestingProps> = ({
             />
             <Button
               className={classes.updateButton}
+              aria-label="backtesting.update"
               variant="contained"
               disabled={!state.backtesting && !state.error}
               onClick={() => onClickUpdate()}
