@@ -20,16 +20,16 @@ import {
   StockHistoricDividend,
   StockHistoricDividendList,
   CashFlowList,
-  StockHistricPerformanceList,
+  StockHistoricPerformanceList,
   KeyFigures,
   Filters,
 } from './APIClient';
 
 export const MockFilters: Filters = {
-  country: ["country1", "country2"],
-  currency: ["currency1", "currency2"],
-  industry: ["industry1", "industry2"],
-  mc: ["mc1", "mc2"],
+  country: ['country1', 'country2'],
+  currency: ['currency1', 'currency2'],
+  industry: ['industry1', 'industry2'],
+  mc: ['mc1', 'mc2'],
 };
 export const MockOverview: Stock = {
   symbol: 'IBM',
@@ -488,7 +488,7 @@ export const MockStockDividendThree: number[] = [
   0.6051320114515958,
   0.6491750687442713,
   0.9570658786719972,
-  0.00,
+  0.0,
 ];
 
 export const MockStockDividendTwo: number[] = [
@@ -698,7 +698,7 @@ export const MockCashFlowList: CashFlowList = {
   ],
 };
 
-export const MockStockHistricPerformanceList: StockHistricPerformanceList = {
+export const MockStockHistricPerformanceList: StockHistoricPerformanceList = {
   dataPoints: [
     {
       _id: '6081da692f285f0bfc327e17',

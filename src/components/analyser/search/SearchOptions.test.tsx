@@ -1,6 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render } from '@testing-library/react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import SearchOption from './SearchOption';
 import { MockOverview } from '../../../analyser/APIMocks';
@@ -57,7 +56,7 @@ const theme = createMuiTheme({
 const renderComponent = () => ({
   ...render(
     <ThemeProvider theme={theme}>
-      <SearchOption stock={MockOverview}/>
+      <SearchOption stock={MockOverview} />
     </ThemeProvider>
   ),
 });

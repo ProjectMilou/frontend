@@ -5,10 +5,8 @@ import Dividends from './Dividends';
 import {
   MockStockDividendTwo,
   MockCashFlowList,
-  MockOverview,
   MockStockDividendThree,
 } from '../../../analyser/APIMocks';
-import { MockDetails } from '../../../portfolio/APIMocks';
 
 const theme = createMuiTheme({
   typography: {
@@ -73,18 +71,20 @@ test('Shows pass texts for dividends', async () => {
       <Dividends
         series={MockStockDividendTwo}
         cashFlowList={MockCashFlowList}
+        dividendYield={0.5}
       />
     </ThemeProvider>
   );
 
   const dividendYield = MockStockDividendTwo[MockStockDividendTwo.length - 1];
-  
-  const lastAnnualReports = MockCashFlowList.annualReports[MockCashFlowList.annualReports.length - 1];
+
+  const lastAnnualReports =
+    MockCashFlowList.annualReports[MockCashFlowList.annualReports.length - 1];
 
   const dividendPayoutRatio =
-  Math.round(
-    (lastAnnualReports.dividendPayout / lastAnnualReports.netIncome) * 100
-  ) / 100;
+    Math.round(
+      (lastAnnualReports.dividendPayout / lastAnnualReports.netIncome) * 100
+    ) / 100;
 
   const hasDividend: Test = {
     pass: dividendYield > 0,
@@ -119,14 +119,13 @@ test('Shows fail texts for dividends', async () => {
       <Dividends
         series={MockStockDividendThree}
         cashFlowList={MockCashFlowList}
+        dividendYield={0.5}
       />
     </ThemeProvider>
   );
 
-  const dividendYield = MockStockDividendThree[MockStockDividendThree.length - 1];
-  
-  const lastAnnualReports = MockCashFlowList.annualReports[MockCashFlowList.annualReports.length - 1];
-
+  const dividendYield =
+    MockStockDividendThree[MockStockDividendThree.length - 1];
   const dividendPayoutRatio = 0.25;
 
   const hasDividend: Test = {

@@ -2,7 +2,12 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import Risks from './Risks';
-import { MockOverview, MockStockDetails, MockCompanyReports, MockInterestCoverageList } from '../../../analyser/APIMocks';
+import {
+  MockOverview,
+  MockStockDetails,
+  MockCompanyReports,
+  MockInterestCoverageList,
+} from '../../../analyser/APIMocks';
 
 jest.mock('../../../analyser/APIClient');
 
@@ -63,7 +68,7 @@ test('shows stock volatality values', async () => {
         stockDetails={MockStockDetails}
         companyReports={MockCompanyReports}
         interestCoverages={MockInterestCoverageList}
-     />
+      />
     </ThemeProvider>
   );
 

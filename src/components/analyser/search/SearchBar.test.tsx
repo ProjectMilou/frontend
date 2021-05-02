@@ -1,6 +1,5 @@
-import userEvent from '@testing-library/user-event';
-import { render, fireEvent, screen } from '@testing-library/react';
 import * as React from 'react';
+import { render, screen } from '@testing-library/react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import SearchBar from './SearchBar';
 
@@ -53,17 +52,11 @@ const theme = createMuiTheme({
   },
 });
 
-const renderComponent = () => ({
-  ...render(
+test('shows search placeholders', async () => {
+  render(
     <ThemeProvider theme={theme}>
       <SearchBar />
     </ThemeProvider>
-  ),
+  );
+  await screen.findByTestId('Name, Symbol, ISIN or WKN', { exact: false });
 });
-
-test('shows search placeholders', async () => {
-  const { findByTestId } = renderComponent();
-
-  screen.findByTestId("Name, Symbol, ISIN or WKN", { exact: false });
-});
-

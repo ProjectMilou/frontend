@@ -54,19 +54,13 @@ const theme = createMuiTheme({
   },
 });
 
-const renderComponent = () => ({
-  ...render(
-    <ThemeProvider theme={theme}>
-      <Filter stocks={[MockOverview]} filters={MockFilters} 
-        setFilters={jest.fn()}
-      />
-    </ThemeProvider>
-  ),
-});
-
 test('shows filters', async () => {
-  const { findByTestId } = renderComponent();
-
-  screen.findByTestId('analyser.filter.clear', { exact: false });
+  <ThemeProvider theme={theme}>
+    <Filter
+      stocks={[MockOverview]}
+      filters={MockFilters}
+      setFilters={jest.fn()}
+    />
+  </ThemeProvider>;
+  await screen.findByTestId('analyser.filter.clear', { exact: false });
 });
-
