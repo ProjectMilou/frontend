@@ -8,7 +8,7 @@ type LogoProps = {
 };
 
 /**
- * This component displays the stock logos and replaces it with thee milou logo incase it doesn't exist
+ * This component displays the stock logos and replaces it with the Milou logo incase it doesn't exist
  * @param style allows the logo to be reused in different location independently styled
  */
 const CompanyLogo: React.FC<LogoProps> = ({ stockOverview, style }) => {
