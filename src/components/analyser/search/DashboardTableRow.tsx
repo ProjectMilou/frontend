@@ -36,9 +36,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       fontWeight: 600,
       color: palette.lightBlue.main,
     },
-    disabled: {
-      cursor: 'not-allowed',
-    },
   })
 );
 
@@ -46,6 +43,9 @@ export type DashboardTableRowProps = {
   stock: API.Stock;
 };
 
+/**
+ * This component displays the actual data of individual stocks in the rows of the table
+ */
 const DashboardTableRow: React.FC<DashboardTableRowProps> = ({ stock }) => {
   const [hover, setHover] = React.useState<boolean>(false);
 
