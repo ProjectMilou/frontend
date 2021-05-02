@@ -7,7 +7,6 @@ import Dashboard from './Dashboard';
 import { MockOverview, MockOverviewTwo } from '../../../analyser/APIMocks';
 import { AppError } from '../../../Errors';
 
-
 jest.mock('../../../analyser/APIClient');
 const mockAPI = API as jest.Mocked<typeof API>;
 
@@ -61,9 +60,8 @@ const theme = createMuiTheme({
 });
 
 describe('Dashboard', () => {
-
   const renderComponent = (newProps?: Partial<RouteComponentProps>) => {
-    const props = {...newProps };
+    const props = { ...newProps };
     return {
       ...render(
         <ThemeProvider theme={theme}>
