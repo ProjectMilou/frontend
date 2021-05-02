@@ -31,9 +31,7 @@ export const MockOverview: Stock = {
   country: 'USA',
   industry: 'Information Technology Services',
   picture: new URL('https://finnhub.io/api/logo?symbol=IBM'),
-  date: new Date(
-    0
-  ),
+  date: new Date(0),
   mcSize: 'large',
 };
 export const MockOverviewTwo: Stock = {
@@ -55,8 +53,6 @@ export const MockOverviewTwo: Stock = {
   country: 'USA',
   industry: 'Information Technology Services',
   picture: new URL('https://finnhub.io/api/logo?symbol=IBM'),
-  date: new Date(
-    0
-  ),
+  date: new Date(0),
   mcSize: 'large',
 };

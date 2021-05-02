@@ -43,6 +43,7 @@ const SearchBar: React.FC = () => {
 
   const fetch = async () => {
     try {
+      // empty filters that are used to get list of stocks without any filters
       const emptyFilters: API.Filters = {
         country: [],
         industry: [],

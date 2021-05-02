@@ -1,5 +1,5 @@
 // Based on portfolio teams test component
-import {Filters, listStocks, stockOverview } from './APIClient';
+import { Filters, listStocks, stockOverview } from './APIClient';
 import { MockOverview, MockOverviewTwo } from './APIMocks';
 import StorageService from '../services/StorageService';
 
@@ -42,7 +42,6 @@ describe('Analyser API client', () => {
 
   // list stocks with empty filters
   describe('list', () => {
-
     const emptyFilters: Filters = {
       country: [],
       industry: [],
@@ -54,18 +53,19 @@ describe('Analyser API client', () => {
 
     test.skip('returns stock list on success', async () => {
       fetchMock.mockResponseOnce(JSON.stringify({}));
-      const response = await apiCall()
-      console.log(apiCall)
-      const modified = response.map((s) => {return {...s, date: new Date(0)}})
+      const response = await apiCall();
+      // console.log(apiCall);
+      const modified = response.map((s) => ({ ...s, date: new Date(0) }));
 
-      console.log(modified)
+      // console.log(modified);
       expect(modified).toContain(MockOverview);
+      expect(modified).toContain(MockOverviewTwo);
     });
 
     errorHandlingTests(apiCall);
   });
 
-  // stock overview of IBM 
+  // stock overview of IBM
   describe('overview', () => {
     const apiCall = () => stockOverview('IBM');
 
@@ -80,7 +80,6 @@ describe('Analyser API client', () => {
 
     errorHandlingTests(apiCall);
   });
-
 });
 
 export {};

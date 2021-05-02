@@ -40,6 +40,14 @@ interface HeadCell {
   label: string;
 }
 
+/**
+ * Component for the header of the dashboard table
+ *
+ * @param onRequestSort function to request sorting, triggered by onClick
+ * @param order current order
+ * @param orderByKey current order key
+ *
+ */
 const DashboardTableHeader: React.FC<DashboardTableHeaderProps> = ({
   onRequestSort,
   order,
@@ -48,7 +56,7 @@ const DashboardTableHeader: React.FC<DashboardTableHeaderProps> = ({
   const classes = useStyles();
   const { t } = useTranslation();
 
-  // All properties needed for stocks list.
+  // All properties needed for stocks list. Used for sorting
   const headCells: HeadCell[] = [
     {
       id: 'symbol',

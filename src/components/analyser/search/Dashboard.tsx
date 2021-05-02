@@ -31,7 +31,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 );
 
 /**
- * 
+ *
  * Wrapper component for the search page. Saves stocks and filters in own states
  */
 const Dashboard: React.FC<RouteComponentProps> = () => {

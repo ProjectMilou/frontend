@@ -56,18 +56,18 @@ const Filter: React.FC<FilterProps> = ({ stocks, filters, setFilters }) => {
 
   // add all found filters to og filters, never remove
   const setOriginalFilters = () => {
-    const contries: Set<string> = new Set(ogFilters.country);
+    const countries: Set<string> = new Set(ogFilters.country);
     const industries: Set<string> = new Set(ogFilters.industry);
     const currencies: Set<string> = new Set(ogFilters.currency);
     const mc: Set<string> = new Set(ogFilters.mc);
     stocks.forEach((s) => {
-      if (s.country) contries.add(s.country);
+      if (s.country) countries.add(s.country);
       if (s.industry) industries.add(s.industry);
       if (s.currency) currencies.add(s.currency);
       if (s.mcSize) mc.add(s.mcSize);
     });
     setOgFilters({
-      country: Array.from(contries).sort(),
+      country: Array.from(countries).sort(),
       industry: Array.from(industries).sort(),
       currency: Array.from(currencies).sort(),
       mc: Array.from(mc).sort(),

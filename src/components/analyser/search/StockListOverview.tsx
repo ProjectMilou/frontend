@@ -22,6 +22,11 @@ const useStyles = makeStyles({
   },
 });
 
+/**
+ * wrapper component for dashboardTable and DashboardCards
+ *
+ * @param stocks List of stocks to get single stock overview from
+ */
 const StockListOverview: React.FC<StockListOverviewProps> = ({ stocks }) => {
   const { t } = useTranslation();
   const classes = useStyles();
