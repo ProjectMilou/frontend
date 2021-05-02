@@ -1,10 +1,8 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import DetailsOverviewInfoBox from './DetailsOverviewInfoBox';
-import { MockOverview, MockStockDetails } from '../../../analyser/APIMocks';
-
-jest.mock('../../../analyser/APIClient');
+import BalanceSheetInfo from './BalanceSheetInfo';
+import { MockCompanyReports } from '../../../analyser/APIMocks';
 
 const theme = createMuiTheme({
   typography: {
@@ -55,18 +53,23 @@ const theme = createMuiTheme({
   },
 });
 
-test('shows details info box correctly', async () => {
-  render(
+const renderComponent = () => ({
+  ...render(
     <ThemeProvider theme={theme}>
-      <DetailsOverviewInfoBox
-        stockOverview={MockOverview}
-        stockDetails={MockStockDetails}
-      />
+      <BalanceSheetInfo companyReports={MockCompanyReports} />
     </ThemeProvider>
-  );
+  ),
+});
 
-  screen.getAllByText(MockOverview.country, { exact: false });
-  screen.getAllByText(MockOverview.currency, { exact: false });
-  screen.getAllByText(MockStockDetails.industry, { exact: false });
-  screen.getAllByText(MockStockDetails.exchange, { exact: false });
+test('Balance sheets headers renders correctly', async () => {
+  const { queryByText } = renderComponent();
+  expect(
+    queryByText('analyser.details.BalanceSheetHeader')
+  ).toBeInTheDocument();
+  expect(
+    queryByText('analyser.details.BalanceSheet.Assets')
+  ).toBeInTheDocument();
+  expect(
+    queryByText('analyser.details.BalanceSheet.Liabilities')
+  ).toBeInTheDocument();
 });

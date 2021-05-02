@@ -1,10 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import DetailsOverviewInfoBox from './DetailsOverviewInfoBox';
-import { MockOverview, MockStockDetails } from '../../../analyser/APIMocks';
-
-jest.mock('../../../analyser/APIClient');
+import SearchOption from './SearchOption';
+import { MockOverview } from '../../../analyser/APIMocks';
 
 const theme = createMuiTheme({
   typography: {
@@ -55,18 +54,15 @@ const theme = createMuiTheme({
   },
 });
 
-test('shows details info box correctly', async () => {
-  render(
+const renderComponent = () => ({
+  ...render(
     <ThemeProvider theme={theme}>
-      <DetailsOverviewInfoBox
-        stockOverview={MockOverview}
-        stockDetails={MockStockDetails}
-      />
+      <SearchOption stock={MockOverview}/>
     </ThemeProvider>
-  );
+  ),
+});
 
-  screen.getAllByText(MockOverview.country, { exact: false });
-  screen.getAllByText(MockOverview.currency, { exact: false });
-  screen.getAllByText(MockStockDetails.industry, { exact: false });
-  screen.getAllByText(MockStockDetails.exchange, { exact: false });
+test('shows Search Options correctly', async () => {
+  const { queryByText } = renderComponent();
+  expect(queryByText(MockOverview.name)).toBeInTheDocument();
 });

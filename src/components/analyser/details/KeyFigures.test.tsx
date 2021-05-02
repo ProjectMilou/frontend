@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import DetailsOverviewInfoBox from './DetailsOverviewInfoBox';
-import { MockOverview, MockStockDetails } from '../../../analyser/APIMocks';
+import KeyFigures from './KeyFigures';
+import { MockKeyFigures } from '../../../analyser/APIMocks';
 
 jest.mock('../../../analyser/APIClient');
 
@@ -55,18 +55,13 @@ const theme = createMuiTheme({
   },
 });
 
-test('shows details info box correctly', async () => {
+test('shows key figures correctly', async () => {
   render(
     <ThemeProvider theme={theme}>
-      <DetailsOverviewInfoBox
-        stockOverview={MockOverview}
-        stockDetails={MockStockDetails}
-      />
+      <KeyFigures keyFigures={MockKeyFigures} />
     </ThemeProvider>
   );
-
-  screen.getAllByText(MockOverview.country, { exact: false });
-  screen.getAllByText(MockOverview.currency, { exact: false });
-  screen.getAllByText(MockStockDetails.industry, { exact: false });
-  screen.getAllByText(MockStockDetails.exchange, { exact: false });
+  screen.getAllByText('analyser.details.KeyFiguresHeader.KeyFigures', {
+    exact: false,
+  });
 });

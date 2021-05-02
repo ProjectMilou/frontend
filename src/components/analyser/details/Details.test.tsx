@@ -1,10 +1,9 @@
 import React from 'react';
+import { navigate, useParams } from '@reach/router';
 import { render, screen } from '@testing-library/react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import DetailsOverviewInfoBox from './DetailsOverviewInfoBox';
-import { MockOverview, MockStockDetails } from '../../../analyser/APIMocks';
-
-jest.mock('../../../analyser/APIClient');
+import Details from './Details';
+import { MockOverview } from '../../../analyser/APIMocks';
 
 const theme = createMuiTheme({
   typography: {
@@ -55,18 +54,13 @@ const theme = createMuiTheme({
   },
 });
 
-test('shows details info box correctly', async () => {
-  render(
-    <ThemeProvider theme={theme}>
-      <DetailsOverviewInfoBox
-        stockOverview={MockOverview}
-        stockDetails={MockStockDetails}
-      />
-    </ThemeProvider>
-  );
-
-  screen.getAllByText(MockOverview.country, { exact: false });
-  screen.getAllByText(MockOverview.currency, { exact: false });
-  screen.getAllByText(MockStockDetails.industry, { exact: false });
-  screen.getAllByText(MockStockDetails.exchange, { exact: false });
+test('Details renders correctly', async () => {
+  // render(
+  //   <ThemeProvider theme={theme}>
+  //     <Details token="" back={jest.fn()} path={MockOverview.symbol} />
+  //   </ThemeProvider>
+  // );
+  // expect(queryByText('analyser.details.BalanceSheetHeader')).toBeInTheDocument();
+  // expect(queryByText('analyser.details.BalanceSheet.Assets')).toBeInTheDocument();
+  // expect(queryByText('analyser.details.BalanceSheet.Liabilities')).toBeInTheDocument();
 });

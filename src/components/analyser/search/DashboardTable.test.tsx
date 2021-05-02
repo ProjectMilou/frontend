@@ -75,6 +75,7 @@ describe('DashboardTable', () => {
     // empty table & no error message
     expect(queryByText('analyser.dashboard.errorMessage')).toBeNull();
     expect(container.querySelector('table')).toBeInTheDocument();
+    expect(container.querySelector('ul')).toBeNull();
   });
 
   test('display stock information', () => {

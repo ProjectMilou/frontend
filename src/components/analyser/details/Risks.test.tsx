@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import DetailsOverviewInfoBox from './DetailsOverviewInfoBox';
-import { MockOverview, MockStockDetails } from '../../../analyser/APIMocks';
+import Risks from './Risks';
+import { MockOverview, MockStockDetails, MockCompanyReports, MockInterestCoverageList } from '../../../analyser/APIMocks';
 
 jest.mock('../../../analyser/APIClient');
 
@@ -55,18 +55,19 @@ const theme = createMuiTheme({
   },
 });
 
-test('shows details info box correctly', async () => {
+test('shows stock volatality values', async () => {
   render(
     <ThemeProvider theme={theme}>
-      <DetailsOverviewInfoBox
+      <Risks
         stockOverview={MockOverview}
         stockDetails={MockStockDetails}
-      />
+        companyReports={MockCompanyReports}
+        interestCoverages={MockInterestCoverageList}
+     />
     </ThemeProvider>
   );
 
-  screen.getAllByText(MockOverview.country, { exact: false });
-  screen.getAllByText(MockOverview.currency, { exact: false });
-  screen.getAllByText(MockStockDetails.industry, { exact: false });
-  screen.getAllByText(MockStockDetails.exchange, { exact: false });
+  screen.getAllByText('analyser.details.RiskHeader', {
+    exact: false,
+  });
 });

@@ -1,10 +1,8 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { render, fireEvent, screen } from '@testing-library/react';
+import * as React from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import DetailsOverviewInfoBox from './DetailsOverviewInfoBox';
-import { MockOverview, MockStockDetails } from '../../../analyser/APIMocks';
-
-jest.mock('../../../analyser/APIClient');
+import SearchBar from './SearchBar';
 
 const theme = createMuiTheme({
   typography: {
@@ -55,18 +53,17 @@ const theme = createMuiTheme({
   },
 });
 
-test('shows details info box correctly', async () => {
-  render(
+const renderComponent = () => ({
+  ...render(
     <ThemeProvider theme={theme}>
-      <DetailsOverviewInfoBox
-        stockOverview={MockOverview}
-        stockDetails={MockStockDetails}
-      />
+      <SearchBar />
     </ThemeProvider>
-  );
-
-  screen.getAllByText(MockOverview.country, { exact: false });
-  screen.getAllByText(MockOverview.currency, { exact: false });
-  screen.getAllByText(MockStockDetails.industry, { exact: false });
-  screen.getAllByText(MockStockDetails.exchange, { exact: false });
+  ),
 });
+
+test('shows search placeholders', async () => {
+  const { findByTestId } = renderComponent();
+
+  screen.findByTestId("Name, Symbol, ISIN or WKN", { exact: false });
+});
+

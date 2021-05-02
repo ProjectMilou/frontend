@@ -43,7 +43,7 @@ exports[`DashboardCards display stock information 1`] = `
                     class="makeStyles-pWrapper-24 makeStyles-pWrapper-27"
                   >
                     <p
-                      class="makeStyles-top-21 makeStyles-top-25"
+                      class="MuiTypography-root makeStyles-top-21 makeStyles-top-25 MuiTypography-body1"
                     >
                       IBM
                     </p>
@@ -52,7 +52,7 @@ exports[`DashboardCards display stock information 1`] = `
                     class="makeStyles-pWrapper-24 makeStyles-pWrapper-27"
                   >
                     <p
-                      class="makeStyles-bottom-22 makeStyles-bottom-26"
+                      class="MuiTypography-root makeStyles-bottom-22 makeStyles-bottom-26 MuiTypography-body1"
                     >
                       International Business Machines Corporation
                     </p>
@@ -74,7 +74,7 @@ exports[`DashboardCards display stock information 1`] = `
                         class="makeStyles-pWrapper-24 makeStyles-pWrapper-30"
                       >
                         <p
-                          class="makeStyles-top-21 makeStyles-top-28"
+                          class="MuiTypography-root makeStyles-top-21 makeStyles-top-28 MuiTypography-body1"
                         >
                           analyser.dashboard.view.cards.lastPrice
                         </p>
@@ -83,12 +83,12 @@ exports[`DashboardCards display stock information 1`] = `
                         class="makeStyles-pWrapper-24 makeStyles-pWrapper-30"
                       >
                         <p
-                          class="makeStyles-bottom-22 makeStyles-bottom-29"
+                          class="MuiTypography-root makeStyles-bottom-22 makeStyles-bottom-29 MuiTypography-body1"
                         >
                           <span
                             class="makeStyles-styledNumberFormat-31 makeStyles-styledNumberFormat-33"
                           >
-                            138,00 $
+                            138,00 €
                           </span>
                         </p>
                       </div>
@@ -104,7 +104,7 @@ exports[`DashboardCards display stock information 1`] = `
                         class="makeStyles-pWrapper-24 makeStyles-pWrapper-36"
                       >
                         <p
-                          class="makeStyles-top-21 makeStyles-top-34"
+                          class="MuiTypography-root makeStyles-top-21 makeStyles-top-34 MuiTypography-body1"
                         >
                           stock.30d
                         </p>
@@ -113,7 +113,7 @@ exports[`DashboardCards display stock information 1`] = `
                         class="makeStyles-pWrapper-24 makeStyles-pWrapper-36"
                       >
                         <p
-                          class="makeStyles-bottom-22 makeStyles-bottom-35"
+                          class="MuiTypography-root makeStyles-bottom-22 makeStyles-bottom-35 MuiTypography-body1"
                         >
                           1.06%
                         </p>
@@ -154,7 +154,7 @@ exports[`DashboardCards display stock information 1`] = `
                     class="makeStyles-pWrapper-24 makeStyles-pWrapper-39"
                   >
                     <p
-                      class="makeStyles-top-21 makeStyles-top-37"
+                      class="MuiTypography-root makeStyles-top-21 makeStyles-top-37 MuiTypography-body1"
                     >
                       APPLE
                     </p>
@@ -163,7 +163,7 @@ exports[`DashboardCards display stock information 1`] = `
                     class="makeStyles-pWrapper-24 makeStyles-pWrapper-39"
                   >
                     <p
-                      class="makeStyles-bottom-22 makeStyles-bottom-38"
+                      class="MuiTypography-root makeStyles-bottom-22 makeStyles-bottom-38 MuiTypography-body1"
                     >
                       International Business Machines Corporation
                     </p>
@@ -185,7 +185,7 @@ exports[`DashboardCards display stock information 1`] = `
                         class="makeStyles-pWrapper-24 makeStyles-pWrapper-42"
                       >
                         <p
-                          class="makeStyles-top-21 makeStyles-top-40"
+                          class="MuiTypography-root makeStyles-top-21 makeStyles-top-40 MuiTypography-body1"
                         >
                           analyser.dashboard.view.cards.lastPrice
                         </p>
@@ -194,12 +194,12 @@ exports[`DashboardCards display stock information 1`] = `
                         class="makeStyles-pWrapper-24 makeStyles-pWrapper-42"
                       >
                         <p
-                          class="makeStyles-bottom-22 makeStyles-bottom-41"
+                          class="MuiTypography-root makeStyles-bottom-22 makeStyles-bottom-41 MuiTypography-body1"
                         >
                           <span
                             class="makeStyles-styledNumberFormat-31 makeStyles-styledNumberFormat-43"
                           >
-                            138,00 $
+                            138,00 €
                           </span>
                         </p>
                       </div>
@@ -215,7 +215,7 @@ exports[`DashboardCards display stock information 1`] = `
                         class="makeStyles-pWrapper-24 makeStyles-pWrapper-46"
                       >
                         <p
-                          class="makeStyles-top-21 makeStyles-top-44"
+                          class="MuiTypography-root makeStyles-top-21 makeStyles-top-44 MuiTypography-body1"
                         >
                           stock.30d
                         </p>
@@ -224,7 +224,7 @@ exports[`DashboardCards display stock information 1`] = `
                         class="makeStyles-pWrapper-24 makeStyles-pWrapper-46"
                       >
                         <p
-                          class="makeStyles-bottom-22 makeStyles-bottom-45"
+                          class="MuiTypography-root makeStyles-bottom-22 makeStyles-bottom-45 MuiTypography-body1"
                         >
                           1.06%
                         </p>

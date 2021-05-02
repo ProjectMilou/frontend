@@ -1,10 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import DetailsOverviewInfoBox from './DetailsOverviewInfoBox';
-import { MockOverview, MockStockDetails } from '../../../analyser/APIMocks';
-
-jest.mock('../../../analyser/APIClient');
+import Analysts from './Analysts';
+import {
+  MockOverview,
+  MockAnalystsRecommendation,
+} from '../../../analyser/APIMocks';
 
 const theme = createMuiTheme({
   typography: {
@@ -55,18 +56,19 @@ const theme = createMuiTheme({
   },
 });
 
-test('shows details info box correctly', async () => {
-  render(
+const renderComponent = () => ({
+  ...render(
     <ThemeProvider theme={theme}>
-      <DetailsOverviewInfoBox
-        stockOverview={MockOverview}
-        stockDetails={MockStockDetails}
+      <Analysts
+        recommendations={MockAnalystsRecommendation}
+        overview={MockOverview}
       />
     </ThemeProvider>
-  );
+  ),
+});
 
-  screen.getAllByText(MockOverview.country, { exact: false });
-  screen.getAllByText(MockOverview.currency, { exact: false });
-  screen.getAllByText(MockStockDetails.industry, { exact: false });
-  screen.getAllByText(MockStockDetails.exchange, { exact: false });
+test('Shows Analysts componants', async () => {
+  const { queryByText } = renderComponent();
+  expect(queryByText('analyser.details.analystsHeader')).toBeInTheDocument();
+  expect(queryByText('analyser.details.analysts.target')).toBeInTheDocument();
 });
