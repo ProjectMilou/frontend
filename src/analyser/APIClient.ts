@@ -347,11 +347,11 @@ async function request(
 ): Promise<unknown> {
   // can be used for debugging
   // console.log(`${customEndpoint || endpoint}/${url}`)
-  const response = await BaseService.authenticatedRequest(
+  const response = await BaseService.request(
     method,
     `${customEndpoint || endpoint}/${url}`,
-    body,
-    headers
+    headers,
+    body
   );
   if (response.ok) {
     return Promise.resolve(response.json()); // valid response
