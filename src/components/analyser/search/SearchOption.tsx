@@ -3,6 +3,7 @@ import { Link } from '@reach/router';
 import React from 'react';
 import * as API from '../../../analyser/APIClient';
 
+// SearchOption props type declaration
 export type SearchOptionProps = {
   stock: API.Stock;
 };
@@ -20,6 +21,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+/**
+ * A option will show the stock's name and will navigate to its detail page when it has been clicked.
+ *
+ * @param stock - Stock which related to a singel option
+ * @return A single option in the pop up list of search bar
+ */
 const SearchOption: React.FC<SearchOptionProps> = ({ stock }) => {
   const { symbol, name } = stock;
   const route = `/analyser/${symbol}`;

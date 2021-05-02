@@ -29,12 +29,19 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
+// Filter props type declaration
 export type FilterProps = {
   stocks: API.Stock[];
   filters: API.Filters;
   setFilters: React.Dispatch<React.SetStateAction<API.Filters>>;
 };
 
+/**
+ * @param stocks - A array of stocks
+ * @param filters - Current filters
+ * @param setFilters - Update filters
+ * @return A filter which can filter stocks list by currency, country, market cap and industry
+ */
 const Filter: React.FC<FilterProps> = ({ stocks, filters, setFilters }) => {
   const { t } = useTranslation();
   const classes = useStyles();
@@ -151,13 +158,6 @@ const Filter: React.FC<FilterProps> = ({ stocks, filters, setFilters }) => {
         variant="contained"
         color="primary"
       >
-        {/* <Button
-          type="button"
-          onClick={}
-          startIcon={<FilterList />}
-        >
-          Adapt
-        </Button> */}
         <Button type="button" onClick={clearFilters} startIcon={<Delete />}>
           <Typography>{t('analyser.filter.clear')}</Typography>
         </Button>
