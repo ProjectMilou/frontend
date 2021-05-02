@@ -16,6 +16,7 @@ import InfoButton from '../../shared/InfoButton';
 export type DividendsProps = {
   series: number[];
   cashFlowList: API.CashFlowList;
+  dividendYield: number;
 };
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
@@ -122,9 +123,14 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
 /**
  * @param series - Dividend yield data
  * @param cashFlowList - Cash flow list data, used to calculate dividend payout ratio
+ * @param dividendYield - Dividend Yield
  * @return Dividends Section on detail page which includes dividend line chart, donut ratio chart and Reward & Risk.
  */
-const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
+const Dividends: React.FC<DividendsProps> = ({
+  series,
+  cashFlowList,
+  dividendYield,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const theme = useTheme();
@@ -152,7 +158,6 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
     Math.round(
       (lastAnnualReports.dividendPayout / lastAnnualReports.netIncome) * 100
     ) / 100;
-  const dividendYield = series[series.length - 1];
   const year = cashFlowList.annualReports[0].fiscalDateEnding.substring(0, 4);
   return (
     <div>
@@ -180,9 +185,9 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
             body={
               <p style={{ margin: 0 }}>
                 {' '}
-                {Number.isNaN(dividendYield)
-                  ? 'Dividend is not paid this year.'
-                  : `${dividendYield}%`}{' '}
+                {dividendYield === 0
+                  ? 'Dividend is not paid.'
+                  : `${Math.round(dividendYield * 100) / 100}%`}{' '}
               </p>
             }
           />

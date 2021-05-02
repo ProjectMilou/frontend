@@ -41,6 +41,7 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
     [],
   ]);
   const [stockDividend, setStockDividend] = React.useState<number[]>([]);
+  const [quota, setQuota] = React.useState<number>(0);
   const [
     companyReports,
     setCompanyReports,
@@ -110,6 +111,7 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
       // TODO get unix timestamp from backend and reverse array
       setStockPerformance(convertPerformance(sP));
       setStockDividend(convertDividend(sDiv));
+      setQuota(parseFloat(sDiv.quota));
       setCompanyReports(cR);
       setInterestCoverages(iC);
       setCashFlowList(cCash);
@@ -197,7 +199,11 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
                 <NewsComponent newsList={newsList} />
                 <SectionDivider section="analyser.details.KeyFiguresHeader" />
                 <KeyFigures keyFigures={keyFigures} />
-                <Dividends series={stockDividend} cashFlowList={cashFlowList} />
+                <Dividends
+                  series={stockDividend}
+                  cashFlowList={cashFlowList}
+                  dividendYield={quota}
+                />
                 <BalanceSheetInfo companyReports={companyReports} />
                 <Analysts
                   recommendations={analystRecommendations}
