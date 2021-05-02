@@ -233,7 +233,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
       },
     },
     colors: [
-      // Togehter with PLace Holder allows for specific coloring of debt field in Tree Map
+      // Together with place holder allows for specific coloring of debt field in treemap
       theme.palette.success.main,
       theme.palette.success.main,
       theme.palette.success.main,

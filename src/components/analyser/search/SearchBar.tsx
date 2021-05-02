@@ -50,9 +50,8 @@ const SearchBar: React.FC = () => {
       setStocks(s);
     } catch (err) {
       setStocks(undefined);
-      // TODO: implement proper error handling
       // eslint-disable-next-line no-console
-      console.error('uncaught error when requesting listStocks!', err);
+      console.error('error when requesting list of stocks!', err);
     }
   };
 
@@ -73,7 +72,7 @@ const SearchBar: React.FC = () => {
           open={open}
           options={stocks}
           getOptionLabel={(option: API.Stock) =>
-            // use '%' as seperator to display only symbol and name
+            // use '%' as separator to display only symbol and name
             `${option.symbol}: ${option.name}%${option.isin}${option.wkn}`
           }
           onInputChange={(event, value, reason) => {
