@@ -36,9 +36,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       fontWeight: 600,
       color: palette.lightBlue.main,
     },
-    disabled: {
-      cursor: 'not-allowed',
-    },
   })
 );
 
