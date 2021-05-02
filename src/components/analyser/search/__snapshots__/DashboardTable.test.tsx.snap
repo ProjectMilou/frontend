@@ -256,7 +256,7 @@ exports[`DashboardTable display stock information 1`] = `
                       <p
                         class="MuiTypography-root makeStyles-top-14 makeStyles-top-30 MuiTypography-body1"
                       >
-                        APPLE
+                        APPL
                       </p>
                     </div>
                     <div
@@ -322,7 +322,7 @@ exports[`DashboardTable display stock information 1`] = `
                   <span
                     class="makeStyles-euroCurrency-27 makeStyles-euroCurrency-37"
                   >
-                    21.4x
+                    21.0x
                   </span>
                 </td>
                 <td
@@ -427,7 +427,7 @@ exports[`DashboardTable display stock information 1`] = `
                   <span
                     class="makeStyles-euroCurrency-27 makeStyles-euroCurrency-28"
                   >
-                    21.4x
+                    21.0x
                   </span>
                 </td>
                 <td

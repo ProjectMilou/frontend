@@ -206,6 +206,7 @@
   "analyser.dashboard.view.cards.lastPrice": "Last Price",
   "analyser.filter.title": "Filter Options",
   "analyser.filter.clear": "Clear filters",
+  "analyser.filter.clearSingle": "Click to clear filters",
   "analyser.dashboard.noStocks": "We can't show you any stocks right now :(",
   "analyser.details.summaryHeader": "1. Summary",
   "analyser.details.KeyFiguresHeader": "2. Return",
