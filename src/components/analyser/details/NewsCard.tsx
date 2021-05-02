@@ -36,12 +36,11 @@ const useStyles = makeStyles({
   },
 });
 
-
 /**
  * Component for a single news card
- * 
+ *
  * @param news item to display
- * 
+ *
  */
 const News: React.FC<NewsCardProps> = ({ news }) => {
   const classes = useStyles();

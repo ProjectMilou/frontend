@@ -35,8 +35,8 @@ type RRpassProps = {
 
 /**
  * Component to display a failing RR test
- * 
- * @param category Category of test 
+ *
+ * @param category Category of test
  * @param text Fail text
  */
 const RRfail: React.FC<RRpassProps> = ({ category, text }) => {

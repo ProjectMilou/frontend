@@ -11,7 +11,7 @@ export type KeyFigureProps = {
 /**
  * This components contains the key figures section on detail page
  * @param keyFigures - Data about key figures (P/E, P/B, PEGR, EPS)
- * 
+ *
  */
 const KeyFigures: React.FC<KeyFigureProps> = ({ keyFigures }) => {
   const years = keyFigures.success.map((f) => new Date(f.date).getFullYear());

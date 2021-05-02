@@ -157,7 +157,7 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
   const year = cashFlowList.annualReports[0].fiscalDateEnding.substring(0, 4);
   return (
     <>
-      <SubsectionDivider subsection={t('analyser.details.DividendsHeader')}/>
+      <SubsectionDivider subsection={t('analyser.details.DividendsHeader')} />
       <div className={classes.chartContainer}>
         <div className={classes.lineChartWrapper}>
           <DividendLineChart
