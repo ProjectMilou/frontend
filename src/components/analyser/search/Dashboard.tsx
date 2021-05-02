@@ -46,7 +46,7 @@ const Dashboard: React.FC<RouteComponentProps> = () => {
   const stockCleanup = (unfilteredStocks: API.Stock[]) => {
     if (unfilteredStocks) {
       const polishedStocks = unfilteredStocks.filter(
-        (s) => s.industry !== undefined
+        (s) => s.industry !== undefined && s.industry !== null
       );
       return polishedStocks;
     }

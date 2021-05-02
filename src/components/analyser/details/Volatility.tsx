@@ -135,7 +135,7 @@ const Volatility: React.FC<VolatilityProps> = ({ details }) => {
   const theme = useTheme();
   const { palette } = useTheme();
   return (
-    <div>
+    <>
       <SubsectionDivider subsection="analyser.details.Volatility" />
       <div className={classes.chartContainer}>
         <div className={classes.infoContainer}>
@@ -210,7 +210,7 @@ const Volatility: React.FC<VolatilityProps> = ({ details }) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 export default Volatility;

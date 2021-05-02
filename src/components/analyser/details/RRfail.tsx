@@ -33,6 +33,12 @@ type RRpassProps = {
   text: string;
 };
 
+/**
+ * Component to display a failing RR test
+ *
+ * @param category Category of test
+ * @param text Fail text
+ */
 const RRfail: React.FC<RRpassProps> = ({ category, text }) => {
   const classes = useStyles();
   const { t } = useTranslation();
