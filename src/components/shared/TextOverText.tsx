@@ -43,6 +43,10 @@ const useStyles = makeStyles<Theme, TextOverTextProps, string>(
     })
 );
 
+/**
+ * This Component is used to display text over text in various locations 
+ * @param props used to specify the style of the components for reuse in different locations 
+ */
 const TextOverText: React.FC<TextOverTextProps> = (props) => {
   const { top, bottom, currency, infoText } = props;
   const classes = useStyles(props);
