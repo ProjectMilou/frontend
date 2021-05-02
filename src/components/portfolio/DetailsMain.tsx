@@ -132,11 +132,9 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, id }) => {
           treynorRatio={portfolio.analytics.treynorRatio}
         />
       </Section>
-      {/* TODO talk to backend about what they send back so a simply check for empty key figures is enough
       <Section title={t('portfolio.details.keyfigures')}>
         <DetailsMainKeyFigures figures={portfolio.keyFigures} />
       </Section>
-      */}
       <Section title={t('portfolio.details.dividends')}>
         <DetailsMainDividens portfolio={portfolioWithoutMissingData} />
       </Section>
