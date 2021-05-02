@@ -59,7 +59,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 
 function checkValue(val: number): number {
   let result = val;
-  if (val.toString() === 'NaN') {
+  if (val === undefined || val.toString() === 'NaN') {
     result = 0;
   } else {
     result = val / 1000000;
@@ -68,13 +68,10 @@ function checkValue(val: number): number {
 }
 
 function checkName(val: number, text: string): string {
-  let result = text;
   if (val === 0) {
-    result = '';
-  } else {
-    result = `${result} in Million €`;
+    return '';
   }
-  return result;
+  return text;
 }
 
 const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
@@ -106,7 +103,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
       companyReports.annualReports[0].otherCurrentAssets
     ),
     otherNonCurrentAssets: checkValue(
-      companyReports.annualReports[0].otherNonCurrrentAssets
+      companyReports.annualReports[0].otherNonCurrentAssets
     ),
   };
 
@@ -236,7 +233,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
       },
     },
     colors: [
-      // Togehter with PLace Holder allows for specific coloring of debt field in Tree Map
+      // Together with place holder allows for specific coloring of debt field in treemap
       theme.palette.success.main,
       theme.palette.success.main,
       theme.palette.success.main,
@@ -258,6 +255,21 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
       },
       noData: {
         text: 'Currently no Data available ;(',
+      },
+    },
+    tooltip: {
+      x: {
+        show: false,
+        format: 'dd MMM yyyy',
+      },
+      y: {
+        formatter: (seriesName: string) => `€${seriesName}M`,
+        title: {
+          formatter: (seriesName: string) => `${seriesName}:`,
+        },
+      },
+      marker: {
+        show: false,
       },
     },
   };
