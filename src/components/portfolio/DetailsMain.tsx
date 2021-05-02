@@ -127,7 +127,6 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, id }) => {
         <DetailsMainPositions positions={portfolio.positions} />
       </Section>
       <Section title={t('portfolio.details.risk')}>
-        {/* TODO handle stocks with missing data (empty countries, segments and currency at times) */}
         <DetailsMainRisk
           risk={portfolio.risk}
           sharpeRatio={portfolio.analytics.sharpeRatio}
