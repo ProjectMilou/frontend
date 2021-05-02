@@ -123,7 +123,6 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, id }) => {
         <DetailsMainSummary portfolio={portfolio} id={id} />
       </Section>
       <Section title={t('portfolio.details.positionsTitle')}>
-        {/* TODO handle stocks with missing data (leave out performance) */}
         <DetailsMainPositions positions={portfolio.positions} />
       </Section>
       <Section title={t('portfolio.details.risk')}>
@@ -138,7 +137,6 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, id }) => {
         <DetailsMainKeyFigures figures={portfolio.keyFigures} />
       </Section>
       */}
-
       <Section title={t('portfolio.details.dividends')}>
         <DetailsMainDividens portfolio={portfolioWithoutMissingData} />
       </Section>

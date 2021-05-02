@@ -13,6 +13,7 @@ import { RiskAnalysis, Diversification } from '../../portfolio/APIClient';
 import { RiskBundle, getRiskBundle } from '../../portfolio/Helper';
 import InfoButton from '../shared/InfoButton';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
+import NoInfoAvailable from './NoInfoAvailable';
 
 // stylesheet for the risk analysis section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -100,14 +101,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     ratioName: {
       marginRight: '0.5rem',
     },
-    placeholderInfo: {
-      display: 'flex',
-      margin: '15rem 0',
-      width: '100%',
-      justifyContent: 'center',
-      color: palette.primary.contrastText,
-      fontSize: '1.15rem',
-    },
   })
 );
 
@@ -189,11 +182,7 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
     Object.entries(risk.segments).length === 0 ||
     Object.entries(risk.currency).length === 0
   )
-    return (
-      <div className={classes.placeholderInfo}>
-        {t('portfolio.details.emptyKeyFigures')}
-      </div>
-    );
+    return <NoInfoAvailable />;
 
   return (
     <>
