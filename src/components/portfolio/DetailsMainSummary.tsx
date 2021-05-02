@@ -124,21 +124,30 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
               value={portfolio.overview.positionCount}
               name={t('portfolio.details.positions')}
             />
-            {/* countries */}
-            <ValueOverName
-              value={Object.keys(portfolio.risk.countries).length}
-              name={t('portfolio.details.countries')}
-            />
-            {/* industries */}
-            <ValueOverName
-              value={Object.keys(portfolio.risk.segments).length}
-              name={t('portfolio.details.segments')}
-            />
-            {/* currencies */}
-            <ValueOverName
-              value={Object.keys(portfolio.risk.currency).length}
-              name={t('portfolio.details.currencies')}
-            />
+            {/* check if the risk information is missing */}
+            {!portfolio.risk || Object.keys(portfolio.risk).length === 0 ? (
+              <span>
+                {t('portfolio.details.summary.missingDiversification')}
+              </span>
+            ) : (
+              <>
+                {/* countries */}
+                <ValueOverName
+                  value={Object.keys(portfolio.risk.countries).length}
+                  name={t('portfolio.details.countries')}
+                />
+                {/* industries */}
+                <ValueOverName
+                  value={Object.keys(portfolio.risk.segments).length}
+                  name={t('portfolio.details.segments')}
+                />
+                {/* currencies */}
+                <ValueOverName
+                  value={Object.keys(portfolio.risk.currency).length}
+                  name={t('portfolio.details.currencies')}
+                />
+              </>
+            )}
           </div>
         </div>
       </div>

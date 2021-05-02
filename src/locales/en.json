@@ -5,6 +5,7 @@
   "portfolio.details.missingDataMessage": "For some of your stocks there is data missing in our database. These stocks will not be included in sections other than the Summary and the Positions tab. Stocks affected: ",
   "portfolio.details.editPortfolio": "Edit Portfolio",
   "portfolio.details.cannotEditPortfolio": "Cannot edit real portfolio",
+  "portfolio.details.summary.missingDiversification": "There is no diversification info available for your stocks.",
   "portfolio.details.summaryHeader": "1. Summary",
   "portfolio.details.stockChartSeries": "Total Performance",
   "portfolio.dialog.edit.title": "Edit portfolio positions",

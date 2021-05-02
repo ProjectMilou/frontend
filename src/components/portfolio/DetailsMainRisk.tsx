@@ -178,9 +178,11 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
 
   // if no data for the risk section is provided render place holder text instead
   if (
-    Object.entries(risk.countries).length === 0 ||
-    Object.entries(risk.segments).length === 0 ||
-    Object.entries(risk.currency).length === 0
+    !risk ||
+    Object.keys(risk).length === 0 ||
+    Object.keys(risk.countries).length === 0 ||
+    Object.keys(risk.segments).length === 0 ||
+    Object.keys(risk.currency).length === 0
   )
     return <NoInfoAvailable />;
 
