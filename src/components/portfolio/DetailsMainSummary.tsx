@@ -125,7 +125,11 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
               name={t('portfolio.details.positions')}
             />
             {/* check if the risk information is missing */}
-            {!portfolio.risk || Object.keys(portfolio.risk).length === 0 ? (
+            {!portfolio.risk ||
+            Object.keys(portfolio.risk).length === 0 ||
+            Object.keys(portfolio.risk.countries).length === 0 ||
+            Object.keys(portfolio.risk.segments).length === 0 ||
+            Object.keys(portfolio.risk.currency).length === 0 ? (
               <span>
                 {t('portfolio.details.summary.missingDiversification')}
               </span>

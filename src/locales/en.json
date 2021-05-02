@@ -2,7 +2,7 @@
   "portfolio": "Portfolio",
   "source.investopedia": "Source: investopedia.com",
   "portfolio.portfolioAverage": "Portfolio Average",
-  "portfolio.details.missingDataMessage": "For some of your stocks there is data missing in our database. These stocks will not be included in sections other than the Summary and the Positions tab. Stocks affected: ",
+  "portfolio.details.missingDataMessage": "For some of your stocks there is data missing in our database. Only the amount holding and the value of these stocks can be displayed. Stocks affected: ",
   "portfolio.details.editPortfolio": "Edit Portfolio",
   "portfolio.details.cannotEditPortfolio": "Cannot edit real portfolio",
   "portfolio.details.summary.missingDiversification": "There is no diversification info available for your stocks.",
