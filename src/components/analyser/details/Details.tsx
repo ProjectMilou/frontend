@@ -80,7 +80,7 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
   };
 
   // Fix for API Cliet Date to Unix Timestamp
-  const convertDividend = (dividend: API.StockHistricDividendList) => {
+  const convertDividend = (dividend: API.StockHistoricDividendList) => {
     const unixDataPoints: number[] = [];
     dividend.dataPoints.forEach((p) => {
       const d = Math.round(p.div * 100) / 100;
