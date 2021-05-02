@@ -46,6 +46,9 @@ export type DashboardTableRowProps = {
   stock: API.Stock;
 };
 
+/**
+ * This Component displays the actual data of individual stocks in the Rows of the Table
+ */
 const DashboardTableRow: React.FC<DashboardTableRowProps> = ({ stock }) => {
   const [hover, setHover] = React.useState<boolean>(false);
 

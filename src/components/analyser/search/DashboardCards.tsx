@@ -67,6 +67,9 @@ export type DashboardCardsRowProps = {
   stock: API.Stock;
 };
 
+/** 
+ * This Component displays Stock and some additional Information using Cards
+ */
 export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
   stock,
 }) => {
