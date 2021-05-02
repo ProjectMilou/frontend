@@ -49,7 +49,7 @@ const DividendsRR: React.FC<DividendsRRProps> = ({ dividend, payoutRatio }) => {
 
   return (
     <List>
-      {
+      {dividend !== 0 &&
         // sort list by pass based on https://stackoverflow.com/a/17387454
         tests
           .sort((x, y) => {
@@ -65,8 +65,7 @@ const DividendsRR: React.FC<DividendsRRProps> = ({ dividend, payoutRatio }) => {
             ) : (
               <RRfail category={t.category} text={t.failText} />
             )
-          )
-      }
+          )}
     </List>
   );
 };
