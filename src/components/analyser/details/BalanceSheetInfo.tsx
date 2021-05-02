@@ -9,6 +9,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import InfoButton from '../../shared/InfoButton';
+import { checkValue, checkName } from '../../../analyser/Helper';
 
 export type BalanceSheetProps = {
   companyReports: API.CompanyReports;
@@ -57,23 +58,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
-function checkValue(val: number): number {
-  let result = val;
-  if (val.toString() === 'NaN') {
-    result = 0;
-  } else {
-    result = val / 1000000;
-  }
-  return parseFloat(result.toFixed(2));
-}
-
-function checkName(val: number, text: string): string {
-  if (val === 0) {
-    return '';
-  }
-  return text;
-}
-
 const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -103,7 +87,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
       companyReports.annualReports[0].otherCurrentAssets
     ),
     otherNonCurrentAssets: checkValue(
-      companyReports.annualReports[0].otherNonCurrrentAssets
+      companyReports.annualReports[0].otherNonCurrentAssets
     ),
   };
 
@@ -233,7 +217,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
       },
     },
     colors: [
-      // Togehter with PLace Holder allows for specific coloring of debt field in Tree Map
+      // Together with place holder allows for specific coloring of debt field in treemap
       theme.palette.success.main,
       theme.palette.success.main,
       theme.palette.success.main,

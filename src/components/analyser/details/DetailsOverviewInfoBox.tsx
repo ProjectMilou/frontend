@@ -10,6 +10,11 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Stock, StockDetails } from '../../../analyser/APIClient';
 import TextOverText from '../../shared/TextOverText';
+import {
+  moneyFormat,
+  convertToPercent,
+  convertPercentToColor,
+} from '../../../analyser/Helper';
 
 // stylesheet for the Summary section
 const useStyles = makeStyles(() =>
@@ -43,25 +48,6 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
   const classes = useStyles();
   const theme = useTheme();
   const { t } = useTranslation();
-
-  const convertPerformanceToColor = (num: number) =>
-    num <= 0 ? theme.palette.error.main : theme.palette.success.main;
-  const convertToPercent = (num: number): string => `${num.toFixed(2)}%`;
-
-  // Rounds and adds M=Million, B=Billion and K=Thousand --> American System!!!
-  const moneyFormat = (val: number) => {
-    let round = '';
-    if (Math.abs(val) >= 1.0e9) {
-      round = `${Math.round(Math.abs(val) / 1.0e9)} B`;
-    } else if (Math.abs(val) >= 1.0e6) {
-      round = `${Math.round(Math.abs(val) / 1.0e6)} M`;
-    } else if (Math.abs(val) >= 1.0e3) {
-      round = `${Math.round(Math.abs(val) / 1.0e3)} K`;
-    } else {
-      round = `${Math.abs(val)}`;
-    }
-    return round;
-  };
 
   return (
     <Table className={classes.infoBox}>
@@ -140,7 +126,7 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
           <TextOverText
             top={convertToPercent(stockOverview.div)}
             bottom={t('stock.div')}
-            colorTop={convertPerformanceToColor(stockOverview.div)}
+            colorTop={convertPercentToColor(stockOverview.div)}
             colorBottom={theme.palette.primary.light}
           />
         </TableCell>
