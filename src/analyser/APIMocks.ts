@@ -7,6 +7,7 @@
  * mock data structure.
  *
  * TL;DR: Never import this file, except for tests.
+ * This file was initially based on portfolio mock file
  */
 
 import { Stock } from './APIClient';
@@ -23,7 +24,7 @@ export const MockOverview: Stock = {
   per365d: 1.108,
   marketCapitalization: 118955229184,
   analystTargetPrice: 139.18,
-  valuation: 21.3573,
+  valuation: 21,
   growth: 0,
   div: 6.51,
   currency: 'USD',
@@ -31,12 +32,12 @@ export const MockOverview: Stock = {
   industry: 'Information Technology Services',
   picture: new URL('https://finnhub.io/api/logo?symbol=IBM'),
   date: new Date(
-    'Wed Apr 21 2021 02:16:50 GMT+0000 (Coordinated Universal Time)'
+    0
   ),
   mcSize: 'large',
 };
 export const MockOverviewTwo: Stock = {
-  symbol: 'APPLE',
+  symbol: 'APPL',
   isin: 'US8566568478',
   wkn: '188585',
   name: 'International Business Machines Corporation',
@@ -47,7 +48,7 @@ export const MockOverviewTwo: Stock = {
   per365d: 1.108,
   marketCapitalization: 118955229184,
   analystTargetPrice: 139.18,
-  valuation: 21.3573,
+  valuation: 21,
   growth: 0,
   div: 6.51,
   currency: 'USD',
@@ -55,7 +56,7 @@ export const MockOverviewTwo: Stock = {
   industry: 'Information Technology Services',
   picture: new URL('https://finnhub.io/api/logo?symbol=IBM'),
   date: new Date(
-    'Wed Apr 21 2021 02:16:50 GMT+0000 (Coordinated Universal Time)'
+    0
   ),
   mcSize: 'large',
 };
