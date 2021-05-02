@@ -127,7 +127,7 @@ type StockDetailsAnswer = {
 };
 
 // historic performance data
-export type StockHistricPerformanceList = {
+export type StockHistoricPerformanceList = {
   dataPoints: StockHistoricPerformance[];
 };
 
@@ -423,11 +423,11 @@ export async function stockDetails(symbol: string): Promise<StockDetails> {
 export async function stockPerformance(
   symbol: string,
   historic: boolean
-): Promise<StockHistricPerformanceList> {
+): Promise<StockHistoricPerformanceList> {
   const response = (await request(
     'GET',
     `charts/historic?id=${symbol}&max=${historic.toString()}`
-  )) as StockHistricPerformanceList;
+  )) as StockHistoricPerformanceList;
   return response;
 }
 
