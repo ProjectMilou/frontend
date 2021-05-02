@@ -64,7 +64,7 @@ const SearchBar: React.FC = () => {
 
   /** overwrite input value if undefined */
   React.useEffect(() => {
-    if(inputValue === 'undefined: undefined') setInputValue('') 
+    if (inputValue === 'undefined: undefined') setInputValue('');
   }, [inputValue]);
 
   return (

@@ -23,7 +23,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       marginTop: '2rem',
       marginBottom: '2rem',
     },
-    MapWrapper: {
+    mapWrapper: {
       width: '20rem',
       height: '20rem',
       display: 'block',
@@ -268,7 +268,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
         </div>
       </div>
       <div className={classes.infoContainer}>
-        <div className={classes.MapWrapper}>
+        <div className={classes.mapWrapper}>
           <div className={classes.titleContainer}>
             <div className={classes.titleWrapper}>
               <h5 className={classes.boxTitles}>
@@ -290,7 +290,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
             width={400}
           />
         </div>
-        <div className={classes.MapWrapper}>
+        <div className={classes.mapWrapper}>
           <div className={classes.titleContainer}>
             <div className={classes.titleWrapper}>
               <h5 className={classes.boxTitles}>
