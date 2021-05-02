@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core';
+import { makeStyles, Theme, createStyles, Typography } from '@material-ui/core';
 import StyledNumberFormat from './StyledNumberFormat';
 import InfoButton from './InfoButton';
 
@@ -50,11 +50,11 @@ const TextOverText: React.FC<TextOverTextProps> = (props) => {
   return (
     <div className={classes.compContainer}>
       <div className={classes.pWrapper}>
-        <p className={classes.top}>{top}</p>
+        <Typography className={classes.top}>{top}</Typography>
       </div>
       {!currency && (
         <div className={classes.pWrapper}>
-          <p className={classes.bottom}>{bottom}</p>
+          <Typography className={classes.bottom}>{bottom}</Typography>
           {infoText && (
             <>
               &nbsp;
@@ -65,7 +65,7 @@ const TextOverText: React.FC<TextOverTextProps> = (props) => {
       )}
       {!!currency && (
         <div className={classes.pWrapper}>
-          <p className={classes.bottom}>
+          <Typography className={classes.bottom}>
             <StyledNumberFormat
               value={parseInt(bottom, 10)}
               suffix="€"
@@ -78,7 +78,7 @@ const TextOverText: React.FC<TextOverTextProps> = (props) => {
                 <InfoButton infotext={infoText} />
               </>
             )}
-          </p>
+          </Typography>
         </div>
       )}
     </div>

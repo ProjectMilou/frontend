@@ -5,8 +5,8 @@ import Dashboard from './search/Dashboard';
 
 const Analyser: React.FC<RouteComponentProps> = () => (
   <Router>
-    <Dashboard token="" path="/" />
-    <Details token="" back={() => navigate('/analyser')} path=":id" />
+    <Dashboard path="/" />
+    <Details back={() => navigate('/analyser')} path=":id" />
   </Router>
 );
 export default Analyser;

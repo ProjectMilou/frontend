@@ -25,14 +25,36 @@ const GridRowContainer: React.FC<{
     return (
       <Grid
         container
-        spacing={4}
-        justify-content="center"
         direction="row"
+        justify="center"
         alignItems="center"
+        justify-content="space-between"
+        spacing={10}
       >
-        <Grid item>
+        <Grid item style={{ width: '500px', height: '360px' }}>
           <Media image={image} className={classNameImage} />
         </Grid>
+        <Grid item style={{ width: '500px', height: '360px' }}>
+          <GridColumnContainer
+            classNameGrid={classNameGrid}
+            title={title}
+            content={content}
+            titleClass={titleClass}
+          />
+        </Grid>
+      </Grid>
+    );
+  }
+  return (
+    <Grid
+      container
+      justify-content="space-between"
+      justify="center"
+      direction="row"
+      alignItems="center"
+      spacing={10}
+    >
+      <Grid item style={{ width: '500px', height: '360px' }}>
         <GridColumnContainer
           classNameGrid={classNameGrid}
           title={title}
@@ -40,17 +62,7 @@ const GridRowContainer: React.FC<{
           titleClass={titleClass}
         />
       </Grid>
-    );
-  }
-  return (
-    <Grid container justify="space-between" direction="row" alignItems="center">
-      <GridColumnContainer
-        classNameGrid={classNameGrid}
-        title={title}
-        content={content}
-        titleClass={titleClass}
-      />
-      <Grid item>
+      <Grid item style={{ width: '500px', height: '360px' }}>
         <Media image={image} className={classNameImage} />
       </Grid>
     </Grid>

@@ -1,8 +1,9 @@
 import { render, fireEvent, act, waitFor } from '@testing-library/react';
 import * as React from 'react';
+import { RouteComponentProps } from '@reach/router';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import * as API from '../../../analyser/APIClient';
-import Dashboard, { DashboardProps } from './Dashboard';
+import Dashboard from './Dashboard';
 import { MockOverview, MockOverviewTwo } from '../../../analyser/APIMocks';
 import { AppError } from '../../../Errors';
 
@@ -59,12 +60,8 @@ const theme = createMuiTheme({
 });
 
 describe('Dashboard', () => {
-  const defaultProps: DashboardProps = {
-    token: 'validToken',
-  };
-
-  const renderComponent = (newProps?: Partial<DashboardProps>) => {
-    const props = { ...defaultProps, ...newProps };
+  const renderComponent = (newProps?: Partial<RouteComponentProps>) => {
+    const props = { ...newProps };
     return {
       ...render(
         <ThemeProvider theme={theme}>
