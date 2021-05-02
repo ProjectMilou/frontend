@@ -58,6 +58,9 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     backButton: {
       color: palette.background.default,
     },
+    icon: {
+      backgroundColor: 'transparent',
+    },
     date: {
       paddingBottom: 10,
       color: palette.primary.contrastText,
@@ -65,6 +68,13 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
+/**
+ * Header component that displays stock name and prices
+ *
+ * @param stock Stock Overview to display in header
+ * @param back Function to get back to analyser search page
+ *
+ */
 const DetailsHeader: React.FC<DetailsHeaderProps> = ({ stock, back }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -85,7 +95,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ stock, back }) => {
                   <IconButton
                     aria-label="back"
                     onClick={back}
-                    style={{ backgroundColor: 'transparent' }}
+                    className={classes.icon}
                   >
                     <ArrowBackIosIcon
                       fontSize="large"
@@ -132,7 +142,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ stock, back }) => {
               </Typography>
             </Typography>
             <Typography className={classes.date}>
-              Last updated:{' '}
+              {`${t('analyser.details.lastUpdated')}: `}
               {stock
                 ? new Date(stock.date).toISOString().split('T')[0]
                 : undefined}
