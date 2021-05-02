@@ -45,27 +45,34 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     redDot: {
       height: '25px',
       width: '25px',
-      backgroundColor: '#cc0000', // palette.error
+      backgroundColor: '#cc0000', // palette.error is not the correct color
       borderRadius: '50%',
       display: 'inline-block',
     },
     yellowDot: {
       height: '25px',
       width: '25px',
-      backgroundColor: '#d99600', // palette.warning
+      backgroundColor: '#d99600', // palette.warning is not the correct color
       borderRadius: '50%',
       display: 'inline-block',
     },
     greenDot: {
       height: '25px',
       width: '25px',
-      backgroundColor: '#00ba09', // palette.teal/success
+      backgroundColor: '#00ba09', // palette.teal/success is not the correct color
       borderRadius: '50%',
       display: 'inline-block',
     },
   })
 );
 
+/**
+ * This component gives an overview about the analysts recommendations to buy, sell or hold a stock
+ * 
+ * @param recommendations list of recommendations to buy sell or stock
+ * @param overview stock overview object to get analyst target price from
+ * 
+ */
 const Analysts: React.FC<AnalystsProps> = ({ recommendations, overview }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -100,15 +107,15 @@ const Analysts: React.FC<AnalystsProps> = ({ recommendations, overview }) => {
       </AnalystBar>
       <div className={classes.titleWrapper}>
         <h5 className={classes.boxTitles}>
-          Sell:
+          {t('stock.sell')}: 
           <>&nbsp;&nbsp;</>
           <span className={classes.redDot} />
           <>&emsp;&emsp;&emsp;</>
-          Hold:
+          {t('stock.hold')}:
           <>&nbsp;&nbsp;</>
           <span className={classes.yellowDot} />
           <>&emsp;&emsp;&emsp;</>
-          Buy:
+          {t('stock.buy')}:
           <>&nbsp;&nbsp;</>
           <span className={classes.greenDot} />
         </h5>

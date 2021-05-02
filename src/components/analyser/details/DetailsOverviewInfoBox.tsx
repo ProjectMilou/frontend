@@ -12,7 +12,6 @@ import { Stock, StockDetails } from '../../../analyser/APIClient';
 import TextOverText from '../../shared/TextOverText';
 import {
   moneyFormat,
-  convertToPercent,
   convertPercentToColor,
 } from '../../../analyser/Helper';
 
@@ -124,10 +123,11 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
         <TableCell className={classes.tableCell}>
           {/* dividend */}
           <TextOverText
-            top={convertToPercent(stockOverview.div)}
+            top={`${stockOverview.div.toFixed(2)}$`}
             bottom={t('stock.div')}
             colorTop={convertPercentToColor(stockOverview.div)}
             colorBottom={theme.palette.primary.light}
+            infoText={t('info.div')}
           />
         </TableCell>
       </TableRow>
