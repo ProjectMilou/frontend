@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+/**
+ * @return Search bar for seraching a stock by its name, symbol, WKN or ISIN
+ */
 const SearchBar: React.FC = () => {
   const classes = useStyles();
 
@@ -112,7 +115,6 @@ const SearchBar: React.FC = () => {
                   </InputAdornment>
                 ),
               }}
-              // label="Search"
               margin="normal"
               placeholder="Name, Symbol, ISIN or WKN"
             />
