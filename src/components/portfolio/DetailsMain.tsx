@@ -87,7 +87,7 @@ const MissingDataMessage: React.FC<MissingDataMessageProps> = ({ stocks }) => {
       <span>{t('portfolio.details.missingDataMessage')}</span>
       <List>
         {stocks.map((stock) => (
-          <ListItem>{stock.symbol}</ListItem>
+          <ListItem key={stock.symbol}>{stock.symbol}</ListItem>
         ))}
       </List>
     </div>
@@ -133,10 +133,12 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, id }) => {
           treynorRatio={portfolio.analytics.treynorRatio}
         />
       </Section>
+      {/* TODO talk to backend about what they send back so a simply check for empty key figures is enough
       <Section title={t('portfolio.details.keyfigures')}>
-        {/* TODO handle stocks with missing data */}
         <DetailsMainKeyFigures figures={portfolio.keyFigures} />
       </Section>
+      */}
+
       <Section title={t('portfolio.details.dividends')}>
         <DetailsMainDividens portfolio={portfolioWithoutMissingData} />
       </Section>

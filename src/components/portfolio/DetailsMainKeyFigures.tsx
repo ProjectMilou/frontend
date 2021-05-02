@@ -47,8 +47,7 @@ const DetailsMainKeyFigures: React.FC<DetailsMainKeyFiguresProps> = ({
     EPS: figures.map((f) => f.eps),
   };
 
-  // second check is necessary because sometimes a single key figures entry with just an idea is sent by api
-  if (figures.length === 0 || Object.entries(figures[0]).length === 0) {
+  if (figures.length === 0) {
     return (
       <div className={classes.placeholderInfo}>
         {t('portfolio.details.emptyKeyFigures')}
