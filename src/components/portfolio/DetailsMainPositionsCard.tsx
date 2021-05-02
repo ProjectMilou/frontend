@@ -58,6 +58,7 @@ const useStyles = makeStyles(({ palette }) =>
     },
     missingData: {
       color: palette.primary.contrastText,
+      textAlign: 'center',
     },
   })
 );
