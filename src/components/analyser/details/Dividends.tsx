@@ -1,5 +1,10 @@
 import React, { ReactElement } from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  Theme,
+  createStyles,
+  useTheme,
+} from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import DividendRatioDonut from '../../shared/DividendRatioDonut';
@@ -7,7 +12,7 @@ import DividendLineChart, { Series } from '../../shared/DividendLineChart';
 import DividendsRR from './DividendsRR';
 import InfoButton from '../../shared/InfoButton';
 
-// props type declaration
+// Dividends props type declaration
 export type DividendsProps = {
   series: number[];
   cashFlowList: API.CashFlowList;
@@ -25,7 +30,6 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
     sectionSubTitle: {
       margin: 0,
       color: palette.primary.main,
-      // TODO use theme fontsize and weight
       fontSize: '2rem',
       fontWeight: typography.fontWeightRegular,
       whiteSpace: 'nowrap',
@@ -84,7 +88,7 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
   })
 );
 
-// type declarations
+// InfoBlock props type declarations
 type InfoBlockProps = {
   title: string;
   info: string;
@@ -92,6 +96,12 @@ type InfoBlockProps = {
 };
 
 // returns the details page header
+/**
+ * @param title - Title of the infomarion block.
+ * @param info - Information in the info button.
+ * @param body - Specific infomation.
+ * @return A information block which contains a title , a info button and body.
+ */
 const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
   const classes = useStyles();
 
@@ -109,10 +119,15 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
   );
 };
 
+/**
+ * @param series - Dividend yield data
+ * @param cashFlowList - Cash flow list data, used to calculate dividend payout ratio
+ * @return Dividends Section on detail page which includes dividend line chart, donut ratio chart and Reward & Risk.
+ */
 const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-
+  const theme = useTheme();
   const cashData: number[] = [];
   cashFlowList.annualReports.forEach((element) => {
     cashData.push(
@@ -137,7 +152,6 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
     Math.round(
       (lastAnnualReports.dividendPayout / lastAnnualReports.netIncome) * 100
     ) / 100;
-  // (stockOverview.dividendPerShare / stockOverview.revenuePerShareTTM) * 100
   const dividendYield = series[series.length - 1];
   const year = cashFlowList.annualReports[0].fiscalDateEnding.substring(0, 4);
   return (
@@ -154,13 +168,12 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
           <DividendLineChart
             series={seriesArray}
             height={350}
-            // TODO: please change this to whatever color you guys want/need
-            textColor="rgba(0, 0, 0, 0.87)"
+            textColor={theme.palette.primary.dark}
             year={parseInt(year, 10)}
           />
         </div>
         <div className={classes.infoContainer}>
-          {/* right side with info */}
+          {/* right side with infoBlocks */}
           <InfoBlock
             title={t('analyser.details.DividendYield')}
             info={t('analyser.details.DividendYield.infoButton')}
@@ -168,7 +181,7 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
               <p style={{ margin: 0 }}>
                 {' '}
                 {Number.isNaN(dividendYield)
-                  ? ' Dividend data is not paid this year.'
+                  ? 'Dividend is not paid this year.'
                   : `${dividendYield}%`}{' '}
               </p>
             }
@@ -178,7 +191,6 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
             info={t('analyser.details.DividendPayoutRatio.infoButton')}
             body={<DividendRatioDonut ratio={dividendPayoutRatio} />}
           />
-          {/* TODO replace with actual date in YYYY-MM-DD format => .toISOString().split('T')[0] */}
           <InfoBlock
             title={t('analyser.details.NextDate')}
             info={t('analyser.details.NextDate.infoButton')}

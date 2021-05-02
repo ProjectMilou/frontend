@@ -8,13 +8,14 @@ import {
   Table,
   TableBody,
   TableContainer,
-  Typography,
   createStyles,
+  TableRow,
+  TableCell,
 } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as API from '../../../analyser/APIClient';
 import DashboardTableHeader from './DashboardTableHeader';
-import DashboardTableRow from './DasboardTableRow';
+import DashboardTableRow from './DashboardTableRow';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -25,7 +26,7 @@ const useStyles = makeStyles(() =>
       margin: '15px',
     },
     customTableContainer: {
-      overflowX: 'initial',
+      overflowX: 'hidden',
       height: 800,
       overflow: 'auto',
       borderRadius: 5,
@@ -147,9 +148,14 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
                 <DashboardTableRow stock={s} key={s.symbol} />
               ))}
               {hasMore && (
-                <Typography className={classes.loading}>
-                  <CircularProgress color="primary" />
-                </Typography>
+                <TableRow>
+                  <TableCell>
+                    <CircularProgress
+                      className={classes.loading}
+                      color="primary"
+                    />
+                  </TableCell>
+                </TableRow>
               )}
             </TableBody>
           </Table>

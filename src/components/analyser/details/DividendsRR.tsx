@@ -3,11 +3,13 @@ import { List } from '@material-ui/core';
 import RRpass from './RRpass';
 import RRfail from './RRfail';
 
+// DividendsRR props type declaration
 type DividendsRRProps = {
   dividend: number;
   payoutRatio: number;
 };
 
+// Test props type declaration
 type Test = {
   pass: boolean;
   category: string;
@@ -15,8 +17,12 @@ type Test = {
   failText: string;
 };
 
+/**
+ * @param dividend - latest dividend yield
+ * @param payoutRatio - latest dividend payout ratio
+ * @return Reward & Risk part in dividend section on detail page.
+ */
 const DividendsRR: React.FC<DividendsRRProps> = ({ dividend, payoutRatio }) => {
-  // Tests
   const hasDividend: Test = {
     pass: dividend > 0,
     category: 'Dividend',

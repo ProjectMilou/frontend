@@ -72,7 +72,7 @@ const Analysts: React.FC<AnalystsProps> = ({ recommendations, overview }) => {
   const theme = useTheme();
 
   return (
-    <p>
+    <>
       <div className={classes.titleContainer}>
         <div className={classes.titleWrapper}>
           <h2 className={classes.sectionSubTitle}>
@@ -113,7 +113,7 @@ const Analysts: React.FC<AnalystsProps> = ({ recommendations, overview }) => {
           <span className={classes.greenDot} />
         </h5>
       </div>
-    </p>
+    </>
   );
 };
 

@@ -13,7 +13,7 @@ export function getPercentage(val: API.AnalystsRecommendation[]): number {
   return percentage;
 }
 
-/** Decides what to  Message to display on Hover in Analysts setion Bar */
+/** Decides what to  Message to display on Hover in Analysts section bar */
 export function getDescription(val: number): string {
   let description = 'Buy';
   if (val <= 33) {
@@ -27,15 +27,15 @@ export function getDescription(val: number): string {
 /** Used in BalanceSheetInfo to check on NaN values and to Format the number to millions */
 export function checkValue(val: number): number {
   let result = val;
-  if (val.toString() === 'NaN') {
-    result = 0;
+  if (val === undefined || val.toString() === 'NaN') {
+    result = 0.0;
   } else {
     result = val / 1000000;
   }
   return parseFloat(result.toFixed(2));
 }
 
-/** Used In BalanceSheetInfo returns empty String when number is zero for styling purposes and adds in Milllion €
+/** Used In BalanceSheetInfo returns empty String when number is zero for styling purposes and adds in milllion €
  *
  * @param val Amount in BalanceSheet Category
  * @param text Name of BalanceSheet Category
