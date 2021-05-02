@@ -1,12 +1,11 @@
 import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import KeyFiguresBar from '../shared/KeyFiguresBar';
 import { KeyFigures } from '../../portfolio/APIClient';
 import NoInfoAvailable from './NoInfoAvailable';
 
 // stylesheet for the key figure section
-const useStyles = makeStyles(({ palette }: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     riskContainer: {
       display: 'flex',
@@ -31,7 +30,6 @@ const DetailsMainKeyFigures: React.FC<DetailsMainKeyFiguresProps> = ({
   figures,
 }) => {
   const classes = useStyles();
-  const { t } = useTranslation();
 
   const keyFigures = {
     PER: figures.map((f) => f.pte),
