@@ -27,7 +27,7 @@ export type Series = {
  * @param textColor - Color of text in chart
  * @param  year - Latest year of the existing data
  * }
- * @return Dividend Line Chart 
+ * @return Dividend Line Chart
  */
 const DividendLineChart: React.FC<DividendLineChartProps> = ({
   series,

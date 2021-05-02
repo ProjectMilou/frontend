@@ -30,10 +30,10 @@ const useStyles = makeStyles({
 });
 
 /**
- * This component is a wrapper for all other components in the analyser page of a single stock. It stores all data received from the backend using states.
+ * This component is a wrapper for all other components in the analyser page of a single stock.
+ * It stores all data received from the backend using states.
  *
  * @param back Function that is used to navigate back to analyser page
- *
  */
 const Details: React.FC<DetailsProps> = ({ back }) => {
   const classes = useStyles();
@@ -44,10 +44,11 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
 
   const [stockOverview, setStockOverview] = React.useState<API.Stock>();
   const [stockDetails, setStockDetails] = React.useState<API.StockDetails>();
-  const [stockDividend, setStockDividend] = React.useState<number[]>([]);
   const [keyFigures, setKeyFigures] = React.useState<API.KeyFigures>();
   const [risks, setRisks] = React.useState<API.RiskList>();
   const [newsList, setNewsList] = React.useState<API.NewsList>();
+  const [stockDividend, setStockDividend] = React.useState<number[]>([]);
+  const [quota, setQuota] = React.useState<number>(0);
   const [performanceAll, setPerformanceAll] = React.useState(false);
   const [stockPerformance, setStockPerformance] = React.useState<number[][]>([
     [],
@@ -116,6 +117,7 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
       setStockDetails(sD);
       setStockPerformance(convertPerformance(sP));
       setStockDividend(convertDividend(sDiv));
+      setQuota(parseFloat(sDiv.quota));
       setCompanyReports(cR);
       setInterestCoverages(iC);
       setCashFlowList(cCash);
@@ -202,7 +204,11 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
               <NewsComponent newsList={newsList} />
               <SectionDivider section="analyser.details.KeyFiguresHeader" />
               <KeyFigures keyFigures={keyFigures} />
-              <Dividends series={stockDividend} cashFlowList={cashFlowList} />
+              <Dividends
+                series={stockDividend}
+                cashFlowList={cashFlowList}
+                dividendYield={quota}
+              />
               <BalanceSheetInfo companyReports={companyReports} />
               <Analysts
                 recommendations={analystRecommendations}
