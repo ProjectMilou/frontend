@@ -61,6 +61,10 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       justifyContent: 'center',
       alignItems: 'center',
     },
+    barWrapper: {
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
   })
 );
 
@@ -94,14 +98,15 @@ const Analysts: React.FC<AnalystsProps> = ({ recommendations, overview }) => {
             infotext={t('analyser.details.analysts.target.infoButton')}
           />
         </h5>
-
-        <AnalystBar>
-          <AnalystBarIndicator
-            tooltipText={getDescription(getPercentage(recommendations))}
-            score={getPercentage(recommendations)}
-            color={theme.palette.primary.main}
-          />
-        </AnalystBar>
+        <Container className={classes.barWrapper}>
+          <AnalystBar>
+            <AnalystBarIndicator
+              tooltipText={getDescription(getPercentage(recommendations))}
+              score={getPercentage(recommendations)}
+              color={theme.palette.primary.main}
+            />
+          </AnalystBar>
+        </Container>
         <Container className={classes.legend}>
           <h5 className={classes.boxTitles}>
             {t('stock.sell')}:<>&nbsp;&nbsp;</>
