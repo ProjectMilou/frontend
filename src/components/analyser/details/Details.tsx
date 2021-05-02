@@ -2,7 +2,6 @@
 import React from 'react';
 import { RouteComponentProps, useParams } from '@reach/router';
 import { LinearProgress, makeStyles, Container } from '@material-ui/core';
-import { isAuthenticationError } from '../../../Errors';
 import * as API from '../../../analyser/APIClient';
 import ErrorMessage from '../../shared/ErrorMessage';
 import DetailsHeader from './DetailsHeader';
@@ -173,19 +172,7 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
           <ErrorMessage
             error={error}
             messageKey="analyser.dashboard.errorMessage"
-            handling={
-              isAuthenticationError(error)
-                ? {
-                    buttonText: 'error.action.login',
-                    action: async () => {
-                      // TODO: go back to login
-                    },
-                  }
-                : {
-                    buttonText: 'error.action.retry',
-                    action: fetch,
-                  }
-            }
+            retry={fetch}
           />
         </Container>
       )}

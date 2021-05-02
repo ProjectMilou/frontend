@@ -40,6 +40,19 @@ type DetailsMainBacktestingTimelineProps = {
   endValue: number;
 };
 
+/**
+ * This component renders a chronological order of start value, best value, worst value and final value of the portfolio.
+ * It holds the {@link DetailsMainBacktestingTimelineItem} component which resembles one of the values.
+ *
+ * @param startDate - The start date of the evaluation interval for backtesting
+ * @param startValue - The value the portfolio has at the start date
+ * @param minDate - The date during the evaluation interval where the portfolio had the lowest value
+ * @param minValue - The lowest value during the evaluation interval
+ * @param maxDate - The date during the evaluation interval where the portfolio had the highest value
+ * @param maxValue - The highest value during the evaluation interval
+ * @param endDate - The end date of the evaluation interval for backtesting
+ * @param endValue - The value the portfolio has at the end date
+ */
 const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelineProps> = ({
   startDate,
   startValue,
@@ -53,6 +66,7 @@ const DetailsMainBacktestingTimeline: React.FC<DetailsMainBacktestingTimelinePro
   const classes = useStyles();
   const { t } = useTranslation();
 
+  // below the components for the best and worst value are determined to order them chronologically
   const best = (
     <DetailsMainBacktestingTimelineItem
       date={maxDate}

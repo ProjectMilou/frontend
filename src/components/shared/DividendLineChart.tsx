@@ -11,9 +11,10 @@ type DividendLineChartProps = {
   year: number;
 };
 
-type Series = {
+export type Series = {
   name: string;
   data: number[];
+  type: 'column' | 'line';
 };
 
 const DividendLineChart: React.FC<DividendLineChartProps> = ({
@@ -46,11 +47,6 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({
   }, [series]);
 
   const options = {
-    tooltip: {
-      y: {
-        formatter: (tooltipValue: number) => roundAxis(tooltipValue),
-      },
-    },
     chart: {
       height: 350,
       type: 'line',
@@ -127,6 +123,21 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({
         fontFamily: theme.typography.fontFamily,
         fontSize: '1.15rem',
         fontWeight: 600,
+      },
+    },
+    tooltip: {
+      x: {
+        show: false,
+        format: 'dd MMM yyyy',
+      },
+      y: {
+        formatter: (tooltipValue: number) => `${roundAxis(tooltipValue)}`,
+        title: {
+          formatter: (seriesName: string) => `${seriesName}:`,
+        },
+      },
+      marker: {
+        show: true,
       },
     },
   };
