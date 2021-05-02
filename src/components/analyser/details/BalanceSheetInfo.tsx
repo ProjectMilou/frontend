@@ -13,7 +13,7 @@ import InfoButton from '../../shared/InfoButton';
 import { checkValue, checkName } from '../../../analyser/Helper';
 import SubsectionDivider from '../../shared/SubsectionDivider';
 
-export type BalanceSheetProps = {
+type BalanceSheetProps = {
   companyReports: API.CompanyReports;
 };
 

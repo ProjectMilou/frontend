@@ -15,7 +15,7 @@ import InfoButton from '../../shared/InfoButton';
 import { getPercentage, getDescription } from '../../../analyser/Helper';
 import SubsectionDivider from '../../shared/SubsectionDivider';
 
-export type AnalystsProps = {
+type AnalystsProps = {
   recommendations: API.AnalystsRecommendation[];
   overview: API.Stock;
 };

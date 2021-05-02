@@ -12,12 +12,10 @@ import { Stock, StockDetails } from '../../../analyser/APIClient';
 import TextOverText from '../../shared/TextOverText';
 import { moneyFormat, convertPercentToColor } from '../../../analyser/Helper';
 
-// stylesheet for the Summary section
+// stylesheet for info boxes
 const useStyles = makeStyles(() =>
   createStyles({
     infoBox: {
-      // optional outline
-      // outlineStyle: 'solid',
       outlineColor: 'ba',
       outlineWidth: '0.15rem',
       margin: '1rem 0',
@@ -37,6 +35,13 @@ type DetailsOverviewProps = {
   stockDetails: StockDetails;
 };
 
+/**
+ * component that provided small info boxes that display stock details
+ *
+ * @param stockOverview stock overview to display
+ * @param stockDetails stock details to display
+ *
+ */
 const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
   stockOverview,
   stockDetails,

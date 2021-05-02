@@ -15,7 +15,7 @@ import * as API from '../../../analyser/APIClient';
 import StyledNumberFormat from '../../shared/StyledNumberFormat';
 import { convertPercentToColor, chooseSymbol } from '../../../analyser/Helper';
 
-export type DetailsHeaderProps = {
+type DetailsHeaderProps = {
   stock?: API.Stock;
   // function to return to the dashboard
   back: () => void;

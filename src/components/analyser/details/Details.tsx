@@ -18,7 +18,7 @@ import DetailsOverviewInfoBox from './DetailsOverviewInfoBox';
 import DetailsStockChart from './DetailsStockChart';
 
 // props type declaration
-export interface DetailsProps extends RouteComponentProps {
+interface DetailsProps extends RouteComponentProps {
   // function to return to the dashboard
   back: () => void;
 }
