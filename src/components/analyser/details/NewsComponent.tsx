@@ -25,6 +25,11 @@ const useStyles = makeStyles(() =>
   })
 );
 
+/**
+ * This component displays a list of news that can be clicked. News are sorted by date
+ *
+ * @param newsList list of news to display
+ */
 const NewsComponent: React.FC<NewsComponentProps> = ({ newsList }) => {
   const classes = useStyles();
   return (

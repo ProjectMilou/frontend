@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 /**
- * @return Search bar for seraching a stock by its name, symbol, WKN or ISIN
+ * @return Search bar for searching a stock by its name, symbol, WKN or ISIN
  */
 const SearchBar: React.FC = () => {
   const classes = useStyles();
@@ -61,6 +61,11 @@ const SearchBar: React.FC = () => {
   React.useEffect(() => {
     fetch();
   }, []);
+
+  /** overwrite input value if undefined */
+  React.useEffect(() => {
+    if (inputValue === 'undefined: undefined') setInputValue('');
+  }, [inputValue]);
 
   return (
     <div style={{ width: 300 }}>

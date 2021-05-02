@@ -11,6 +11,7 @@ import DividendRatioDonut from '../../shared/DividendRatioDonut';
 import DividendLineChart, { Series } from '../../shared/DividendLineChart';
 import DividendsRR from './DividendsRR';
 import InfoButton from '../../shared/InfoButton';
+import SubsectionDivider from '../../shared/SubsectionDivider';
 
 // Dividends props type declaration
 export type DividendsProps = {
@@ -98,9 +99,9 @@ type InfoBlockProps = {
 
 // returns the details page header
 /**
- * @param title - Title of the infomarion block.
+ * @param title - Title of the information block.
  * @param info - Information in the info button.
- * @param body - Specific infomation.
+ * @param body - Specific information.
  * @return A information block which contains a title , a info button and body.
  */
 const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
@@ -160,14 +161,8 @@ const Dividends: React.FC<DividendsProps> = ({
     ) / 100;
   const year = cashFlowList.annualReports[0].fiscalDateEnding.substring(0, 4);
   return (
-    <div>
-      <div className={classes.titleContainer}>
-        <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionSubTitle}>
-            {t('analyser.details.DividendsHeader')}
-          </h2>
-        </div>
-      </div>
+    <>
+      <SubsectionDivider subsection={t('analyser.details.DividendsHeader')} />
       <div className={classes.chartContainer}>
         <div className={classes.lineChartWrapper}>
           <DividendLineChart
@@ -205,7 +200,7 @@ const Dividends: React.FC<DividendsProps> = ({
       </div>
 
       <DividendsRR dividend={dividendYield} payoutRatio={dividendPayoutRatio} />
-    </div>
+    </>
   );
 };
 export default Dividends;

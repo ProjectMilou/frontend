@@ -10,18 +10,12 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Stock, StockDetails } from '../../../analyser/APIClient';
 import TextOverText from '../../shared/TextOverText';
-import {
-  moneyFormat,
-  convertToPercent,
-  convertPercentToColor,
-} from '../../../analyser/Helper';
+import { moneyFormat, convertPercentToColor } from '../../../analyser/Helper';
 
-// stylesheet for the Summary section
+// stylesheet for info boxes
 const useStyles = makeStyles(() =>
   createStyles({
     infoBox: {
-      // optional outline
-      // outlineStyle: 'solid',
       outlineColor: 'ba',
       outlineWidth: '0.15rem',
       margin: '1rem 0',
@@ -41,6 +35,13 @@ type DetailsOverviewProps = {
   stockDetails: StockDetails;
 };
 
+/**
+ * component that provided small info boxes that display stock details
+ *
+ * @param stockOverview stock overview to display
+ * @param stockDetails stock details to display
+ *
+ */
 const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
   stockOverview,
   stockDetails,
@@ -124,10 +125,11 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
         <TableCell className={classes.tableCell}>
           {/* dividend */}
           <TextOverText
-            top={convertToPercent(stockOverview.div)}
+            top={`${stockOverview.div.toFixed(2)}$`}
             bottom={t('stock.div')}
             colorTop={convertPercentToColor(stockOverview.div)}
             colorBottom={theme.palette.primary.light}
+            infoText={t('info.div')}
           />
         </TableCell>
       </TableRow>
