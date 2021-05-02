@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import TextOverText from '../../shared/TextOverText';
 import CompanyLogo from '../CompanyLogo';
+import { convertPercentToColor } from '../../../analyser/Helper';
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -65,10 +66,6 @@ const useStyles = makeStyles(() => ({
 export type DashboardCardsRowProps = {
   stock: API.Stock;
 };
-
-function convertPercentToColor(val: number): string {
-  return val < 0 ? '#D64745' : '#50E2A8';
-}
 
 export const DashboardCardsRow: React.FC<DashboardCardsRowProps> = ({
   stock,

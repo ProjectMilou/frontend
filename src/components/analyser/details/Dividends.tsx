@@ -123,6 +123,7 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
 /**
  * @param series - Dividend yield data
  * @param cashFlowList - Cash flow list data, used to calculate dividend payout ratio
+<<<<<<< HEAD
  * @param dividendYield - Dividend Yield
  * @return Dividends Section on detail page which includes dividend line chart, donut ratio chart and Reward & Risk.
  */
@@ -131,6 +132,11 @@ const Dividends: React.FC<DividendsProps> = ({
   cashFlowList,
   dividendYield,
 }) => {
+=======
+ * @return Dividends Section on detail page which includes dividend line chart, donut ratio chart and Reward & Risk.
+ */
+const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
+>>>>>>> 2698726a899ab5b442b664b6e61c2aaea759f97a
   const classes = useStyles();
   const { t } = useTranslation();
   const theme = useTheme();
@@ -158,6 +164,10 @@ const Dividends: React.FC<DividendsProps> = ({
     Math.round(
       (lastAnnualReports.dividendPayout / lastAnnualReports.netIncome) * 100
     ) / 100;
+<<<<<<< HEAD
+=======
+  const dividendYield = series[series.length - 1];
+>>>>>>> 2698726a899ab5b442b664b6e61c2aaea759f97a
   const year = cashFlowList.annualReports[0].fiscalDateEnding.substring(0, 4);
   return (
     <div>
@@ -186,7 +196,7 @@ const Dividends: React.FC<DividendsProps> = ({
               <p style={{ margin: 0 }}>
                 {' '}
                 {dividendYield === 0
-                  ? 'This company does not pay dividend.'
+                  ? 'Dividend is not paid.'
                   : `${Math.round(dividendYield * 100) / 100}%`}{' '}
               </p>
             }
