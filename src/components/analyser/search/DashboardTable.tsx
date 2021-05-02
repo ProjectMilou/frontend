@@ -150,7 +150,10 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
               {hasMore && (
                 <TableRow>
                   <TableCell>
-                  <CircularProgress className={classes.loading }color="primary" />
+                    <CircularProgress
+                      className={classes.loading}
+                      color="primary"
+                    />
                   </TableCell>
                 </TableRow>
               )}
