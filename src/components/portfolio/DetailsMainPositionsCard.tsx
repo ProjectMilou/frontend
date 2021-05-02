@@ -7,7 +7,7 @@ import {
   useTheme,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
 import ValueOverName from './ValueOverName';
@@ -15,7 +15,7 @@ import { stockDetails } from '../../portfolio/Router';
 import { Position } from '../../portfolio/APIClient';
 import LimitedString from './LimitedString';
 
-const useStyles = makeStyles(({ palette }: Theme) =>
+const useStyles = makeStyles(({ palette }) =>
   createStyles({
     button: {
       textTransform: 'none',
@@ -55,6 +55,9 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     },
     cardAction: {
       padding: '16px',
+    },
+    missingData: {
+      color: palette.primary.contrastText,
     },
   })
 );
@@ -105,7 +108,9 @@ const DetailsMainPositionsCard: React.FC<DetailsMainPositionsCardProps> = ({
         </div>
         {/* if the stock is missing data leave out performance values */}
         {p.stock.missingData ? (
-          <div>{t('portfolio.details.missingPerformance')}</div>
+          <span className={classes.missingData}>
+            {t('portfolio.details.missingPerformance')}
+          </span>
         ) : (
           <div className={classes.cardContentLower}>
             <ValueOverName

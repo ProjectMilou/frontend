@@ -75,7 +75,13 @@ type InfoBlockProps = {
   infoText: string;
 };
 
-// returns the details page header
+/**
+ * A small infoblock used in the dividends section.
+ *
+ * @param title - The title to display
+ * @param infoText - The information to be displayed when the info icon is hovered
+ * @param children - The body of this InfoBlock
+ */
 const InfoBlock: React.FC<InfoBlockProps> = ({ title, children, infoText }) => {
   const classes = useStyles();
 
@@ -90,7 +96,14 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, children, infoText }) => {
   );
 };
 
-// returns the details page header
+/**
+ * This component represent the dividend section of the prtfolio details page.
+ * It consists of one larger historic chart, a dividend yield, a dividend payout ratio graph
+ * and the next dividend payout date. If no data is available only a string will be displayed.
+ *
+ * @param portfolio - The portfolio from which the dividend information is derived
+ */
+
 const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
   portfolio,
 }) => {

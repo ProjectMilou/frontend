@@ -254,7 +254,7 @@ exports[`DashboardTable display stock information 1`] = `
                       class="makeStyles-pWrapper-18 makeStyles-pWrapper-33"
                     >
                       <p
-                        class="makeStyles-top-15 makeStyles-top-31"
+                        class="MuiTypography-root makeStyles-top-15 makeStyles-top-31 MuiTypography-body1"
                       >
                         APPLE
                       </p>
@@ -263,7 +263,7 @@ exports[`DashboardTable display stock information 1`] = `
                       class="makeStyles-pWrapper-18 makeStyles-pWrapper-33"
                     >
                       <p
-                        class="makeStyles-bottom-16 makeStyles-bottom-32"
+                        class="MuiTypography-root makeStyles-bottom-16 makeStyles-bottom-32 MuiTypography-body1"
                       >
                         International Business Machines Corporation
                       </p>
@@ -304,7 +304,7 @@ exports[`DashboardTable display stock information 1`] = `
                     class="MuiTypography-root makeStyles-defaultText-12 MuiTypography-body1 MuiTypography-colorPrimary"
                   >
                     €
-                    119B
+                    119 B
                   </p>
                 </td>
                 <td
@@ -359,7 +359,7 @@ exports[`DashboardTable display stock information 1`] = `
                       class="makeStyles-pWrapper-18 makeStyles-pWrapper-21"
                     >
                       <p
-                        class="makeStyles-top-15 makeStyles-top-19"
+                        class="MuiTypography-root makeStyles-top-15 makeStyles-top-19 MuiTypography-body1"
                       >
                         IBM
                       </p>
@@ -368,7 +368,7 @@ exports[`DashboardTable display stock information 1`] = `
                       class="makeStyles-pWrapper-18 makeStyles-pWrapper-21"
                     >
                       <p
-                        class="makeStyles-bottom-16 makeStyles-bottom-20"
+                        class="MuiTypography-root makeStyles-bottom-16 makeStyles-bottom-20 MuiTypography-body1"
                       >
                         International Business Machines Corporation
                       </p>
@@ -409,7 +409,7 @@ exports[`DashboardTable display stock information 1`] = `
                     class="MuiTypography-root makeStyles-defaultText-12 MuiTypography-body1 MuiTypography-colorPrimary"
                   >
                     €
-                    119B
+                    119 B
                   </p>
                 </td>
                 <td
@@ -449,29 +449,33 @@ exports[`DashboardTable display stock information 1`] = `
                   </p>
                 </td>
               </tr>
-              <p
-                class="MuiTypography-root makeStyles-loading-6 MuiTypography-body1"
+              <tr
+                class="MuiTableRow-root"
               >
-                <div
-                  class="MuiCircularProgress-root MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
-                  role="progressbar"
-                  style="width: 40px; height: 40px;"
+                <td
+                  class="MuiTableCell-root MuiTableCell-body"
                 >
-                  <svg
-                    class="MuiCircularProgress-svg"
-                    viewBox="22 22 44 44"
+                  <div
+                    class="MuiCircularProgress-root makeStyles-loading-6 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
+                    role="progressbar"
+                    style="width: 40px; height: 40px;"
                   >
-                    <circle
-                      class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
-                      cx="44"
-                      cy="44"
-                      fill="none"
-                      r="20.2"
-                      stroke-width="3.6"
-                    />
-                  </svg>
-                </div>
-              </p>
+                    <svg
+                      class="MuiCircularProgress-svg"
+                      viewBox="22 22 44 44"
+                    >
+                      <circle
+                        class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
+                        cx="44"
+                        cy="44"
+                        fill="none"
+                        r="20.2"
+                        stroke-width="3.6"
+                      />
+                    </svg>
+                  </div>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>

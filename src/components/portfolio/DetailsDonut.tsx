@@ -17,7 +17,6 @@ const useStyles = makeStyles<Theme, StyleProps>(({ palette }: Theme) =>
       width: '100%',
       marginTop: '1rem',
     },
-    chart: {},
     legend: {
       margin: '1rem',
       alignSelf: 'center',
@@ -47,6 +46,13 @@ type LegendItemProps = {
   color: string;
 };
 
+/**
+ * An entry in the custom legend comprised of a colored dot and text.
+ *
+ * @param name - Name for the label
+ * @param color - Color of the dot
+ */
+
 const LegendItem: React.FC<LegendItemProps> = ({ name, color }) => {
   const classes = useStyles({ color });
 
@@ -62,8 +68,16 @@ type DetailsDonutProps = {
   portions: number[];
   labels: string[];
   size: number;
-  displayRow?: boolean;
 };
+
+/**
+ * This component is a donut chart with a custom legend below it.
+ * The legend is limited to 5 labels (the last being other which show the rest on hover).
+ *
+ * @param portions - The data for the graph
+ * @param labels - The labels for the graph and legend
+ * @param size - The size of the graph
+ */
 
 const DetailsDonut: React.FC<DetailsDonutProps> = ({
   portions,

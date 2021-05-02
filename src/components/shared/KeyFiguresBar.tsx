@@ -5,6 +5,7 @@ import { KeyFigure, KeyFigureSelect } from './KeyFigureSelect';
 import KeyFiguresChart from './KeyFiguresChart';
 import StyledNumberFormat from './StyledNumberFormat';
 
+// KeyFIguresBar props type declaration
 type KeyFiguresBarProps = {
   keyFigures: { [keyFigure in KeyFigure]: number[] };
   years: number[];
@@ -19,6 +20,14 @@ const useStyles = makeStyles({
   },
 });
 
+/**
+ * @param keyFigures - Data about key figures (P/E, P/B, PEGR, EPS)
+ * @param years - Years of the keyfigures data
+ * @param dark - If one key figure is selected
+ * @param chartHeight - Height of the chart
+ * @param outlined -
+ * @return Main body of key figures section, includes KeyFiguresSelect and KeyFiguresChart
+ */
 const KeyFiguresBar: React.FC<KeyFiguresBarProps> = ({
   keyFigures,
   years,
