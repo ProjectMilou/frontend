@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  makeStyles,
-  createStyles,
-  Theme,
-  List,
-  ListItem,
-} from '@material-ui/core';
+import { makeStyles, createStyles, darken } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import DetailsMainSummary from './DetailsMainSummary';
 import DetailsMainPositions from './DetailsMainPositions';
@@ -16,8 +10,9 @@ import DetailsMainAnalyst from './DetailsMainAnalyst';
 import { Stock, NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 import DetailsMainAnalytics from './DetailsMainAnalytics';
 import DetailMainBacktesting from './DetailsMainBacktesting';
+import LimitedString from './LimitedString';
 
-const useStyles = makeStyles(({ palette }: Theme) =>
+const useStyles = makeStyles(({ palette }) =>
   createStyles({
     mainWrapper: {
       margin: '0 auto',
@@ -44,12 +39,25 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     lineWrapper: {
       display: 'flex',
       width: '100%',
-      borderColor: palette.primary.contrastText,
     },
     line: {
       width: '100%',
       alignSelf: 'center',
       paddingLeft: '2%',
+      color: darken(palette.primary.contrastText, 0.5),
+    },
+    missingDataMessageWrapper: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      margin: '2rem 1rem',
+      fontSize: '1rem',
+      color: palette.primary.contrastText,
+    },
+    stockSymbols: {
+      marginTop: '0.5rem',
+      fontWeight: 600,
+      'word-wrap': 'anywhere',
     },
   })
 );
@@ -81,15 +89,18 @@ type MissingDataMessageProps = {
 };
 
 const MissingDataMessage: React.FC<MissingDataMessageProps> = ({ stocks }) => {
+  const classes = useStyles();
   const { t } = useTranslation();
+
   return (
-    <div>
+    <div className={classes.missingDataMessageWrapper}>
       <span>{t('portfolio.details.missingDataMessage')}</span>
-      <List>
-        {stocks.map((stock) => (
-          <ListItem key={stock.symbol}>{stock.symbol}</ListItem>
-        ))}
-      </List>
+      <div className={classes.stockSymbols}>
+        <LimitedString
+          value={stocks.map((s) => s.symbol).join(', ')}
+          length={300}
+        />
+      </div>
     </div>
   );
 };
