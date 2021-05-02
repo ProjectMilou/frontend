@@ -14,7 +14,7 @@ import {
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as API from '../../../analyser/APIClient';
 import DashboardTableHeader from './DashboardTableHeader';
-import DashboardTableRow from './DasboardTableRow';
+import DashboardTableRow from './DashboardTableRow';
 
 const useStyles = makeStyles(() =>
   createStyles({
