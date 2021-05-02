@@ -2,6 +2,7 @@ import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 
 import {
+  Container,
   Button,
   Box,
   Grid,
@@ -25,6 +26,11 @@ import GridRowContainer from './components/GridRowContainer';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    container: {
+      margin: '0px',
+      padding: '0px',
+      display: 'inline',
+    },
     mediaSmall: {
       maxWidth: '450px',
       maxHeight: '250px',
@@ -47,6 +53,8 @@ const useStyles = makeStyles((theme: Theme) =>
       variant: 'middle',
       marginLeft: '250px',
       marginRight: '250px',
+      marginTop: '50px',
+      marginBottom: '50px',
       height: '1px',
       background: theme.palette.secondary.contrastText,
     },
@@ -58,6 +66,8 @@ const useStyles = makeStyles((theme: Theme) =>
     typographyMain: {
       color: theme.palette.primary.dark,
       fontSize: '24px',
+      maxWidth: '1300px',
+      textAlign: 'center',
       marginLeft: '120px',
       marginRight: '120px',
     },
@@ -113,24 +123,30 @@ const useStyles = makeStyles((theme: Theme) =>
 const LandingPage: React.FC<RouteComponentProps> = () => {
   const classes = useStyles();
   return (
-    <Box>
+    <Container maxWidth="lg" className={classes.container}>
       <Card />
-      <Divider className={classes.divider} />
-      <Box className={classes.box1}>
-        <Typography
-          variant="body1"
-          align="center"
-          className={classes.typographyMain}
-        >
-          Apps like Trade Republic and other direct brokers make investing
-          easier and easier. The stock market is now accessible to everyone.
-          Even so, many individuals do not have access to tools to make informed
-          and informed investment decisions. Current solutions are often
-          confusing and tailored to professional investors. This is exactly
-          where we attack.
-        </Typography>
-      </Box>
-      <Divider className={classes.divider} />
+      <Grid container direction="column" alignContent="center" justify="center">
+        <Grid item spacing={4}>
+          <Divider className={classes.divider} />
+        </Grid>
+        <Grid item>
+          <Typography
+            variant="body1"
+            align="center"
+            className={classes.typographyMain}
+          >
+            Apps like Trade Republic and other direct brokers make investing
+            easier and easier. The stock market is now accessible to everyone.
+            Even so, many individuals do not have access to tools to make
+            informed and informed investment decisions. Current solutions are
+            often confusing and tailored to professional investors. This is
+            exactly where we attack.
+          </Typography>
+        </Grid>
+        <Grid item spacing={4}>
+          <Divider className={classes.divider} />
+        </Grid>
+      </Grid>
       <Box className={classes.boxMain}>
         <Grid
           container
@@ -236,7 +252,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
 
       <InfoCard />
       <LogoCard />
-    </Box>
+    </Container>
   );
 };
 
