@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Box, Grid, Avatar } from '@material-ui/core';
+import { Typography, Box, Grid, Avatar, Button } from '@material-ui/core';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import EmailIcon from '@material-ui/icons/Email';
 
@@ -8,7 +8,9 @@ const ProfileCard: React.FC<{
   title: string;
   content: string;
   img: string;
-}> = ({ name, title, content, img }) => (
+  email: string;
+  linkedinLink: string;
+}> = ({ name, title, content, img, email, linkedinLink }) => (
   <Box p={6} justify-content="center">
     <Avatar
       src={img}
@@ -26,10 +28,10 @@ const ProfileCard: React.FC<{
     </Typography>
     <Grid container direction="row" justify="center">
       <Grid item>
-        <LinkedInIcon />
+        <Button startIcon={<LinkedInIcon />} href={linkedinLink} />
       </Grid>
       <Grid>
-        <EmailIcon />
+        <Button startIcon={<EmailIcon />} href={email} />
       </Grid>
     </Grid>
   </Box>

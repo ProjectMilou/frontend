@@ -16,6 +16,7 @@ import {
   Chip,
 } from '@material-ui/core';
 
+// FilterBar props type declaration
 export type FilterBarProps = {
   filtersList: string[];
   ogFiltersList: string[];
@@ -45,8 +46,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+/** @type Height of each item in the menu */
 const ITEM_HEIGHT = 48;
+/** @type Padding of each item in the menu */
 const ITEM_PADDING_TOP = 8;
+/** @type Props applied to the Menu element */
 const MenuProps = {
   PaperProps: {
     style: {
@@ -57,6 +61,14 @@ const MenuProps = {
   getContentAnchorEl: null,
 };
 
+/**
+ * Menu item's font weight will be medium if it's selected.
+ *
+ * @param {string} tmp - Menu item's text
+ * @param {string[]} list - List of a filter
+ * @param {Theme} theme - Theme
+ * @return Font weight of a menu item
+ */
 function getStyles(tmp: string, list: string[], theme: Theme) {
   return {
     fontWeight:
@@ -66,7 +78,17 @@ function getStyles(tmp: string, list: string[], theme: Theme) {
   };
 }
 
-export const FilterBar: React.FC<FilterBarProps> = ({
+export /**
+ *
+ *
+ * @param filtersList - Filtered list of stocks' currency / country / market Cap / industry
+ * @param ogFiltersList - Original list of stocks' currency / country / market Cap / industry
+ * @param handleChange - Update the list if filter is changed
+ * @param name - Currency / Country / Market Cap / Industry
+ * }
+ * @return {*}
+ */
+const FilterBar: React.FC<FilterBarProps> = ({
   filtersList,
   ogFiltersList,
   handleChange,

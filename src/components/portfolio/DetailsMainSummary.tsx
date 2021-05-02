@@ -117,7 +117,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
               name={t('portfolio.details.totalValue')}
             />
           </div>
-          {/* devider 1 */}
+          {/* divider 1 */}
           <hr className={classes.vl} />
           {/* box section 2 */}
           <div

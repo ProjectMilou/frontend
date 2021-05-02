@@ -11,6 +11,7 @@ import AnalystBarIndicator from '../../shared/AnalystBarIndicator';
 import StyledNumberFormat from '../../shared/StyledNumberFormat';
 import * as API from '../../../analyser/APIClient';
 import InfoButton from '../../shared/InfoButton';
+import { getPercentage, getDescription } from '../../../analyser/Helper';
 
 export type AnalystsProps = {
   recommendations: API.AnalystsRecommendation[];
@@ -65,35 +66,13 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
-// Calculates percentage buy/sell/hold
-// multiplied by 1 to prevent issue with string concatenation
-function getPercentage(val: API.AnalystsRecommendation[]): number {
-  let percentage = 0;
-  if (val.length > 0) {
-    percentage =
-      (val[0].buy * 100 + val[0].hold * 50 + val[0].sell * 0) /
-      (val[0].buy * 1 + val[0].hold * 1 + val[0].sell * 1);
-  }
-  return percentage;
-}
-
-function getDescription(val: number): string {
-  let description = 'Buy';
-  if (val <= 33) {
-    description = 'Sell';
-  } else if (val <= 66) {
-    description = 'Hold';
-  }
-  return description;
-}
-
 const Analysts: React.FC<AnalystsProps> = ({ recommendations, overview }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const theme = useTheme();
 
   return (
-    <p>
+    <>
       <div className={classes.titleContainer}>
         <div className={classes.titleWrapper}>
           <h2 className={classes.sectionSubTitle}>
@@ -134,7 +113,7 @@ const Analysts: React.FC<AnalystsProps> = ({ recommendations, overview }) => {
           <span className={classes.greenDot} />
         </h5>
       </div>
-    </p>
+    </>
   );
 };
 
