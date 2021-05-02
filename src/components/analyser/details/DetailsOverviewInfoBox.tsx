@@ -46,7 +46,7 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
 
   const convertPerformanceToColor = (num: number) =>
     num <= 0 ? theme.palette.error.main : theme.palette.success.main;
-  const convertToPercent = (num: number): string => `${num}%`;
+  const convertToPercent = (num: number): string => `${num.toFixed(2)}%`;
 
   // Rounds and adds M=Million, B=Billion and K=Thousand --> American System!!!
   const moneyFormat = (val: number) => {
@@ -104,7 +104,9 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
       <TableRow>
         <TableCell className={classes.tableCell}>
           <TextOverText
-            top={moneyFormat(parseInt(stockDetails.marketCapitalization, 10))}
+            top={`€${moneyFormat(
+              parseInt(stockDetails.marketCapitalization, 10)
+            )}`}
             bottom={t('company.mc')}
             colorTop={theme.palette.primary.main}
             colorBottom={theme.palette.primary.light}
@@ -113,30 +115,32 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
         </TableCell>
         <TableCell className={classes.tableCell}>
           <TextOverText
-            top={parseFloat(stockDetails.per50DayMovingAverage)
+            top={`${parseFloat(stockDetails.per52WeekLow)
               .toFixed(2)
-              .toString()}
-            bottom={t('stock.50dayMovingAverage')}
+              .toString()}€`}
+            bottom={t('stock.per52WeekLow')}
             colorTop={theme.palette.primary.main}
             colorBottom={theme.palette.primary.light}
-            infoText={t('info.50dayMovingAverage')}
+            infoText={t('info.per52WeekHigh')}
           />
         </TableCell>
         <TableCell className={classes.tableCell}>
           <TextOverText
-            top={stockDetails.sharesFloat}
-            bottom={t('company.sharesFloat')}
+            top={`${parseFloat(stockDetails.per52WeekHigh)
+              .toFixed(2)
+              .toString()}€`}
+            bottom={t('stock.per52WeekHigh')}
             colorTop={theme.palette.primary.main}
             colorBottom={theme.palette.primary.light}
-            infoText={t('info.sharesFloat')}
+            infoText={t('info.per52WeekLow')}
           />
         </TableCell>
         <TableCell className={classes.tableCell}>
           {/* dividend */}
           <TextOverText
-            top={convertToPercent(parseFloat(stockOverview.div))}
+            top={convertToPercent(stockOverview.div)}
             bottom={t('stock.div')}
-            colorTop={convertPerformanceToColor(parseFloat(stockOverview.div))}
+            colorTop={convertPerformanceToColor(stockOverview.div)}
             colorBottom={theme.palette.primary.light}
           />
         </TableCell>

@@ -33,14 +33,19 @@ const useStyles = makeStyles(() =>
 type AnalystBarIndicatorProps = {
   // the text to be shown when hovered over
   tooltipText: string;
-  // a number between 0 and 100 that determines the position of the indicator
-  // 0 - left ; 100 - right
   score: number;
   // the color of the indicator (incl arrow)
   color: string;
 };
 
-// this is an indicator for the red to green bar graph
+/**
+ * An indicator that reflects the score of a stock
+ *
+ * @param tooltipText - Text to show on highlight (stock names)
+ * @param score - The score of a stock between 0 and 100 that determines the position of the indicator
+ * (0 is left, 100 is right)
+ * @param color - The color of the indicator and text
+ */
 const AnalystBarIndicator: React.FC<AnalystBarIndicatorProps> = ({
   tooltipText,
   score,
@@ -50,11 +55,7 @@ const AnalystBarIndicator: React.FC<AnalystBarIndicatorProps> = ({
 
   return (
     <Tooltip title={<p className={classes.tooltip}>{tooltipText}</p>}>
-      <div
-        className={classes.barIndicator}
-        // eslint-disable-next-line no-nested-ternary
-        style={{ left: `${score < 0 ? 0 : score > 100 ? 100 : score}%` }}
-      >
+      <div className={classes.barIndicator} style={{ left: `${score}%` }}>
         <div
           className={classes.indicatorLine}
           style={{ backgroundColor: color }}

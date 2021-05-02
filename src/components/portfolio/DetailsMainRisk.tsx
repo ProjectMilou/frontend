@@ -9,7 +9,7 @@ import {
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import DetailsDonut from './DetailsDonut';
-import { RiskAnalysis } from '../../portfolio/APIClient';
+import { RiskAnalysis, Diversification } from '../../portfolio/APIClient';
 import { RiskBundle, getRiskBundle } from '../../portfolio/Helper';
 import InfoButton from '../shared/InfoButton';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
@@ -19,6 +19,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     riskContainer: {
       display: 'flex',
+      flexDirection: 'column',
       justifyContent: 'space-between',
       margin: '1rem 0',
     },
@@ -44,8 +45,14 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     },
     riskWrapper: {
       display: 'flex',
+      justifyContent: 'space-around',
+    },
+    riskCompWrapper: {
+      display: 'flex',
       flexDirection: 'column',
+      alignItems: 'center',
       width: '100%',
+      margin: '0 1rem',
     },
     riskTitle: {
       fontSize: '1.4rem',
@@ -53,9 +60,10 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       color: palette.primary.contrastText,
     },
     riskPieWrapper: {
+      display: 'flex',
+      flexDirection: 'column',
       margin: '1rem 0',
       width: '100%',
-      alignSelf: 'center',
     },
     statContainer: {
       display: 'flex',
@@ -80,10 +88,14 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       width: '100%',
       height: '100%',
     },
+    warningsWrapper: {
+      textAlign: 'center',
+    },
     warnings: {
-      margin: '0.1rem 0',
+      margin: '0.15rem',
       fontSize: '1rem',
       color: palette.primary.contrastText,
+      'word-wrap': 'anywhere',
     },
     ratioName: {
       marginRight: '0.5rem',
@@ -95,8 +107,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 type RiskCompProps = {
   title: string;
   bundle: RiskBundle;
-  labels: string[];
-  portions: number[];
 };
 
 type DetailsMainRiskProps = {
@@ -105,58 +115,48 @@ type DetailsMainRiskProps = {
   treynorRatio: number;
 };
 
-// A component consisting of the title, chart and warnings of a given risk type
-const RiskComp: React.FC<RiskCompProps> = ({
-  title,
-  bundle,
-  labels,
-  portions,
-}) => {
+/**
+ * A component consisting of the title, chart and warnings of a given risk type.
+ *
+ * @param title - The title of this risk category
+ * @param bundle - An object containing the color, icon and warnings of a category
+ */
+const RiskComp: React.FC<RiskCompProps> = ({ title, bundle }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
   return (
-    <div className={classes.riskWrapper}>
-      {/* title */}
-      <div>
-        <span className={classes.riskTitle}>{title}</span>
-      </div>
-      {/* body with chart */}
-      <div className={classes.riskPieWrapper}>
-        <DetailsDonut
-          portions={portions}
-          labels={labels}
-          size={200}
-          graphOffsetX={-40}
-          showLegendOnScale={false}
-        />
-      </div>
-      {/* footer with warnings */}
-      <div>
-        {/* icon + number + title */}
-        <div className={classes.statContainer}>
-          <div className={classes.iconWrapper}>{bundle.riskIcon}</div>
-          <div className={classes.countWrapper}>
-            <div style={{ color: bundle.riskColor }}>{bundle.count}</div>
-          </div>
-          <div className={classes.subtitleWrapper}>
-            <span>{title}</span>
-          </div>
+    <div className={classes.riskCompWrapper}>
+      {/* icon + number + title */}
+      <div className={classes.statContainer}>
+        <div className={classes.iconWrapper}>{bundle.riskIcon}</div>
+        <div className={classes.countWrapper}>
+          <div style={{ color: bundle.riskColor }}>{bundle.count}</div>
         </div>
-        {/* warnings */}
-        <div>
-          {bundle.warnings.map((w) => (
-            <span key={w} className={classes.warnings}>
-              {t(w)}
-            </span>
-          ))}
+        <div className={classes.subtitleWrapper}>
+          <span>{title}</span>
         </div>
+      </div>
+      {/* warnings */}
+      <div className={classes.warningsWrapper}>
+        {bundle.warnings.map((w) => (
+          <span key={w} className={classes.warnings}>
+            {t(w)}
+          </span>
+        ))}
       </div>
     </div>
   );
 };
 
-// returns the details page header
+/**
+ * The risk section of a portfolio details page. It contains two ratio boxes
+ * and the three risk categories (country, segment, currency) with graphs and warnings.
+ *
+ * @param risk - Information of type RiskAnalysis
+ * @param sharpeRatio - The sharpe ratio to be displayed
+ * @param treynorRatio - The treynor ratio to be displayed
+ */
 const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
   risk,
   sharpeRatio,
@@ -181,6 +181,10 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
       default:
         return green;
     }
+  }
+
+  function sort(type: Diversification) {
+    return Object.entries(type).sort((a, b) => b[1] - a[1]);
   }
 
   return (
@@ -216,51 +220,72 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
         </Typography>
       </div>
       <div className={classes.riskContainer}>
-        <RiskComp
-          title={t('portfolio.details.countries')}
-          bundle={getRiskBundle(
-            'country',
-            Object.entries(risk.countries).length,
-            3,
-            5,
-            red,
-            yellow,
-            green
-          )}
-          // TODO: deal with overflow (too many names)
-          labels={Object.keys(risk.countries)}
-          portions={Object.values(risk.countries)}
-        />
-        <RiskComp
-          title={t('portfolio.details.segments')}
-          bundle={getRiskBundle(
-            'segment',
-            Object.entries(risk.segments).length,
-            4,
-            6,
-            red,
-            yellow,
-            green
-          )}
-          // TODO: deal with overflow (too many names)
-          labels={Object.keys(risk.segments)}
-          portions={Object.values(risk.segments)}
-        />
-        <RiskComp
-          title={t('portfolio.details.currencies')}
-          bundle={getRiskBundle(
-            'currency',
-            Object.entries(risk.currency).length,
-            2,
-            4,
-            red,
-            yellow,
-            green
-          )}
-          // TODO: deal with overflow (too many names)
-          labels={Object.keys(risk.currency)}
-          portions={Object.values(risk.currency)}
-        />
+        <div className={classes.riskWrapper}>
+          <span className={classes.riskTitle}>
+            {t('portfolio.details.countries')}
+          </span>
+          <span className={classes.riskTitle}>
+            {t('portfolio.details.segments')}
+          </span>
+          <span className={classes.riskTitle}>
+            {t('portfolio.details.currencies')}
+          </span>
+        </div>
+        <div className={classes.riskWrapper}>
+          <DetailsDonut
+            portions={sort(risk.countries).map((sc) => sc[1])}
+            labels={sort(risk.countries).map((sc) => sc[0])}
+            size={200}
+          />
+          <DetailsDonut
+            portions={sort(risk.segments).map((sc) => sc[1])}
+            labels={sort(risk.segments).map((sc) => sc[0])}
+            size={200}
+          />
+          <DetailsDonut
+            portions={sort(risk.currency).map((sc) => sc[1])}
+            labels={sort(risk.currency).map((sc) => sc[0])}
+            size={200}
+          />
+        </div>
+        <div className={classes.riskWrapper}>
+          <RiskComp
+            title={t('portfolio.details.countries')}
+            bundle={getRiskBundle(
+              'country',
+              Object.entries(risk.countries).length,
+              3,
+              5,
+              red,
+              yellow,
+              green
+            )}
+          />
+          <RiskComp
+            title={t('portfolio.details.segments')}
+            bundle={getRiskBundle(
+              'segment',
+              Object.entries(risk.segments).length,
+              4,
+              6,
+              red,
+              yellow,
+              green
+            )}
+          />
+          <RiskComp
+            title={t('portfolio.details.currencies')}
+            bundle={getRiskBundle(
+              'currency',
+              Object.entries(risk.currency).length,
+              2,
+              4,
+              red,
+              yellow,
+              green
+            )}
+          />
+        </div>
       </div>
     </>
   );

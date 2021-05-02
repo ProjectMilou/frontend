@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import RatioDonut from '../shared/RatioDonut';
-import DividendLineChart from '../shared/DividendLineChart';
+import DividendLineChart, { Series } from '../shared/DividendLineChart';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 import InfoButton from '../shared/InfoButton';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
@@ -82,7 +82,13 @@ type InfoBlockProps = {
   infoText: string;
 };
 
-// returns the details page header
+/**
+ * A small infoblock used in the dividends section.
+ *
+ * @param title - The title to display
+ * @param infoText - The information to be displayed when the info icon is hovered
+ * @param children - The body of this InfoBlock
+ */
 const InfoBlock: React.FC<InfoBlockProps> = ({ title, children, infoText }) => {
   const classes = useStyles();
 
@@ -97,7 +103,14 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, children, infoText }) => {
   );
 };
 
-// returns the details page header
+/**
+ * This component represent the dividend section of the prtfolio details page.
+ * It consists of one larger historic chart, a dividend yield, a dividend payout ratio graph
+ * and the next dividend payout date. If no data is available only a string will be displayed.
+ *
+ * @param portfolio - The portfolio from which the dividend information is derived
+ */
+
 const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
   portfolio,
 }) => {
@@ -105,20 +118,28 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const series = [
-    {
-      name: t('portfolio.details.divPayout'),
-      type: 'column',
-      data: portfolio.keyFigures.map((k) => k.dividendPayoutRatio),
-    },
-    {
-      name: t('portfolio.details.divYield'),
-      type: 'line',
-      data: portfolio.keyFigures.map((k) => k.div),
-    },
-  ];
+  if (
+    portfolio.keyFigures.length !== 0 &&
+    !portfolio.keyFigures.map((k) => k.div).includes(undefined) &&
+    !portfolio.keyFigures.map((k) => k.dividendPayoutRatio).includes(undefined)
+  ) {
+    const lastKeyFigures =
+      portfolio.keyFigures[portfolio.keyFigures.length - 1];
+    const series: Series[] = [
+      {
+        name: t('portfolio.details.divPayout'),
+        type: 'column',
+        data: portfolio.keyFigures.map(
+          (k) => k.dividendPayoutRatio
+        ) as number[],
+      },
+      {
+        name: t('portfolio.details.divYield'),
+        type: 'line',
+        data: portfolio.keyFigures.map((k) => k.div) as number[],
+      },
+    ];
 
-  if (portfolio.keyFigures.length !== 0) {
     return (
       <div className={classes.dividendsWrapper}>
         <div className={classes.chartContainer}>
@@ -127,6 +148,7 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
             series={series}
             height={450}
             textColor={theme.palette.primary.contrastText}
+            year={portfolio.keyFigures[0].year}
           />
         </div>
         <div className={classes.infoContainer}>
@@ -137,9 +159,11 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
               'source.investopedia'
             )}`}
           >
-            <StyledNumberFormat
-              value={portfolio.keyFigures[portfolio.keyFigures.length - 1].div}
-            />
+            {lastKeyFigures.div !== undefined ? (
+              <StyledNumberFormat value={lastKeyFigures.div} />
+            ) : (
+              t('unknown')
+            )}
           </InfoBlock>
           <InfoBlock
             title={t('portfolio.details.divPayout')}
@@ -147,19 +171,22 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
               'analyser.details.DividendPayoutRatio.infoButton'
             )}\n\n${t('source.investopedia')}`}
           >
-            <RatioDonut
-              ratio={
-                portfolio.keyFigures[portfolio.keyFigures.length - 1]
-                  .dividendPayoutRatio
-              }
-              textColor={theme.palette.primary.contrastText}
-            />
+            {lastKeyFigures.dividendPayoutRatio !== undefined ? (
+              <RatioDonut
+                ratio={lastKeyFigures.dividendPayoutRatio}
+                textColor={theme.palette.primary.contrastText}
+              />
+            ) : (
+              t('unknown')
+            )}
           </InfoBlock>
           <InfoBlock
             title={t('portfolio.details.nextDate')}
             infoText={t('analyser.details.NextDate.infoButton')}
           >
-            {portfolio.nextDividend.toISOString().split('T')[0]}
+            {portfolio.nextDividend
+              ? portfolio.nextDividend.toISOString().split('T')[0]
+              : t('unknown')}
           </InfoBlock>
         </div>
       </div>

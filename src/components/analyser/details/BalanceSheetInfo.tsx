@@ -38,7 +38,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     sectionSubTitle: {
       margin: 0,
       color: palette.primary.main,
-      // TODO use theme fontsize and weight
       fontSize: '2rem',
       fontWeight: 400,
       whiteSpace: 'nowrap',
@@ -46,10 +45,10 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     boxTitles: {
       margin: 0,
       color: palette.primary.main,
-      // TODO use theme fontsize and weight
       fontSize: '1.5rem',
       fontWeight: 400,
       whiteSpace: 'nowrap',
+      display: 'flex',
     },
     contentWrapper: {
       paddingBottom: '2rem',
@@ -60,38 +59,19 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 
 function checkValue(val: number): number {
   let result = val;
-  if (val.toString() === 'None') {
+  if (val.toString() === 'NaN') {
     result = 0;
+  } else {
+    result = val / 1000000;
   }
-  return result;
+  return parseFloat(result.toFixed(2));
 }
 
 function checkName(val: number, text: string): string {
-  let result = text;
   if (val === 0) {
-    result = '';
+    return '';
   }
-  return result;
-}
-
-// sadly not supported for now by treemap
-// eslint-disable-next-line
-function convertToInternationalCurrencySystem(val: number) {
-  // based on https://stackoverflow.com/a/36734774
-
-  if (Math.abs(Number(val)) >= 1.0e9) {
-    // Nine Zeroes for Billions
-    return `${(Math.abs(Number(val)) / 1.0e9).toFixed(2)} B`;
-  }
-  if (Math.abs(Number(val)) >= 1.0e6) {
-    // Six Zeroes for Millions
-    return `${(Math.abs(Number(val)) / 1.0e6).toFixed(2)} M`;
-  }
-  if (Math.abs(Number(val)) >= 1.0e3) {
-    // Three Zeroes for Thousands
-    return `${(Math.abs(Number(val)) / 1.0e3).toFixed(2)} K`;
-  }
-  return Math.abs(Number(val)).toString();
+  return text;
 }
 
 const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
@@ -228,6 +208,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
           x: checkName(equitiesSeries.retainedEarnings, 'Retained Earnings'),
           y: equitiesSeries.retainedEarnings,
         },
+        // Place Holder to allow for red coloring of debt Fiel in Tree Map
         {
           x: '',
           y: 0,
@@ -252,14 +233,15 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
       },
     },
     colors: [
-      '#50E2A8',
-      '#50E2A8',
-      '#50E2A8',
-      '#50E2A8',
-      '#50E2A8',
-      '#50E2A8',
-      '#50E2A8',
-      '#D64745',
+      // Togehter with PLace Holder allows for specific coloring of debt field in Tree Map
+      theme.palette.success.main,
+      theme.palette.success.main,
+      theme.palette.success.main,
+      theme.palette.success.main,
+      theme.palette.success.main,
+      theme.palette.success.main,
+      theme.palette.success.main,
+      theme.palette.error.main,
     ],
     plotOptions: {
       treemap: {
@@ -270,6 +252,24 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
     dataLabels: {
       style: {
         colors: [theme.palette.primary.main],
+      },
+      noData: {
+        text: 'Currently no Data available ;(',
+      },
+    },
+    tooltip: {
+      x: {
+        show: false,
+        format: 'dd MMM yyyy',
+      },
+      y: {
+        formatter: (seriesName: string) => `€${seriesName}M`,
+        title: {
+          formatter: (seriesName: string) => `${seriesName}:`,
+        },
+      },
+      marker: {
+        show: false,
       },
     },
   };

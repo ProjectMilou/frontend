@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
-import { Router } from '@reach/router';
+import { Router, useLocation } from '@reach/router';
 import LandingPage from '../pages/LandingPage';
 import Analyser from './analyser/Analyser';
 import Portfolio from './portfolio/Portfolio';
 import Header from './header/Header';
 import Footer from './footer/Footer';
-import Profile from './shell/profile/Profile';
+import Profile from '../pages/Profile';
 import Imprint from '../pages/Imprint';
 import AboutUs from '../pages/AboutUs';
 import Privacy from '../pages/Privacy';
@@ -19,12 +19,32 @@ declare module '@material-ui/core/styles/createPalette' {
   interface Palette {
     lightBlue: Palette['primary'];
     teal: Palette['primary'];
+    orange: Palette['primary'];
+    darkOrange: Palette['primary'];
   }
 
   interface PaletteOptions {
     lightBlue?: PaletteOptions['primary'];
     teal?: PaletteOptions['primary'];
+    orange?: PaletteOptions['primary'];
+    darkOrange?: PaletteOptions['primary'];
   }
+}
+
+interface ScrollToTopProps {
+  children: JSX.Element[];
+  path: string;
+}
+
+function ScrollToTop({ children, path }: ScrollToTopProps): JSX.Element {
+  // workaround eslint/no-unused-vars, because every child of @reach-router/Router needs a path prop
+  path.concat('');
+
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [pathname]);
+  return <>{children}</>;
 }
 
 export const theme = createMuiTheme({
@@ -73,6 +93,12 @@ export const theme = createMuiTheme({
     teal: {
       main: '#34CFB2',
     },
+    orange: {
+      main: '#F6AE2D',
+    },
+    darkOrange: {
+      main: '#D75D1B',
+    },
   },
 });
 
@@ -91,16 +117,18 @@ const App: React.FC = () => (
 
         <div style={{ flexGrow: 1 }}>
           <Router>
-            <LandingPage path="/" />
-            <Analyser path="/analyser/*" />
-            <Portfolio path="/portfolio/*" />
-            <Imprint path="/imprint" />
-            <AboutUs path="/aboutus" />
-            <Privacy path="/privacy" />
-            <Profile path="/profile" />
-            <Confirm path="/confirm/:id/:token" />
-            <ResetChange path="/reset/:id/:token" />
-            <Page404 default />
+            <ScrollToTop path="/">
+              <LandingPage path="/" />
+              <Analyser path="/analyser/*" />
+              <Portfolio path="/portfolio/*" />
+              <Imprint path="/imprint" />
+              <AboutUs path="/aboutus" />
+              <Privacy path="/privacy" />
+              <Profile path="/profile" />
+              <Confirm path="/confirm/:id/:token" />
+              <ResetChange path="/reset/:id/:token" />
+              <Page404 default />
+            </ScrollToTop>
           </Router>
         </div>
 

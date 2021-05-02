@@ -36,10 +36,10 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     boxTitles: {
       margin: 0,
       color: palette.primary.main,
-      // TODO use theme fontsize and weight
       fontSize: '1.5rem',
       fontWeight: 400,
       whiteSpace: 'nowrap',
+      display: 'flex',
     },
     redDot: {
       height: '25px',
@@ -105,10 +105,7 @@ const Analysts: React.FC<AnalystsProps> = ({ recommendations, overview }) => {
         <h5 className={classes.boxTitles}>
           {t('analyser.details.analysts.target')}
           <>&nbsp;</>
-          <StyledNumberFormat
-            value={parseFloat(overview.analystTargetPrice)}
-            suffix="€"
-          />
+          <StyledNumberFormat value={overview.analystTargetPrice} suffix="€" />
           <>&nbsp;&nbsp;</>
           <InfoButton
             infotext={t('analyser.details.analysts.target.infoButton')}

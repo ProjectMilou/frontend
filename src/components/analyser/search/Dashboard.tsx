@@ -16,7 +16,6 @@ import ErrorMessage from '../../shared/ErrorMessage';
 import StockListOverview from './StockListOverview';
 import DashboardHeader from '../../shared/DashboardHeader';
 import Filter from './Filter';
-import { isAuthenticationError } from '../../../Errors';
 
 export interface DashboardProps extends RouteComponentProps {
   token: string;
@@ -24,14 +23,11 @@ export interface DashboardProps extends RouteComponentProps {
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
-    createButton: {
-      marginTop: '25px',
-    },
     dashboard: {
       margin: '25px auto',
     },
     filter: {
-      'background-color': palette.primary.contrastText,
+      backgroundColor: palette.primary.contrastText,
       minWidth: '50%',
       maxWidth: '100%',
     },
@@ -50,11 +46,31 @@ const Dashboard: React.FC<DashboardProps> = ({ token }) => {
     mc: [],
   });
 
+  // filter undefined or faulty stocks we get from the backend
+  const stockCleanup = (unfilteredStocks: API.Stock[]) => {
+    if (unfilteredStocks) {
+      const polishedStocks = unfilteredStocks.filter(
+        (s) => s.industry !== undefined
+      );
+      // polishedStocks.forEach((s) => {
+      //   console.log(s.div);
+      //   console.log(typeof s.price);
+      // });
+
+      return polishedStocks;
+      // polishedStocks = polishedStocks.map((s) => {
+      //   s = {...s,
+      //     price: parseFloat(s.price.toString())}
+      //   })
+    }
+    return undefined;
+  };
+
   const fetch = async () => {
     setError(undefined);
     try {
       const s = await API.listStocks(token, filters).then();
-      setStocks(s);
+      setStocks(stockCleanup(s));
     } catch (e) {
       setError(e);
     }
@@ -87,19 +103,7 @@ const Dashboard: React.FC<DashboardProps> = ({ token }) => {
           <ErrorMessage
             error={error}
             messageKey="analyser.dashboard.errorMessage"
-            handling={
-              isAuthenticationError(error)
-                ? {
-                    buttonText: 'error.action.login',
-                    action: async () => {
-                      // TODO: go back to login
-                    },
-                  }
-                : {
-                    buttonText: 'error.action.retry',
-                    action: fetch,
-                  }
-            }
+            retry={fetch}
           />
         )}
         {stocks && (

@@ -13,7 +13,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import WarningIcon from '@material-ui/icons/Warning';
 
-import img2 from '../../assets/images/media2.png';
+import img2 from '../../../assets/images/media2.png';
 import Media from './Media';
 
 const useStyles = makeStyles((theme: Theme) =>

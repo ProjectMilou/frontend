@@ -20,16 +20,16 @@ export type Stock = {
   isin: string;
   wkn: string;
   name: string;
-  price: string;
-  per1d: string;
-  per7d: string;
-  per30d: string;
-  per365d: string;
+  price: number;
+  per1d: number;
+  per7d: number;
+  per30d: number;
+  per365d: number;
   marketCapitalization: number;
-  analystTargetPrice: string;
+  analystTargetPrice: number;
   valuation: number;
   growth: number;
-  div: string;
+  div: number;
   currency: string;
   country: string;
   industry: string;
@@ -205,7 +205,7 @@ export type CashFlowList = {
 
 export type CashFlow = {
   _id: string;
-  fiscalDateEnding: number;
+  fiscalDateEnding: string;
   reportedCurrency: number;
   operatingCashflow: number;
   paymentsForOperatingActivities: number;
@@ -238,9 +238,15 @@ export type CashFlow = {
 
 export type News = {
   headline: string;
-  date: string; // TODO change to date
-  url: string; // Todo change to URL
+  summary: string;
+  url: string; // TODO change to URL
+  publishedAt: string; // TODO change to URL
 };
+
+export type NewsList = {
+  news: News[];
+};
+
 export type AnalystsRecommendation = {
   symbol: string;
   buy: number;
@@ -283,6 +289,40 @@ export type Risk = {
   volatility: number;
   averageMarketVolatility: number;
 };
+
+// this method is used to convert string to number format in the stock overview
+// has to be used since backend is not providing any numbers yet, everything is a string
+const convertStockOverview = (apiStock: Stock): Stock =>
+  ({
+    ...apiStock,
+    ...(apiStock.price && { price: parseFloat(apiStock.price.toString()) }),
+    ...(apiStock.per1d && { per1d: parseFloat(apiStock.per1d.toString()) }),
+    ...(apiStock.per7d && { per7d: parseFloat(apiStock.per7d.toString()) }),
+    ...(apiStock.per30d && { per30d: parseFloat(apiStock.per30d.toString()) }),
+    ...(apiStock.per365d && {
+      per365d: parseFloat(apiStock.per365d.toString()),
+    }),
+    ...(apiStock.marketCapitalization && {
+      marketCapitalization: parseInt(
+        apiStock.marketCapitalization.toString(),
+        10
+      ),
+    }),
+    ...(apiStock.analystTargetPrice && {
+      analystTargetPrice: parseFloat(apiStock.analystTargetPrice.toString()),
+    }),
+    ...(apiStock.valuation && {
+      valuation: parseInt(apiStock.valuation.toString(), 10),
+    }),
+    ...(apiStock.growth && { growth: parseFloat(apiStock.growth.toString()) }),
+    ...(apiStock.div && {
+      div:
+        apiStock.div.toString() === 'None'
+          ? 0.0
+          : parseFloat(apiStock.div.toString()),
+    }),
+  } as Stock);
+
 /**
  * Makes an API call. Resolves to the JSON response if the call is successful,
  * otherwise rejects with an error that has an {@link ErrorCode} as message.
@@ -345,7 +385,7 @@ export async function listStocks(
     }
   });
   const response = (await request(token, 'GET', base + params)) as StockList;
-  return response.stocks;
+  return response.stocks.map((s) => convertStockOverview(s));
 }
 
 /**
@@ -363,7 +403,10 @@ export async function stockOverview(
     'GET',
     `stocks/overview?id=${symbol}`
   )) as StockList;
-  return response.stocks[0] as Stock;
+
+  // TODO fix in backend, this is total BS
+  const apiStock = response.stocks[0];
+  return convertStockOverview(apiStock);
 }
 
 /**
@@ -461,6 +504,42 @@ export async function analystsRecommendations(
 }
 
 /**
+ * Gets cash newsData with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ */
+export async function newsList(
+  token: string,
+  symbol: string
+): Promise<NewsList> {
+  const response = (await request(
+    token,
+    'GET',
+    `stocks/news?id=${symbol}`
+  )) as NewsList;
+  return response;
+}
+
+/**
+ * Gets cash flow  Data with an authenticated user.
+ *
+ * @param token - Authentication token
+ * @param symbol - Stock Symbol to search for
+ */
+export async function cashFlowList(
+  token: string,
+  symbol: string
+): Promise<CashFlowList> {
+  const response = (await request(
+    token,
+    'GET',
+    `stocks/cashFlow?id=${symbol}`
+  )) as CashFlowList;
+  return response;
+}
+
+/**
  * Gets interest coverages with an authenticated user.
  *
  * @param token - Authentication token
@@ -490,18 +569,6 @@ export async function risks(token: string, symbol: string): Promise<RiskList> {
     'GET',
     `analytics/risk/${symbol}`
   )) as RiskList;
-  return response;
-}
-
-export async function cashFlowList(
-  token: string,
-  symbol: string
-): Promise<CashFlowList> {
-  const response = (await request(
-    token,
-    'GET',
-    `stocks/cashFlow?id=${symbol}`
-  )) as CashFlowList;
   return response;
 }
 

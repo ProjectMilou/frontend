@@ -20,7 +20,7 @@ import { makeStyles, Theme, Tooltip } from '@material-ui/core';
  */
 type StyledNumberFormatProps = {
   value: number;
-  suffix?: '€' | '%' | '$';
+  suffix?: '€' | '%';
   size?: string;
   fontWeight?: number;
   paintJob?: boolean | string;

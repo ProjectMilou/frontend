@@ -39,15 +39,11 @@ const useStyles = makeStyles((theme) =>
       marginTop: '2rem',
     },
     pieChartWrapper: {
-      display: 'flex',
-      width: '20rem',
-      height: '20rem',
       flexBasis: '35%',
     },
     lineChartWrapper: {
       width: '40rem',
-      height: '20rem',
-      flexBasis: '60%',
+      flexBasis: '65%',
     },
   })
 );
@@ -66,8 +62,12 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const portions = portfolio.positions.map((p) => p.qty * p.stock.price);
-  const companyNames = portfolio.positions.map((p) => p.stock.name);
+  const sortedPos = portfolio.positions.sort(
+    (a, b) => b.qty * b.stock.price - a.qty * a.stock.price
+  );
+
+  const portions = sortedPos.map((p) => p.qty * p.stock.price);
+  const companyNames = sortedPos.map((p) => p.stock.name);
 
   return (
     <>
@@ -112,7 +112,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
               name={t('portfolio.details.totalValue')}
             />
           </div>
-          {/* devider 1 */}
+          {/* divider 1 */}
           <hr className={classes.vl} />
           {/* box section 2 */}
           <div
@@ -144,13 +144,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
       </div>
       <div className={classes.chartContainer}>
         <div className={classes.pieChartWrapper}>
-          <DetailsDonut
-            portions={portions}
-            labels={companyNames}
-            size={600}
-            graphOffsetX={0}
-            showLegendOnScale
-          />
+          <DetailsDonut portions={portions} labels={companyNames} size={300} />
         </div>
         <div className={classes.lineChartWrapper}>
           <PortfolioPerformance id={id} />
