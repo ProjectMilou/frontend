@@ -26,7 +26,7 @@ const useStyles = makeStyles(() =>
       margin: '15px',
     },
     customTableContainer: {
-      overflowX: 'initial',
+      overflowX: 'hidden',
       height: 800,
       overflow: 'auto',
       borderRadius: 5,
