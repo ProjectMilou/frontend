@@ -87,7 +87,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
       companyReports.annualReports[0].otherCurrentAssets
     ),
     otherNonCurrentAssets: checkValue(
-      companyReports.annualReports[0].otherNonCurrrentAssets
+      companyReports.annualReports[0].otherNonCurrentAssets
     ),
   };
 
@@ -217,7 +217,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
       },
     },
     colors: [
-      // Togehter with PLace Holder allows for specific coloring of debt field in Tree Map
+      // Together with place holder allows for specific coloring of debt field in treemap
       theme.palette.success.main,
       theme.palette.success.main,
       theme.palette.success.main,
