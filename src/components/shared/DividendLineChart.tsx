@@ -4,6 +4,7 @@ import Chart from 'react-apexcharts';
 import { useTranslation } from 'react-i18next';
 import { roundAxis } from '../../portfolio/Helper';
 
+// DividendLineChart props type declaration
 type DividendLineChartProps = {
   series: Series[];
   height: number;
@@ -11,12 +12,23 @@ type DividendLineChartProps = {
   year: number;
 };
 
+// Series type declaration
 export type Series = {
   name: string;
   data: number[];
   type: 'column' | 'line';
 };
 
+/**
+ *
+ *
+ * @param series - Data includes dividend yields and dividend payout ratios in the last years.
+ *   height - Height of the whole chart
+ *   textColor - Color of text in chart
+ *   year - Latest year of the existing data
+ * }
+ * @return {*}
+ */
 const DividendLineChart: React.FC<DividendLineChartProps> = ({
   series,
   height,
