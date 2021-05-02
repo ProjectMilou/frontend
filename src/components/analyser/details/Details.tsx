@@ -69,6 +69,7 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
     true
   );
 
+  // Fix for API Cliet Date to Unix Timestamp
   const convertPerformance = (performance: API.StockHistricPerformanceList) => {
     const unixDataPoints: number[][] = [];
     performance.dataPoints.forEach((p) => {
@@ -77,6 +78,8 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
     });
     return unixDataPoints.reverse();
   };
+
+  // Fix for API Cliet Date to Unix Timestamp
   const convertDividend = (dividend: API.StockHistoricDividendList) => {
     const unixDataPoints: number[] = [];
     dividend.dataPoints.forEach((p) => {

@@ -16,6 +16,7 @@ import * as API from '../../../analyser/APIClient';
 import StyledNumberFormat from '../../shared/StyledNumberFormat';
 import Valuation from '../../shared/Valuation';
 import TextOverText from '../../shared/TextOverText';
+import { moneyFormat } from '../../../analyser/Helper';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -44,21 +45,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 export type DashboardTableRowProps = {
   stock: API.Stock;
 };
-
-// Rounds and adds M=Million, B=Billion and K=Thousand --> American System!!!
-function moneyFormat(val: number): string {
-  let round = '';
-  if (Math.abs(val) >= 1.0e9) {
-    round = `${Math.round(Math.abs(val) / 1.0e9)}B`;
-  } else if (Math.abs(val) >= 1.0e6) {
-    round = `${Math.round(Math.abs(val) / 1.0e6)}M`;
-  } else if (Math.abs(val) >= 1.0e3) {
-    round = `${Math.round(Math.abs(val) / 1.0e3)}K`;
-  } else {
-    round = `${Math.abs(val)}`;
-  }
-  return round;
-}
 
 const DashboardTableRow: React.FC<DashboardTableRowProps> = ({ stock }) => {
   const [hover, setHover] = React.useState<boolean>(false);

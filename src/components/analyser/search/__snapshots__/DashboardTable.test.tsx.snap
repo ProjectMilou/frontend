@@ -304,7 +304,7 @@ exports[`DashboardTable display stock information 1`] = `
                     class="MuiTypography-root makeStyles-defaultText-12 MuiTypography-body1 MuiTypography-colorPrimary"
                   >
                     €
-                    119B
+                    119 B
                   </p>
                 </td>
                 <td
@@ -409,7 +409,7 @@ exports[`DashboardTable display stock information 1`] = `
                     class="MuiTypography-root makeStyles-defaultText-12 MuiTypography-body1 MuiTypography-colorPrimary"
                   >
                     €
-                    119B
+                    119 B
                   </p>
                 </td>
                 <td

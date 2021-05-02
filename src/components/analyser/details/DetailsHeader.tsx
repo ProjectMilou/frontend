@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import TextOverText from '../../shared/TextOverText';
 import * as API from '../../../analyser/APIClient';
 import StyledNumberFormat from '../../shared/StyledNumberFormat';
+import { convertPercentToColor, chooseSymbol } from '../../../analyser/Helper';
 
 export type DetailsHeaderProps = {
   stock?: API.Stock;
@@ -63,16 +64,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     },
   })
 );
-
-// TODO: no hard coded colors
-// takes a percent value and converts it to a color
-function convertPercentToColor(val: number): string {
-  return val < 0 ? '#D64745' : '#50E2A8';
-}
-
-function chooseSymbol(val: API.Stock): string {
-  return val.name.length > 15 ? val.symbol : val.name;
-}
 
 const DetailsHeader: React.FC<DetailsHeaderProps> = ({ stock, back }) => {
   const classes = useStyles();
