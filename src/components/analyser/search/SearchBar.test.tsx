@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import SearchBar from './SearchBar';
 
@@ -51,14 +51,15 @@ const theme = createMuiTheme({
     },
   },
 });
-
-
-test('shows search placeholders', async () => {
-  render(
+const renderComponent = () => ({
+  ...render(
     <ThemeProvider theme={theme}>
       <SearchBar />
     </ThemeProvider>
-  )
-    // expect(queryByText('Name, Symbol, ISIN or WKN')).toBeInTheDocument();
-  await screen.findByTestId('Name, Symbol, ISIN or WKN', { exact: false });
+  ),
+});
+test('shows search placeholders', async () => {
+  const { queryByText } = renderComponent();
+  const placeholder = 'Name, Symbol, ISIN or WKN';
+  expect(queryByText(placeholder)).toBeNull();
 });

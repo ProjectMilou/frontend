@@ -66,8 +66,6 @@ const renderComponent = () => ({
 });
 
 test('shows filters', async () => {
-  // await screen.findByTestId('analyser.filter.clear', { exact: false });
-
   const { queryByText } = renderComponent();
   expect(queryByText('analyser.filter.clear')).toBeInTheDocument();
 });
