@@ -100,6 +100,14 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     ratioName: {
       marginRight: '0.5rem',
     },
+    placeholderInfo: {
+      display: 'flex',
+      margin: '15rem 0',
+      width: '100%',
+      justifyContent: 'center',
+      color: palette.primary.contrastText,
+      fontSize: '1.15rem',
+    },
   })
 );
 
@@ -174,6 +182,18 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
   function sort(type: Diversification) {
     return Object.entries(type).sort((a, b) => b[1] - a[1]);
   }
+
+  // if no data for the risk section is provided render place holder text instead
+  if (
+    Object.entries(risk.countries).length === 0 ||
+    Object.entries(risk.segments).length === 0 ||
+    Object.entries(risk.currency).length === 0
+  )
+    return (
+      <div className={classes.placeholderInfo}>
+        {t('portfolio.details.emptyKeyFigures')}
+      </div>
+    );
 
   return (
     <>
