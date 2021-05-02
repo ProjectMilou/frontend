@@ -52,11 +52,13 @@ const theme = createMuiTheme({
   },
 });
 
+
 test('shows search placeholders', async () => {
   render(
     <ThemeProvider theme={theme}>
       <SearchBar />
     </ThemeProvider>
-  );
+  )
+    // expect(queryByText('Name, Symbol, ISIN or WKN')).toBeInTheDocument();
   await screen.findByTestId('Name, Symbol, ISIN or WKN', { exact: false });
 });

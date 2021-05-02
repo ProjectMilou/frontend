@@ -65,8 +65,8 @@ type Test = {
   failText: string;
 };
 
-test('Shows pass texts for dividends', async () => {
-  render(
+const renderComponent = () => ({
+  ...render(
     <ThemeProvider theme={theme}>
       <Dividends
         series={MockStockDividendTwo}
@@ -74,47 +74,11 @@ test('Shows pass texts for dividends', async () => {
         dividendYield={0.5}
       />
     </ThemeProvider>
-  );
-
-  const dividendYield = MockStockDividendTwo[MockStockDividendTwo.length - 1];
-
-  const lastAnnualReports =
-    MockCashFlowList.annualReports[MockCashFlowList.annualReports.length - 1];
-
-  const dividendPayoutRatio =
-    Math.round(
-      (lastAnnualReports.dividendPayout / lastAnnualReports.netIncome) * 100
-    ) / 100;
-
-  const hasDividend: Test = {
-    pass: dividendYield > 0,
-    category: 'Dividend',
-    passText: 'A dividend is paid',
-    failText: 'No dividend is paid',
-  };
-
-  const aboveAverage: Test = {
-    pass: dividendYield > 0.025,
-    category: 'High Dividend',
-    passText: 'Dividend is above average of 2.5%',
-    failText: 'Dividend is below average of 2.5%',
-  };
-
-  const goodPayoutRatio: Test = {
-    pass: dividendPayoutRatio > 0 && dividendPayoutRatio < 0.5,
-    category: 'analyser.details.DividendPayoutRatio',
-    passText: 'A good payout ratio is below 50%',
-    failText:
-      'The company is making loss and does not provide a good payout ratio',
-  };
-
-  expect(hasDividend.passText).toBeInTheDocument;
-  expect(aboveAverage.passText).toBeInTheDocument;
-  expect(goodPayoutRatio.passText).toBeInTheDocument;
+  ),
 });
 
-test('Shows fail texts for dividends', async () => {
-  render(
+const renderComponentFail = () => ({
+  ...render(
     <ThemeProvider theme={theme}>
       <Dividends
         series={MockStockDividendThree}
@@ -122,11 +86,14 @@ test('Shows fail texts for dividends', async () => {
         dividendYield={0.5}
       />
     </ThemeProvider>
-  );
+  ),
+});
 
-  const dividendYield =
-    MockStockDividendThree[MockStockDividendThree.length - 1];
-  const dividendPayoutRatio = 0.25;
+test('Shows pass texts for dividends', async () => {
+  const { queryByText } = renderComponent();
+
+  const dividendYield = 0.1;
+  const dividendPayoutRatio = 0.3;
 
   const hasDividend: Test = {
     pass: dividendYield > 0,
@@ -150,7 +117,40 @@ test('Shows fail texts for dividends', async () => {
       'The company is making loss and does not provide a good payout ratio',
   };
 
-  expect(hasDividend.failText).toBeInTheDocument;
-  expect(aboveAverage.failText).toBeInTheDocument;
-  expect(goodPayoutRatio.failText).toBeInTheDocument;
+  expect(queryByText(hasDividend.passText)).toBeInTheDocument();
+  expect(queryByText(aboveAverage.passText)).toBeInTheDocument();
+  expect(queryByText(goodPayoutRatio.passText)).toBeInTheDocument();
+});
+
+test('Shows fail texts for dividends', async () => {
+  const { queryByText } = renderComponentFail();
+
+  const dividendYield = 0.0;
+  const dividendPayoutRatio = 0.5;
+
+  const hasDividend: Test = {
+    pass: dividendYield > 0,
+    category: 'Dividend',
+    passText: 'A dividend is paid',
+    failText: 'No dividend is paid',
+  };
+
+  const aboveAverage: Test = {
+    pass: dividendYield > 0.025,
+    category: 'High Dividend',
+    passText: 'Dividend is above average of 2.5%',
+    failText: 'Dividend is below average of 2.5%',
+  };
+
+  const goodPayoutRatio: Test = {
+    pass: dividendPayoutRatio > 0 && dividendPayoutRatio < 0.5,
+    category: 'analyser.details.DividendPayoutRatio',
+    passText: 'A good payout ratio is below 50%',
+    failText:
+      'The company is making loss and does not provide a good payout ratio',
+  };
+
+  expect(queryByText(hasDividend.failText)).toBeNull();
+  expect(queryByText(aboveAverage.failText)).toBeNull();
+  expect(queryByText(goodPayoutRatio.failText)).toBeNull();
 });

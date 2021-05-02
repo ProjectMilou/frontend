@@ -1,5 +1,4 @@
-import userEvent from '@testing-library/user-event';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import React from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import Filter from './Filter';
@@ -54,13 +53,21 @@ const theme = createMuiTheme({
   },
 });
 
+const renderComponent = () => ({
+  ...render(
+    <ThemeProvider theme={theme}>
+      <Filter
+        stocks={[MockOverview]}
+        filters={MockFilters}
+        setFilters={jest.fn()}
+      />
+    </ThemeProvider>
+  ),
+});
+
 test('shows filters', async () => {
-  <ThemeProvider theme={theme}>
-    <Filter
-      stocks={[MockOverview]}
-      filters={MockFilters}
-      setFilters={jest.fn()}
-    />
-  </ThemeProvider>;
-  await screen.findByTestId('analyser.filter.clear', { exact: false });
+  // await screen.findByTestId('analyser.filter.clear', { exact: false });
+
+  const { queryByText } = renderComponent();
+  expect(queryByText('analyser.filter.clear')).toBeInTheDocument();
 });
