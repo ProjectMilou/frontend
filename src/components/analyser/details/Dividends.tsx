@@ -11,11 +11,13 @@ import DividendRatioDonut from '../../shared/DividendRatioDonut';
 import DividendLineChart, { Series } from '../../shared/DividendLineChart';
 import DividendsRR from './DividendsRR';
 import InfoButton from '../../shared/InfoButton';
+import SubsectionDivider from '../../shared/SubsectionDivider';
 
 // Dividends props type declaration
 export type DividendsProps = {
   series: number[];
   cashFlowList: API.CashFlowList;
+  dividendYield: number;
 };
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
@@ -97,9 +99,9 @@ type InfoBlockProps = {
 
 // returns the details page header
 /**
- * @param title - Title of the infomarion block.
+ * @param title - Title of the information block.
  * @param info - Information in the info button.
- * @param body - Specific infomation.
+ * @param body - Specific information.
  * @return A information block which contains a title , a info button and body.
  */
 const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
@@ -122,9 +124,14 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
 /**
  * @param series - Dividend yield data
  * @param cashFlowList - Cash flow list data, used to calculate dividend payout ratio
+ * @param dividendYield - Dividend Yield
  * @return Dividends Section on detail page which includes dividend line chart, donut ratio chart and Reward & Risk.
  */
-const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
+const Dividends: React.FC<DividendsProps> = ({
+  series,
+  cashFlowList,
+  dividendYield,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const theme = useTheme();
@@ -152,17 +159,10 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
     Math.round(
       (lastAnnualReports.dividendPayout / lastAnnualReports.netIncome) * 100
     ) / 100;
-  const dividendYield = series[series.length - 1];
   const year = cashFlowList.annualReports[0].fiscalDateEnding.substring(0, 4);
   return (
-    <div>
-      <div className={classes.titleContainer}>
-        <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionSubTitle}>
-            {t('analyser.details.DividendsHeader')}
-          </h2>
-        </div>
-      </div>
+    <>
+      <SubsectionDivider subsection={t('analyser.details.DividendsHeader')} />
       <div className={classes.chartContainer}>
         <div className={classes.lineChartWrapper}>
           <DividendLineChart
@@ -180,9 +180,9 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
             body={
               <p style={{ margin: 0 }}>
                 {' '}
-                {Number.isNaN(dividendYield)
-                  ? 'Dividend is not paid this year.'
-                  : `${dividendYield}%`}{' '}
+                {dividendYield === 0
+                  ? 'Dividend is not paid.'
+                  : `${Math.round(dividendYield * 100) / 100}%`}{' '}
               </p>
             }
           />
@@ -200,7 +200,7 @@ const Dividends: React.FC<DividendsProps> = ({ series, cashFlowList }) => {
       </div>
 
       <DividendsRR dividend={dividendYield} payoutRatio={dividendPayoutRatio} />
-    </div>
+    </>
   );
 };
 export default Dividends;

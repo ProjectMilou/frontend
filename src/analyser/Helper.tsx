@@ -44,8 +44,6 @@ export function checkName(val: number, text: string): string {
   let result = text;
   if (val === 0) {
     result = '';
-  } else {
-    result = `${result} in Million €`;
   }
   return result;
 }

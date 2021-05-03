@@ -68,7 +68,7 @@ const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
       show: false,
     },
     noData: {
-      text: 'Dividend is not paid this year.',
+      text: 'Dividend is not paid.',
       align: 'left',
       verticalAlign: 'top',
       style: {

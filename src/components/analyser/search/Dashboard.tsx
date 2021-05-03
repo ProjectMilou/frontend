@@ -30,6 +30,10 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
+/**
+ *
+ * Wrapper component for the search page. Saves stocks and filters in own states
+ */
 const Dashboard: React.FC<RouteComponentProps> = () => {
   const { t } = useTranslation();
 
@@ -46,7 +50,7 @@ const Dashboard: React.FC<RouteComponentProps> = () => {
   const stockCleanup = (unfilteredStocks: API.Stock[]) => {
     if (unfilteredStocks) {
       const polishedStocks = unfilteredStocks.filter(
-        (s) => s.industry !== undefined
+        (s) => s.industry !== undefined && s.industry !== null
       );
       return polishedStocks;
     }

@@ -23,11 +23,11 @@ export type Series = {
  *
  *
  * @param series - Data includes dividend yields and dividend payout ratios in the last years.
- *   height - Height of the whole chart
- *   textColor - Color of text in chart
- *   year - Latest year of the existing data
+ * @param  height - Height of the whole chart
+ * @param textColor - Color of text in chart
+ * @param  year - Latest year of the existing data
  * }
- * @return {*}
+ * @return Dividend Line Chart
  */
 const DividendLineChart: React.FC<DividendLineChartProps> = ({
   series,

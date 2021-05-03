@@ -45,7 +45,13 @@ const DividendsRR: React.FC<DividendsRRProps> = ({ dividend, payoutRatio }) => {
       'The company is making loss and does not provide a good payout ratio',
   };
 
-  const tests = [hasDividend, aboveAverage, goodPayoutRatio];
+  const [tests, setTests] = React.useState<Test[]>([hasDividend]);
+  React.useEffect(() => {
+    if (dividend > 0) {
+      setTests([hasDividend, aboveAverage, goodPayoutRatio]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dividend]);
 
   return (
     <List>
