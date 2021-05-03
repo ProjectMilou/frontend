@@ -268,7 +268,7 @@ const Leverage: React.FC<DetailsProps> = ({
             body={
               <p style={{ margin: 0 }}>
                 {' '}
-                {interestCoverages.success != null
+                {interestCoverages.success[0].interestCoverage != null
                   ? interestCoverages.success[0].interestCoverage.toFixed(2)
                   : interestCoverages.error}{' '}
               </p>
