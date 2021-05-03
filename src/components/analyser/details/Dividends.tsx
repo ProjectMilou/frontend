@@ -39,7 +39,7 @@ export type DividendsProps = {
   cashFlowList: API.CashFlowList;
   dividendPayoutRatio: number;
   dividendYield: number;
-  nextPayout?: Date
+  nextPayout?: Date;
 };
 
 /**
@@ -55,7 +55,7 @@ const Dividends: React.FC<DividendsProps> = ({
   cashFlowList,
   dividendPayoutRatio,
   dividendYield,
-  nextPayout
+  nextPayout,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -98,11 +98,10 @@ const Dividends: React.FC<DividendsProps> = ({
             title={t('analyser.details.DividendYield')}
             info={t('analyser.details.DividendYield.infoButton')}
             body={
-              <p style={{ margin: 0 }}>
-                {' '}
+              <p>
                 {dividendYield === 0
-                  ? `${t("analyser.details.noDividendPayed")}`
-                  : `${Math.round(dividendYield * 100) / 100}%`}{' '}
+                  ? `${t('analyser.details.noDividendPayed')}`
+                  : `${Math.round(dividendYield * 100) / 100}%`}
               </p>
             }
           />
@@ -112,9 +111,15 @@ const Dividends: React.FC<DividendsProps> = ({
             body={<DividendRatioDonut ratio={dividendPayoutRatio} />}
           />
           <InfoBlock
-            title={t("portfolio.details.nextDate")}
+            title={t('portfolio.details.nextDate')}
             info={t('analyser.details.NextDate.infoButton')}
-            body={nextPayout? <p>{nextPayout.toISOString().split('T')[0]}</p> : <p>{t("analyser.details.noDividendPlanned")}</p>}
+            body={
+              nextPayout? (
+                <p>{nextPayout.toISOString().split('T')[0]}</p>
+              ) : (
+                <p> {t('analyser.details.noDividendPlanned')}</p>
+              )
+            }
           />
         </div>
       </div>
