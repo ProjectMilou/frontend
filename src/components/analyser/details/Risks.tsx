@@ -20,7 +20,7 @@ const Risks: React.FC<DetailsProps> = ({
 }) => (
   <div>
     <SectionDivider section="analyser.details.RiskHeader" />
-    <Volatility details={stockDetails} />
+    <Volatility stockDetails={stockDetails} />
     <Leverage
       stockOverview={stockOverview}
       companyReports={companyReports}
