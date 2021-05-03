@@ -24,7 +24,7 @@ export function getDescription(val: number): string {
   return description;
 }
 
-/** Used in BalanceSheetInfo to check on NaN values and to Format the number to millions */
+/** Used in BalanceSheetInfo and Leverage chart to check on NaN values and to Format the number to millions */
 export function checkValue(val: number): number {
   let result = val;
   if (val === undefined || val.toString() === 'NaN') {
@@ -33,6 +33,17 @@ export function checkValue(val: number): number {
     result = val / 1000000;
   }
   return parseFloat(result.toFixed(2));
+}
+
+/** Used in Leverage dept level to check on NaN values and to Format the number to millions */
+export function checkNaN(val: number): number {
+  let result = val;
+  if (val === undefined || val.toString() === 'NaN') {
+    result = 0.0;
+  } else {
+    result = Math.round(val * 1000) / 1000;
+  }
+  return result;
 }
 
 /** Used In BalanceSheetInfo returns empty String when number is zero for styling purposes and adds in milllion €

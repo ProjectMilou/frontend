@@ -1,17 +1,12 @@
-import React, { ReactElement } from 'react';
-import {
-  makeStyles,
-  Theme,
-  createStyles,
-  useTheme,
-} from '@material-ui/core/styles';
+import React from 'react';
+import { makeStyles, createStyles, useTheme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import DividendRatioDonut from '../../shared/DividendRatioDonut';
 import DividendLineChart, { Series } from '../../shared/DividendLineChart';
 import DividendsRR from './DividendsRR';
-import InfoButton from '../../shared/InfoButton';
 import SubsectionDivider from '../../shared/SubsectionDivider';
+import InfoBlock from './InfoBlock';
 
 // Dividends props type declaration
 export type DividendsProps = {
@@ -21,7 +16,7 @@ export type DividendsProps = {
   dividendYield: number;
 };
 
-const useStyles = makeStyles(({ palette, typography }: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     chartContainer: {
       display: 'flex',
@@ -43,65 +38,8 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       alignItems: 'left',
       padding: '1rem',
     },
-    infoWrapper: {
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'left',
-    },
-    infoBody: {
-      display: 'flex',
-      alignSelf: 'center',
-      width: '100%',
-      justifyContent: 'left',
-      color: palette.primary.main,
-      fontWeight: typography.fontWeightRegular,
-      fontSize: '1.15rem',
-    },
-    infoTitle: {
-      color: palette.primary.main,
-      fontWeight: typography.fontWeightBold,
-      fontSize: '1.25rem',
-      margin: 0,
-      whiteSpace: 'nowrap',
-    },
-    infoTitleP: {
-      margin: '0.5rem 0rem',
-      display: 'flex',
-    },
   })
 );
-
-// InfoBlock props type declarations
-type InfoBlockProps = {
-  title: string;
-  info: string;
-  body: ReactElement;
-};
-
-// returns the details page header
-/**
- * @param title - Title of the information block.
- * @param info - Information in the info button.
- * @param body - Specific information.
- * @return A information block which contains a title, a info button and body.
- */
-const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.infoWrapper}>
-      <div className={classes.infoTitle}>
-        <p className={classes.infoTitleP}>
-          {title}
-          <>&nbsp;</>
-          <InfoButton infotext={info}> </InfoButton>
-        </p>
-      </div>
-      <div className={classes.infoBody}>{body}</div>
-    </div>
-  );
-};
 
 /**
  * @param series - Dividend yield data
