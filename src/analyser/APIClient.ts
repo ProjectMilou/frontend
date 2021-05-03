@@ -318,7 +318,7 @@ const convertStockOverview = (apiStock: Stock): Stock =>
     ...(apiStock.growth && { growth: parseFloat(apiStock.growth.toString()) }),
     ...(apiStock.div && {
       div:
-        apiStock.div.toString() === 'None'
+        apiStock.div.toString() === 'None' || apiStock.div.toString() === 'NaN'
           ? 0.0
           : parseFloat(apiStock.div.toString()),
     }),

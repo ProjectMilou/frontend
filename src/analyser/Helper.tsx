@@ -52,7 +52,7 @@ export function checkName(val: number, text: string): string {
 export function convertPercentToColor(val: number): string {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const theme = useTheme();
-  return val < 0 ? theme.palette.error.main : theme.palette.success.main;
+  return val <= 0 ? theme.palette.error.main : theme.palette.success.main;
 }
 
 /** Used in DetailsHeader to display the Symbol when the name is to Long to Display */
