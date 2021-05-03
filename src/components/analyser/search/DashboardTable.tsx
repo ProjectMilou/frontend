@@ -118,16 +118,16 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
   React.useEffect(() => {
     setSortedStocks(sortStocks(stocks, order, orderByKey));
     setItems(sortedStocks.slice(0, 10));
-
-    if (items.length >= sortedStocks.length) {
-      setHasMore(false);
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stocks, order, orderByKey]);
 
   React.useEffect(() => {
     setItems(sortedStocks.slice(0, 10));
     setHasMore(true);
+    if (items.length >= sortedStocks.length) {
+      setHasMore(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortedStocks]);
 
   // component
