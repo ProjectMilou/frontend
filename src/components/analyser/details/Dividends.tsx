@@ -8,14 +8,6 @@ import DividendsRR from './DividendsRR';
 import SubsectionDivider from '../../shared/SubsectionDivider';
 import InfoBlock from './InfoBlock';
 
-// Dividends props type declaration
-export type DividendsProps = {
-  series: number[];
-  cashFlowList: API.CashFlowList;
-  dividendPayoutRatio: number;
-  dividendYield: number;
-};
-
 const useStyles = makeStyles(() =>
   createStyles({
     chartContainer: {
@@ -41,11 +33,21 @@ const useStyles = makeStyles(() =>
   })
 );
 
+// Dividends props type declaration
+export type DividendsProps = {
+  series: number[];
+  cashFlowList: API.CashFlowList;
+  dividendPayoutRatio: number;
+  dividendYield: number;
+  nextPayout?: Date;
+};
+
 /**
  * @param series - Dividend yield data
  * @param cashFlowList - Cash flow list data, used to calculate dividend payout ratio
  * @param dividendPayoutRatio - Dividend Payout Ratio
  * @param dividendYield - Dividend Yield
+ * @param nextPayout - next payout of dividend
  * @return Dividends Section on detail page which includes dividend line chart, donut ratio chart and Reward & Risk.
  */
 const Dividends: React.FC<DividendsProps> = ({
@@ -53,6 +55,7 @@ const Dividends: React.FC<DividendsProps> = ({
   cashFlowList,
   dividendPayoutRatio,
   dividendYield,
+  nextPayout,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -95,11 +98,10 @@ const Dividends: React.FC<DividendsProps> = ({
             title={t('analyser.details.DividendYield')}
             info={t('analyser.details.DividendYield.infoButton')}
             body={
-              <p style={{ margin: 0 }}>
-                {' '}
+              <p>
                 {dividendYield === 0
-                  ? 'Dividend is not paid.'
-                  : `${Math.round(dividendYield * 100) / 100}%`}{' '}
+                  ? `${t('analyser.details.noDividendPayed')}`
+                  : `${Math.round(dividendYield * 100) / 100}%`}
               </p>
             }
           />
@@ -109,9 +111,15 @@ const Dividends: React.FC<DividendsProps> = ({
             body={<DividendRatioDonut ratio={dividendPayoutRatio} />}
           />
           <InfoBlock
-            title={t('analyser.details.NextDate')}
+            title={t('portfolio.details.nextDate')}
             info={t('analyser.details.NextDate.infoButton')}
-            body={<p style={{ margin: 0 }}>2021-04-14</p>}
+            body={
+              nextPayout ? (
+                <p>{nextPayout.toISOString().split('T')[0]}</p>
+              ) : (
+                <p> {t('analyser.details.noDividendPlanned')}</p>
+              )
+            }
           />
         </div>
       </div>
