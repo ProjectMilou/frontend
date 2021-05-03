@@ -102,7 +102,7 @@ type InfoBlockProps = {
  * @param title - Title of the information block.
  * @param info - Information in the info button.
  * @param body - Specific information.
- * @return A information block which contains a title , a info button and body.
+ * @return A information block which contains a title, a info button and body.
  */
 const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
   const classes = useStyles();
