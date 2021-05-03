@@ -449,33 +449,6 @@ exports[`DashboardTable display stock information 1`] = `
                   </p>
                 </td>
               </tr>
-              <tr
-                class="MuiTableRow-root"
-              >
-                <td
-                  class="MuiTableCell-root MuiTableCell-body"
-                >
-                  <div
-                    class="MuiCircularProgress-root makeStyles-loading-6 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
-                    role="progressbar"
-                    style="width: 40px; height: 40px;"
-                  >
-                    <svg
-                      class="MuiCircularProgress-svg"
-                      viewBox="22 22 44 44"
-                    >
-                      <circle
-                        class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
-                        cx="44"
-                        cy="44"
-                        fill="none"
-                        r="20.2"
-                        stroke-width="3.6"
-                      />
-                    </svg>
-                  </div>
-                </td>
-              </tr>
             </tbody>
           </table>
         </div>
