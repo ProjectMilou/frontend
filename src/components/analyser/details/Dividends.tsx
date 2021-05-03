@@ -17,30 +17,12 @@ import SubsectionDivider from '../../shared/SubsectionDivider';
 export type DividendsProps = {
   series: number[];
   cashFlowList: API.CashFlowList;
+  dividendPayoutRatio: number;
   dividendYield: number;
 };
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
   createStyles({
-    titleContainer: {
-      display: 'flex',
-      marginBottom: '2rem',
-    },
-    titleWrapper: {
-      marginRight: '1rem',
-    },
-    sectionSubTitle: {
-      margin: 0,
-      color: palette.primary.main,
-      fontSize: '2rem',
-      fontWeight: typography.fontWeightRegular,
-      whiteSpace: 'nowrap',
-    },
-    line: {
-      width: '100%',
-      alignSelf: 'center',
-      paddingLeft: '2%',
-    },
     chartContainer: {
       display: 'flex',
       justifyContent: 'space-between',
@@ -124,12 +106,14 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
 /**
  * @param series - Dividend yield data
  * @param cashFlowList - Cash flow list data, used to calculate dividend payout ratio
+ * @param dividendPayoutRatio - Dividend Payout Ratio
  * @param dividendYield - Dividend Yield
  * @return Dividends Section on detail page which includes dividend line chart, donut ratio chart and Reward & Risk.
  */
 const Dividends: React.FC<DividendsProps> = ({
   series,
   cashFlowList,
+  dividendPayoutRatio,
   dividendYield,
 }) => {
   const classes = useStyles();
@@ -153,12 +137,7 @@ const Dividends: React.FC<DividendsProps> = ({
       data: series,
     },
   ];
-  const lastAnnualReports =
-    cashFlowList.annualReports[cashFlowList.annualReports.length - 1];
-  const dividendPayoutRatio =
-    Math.round(
-      (lastAnnualReports.dividendPayout / lastAnnualReports.netIncome) * 100
-    ) / 100;
+
   const year = cashFlowList.annualReports[0].fiscalDateEnding.substring(0, 4);
   return (
     <>
