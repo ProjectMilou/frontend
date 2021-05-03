@@ -125,11 +125,11 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
         <TableCell className={classes.tableCell}>
           {/* dividend */}
           <TextOverText
-            top={`${stockOverview.div.toFixed(2)}€`}
-            bottom={t('stock.div')}
+            top={`${stockOverview.div.toFixed(2)} %`}
+            bottom={t('analyser.details.DividendYield')}
             colorTop={convertPercentToColor(stockOverview.div)}
             colorBottom={theme.palette.primary.light}
-            infoText={t('info.div')}
+            infoText={t("analyser.details.DividendYield.infoButton")}
           />
         </TableCell>
       </TableRow>
