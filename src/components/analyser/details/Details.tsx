@@ -119,7 +119,9 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
       setStockPerformance(convertPerformance(sP));
       setStockDividend(convertDividend(sDiv));
       setDivQuota(parseFloat(sDiv.quota));
-      if (sDiv.date !== "None"){ setDivNextPayout(new Date(sDiv.date))};
+      if (sDiv.date !== 'None') {
+        setDivNextPayout(new Date(sDiv.date));
+      }
       setCompanyReports(cR);
       setInterestCoverages(iC);
       setCashFlowList(cCash);

@@ -114,7 +114,7 @@ const Dividends: React.FC<DividendsProps> = ({
             title={t('portfolio.details.nextDate')}
             info={t('analyser.details.NextDate.infoButton')}
             body={
-              nextPayout? (
+              nextPayout ? (
                 <p>{nextPayout.toISOString().split('T')[0]}</p>
               ) : (
                 <p> {t('analyser.details.noDividendPlanned')}</p>
