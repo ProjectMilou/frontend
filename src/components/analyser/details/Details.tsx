@@ -207,7 +207,8 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
               <Dividends
                 series={stockDividend}
                 cashFlowList={cashFlowList}
-                dividendYield={quota}
+                dividendPayoutRatio={quota}
+                dividendYield={parseFloat(stockDetails.div)}
               />
               <BalanceSheetInfo companyReports={companyReports} />
               <Analysts
