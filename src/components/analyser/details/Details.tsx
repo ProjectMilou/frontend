@@ -48,6 +48,7 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
   const [risks, setRisks] = React.useState<API.RiskList>();
   const [newsList, setNewsList] = React.useState<API.NewsList>();
   const [stockDividend, setStockDividend] = React.useState<number[]>([]);
+  const [divQuota, setDivQuota] = React.useState<number>(0);
   const [divNextPayout, setDivNextPayout] = React.useState<Date>();
   const [performanceAll, setPerformanceAll] = React.useState(false);
   const [stockPerformance, setStockPerformance] = React.useState<number[][]>([
@@ -117,6 +118,7 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
       setStockDetails(sD);
       setStockPerformance(convertPerformance(sP));
       setStockDividend(convertDividend(sDiv));
+      setDivQuota(parseFloat(sDiv.quota));
       setDivNextPayout(new Date(sDiv.date))
       setCompanyReports(cR);
       setInterestCoverages(iC);
@@ -207,7 +209,8 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
               <Dividends
                 series={stockDividend}
                 cashFlowList={cashFlowList}
-                dividendYield={stockOverview.div}
+                dividendPayoutRatio={divQuota}
+                dividendYield= {stockOverview.div}
                 nextPayout={divNextPayout}
               />
               <BalanceSheetInfo companyReports={companyReports} />

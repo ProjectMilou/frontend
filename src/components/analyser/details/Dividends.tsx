@@ -1,22 +1,15 @@
-import React, { ReactElement } from 'react';
-import {
-  makeStyles,
-  Theme,
-  createStyles,
-  useTheme,
-} from '@material-ui/core/styles';
+import React from 'react';
+import { makeStyles, createStyles, useTheme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import DividendRatioDonut from '../../shared/DividendRatioDonut';
 import DividendLineChart, { Series } from '../../shared/DividendLineChart';
 import DividendsRR from './DividendsRR';
-import InfoButton from '../../shared/InfoButton';
 import SubsectionDivider from '../../shared/SubsectionDivider';
+import InfoBlock from './InfoBlock';
 
-
-const useStyles = makeStyles(({ palette, typography }: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
-
     chartContainer: {
       display: 'flex',
       justifyContent: 'space-between',
@@ -37,82 +30,22 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       alignItems: 'left',
       padding: '1rem',
     },
-    infoWrapper: {
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'left',
-    },
-    infoBody: {
-      display: 'flex',
-      alignSelf: 'center',
-      width: '100%',
-      justifyContent: 'left',
-      color: palette.primary.main,
-      fontWeight: typography.fontWeightRegular,
-      fontSize: '1.15rem',
-    },
-    infoTitle: {
-      color: palette.primary.main,
-      fontWeight: typography.fontWeightBold,
-      fontSize: '1.25rem',
-      margin: 0,
-      whiteSpace: 'nowrap',
-    },
-    infoTitleP: {
-      margin: '0.5rem 0rem',
-      display: 'flex',
-    },
-    infoBoxText: {
-      textAlign: 'center',
-      display: 'flex',
-      width: "100%"
-    }
   })
 );
-
-// InfoBlock props type declarations
-type InfoBlockProps = {
-  title: string;
-  info: string;
-  body: ReactElement;
-};
 
 // Dividends props type declaration
 export type DividendsProps = {
   series: number[];
   cashFlowList: API.CashFlowList;
+  dividendPayoutRatio: number;
   dividendYield: number;
   nextPayout?: Date
-};
-
-// returns the details page header
-/**
- * @param title - Title of the information block.
- * @param info - Information in the info button.
- * @param body - Specific information.
- * @return A information block which contains a title, a info button and body.
- */
-const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.infoWrapper}>
-      <div className={classes.infoTitle}>
-        <p className={classes.infoTitleP}>
-          {title}
-          <>&nbsp;</>
-          <InfoButton infotext={info}> </InfoButton>
-        </p>
-      </div>
-      <div className={classes.infoBody}>{body}</div>
-    </div>
-  );
 };
 
 /**
  * @param series - Dividend yield data
  * @param cashFlowList - Cash flow list data, used to calculate dividend payout ratio
+ * @param dividendPayoutRatio - Dividend Payout Ratio
  * @param dividendYield - Dividend Yield
  * @param nextPayout - next payout of dividend
  * @return Dividends Section on detail page which includes dividend line chart, donut ratio chart and Reward & Risk.
@@ -120,6 +53,7 @@ const InfoBlock: React.FC<InfoBlockProps> = ({ title, info, body }) => {
 const Dividends: React.FC<DividendsProps> = ({
   series,
   cashFlowList,
+  dividendPayoutRatio,
   dividendYield,
   nextPayout
 }) => {
@@ -144,12 +78,7 @@ const Dividends: React.FC<DividendsProps> = ({
       data: series,
     },
   ];
-  const lastAnnualReports =
-    cashFlowList.annualReports[cashFlowList.annualReports.length - 1];
-  const dividendPayoutRatio =
-    Math.round(
-      (lastAnnualReports.dividendPayout / lastAnnualReports.netIncome) * 100
-    ) / 100;
+
   const year = cashFlowList.annualReports[0].fiscalDateEnding.substring(0, 4);
   return (
     <>
@@ -185,7 +114,7 @@ const Dividends: React.FC<DividendsProps> = ({
           <InfoBlock
             title={t("portfolio.details.nextDate")}
             info={t('analyser.details.NextDate.infoButton')}
-            body={nextPayout? <p className={classes.infoBoxText}>{nextPayout.toISOString().split('T')[0]}</p> : <p className={classes.infoBoxText}>{t("analyser.details.noDividendPlanned")}</p>}
+            body={nextPayout? <p>{nextPayout.toISOString().split('T')[0]}</p> : <p>{t("analyser.details.noDividendPlanned")}</p>}
           />
         </div>
       </div>
