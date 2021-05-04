@@ -34,9 +34,6 @@ const useStyles = makeStyles(({ palette }) =>
       display: 'flex',
       flexDirection: 'column',
     },
-    cardContentUpper: {
-      marginBottom: '2rem',
-    },
     cardTitle: {
       marginBottom: 'auto',
       color: palette.primary.contrastText,
@@ -52,13 +49,19 @@ const useStyles = makeStyles(({ palette }) =>
     cardContentLower: {
       display: 'flex',
       justifyContent: 'space-around',
+      height: '5rem',
+      marginTop: '1rem',
     },
     cardAction: {
       padding: '16px',
     },
     missingData: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
       color: palette.primary.contrastText,
-      textAlign: 'center',
+      height: '5rem',
+      marginTop: '1rem',
     },
   })
 );
@@ -91,7 +94,7 @@ const DetailsMainPositionsCard: React.FC<DetailsMainPositionsCardProps> = ({
         <div className={classes.cardTitle}>
           <LimitedString value={p.stock.name} />
         </div>
-        <div className={classes.cardContentUpper}>
+        <div>
           <div className={classes.cardSubtitle}>
             <span>{`${t('portfolio.details.holding')}: `}</span>
             <StyledNumberFormat
