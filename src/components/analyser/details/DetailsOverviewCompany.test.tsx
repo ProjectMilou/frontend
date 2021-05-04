@@ -55,13 +55,16 @@ const theme = createMuiTheme({
   },
 });
 
-test('shows company details', async () => {
-  render(
-    <ThemeProvider theme={theme}>
-      <DetailsOverviewCompany stockDetails={MockStockDetails} />
-    </ThemeProvider>
-  );
+describe('DetailsOverviewCompany', () => {
+  test('shows company overview and details', async () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <DetailsOverviewCompany stockDetails={MockStockDetails} />
+      </ThemeProvider>
+    );
 
-  screen.getAllByText(MockStockDetails.website, { exact: false });
-  screen.getAllByText(MockStockDetails.founded, { exact: false });
+    screen.getAllByText(MockStockDetails.website, { exact: false });
+    screen.getAllByText(MockStockDetails.founded, { exact: false });
+    screen.getAllByText(MockStockDetails.founded, { exact: false });
+  });
 });

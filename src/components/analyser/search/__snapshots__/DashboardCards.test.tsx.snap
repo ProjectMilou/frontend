@@ -10,17 +10,17 @@ exports[`DashboardCards display stock information 1`] = `
       style="height: auto; overflow: auto;"
     >
       <div
-        class="MuiGrid-root makeStyles-grid-19"
+        class="MuiGrid-root makeStyles-grid-3"
       >
         <ul
           class="MuiGridList-root"
           style="margin: -2px;"
         >
           <div
-            class="MuiPaper-root MuiCard-root makeStyles-card-11 MuiPaper-elevation1 MuiPaper-rounded"
+            class="MuiPaper-root MuiCard-root makeStyles-card-5 MuiPaper-elevation1 MuiPaper-rounded"
           >
             <button
-              class="MuiButtonBase-root makeStyles-cardAction-15"
+              class="MuiButtonBase-root makeStyles-cardAction-9"
               tabindex="0"
               type="button"
             >
@@ -29,64 +29,64 @@ exports[`DashboardCards display stock information 1`] = `
               >
                 <img
                   alt="Company Logo"
-                  class="makeStyles-media-12"
+                  class="makeStyles-media-6"
                   src="https://finnhub.io/api/logo?symbol=IBM"
                 />
               </div>
               <div
-                class="MuiCardContent-root makeStyles-content-13"
+                class="MuiCardContent-root makeStyles-content-7"
               >
                 <div
-                  class="makeStyles-compContainer-23"
+                  class="makeStyles-compContainer-15"
                 >
                   <div
-                    class="makeStyles-pWrapper-24 makeStyles-pWrapper-27"
+                    class="makeStyles-pWrapper-16 makeStyles-pWrapper-19"
                   >
                     <p
-                      class="MuiTypography-root makeStyles-top-21 makeStyles-top-25 MuiTypography-body1"
+                      class="MuiTypography-root makeStyles-top-13 makeStyles-top-17 MuiTypography-body1"
                     >
                       IBM
                     </p>
                   </div>
                   <div
-                    class="makeStyles-pWrapper-24 makeStyles-pWrapper-27"
+                    class="makeStyles-pWrapper-16 makeStyles-pWrapper-19"
                   >
                     <p
-                      class="MuiTypography-root makeStyles-bottom-22 makeStyles-bottom-26 MuiTypography-body1"
+                      class="MuiTypography-root makeStyles-bottom-14 makeStyles-bottom-18 MuiTypography-body1"
                     >
                       International Business Machines Corporation
                     </p>
                   </div>
                 </div>
                 <hr
-                  class="MuiDivider-root makeStyles-divider-14 MuiDivider-light"
+                  class="MuiDivider-root makeStyles-divider-8 MuiDivider-light"
                 />
                 <div
-                  class="makeStyles-paddingBottom-18"
+                  class="makeStyles-paddingBottom-12"
                 >
                   <div
-                    class="makeStyles-leftBound-17"
+                    class="makeStyles-leftBound-11"
                   >
                     <div
-                      class="makeStyles-compContainer-23"
+                      class="makeStyles-compContainer-15"
                     >
                       <div
-                        class="makeStyles-pWrapper-24 makeStyles-pWrapper-30"
+                        class="makeStyles-pWrapper-16 makeStyles-pWrapper-22"
                       >
                         <p
-                          class="MuiTypography-root makeStyles-top-21 makeStyles-top-28 MuiTypography-body1"
+                          class="MuiTypography-root makeStyles-top-13 makeStyles-top-20 MuiTypography-body1"
                         >
                           analyser.dashboard.view.cards.lastPrice
                         </p>
                       </div>
                       <div
-                        class="makeStyles-pWrapper-24 makeStyles-pWrapper-30"
+                        class="makeStyles-pWrapper-16 makeStyles-pWrapper-22"
                       >
                         <p
-                          class="MuiTypography-root makeStyles-bottom-22 makeStyles-bottom-29 MuiTypography-body1"
+                          class="MuiTypography-root makeStyles-bottom-14 makeStyles-bottom-21 MuiTypography-body1"
                         >
                           <span
-                            class="makeStyles-styledNumberFormat-31 makeStyles-styledNumberFormat-33"
+                            class="makeStyles-styledNumberFormat-23 makeStyles-styledNumberFormat-25"
                           >
                             138,00 €
                           </span>
@@ -95,25 +95,25 @@ exports[`DashboardCards display stock information 1`] = `
                     </div>
                   </div>
                   <div
-                    class="makeStyles-rightBound-16"
+                    class="makeStyles-rightBound-10"
                   >
                     <div
-                      class="makeStyles-compContainer-23"
+                      class="makeStyles-compContainer-15"
                     >
                       <div
-                        class="makeStyles-pWrapper-24 makeStyles-pWrapper-36"
+                        class="makeStyles-pWrapper-16 makeStyles-pWrapper-28"
                       >
                         <p
-                          class="MuiTypography-root makeStyles-top-21 makeStyles-top-34 MuiTypography-body1"
+                          class="MuiTypography-root makeStyles-top-13 makeStyles-top-26 MuiTypography-body1"
                         >
                           stock.30d
                         </p>
                       </div>
                       <div
-                        class="makeStyles-pWrapper-24 makeStyles-pWrapper-36"
+                        class="makeStyles-pWrapper-16 makeStyles-pWrapper-28"
                       >
                         <p
-                          class="MuiTypography-root makeStyles-bottom-22 makeStyles-bottom-35 MuiTypography-body1"
+                          class="MuiTypography-root makeStyles-bottom-14 makeStyles-bottom-27 MuiTypography-body1"
                         >
                           1.06%
                         </p>
@@ -128,10 +128,10 @@ exports[`DashboardCards display stock information 1`] = `
             </button>
           </div>
           <div
-            class="MuiPaper-root MuiCard-root makeStyles-card-11 MuiPaper-elevation1 MuiPaper-rounded"
+            class="MuiPaper-root MuiCard-root makeStyles-card-5 MuiPaper-elevation1 MuiPaper-rounded"
           >
             <button
-              class="MuiButtonBase-root makeStyles-cardAction-15"
+              class="MuiButtonBase-root makeStyles-cardAction-9"
               tabindex="0"
               type="button"
             >
@@ -140,64 +140,64 @@ exports[`DashboardCards display stock information 1`] = `
               >
                 <img
                   alt="Company Logo"
-                  class="makeStyles-media-12"
+                  class="makeStyles-media-6"
                   src="https://finnhub.io/api/logo?symbol=IBM"
                 />
               </div>
               <div
-                class="MuiCardContent-root makeStyles-content-13"
+                class="MuiCardContent-root makeStyles-content-7"
               >
                 <div
-                  class="makeStyles-compContainer-23"
+                  class="makeStyles-compContainer-15"
                 >
                   <div
-                    class="makeStyles-pWrapper-24 makeStyles-pWrapper-39"
+                    class="makeStyles-pWrapper-16 makeStyles-pWrapper-31"
                   >
                     <p
-                      class="MuiTypography-root makeStyles-top-21 makeStyles-top-37 MuiTypography-body1"
+                      class="MuiTypography-root makeStyles-top-13 makeStyles-top-29 MuiTypography-body1"
                     >
-                      APPLE
+                      APPL
                     </p>
                   </div>
                   <div
-                    class="makeStyles-pWrapper-24 makeStyles-pWrapper-39"
+                    class="makeStyles-pWrapper-16 makeStyles-pWrapper-31"
                   >
                     <p
-                      class="MuiTypography-root makeStyles-bottom-22 makeStyles-bottom-38 MuiTypography-body1"
+                      class="MuiTypography-root makeStyles-bottom-14 makeStyles-bottom-30 MuiTypography-body1"
                     >
                       International Business Machines Corporation
                     </p>
                   </div>
                 </div>
                 <hr
-                  class="MuiDivider-root makeStyles-divider-14 MuiDivider-light"
+                  class="MuiDivider-root makeStyles-divider-8 MuiDivider-light"
                 />
                 <div
-                  class="makeStyles-paddingBottom-18"
+                  class="makeStyles-paddingBottom-12"
                 >
                   <div
-                    class="makeStyles-leftBound-17"
+                    class="makeStyles-leftBound-11"
                   >
                     <div
-                      class="makeStyles-compContainer-23"
+                      class="makeStyles-compContainer-15"
                     >
                       <div
-                        class="makeStyles-pWrapper-24 makeStyles-pWrapper-42"
+                        class="makeStyles-pWrapper-16 makeStyles-pWrapper-34"
                       >
                         <p
-                          class="MuiTypography-root makeStyles-top-21 makeStyles-top-40 MuiTypography-body1"
+                          class="MuiTypography-root makeStyles-top-13 makeStyles-top-32 MuiTypography-body1"
                         >
                           analyser.dashboard.view.cards.lastPrice
                         </p>
                       </div>
                       <div
-                        class="makeStyles-pWrapper-24 makeStyles-pWrapper-42"
+                        class="makeStyles-pWrapper-16 makeStyles-pWrapper-34"
                       >
                         <p
-                          class="MuiTypography-root makeStyles-bottom-22 makeStyles-bottom-41 MuiTypography-body1"
+                          class="MuiTypography-root makeStyles-bottom-14 makeStyles-bottom-33 MuiTypography-body1"
                         >
                           <span
-                            class="makeStyles-styledNumberFormat-31 makeStyles-styledNumberFormat-43"
+                            class="makeStyles-styledNumberFormat-23 makeStyles-styledNumberFormat-35"
                           >
                             138,00 €
                           </span>
@@ -206,25 +206,25 @@ exports[`DashboardCards display stock information 1`] = `
                     </div>
                   </div>
                   <div
-                    class="makeStyles-rightBound-16"
+                    class="makeStyles-rightBound-10"
                   >
                     <div
-                      class="makeStyles-compContainer-23"
+                      class="makeStyles-compContainer-15"
                     >
                       <div
-                        class="makeStyles-pWrapper-24 makeStyles-pWrapper-46"
+                        class="makeStyles-pWrapper-16 makeStyles-pWrapper-38"
                       >
                         <p
-                          class="MuiTypography-root makeStyles-top-21 makeStyles-top-44 MuiTypography-body1"
+                          class="MuiTypography-root makeStyles-top-13 makeStyles-top-36 MuiTypography-body1"
                         >
                           stock.30d
                         </p>
                       </div>
                       <div
-                        class="makeStyles-pWrapper-24 makeStyles-pWrapper-46"
+                        class="makeStyles-pWrapper-16 makeStyles-pWrapper-38"
                       >
                         <p
-                          class="MuiTypography-root makeStyles-bottom-22 makeStyles-bottom-45 MuiTypography-body1"
+                          class="MuiTypography-root makeStyles-bottom-14 makeStyles-bottom-37 MuiTypography-body1"
                         >
                           1.06%
                         </p>
@@ -239,7 +239,7 @@ exports[`DashboardCards display stock information 1`] = `
             </button>
           </div>
           <div
-            class="makeStyles-loading-20"
+            class="makeStyles-loading-4"
             style="width: 50%; height: 184px; padding: 2px;"
           >
             <div

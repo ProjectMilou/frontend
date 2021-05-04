@@ -60,19 +60,21 @@ const theme = createMuiTheme({
   },
 });
 
-test('shows stock volatality values', async () => {
-  render(
-    <ThemeProvider theme={theme}>
-      <Risks
-        stockOverview={MockOverview}
-        stockDetails={MockStockDetails}
-        companyReports={MockCompanyReports}
-        interestCoverages={MockInterestCoverageList}
-      />
-    </ThemeProvider>
-  );
+describe('Risks', () => {
+  test('shows stock risks area header', async () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <Risks
+          stockOverview={MockOverview}
+          stockDetails={MockStockDetails}
+          companyReports={MockCompanyReports}
+          interestCoverages={MockInterestCoverageList}
+        />
+      </ThemeProvider>
+    );
 
-  screen.getAllByText('analyser.details.RiskHeader', {
-    exact: false,
+    screen.getAllByText('analyser.details.RiskHeader', {
+      exact: false,
+    });
   });
 });

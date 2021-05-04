@@ -55,25 +55,26 @@ const theme = createMuiTheme({
   },
 });
 
-test('shows mock news', async () => {
-  render(
-    <ThemeProvider theme={theme}>
-      <NewsComponent newsList={MockNewsList} />
-    </ThemeProvider>
-  );
+describe('NewsComponent', () => {
+  test('shows mock news', async () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <NewsComponent newsList={MockNewsList} />
+      </ThemeProvider>
+    );
 
-  const mockHeadlineMaxLength = 80;
-
-  screen.getAllByText(
-    MockNewsList.news[0].headline.substring(0, mockHeadlineMaxLength),
-    { exact: false }
-  );
-  screen.getAllByText(
-    MockNewsList.news[1].headline.substring(0, mockHeadlineMaxLength),
-    { exact: false }
-  );
-  screen.getAllByText(
-    MockNewsList.news[2].headline.substring(0, mockHeadlineMaxLength),
-    { exact: false }
-  );
+    const mockHeadlineMaxLength = 80;
+    screen.getAllByText(
+      MockNewsList.news[0].headline.substring(0, mockHeadlineMaxLength),
+      { exact: false }
+    );
+    screen.getAllByText(
+      MockNewsList.news[1].headline.substring(0, mockHeadlineMaxLength),
+      { exact: false }
+    );
+    screen.getAllByText(
+      MockNewsList.news[2].headline.substring(0, mockHeadlineMaxLength),
+      { exact: false }
+    );
+  });
 });

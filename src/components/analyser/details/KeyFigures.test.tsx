@@ -55,13 +55,15 @@ const theme = createMuiTheme({
   },
 });
 
-test('shows key figures correctly', async () => {
-  render(
-    <ThemeProvider theme={theme}>
-      <KeyFigures keyFigures={MockKeyFigures} />
-    </ThemeProvider>
-  );
-  screen.getAllByText('analyser.details.KeyFiguresHeader.KeyFigures', {
-    exact: false,
+describe('KeyFigures', () => {
+  test('shows key figures correctly', async () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <KeyFigures keyFigures={MockKeyFigures} />
+      </ThemeProvider>
+    );
+    screen.getAllByText('analyser.details.KeyFiguresHeader.KeyFigures', {
+      exact: false,
+    });
   });
 });

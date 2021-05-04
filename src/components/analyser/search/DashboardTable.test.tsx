@@ -1,5 +1,5 @@
-import { render, fireEvent } from '@testing-library/react';
 import * as React from 'react';
+import { render, fireEvent } from '@testing-library/react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import DashboardTable, { DashboardTableProps } from './DashboardTable';
 import { MockOverview, MockOverviewTwo } from '../../../analyser/APIMocks';

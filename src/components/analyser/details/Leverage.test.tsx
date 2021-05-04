@@ -59,31 +59,32 @@ const theme = createMuiTheme({
   },
 });
 
-test('shows stock leverage values', async () => {
-  render(
-    <ThemeProvider theme={theme}>
-      <Leverage
-        stockOverview={MockOverview}
-        companyReports={MockCompanyReports}
-        interestCoverages={MockInterestCoverageList}
-      />
-    </ThemeProvider>
-  );
-
-  // test dept ratio
-  const MockDeptRatio =
-    Math.round(
-      (MockCompanyReports.annualReports[0].currentDebt /
-        MockCompanyReports.annualReports[0].totalAssets) *
-        1000
-    ) / 1000;
-  screen.getAllByText(MockDeptRatio, { exact: false });
-  // test Interest Coverage
-  screen.getAllByText(
-    MockInterestCoverageList.success[0].interestCoverage.toFixed(2),
-    { exact: false }
-  );
-  screen.getAllByText('analyser.details.Leverage.DebtDevelopment', {
-    exact: false,
+describe('DetailsOverviewInfoBox', () => {
+  test('shows stock leverage values', async () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <Leverage
+          stockOverview={MockOverview}
+          companyReports={MockCompanyReports}
+          interestCoverages={MockInterestCoverageList}
+        />
+      </ThemeProvider>
+    );
+    // test dept ratio
+    const MockDeptRatio =
+      Math.round(
+        (MockCompanyReports.annualReports[0].currentDebt /
+          MockCompanyReports.annualReports[0].totalAssets) *
+          1000
+      ) / 1000;
+    screen.getAllByText(MockDeptRatio, { exact: false });
+    // test Interest Coverage
+    screen.getAllByText(
+      MockInterestCoverageList.success[0].interestCoverage.toFixed(2),
+      { exact: false }
+    );
+    screen.getAllByText('analyser.details.Leverage.DebtDevelopment', {
+      exact: false,
+    });
   });
 });

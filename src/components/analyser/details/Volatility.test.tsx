@@ -55,21 +55,23 @@ const theme = createMuiTheme({
   },
 });
 
-test('shows stock volatality values', async () => {
-  render(
-    <ThemeProvider theme={theme}>
-      <Volatility details={MockStockDetails} />
-    </ThemeProvider>
-  );
+describe('Volatility', () => {
+  test('shows stock volatality values', async () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <Volatility stockDetails={MockStockDetails} />
+      </ThemeProvider>
+    );
 
-  screen.getAllByText(MockStockDetails.symbol, { exact: false });
-  // test beta factor
-  screen.getAllByText(MockStockDetails.beta, { exact: false });
-  // test Sharpe & Treynor Ratios
-  screen.getAllByText('0.5', { exact: false });
+    screen.getAllByText(MockStockDetails.symbol, { exact: false });
+    // test beta factor
+    screen.getAllByText(MockStockDetails.beta, { exact: false });
+    // test Sharpe & Treynor Ratios
+    screen.getAllByText('0.5', { exact: false });
 
-  screen.getAllByText(MockStockDetails.symbol, { exact: false });
-  screen.getAllByText('analyser.details.Volatility.VolatilityChart', {
-    exact: false,
+    screen.getAllByText(MockStockDetails.symbol, { exact: false });
+    screen.getAllByText('analyser.details.Volatility.VolatilityChart', {
+      exact: false,
+    });
   });
 });

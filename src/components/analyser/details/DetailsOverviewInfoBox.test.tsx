@@ -55,18 +55,20 @@ const theme = createMuiTheme({
   },
 });
 
-test('shows details info box correctly', async () => {
-  render(
-    <ThemeProvider theme={theme}>
-      <DetailsOverviewInfoBox
-        stockOverview={MockOverview}
-        stockDetails={MockStockDetails}
-      />
-    </ThemeProvider>
-  );
+describe('DetailsOverviewInfoBox', () => {
+  test('shows details info box correctly', async () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <DetailsOverviewInfoBox
+          stockOverview={MockOverview}
+          stockDetails={MockStockDetails}
+        />
+      </ThemeProvider>
+    );
 
-  screen.getAllByText(MockOverview.country, { exact: false });
-  screen.getAllByText(MockOverview.currency, { exact: false });
-  screen.getAllByText(MockStockDetails.industry, { exact: false });
-  screen.getAllByText(MockStockDetails.exchange, { exact: false });
+    screen.getAllByText(MockOverview.country, { exact: false });
+    screen.getAllByText(MockOverview.currency, { exact: false });
+    screen.getAllByText(MockStockDetails.industry, { exact: false });
+    screen.getAllByText(MockStockDetails.exchange, { exact: false });
+  });
 });
