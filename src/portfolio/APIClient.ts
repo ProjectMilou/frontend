@@ -344,7 +344,7 @@ function convertPortfolioDetails(response: DetailsResponse): PortfolioDetails {
  * otherwise rejects with an error that has an {@link ErrorCode} as message.
  *
  * @param method - Request method (GET, POST, etc.)
- * @param url - An URL relative to {@link baseURL}
+ * @param url - An URL relative to the portfolio endpoint
  * @param body - The request body
  * @param headers - Additional request headers
  * @param customEndpoint - choose a custom waypoint to make the request, default is /portfolio
