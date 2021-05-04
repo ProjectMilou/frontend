@@ -48,7 +48,8 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
   const [risks, setRisks] = React.useState<API.RiskList>();
   const [newsList, setNewsList] = React.useState<API.NewsList>();
   const [stockDividend, setStockDividend] = React.useState<number[]>([]);
-  const [quota, setQuota] = React.useState<number>(0);
+  const [divQuota, setDivQuota] = React.useState<number>(0);
+  const [divNextPayout, setDivNextPayout] = React.useState<Date>();
   const [performanceAll, setPerformanceAll] = React.useState(false);
   const [stockPerformance, setStockPerformance] = React.useState<number[][]>([
     [],
@@ -88,13 +89,13 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
 
   /**  Fix for API Client to convert Dividend Date to Unix Timestamp */
   const convertDividend = (dividend: API.StockHistoricDividendList) => {
-    const unixDataPoints: number[] = [];
+    const dividendDataPoints: number[] = [];
     dividend.dataPoints.forEach((p) => {
       const d = Math.round(p.div * 100) / 100;
       const point: number = d;
-      unixDataPoints.push(point);
+      dividendDataPoints.push(point);
     });
-    return unixDataPoints.reverse();
+    return dividendDataPoints.reverse();
   };
 
   /** Method that is used to fetch all data from backend for each component. Saves results in corresponding states */
@@ -117,7 +118,10 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
       setStockDetails(sD);
       setStockPerformance(convertPerformance(sP));
       setStockDividend(convertDividend(sDiv));
-      setQuota(parseFloat(sDiv.quota));
+      setDivQuota(parseFloat(sDiv.quota));
+      if (sDiv.date !== 'None') {
+        setDivNextPayout(new Date(sDiv.date));
+      }
       setCompanyReports(cR);
       setInterestCoverages(iC);
       setCashFlowList(cCash);
@@ -207,7 +211,9 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
               <Dividends
                 series={stockDividend}
                 cashFlowList={cashFlowList}
-                dividendYield={quota}
+                dividendPayoutRatio={divQuota}
+                dividendYield={stockOverview.div}
+                nextPayout={divNextPayout}
               />
               <BalanceSheetInfo companyReports={companyReports} />
               <Analysts

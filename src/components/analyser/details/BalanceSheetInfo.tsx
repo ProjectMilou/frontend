@@ -68,16 +68,16 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
     receivables: checkValue(
       companyReports.annualReports[0].currentNetReceivables
     ),
-    physicalAsssets: checkValue(
+    physicalAssets: checkValue(
       companyReports.annualReports[0].propertyPlantEquipment
     ),
-    deprecationAndAmortisation: checkValue(
+    deprecationAndAmortization: checkValue(
       companyReports.annualReports[0].accumulatedDepreciationAmortizationPPE
     ),
     intangibleAssets: checkValue(
       companyReports.annualReports[0].intangibleAssets
     ),
-    longTermInvestements: checkValue(
+    longTermInvestments: checkValue(
       companyReports.annualReports[0].longTermInvestments
     ),
     otherCurrentAssets: checkValue(
@@ -108,15 +108,15 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
           y: assetSeries.receivables,
         },
         {
-          x: checkName(assetSeries.physicalAsssets, 'Physical Assets'),
-          y: assetSeries.physicalAsssets,
+          x: checkName(assetSeries.physicalAssets, 'Physical Assets'),
+          y: assetSeries.physicalAssets,
         },
         {
           x: checkName(
-            assetSeries.deprecationAndAmortisation,
+            assetSeries.deprecationAndAmortization,
             'Deprecation and Amortization'
           ),
-          y: assetSeries.deprecationAndAmortisation,
+          y: assetSeries.deprecationAndAmortization,
         },
         {
           x: checkName(assetSeries.intangibleAssets, 'Intangible Assets'),
@@ -126,7 +126,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
           x: 'Longterm & Other Assets',
           y:
             // multiplied by 1 to avoid weird string concatenation error we get from backend
-            assetSeries.longTermInvestements * 1 +
+            assetSeries.longTermInvestments * 1 +
             assetSeries.otherCurrentAssets * 1 +
             assetSeries.otherNonCurrentAssets * 1,
         },
