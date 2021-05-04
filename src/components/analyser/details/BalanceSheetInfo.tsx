@@ -6,12 +6,14 @@ import {
   createStyles,
   useTheme,
 } from '@material-ui/core/styles';
+import { Container } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 import InfoButton from '../../shared/InfoButton';
 import { checkValue, checkName } from '../../../analyser/Helper';
+import SubsectionDivider from '../../shared/SubsectionDivider';
 
-export type BalanceSheetProps = {
+type BalanceSheetProps = {
   companyReports: API.CompanyReports;
 };
 
@@ -23,25 +25,9 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       marginTop: '2rem',
       marginBottom: '2rem',
     },
-    MapWrapper: {
-      width: '20rem',
-      height: '20rem',
-      display: 'block',
+    mapWrapper: {
       marginLeft: 'auto',
       marginRight: 'auto',
-    },
-    titleContainer: {
-      display: 'flex',
-    },
-    titleWrapper: {
-      marginRight: '1rem',
-    },
-    sectionSubTitle: {
-      margin: 0,
-      color: palette.primary.main,
-      fontSize: '2rem',
-      fontWeight: 400,
-      whiteSpace: 'nowrap',
     },
     boxTitles: {
       margin: 0,
@@ -54,15 +40,26 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     contentWrapper: {
       paddingBottom: '2rem',
       paddingTop: '1rem',
+      display: 'flex',
+      justifyContent: 'space-between',
+      marginTop: '2rem',
+      marginBottom: '2rem',
+      alignItems: 'center',
     },
   })
 );
 
+/**
+ * This component gives an overview over a company's balance sheet. Everything is represented in a treemap chart
+ *
+ * @param companyReports List of company reports as in
+ */
 const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const theme = useTheme();
 
+  // assets data from backend cleanup
   const assetSeries = {
     cashShortTermInvestments: checkValue(
       companyReports.annualReports[0].cashAndShortTermInvestments
@@ -71,16 +68,16 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
     receivables: checkValue(
       companyReports.annualReports[0].currentNetReceivables
     ),
-    physicalAsssets: checkValue(
+    physicalAssets: checkValue(
       companyReports.annualReports[0].propertyPlantEquipment
     ),
-    deprecationAndAmortisation: checkValue(
+    deprecationAndAmortization: checkValue(
       companyReports.annualReports[0].accumulatedDepreciationAmortizationPPE
     ),
     intangibleAssets: checkValue(
       companyReports.annualReports[0].intangibleAssets
     ),
-    longTermInvestements: checkValue(
+    longTermInvestments: checkValue(
       companyReports.annualReports[0].longTermInvestments
     ),
     otherCurrentAssets: checkValue(
@@ -91,6 +88,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
     ),
   };
 
+  // assets data displayed in treemap
   const assets = [
     {
       data: [
@@ -110,15 +108,15 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
           y: assetSeries.receivables,
         },
         {
-          x: checkName(assetSeries.physicalAsssets, 'Physical Assets'),
-          y: assetSeries.physicalAsssets,
+          x: checkName(assetSeries.physicalAssets, 'Physical Assets'),
+          y: assetSeries.physicalAssets,
         },
         {
           x: checkName(
-            assetSeries.deprecationAndAmortisation,
-            'Deprecation and Amortisation'
+            assetSeries.deprecationAndAmortization,
+            'Deprecation and Amortization'
           ),
-          y: assetSeries.deprecationAndAmortisation,
+          y: assetSeries.deprecationAndAmortization,
         },
         {
           x: checkName(assetSeries.intangibleAssets, 'Intangible Assets'),
@@ -127,8 +125,8 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
         {
           x: 'Longterm & Other Assets',
           y:
-            // multiplied by 1 to avoid weird string concatenation error
-            assetSeries.longTermInvestements * 1 +
+            // multiplied by 1 to avoid weird string concatenation error we get from backend
+            assetSeries.longTermInvestments * 1 +
             assetSeries.otherCurrentAssets * 1 +
             assetSeries.otherNonCurrentAssets * 1,
         },
@@ -136,6 +134,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
     },
   ];
 
+  // liabilities and equity data from backend cleaned up
   const equitiesSeries = {
     equity: checkValue(companyReports.annualReports[0].totalShareholderEquity),
     otherCurrentLiabilities: checkValue(
@@ -159,6 +158,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
     debt: checkValue(companyReports.annualReports[0].currentDebt),
   };
 
+  // data displayed in treemap
   const liabilitiesEquities = [
     {
       data: [
@@ -192,7 +192,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
           x: checkName(equitiesSeries.retainedEarnings, 'Retained Earnings'),
           y: equitiesSeries.retainedEarnings,
         },
-        // Place Holder to allow for red coloring of debt Fiel in Tree Map
+        // Placeholder to allow for red coloring of debt field in treemap
         {
           x: '',
           y: 0,
@@ -205,6 +205,7 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
     },
   ];
 
+  // options for ApexChart
   const options = {
     legend: {
       show: false,
@@ -259,29 +260,20 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
   };
 
   return (
-    <div className={classes.contentWrapper}>
-      <div className={classes.titleContainer}>
-        <div className={classes.titleWrapper}>
-          <h2 className={classes.sectionSubTitle}>
-            {t('analyser.details.BalanceSheetHeader')}
-          </h2>
-        </div>
-      </div>
-      <div className={classes.infoContainer}>
-        <div className={classes.MapWrapper}>
-          <div className={classes.titleContainer}>
-            <div className={classes.titleWrapper}>
-              <h5 className={classes.boxTitles}>
-                {t('analyser.details.BalanceSheet.Assets')}
-                <>&nbsp;</>
-                <InfoButton
-                  infotext={t(
-                    'analyser.details.BalanceSheet.Assets.infoButton'
-                  )}
-                />
-              </h5>
-            </div>
-          </div>
+    <>
+      <SubsectionDivider
+        subsection={t('analyser.details.BalanceSheetHeader')}
+      />
+      <Container className={classes.contentWrapper}>
+        <div className={classes.mapWrapper}>
+          <h5 className={classes.boxTitles}>
+            {t('analyser.details.BalanceSheet.Assets')}
+            <>&nbsp;</>
+            <InfoButton
+              infotext={t('analyser.details.BalanceSheet.Assets.infoButton')}
+            />
+          </h5>
+
           <Chart
             options={options}
             type="treemap"
@@ -290,20 +282,16 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
             width={400}
           />
         </div>
-        <div className={classes.MapWrapper}>
-          <div className={classes.titleContainer}>
-            <div className={classes.titleWrapper}>
-              <h5 className={classes.boxTitles}>
-                {t('analyser.details.BalanceSheet.Liabilities')}
-                <>&nbsp;</>
-                <InfoButton
-                  infotext={t(
-                    'analyser.details.BalanceSheet.Liabilities.infoButton'
-                  )}
-                />
-              </h5>
-            </div>
-          </div>
+        <div className={classes.mapWrapper}>
+          <h5 className={classes.boxTitles}>
+            {t('analyser.details.BalanceSheet.Liabilities')}
+            <>&nbsp;</>
+            <InfoButton
+              infotext={t(
+                'analyser.details.BalanceSheet.Liabilities.infoButton'
+              )}
+            />
+          </h5>
           <Chart
             options={options}
             type="treemap"
@@ -312,8 +300,8 @@ const BalanceSheetInfo: React.FC<BalanceSheetProps> = ({ companyReports }) => {
             width={400}
           />
         </div>
-      </div>
-    </div>
+      </Container>
+    </>
   );
 };
 

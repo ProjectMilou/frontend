@@ -3,7 +3,7 @@ import { makeStyles, Typography, Card, CardContent } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import * as API from '../../../analyser/APIClient';
 
-export type NewsCardProps = {
+type NewsCardProps = {
   news: API.News;
 };
 
@@ -36,13 +36,20 @@ const useStyles = makeStyles({
   },
 });
 
-const headlineMaxLength = 80;
-const summaryMaxLength = 80;
-
+/**
+ * Component for a single news card
+ *
+ * @param news item to display
+ *
+ */
 const News: React.FC<NewsCardProps> = ({ news }) => {
   const classes = useStyles();
   const divider = <span className={classes.divider}> </span>;
   const { t } = useTranslation();
+
+  // used to cut off text if max length is reached
+  const headlineMaxLength = 80;
+  const summaryMaxLength = 80;
 
   return (
     <div className={classes.card}>

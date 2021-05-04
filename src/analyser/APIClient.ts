@@ -127,7 +127,7 @@ type StockDetailsAnswer = {
 };
 
 // historic performance data
-export type StockHistricPerformanceList = {
+export type StockHistoricPerformanceList = {
   dataPoints: StockHistoricPerformance[];
 };
 
@@ -318,7 +318,7 @@ const convertStockOverview = (apiStock: Stock): Stock =>
     ...(apiStock.growth && { growth: parseFloat(apiStock.growth.toString()) }),
     ...(apiStock.div && {
       div:
-        apiStock.div.toString() === 'None'
+        apiStock.div.toString() === 'None' || apiStock.div.toString() === 'NaN'
           ? 0.0
           : parseFloat(apiStock.div.toString()),
     }),
@@ -347,11 +347,11 @@ async function request(
 ): Promise<unknown> {
   // can be used for debugging
   // console.log(`${customEndpoint || endpoint}/${url}`)
-  const response = await BaseService.authenticatedRequest(
+  const response = await BaseService.request(
     method,
     `${customEndpoint || endpoint}/${url}`,
-    body,
-    headers
+    headers,
+    body
   );
   if (response.ok) {
     return Promise.resolve(response.json()); // valid response
@@ -423,11 +423,11 @@ export async function stockDetails(symbol: string): Promise<StockDetails> {
 export async function stockPerformance(
   symbol: string,
   historic: boolean
-): Promise<StockHistricPerformanceList> {
+): Promise<StockHistoricPerformanceList> {
   const response = (await request(
     'GET',
     `charts/historic?id=${symbol}&max=${historic.toString()}`
-  )) as StockHistricPerformanceList;
+  )) as StockHistoricPerformanceList;
   return response;
 }
 

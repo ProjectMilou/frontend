@@ -65,11 +65,11 @@ const Header: React.FC = () => {
         <NavLink to="/portfolio">{t('portfolio')}</NavLink>
         <NavLink to="/analyser">{t('analyser')}</NavLink>
         <NavLink to="/academy">{t('shell.academy')}</NavLink>
+        <SearchBar />
         <div className={classes.grow} />
 
         {state.loggedIn ? (
           <>
-            <SearchBar />
             <Button
               className={classes.button}
               variant="outlined"

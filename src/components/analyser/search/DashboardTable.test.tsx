@@ -1,5 +1,5 @@
-import { render, fireEvent } from '@testing-library/react';
 import * as React from 'react';
+import { render, fireEvent } from '@testing-library/react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import DashboardTable, { DashboardTableProps } from './DashboardTable';
 import { MockOverview, MockOverviewTwo } from '../../../analyser/APIMocks';
@@ -75,6 +75,7 @@ describe('DashboardTable', () => {
     // empty table & no error message
     expect(queryByText('analyser.dashboard.errorMessage')).toBeNull();
     expect(container.querySelector('table')).toBeInTheDocument();
+    expect(container.querySelector('ul')).toBeNull();
   });
 
   test('display stock information', () => {

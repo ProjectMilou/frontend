@@ -15,6 +15,7 @@ import {
   Checkbox,
   Chip,
 } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
 // FilterBar props type declaration
 export type FilterBarProps = {
@@ -28,9 +29,6 @@ export type FilterBarProps = {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    typography: {
-      color: theme.palette.primary.dark,
-    },
     formControl: {
       margin: theme.spacing(2),
       minWidth: '200px',
@@ -42,6 +40,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     chip: {
       margin: 1,
+    },
+    clearList: {
+      fontWeight: 500,
+      '&:hover': {
+        backgroundColor: theme.palette.error.main,
+      },
     },
   })
 );
@@ -78,17 +82,15 @@ function getStyles(tmp: string, list: string[], theme: Theme) {
   };
 }
 
-export /**
- *
+/**
+ * Component to display a bar where filters can be selected
  *
  * @param filtersList - Filtered list of stocks' currency / country / market Cap / industry
  * @param ogFiltersList - Original list of stocks' currency / country / market Cap / industry
  * @param handleChange - Update the list if filter is changed
  * @param name - Currency / Country / Market Cap / Industry
- * }
- * @return {*}
  */
-const FilterBar: React.FC<FilterBarProps> = ({
+export const FilterBar: React.FC<FilterBarProps> = ({
   filtersList,
   ogFiltersList,
   handleChange,
@@ -96,6 +98,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
 }) => {
   const classes = useStyles();
   const theme = useTheme();
+  const { t } = useTranslation();
 
   return (
     <FormControl className={classes.formControl}>
@@ -122,11 +125,8 @@ const FilterBar: React.FC<FilterBarProps> = ({
         )}
         MenuProps={MenuProps}
       >
-        <MenuItem disabled value="">
-          <em>{name}</em>
-        </MenuItem>
-        <MenuItem value="">
-          <em>None</em>
+        <MenuItem value="" className={classes.clearList}>
+          {t('analyser.filter.clearSingle')}
         </MenuItem>
         {ogFiltersList.map((tmp) => (
           <MenuItem
