@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import {
   makeStyles,
   useTheme,
@@ -6,17 +6,17 @@ import {
   createStyles,
 } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import { Toolbar } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import * as API from '../../../analyser/APIClient';
 import InfoButton from '../../shared/InfoButton';
 import VolatilityGraph from '../../shared/VolatilityGraph';
 import LargeVolatilityLineEntry from '../../shared/LargeVolatilityLineEntry';
 import SubsectionDivider from '../../shared/SubsectionDivider';
+import InfoBlock from './InfoBlock';
 
-// props type declaration
+// Volatility props type declaration
 export type VolatilityProps = {
-  details: API.StockDetails;
+  stockDetails: API.StockDetails;
 };
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
@@ -38,31 +38,6 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       alignItems: 'left',
       padding: '2rem',
       float: 'left',
-    },
-    infoWrapper: {
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-    infoBody: {
-      display: 'flex',
-      alignSelf: 'center',
-      width: '100%',
-      justifyContent: 'center',
-      color: palette.primary.main,
-      fontWeight: typography.fontWeightRegular,
-      fontSize: '1.15rem',
-    },
-    infoTitle: {
-      color: palette.primary.main,
-      fontWeight: typography.fontWeightBold,
-      fontSize: '1.25rem',
-      margin: 0,
-      whiteSpace: 'nowrap',
-    },
-    infoTitleP: {
-      margin: '0.5rem 0.5rem',
     },
     chartContainer: {
       display: 'flex',
@@ -105,31 +80,11 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
   })
 );
 
-// type declarations
-type InfoBlockProps = {
-  title: string;
-  body: ReactElement;
-  info: string;
-};
-
-// returns the details page header
-const InfoBlock: React.FC<InfoBlockProps> = ({ title, body, info }) => {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.infoWrapper}>
-      <div className={classes.infoTitle}>
-        <Toolbar disableGutters>
-          <div className={classes.infoTitleP}>{title}</div>
-          <InfoButton infotext={info}> </InfoButton>
-        </Toolbar>
-      </div>
-      <div className={classes.infoBody}>{body}</div>
-    </div>
-  );
-};
-
-const Volatility: React.FC<VolatilityProps> = ({ details }) => {
+/**
+ * @param stockDetails - Stock details object which is used to display data
+ * @return Volatility Section on detail page which includes volatility line object and text values.
+ */
+const Volatility: React.FC<VolatilityProps> = ({ stockDetails }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const theme = useTheme();
@@ -141,13 +96,13 @@ const Volatility: React.FC<VolatilityProps> = ({ details }) => {
         <div className={classes.infoContainer}>
           <InfoBlock
             title={t('analyser.details.Volatility.BetaFactor')}
-            info={t('analyser.details.Volatility.TreynorRatio')}
+            info={t('analyser.details.Volatility.BetaFactor.infoButton')}
             body={
               <div style={{ margin: 0 }}>
                 {' '}
-                {details.beta != null
-                  ? details.beta
-                  : (details.symbol,
+                {stockDetails.beta != null
+                  ? stockDetails.beta
+                  : (stockDetails.symbol,
                     t(
                       'analyser.details.Volatility.BetaFactor.ErrorMessage'
                     ))}{' '}
@@ -185,11 +140,11 @@ const Volatility: React.FC<VolatilityProps> = ({ details }) => {
             >
               <VolatilityGraph color={palette.primary.main}>
                 <LargeVolatilityLineEntry
-                  volatilityValue={details.beta}
+                  volatilityValue={stockDetails.beta}
                   marketValue={1}
-                  name={details.symbol}
+                  name={stockDetails.symbol}
                   textColor={
-                    details.beta > 1
+                    stockDetails.beta > 1
                       ? theme.palette.error.main
                       : theme.palette.success.main
                   }
