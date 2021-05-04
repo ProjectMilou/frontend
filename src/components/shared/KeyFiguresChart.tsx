@@ -64,6 +64,8 @@ const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({
           colors: color,
         },
       },
+      forceNiceScale: true,
+      decimalsInFloat: 2,
     },
     markers: {
       size: 5,

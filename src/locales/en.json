@@ -4,7 +4,7 @@
   "portfolio.portfolioAverage": "Portfolio Average",
   "portfolio.details.missingDataMessage": "For some of your stocks there is data missing in our database. Only the amount holding and the value of these stocks can be displayed. Stocks affected: ",
   "portfolio.details.editPortfolio": "Edit Portfolio",
-  "portfolio.details.cannotEditPortfolio": "Cannot edit real portfolio",
+  "portfolio.details.cannotEditPortfolio": "You cannot edit a real portfolio. Please duplicate to a virtual portfolio to start simulating changes.",
   "portfolio.details.summary.missingDiversification": "There is no diversification info available for your stocks.",
   "portfolio.details.summaryHeader": "1. Summary",
   "portfolio.details.stockChartSeries": "Total Performance",
