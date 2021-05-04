@@ -146,6 +146,13 @@ export type Backtesting = {
 // The first number is a timestamp, the second number is the portfolio value at that time.
 export type Performance = [number, number][];
 
+// The search result includes more data. This type includes only the data used by us.
+export type StockSearchResult = {
+  symbol: string;
+  name?: string;
+  price?: number;
+};
+
 // Types describing the JSON response of API calls.
 // The correctness of these types is assumed, no checks are performed.
 
@@ -267,6 +274,8 @@ type KeyFiguresResponse = {
   div?: number | null;
   dividendPayoutRatio?: number | null;
 };
+
+type StockSearchResponse = { stocks: StockSearchResult[] };
 
 /**
  * Converts a {@link PortfolioOverviewResponse} object as received from the API
@@ -519,4 +528,23 @@ export async function performance(id: string): Promise<Performance> {
     `performance/${id}`
   )) as PerformanceResponse;
   return response.chart;
+}
+
+/**
+ * Searches for stocks. The search result count is limited to 10.
+ *
+ * @param searchTerm - A search term
+ */
+export async function stockSearch(
+  searchTerm: string
+): Promise<StockSearchResult[]> {
+  const response = (await request(
+    'GET',
+    `search?id=${encodeURIComponent(searchTerm)}&limit=10&pageNumber=1`,
+    undefined,
+    undefined,
+    'stocks'
+  )) as StockSearchResponse;
+  // The search result can include undefined/null values. Stocks are identified by the symbol. If it's missing, the result is ignored.
+  return response.stocks.filter((s) => s.symbol);
 }

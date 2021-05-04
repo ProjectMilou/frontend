@@ -6,6 +6,7 @@ import {
   list,
   modify,
   rename,
+  stockSearch,
 } from './APIClient';
 import { MockDetails, MockOverview, MockOverviewTwo } from './APIMocks';
 import StorageService from '../services/StorageService';
@@ -142,6 +143,21 @@ describe('Portfolio API client', () => {
     test('resolves on success', async () => {
       fetchMock.mockResponseOnce(JSON.stringify({}));
       await expect(apiCall()).resolves.toBeUndefined();
+    });
+
+    errorHandlingTests(apiCall);
+  });
+
+  describe('stockSearch', () => {
+    const apiCall = () => stockSearch('GME');
+
+    test('resolves on success', async () => {
+      fetchMock.mockResponseOnce(
+        JSON.stringify({ stocks: [{ symbol: 'GME', name: 'Gamestonk' }] })
+      );
+      await expect(apiCall()).resolves.toEqual([
+        { symbol: 'GME', name: 'Gamestonk' },
+      ]);
     });
 
     errorHandlingTests(apiCall);

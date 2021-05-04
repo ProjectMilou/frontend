@@ -243,7 +243,7 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonProps> = ({
               [p.id]: {
                 displayName: p.name,
                 disabled: !p.virtual,
-                value: p.qty,
+                initialValue: p.qty,
               },
             }),
             {}

@@ -29,11 +29,19 @@ import ProgressButton from './ProgressButton';
 import { errorMessageKey, errorTitleKey } from '../../Errors';
 import LimitedString from './LimitedString';
 
+/** Props passed to the 'AddEntry' component. */
+export type AddEntryProps = {
+  /** IDs of existing entries. */
+  ids: string[];
+  /** Adds an entry to the dialog. */
+  add: (id: string, entry: Entry) => void;
+};
+
 export type EditDialogProps = {
   /** Whether the dialog is open. */
   open: boolean;
   /** The data to display and edit. */
-  entries: Entries;
+  entries: InitialEntries;
   /** Called on dialog close. */
   handleClose: () => void;
   /** Called with the modified values when the action button is clicked. */
@@ -64,11 +72,12 @@ export type EditDialogProps = {
   strikethroughCleared?: boolean;
   /** Number of allowed decimal places for user inputs. Default: 6 */
   decimalPlaces?: number;
+  /** A component that allows adding entries to the dialog. */
+  AddEntry?: React.ComponentType<AddEntryProps>;
 };
 
 type EditEntryProps = {
   id: string;
-  value?: number;
   entry: Entry;
   dispatch: React.Dispatch<Actions>;
   strikethroughCleared?: boolean;
@@ -83,25 +92,31 @@ type EntryNumberFormatProps = {
   decimalPlaces: number;
 };
 
-/** An entry with an editable value to display in the table. */
-type Entry = {
+/** An entry to display in the table. */
+type InitialEntry = {
   /** A name describing the entry. */
   displayName: string;
   /** `true` if and only if the entry cannot be edited. */
   disabled?: boolean;
   /** A value that is displayed and can be edited if not disabled. */
-  value: number;
+  initialValue: number;
   /** Optional table cells between the display name and the value. */
   additionalTableCells?:
     | React.ReactElement<TableCellProps>
     | React.ReactElement<TableCellProps>[];
 };
 
+/** An entry with an editable value. */
+type Entry = InitialEntry & {
+  /** The (possibly changed) value. Undefined values are treated as 0. */
+  value?: number;
+};
+
+/** Keys mapped to {@link InitialEntry} objects. */
+type InitialEntries = { [key: string]: InitialEntry };
+
 /** Keys mapped to {@link Entry} objects. */
 type Entries = { [key: string]: Entry };
-
-/** Keys mapped to values. Undefined values are treated as 0. */
-type Values = { [key: string]: number | undefined };
 
 /**
  * Rounds a floating point number to a specified number of decimal places.
@@ -120,20 +135,20 @@ type State = {
   /** An error that occured during an API call or `undefined`. */
   error?: Error;
   /** All values of an edit dialog. */
-  values: Values;
+  entries: Entries;
   /** Number of allowed decimal places for user inputs. */
   decimalPlaces: number;
 };
 
 const initialState: State = {
   loading: false,
-  values: {},
+  entries: {},
   decimalPlaces: 6,
 };
 
 type InitAction = {
   type: 'init';
-  payload: { entries: Entries; decimalPlaces?: number };
+  payload: { entries: InitialEntries; decimalPlaces?: number };
 };
 type SetValueAction = {
   type: 'setValue';
@@ -145,6 +160,10 @@ type DecrementValueAction = {
 };
 type IncrementValueAction = { type: 'increaseValue'; payload: { id: string } };
 type ClearValueAction = { type: 'clearValue'; payload: { id: string } };
+type AddEntryAction = {
+  type: 'addEntry';
+  payload: { id: string; entry: Entry };
+};
 type SetErrorAction = {
   type: 'setError';
   payload: Error;
@@ -159,6 +178,7 @@ type Actions =
   | DecrementValueAction
   | IncrementValueAction
   | ClearValueAction
+  | AddEntryAction
   | SetErrorAction
   | SetLoadingAction;
 
@@ -172,12 +192,13 @@ type Actions =
 function initAction({ entries, decimalPlaces }: InitAction['payload']): State {
   return {
     ...initialState,
-    values: entries
-      ? Object.entries(entries).reduce<Values>(
-          (acc, [k, { value }]) => ({ ...acc, [k]: value }),
-          {}
-        )
-      : {},
+    entries: Object.entries(entries).reduce<Entries>(
+      (acc, [k, entry]) => ({
+        ...acc,
+        [k]: { ...entry, value: entry.initialValue },
+      }),
+      {}
+    ),
     decimalPlaces: decimalPlaces || initialState.decimalPlaces,
   };
 }
@@ -185,21 +206,24 @@ function initAction({ entries, decimalPlaces }: InitAction['payload']): State {
 /**
  * Changes the value specified by 'id' to 'value'.
  *
- * @param values - Stored values.
+ * @param entries - Stored entries.
  * @param decimalPlaces - Number of decimal places to use for rounding.
  * @param id - ID of the entry to modify.
  * @param value - New value of the entry.
- * @return New {@link Values}.
+ * @return New {@link Entries}.
  */
 function changeValueAction(
-  { values, decimalPlaces }: State,
+  { entries, decimalPlaces }: State,
   { id, value }: SetValueAction['payload']
-): Values {
+): Entries {
   return {
-    ...values,
-    // round to avoid precision errors
-    [id]:
-      value !== undefined ? Math.max(round(value, decimalPlaces), 0) : value,
+    ...entries,
+    [id]: {
+      ...entries[id],
+      // round to avoid precision errors
+      value:
+        value !== undefined ? Math.max(round(value, decimalPlaces), 0) : value,
+    },
   };
 }
 
@@ -208,13 +232,16 @@ function changeValueAction(
  *
  * @param state - The state.
  * @param id - ID of the entry to decrement.
- * @return New {@link Values}.
+ * @return New {@link Entries}.
  */
 function decrementValueAction(
   state: State,
   { id }: DecrementValueAction['payload']
-): Values {
-  return changeValueAction(state, { id, value: (state.values[id] || 0) - 1 });
+): Entries {
+  return changeValueAction(state, {
+    id,
+    value: (state.entries[id].value || 0) - 1,
+  });
 }
 
 /**
@@ -222,29 +249,53 @@ function decrementValueAction(
  *
  * @param state - The state.
  * @param id - ID of the entry to increment.
- * @return New {@link Values}.
+ * @return New {@link Entries}.
  */
 function incrementValueAction(
   state: State,
   { id }: IncrementValueAction['payload']
-): Values {
-  return changeValueAction(state, { id, value: (state.values[id] || 0) + 1 });
+): Entries {
+  return changeValueAction(state, {
+    id,
+    value: (state.entries[id].value || 0) + 1,
+  });
 }
 
 /**
  * Sets the value specified by 'id' to 0.
  *
- * @param values - Stored values.
+ * @param entries - Stored entries.
  * @param id - ID of the entry to clear.
- * @return New {@link Values}.
+ * @return New {@link Entries}.
  */
 function clearValueAction(
-  values: Values,
+  entries: Entries,
   { id }: ClearValueAction['payload']
-): Values {
+): Entries {
   return {
-    ...values,
-    [id]: 0,
+    ...entries,
+    [id]: {
+      ...entries[id],
+      value: 0,
+    },
+  };
+}
+
+/**
+ * Adds a new entry.
+ *
+ * @param entries - Stored entries.
+ * @param id - ID of the new entry.
+ * @param entry - The new entry.
+ * @return New {@link Entries}.
+ */
+function addEntryAction(
+  entries: Entries,
+  { id, entry }: AddEntryAction['payload']
+): Entries {
+  return {
+    ...entries,
+    [id]: entry,
   };
 }
 
@@ -255,22 +306,27 @@ function reducer(state: State, action: Actions): State {
     case 'setValue':
       return {
         ...state,
-        values: changeValueAction(state, action.payload),
+        entries: changeValueAction(state, action.payload),
       };
     case 'decreaseValue':
       return {
         ...state,
-        values: decrementValueAction(state, action.payload),
+        entries: decrementValueAction(state, action.payload),
       };
     case 'increaseValue':
       return {
         ...state,
-        values: incrementValueAction(state, action.payload),
+        entries: incrementValueAction(state, action.payload),
       };
     case 'clearValue':
       return {
         ...state,
-        values: clearValueAction(state.values, action.payload),
+        entries: clearValueAction(state.entries, action.payload),
+      };
+    case 'addEntry':
+      return {
+        ...state,
+        entries: addEntryAction(state.entries, action.payload),
       };
     case 'setError':
       return {
@@ -397,7 +453,6 @@ const EntryNumberFormat: React.FC<EntryNumberFormatProps> = ({
 const EditEntry: React.FC<EditEntryProps> = ({
   id,
   entry,
-  value,
   dispatch,
   strikethroughCleared,
   decimalPlaces,
@@ -408,10 +463,12 @@ const EditEntry: React.FC<EditEntryProps> = ({
     <TableRow>
       <TableCell
         className={classNames({
-          [classes.increase]: value && value > entry.value,
-          [classes.decrease]: entry.value && (!value || value < entry.value),
+          [classes.increase]: entry.value && entry.value > entry.initialValue,
+          [classes.decrease]:
+            entry.initialValue &&
+            (!entry.value || entry.value < entry.initialValue),
           [classes.strikethrough]:
-            strikethroughCleared && !value && entry.value,
+            strikethroughCleared && !entry.value && entry.initialValue,
           [classes.nameCell]: true,
         })}
       >
@@ -420,7 +477,7 @@ const EditEntry: React.FC<EditEntryProps> = ({
       {entry.additionalTableCells}
       <TableCell className={classes.actionCell}>
         <IconButton
-          disabled={entry.disabled || !value}
+          disabled={entry.disabled || !entry.value}
           onClick={() => dispatch({ type: 'decreaseValue', payload: { id } })}
         >
           <RemoveIcon />
@@ -429,7 +486,7 @@ const EditEntry: React.FC<EditEntryProps> = ({
           variant="outlined"
           className={classes.textField}
           disabled={entry.disabled}
-          value={value?.toString()}
+          value={entry.value?.toString()}
           InputProps={{
             inputComponent: EntryNumberFormat as React.ElementType<InputBaseComponentProps>,
             inputProps: {
@@ -450,17 +507,17 @@ const EditEntry: React.FC<EditEntryProps> = ({
           <AddIcon />
         </IconButton>
         <IconButton
-          disabled={entry.disabled || !value}
+          disabled={entry.disabled || !entry.value}
           onClick={() => dispatch({ type: 'clearValue', payload: { id } })}
         >
           <DeleteIcon />
         </IconButton>
         <IconButton
-          disabled={entry.disabled || value === entry.value}
+          disabled={entry.disabled || entry.value === entry.initialValue}
           onClick={() =>
             dispatch({
               type: 'setValue',
-              payload: { id, value: entry.value },
+              payload: { id, value: entry.initialValue },
             })
           }
         >
@@ -484,6 +541,7 @@ const EditDialog: React.FC<EditDialogProps> = ({
   additionalTableHeadCells,
   strikethroughCleared,
   decimalPlaces,
+  AddEntry,
 }) => {
   const classes = useStyles();
 
@@ -501,11 +559,14 @@ const EditDialog: React.FC<EditDialogProps> = ({
 
   const { t } = useTranslation();
 
-  const changes = Object.entries(state.values).reduce(
-    (acc, [id, value]) => ({
+  const changes = Object.entries(state.entries).reduce(
+    (acc, [id, entry]) => ({
       ...acc,
       // only include modified values
-      ...(value === entries[id]?.value ? {} : { [id]: value }),
+      ...(entry.value === entry.initialValue ||
+      (entry.value === undefined && entry.initialValue === 0)
+        ? {}
+        : { [id]: entry.value || 0 }),
     }),
     {}
   );
@@ -536,17 +597,24 @@ const EditDialog: React.FC<EditDialogProps> = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {Object.entries(entries).map(([id, entry]) => (
+            {Object.entries(state.entries).map(([id, entry]) => (
               <EditEntry
                 key={id}
                 id={id}
                 entry={entry}
-                value={state.values[id]}
                 dispatch={dispatch}
                 strikethroughCleared={strikethroughCleared}
                 decimalPlaces={state.decimalPlaces}
               />
             ))}
+            {AddEntry && (
+              <AddEntry
+                ids={Object.keys(state.entries)}
+                add={(id, entry) => {
+                  dispatch({ type: 'addEntry', payload: { id, entry } });
+                }}
+              />
+            )}
           </TableBody>
         </Table>
         {state.error && (

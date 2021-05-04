@@ -320,5 +320,10 @@
   "footer.aboutUs": "About us",
   "footer.privacy": "Privacy Policy",
   "footer.imprint": "Imprint",
-  "unknown": "unknown"
+  "unknown": "unknown",
+  "loading": "Loading...",
+  "noResults": "No results",
+  "open": "Open",
+  "close": "Close",
+  "clear": "Clear"
 }
