@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core';
 
 // stylesheet for the valueOverName component
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles(({ palette }) =>
   createStyles({
     compContainer: {
       display: 'flex',
@@ -16,9 +16,7 @@ const useStyles = makeStyles(() =>
     p: {
       margin: 0,
       alignSelf: 'center',
-      // TODO: use theme color
-      color: '#EEF1FB',
-      // TODO: use theme weight and size?
+      color: palette.primary.contrastText,
       fontSize: '1rem',
       fontWeight: 600,
     },
