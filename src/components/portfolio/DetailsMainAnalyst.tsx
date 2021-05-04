@@ -10,6 +10,7 @@ import AnalystBar from '../shared/AnalystBar';
 import AnalystBarIndicator from '../shared/AnalystBarIndicator';
 import { Position } from '../../portfolio/APIClient';
 import { collectStocks, CollectedStocks } from '../../portfolio/Helper';
+import NoInfoAvailable from './NoInfoAvailable';
 
 // stylesheet for the analyst section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -51,6 +52,8 @@ const DetailsMainAnalyst: React.FC<DetailsMainAnalystProps> = ({
   const { t } = useTranslation();
 
   const barData: CollectedStocks = collectStocks(positions, false);
+
+  if (positions.length === 0) return <NoInfoAvailable />;
 
   return (
     <div className={classes.analystWrapper}>

@@ -41,6 +41,7 @@ export type Stock = {
   volatility: number;
   debtEquity: number;
   score: number;
+  missingData: boolean;
 };
 
 export type Position = {
@@ -402,7 +403,7 @@ export async function backtesting(
     Number.isNaN(new Date(response.success.dateMin).getTime()) ||
     Number.isNaN(new Date(response.success.dateMax).getTime())
   )
-    throw new Error(response.error);
+    return Promise.reject(new AppError('NO_BACKTESTING_DATA'));
   return convertBacktesting(response as NonEmptyBacktestingResponse);
 }
 

@@ -43,7 +43,7 @@ export class BaseService {
    * @param method Request method
    * @param endpoint Request endpoint
    * @param body Request body
-   * @returns Response from requst
+   * @returns Response from request
    */
   public static async authenticatedRequest(
     method: MethodType,

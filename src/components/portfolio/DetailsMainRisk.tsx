@@ -13,6 +13,7 @@ import { RiskAnalysis, Diversification } from '../../portfolio/APIClient';
 import { RiskBundle, getRiskBundle } from '../../portfolio/Helper';
 import InfoButton from '../shared/InfoButton';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
+import NoInfoAvailable from './NoInfoAvailable';
 
 // stylesheet for the risk analysis section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -186,6 +187,16 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
   function sort(type: Diversification) {
     return Object.entries(type).sort((a, b) => b[1] - a[1]);
   }
+
+  // if no data for the risk section is provided render place holder text instead
+  if (
+    !risk ||
+    Object.keys(risk).length === 0 ||
+    Object.keys(risk.countries).length === 0 ||
+    Object.keys(risk.segments).length === 0 ||
+    Object.keys(risk.currency).length === 0
+  )
+    return <NoInfoAvailable />;
 
   return (
     <>

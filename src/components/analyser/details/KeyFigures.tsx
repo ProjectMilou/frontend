@@ -9,8 +9,9 @@ export type KeyFigureProps = {
 };
 
 /**
+ * This components contains the key figures section on detail page
  * @param keyFigures - Data about key figures (P/E, P/B, PEGR, EPS)
- * @return Key figures section on detail page
+ *
  */
 const KeyFigures: React.FC<KeyFigureProps> = ({ keyFigures }) => {
   const years = keyFigures.success.map((f) => new Date(f.date).getFullYear());
@@ -25,7 +26,7 @@ const KeyFigures: React.FC<KeyFigureProps> = ({ keyFigures }) => {
   };
 
   return (
-    <div>
+    <>
       <SubsectionDivider subsection="analyser.details.KeyFiguresHeader.KeyFigures" />
       <KeyFiguresBar
         chartHeight={350}
@@ -33,7 +34,7 @@ const KeyFigures: React.FC<KeyFigureProps> = ({ keyFigures }) => {
         years={years}
         outlined
       />
-    </div>
+    </>
   );
 };
 export default KeyFigures;

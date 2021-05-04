@@ -51,6 +51,7 @@ export const MockOverviewTwo: PortfolioOverview = {
 export const MockPositions: Position[] = [
   {
     stock: {
+      missingData: false,
       symbol: 'BMW',
       name: 'BMW',
       price: 23.25,
@@ -68,6 +69,7 @@ export const MockPositions: Position[] = [
   },
   {
     stock: {
+      missingData: false,
       symbol: 'MRC',
       name: 'Mercedes',
       price: 19.51,
@@ -85,6 +87,7 @@ export const MockPositions: Position[] = [
   },
   {
     stock: {
+      missingData: false,
       symbol: 'MCL',
       name: 'McLaren',
       price: 12.11,
@@ -102,6 +105,7 @@ export const MockPositions: Position[] = [
   },
   {
     stock: {
+      missingData: false,
       symbol: 'QQQ',
       name: 'QQQ',
       price: 120.11,

@@ -13,7 +13,6 @@ import { useTranslation } from 'react-i18next';
 import LanguageIcon from '@material-ui/icons/Language';
 import GroupIcon from '@material-ui/icons/Group';
 import HomeIcon from '@material-ui/icons/Home';
-import ChildFriendlyIcon from '@material-ui/icons/ChildFriendly';
 import { StockDetails } from '../../../analyser/APIClient';
 
 type DetailsOverviewCompanyProps = {
@@ -42,6 +41,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+/**
+ * This component returns a accordion for details overview which includes company details
+ *
+ * @param stock Details used to display data
+ *
+ */
 const DetailsOverviewCompany: React.FC<DetailsOverviewCompanyProps> = ({
   stockDetails,
 }) => {
@@ -63,7 +68,8 @@ const DetailsOverviewCompany: React.FC<DetailsOverviewCompanyProps> = ({
           </Typography>
         </ListItemText>
       </ListItem>
-      <ListItem>
+      {/* Founded section which has no data from backend yet */}
+      {/* <ListItem>
         <ListItemIcon>
           <ChildFriendlyIcon className={classes.icon} />
         </ListItemIcon>
@@ -72,7 +78,7 @@ const DetailsOverviewCompany: React.FC<DetailsOverviewCompanyProps> = ({
             {t('stock.founded')}: {stockDetails.founded}
           </Typography>
         </ListItemText>
-      </ListItem>
+      </ListItem> */}
       <ListItem>
         <ListItemIcon>
           <GroupIcon className={classes.icon} />
