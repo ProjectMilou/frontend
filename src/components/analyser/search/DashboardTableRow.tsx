@@ -16,6 +16,7 @@ import * as API from '../../../analyser/APIClient';
 import StyledNumberFormat from '../../shared/StyledNumberFormat';
 import Valuation from '../../shared/Valuation';
 import TextOverText from '../../shared/TextOverText';
+import { moneyFormat } from '../../../analyser/Helper';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -35,44 +36,24 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       fontWeight: 600,
       color: palette.lightBlue.main,
     },
-    disabled: {
-      cursor: 'not-allowed',
-    },
   })
 );
 
-export type DashboardTableRowProps = {
+type DashboardTableRowProps = {
   stock: API.Stock;
 };
 
-// Rounds and adds M=Million, B=Billion and K=Thousand --> American System!!!
-function moneyFormat(val: number): string {
-  let round = '';
-  if (Math.abs(val) >= 1.0e9) {
-    round = `${Math.round(Math.abs(val) / 1.0e9)}B`;
-  } else if (Math.abs(val) >= 1.0e6) {
-    round = `${Math.round(Math.abs(val) / 1.0e6)}M`;
-  } else if (Math.abs(val) >= 1.0e3) {
-    round = `${Math.round(Math.abs(val) / 1.0e3)}K`;
-  } else {
-    round = `${Math.abs(val)}`;
-  }
-  return round;
-}
-
+/**
+ * This component displays the actual data of individual stocks in the rows of the table
+ *
+ * @param stock single stock overview to display in a row
+ */
 const DashboardTableRow: React.FC<DashboardTableRowProps> = ({ stock }) => {
   const [hover, setHover] = React.useState<boolean>(false);
 
   const { t } = useTranslation();
   const classes = useStyles();
   const theme = useTheme();
-
-  function currencySymbol(): '€' | '$' {
-    if (stock.currency === 'USD') {
-      return '$';
-    }
-    return '€';
-  }
 
   return (
     <TableRow
@@ -94,7 +75,7 @@ const DashboardTableRow: React.FC<DashboardTableRowProps> = ({ stock }) => {
       <TableCell align="center" className={classes.defaultText}>
         <StyledNumberFormat
           value={stock.price}
-          suffix={currencySymbol()}
+          suffix="€"
           paintJob={theme.palette.primary.main}
         />
       </TableCell>
@@ -106,13 +87,13 @@ const DashboardTableRow: React.FC<DashboardTableRowProps> = ({ stock }) => {
       </TableCell>
       <TableCell align="center">
         <Typography color="primary" className={classes.defaultText}>
-          {currencySymbol() + moneyFormat(stock.marketCapitalization)}
+          €{moneyFormat(stock.marketCapitalization)}
         </Typography>
       </TableCell>
       <TableCell align="center" className={classes.defaultText}>
         <StyledNumberFormat
           value={stock.analystTargetPrice}
-          suffix={currencySymbol()}
+          suffix="€"
           paintJob={theme.palette.primary.main}
         />
       </TableCell>

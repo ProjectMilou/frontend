@@ -33,11 +33,15 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
   })
 );
 
+// RatioDonut props type declaration
 type RatioDonutProps = {
-  // decimal between 0 and 1
   ratio: number;
 };
 
+/**
+ * @param ratio - Ratio will be shown on the donut chart
+ * @return Dividend payout ratio donut with the number in the middle
+ */
 const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -51,44 +55,11 @@ const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
   }, [ratio]);
 
   const options = {
-    states: {
-      normal: {
-        filter: {
-          type: 'none',
-          value: 0,
-        },
-      },
-      hover: {
-        filter: {
-          type: 'none',
-          value: 0,
-        },
-      },
-      active: {
-        allowMultipleDataPointsSelection: false,
-        filter: {
-          type: 'none',
-          value: 0,
-        },
-      },
-    },
-    tooltip: {
-      enabled: true,
-    },
     fill: {
       colors: ['#00e396', '#008ffb'],
     },
-    chart: {
-      redrawOnWindowResize: false,
-      redrawOnParentResize: false,
-    },
     stroke: {
       show: false,
-    },
-    plotOptions: {
-      pie: {
-        expandOnClick: false,
-      },
     },
     dataLabels: {
       enabled: false,
@@ -97,9 +68,9 @@ const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
       show: false,
     },
     noData: {
-      text: 'Dividend is not paid this year.',
+      text: 'Dividend is not paid.',
       align: 'left',
-      verticalAlign: 'middle',
+      verticalAlign: 'top',
       style: {
         color: theme.palette.primary.dark,
         fontFamily: theme.typography.fontFamily,
@@ -121,7 +92,7 @@ const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
         />
         <div className={classes.textWrapper}>
           {!Number.isNaN(ratio) && (
-            <p style={{ margin: 0 }}>{`${ratio * 100}%`}</p>
+            <p style={{ margin: 0 }}>{`${(ratio * 100).toFixed(0)}%`}</p>
           )}
         </div>
       </div>

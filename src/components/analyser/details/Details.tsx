@@ -1,8 +1,7 @@
-// Initally based on Portfolio Details, since then heavily modified
+// Initially based on Portfolio Details, since then heavily modified
 import React from 'react';
 import { RouteComponentProps, useParams } from '@reach/router';
 import { LinearProgress, makeStyles, Container } from '@material-ui/core';
-import { isAuthenticationError } from '../../../Errors';
 import * as API from '../../../analyser/APIClient';
 import ErrorMessage from '../../shared/ErrorMessage';
 import DetailsHeader from './DetailsHeader';
@@ -19,70 +18,67 @@ import DetailsOverviewInfoBox from './DetailsOverviewInfoBox';
 import DetailsStockChart from './DetailsStockChart';
 
 // props type declaration
-export interface DetailsProps extends RouteComponentProps {
-  // API token
-  token: string;
+interface DetailsProps extends RouteComponentProps {
   // function to return to the dashboard
   back: () => void;
 }
 
 const useStyles = makeStyles({
-  createButton: {
-    marginTop: '25px',
-  },
   mainContent: {
     margin: '25px auto',
   },
 });
 
-const Details: React.FC<DetailsProps> = ({ token, back }) => {
+/**
+ * This component is a wrapper for all other components in the analyser page of a single stock.
+ * It stores all data received from the backend using states.
+ *
+ * @param back Function that is used to navigate back to analyser page
+ */
+const Details: React.FC<DetailsProps> = ({ back }) => {
   const classes = useStyles();
-
-  const [stockOverview, setStockOverview] = React.useState<API.Stock>();
-  const [stockDetails, setStockDetails] = React.useState<API.StockDetails>();
-  const [stockPerformance, setStockPerformance] = React.useState<number[][]>([
-    [],
-  ]);
-  const [stockDividend, setStockDividend] = React.useState<number[]>([]);
-  const [
-    // eslint-disable-next-line
-    companyReports,
-    setCompanyReports,
-  ] = React.useState<API.CompanyReports>();
-  const [
-    // eslint-disable-next-line
-    cashFlowList,
-    setCashFlowList,
-  ] = React.useState<API.CashFlowList>();
-  const [
-    // eslint-disable-next-line
-    keyFigures,
-    setKeyFigures,
-  ] = React.useState<API.KeyFigures>();
-
-  // eslint-disable-next-line
-  const [analystRecommendations, setAnalystRecommendations] = React.useState<
-    API.AnalystsRecommendation[]
-  >([]);
-
-  const [performanceAll, setPerformanceAll] = React.useState(false);
-  const [
-    interestCoverages,
-    setInterestCoverages,
-  ] = React.useState<API.InterestCoverageList>();
-  const [risks, setRisks] = React.useState<API.RiskList>();
-
-  const [error, setError] = React.useState<Error | undefined>();
 
   // get symbol from current route
   const { id } = useParams();
   const symbol: string = id;
 
+  const [stockOverview, setStockOverview] = React.useState<API.Stock>();
+  const [stockDetails, setStockDetails] = React.useState<API.StockDetails>();
+  const [keyFigures, setKeyFigures] = React.useState<API.KeyFigures>();
+  const [risks, setRisks] = React.useState<API.RiskList>();
+  const [newsList, setNewsList] = React.useState<API.NewsList>();
+  const [stockDividend, setStockDividend] = React.useState<number[]>([]);
+  const [divQuota, setDivQuota] = React.useState<number>(0);
+  const [divNextPayout, setDivNextPayout] = React.useState<Date>();
+  const [performanceAll, setPerformanceAll] = React.useState(false);
+  const [stockPerformance, setStockPerformance] = React.useState<number[][]>([
+    [],
+  ]);
+
+  const [
+    companyReports,
+    setCompanyReports,
+  ] = React.useState<API.CompanyReports>();
+  const [cashFlowList, setCashFlowList] = React.useState<API.CashFlowList>();
+
+  const [analystRecommendations, setAnalystRecommendations] = React.useState<
+    API.AnalystsRecommendation[]
+  >([]);
+
+  const [
+    interestCoverages,
+    setInterestCoverages,
+  ] = React.useState<API.InterestCoverageList>();
+
+  const [error, setError] = React.useState<Error | undefined>();
   const [currentlyFetching, setCurrentlyFetching] = React.useState<boolean>(
     true
   );
 
-  const convertPerformance = (performance: API.StockHistricPerformanceList) => {
+  /**  Fix for API Client to convert Date to Unix Timestamp */
+  const convertPerformance = (
+    performance: API.StockHistoricPerformanceList
+  ) => {
     const unixDataPoints: number[][] = [];
     performance.dataPoints.forEach((p) => {
       const point: number[] = [Date.parse(p.date), parseFloat(p.close)];
@@ -90,37 +86,42 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
     });
     return unixDataPoints.reverse();
   };
-  const convertDividend = (dividend: API.StockHistricDividendList) => {
-    const unixDataPoints: number[] = [];
+
+  /**  Fix for API Client to convert Dividend Date to Unix Timestamp */
+  const convertDividend = (dividend: API.StockHistoricDividendList) => {
+    const dividendDataPoints: number[] = [];
     dividend.dataPoints.forEach((p) => {
       const d = Math.round(p.div * 100) / 100;
       const point: number = d;
-      unixDataPoints.push(point);
+      dividendDataPoints.push(point);
     });
-    return unixDataPoints.reverse();
+    return dividendDataPoints.reverse();
   };
-  const [newsList, setNewsList] = React.useState<API.NewsList>();
 
+  /** Method that is used to fetch all data from backend for each component. Saves results in corresponding states */
   const fetch = async () => {
     setError(undefined);
     try {
-      const sO = await API.stockOverview(token, symbol);
-      const sD = await API.stockDetails(token, symbol);
-      const sP = await API.stockPerformance(token, symbol, false);
-      const sDiv = await API.stockDividend(token, symbol, false);
-      const cR = await API.companyReports(token, symbol);
-      const iC = await API.interestCoverages(token, symbol);
-      const cCash = await API.cashFlowList(token, symbol);
-      const kF = await API.keyFigures(token, symbol);
-      const aR = await API.analystsRecommendations(token, symbol);
-      const nL = await API.newsList(token, symbol);
-      const r = await API.risks(token, symbol);
+      const sO = await API.stockOverview(symbol);
+      const sD = await API.stockDetails(symbol);
+      const sP = await API.stockPerformance(symbol, false);
+      const sDiv = await API.stockDividend(symbol, false);
+      const cR = await API.companyReports(symbol);
+      const iC = await API.interestCoverages(symbol);
+      const cCash = await API.cashFlowList(symbol);
+      const kF = await API.keyFigures(symbol);
+      const aR = await API.analystsRecommendations(symbol);
+      const nL = await API.newsList(symbol);
+      const r = await API.risks(symbol);
 
       setStockOverview(sO);
       setStockDetails(sD);
-      // TODO get unix timestamp from backend and reverse array
       setStockPerformance(convertPerformance(sP));
       setStockDividend(convertDividend(sDiv));
+      setDivQuota(parseFloat(sDiv.quota));
+      if (sDiv.date !== 'None') {
+        setDivNextPayout(new Date(sDiv.date));
+      }
       setCompanyReports(cR);
       setInterestCoverages(iC);
       setCashFlowList(cCash);
@@ -134,10 +135,10 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
     setCurrentlyFetching(false);
   };
 
-  // used if more than 5 years of performance is requested
-  const fetchAllPerformaneData = async () => {
+  /** method that is used if more than 5 years of performance is requested */
+  const fetchAllPerformanceData = async () => {
     try {
-      const sP = await API.stockPerformance(token, symbol, true);
+      const sP = await API.stockPerformance(symbol, true);
       setStockPerformance(convertPerformance(sP));
       setPerformanceAll(true);
     } catch (e) {
@@ -147,8 +148,9 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
 
   React.useEffect(() => {
     if (performanceAll) {
-      fetchAllPerformaneData();
+      fetchAllPerformanceData();
     }
+    // called on mount and on performance update.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [performanceAll]);
 
@@ -173,70 +175,61 @@ const Details: React.FC<DetailsProps> = ({ token, back }) => {
           <ErrorMessage
             error={error}
             messageKey="analyser.dashboard.errorMessage"
-            handling={
-              isAuthenticationError(error)
-                ? {
-                    buttonText: 'error.action.login',
-                    action: async () => {
-                      // TODO: go back to login
-                    },
-                  }
-                : {
-                    buttonText: 'error.action.retry',
-                    action: fetch,
-                  }
-            }
+            retry={fetch}
           />
         </Container>
       )}
-      <div>
+      <>
         <DetailsHeader back={back} stock={stockOverview} />
         {currentlyFetching && <LinearProgress color="secondary" />}
-        {
-          // TODO replace by variable that keeps track
-          stockOverview &&
-            stockDetails &&
-            newsList &&
-            companyReports &&
-            analystRecommendations &&
-            interestCoverages &&
-            risks &&
-            keyFigures &&
-            newsList &&
-            cashFlowList && (
-              <Container className={classes.mainContent}>
-                <DetailsOverview
-                  stockOverview={stockOverview}
-                  stockDetails={stockDetails}
-                />
-                <DetailsStockChart
-                  stockPerformance={stockPerformance}
-                  setPerformanceAll={setPerformanceAll}
-                />
-                <DetailsOverviewInfoBox
-                  stockOverview={stockOverview}
-                  stockDetails={stockDetails}
-                />
-                <NewsComponent newsList={newsList} />
-                <SectionDivider section="analyser.details.KeyFiguresHeader" />
-                <KeyFigures keyFigures={keyFigures} />
-                <Dividends series={stockDividend} cashFlowList={cashFlowList} />
-                <BalanceSheetInfo companyReports={companyReports} />
-                <Analysts
-                  recommendations={analystRecommendations}
-                  overview={stockOverview}
-                />
-                <Risks
-                  stockOverview={stockOverview}
-                  stockDetails={stockDetails}
-                  companyReports={companyReports}
-                  interestCoverages={interestCoverages}
-                />
-                <AddToPortfolioButton symbol={symbol} />
-              </Container>
-            )
-        }
-      </div>
+        {stockOverview &&
+          stockDetails &&
+          newsList &&
+          companyReports &&
+          analystRecommendations &&
+          interestCoverages &&
+          risks &&
+          keyFigures &&
+          newsList &&
+          cashFlowList && (
+            <Container className={classes.mainContent}>
+              <DetailsOverview
+                stockOverview={stockOverview}
+                stockDetails={stockDetails}
+              />
+              <DetailsStockChart
+                stockPerformance={stockPerformance}
+                setPerformanceAll={setPerformanceAll}
+              />
+              <DetailsOverviewInfoBox
+                stockOverview={stockOverview}
+                stockDetails={stockDetails}
+              />
+              <NewsComponent newsList={newsList} />
+              <SectionDivider section="analyser.details.KeyFiguresHeader" />
+              <KeyFigures keyFigures={keyFigures} />
+              <Dividends
+                series={stockDividend}
+                cashFlowList={cashFlowList}
+                dividendPayoutRatio={divQuota}
+                dividendYield={stockOverview.div}
+                nextPayout={divNextPayout}
+              />
+              <BalanceSheetInfo companyReports={companyReports} />
+              <Analysts
+                recommendations={analystRecommendations}
+                overview={stockOverview}
+              />
+              <Risks
+                stockOverview={stockOverview}
+                stockDetails={stockDetails}
+                companyReports={companyReports}
+                interestCoverages={interestCoverages}
+              />
+              <AddToPortfolioButton symbol={symbol} />
+            </Container>
+          )}
+      </>
     </>
   );
 };

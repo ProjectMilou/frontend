@@ -62,6 +62,15 @@ const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
 
   const { correlations } = portfolio.analytics;
 
+  // TODO remove as soon as the response consistently sends a correlation field (even if its just an empty object)
+  if (!correlations) {
+    return (
+      <div className={classes.placeholderInfo}>
+        {t('portfolio.details.analytics.correlations.disabledChart')}
+      </div>
+    );
+  }
+
   // categories for x-axis
   const chartCategories = Array.from(
     new Set(Object.keys(correlations).flatMap((key) => key.split(';')))
@@ -73,6 +82,14 @@ const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
       lookupCorrelation(symbol1, symbol2, correlations)
     ),
   }));
+
+  if (series.length < 2) {
+    return (
+      <div className={classes.placeholderInfo}>
+        {t('portfolio.details.analytics.correlations.disabledChart')}
+      </div>
+    );
+  }
 
   const options = {
     tooltip: {
@@ -143,13 +160,6 @@ const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
     },
   };
 
-  if (series.length < 2) {
-    return (
-      <div className={classes.placeholderInfo}>
-        {t('portfolio.details.analytics.correlations.disabledChart')}
-      </div>
-    );
-  }
   return (
     <Chart type="heatmap" height={height} series={series} options={options} />
   );

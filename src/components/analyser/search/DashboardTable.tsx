@@ -1,4 +1,4 @@
-// Initally based on Portfolio's DashboardTable.tsx
+// Initially based on Portfolio's DashboardTable.tsx
 
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -8,13 +8,14 @@ import {
   Table,
   TableBody,
   TableContainer,
-  Typography,
   createStyles,
+  TableRow,
+  TableCell,
 } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as API from '../../../analyser/APIClient';
 import DashboardTableHeader from './DashboardTableHeader';
-import DashboardTableRow from './DasboardTableRow';
+import DashboardTableRow from './DashboardTableRow';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -25,7 +26,7 @@ const useStyles = makeStyles(() =>
       margin: '15px',
     },
     customTableContainer: {
-      overflowX: 'initial',
+      overflowX: 'hidden',
       height: 800,
       overflow: 'auto',
       borderRadius: 5,
@@ -33,13 +34,14 @@ const useStyles = makeStyles(() =>
   })
 );
 
+// used for sorting
 type Order = 'asc' | 'desc';
 
 export type DashboardTableProps = {
   stocks: API.Stock[];
 };
 
-// desc sort comparator
+/**  desc sort comparator */
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -49,7 +51,12 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   }
   return 0;
 }
-// function: take asc or desc order and the property to sort the stocks
+
+/** function: take asc or desc order and the property to sort the stocks
+ * @param items items to sort
+ * @param Order current order
+ * @param orderBy key to order by
+ */
 function sortStocks(
   items: API.Stock[],
   order: Order,
@@ -60,10 +67,16 @@ function sortStocks(
     : items.sort((a, b) => -descendingComparator(a, b, orderBy));
 }
 
+/**
+ * Table to display stock data. Can be sorted and has infinity loading implemented
+ *
+ * @param stocks list of stocks to get stock overview from
+ *
+ */
 const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
   const classes = useStyles();
 
-  // currently dispayled stocks in lazy loading
+  // currently displayed stocks in lazy loading
   const [items, setItems] = React.useState<API.Stock[]>(stocks.slice(0, 10));
   // boolean if more stocks are available for loading
   const [hasMore, setHasMore] = React.useState<boolean>(true);
@@ -85,7 +98,7 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
     setHasMore(true);
     // a fake async api call like which sends
     // 5 more stocks in 1.5 secs
-    // TODO replace with async API call
+    // TODO replace with async API call if more stocks are available
     setTimeout(() => {
       const newItems = items.concat(
         sortedStocks.slice(items.length, items.length + 5)
@@ -101,20 +114,20 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
     setOrderByKey(property);
   };
 
-  // update sorted stocks if new sotck, new items, new order or new orderByKey
+  // update sorted stocks if new stock, new items, new order or new orderByKey
   React.useEffect(() => {
     setSortedStocks(sortStocks(stocks, order, orderByKey));
     setItems(sortedStocks.slice(0, 10));
-
-    if (items.length >= sortedStocks.length) {
-      setHasMore(false);
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stocks, order, orderByKey]);
 
   React.useEffect(() => {
     setItems(sortedStocks.slice(0, 10));
     setHasMore(true);
+    if (items.length >= sortedStocks.length) {
+      setHasMore(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortedStocks]);
 
   // component
@@ -147,9 +160,14 @@ const DashboardTable: React.FC<DashboardTableProps> = ({ stocks }) => {
                 <DashboardTableRow stock={s} key={s.symbol} />
               ))}
               {hasMore && (
-                <Typography className={classes.loading}>
-                  <CircularProgress color="primary" />
-                </Typography>
+                <TableRow>
+                  <TableCell>
+                    <CircularProgress
+                      className={classes.loading}
+                      color="primary"
+                    />
+                  </TableCell>
+                </TableRow>
               )}
             </TableBody>
           </Table>

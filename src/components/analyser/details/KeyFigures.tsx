@@ -3,10 +3,16 @@ import KeyFiguresBar from '../../shared/KeyFiguresBar';
 import SubsectionDivider from '../../shared/SubsectionDivider';
 import * as API from '../../../analyser/APIClient';
 
+// KeyFigure props type declaration
 export type KeyFigureProps = {
   keyFigures: API.KeyFigures;
 };
 
+/**
+ * This components contains the key figures section on detail page
+ * @param keyFigures - Data about key figures (P/E, P/B, PEGR, EPS)
+ *
+ */
 const KeyFigures: React.FC<KeyFigureProps> = ({ keyFigures }) => {
   const years = keyFigures.success.map((f) => new Date(f.date).getFullYear());
 
@@ -20,7 +26,7 @@ const KeyFigures: React.FC<KeyFigureProps> = ({ keyFigures }) => {
   };
 
   return (
-    <div>
+    <>
       <SubsectionDivider subsection="analyser.details.KeyFiguresHeader.KeyFigures" />
       <KeyFiguresBar
         chartHeight={350}
@@ -28,7 +34,7 @@ const KeyFigures: React.FC<KeyFigureProps> = ({ keyFigures }) => {
         years={years}
         outlined
       />
-    </div>
+    </>
   );
 };
 export default KeyFigures;

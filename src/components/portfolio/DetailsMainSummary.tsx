@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core';
+import { makeStyles, createStyles, darken } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import ValueOverName from './ValueOverName';
 import DetailsDonut from './DetailsDonut';
@@ -8,11 +8,11 @@ import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 import PortfolioPerformance from './PortfolioPerformance';
 
 // stylesheet for the Summary section
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(({ palette }) =>
   createStyles({
     infoBox: {
       outlineStyle: 'solid',
-      outlineColor: 'grey',
+      outlineColor: darken(palette.primary.contrastText, 0.5),
       outlineWidth: '0.15rem',
       margin: '1rem 0',
     },
@@ -24,14 +24,13 @@ const useStyles = makeStyles((theme) =>
       display: 'flex',
       justifyContent: 'space-around',
       width: '100%',
-      color: theme.palette.primary.contrastText,
+      color: palette.primary.contrastText,
     },
     vl: {
       margin: '0.5rem 1rem',
       height: '4rem',
       alignSelf: 'center',
-      // TODO: use theme color
-      borderColor: 'grey',
+      borderColor: darken(palette.primary.contrastText, 0.5),
     },
     chartContainer: {
       display: 'flex',
@@ -44,6 +43,12 @@ const useStyles = makeStyles((theme) =>
     lineChartWrapper: {
       width: '40rem',
       flexBasis: '65%',
+    },
+    missingInfo: {
+      height: 'min-content',
+      alignSelf: 'center',
+      color: palette.primary.contrastText,
+      fontSize: '1rem',
     },
   })
 );
@@ -112,7 +117,7 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
               name={t('portfolio.details.totalValue')}
             />
           </div>
-          {/* devider 1 */}
+          {/* divider 1 */}
           <hr className={classes.vl} />
           {/* box section 2 */}
           <div
@@ -124,21 +129,34 @@ const DetailsMainSummary: React.FC<DetailsMainSummaryProps> = ({
               value={portfolio.overview.positionCount}
               name={t('portfolio.details.positions')}
             />
-            {/* countries */}
-            <ValueOverName
-              value={Object.keys(portfolio.risk.countries).length}
-              name={t('portfolio.details.countries')}
-            />
-            {/* industries */}
-            <ValueOverName
-              value={Object.keys(portfolio.risk.segments).length}
-              name={t('portfolio.details.segments')}
-            />
-            {/* currencies */}
-            <ValueOverName
-              value={Object.keys(portfolio.risk.currency).length}
-              name={t('portfolio.details.currencies')}
-            />
+            {/* check if the risk information is missing */}
+            {!portfolio.risk ||
+            Object.keys(portfolio.risk).length === 0 ||
+            Object.keys(portfolio.risk.countries).length === 0 ||
+            Object.keys(portfolio.risk.segments).length === 0 ||
+            Object.keys(portfolio.risk.currency).length === 0 ? (
+              <span className={classes.missingInfo}>
+                {t('portfolio.details.summary.missingDiversification')}
+              </span>
+            ) : (
+              <>
+                {/* countries */}
+                <ValueOverName
+                  value={Object.keys(portfolio.risk.countries).length}
+                  name={t('portfolio.details.countries')}
+                />
+                {/* industries */}
+                <ValueOverName
+                  value={Object.keys(portfolio.risk.segments).length}
+                  name={t('portfolio.details.segments')}
+                />
+                {/* currencies */}
+                <ValueOverName
+                  value={Object.keys(portfolio.risk.currency).length}
+                  name={t('portfolio.details.currencies')}
+                />
+              </>
+            )}
           </div>
         </div>
       </div>

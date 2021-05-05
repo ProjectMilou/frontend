@@ -13,6 +13,7 @@ import { RiskAnalysis, Diversification } from '../../portfolio/APIClient';
 import { RiskBundle, getRiskBundle } from '../../portfolio/Helper';
 import InfoButton from '../shared/InfoButton';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
+import NoInfoAvailable from './NoInfoAvailable';
 
 // stylesheet for the risk analysis section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -115,7 +116,12 @@ type DetailsMainRiskProps = {
   treynorRatio: number;
 };
 
-// A component consisting of the title, chart and warnings of a given risk type
+/**
+ * A component consisting of the title, chart and warnings of a given risk type.
+ *
+ * @param title - The title of this risk category
+ * @param bundle - An object containing the color, icon and warnings of a category
+ */
 const RiskComp: React.FC<RiskCompProps> = ({ title, bundle }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -144,7 +150,14 @@ const RiskComp: React.FC<RiskCompProps> = ({ title, bundle }) => {
   );
 };
 
-// returns the details page header
+/**
+ * The risk section of a portfolio details page. It contains two ratio boxes
+ * and the three risk categories (country, segment, currency) with graphs and warnings.
+ *
+ * @param risk - Information of type RiskAnalysis
+ * @param sharpeRatio - The sharpe ratio to be displayed
+ * @param treynorRatio - The treynor ratio to be displayed
+ */
 const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
   risk,
   sharpeRatio,
@@ -174,6 +187,16 @@ const DetailsMainRisk: React.FC<DetailsMainRiskProps> = ({
   function sort(type: Diversification) {
     return Object.entries(type).sort((a, b) => b[1] - a[1]);
   }
+
+  // if no data for the risk section is provided render place holder text instead
+  if (
+    !risk ||
+    Object.keys(risk).length === 0 ||
+    Object.keys(risk.countries).length === 0 ||
+    Object.keys(risk.segments).length === 0 ||
+    Object.keys(risk.currency).length === 0
+  )
+    return <NoInfoAvailable />;
 
   return (
     <>

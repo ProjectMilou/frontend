@@ -13,8 +13,9 @@ import { useTranslation } from 'react-i18next';
 import TextOverText from '../../shared/TextOverText';
 import * as API from '../../../analyser/APIClient';
 import StyledNumberFormat from '../../shared/StyledNumberFormat';
+import { convertPercentToColor, chooseSymbol } from '../../../analyser/Helper';
 
-export type DetailsHeaderProps = {
+type DetailsHeaderProps = {
   stock?: API.Stock;
   // function to return to the dashboard
   back: () => void;
@@ -57,6 +58,9 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     backButton: {
       color: palette.background.default,
     },
+    icon: {
+      backgroundColor: 'transparent',
+    },
     date: {
       paddingBottom: 10,
       color: palette.primary.contrastText,
@@ -64,27 +68,17 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
-// TODO: no hard coded colors
-// takes a percent value and converts it to a color
-function convertPercentToColor(val: number): string {
-  return val < 0 ? '#D64745' : '#50E2A8';
-}
-
-function chooseSymbol(val: API.Stock): string {
-  return val.name.length > 15 ? val.symbol : val.name;
-}
-
+/**
+ * Header component that displays stock name and prices
+ *
+ * @param stock Stock Overview to display in header
+ * @param back Function to get back to analyser search page
+ *
+ */
 const DetailsHeader: React.FC<DetailsHeaderProps> = ({ stock, back }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const theme = useTheme();
-
-  function currencySymbol(): '€' | '$' {
-    if (stock && stock.currency === 'USD') {
-      return '$';
-    }
-    return '€';
-  }
 
   return (
     <div className={classes.header}>
@@ -101,7 +95,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ stock, back }) => {
                   <IconButton
                     aria-label="back"
                     onClick={back}
-                    style={{ backgroundColor: 'transparent' }}
+                    className={classes.icon}
                   >
                     <ArrowBackIosIcon
                       fontSize="large"
@@ -114,7 +108,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ stock, back }) => {
                 <StyledNumberFormat
                   // Fix: Divided by 1 because Back-End only provides string
                   value={stock.price}
-                  suffix={currencySymbol()}
+                  suffix="€"
                   size="35px"
                   paintJob={theme.palette.background.default}
                 />
@@ -148,7 +142,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ stock, back }) => {
               </Typography>
             </Typography>
             <Typography className={classes.date}>
-              Last updated:{' '}
+              {`${t('analyser.details.lastUpdated')}: `}
               {stock
                 ? new Date(stock.date).toISOString().split('T')[0]
                 : undefined}
