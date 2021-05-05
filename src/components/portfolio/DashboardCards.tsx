@@ -131,6 +131,20 @@ export type DashboardCardsProps = {
   createPortfolio: () => void;
 };
 
+/**
+ * This component represents all portfolios in a card view.
+ * Each card has the portfolios name, the total value, whether it is virtual
+ * and an action bar to rename, duplicate, or delete.
+ * In addition to the portfolio cards there are two button cards:
+ * import and create portfolio.
+ *
+ * @param portfolios - The portfolios of a user to be displayed in card form
+ * @param renamePortfolio - A function to rename a portfolio
+ * @param duplicatePortfolio - A function to duplicate a portfolio
+ * @param deletePortfolio - A function to delete a portfolio
+ * @param createPortfolio - A function to create a portfolio
+ */
+
 const DashboardCards: React.FC<DashboardCardsProps> = ({
   portfolios,
   renamePortfolio,

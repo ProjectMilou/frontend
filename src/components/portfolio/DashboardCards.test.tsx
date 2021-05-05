@@ -39,9 +39,10 @@ describe('DashboardTable', () => {
   test('Dashboard cards renders correct amount of cards', async () => {
     const { container } = renderComponent();
 
+    // each position is in a grid list tile + create + import
     expect(
-      container.querySelectorAll('[class *= makeStyles-card]')
-    ).toHaveLength(defaultProps.portfolios.length);
+      container.querySelectorAll('[class *= makeStyles-gridListTile]')
+    ).toHaveLength(defaultProps.portfolios.length + 2);
   });
 
   test('Dashboard cards renders cards correctly', async () => {
@@ -49,11 +50,11 @@ describe('DashboardTable', () => {
 
     // check names
     defaultProps.portfolios.forEach((p) => screen.getByText(p.name));
-    // check values
-    defaultProps.portfolios.forEach((p) => screen.getByText(`${p.value}`));
     // check real vs virtual
     defaultProps.portfolios.forEach((p) =>
-      p.virtual ? screen.getByText('Virtual') : screen.getByText('Real')
+      p.virtual
+        ? screen.getByText('portfolio.virtual')
+        : screen.getByText('portfolio.real')
     );
     // check for buttons
     expect(
