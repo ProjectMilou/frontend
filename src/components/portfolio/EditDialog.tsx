@@ -623,31 +623,34 @@ const EditDialog: React.FC<EditDialogProps> = ({
             }}
           />
         )}
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>{strings.displayNameHeader}</TableCell>
-              {additionalTableHeadCells}
-              <TableCell className={classes.amountTableCell}>
-                {strings.valueHeader}
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {Object.entries(state.entries)
-              .filter(([, entry]) => !entry.removed)
-              .map(([id, entry]) => (
-                <EditEntry
-                  key={id}
-                  id={id}
-                  entry={entry}
-                  dispatch={dispatch}
-                  strikethroughCleared={strikethroughCleared}
-                  decimalPlaces={state.decimalPlaces}
-                />
-              ))}
-          </TableBody>
-        </Table>
+        {!!Object.entries(state.entries).filter(([, entry]) => !entry.removed)
+          .length && (
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>{strings.displayNameHeader}</TableCell>
+                {additionalTableHeadCells}
+                <TableCell className={classes.amountTableCell}>
+                  {strings.valueHeader}
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {Object.entries(state.entries)
+                .filter(([, entry]) => !entry.removed)
+                .map(([id, entry]) => (
+                  <EditEntry
+                    key={id}
+                    id={id}
+                    entry={entry}
+                    dispatch={dispatch}
+                    strikethroughCleared={strikethroughCleared}
+                    decimalPlaces={state.decimalPlaces}
+                  />
+                ))}
+            </TableBody>
+          </Table>
+        )}
         {state.error && (
           <Typography color="error">
             <b>{t(errorTitleKey(state.error))}</b>:{' '}
