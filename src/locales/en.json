@@ -10,6 +10,7 @@
   "portfolio.details.stockChartSeries": "Total Performance",
   "portfolio.dialog.edit.title": "Edit portfolio positions",
   "portfolio.dialog.edit.text": "Here you can adjust the positions of your portfolio.",
+  "portfolio.dialog.edit.search": "Search stocks to add",
   "portfolio.details.missingPerformance": "No performance data available.",
   "portfolio.details.stock": "Stock",
   "portfolio.details.price": "Price",

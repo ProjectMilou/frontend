@@ -586,6 +586,14 @@ const EditDialog: React.FC<EditDialogProps> = ({
         {additionalContent !== undefined && (
           <DialogContentText>{additionalContent}</DialogContentText>
         )}
+        {AddEntry && (
+          <AddEntry
+            ids={Object.keys(state.entries)}
+            add={(id, entry) => {
+              dispatch({ type: 'addEntry', payload: { id, entry } });
+            }}
+          />
+        )}
         <Table>
           <TableHead>
             <TableRow>
@@ -607,14 +615,6 @@ const EditDialog: React.FC<EditDialogProps> = ({
                 decimalPlaces={state.decimalPlaces}
               />
             ))}
-            {AddEntry && (
-              <AddEntry
-                ids={Object.keys(state.entries)}
-                add={(id, entry) => {
-                  dispatch({ type: 'addEntry', payload: { id, entry } });
-                }}
-              />
-            )}
           </TableBody>
         </Table>
         {state.error && (
