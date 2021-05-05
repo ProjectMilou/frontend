@@ -16,7 +16,9 @@ import StyledNumberFormat from '../shared/StyledNumberFormat';
 const EditDialogAddStock: React.FC<AddEntryProps> = ({ ids, add }) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(false);
-  const [options, setOptions] = React.useState<StockSearchResult[]>([]);
+  const [options, setOptions] = React.useState<StockSearchResult[] | undefined>(
+    undefined
+  );
   // The Autocomplete component does not re-render on select (probably a Material-UI bug).
   // This key is changed on select and forces the component to re-render, so the input is cleared on select.
   const [key, setKey] = React.useState<number>(0);
@@ -33,16 +35,18 @@ const EditDialogAddStock: React.FC<AddEntryProps> = ({ ids, add }) => {
   };
 
   React.useEffect(() => {
-    // fetch options initially
-    fetchOptions('');
-  }, []);
+    // fetch options initially and after they have been cleared
+    if (!options) {
+      fetchOptions('');
+    }
+  }, [options]);
 
   const { t } = useTranslation();
 
   return (
     <Autocomplete
       key={key}
-      options={options.filter((s) => !ids.includes(s.symbol))}
+      options={options?.filter((s) => !ids.includes(s.symbol)) || []}
       open={open}
       loading={loading}
       blurOnSelect
@@ -72,6 +76,7 @@ const EditDialogAddStock: React.FC<AddEntryProps> = ({ ids, add }) => {
         }
         setKey(key + 1);
       }}
+      onBlur={() => setOptions(undefined)}
       getOptionLabel={(option) => option.name || option.symbol}
       renderInput={(params) => (
         <TextField
