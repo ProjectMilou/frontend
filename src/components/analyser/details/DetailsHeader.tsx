@@ -70,7 +70,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
 
 /**
  * Header component that displays stock name and prices
- * 
+ *
  * @param stock Stock Overview to display in header
  * @param back Function to get back to analyser search page
  *
