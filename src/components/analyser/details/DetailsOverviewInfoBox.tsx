@@ -6,6 +6,8 @@ import {
   Table,
   TableRow,
   TableCell,
+  TableBody,
+  TableHead,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Stock, StockDetails } from '../../../analyser/APIClient';
@@ -52,6 +54,8 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
 
   return (
     <Table className={classes.infoBox}>
+      <TableHead/>
+      <TableBody>
       <TableRow>
         <TableCell className={classes.tableCell}>
           <TextOverText
@@ -133,6 +137,7 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
           />
         </TableCell>
       </TableRow>
+      </TableBody>
     </Table>
   );
 };
