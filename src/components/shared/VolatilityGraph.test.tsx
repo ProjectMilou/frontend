@@ -1,22 +1,17 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
-import { createMuiTheme } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core/styles';
 import VolatilityGraph from './VolatilityGraph';
+import { theme } from '../App';
 
 describe('VolatilityGraph', () => {
-  const theme = createMuiTheme({
-    palette: {
-      primary: {
-        light: '#415176',
-        main: '#122654',
-        dark: '#0c1a3a',
-        contrastText: '#EEF1FB',
-      },
-    },
-  });
+  const container = render(
+    <ThemeProvider theme={theme}>
+      <VolatilityGraph color={theme.palette.primary.contrastText} />
+    </ThemeProvider>
+  );
 
   test('display volatility graph and market average', () => {
-    render(<VolatilityGraph color={theme.palette.primary.contrastText} />);
     screen.getByText('portfolio.details.analytics.volatility.marketAvg');
   });
 });
