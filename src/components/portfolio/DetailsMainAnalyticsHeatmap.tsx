@@ -12,6 +12,8 @@ import {
   NonEmptyPortfolioDetails,
 } from '../../portfolio/APIClient';
 import { roundAxis } from '../../portfolio/Helper';
+import ErrorMessage from '../shared/ErrorMessage';
+import { AppError } from '../../Errors';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -37,21 +39,6 @@ type HeatmapProps = {
   height: number;
 };
 
-function lookupCorrelation(
-  symbol1: string,
-  symbol2: string,
-  correlations: Correlations
-) {
-  if (symbol1 === symbol2) return 1;
-  return (
-    // TODO in case the combination is not contained in correlations (faulty api data)
-    //  proper error handling still needs to be done, right now 0 is returned
-    correlations[`${symbol1};${symbol2}`] ||
-    correlations[`${symbol2};${symbol1}`] ||
-    0
-  );
-}
-
 const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
   portfolio,
   height,
@@ -59,10 +46,37 @@ const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
   const classes = useStyles();
   const theme = useTheme();
   const { t } = useTranslation();
+  /*
+  this does not need to be a state since this will only change if the user refreshes the site
+  to fetch new api data. until then an unknown error should be displayed (unexpected backend response)
+   */
+  let error = false;
+
+  /*
+  if you compare a company with itself the correlation is 1 (first if)
+  if the correlation is present in the response return the correlation from the response (second if)
+  if none of the above is true then we got unexpected backend data and display an error (setting the flag to true)
+   */
+  function lookupCorrelation(
+    symbol1: string,
+    symbol2: string,
+    correlations: Correlations
+  ) {
+    if (symbol1 === symbol2) return 1;
+    if (
+      correlations[`${symbol1};${symbol2}`] ||
+      correlations[`${symbol2};${symbol1}`]
+    )
+      return (
+        correlations[`${symbol1};${symbol2}`] ||
+        correlations[`${symbol2};${symbol1}`]
+      );
+    error = true;
+    return 0;
+  }
 
   const { correlations } = portfolio.analytics;
 
-  // TODO remove as soon as the response consistently sends a correlation field (even if its just an empty object)
   if (!correlations) {
     return (
       <div className={classes.placeholderInfo}>
@@ -82,6 +96,10 @@ const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
       lookupCorrelation(symbol1, symbol2, correlations)
     ),
   }));
+
+  // if during the mapping above unexpected backend data was received display an error instead of the correlation heatmap
+  if (error)
+    return <ErrorMessage error={new AppError('INVALID_CORRELATION')} />;
 
   if (series.length < 2) {
     return (

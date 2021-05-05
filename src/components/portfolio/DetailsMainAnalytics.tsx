@@ -32,6 +32,12 @@ type DetailsMainAnalyticsProps = {
   portfolio: NonEmptyPortfolioDetails;
 };
 
+/**
+ * Component containing all the information about the portfolios analytics section
+ * It includes among others {@link DetailsAnalyticsHeatmap}, {@link DetailsAnalyticsDebtEquityBar} and {@link VolatilityGraph}
+ *
+ * @param portfolio - The filtered portfolio (stocks with the missing info flag are NOT included in the positions)
+ */
 const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
   portfolio,
 }) => {
