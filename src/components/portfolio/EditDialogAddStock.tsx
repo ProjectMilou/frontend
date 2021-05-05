@@ -60,6 +60,7 @@ const EditDialogAddStock: React.FC<AddEntryProps> = ({ ids, add }) => {
             displayName: stock.name || stock.symbol,
             initialValue: 0,
             value: 1,
+            new: true,
             additionalTableCells: (
               <TableCell>
                 {stock.price && (

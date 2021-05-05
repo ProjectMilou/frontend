@@ -110,6 +110,10 @@ type InitialEntry = {
 type Entry = InitialEntry & {
   /** The (possibly changed) value. Undefined values are treated as 0. */
   value?: number;
+  /** Whether the entry is new. New entries are removed on reset to initial value. */
+  new?: boolean;
+  /** Whether the entry has been deleted. */
+  removed?: boolean;
 };
 
 /** Keys mapped to {@link InitialEntry} objects. */
@@ -159,10 +163,14 @@ type DecrementValueAction = {
   payload: { id: string };
 };
 type IncrementValueAction = { type: 'increaseValue'; payload: { id: string } };
-type ClearValueAction = { type: 'clearValue'; payload: { id: string } };
+type RemoveEntryAction = { type: 'removeEntry'; payload: { id: string } };
 type AddEntryAction = {
   type: 'addEntry';
   payload: { id: string; entry: Entry };
+};
+type ResetEntryAction = {
+  type: 'resetEntry';
+  payload: { id: string };
 };
 type SetErrorAction = {
   type: 'setError';
@@ -177,8 +185,9 @@ type Actions =
   | SetValueAction
   | DecrementValueAction
   | IncrementValueAction
-  | ClearValueAction
+  | RemoveEntryAction
   | AddEntryAction
+  | ResetEntryAction
   | SetErrorAction
   | SetLoadingAction;
 
@@ -195,7 +204,7 @@ function initAction({ entries, decimalPlaces }: InitAction['payload']): State {
     entries: Object.entries(entries).reduce<Entries>(
       (acc, [k, entry]) => ({
         ...acc,
-        [k]: { ...entry, value: entry.initialValue },
+        [k]: { ...entry, value: entry.initialValue, removed: false },
       }),
       {}
     ),
@@ -204,7 +213,7 @@ function initAction({ entries, decimalPlaces }: InitAction['payload']): State {
 }
 
 /**
- * Changes the value specified by 'id' to 'value'.
+ * Sets the value specified by 'id' to 'value'.
  *
  * @param entries - Stored entries.
  * @param decimalPlaces - Number of decimal places to use for rounding.
@@ -212,7 +221,7 @@ function initAction({ entries, decimalPlaces }: InitAction['payload']): State {
  * @param value - New value of the entry.
  * @return New {@link Entries}.
  */
-function changeValueAction(
+function setValueAction(
   { entries, decimalPlaces }: State,
   { id, value }: SetValueAction['payload']
 ): Entries {
@@ -238,7 +247,7 @@ function decrementValueAction(
   state: State,
   { id }: DecrementValueAction['payload']
 ): Entries {
-  return changeValueAction(state, {
+  return setValueAction(state, {
     id,
     value: (state.entries[id].value || 0) - 1,
   });
@@ -255,28 +264,29 @@ function incrementValueAction(
   state: State,
   { id }: IncrementValueAction['payload']
 ): Entries {
-  return changeValueAction(state, {
+  return setValueAction(state, {
     id,
     value: (state.entries[id].value || 0) + 1,
   });
 }
 
 /**
- * Sets the value specified by 'id' to 0.
+ * Removes the entry specified by 'id'.
  *
  * @param entries - Stored entries.
- * @param id - ID of the entry to clear.
+ * @param id - ID of the entry to remove.
  * @return New {@link Entries}.
  */
-function clearValueAction(
+function removeEntryAction(
   entries: Entries,
-  { id }: ClearValueAction['payload']
+  { id }: RemoveEntryAction['payload']
 ): Entries {
   return {
     ...entries,
     [id]: {
       ...entries[id],
       value: 0,
+      removed: true,
     },
   };
 }
@@ -299,6 +309,23 @@ function addEntryAction(
   };
 }
 
+/**
+ * Resets an entry. If the entry is new, it is removed. Otherwise, the value is
+ * changed to the initial value.
+ *
+ * @param state - The state.
+ * @param id - ID of the entry to reset.
+ * @return New {link Entries}.
+ */
+function resetEntryAction(
+  state: State,
+  { id }: ResetEntryAction['payload']
+): Entries {
+  return state.entries[id].new
+    ? removeEntryAction(state.entries, { id })
+    : setValueAction(state, { id, value: state.entries[id].initialValue });
+}
+
 function reducer(state: State, action: Actions): State {
   switch (action.type) {
     case 'init':
@@ -306,7 +333,7 @@ function reducer(state: State, action: Actions): State {
     case 'setValue':
       return {
         ...state,
-        entries: changeValueAction(state, action.payload),
+        entries: setValueAction(state, action.payload),
       };
     case 'decreaseValue':
       return {
@@ -318,15 +345,20 @@ function reducer(state: State, action: Actions): State {
         ...state,
         entries: incrementValueAction(state, action.payload),
       };
-    case 'clearValue':
+    case 'removeEntry':
       return {
         ...state,
-        entries: clearValueAction(state.entries, action.payload),
+        entries: removeEntryAction(state.entries, action.payload),
       };
     case 'addEntry':
       return {
         ...state,
         entries: addEntryAction(state.entries, action.payload),
+      };
+    case 'resetEntry':
+      return {
+        ...state,
+        entries: resetEntryAction(state, action.payload),
       };
     case 'setError':
       return {
@@ -507,19 +539,14 @@ const EditEntry: React.FC<EditEntryProps> = ({
           <AddIcon />
         </IconButton>
         <IconButton
-          disabled={entry.disabled || !entry.value}
-          onClick={() => dispatch({ type: 'clearValue', payload: { id } })}
+          disabled={entry.disabled}
+          onClick={() => dispatch({ type: 'removeEntry', payload: { id } })}
         >
           <DeleteIcon />
         </IconButton>
         <IconButton
           disabled={entry.disabled || entry.value === entry.initialValue}
-          onClick={() =>
-            dispatch({
-              type: 'setValue',
-              payload: { id, value: entry.initialValue },
-            })
-          }
+          onClick={() => dispatch({ type: 'resetEntry', payload: { id } })}
         >
           <RestoreIcon />
         </IconButton>
@@ -588,7 +615,9 @@ const EditDialog: React.FC<EditDialogProps> = ({
         )}
         {AddEntry && (
           <AddEntry
-            ids={Object.keys(state.entries)}
+            ids={Object.entries(state.entries)
+              .filter(([, entry]) => !entry.removed)
+              .map(([id]) => id)}
             add={(id, entry) => {
               dispatch({ type: 'addEntry', payload: { id, entry } });
             }}
@@ -605,16 +634,18 @@ const EditDialog: React.FC<EditDialogProps> = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {Object.entries(state.entries).map(([id, entry]) => (
-              <EditEntry
-                key={id}
-                id={id}
-                entry={entry}
-                dispatch={dispatch}
-                strikethroughCleared={strikethroughCleared}
-                decimalPlaces={state.decimalPlaces}
-              />
-            ))}
+            {Object.entries(state.entries)
+              .filter(([, entry]) => !entry.removed)
+              .map(([id, entry]) => (
+                <EditEntry
+                  key={id}
+                  id={id}
+                  entry={entry}
+                  dispatch={dispatch}
+                  strikethroughCleared={strikethroughCleared}
+                  decimalPlaces={state.decimalPlaces}
+                />
+              ))}
           </TableBody>
         </Table>
         {state.error && (
