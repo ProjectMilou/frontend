@@ -255,6 +255,7 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonProps> = ({
               Object.entries(v).map(([id, qty]) => ({ id, qty }))
             );
           }}
+          noRemove
         />
       )}
     </div>

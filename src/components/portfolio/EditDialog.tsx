@@ -72,6 +72,8 @@ export type EditDialogProps = {
   strikethroughCleared?: boolean;
   /** Number of allowed decimal places for user inputs. Default: 6 */
   decimalPlaces?: number;
+  /** Remove sets the value to 0 instead of removing the entry. */
+  noRemove?: boolean;
   /** A component that allows adding entries to the dialog. */
   AddEntry?: React.ComponentType<AddEntryProps>;
 };
@@ -82,6 +84,7 @@ type EditEntryProps = {
   dispatch: React.Dispatch<Actions>;
   strikethroughCleared?: boolean;
   decimalPlaces: number;
+  noRemove: boolean;
 };
 
 type EntryNumberFormatProps = {
@@ -142,17 +145,24 @@ type State = {
   entries: Entries;
   /** Number of allowed decimal places for user inputs. */
   decimalPlaces: number;
+  /** Remove sets the value to 0 instead of removing the entry. */
+  noRemove: boolean;
 };
 
 const initialState: State = {
   loading: false,
   entries: {},
   decimalPlaces: 6,
+  noRemove: false,
 };
 
 type InitAction = {
   type: 'init';
-  payload: { entries: InitialEntries; decimalPlaces?: number };
+  payload: {
+    entries: InitialEntries;
+    decimalPlaces?: number;
+    noRemove?: boolean;
+  };
 };
 type SetValueAction = {
   type: 'setValue';
@@ -196,9 +206,14 @@ type Actions =
  *
  * @param entries - Entries with initial values.
  * @param decimalPlaces - Number of decimal places to use for rounding.
+ * @param noRemove - Don't remove entries.
  * @return New {@link State}.
  */
-function initAction({ entries, decimalPlaces }: InitAction['payload']): State {
+function initAction({
+  entries,
+  decimalPlaces,
+  noRemove,
+}: InitAction['payload']): State {
   return {
     ...initialState,
     entries: Object.entries(entries).reduce<Entries>(
@@ -209,6 +224,7 @@ function initAction({ entries, decimalPlaces }: InitAction['payload']): State {
       {}
     ),
     decimalPlaces: decimalPlaces || initialState.decimalPlaces,
+    noRemove: noRemove || false,
   };
 }
 
@@ -274,11 +290,12 @@ function incrementValueAction(
  * Removes the entry specified by 'id'.
  *
  * @param entries - Stored entries.
+ * @param noRemove - Don't remove entries.
  * @param id - ID of the entry to remove.
  * @return New {@link Entries}.
  */
 function removeEntryAction(
-  entries: Entries,
+  { entries, noRemove }: State,
   { id }: RemoveEntryAction['payload']
 ): Entries {
   return {
@@ -286,7 +303,7 @@ function removeEntryAction(
     [id]: {
       ...entries[id],
       value: 0,
-      removed: true,
+      removed: !noRemove && true,
     },
   };
 }
@@ -322,7 +339,7 @@ function resetEntryAction(
   { id }: ResetEntryAction['payload']
 ): Entries {
   return state.entries[id].new
-    ? removeEntryAction(state.entries, { id })
+    ? removeEntryAction(state, { id })
     : setValueAction(state, { id, value: state.entries[id].initialValue });
 }
 
@@ -348,7 +365,7 @@ function reducer(state: State, action: Actions): State {
     case 'removeEntry':
       return {
         ...state,
-        entries: removeEntryAction(state.entries, action.payload),
+        entries: removeEntryAction(state, action.payload),
       };
     case 'addEntry':
       return {
@@ -488,6 +505,7 @@ const EditEntry: React.FC<EditEntryProps> = ({
   dispatch,
   strikethroughCleared,
   decimalPlaces,
+  noRemove,
 }) => {
   const classes = useStyles();
 
@@ -539,7 +557,7 @@ const EditEntry: React.FC<EditEntryProps> = ({
           <AddIcon />
         </IconButton>
         <IconButton
-          disabled={entry.disabled}
+          disabled={entry.disabled || (noRemove && !entry.value)}
           onClick={() => dispatch({ type: 'removeEntry', payload: { id } })}
         >
           <DeleteIcon />
@@ -568,6 +586,7 @@ const EditDialog: React.FC<EditDialogProps> = ({
   additionalTableHeadCells,
   strikethroughCleared,
   decimalPlaces,
+  noRemove,
   AddEntry,
 }) => {
   const classes = useStyles();
@@ -580,9 +599,9 @@ const EditDialog: React.FC<EditDialogProps> = ({
   React.useEffect(() => {
     // reset the dialog on (re-)open or props change
     if (open) {
-      dispatch({ type: 'init', payload: { entries, decimalPlaces } });
+      dispatch({ type: 'init', payload: { entries, decimalPlaces, noRemove } });
     }
-  }, [open, entries, decimalPlaces]);
+  }, [open, entries, decimalPlaces, noRemove]);
 
   const { t } = useTranslation();
 
@@ -646,6 +665,7 @@ const EditDialog: React.FC<EditDialogProps> = ({
                     dispatch={dispatch}
                     strikethroughCleared={strikethroughCleared}
                     decimalPlaces={state.decimalPlaces}
+                    noRemove={state.noRemove}
                   />
                 ))}
             </TableBody>
