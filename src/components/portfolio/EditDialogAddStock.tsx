@@ -88,7 +88,7 @@ const EditDialogAddStock: React.FC<AddEntryProps> = ({ ids, add }) => {
             ),
             endAdornment: (
               <>
-                {loading && <CircularProgress />}
+                {loading && <CircularProgress size={24} />}
                 {params.InputProps.endAdornment}
               </>
             ),
