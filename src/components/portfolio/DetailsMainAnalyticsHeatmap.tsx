@@ -126,8 +126,6 @@ const DetailsAnalyticsHeatmap: React.FC<HeatmapProps> = ({
     plotOptions: {
       heatmap: {
         shadeIntensity: 0.8,
-        // TODO sadly true does not work as expected, apex bug?
-        reverseNegativeShade: false,
         colorScale: {
           ranges: [
             {
