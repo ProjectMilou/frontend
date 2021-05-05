@@ -54,89 +54,89 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
 
   return (
     <Table className={classes.infoBox}>
-      <TableHead/>
+      <TableHead />
       <TableBody>
-      <TableRow>
-        <TableCell className={classes.tableCell}>
-          <TextOverText
-            top={`${stockOverview.country}`}
-            bottom={t('stock.country')}
-            colorTop={theme.palette.lightBlue.main}
-            colorBottom={theme.palette.primary.light}
-          />
-        </TableCell>
+        <TableRow>
+          <TableCell className={classes.tableCell}>
+            <TextOverText
+              top={`${stockOverview.country}`}
+              bottom={t('stock.country')}
+              colorTop={theme.palette.lightBlue.main}
+              colorBottom={theme.palette.primary.light}
+            />
+          </TableCell>
 
-        <TableCell className={classes.tableCell}>
-          <TextOverText
-            top={`${stockOverview.currency}`}
-            bottom={t('stock.currency')}
-            colorTop={theme.palette.lightBlue.main}
-            colorBottom={theme.palette.primary.light}
-          />
-        </TableCell>
+          <TableCell className={classes.tableCell}>
+            <TextOverText
+              top={`${stockOverview.currency}`}
+              bottom={t('stock.currency')}
+              colorTop={theme.palette.lightBlue.main}
+              colorBottom={theme.palette.primary.light}
+            />
+          </TableCell>
 
-        <TableCell className={classes.tableCell}>
-          <TextOverText
-            top={`${stockOverview.industry}`}
-            bottom={t('stock.industry')}
-            colorTop={theme.palette.lightBlue.main}
-            colorBottom={theme.palette.primary.light}
-          />
-        </TableCell>
-        <TableCell className={classes.tableCell}>
-          <TextOverText
-            top={stockDetails.exchange}
-            bottom={t('company.exchange')}
-            colorTop={theme.palette.lightBlue.main}
-            colorBottom={theme.palette.primary.light}
-          />
-        </TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell className={classes.tableCell}>
-          <TextOverText
-            top={`€${moneyFormat(
-              parseInt(stockDetails.marketCapitalization, 10)
-            )}`}
-            bottom={t('company.mc')}
-            colorTop={theme.palette.primary.main}
-            colorBottom={theme.palette.primary.light}
-            infoText={t('info.mc')}
-          />
-        </TableCell>
-        <TableCell className={classes.tableCell}>
-          <TextOverText
-            top={`${parseFloat(stockDetails.per52WeekLow)
-              .toFixed(2)
-              .toString()}€`}
-            bottom={t('stock.per52WeekLow')}
-            colorTop={theme.palette.primary.main}
-            colorBottom={theme.palette.primary.light}
-            infoText={t('info.per52WeekHigh')}
-          />
-        </TableCell>
-        <TableCell className={classes.tableCell}>
-          <TextOverText
-            top={`${parseFloat(stockDetails.per52WeekHigh)
-              .toFixed(2)
-              .toString()}€`}
-            bottom={t('stock.per52WeekHigh')}
-            colorTop={theme.palette.primary.main}
-            colorBottom={theme.palette.primary.light}
-            infoText={t('info.per52WeekLow')}
-          />
-        </TableCell>
-        <TableCell className={classes.tableCell}>
-          {/* dividend */}
-          <TextOverText
-            top={`${stockOverview.div.toFixed(2)} %`}
-            bottom={t('analyser.details.DividendYield')}
-            colorTop={convertPercentToColor(stockOverview.div)}
-            colorBottom={theme.palette.primary.light}
-            infoText={t('analyser.details.DividendYield.infoButton')}
-          />
-        </TableCell>
-      </TableRow>
+          <TableCell className={classes.tableCell}>
+            <TextOverText
+              top={`${stockOverview.industry}`}
+              bottom={t('stock.industry')}
+              colorTop={theme.palette.lightBlue.main}
+              colorBottom={theme.palette.primary.light}
+            />
+          </TableCell>
+          <TableCell className={classes.tableCell}>
+            <TextOverText
+              top={stockDetails.exchange}
+              bottom={t('company.exchange')}
+              colorTop={theme.palette.lightBlue.main}
+              colorBottom={theme.palette.primary.light}
+            />
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className={classes.tableCell}>
+            <TextOverText
+              top={`€${moneyFormat(
+                parseInt(stockDetails.marketCapitalization, 10)
+              )}`}
+              bottom={t('company.mc')}
+              colorTop={theme.palette.primary.main}
+              colorBottom={theme.palette.primary.light}
+              infoText={t('info.mc')}
+            />
+          </TableCell>
+          <TableCell className={classes.tableCell}>
+            <TextOverText
+              top={`${parseFloat(stockDetails.per52WeekLow)
+                .toFixed(2)
+                .toString()}€`}
+              bottom={t('stock.per52WeekLow')}
+              colorTop={theme.palette.primary.main}
+              colorBottom={theme.palette.primary.light}
+              infoText={t('info.per52WeekHigh')}
+            />
+          </TableCell>
+          <TableCell className={classes.tableCell}>
+            <TextOverText
+              top={`${parseFloat(stockDetails.per52WeekHigh)
+                .toFixed(2)
+                .toString()}€`}
+              bottom={t('stock.per52WeekHigh')}
+              colorTop={theme.palette.primary.main}
+              colorBottom={theme.palette.primary.light}
+              infoText={t('info.per52WeekLow')}
+            />
+          </TableCell>
+          <TableCell className={classes.tableCell}>
+            {/* dividend */}
+            <TextOverText
+              top={`${stockOverview.div.toFixed(2)} %`}
+              bottom={t('analyser.details.DividendYield')}
+              colorTop={convertPercentToColor(stockOverview.div)}
+              colorBottom={theme.palette.primary.light}
+              infoText={t('analyser.details.DividendYield.infoButton')}
+            />
+          </TableCell>
+        </TableRow>
       </TableBody>
     </Table>
   );

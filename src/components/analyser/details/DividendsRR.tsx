@@ -67,9 +67,17 @@ const DividendsRR: React.FC<DividendsRRProps> = ({ dividend, payoutRatio }) => {
           // create pass or fail component
           .map((t) =>
             t.pass ? (
-              <RRpass category={t.category} text={t.passText} key={t.category} />
+              <RRpass
+                category={t.category}
+                text={t.passText}
+                key={t.category}
+              />
             ) : (
-              <RRfail category={t.category} text={t.failText} key={t.category}/>
+              <RRfail
+                category={t.category}
+                text={t.failText}
+                key={t.category}
+              />
             )
           )
       }

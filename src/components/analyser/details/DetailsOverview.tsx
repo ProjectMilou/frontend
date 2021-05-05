@@ -84,15 +84,9 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
     <>
       <SectionDivider section={t('analyser.details.summaryHeader')} />
 
-      
-      <Grid
-        container
-        alignItems="flex-start"
-        direction="row"
-        spacing={5}
-      >
+      <Grid container alignItems="flex-start" direction="row" spacing={5}>
         {/* picture and company overview */}
-        <Grid item sm={3} >
+        <Grid item sm={3}>
           <Paper className={classes.paper} variant="outlined">
             <CompanyLogo stockOverview={stockOverview} style={classes.image} />
           </Paper>
