@@ -34,7 +34,7 @@ test('Details donut renders correctly', async () => {
 
   // check for 'other'
   if (
-    container.querySelectorAll('[class *= makeStyles-legendItem]').length === 4
+    container.querySelectorAll('[class *= makeStyles-legendItem]').length >= 5
   ) {
     screen.getByText('portfolio.details.other');
   }
