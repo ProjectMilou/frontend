@@ -29,9 +29,15 @@ test('Details donut renders correctly', async () => {
 
   // check for correct legend length
   expect(
-    container.querySelectorAll('[class *= makeStyles-legendItem]').length < 6
+    container.querySelectorAll('[class *= makeStyles-legendItem]').length < 5
   ).toBeTruthy();
 
+  // check for 'other'
+  if (
+    container.querySelectorAll('[class *= makeStyles-legendItem]').length === 4
+  ) {
+    screen.getByText('portfolio.details.other');
+  }
   // check for graph
   expect(
     container.querySelector('[class *= makeStyles-graphWrapper]')
