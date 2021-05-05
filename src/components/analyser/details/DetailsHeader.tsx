@@ -86,7 +86,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ stock, back }) => {
         // stock can also be undefined, in this case we return an empty blue div
         stock !== undefined && (
           <Container maxWidth="lg">
-            <Typography className={classes.text}>
+            <div className={classes.text}>
               <div
                 className={classes.infoValueWrapper}
                 style={{ flexBasis: '35%' }}
@@ -140,7 +140,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({ stock, back }) => {
                 <> / ISIN: </>
                 {stock.isin}
               </Typography>
-            </Typography>
+            </div>
             <Typography className={classes.date}>
               {`${t('analyser.details.lastUpdated')}: `}
               {stock

@@ -49,7 +49,7 @@ const NewsComponent: React.FC<NewsComponentProps> = ({ newsList }) => {
               return -1;
             })
             .map((news) => (
-              <NewsCard news={news} key={news.headline} />
+              <NewsCard news={news} key={`${news.headline}${news.publishedAt}`} />
             ))}
         </GridList>
       </div>
