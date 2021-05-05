@@ -5,12 +5,8 @@ import LimitedString from './LimitedString';
 
 describe('LimitedString', () => {
   test('does not change string with less length', () => {
-    const limitedString = render(
-      <LimitedString value="This is a short string" />
-    );
-    expect(
-      limitedString.getByText('This is a short string')
-    ).toBeInTheDocument();
+    const limitedString = render(<LimitedString value="Short string." />);
+    expect(limitedString.getByText('Short string.')).toBeInTheDocument();
   });
   test('limits the length correctly', async () => {
     const longText =
