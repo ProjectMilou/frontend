@@ -89,16 +89,17 @@ describe('ResetChangeForm', () => {
     });
 
     fireEvent.click(button[button.length - 1]);
-    expect(
-      window.fetch
-    ).toHaveBeenCalledWith('https://api.milou.io/user/reset/change/123/token', {
-      body: '{"password":"Password1234!"}',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      method: 'PUT',
-    });
+    expect(window.fetch).toHaveBeenCalledWith(
+      'https://api.milou.io/user/reset/change/123/token',
+      {
+        body: '{"password":"Password1234!"}',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'PUT',
+      }
+    );
     expect(window.fetch).toHaveBeenCalledTimes(1);
     await waitFor(() => {
       expect(onSuccess).toHaveBeenCalledTimes(1);
@@ -124,16 +125,17 @@ describe('ResetChangeForm', () => {
     });
 
     fireEvent.click(button[button.length - 1]);
-    expect(
-      window.fetch
-    ).toHaveBeenCalledWith('https://api.milou.io/user/reset/change/123/token', {
-      body: '{"password":"Password1234!"}',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      method: 'PUT',
-    });
+    expect(window.fetch).toHaveBeenCalledWith(
+      'https://api.milou.io/user/reset/change/123/token',
+      {
+        body: '{"password":"Password1234!"}',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'PUT',
+      }
+    );
     expect(window.fetch).toHaveBeenCalledTimes(1);
     await waitFor(() => {
       expect(onFailure).toHaveBeenCalledTimes(1);
