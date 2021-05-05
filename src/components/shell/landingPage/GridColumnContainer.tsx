@@ -12,20 +12,21 @@ const GridColumnContainer: React.FC<{
     xs
     container
     direction="column"
-    spacing={2}
     alignItems="center"
     justify="center"
     className={classNameGrid}
+    style={{ width: '500px', height: '260' }}
   >
     <div className={titleClass}>
       <Typography variant="h4" className={titleClass}>
         {title}
       </Typography>
     </div>
-
-    <Typography variant="body1" align="center">
-      {content}
-    </Typography>
+    <div style={{ maxWidth: '550px' }}>
+      <Typography variant="body1" align="center">
+        {content}
+      </Typography>
+    </div>
   </Grid>
 );
 

@@ -11,6 +11,7 @@ import DividendLineChart, { Series } from '../shared/DividendLineChart';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 import InfoButton from '../shared/InfoButton';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
+import NoInfoAvailable from './NoInfoAvailable';
 
 // stylesheet for the dividend section
 const useStyles = makeStyles(({ palette }: Theme) =>
@@ -59,14 +60,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     },
     infoTitleP: {
       margin: '0.5rem 0',
-    },
-    placeholderInfo: {
-      display: 'flex',
-      margin: '15rem 0',
-      width: '100%',
-      justifyContent: 'center',
-      color: palette.primary.contrastText,
-      fontSize: '1.15rem',
     },
   })
 );
@@ -192,11 +185,7 @@ const DetailsMainDividends: React.FC<DetailsMainDividendsProps> = ({
       </div>
     );
   }
-  return (
-    <div className={classes.placeholderInfo}>
-      {t('portfolio.details.emptyKeyFigures')}
-    </div>
-  );
+  return <NoInfoAvailable />;
 };
 
 export default DetailsMainDividends;

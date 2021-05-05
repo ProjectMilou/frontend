@@ -33,7 +33,13 @@ type RRpassProps = {
   text: string;
 };
 
-const RRfail: React.FC<RRpassProps> = ({ category, text }) => {
+/**
+ * Component to display a successful RR test
+ *
+ * @param category Category of test
+ * @param text Success text
+ */
+const RRpass: React.FC<RRpassProps> = ({ category, text }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -51,4 +57,4 @@ const RRfail: React.FC<RRpassProps> = ({ category, text }) => {
     </ListItem>
   );
 };
-export default RRfail;
+export default RRpass;

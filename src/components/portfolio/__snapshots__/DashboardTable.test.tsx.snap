@@ -141,7 +141,7 @@ exports[`DashboardTable display portfolio information 1`] = `
         class="MuiTableBody-root"
       >
         <tr
-          class="MuiTableRow-root makeStyles-row-8"
+          class="MuiTableRow-root makeStyles-row-9"
         >
           <th
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
@@ -166,7 +166,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             </div>
           </th>
           <td
-            class="MuiTableCell-root MuiTableCell-body makeStyles-positionCount-10 MuiTableCell-alignCenter"
+            class="MuiTableCell-root MuiTableCell-body makeStyles-positionCount-11 MuiTableCell-alignCenter"
           >
             3
           </td>
@@ -174,7 +174,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
             <span
-              class="makeStyles-styledNumberFormat-14 makeStyles-styledNumberFormat-16"
+              class="makeStyles-styledNumberFormat-16 makeStyles-styledNumberFormat-18"
             >
               9,00 €
             </span>
@@ -183,7 +183,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
             <span
-              class="makeStyles-styledNumberFormat-14 makeStyles-styledNumberFormat-17"
+              class="makeStyles-styledNumberFormat-16 makeStyles-styledNumberFormat-19"
             >
               -1,23 %
             </span>
@@ -192,16 +192,16 @@ exports[`DashboardTable display portfolio information 1`] = `
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
             <span
-              class="makeStyles-styledNumberFormat-14 makeStyles-styledNumberFormat-18"
+              class="makeStyles-styledNumberFormat-16 makeStyles-styledNumberFormat-20"
             >
               13,37 %
             </span>
           </td>
           <td
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+            class="MuiTableCell-root MuiTableCell-body makeStyles-actionsCell-14 MuiTableCell-alignCenter"
           >
             <div
-              class="makeStyles-action-19"
+              class="makeStyles-action-21"
               title="portfolio.rename"
             >
               <button
@@ -229,7 +229,7 @@ exports[`DashboardTable display portfolio information 1`] = `
               </button>
             </div>
             <div
-              class="makeStyles-action-19"
+              class="makeStyles-action-21"
               title="portfolio.duplicate"
             >
               <button
@@ -257,7 +257,7 @@ exports[`DashboardTable display portfolio information 1`] = `
               </button>
             </div>
             <div
-              class="makeStyles-action-19"
+              class="makeStyles-action-21"
               title="portfolio.delete"
             >
               <button
@@ -287,7 +287,7 @@ exports[`DashboardTable display portfolio information 1`] = `
           </td>
         </tr>
         <tr
-          class="MuiTableRow-root makeStyles-row-8"
+          class="MuiTableRow-root makeStyles-row-9"
         >
           <th
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
@@ -312,7 +312,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             </div>
           </th>
           <td
-            class="MuiTableCell-root MuiTableCell-body makeStyles-positionCount-10 MuiTableCell-alignCenter"
+            class="MuiTableCell-root MuiTableCell-body makeStyles-positionCount-11 MuiTableCell-alignCenter"
           >
             4
           </td>
@@ -320,7 +320,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
             <span
-              class="makeStyles-styledNumberFormat-14 makeStyles-styledNumberFormat-21"
+              class="makeStyles-styledNumberFormat-16 makeStyles-styledNumberFormat-23"
             >
               174,98 €
             </span>
@@ -329,7 +329,7 @@ exports[`DashboardTable display portfolio information 1`] = `
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
             <span
-              class="makeStyles-styledNumberFormat-14 makeStyles-styledNumberFormat-22"
+              class="makeStyles-styledNumberFormat-16 makeStyles-styledNumberFormat-24"
             >
               0,00 %
             </span>
@@ -338,16 +338,16 @@ exports[`DashboardTable display portfolio information 1`] = `
             class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
           >
             <span
-              class="makeStyles-styledNumberFormat-14 makeStyles-styledNumberFormat-23"
+              class="makeStyles-styledNumberFormat-16 makeStyles-styledNumberFormat-25"
             >
               -1,00 %
             </span>
           </td>
           <td
-            class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter"
+            class="MuiTableCell-root MuiTableCell-body makeStyles-actionsCell-14 MuiTableCell-alignCenter"
           >
             <div
-              class="makeStyles-action-19"
+              class="makeStyles-action-21"
               title="portfolio.rename"
             >
               <button
@@ -375,7 +375,7 @@ exports[`DashboardTable display portfolio information 1`] = `
               </button>
             </div>
             <div
-              class="makeStyles-action-19"
+              class="makeStyles-action-21"
               title="portfolio.duplicate"
             >
               <button
@@ -403,7 +403,7 @@ exports[`DashboardTable display portfolio information 1`] = `
               </button>
             </div>
             <div
-              class="makeStyles-action-19 makeStyles-disabled-20"
+              class="makeStyles-action-21 makeStyles-disabled-22"
               title="portfolio.deleteReal"
             >
               <button
@@ -434,7 +434,7 @@ exports[`DashboardTable display portfolio information 1`] = `
     </table>
   </div>
   <div
-    class="makeStyles-buttons-12"
+    class="makeStyles-buttons-13"
   >
     <button
       class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary"

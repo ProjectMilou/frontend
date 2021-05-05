@@ -248,22 +248,22 @@ exports[`DashboardTable display stock information 1`] = `
                   scope="row"
                 >
                   <div
-                    class="makeStyles-compContainer-17"
+                    class="makeStyles-compContainer-16"
                   >
                     <div
-                      class="makeStyles-pWrapper-18 makeStyles-pWrapper-33"
+                      class="makeStyles-pWrapper-17 makeStyles-pWrapper-32"
                     >
                       <p
-                        class="makeStyles-top-15 makeStyles-top-31"
+                        class="MuiTypography-root makeStyles-top-14 makeStyles-top-30 MuiTypography-body1"
                       >
-                        APPLE
+                        APPL
                       </p>
                     </div>
                     <div
-                      class="makeStyles-pWrapper-18 makeStyles-pWrapper-33"
+                      class="makeStyles-pWrapper-17 makeStyles-pWrapper-32"
                     >
                       <p
-                        class="makeStyles-bottom-16 makeStyles-bottom-32"
+                        class="MuiTypography-root makeStyles-bottom-15 makeStyles-bottom-31 MuiTypography-body1"
                       >
                         International Business Machines Corporation
                       </p>
@@ -274,7 +274,7 @@ exports[`DashboardTable display stock information 1`] = `
                   class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-12 MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-styledNumberFormat-22 makeStyles-styledNumberFormat-34"
+                    class="makeStyles-styledNumberFormat-21 makeStyles-styledNumberFormat-33"
                   >
                     138,16 €
                   </span>
@@ -283,7 +283,7 @@ exports[`DashboardTable display stock information 1`] = `
                   class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-12 MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-styledNumberFormat-22 makeStyles-styledNumberFormat-35"
+                    class="makeStyles-styledNumberFormat-21 makeStyles-styledNumberFormat-34"
                   >
                     1,05 %
                   </span>
@@ -292,7 +292,7 @@ exports[`DashboardTable display stock information 1`] = `
                   class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-12 MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-styledNumberFormat-22 makeStyles-styledNumberFormat-36"
+                    class="makeStyles-styledNumberFormat-21 makeStyles-styledNumberFormat-35"
                   >
                     1,11 %
                   </span>
@@ -304,14 +304,14 @@ exports[`DashboardTable display stock information 1`] = `
                     class="MuiTypography-root makeStyles-defaultText-12 MuiTypography-body1 MuiTypography-colorPrimary"
                   >
                     €
-                    119B
+                    119 B
                   </p>
                 </td>
                 <td
                   class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-12 MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-styledNumberFormat-22 makeStyles-styledNumberFormat-37"
+                    class="makeStyles-styledNumberFormat-21 makeStyles-styledNumberFormat-36"
                   >
                     139,18 €
                   </span>
@@ -320,16 +320,16 @@ exports[`DashboardTable display stock information 1`] = `
                   class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-12 MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-euroCurrency-28 makeStyles-euroCurrency-38"
+                    class="makeStyles-euroCurrency-27 makeStyles-euroCurrency-37"
                   >
-                    21.4x
+                    21.0x
                   </span>
                 </td>
                 <td
                   class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-12 MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-styledNumberFormat-22 makeStyles-styledNumberFormat-39"
+                    class="makeStyles-styledNumberFormat-21 makeStyles-styledNumberFormat-38"
                   >
                     6,51 %
                   </span>
@@ -353,22 +353,22 @@ exports[`DashboardTable display stock information 1`] = `
                   scope="row"
                 >
                   <div
-                    class="makeStyles-compContainer-17"
+                    class="makeStyles-compContainer-16"
                   >
                     <div
-                      class="makeStyles-pWrapper-18 makeStyles-pWrapper-21"
+                      class="makeStyles-pWrapper-17 makeStyles-pWrapper-20"
                     >
                       <p
-                        class="makeStyles-top-15 makeStyles-top-19"
+                        class="MuiTypography-root makeStyles-top-14 makeStyles-top-18 MuiTypography-body1"
                       >
                         IBM
                       </p>
                     </div>
                     <div
-                      class="makeStyles-pWrapper-18 makeStyles-pWrapper-21"
+                      class="makeStyles-pWrapper-17 makeStyles-pWrapper-20"
                     >
                       <p
-                        class="makeStyles-bottom-16 makeStyles-bottom-20"
+                        class="MuiTypography-root makeStyles-bottom-15 makeStyles-bottom-19 MuiTypography-body1"
                       >
                         International Business Machines Corporation
                       </p>
@@ -379,7 +379,7 @@ exports[`DashboardTable display stock information 1`] = `
                   class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-12 MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-styledNumberFormat-22 makeStyles-styledNumberFormat-24"
+                    class="makeStyles-styledNumberFormat-21 makeStyles-styledNumberFormat-23"
                   >
                     138,16 €
                   </span>
@@ -388,7 +388,7 @@ exports[`DashboardTable display stock information 1`] = `
                   class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-12 MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-styledNumberFormat-22 makeStyles-styledNumberFormat-25"
+                    class="makeStyles-styledNumberFormat-21 makeStyles-styledNumberFormat-24"
                   >
                     1,05 %
                   </span>
@@ -397,7 +397,7 @@ exports[`DashboardTable display stock information 1`] = `
                   class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-12 MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-styledNumberFormat-22 makeStyles-styledNumberFormat-26"
+                    class="makeStyles-styledNumberFormat-21 makeStyles-styledNumberFormat-25"
                   >
                     1,11 %
                   </span>
@@ -409,14 +409,14 @@ exports[`DashboardTable display stock information 1`] = `
                     class="MuiTypography-root makeStyles-defaultText-12 MuiTypography-body1 MuiTypography-colorPrimary"
                   >
                     €
-                    119B
+                    119 B
                   </p>
                 </td>
                 <td
                   class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-12 MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-styledNumberFormat-22 makeStyles-styledNumberFormat-27"
+                    class="makeStyles-styledNumberFormat-21 makeStyles-styledNumberFormat-26"
                   >
                     139,18 €
                   </span>
@@ -425,16 +425,16 @@ exports[`DashboardTable display stock information 1`] = `
                   class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-12 MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-euroCurrency-28 makeStyles-euroCurrency-29"
+                    class="makeStyles-euroCurrency-27 makeStyles-euroCurrency-28"
                   >
-                    21.4x
+                    21.0x
                   </span>
                 </td>
                 <td
                   class="MuiTableCell-root MuiTableCell-body makeStyles-defaultText-12 MuiTableCell-alignCenter"
                 >
                   <span
-                    class="makeStyles-styledNumberFormat-22 makeStyles-styledNumberFormat-30"
+                    class="makeStyles-styledNumberFormat-21 makeStyles-styledNumberFormat-29"
                   >
                     6,51 %
                   </span>
@@ -449,29 +449,6 @@ exports[`DashboardTable display stock information 1`] = `
                   </p>
                 </td>
               </tr>
-              <p
-                class="MuiTypography-root makeStyles-loading-6 MuiTypography-body1"
-              >
-                <div
-                  class="MuiCircularProgress-root MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
-                  role="progressbar"
-                  style="width: 40px; height: 40px;"
-                >
-                  <svg
-                    class="MuiCircularProgress-svg"
-                    viewBox="22 22 44 44"
-                  >
-                    <circle
-                      class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
-                      cx="44"
-                      cy="44"
-                      fill="none"
-                      r="20.2"
-                      stroke-width="3.6"
-                    />
-                  </svg>
-                </div>
-              </p>
             </tbody>
           </table>
         </div>

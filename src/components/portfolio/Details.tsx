@@ -12,7 +12,6 @@ import { RouteComponentProps, useParams } from '@reach/router';
 import DetailsHeader from './DetailsHeader';
 import DetailsMain from './DetailsMain';
 import * as API from '../../portfolio/APIClient';
-import { isAuthenticationError } from '../../Errors';
 import ErrorMessage from '../shared/ErrorMessage';
 import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 
@@ -22,6 +21,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     topBanner: {
       backgroundColor: '#EEF1FB',
       width: '100%',
+      minWidth: '50rem',
       height: '15rem',
     },
     main: {
@@ -97,19 +97,7 @@ const Details: React.FC<RouteComponentProps> = () => {
           <ErrorMessage
             error={error}
             messageKey="portfolio.details.errorMessage"
-            handling={
-              isAuthenticationError(error)
-                ? {
-                    buttonText: 'error.action.login',
-                    action: async () => {
-                      // TODO: go back to login
-                    },
-                  }
-                : {
-                    buttonText: 'error.action.retry',
-                    action: fetch,
-                  }
-            }
+            retry={fetch}
           />
         </Container>
       )}

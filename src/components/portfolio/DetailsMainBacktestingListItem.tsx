@@ -16,15 +16,22 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1em',
   },
   valueText: {
-    textAlign: 'right',
+    display: 'flex',
+    justifyContent: 'end',
+    alignItems: 'center',
+    minWidth: 'auto',
   },
   listIcon: {
+    width: 'min-content',
     justifyContent: 'center',
     alignItems: 'center',
+    margin: '0 0.5rem',
+    minWidth: '0 !important',
   },
   textAndInfoButton: {
     display: 'flex',
     alignItems: 'center',
+    margin: '0 0.5rem',
   },
 }));
 
@@ -35,6 +42,14 @@ type DetailsMainBacktestingListItemProps = {
   infoText: string;
 };
 
+/**
+ * This component represents one KPI with fitting icon and value
+ *
+ * @param icon - Visual representation of the KPI
+ * @param title - Name of the KPI
+ * @param value - Value of the KPI
+ * @param infoText - Explanation for the KPI that is being displayed as a tooltip in {@link InfoButton}
+ */
 const DetailsMainBacktestingListItem: React.FC<DetailsMainBacktestingListItemProps> = ({
   icon,
   title,

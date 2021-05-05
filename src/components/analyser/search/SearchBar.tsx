@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+/**
+ * @return Search bar for searching a stock by its name, symbol, WKN or ISIN
+ */
 const SearchBar: React.FC = () => {
   const classes = useStyles();
 
@@ -40,25 +43,30 @@ const SearchBar: React.FC = () => {
 
   const fetch = async () => {
     try {
+      // empty filters that are used to get list of stocks without any filters
       const emptyFilters: API.Filters = {
         country: [],
         industry: [],
         currency: [],
         mc: [],
       };
-      const s = await API.listStocks('', emptyFilters);
+      const s = await API.listStocks(emptyFilters);
       setStocks(s);
     } catch (err) {
       setStocks(undefined);
-      // TODO: implement proper error handling
       // eslint-disable-next-line no-console
-      console.error('uncaught error when requesting listStocks!', err);
+      console.error('error when requesting list of stocks!', err);
     }
   };
 
   React.useEffect(() => {
     fetch();
   }, []);
+
+  /** overwrite input value if undefined */
+  React.useEffect(() => {
+    if (inputValue === 'undefined: undefined') setInputValue('');
+  }, [inputValue]);
 
   return (
     <div style={{ width: 300 }}>
@@ -73,7 +81,7 @@ const SearchBar: React.FC = () => {
           open={open}
           options={stocks}
           getOptionLabel={(option: API.Stock) =>
-            // use '%' as seperator to display only symbol and name
+            // use '%' as separator to display only symbol and name
             `${option.symbol}: ${option.name}%${option.isin}${option.wkn}`
           }
           onInputChange={(event, value, reason) => {
@@ -112,7 +120,6 @@ const SearchBar: React.FC = () => {
                   </InputAdornment>
                 ),
               }}
-              // label="Search"
               margin="normal"
               placeholder="Name, Symbol, ISIN or WKN"
             />

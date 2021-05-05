@@ -15,7 +15,9 @@ import {
   Checkbox,
   Chip,
 } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
+// FilterBar props type declaration
 export type FilterBarProps = {
   filtersList: string[];
   ogFiltersList: string[];
@@ -27,9 +29,6 @@ export type FilterBarProps = {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    typography: {
-      color: theme.palette.primary.dark,
-    },
     formControl: {
       margin: theme.spacing(2),
       minWidth: '200px',
@@ -42,11 +41,20 @@ const useStyles = makeStyles((theme: Theme) =>
     chip: {
       margin: 1,
     },
+    clearList: {
+      fontWeight: 500,
+      '&:hover': {
+        backgroundColor: theme.palette.error.main,
+      },
+    },
   })
 );
 
+/** @type Height of each item in the menu */
 const ITEM_HEIGHT = 48;
+/** @type Padding of each item in the menu */
 const ITEM_PADDING_TOP = 8;
+/** @type Props applied to the Menu element */
 const MenuProps = {
   PaperProps: {
     style: {
@@ -57,6 +65,14 @@ const MenuProps = {
   getContentAnchorEl: null,
 };
 
+/**
+ * Menu item's font weight will be medium if it's selected.
+ *
+ * @param {string} tmp - Menu item's text
+ * @param {string[]} list - List of a filter
+ * @param {Theme} theme - Theme
+ * @return Font weight of a menu item
+ */
 function getStyles(tmp: string, list: string[], theme: Theme) {
   return {
     fontWeight:
@@ -66,6 +82,14 @@ function getStyles(tmp: string, list: string[], theme: Theme) {
   };
 }
 
+/**
+ * Component to display a bar where filters can be selected
+ *
+ * @param filtersList - Filtered list of stocks' currency / country / market Cap / industry
+ * @param ogFiltersList - Original list of stocks' currency / country / market Cap / industry
+ * @param handleChange - Update the list if filter is changed
+ * @param name - Currency / Country / Market Cap / Industry
+ */
 export const FilterBar: React.FC<FilterBarProps> = ({
   filtersList,
   ogFiltersList,
@@ -74,6 +98,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
 }) => {
   const classes = useStyles();
   const theme = useTheme();
+  const { t } = useTranslation();
 
   return (
     <FormControl className={classes.formControl}>
@@ -100,11 +125,8 @@ export const FilterBar: React.FC<FilterBarProps> = ({
         )}
         MenuProps={MenuProps}
       >
-        <MenuItem disabled value="">
-          <em>{name}</em>
-        </MenuItem>
-        <MenuItem value="">
-          <em>None</em>
+        <MenuItem value="" className={classes.clearList}>
+          {t('analyser.filter.clearSingle')}
         </MenuItem>
         {ogFiltersList.map((tmp) => (
           <MenuItem

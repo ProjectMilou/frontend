@@ -10,7 +10,8 @@ export type ErrorCode =
   | 'SYMBOL_INVALID'
   | 'QTY_INVALID'
   | 'RANGE_INVALID'
-  | 'REAL_PORTFOLIO_MODIFICATION';
+  | 'REAL_PORTFOLIO_MODIFICATION'
+  | 'NO_BACKTESTING_DATA';
 
 /**
  * An application error.

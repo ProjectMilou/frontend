@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResetForm should display text 1`] = `
+<div>
+  <div
+    class="MuiDialogContent-root"
+  >
+    <p
+      class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter"
+    >
+      shell.reset.forgot
+    </p>
+    <div
+      class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+      style="margin: 10px 0px;"
+    >
+      <label
+        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
+        data-shrink="false"
+        for="email"
+        id="email-label"
+      >
+        shell.email
+      </label>
+      <div
+        class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+      >
+        <input
+          aria-invalid="false"
+          class="MuiInputBase-input MuiInput-input"
+          id="email"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    class="MuiDialogActions-root MuiDialogActions-spacing"
+  >
+    <button
+      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiButton-label"
+      >
+        shell.reset.submit
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+  </div>
+</div>
+`;

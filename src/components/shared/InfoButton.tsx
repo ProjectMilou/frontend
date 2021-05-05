@@ -3,6 +3,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { InfoOutlined } from '@material-ui/icons';
 import { Tooltip } from '@material-ui/core';
 
+// InfoButton props type declaration
 export type InfoProps = {
   infotext: string;
 };
@@ -25,6 +26,10 @@ const useStyles = makeStyles(() =>
   })
 );
 
+/**
+ * @param infotext - Information
+ * @return A info button which shows information when mouse hover on the info button
+ */
 const InfoButton: React.FC<InfoProps> = ({ infotext }) => {
   const classes = useStyles();
 

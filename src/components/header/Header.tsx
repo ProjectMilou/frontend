@@ -65,9 +65,9 @@ const Header: React.FC = () => {
         <NavLink to="/portfolio">{t('portfolio')}</NavLink>
         <NavLink to="/analyser">{t('analyser')}</NavLink>
         <NavLink to="/academy">{t('shell.academy')}</NavLink>
+        <SearchBar />
         <div className={classes.grow} />
 
-        <SearchBar />
         {state.loggedIn ? (
           <>
             <Button

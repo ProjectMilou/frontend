@@ -10,13 +10,12 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Stock, StockDetails } from '../../../analyser/APIClient';
 import TextOverText from '../../shared/TextOverText';
+import { moneyFormat, convertPercentToColor } from '../../../analyser/Helper';
 
-// stylesheet for the Summary section
+// stylesheet for info boxes
 const useStyles = makeStyles(() =>
   createStyles({
     infoBox: {
-      // optional outline
-      // outlineStyle: 'solid',
       outlineColor: 'ba',
       outlineWidth: '0.15rem',
       margin: '1rem 0',
@@ -36,6 +35,13 @@ type DetailsOverviewProps = {
   stockDetails: StockDetails;
 };
 
+/**
+ * component that provided small info boxes that display stock details
+ *
+ * @param stockOverview stock overview to display
+ * @param stockDetails stock details to display
+ *
+ */
 const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
   stockOverview,
   stockDetails,
@@ -43,25 +49,6 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
   const classes = useStyles();
   const theme = useTheme();
   const { t } = useTranslation();
-
-  const convertPerformanceToColor = (num: number) =>
-    num <= 0 ? theme.palette.error.main : theme.palette.success.main;
-  const convertToPercent = (num: number): string => `${num}%`;
-
-  // Rounds and adds M=Million, B=Billion and K=Thousand --> American System!!!
-  const moneyFormat = (val: number) => {
-    let round = '';
-    if (Math.abs(val) >= 1.0e9) {
-      round = `${Math.round(Math.abs(val) / 1.0e9)} B`;
-    } else if (Math.abs(val) >= 1.0e6) {
-      round = `${Math.round(Math.abs(val) / 1.0e6)} M`;
-    } else if (Math.abs(val) >= 1.0e3) {
-      round = `${Math.round(Math.abs(val) / 1.0e3)} K`;
-    } else {
-      round = `${Math.abs(val)}`;
-    }
-    return round;
-  };
 
   return (
     <Table className={classes.infoBox}>
@@ -104,9 +91,9 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
       <TableRow>
         <TableCell className={classes.tableCell}>
           <TextOverText
-            top={`${moneyFormat(
+            top={`€${moneyFormat(
               parseInt(stockDetails.marketCapitalization, 10)
-            )}€`}
+            )}`}
             bottom={t('company.mc')}
             colorTop={theme.palette.primary.main}
             colorBottom={theme.palette.primary.light}
@@ -121,6 +108,7 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
             bottom={t('stock.per52WeekLow')}
             colorTop={theme.palette.primary.main}
             colorBottom={theme.palette.primary.light}
+            infoText={t('info.per52WeekHigh')}
           />
         </TableCell>
         <TableCell className={classes.tableCell}>
@@ -128,18 +116,20 @@ const DetailsOverviewInfoBox: React.FC<DetailsOverviewProps> = ({
             top={`${parseFloat(stockDetails.per52WeekHigh)
               .toFixed(2)
               .toString()}€`}
-            bottom={t('company.per52WeekHigh')}
+            bottom={t('stock.per52WeekHigh')}
             colorTop={theme.palette.primary.main}
             colorBottom={theme.palette.primary.light}
+            infoText={t('info.per52WeekLow')}
           />
         </TableCell>
         <TableCell className={classes.tableCell}>
           {/* dividend */}
           <TextOverText
-            top={convertToPercent(stockOverview.div)}
-            bottom={t('stock.div')}
-            colorTop={convertPerformanceToColor(stockOverview.div)}
+            top={`${stockOverview.div.toFixed(2)} %`}
+            bottom={t('analyser.details.DividendYield')}
+            colorTop={convertPercentToColor(stockOverview.div)}
             colorBottom={theme.palette.primary.light}
+            infoText={t('analyser.details.DividendYield.infoButton')}
           />
         </TableCell>
       </TableRow>

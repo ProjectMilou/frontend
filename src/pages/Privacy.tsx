@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Box, Typography } from '@material-ui/core';
 import { RouteComponentProps } from '@reach/router';
 
-const Imprint: React.FC<RouteComponentProps> = () => (
+const Privacy: React.FC<RouteComponentProps> = () => (
   <Container maxWidth="md">
     <Box my={5}>
       <Typography variant="h2" gutterBottom>
@@ -565,4 +565,4 @@ const Imprint: React.FC<RouteComponentProps> = () => (
   </Container>
 );
 
-export default Imprint;
+export default Privacy;

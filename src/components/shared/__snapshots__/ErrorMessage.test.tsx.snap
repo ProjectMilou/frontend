@@ -1,5 +1,68 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ErrorMessage handle authentication error 1`] = `
+<div>
+  <div
+    class="MuiPaper-root MuiCard-root makeStyles-card-5 MuiPaper-elevation1 MuiPaper-rounded"
+  >
+    <div
+      class="MuiCardHeader-root"
+    >
+      <div
+        class="MuiCardHeader-avatar"
+      >
+        <div
+          class="MuiAvatar-root MuiAvatar-circle makeStyles-icon-6 MuiAvatar-colorDefault"
+        >
+          !
+        </div>
+      </div>
+      <div
+        class="MuiCardHeader-content"
+      >
+        <h2
+          class="MuiTypography-root MuiTypography-h5"
+        >
+          error.title.AUTH_TOKEN_INVALID
+        </h2>
+        <span
+          class="MuiTypography-root MuiCardHeader-subheader MuiTypography-body2 MuiTypography-colorTextSecondary MuiTypography-displayBlock"
+        >
+          message
+        </span>
+      </div>
+    </div>
+    <div
+      class="MuiCardContent-root"
+    >
+      <p
+        class="MuiTypography-root MuiTypography-body2"
+      >
+        error.message.AUTH_TOKEN_INVALID
+      </p>
+    </div>
+    <div
+      class="MuiCardActions-root MuiCardActions-spacing"
+    >
+      <button
+        class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label"
+        >
+          error.action.login
+        </span>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`ErrorMessage show and handle error message 1`] = `
 <div>
   <div
@@ -52,7 +115,7 @@ exports[`ErrorMessage show and handle error message 1`] = `
         <span
           class="MuiButton-label"
         >
-          button
+          error.action.retry
         </span>
         <span
           class="MuiTouchRipple-root"
