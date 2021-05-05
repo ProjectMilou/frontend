@@ -7,7 +7,7 @@ import {
   useTheme,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
 import ValueOverName from './ValueOverName';
@@ -15,7 +15,7 @@ import { stockDetails } from '../../portfolio/Router';
 import { Position } from '../../portfolio/APIClient';
 import LimitedString from './LimitedString';
 
-const useStyles = makeStyles(({ palette }: Theme) =>
+const useStyles = makeStyles(({ palette }) =>
   createStyles({
     button: {
       textTransform: 'none',
@@ -34,9 +34,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       display: 'flex',
       flexDirection: 'column',
     },
-    cardContentUpper: {
-      marginBottom: '2rem',
-    },
     cardTitle: {
       marginBottom: 'auto',
       color: palette.primary.contrastText,
@@ -52,9 +49,19 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     cardContentLower: {
       display: 'flex',
       justifyContent: 'space-around',
+      height: '5rem',
+      marginTop: '1rem',
     },
     cardAction: {
       padding: '16px',
+    },
+    missingData: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: palette.primary.contrastText,
+      height: '5rem',
+      marginTop: '1rem',
     },
   })
 );
@@ -87,7 +94,7 @@ const DetailsMainPositionsCard: React.FC<DetailsMainPositionsCardProps> = ({
         <div className={classes.cardTitle}>
           <LimitedString value={p.stock.name} />
         </div>
-        <div className={classes.cardContentUpper}>
+        <div>
           <div className={classes.cardSubtitle}>
             <span>{`${t('portfolio.details.holding')}: `}</span>
             <StyledNumberFormat
@@ -103,62 +110,72 @@ const DetailsMainPositionsCard: React.FC<DetailsMainPositionsCardProps> = ({
             <StyledNumberFormat value={p.stock.price} suffix="€" />
           </div>
         </div>
-        <div className={classes.cardContentLower}>
-          <ValueOverName
-            value={
-              <StyledNumberFormat
-                value={p.stock.perf7dPercent}
-                suffix="%"
-                paintJob
-              />
-            }
-            name={t('portfolio.details.day7')}
-            secondValue={
-              <StyledNumberFormat
-                value={p.stock.perf7d}
-                suffix="€"
-                paintJob
-                doLimit
-              />
-            }
-          />
-          <ValueOverName
-            value={
-              <StyledNumberFormat
-                value={p.stock.perf1yPercent}
-                suffix="%"
-                paintJob
-              />
-            }
-            name={t('portfolio.details.year')}
-            secondValue={
-              <StyledNumberFormat
-                value={p.stock.perf1y}
-                suffix="€"
-                paintJob
-                doLimit
-              />
-            }
-          />
-          <ValueOverName
-            value={
-              <StyledNumberFormat
-                value={p.totalReturnPercent}
-                suffix="%"
-                paintJob
-              />
-            }
-            name={t('portfolio.details.totalReturn')}
-            secondValue={
-              <StyledNumberFormat
-                value={p.totalReturn}
-                suffix="€"
-                paintJob
-                doLimit
-              />
-            }
-          />
-        </div>
+        {/* if the stock is missing data leave out performance values */}
+        {p.stock.missingData ? (
+          <span className={classes.missingData}>
+            {t('portfolio.details.missingPerformance')}
+          </span>
+        ) : (
+          <div className={classes.cardContentLower}>
+            <ValueOverName
+              value={
+                <StyledNumberFormat
+                  value={p.stock.perf7dPercent}
+                  suffix="%"
+                  paintJob
+                  doLimit
+                />
+              }
+              name={t('portfolio.details.day7')}
+              secondValue={
+                <StyledNumberFormat
+                  value={p.stock.perf7d}
+                  suffix="€"
+                  paintJob
+                  doLimit
+                />
+              }
+            />
+            <ValueOverName
+              value={
+                <StyledNumberFormat
+                  value={p.stock.perf1yPercent}
+                  suffix="%"
+                  paintJob
+                  doLimit
+                />
+              }
+              name={t('portfolio.details.year')}
+              secondValue={
+                <StyledNumberFormat
+                  value={p.stock.perf1y}
+                  suffix="€"
+                  paintJob
+                  doLimit
+                />
+              }
+            />
+            <ValueOverName
+              value={
+                <StyledNumberFormat
+                  value={p.totalReturnPercent}
+                  suffix="%"
+                  paintJob
+                  doLimit
+                />
+              }
+              name={t('portfolio.details.totalReturn')}
+              secondValue={
+                <StyledNumberFormat
+                  value={p.totalReturn}
+                  suffix="€"
+                  paintJob
+                  doLimit
+                />
+              }
+            />
+          </div>
+        )}
       </CardContent>
       <CardActions className={classes.cardAction}>
         <Button

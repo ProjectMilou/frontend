@@ -82,6 +82,7 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({
     dataLabels: {
       enabled: true,
       enabledOnSeries: [1],
+      formatter: (tooltipValue: number) => roundAxis(tooltipValue),
     },
     labels: [year - 4, year - 3, year - 2, year - 1, year],
     xaxis: {
@@ -104,6 +105,7 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({
           style: {
             colors: textColor,
           },
+          formatter: (tooltipValue: number) => roundAxis(tooltipValue),
         },
       },
       {
@@ -118,6 +120,7 @@ const DividendLineChart: React.FC<DividendLineChartProps> = ({
           style: {
             colors: textColor,
           },
+          formatter: (tooltipValue: number) => roundAxis(tooltipValue),
         },
       },
     ],
