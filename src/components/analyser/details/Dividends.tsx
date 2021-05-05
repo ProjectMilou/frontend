@@ -98,11 +98,11 @@ const Dividends: React.FC<DividendsProps> = ({
             title={t('analyser.details.DividendYield')}
             info={t('analyser.details.DividendYield.infoButton')}
             body={
-              <p>
+              <>
                 {dividendYield === 0
                   ? `${t('analyser.details.noDividendPayed')}`
                   : `${Math.round(dividendYield * 100) / 100}%`}
-              </p>
+              </>
             }
           />
           <InfoBlock
@@ -115,9 +115,9 @@ const Dividends: React.FC<DividendsProps> = ({
             info={t('analyser.details.NextDate.infoButton')}
             body={
               nextPayout ? (
-                <p>{nextPayout.toISOString().split('T')[0]}</p>
+                <>{nextPayout.toISOString().split('T')[0]}</>
               ) : (
-                <p> {t('analyser.details.noDividendPlanned')}</p>
+                <> {t('analyser.details.noDividendPlanned')}</>
               )
             }
           />
