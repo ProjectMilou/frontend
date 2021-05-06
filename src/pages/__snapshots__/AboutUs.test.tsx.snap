@@ -44,7 +44,7 @@ exports[`AboutUs should render aboutus-page 1`] = `
             justify-content="center"
           >
             <div
-              class="MuiAvatar-root MuiAvatar-circle"
+              class="MuiAvatar-root MuiAvatar-circular"
               style="width: 340px; height: 340px;"
             >
               <img
@@ -145,7 +145,7 @@ exports[`AboutUs should render aboutus-page 1`] = `
             justify-content="center"
           >
             <div
-              class="MuiAvatar-root MuiAvatar-circle"
+              class="MuiAvatar-root MuiAvatar-circular"
               style="width: 340px; height: 340px;"
             >
               <img
@@ -246,7 +246,7 @@ exports[`AboutUs should render aboutus-page 1`] = `
             justify-content="center"
           >
             <div
-              class="MuiAvatar-root MuiAvatar-circle"
+              class="MuiAvatar-root MuiAvatar-circular"
               style="width: 340px; height: 340px;"
             >
               <img
