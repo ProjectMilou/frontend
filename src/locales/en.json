@@ -10,6 +10,7 @@
   "portfolio.details.stockChartSeries": "Total Performance",
   "portfolio.dialog.edit.title": "Edit portfolio positions",
   "portfolio.dialog.edit.text": "Here you can adjust the positions of your portfolio.",
+  "portfolio.dialog.edit.search": "Search stocks to add",
   "portfolio.details.missingPerformance": "No performance data available.",
   "portfolio.details.stock": "Stock",
   "portfolio.details.price": "Price",
@@ -320,5 +321,10 @@
   "footer.aboutUs": "About us",
   "footer.privacy": "Privacy Policy",
   "footer.imprint": "Imprint",
-  "unknown": "unknown"
+  "unknown": "unknown",
+  "loading": "Loading...",
+  "noResults": "No results",
+  "open": "Open",
+  "close": "Close",
+  "clear": "Clear"
 }
