@@ -1,0 +1,610 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LandingPage should render landingPage 1`] = `
+<div>
+  <div
+    class="MuiBox-root MuiBox-root-18"
+  >
+    <div
+      class="MuiBox-root MuiBox-root-22 makeStyles-box-19"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column MuiGrid-wrap-xs-nowrap MuiGrid-align-items-xs-center"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-item"
+        >
+          <img
+            alt="2020-12-15 Logo hell"
+            src="milou.png"
+            title="2020-12-15 Logo hell"
+          />
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item"
+        >
+          <h2
+            class="MuiTypography-root makeStyles-typography-20 MuiTypography-h2"
+          >
+            Empower to invest.
+          </h2>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item"
+        >
+          <a
+            aria-disabled="false"
+            class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-21"
+            href="/analyser"
+            tabindex="0"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              Start now
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+    <hr
+      class="MuiDivider-root makeStyles-divider-4"
+    />
+    <div
+      class="MuiBox-root MuiBox-root-23 makeStyles-box1-5"
+    >
+      <p
+        class="MuiTypography-root makeStyles-typographyMain-6 MuiTypography-body1 MuiTypography-alignCenter"
+      >
+        Apps like Trade Republic and other direct brokers make investing easier and easier. The stock market is now accessible to everyone. Even so, many individuals do not have access to tools to make informed and informed investment decisions. Current solutions are often confusing and tailored to professional investors. This is exactly where we attack.
+      </p>
+    </div>
+    <hr
+      class="MuiDivider-root makeStyles-divider-4"
+    />
+    <div
+      class="MuiBox-root MuiBox-root-24 makeStyles-boxMain-7"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-10 MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+        justify-content="center"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-10 MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+          justify-content="space-between"
+        >
+          <div
+            class="MuiGrid-root MuiGrid-item"
+            style="width: 500px; height: 360px;"
+          >
+            <img
+              class="MuiCardMedia-root makeStyles-mediaSmall-1 MuiCardMedia-media MuiCardMedia-img"
+              src="lernen.png"
+            />
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-item"
+            style="width: 500px; height: 360px;"
+          >
+            <div
+              class="MuiGrid-root makeStyles-gridItem-8 MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center MuiGrid-grid-xs-true"
+              style="width: 500px;"
+            >
+              <div
+                class="makeStyles-warning-12 makeStyles-title-17"
+              >
+                <h4
+                  class="MuiTypography-root makeStyles-warning-12 makeStyles-title-17 MuiTypography-h4"
+                >
+                  LEARN
+                </h4>
+              </div>
+              <div
+                style="max-width: 550px;"
+              >
+                <p
+                  class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter"
+                >
+                  No prior knowledge is necessary for us. Whether you are a professional or a beginner, we will accompany you throughout the entire investment lifecycle and help you to be a successful investor. With our free academy, you can easily build up your knowledge of finances and deepen it.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-10 MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+          justify-content="space-between"
+        >
+          <div
+            class="MuiGrid-root MuiGrid-item"
+            style="width: 500px; height: 360px;"
+          >
+            <div
+              class="MuiGrid-root makeStyles-gridItem-8 MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center MuiGrid-grid-xs-true"
+              style="width: 500px;"
+            >
+              <div
+                class="makeStyles-error-13 makeStyles-title-17"
+              >
+                <h4
+                  class="MuiTypography-root makeStyles-error-13 makeStyles-title-17 MuiTypography-h4"
+                >
+                  ANALYSIS
+                </h4>
+              </div>
+              <div
+                style="max-width: 550px;"
+              >
+                <p
+                  class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter"
+                >
+                  Do you feel ready for your first investment or are you interested in the development of different stocks? Perfect! Our analysis tool helps you to conduct investment research. Regardless of whether you want to invest in stocks or ETFs: Here you will find the most important things clearly and understandably!
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-item"
+            style="width: 500px; height: 360px;"
+          >
+            <img
+              class="MuiCardMedia-root makeStyles-mediaSmall-1 MuiCardMedia-media MuiCardMedia-img"
+              src="analyse.png"
+            />
+          </div>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-10 MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+          justify-content="space-between"
+        >
+          <div
+            class="MuiGrid-root MuiGrid-item"
+            style="width: 500px; height: 360px;"
+          >
+            <img
+              class="MuiCardMedia-root makeStyles-mediaSmall-1 MuiCardMedia-media MuiCardMedia-img"
+              src="Portfolio.png"
+            />
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-item"
+            style="width: 500px; height: 360px;"
+          >
+            <div
+              class="MuiGrid-root makeStyles-gridItem-8 MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center MuiGrid-grid-xs-true"
+              style="width: 500px;"
+            >
+              <div
+                class="makeStyles-success-11 makeStyles-title-17"
+              >
+                <h4
+                  class="MuiTypography-root makeStyles-success-11 makeStyles-title-17 MuiTypography-h4"
+                >
+                  PORTFOLIO
+                </h4>
+              </div>
+              <div
+                style="max-width: 550px;"
+              >
+                <p
+                  class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter"
+                >
+                  It is also important to us that you build your portfolio with a good risk-return ratio. Our tool helps you to achieve optimal diversification in order to reduce your risk. In doing so, we are guided by the current scientific standards of portfolio theory.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiBox-root MuiBox-root-25"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-direction-xs-column"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-item"
+        >
+          <h3
+            class="MuiTypography-root MuiTypography-h3"
+            style="padding: 8px;"
+          >
+            Did you know...
+          </h3>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-item MuiGrid-align-items-xs-center"
+        >
+          <div
+            class="MuiGrid-root MuiGrid-item"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root makeStyles-smallIcon-9"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M5 8h2v8H5zm7 0H9c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h3c.55 0 1-.45 1-1V9c0-.55-.45-1-1-1zm-1 6h-1v-4h1v4zm7-6h-3c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h3c.55 0 1-.45 1-1V9c0-.55-.45-1-1-1zm-1 6h-1v-4h1v4z"
+              />
+              <path
+                d="M2 4v16h20V4H2zm2 14V6h16v12H4z"
+              />
+            </svg>
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-true"
+          >
+            <h6
+              class="MuiTypography-root MuiTypography-h6"
+            >
+              ..to be a successful investor, initially, you
+               
+              <span
+                class="makeStyles-span-10"
+              >
+                need no assets
+              </span>
+               . You can start investing with as little as 25 euros a month.
+            </h6>
+          </div>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-item MuiGrid-align-items-xs-center"
+        >
+          <div
+            class="MuiGrid-root MuiGrid-item"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root makeStyles-smallIcon-9"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7zm11.77 8.27L13 19.54l-4.27-4.27C8.28 14.81 8 14.19 8 13.5c0-1.38 1.12-2.5 2.5-2.5.69 0 1.32.28 1.77.74l.73.72.73-.73c.45-.45 1.08-.73 1.77-.73 1.38 0 2.5 1.12 2.5 2.5 0 .69-.28 1.32-.73 1.77z"
+              />
+            </svg>
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-true"
+          >
+            <h6
+              class="MuiTypography-root MuiTypography-h6"
+            >
+              ..we only work with
+               
+              <span
+                class="makeStyles-span-10"
+              >
+                commission-free products
+              </span>
+              , stocks and ETFs. This ensures that we pursue the
+               
+              <span
+                class="makeStyles-span-10"
+              >
+                same interests 
+              </span>
+              as you, namely to make you a successful investor.
+            </h6>
+          </div>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-align-items-xs-center"
+        >
+          <h3
+            class="MuiTypography-root MuiTypography-h3 MuiTypography-alignCenter"
+            style="font-weight: bold; margin-top: 64px;"
+          >
+            Milou accompanies you on all your financial adventures.
+          </h3>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column"
+        >
+          <h6
+            class="MuiTypography-root MuiTypography-h6 MuiTypography-alignCenter"
+            style="margin-top: 16px; margin-bottom: 32px;"
+          >
+            We help you to make well-founded investment decisions yourself.
+          </h6>
+          <div
+            style="margin: auto;"
+          >
+            <a
+              aria-disabled="false"
+              class="MuiButtonBase-root MuiButton-root MuiButton-text"
+              href="/analyser"
+              style="background-color: rgb(255, 196, 59); color: white;"
+              tabindex="0"
+            >
+              <span
+                class="MuiButton-label"
+              >
+                Start for free
+              </span>
+              <span
+                class="MuiTouchRipple-root"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiBox-root MuiBox-root-34 makeStyles-boxMain-28"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4 MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+        justify-content="center"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-item"
+        >
+          <img
+            class="MuiCardMedia-root makeStyles-mediaLarge-26 MuiCardMedia-media MuiCardMedia-img"
+            src="media2.png"
+          />
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-grid-xs-true"
+          justify-content="center"
+          style="max-width: 600px;"
+        >
+          <div
+            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4 MuiGrid-item MuiGrid-align-items-xs-center"
+            style="width: 500px; height: 180px;"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-item"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root makeStyles-success-31 makeStyles-largeIcon-29"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M42 6H6c-2.2 0-4 1.8-4 4v6h4v-6h36v28H28v4h14c2.2 0 4-1.8 4-4V10c0-2.2-1.8-4-4-4zM2 36v6h6c0-3.32-2.68-6-6-6zm0-8v4c5.52 0 10 4.48 10 10h4c0-7.74-6.26-14-14-14zm0-8v4c9.94 0 18 8.06 18 18h4c0-12.16-9.86-22-22-22zm20 2.18v4L29 30l7-3.82v-4L29 26l-7-3.82zM29 12l-11 6 11 6 11-6-11-6z"
+                  transform="scale(0.5, 0.5)"
+                />
+              </svg>
+            </div>
+            <div
+              class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-grid-xs-true"
+            >
+              <h5
+                class="MuiTypography-root MuiTypography-h5"
+              >
+                LEARNING PLATFORM
+              </h5>
+              <p
+                class="MuiTypography-root MuiTypography-body1"
+              >
+                Our learning journey picks you up where you are. With our short tutorials you can acquire new knowledge within a very short time and thus become an investor yourself.
+              </p>
+            </div>
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4 MuiGrid-item MuiGrid-align-items-xs-center"
+            style="width: 500px; height: 180px;"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-item"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root makeStyles-warning-32 makeStyles-largeIcon-29"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+                />
+              </svg>
+            </div>
+            <div
+              class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-grid-xs-true"
+            >
+              <h5
+                class="MuiTypography-root MuiTypography-h5"
+              >
+                INFO BOXES
+              </h5>
+              <p
+                class="MuiTypography-root MuiTypography-body1"
+              >
+                With the help of our info boxes, you can also view explanations of key figures and values in the app at any time and acquire knowledge.
+              </p>
+            </div>
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4 MuiGrid-item MuiGrid-align-items-xs-center"
+            style="width: 500px; height: 180px;"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-item"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root makeStyles-span-30 makeStyles-largeIcon-29"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
+                />
+              </svg>
+            </div>
+            <div
+              class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-grid-xs-true"
+            >
+              <h5
+                class="MuiTypography-root MuiTypography-h5"
+              >
+                SIMPLE VISUALIZATION
+              </h5>
+              <p
+                class="MuiTypography-root MuiTypography-body1"
+              >
+                With the help of simple graphics and diagrams, you get information at a glance and can draw conclusions about individual stocks and your portfolio.
+              </p>
+            </div>
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4 MuiGrid-item MuiGrid-align-items-xs-center"
+            style="width: 500px; height: 180px;"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-item"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root makeStyles-error-33 makeStyles-largeIcon-29"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"
+                />
+              </svg>
+            </div>
+            <div
+              class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-grid-xs-true"
+            >
+              <h5
+                class="MuiTypography-root MuiTypography-h5"
+              >
+                RISK WARNING
+              </h5>
+              <p
+                class="MuiTypography-root MuiTypography-body1"
+              >
+                Identify risks across your entire portfolio with simple warnings and learn how to counteract them.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiBox-root MuiBox-root-36"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-container"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-grid-xs-true"
+        >
+          <h3
+            class="MuiTypography-root MuiTypography-h3"
+          >
+            Our supporters
+          </h3>
+          <p
+            class="MuiTypography-root MuiTypography-body1 MuiTypography-gutterBottom"
+          >
+            Thank you for your help!
+          </p>
+        </div>
+      </div>
+      <div
+        class="MuiBox-root MuiBox-root-37"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+        >
+          <ul
+            class="MuiGridList-root"
+            style="margin: -9px;"
+          >
+            <li
+              class="MuiGridListTile-root"
+              style="width: 16.666666666666668%; height: 138px; padding: 9px;"
+            >
+              <div
+                class="MuiGridListTile-tile"
+              >
+                <img
+                  class="MuiCardMedia-root makeStyles-logo-35 MuiCardMedia-media MuiCardMedia-img"
+                  src="180.png"
+                />
+              </div>
+            </li>
+            <li
+              class="MuiGridListTile-root"
+              style="width: 16.666666666666668%; height: 138px; padding: 9px;"
+            >
+              <div
+                class="MuiGridListTile-tile"
+              >
+                <img
+                  class="MuiCardMedia-root makeStyles-logo-35 MuiCardMedia-media MuiCardMedia-img"
+                  src="getThumb.gif"
+                />
+              </div>
+            </li>
+            <li
+              class="MuiGridListTile-root"
+              style="width: 16.666666666666668%; height: 138px; padding: 9px;"
+            >
+              <div
+                class="MuiGridListTile-tile"
+              >
+                <img
+                  class="MuiCardMedia-root makeStyles-logo-35 MuiCardMedia-media MuiCardMedia-img"
+                  src="tumlogo.png"
+                />
+              </div>
+            </li>
+            <li
+              class="MuiGridListTile-root"
+              style="width: 16.666666666666668%; height: 138px; padding: 9px;"
+            >
+              <div
+                class="MuiGridListTile-tile"
+              >
+                <img
+                  class="MuiCardMedia-root makeStyles-logo-35 MuiCardMedia-media MuiCardMedia-img"
+                  src="manage.png"
+                />
+              </div>
+            </li>
+            <li
+              class="MuiGridListTile-root"
+              style="width: 16.666666666666668%; height: 138px; padding: 9px;"
+            >
+              <div
+                class="MuiGridListTile-tile"
+              >
+                <img
+                  class="MuiCardMedia-root makeStyles-logo-35 MuiCardMedia-media MuiCardMedia-img"
+                  src="tech-talents.png"
+                />
+              </div>
+            </li>
+            <li
+              class="MuiGridListTile-root"
+              style="width: 16.666666666666668%; height: 138px; padding: 9px;"
+            >
+              <div
+                class="MuiGridListTile-tile"
+              >
+                <img
+                  class="MuiCardMedia-root makeStyles-logo-35 MuiCardMedia-media MuiCardMedia-img"
+                  src="start.png"
+                />
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
