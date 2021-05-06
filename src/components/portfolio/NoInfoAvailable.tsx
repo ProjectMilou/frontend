@@ -15,6 +15,10 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
+/**
+ * This component is used to display a string instead of the content for a section in DetailsMain.
+ * This is most likely due to missing data from the backend.
+ */
 const NoInfoAvailable: React.FC = () => {
   const { t } = useTranslation();
   const classes = useStyles();
