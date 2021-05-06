@@ -74,7 +74,7 @@ const PortfolioPerformance: React.FC<PortfolioPerformanceProps> = ({ id }) => {
         <ErrorMessage
           error={error}
           messageKey="portfolio.performance.errorMessage"
-          handling={{ buttonText: 'error.action.retry', action: fetch }}
+          retry={fetch}
         />
       </div>
     );
@@ -87,7 +87,7 @@ const PortfolioPerformance: React.FC<PortfolioPerformanceProps> = ({ id }) => {
         axisColor={theme.palette.primary.contrastText}
         buttonBackgroundColor={theme.palette.primary.light}
         buttonTextColor={theme.palette.primary.contrastText}
-        height={300}
+        height={350}
       />
     ) : (
       <div className={classes.infoBody}>

@@ -33,7 +33,13 @@ type RRpassProps = {
   text: string;
 };
 
-const RRfail: React.FC<RRpassProps> = ({ category, text }) => {
+/**
+ * Component to display a successful RR test
+ *
+ * @param category Category of test
+ * @param text Success text
+ */
+const RRpass: React.FC<RRpassProps> = ({ category, text }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -43,12 +49,12 @@ const RRfail: React.FC<RRpassProps> = ({ category, text }) => {
         <CheckCircleOutline className={classes.icon} />
       </ListItemIcon>
       <ListItemText>
-        <Typography>
+        <>
           <Typography className={classes.category}>{t(category)}:</Typography>
           <Typography className={classes.text}>{t(text)}</Typography>
-        </Typography>
+        </>
       </ListItemText>
     </ListItem>
   );
 };
-export default RRfail;
+export default RRpass;

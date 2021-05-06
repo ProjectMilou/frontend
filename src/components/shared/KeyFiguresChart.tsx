@@ -3,11 +3,12 @@ import Chart from 'react-apexcharts';
 import { useTheme } from '@material-ui/core';
 import { roundAxis } from '../../portfolio/Helper';
 
+// Series type declaration
 export type Series = {
   name: string;
   data: number[];
 };
-
+// KeyFiguresChart props type declaration
 type KeyFiguresChartProps = {
   series: Series;
   years: number[];
@@ -15,6 +16,13 @@ type KeyFiguresChartProps = {
   height: number;
 };
 
+/**
+ * @param series - Data about the key figures (P/E, P/B, PEGR, EPS)
+ * @param years - Years of the keyfigures data
+ * @param dark - If one key figure is selected
+ * @param height - Height of the chart
+ * @return Key figures chart with selection
+ */
 const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({
   series,
   years,
@@ -56,12 +64,17 @@ const KeyFiguresChart: React.FC<KeyFiguresChartProps> = ({
           colors: color,
         },
       },
+      forceNiceScale: true,
+      decimalsInFloat: 2,
     },
     markers: {
       size: 5,
     },
     stroke: {
       width: 2,
+    },
+    noData: {
+      text: 'Currently no Data available ;(',
     },
   };
   return (

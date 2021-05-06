@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core';
+import { makeStyles, Theme, createStyles, Typography } from '@material-ui/core';
 import StyledNumberFormat from './StyledNumberFormat';
 import InfoButton from './InfoButton';
 
@@ -43,25 +43,22 @@ const useStyles = makeStyles<Theme, TextOverTextProps, string>(
     })
 );
 
+/**
+ * This Component is used to display text over text in various locations
+ * @param props used to specify the style of the components for reuse in different locations
+ */
 const TextOverText: React.FC<TextOverTextProps> = (props) => {
   const { top, bottom, currency, infoText } = props;
   const classes = useStyles(props);
 
-  function currencySymbol(): '€' | '$' {
-    if (currency === 'USD') {
-      return '$';
-    }
-    return '€';
-  }
-
   return (
     <div className={classes.compContainer}>
       <div className={classes.pWrapper}>
-        <p className={classes.top}>{top}</p>
+        <Typography className={classes.top}>{top}</Typography>
       </div>
       {!currency && (
         <div className={classes.pWrapper}>
-          <p className={classes.bottom}>{bottom}</p>
+          <Typography className={classes.bottom}>{bottom}</Typography>
           {infoText && (
             <>
               &nbsp;
@@ -72,10 +69,10 @@ const TextOverText: React.FC<TextOverTextProps> = (props) => {
       )}
       {!!currency && (
         <div className={classes.pWrapper}>
-          <p className={classes.bottom}>
+          <Typography className={classes.bottom}>
             <StyledNumberFormat
               value={parseInt(bottom, 10)}
-              suffix={currencySymbol()}
+              suffix="€"
               fontWeight={600}
               size="1.3rem"
             />
@@ -85,7 +82,7 @@ const TextOverText: React.FC<TextOverTextProps> = (props) => {
                 <InfoButton infotext={infoText} />
               </>
             )}
-          </p>
+          </Typography>
         </div>
       )}
     </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconButton, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { IconButton, makeStyles, createStyles } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { useTranslation } from 'react-i18next';
 import DetailsEdit from './DetailsEdit';
@@ -8,7 +8,7 @@ import { portfolioDashboard } from '../../portfolio/Router';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
 import LimitedString from './LimitedString';
 
-const useStyles = makeStyles(({ typography }: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     topContainer: {
       display: 'flex',
@@ -16,7 +16,6 @@ const useStyles = makeStyles(({ typography }: Theme) =>
       justifyContent: 'center',
       width: '95%',
       height: '100%',
-      // TODO: use theme margin
       margin: '0 2rem',
     },
     titleContainer: {
@@ -30,14 +29,12 @@ const useStyles = makeStyles(({ typography }: Theme) =>
       height: '100%',
     },
     title: {
-      // TODO: use theme font size
       fontSize: '2.5rem',
-      fontFamily: typography.fontFamily,
       whiteSpace: 'nowrap',
+      overflow: 'hidden',
     },
     value: {
       fontSize: '2.5rem',
-      fontFamily: typography.fontFamily,
       whiteSpace: 'nowrap',
       marginTop: '-2rem',
       marginLeft: '3.5rem',

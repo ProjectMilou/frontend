@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import {
   makeStyles,
   useTheme,
@@ -6,18 +6,17 @@ import {
   createStyles,
 } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import { Toolbar } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import * as API from '../../../analyser/APIClient';
 import InfoButton from '../../shared/InfoButton';
 import VolatilityGraph from '../../shared/VolatilityGraph';
 import LargeVolatilityLineEntry from '../../shared/LargeVolatilityLineEntry';
 import SubsectionDivider from '../../shared/SubsectionDivider';
+import InfoBlock from './InfoBlock';
 
-// props type declaration
+// Volatility props type declaration
 export type VolatilityProps = {
-  details: API.StockDetails;
-  risks: API.RiskList;
+  stockDetails: API.StockDetails;
 };
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
@@ -40,31 +39,6 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       padding: '2rem',
       float: 'left',
     },
-    infoWrapper: {
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-    infoBody: {
-      display: 'flex',
-      alignSelf: 'center',
-      width: '100%',
-      justifyContent: 'center',
-      color: palette.primary.main,
-      fontWeight: typography.fontWeightRegular,
-      fontSize: '1.15rem',
-    },
-    infoTitle: {
-      color: palette.primary.main,
-      fontWeight: typography.fontWeightBold,
-      fontSize: '1.25rem',
-      margin: 0,
-      whiteSpace: 'nowrap',
-    },
-    infoTitleP: {
-      margin: '0.5rem 0.5rem',
-    },
     chartContainer: {
       display: 'flex',
       justifyContent: 'space-between',
@@ -79,60 +53,60 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       fontWeight: typography.fontWeightRegular,
       fontSize: '1.2rem',
     },
+    titleWrapper: {
+      marginRight: '1rem',
+    },
+    boxTitles: {
+      margin: 0,
+      color: palette.primary.main,
+      fontSize: '1.5rem',
+      fontWeight: 400,
+      whiteSpace: 'nowrap',
+    },
+    redDot: {
+      height: '20px',
+      width: '20px',
+      backgroundColor: palette.error.main,
+      borderRadius: '50%',
+      display: 'inline-block',
+    },
+    greenDot: {
+      height: '20px',
+      width: '20px',
+      backgroundColor: palette.success.main,
+      borderRadius: '50%',
+      display: 'inline-block',
+    },
   })
 );
 
-// type declarations
-type InfoBlockProps = {
-  title: string;
-  body: ReactElement;
-  info: string;
-};
-
-// returns the details page header
-const InfoBlock: React.FC<InfoBlockProps> = ({ title, body, info }) => {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.infoWrapper}>
-      <div className={classes.infoTitle}>
-        <Toolbar disableGutters>
-          <p className={classes.infoTitleP}>{title}</p>
-          <InfoButton infotext={info}> </InfoButton>
-        </Toolbar>
-      </div>
-      <div className={classes.infoBody}>{body}</div>
-    </div>
-  );
-};
-
-const Volatility: React.FC<VolatilityProps> = ({ details, risks }) => {
+/**
+ * @param stockDetails - Stock details object which is used to display data
+ * @return Volatility Section on detail page which includes volatility line object and text values.
+ */
+const Volatility: React.FC<VolatilityProps> = ({ stockDetails }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const theme = useTheme();
   const { palette } = useTheme();
-
-  const vol = risks.success.volatility;
-  const market = risks.success.averageMarketVolatility;
-
   return (
-    <div>
+    <>
       <SubsectionDivider subsection="analyser.details.Volatility" />
       <div className={classes.chartContainer}>
         <div className={classes.infoContainer}>
           <InfoBlock
             title={t('analyser.details.Volatility.BetaFactor')}
-            info={t('analyser.details.Volatility.TreynorRatio')}
+            info={t('analyser.details.Volatility.BetaFactor.infoButton')}
             body={
-              <p style={{ margin: 0 }}>
+              <div style={{ margin: 0 }}>
                 {' '}
-                {details.beta != null
-                  ? details.beta
-                  : (details.symbol,
+                {stockDetails.beta != null
+                  ? stockDetails.beta
+                  : (stockDetails.symbol,
                     t(
                       'analyser.details.Volatility.BetaFactor.ErrorMessage'
                     ))}{' '}
-              </p>
+              </div>
             }
           />
           <InfoBlock
@@ -166,34 +140,32 @@ const Volatility: React.FC<VolatilityProps> = ({ details, risks }) => {
             >
               <VolatilityGraph color={palette.primary.main}>
                 <LargeVolatilityLineEntry
-                  volatilityValue={details.beta}
+                  volatilityValue={stockDetails.beta}
                   marketValue={1}
-                  name={details.symbol}
+                  name={stockDetails.symbol}
                   textColor={
-                    details.beta > 1
+                    stockDetails.beta > 1
                       ? theme.palette.error.main
                       : theme.palette.success.main
                   }
                 />
               </VolatilityGraph>
+              <div className={classes.titleWrapper}>
+                <h5 className={classes.boxTitles}>
+                  Low:
+                  <>&nbsp;&nbsp;</>
+                  <span className={classes.greenDot} />
+                  <>&emsp;&emsp;&emsp;</>
+                  High:
+                  <>&nbsp;&nbsp;</>
+                  <span className={classes.redDot} />
+                </h5>
+              </div>
             </Grid>
-          </div>
-          <div className={classes.infoBody}>
-            <p>
-              {t('analyser.details.Volatility.CompanyShare')}
-              {': '}
-              {Math.round((vol / market) * 100) / 100}
-            </p>
-            <>&nbsp;</>
-            <InfoButton
-              infotext={t(
-                'analyser.details.Volatility.CompanyShare.infoButton'
-              )}
-            />
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 export default Volatility;

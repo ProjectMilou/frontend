@@ -13,9 +13,10 @@ import { useTranslation } from 'react-i18next';
 import TextOverText from '../../shared/TextOverText';
 import * as API from '../../../analyser/APIClient';
 import StyledNumberFormat from '../../shared/StyledNumberFormat';
+import { convertPercentToColor, chooseSymbol } from '../../../analyser/Helper';
 
-export type DetailsHeaderProps = {
-  stock?: API.Stock;
+type DetailsHeaderProps = {
+  stock: API.Stock;
   // function to return to the dashboard
   back: () => void;
 };
@@ -57,6 +58,9 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     backButton: {
       color: palette.background.default,
     },
+    icon: {
+      backgroundColor: 'transparent',
+    },
     date: {
       paddingBottom: 10,
       color: palette.primary.contrastText,
@@ -64,98 +68,86 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
-// TODO: no hard coded colors
-// takes a percent value and converts it to a color
-function convertPercentToColor(val: number): string {
-  return val < 0 ? '#D64745' : '#50E2A8';
-}
-
-function chooseSymbol(val: API.Stock): string {
-  return val.name.length > 15 ? val.symbol : val.name;
-}
-
+/**
+ * Header component that displays stock name and prices
+ *
+ * @param stock Stock Overview to display in header
+ * @param back Function to get back to analyser search page
+ *
+ */
 const DetailsHeader: React.FC<DetailsHeaderProps> = ({ stock, back }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const theme = useTheme();
 
-  function currencySymbol(): '€' | '$' {
-    if (stock && stock.currency === 'USD') {
-      return '$';
-    }
-    return '€';
-  }
-
+  /* {!stock && (
+        <Container maxWidth="lg">
+          <div className={classes.text} />
+        </Container>
+      )} */
   return (
     <div className={classes.header}>
-      {
-        // stock can also be undefined, in this case we return an empty blue div
-        stock !== undefined && (
-          <Container maxWidth="lg">
-            <Typography className={classes.text}>
-              <div
-                className={classes.infoValueWrapper}
-                style={{ flexBasis: '35%' }}
+      <Container maxWidth="lg">
+        <div className={classes.text}>
+          <div
+            className={classes.infoValueWrapper}
+            style={{ flexBasis: '35%' }}
+          >
+            <div className={classes.backButtonContainer}>
+              <IconButton
+                aria-label="back"
+                onClick={() => back()}
+                className={classes.icon}
               >
-                <div className={classes.backButtonContainer}>
-                  <IconButton
-                    aria-label="back"
-                    onClick={back}
-                    style={{ backgroundColor: 'transparent' }}
-                  >
-                    <ArrowBackIosIcon
-                      fontSize="large"
-                      className={classes.backButton}
-                    />
-                  </IconButton>
-                </div>
-                {chooseSymbol(stock)}
-                <>&emsp;&emsp;&emsp;</>
-                <StyledNumberFormat
-                  // Fix: Divided by 1 because Back-End only provides string
-                  value={parseFloat(stock.price)}
-                  suffix={currencySymbol()}
-                  size="35px"
-                  paintJob={theme.palette.background.default}
+                <ArrowBackIosIcon
+                  fontSize="large"
+                  className={classes.backButton}
                 />
-                <>&nbsp;&emsp;</>
-                <TextOverText
-                  top={`${stock.per7d.slice(0, -1)}%`}
-                  bottom={t('stock.7d')}
-                  colorTop={convertPercentToColor(parseFloat(stock.per7d))}
-                  colorBottom={theme.palette.background.default}
-                />
-                <>&nbsp;&emsp;</>
-                <TextOverText
-                  top={`${stock.per30d.slice(0, -1)}%`}
-                  bottom={t('stock.30d')}
-                  colorTop={convertPercentToColor(parseFloat(stock.per30d))}
-                  colorBottom={theme.palette.background.default}
-                />
-                <>&nbsp;&emsp;</>
-                <TextOverText
-                  top={`${stock.per365d.slice(0, -1)}%`}
-                  bottom={t('stock.365d')}
-                  colorTop={convertPercentToColor(parseFloat(stock.per365d))}
-                  colorBottom={theme.palette.background.default}
-                />
-              </div>
-              <Typography className={classes.wknIsin}>
-                <>WKN: </>
-                {stock.wkn}
-                <> / ISIN: </>
-                {stock.isin}
-              </Typography>
-            </Typography>
-            <Typography className={classes.date}>
-              Last updated:{' '}
-              {stock
-                ? new Date(stock.date).toISOString().split('T')[0]
-                : undefined}
-            </Typography>
-          </Container>
-        )
-      }
+              </IconButton>
+            </div>
+            {chooseSymbol(stock)}
+            <>&emsp;&emsp;&emsp;</>
+            <StyledNumberFormat
+              // Fix: Divided by 1 because Back-End only provides string
+              value={stock.price}
+              suffix="€"
+              size="35px"
+              paintJob={theme.palette.background.default}
+            />
+            <>&nbsp;&emsp;</>
+            <TextOverText
+              top={`${stock.per7d.toFixed(2)} %`}
+              bottom={t('stock.7d')}
+              colorTop={convertPercentToColor(stock.per7d)}
+              colorBottom={theme.palette.background.default}
+            />
+            <>&nbsp;&emsp;</>
+            <TextOverText
+              top={`${stock.per30d.toFixed(2)} %`}
+              bottom={t('stock.30d')}
+              colorTop={convertPercentToColor(stock.per30d)}
+              colorBottom={theme.palette.background.default}
+            />
+            <>&nbsp;&emsp;</>
+            <TextOverText
+              top={`${stock.per365d.toFixed(2)} %`}
+              bottom={t('stock.365d')}
+              colorTop={convertPercentToColor(stock.per365d)}
+              colorBottom={theme.palette.background.default}
+            />
+          </div>
+          <Typography className={classes.wknIsin}>
+            <>WKN: </>
+            {stock.wkn}
+            <> / ISIN: </>
+            {stock.isin}
+          </Typography>
+        </div>
+        <Typography className={classes.date}>
+          {`${t('analyser.details.lastUpdated')}: `}
+          {stock ? new Date(stock.date).toISOString().split('T')[0] : undefined}
+        </Typography>
+      </Container>
     </div>
   );
 };

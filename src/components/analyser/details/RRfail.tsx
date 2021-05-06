@@ -33,6 +33,12 @@ type RRpassProps = {
   text: string;
 };
 
+/**
+ * Component to display a failing RR test
+ *
+ * @param category Category of test
+ * @param text Fail text
+ */
 const RRfail: React.FC<RRpassProps> = ({ category, text }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -43,10 +49,10 @@ const RRfail: React.FC<RRpassProps> = ({ category, text }) => {
         <HighlightOffIcon className={classes.icon} />
       </ListItemIcon>
       <ListItemText>
-        <Typography>
+        <>
           <Typography className={classes.category}>{t(category)}:</Typography>
           <Typography className={classes.text}>{t(text)}</Typography>
-        </Typography>
+        </>
       </ListItemText>
     </ListItem>
   );

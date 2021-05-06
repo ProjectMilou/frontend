@@ -10,7 +10,6 @@ export type DetailsProps = {
   stockDetails: API.StockDetails;
   companyReports: API.CompanyReports;
   interestCoverages: API.InterestCoverageList;
-  risks: API.RiskList;
 };
 
 const Risks: React.FC<DetailsProps> = ({
@@ -18,11 +17,10 @@ const Risks: React.FC<DetailsProps> = ({
   stockDetails,
   companyReports,
   interestCoverages,
-  risks,
 }) => (
   <div>
     <SectionDivider section="analyser.details.RiskHeader" />
-    <Volatility details={stockDetails} risks={risks} />
+    <Volatility stockDetails={stockDetails} />
     <Leverage
       stockOverview={stockOverview}
       companyReports={companyReports}

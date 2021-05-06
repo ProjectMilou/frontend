@@ -15,6 +15,12 @@ const useStyles = makeStyles(() =>
   })
 );
 
+/**
+ * A red to green gradient bar that wraps AnalystBarIndicators
+ *
+ * @param children - Children in form of AnalystBarIndicators
+ */
+
 // this component is a wrapper (with the gradient color) for the bar indicators
 const AnalystBar: React.FC = ({ children }) => {
   const classes = useStyles();

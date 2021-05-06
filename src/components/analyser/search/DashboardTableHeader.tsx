@@ -40,6 +40,14 @@ interface HeadCell {
   label: string;
 }
 
+/**
+ * Component for the header of the dashboard table
+ *
+ * @param onRequestSort function to request sorting, triggered by onClick
+ * @param order current order
+ * @param orderByKey current order key
+ *
+ */
 const DashboardTableHeader: React.FC<DashboardTableHeaderProps> = ({
   onRequestSort,
   order,
@@ -48,10 +56,10 @@ const DashboardTableHeader: React.FC<DashboardTableHeaderProps> = ({
   const classes = useStyles();
   const { t } = useTranslation();
 
-  // All properties needed for stocks list.
+  // All properties needed for stocks list. Used for sorting
   const headCells: HeadCell[] = [
     {
-      id: 'name',
+      id: 'symbol',
       numeric: false,
       disablePadding: false,
       label: t('stock.name'),
@@ -59,26 +67,26 @@ const DashboardTableHeader: React.FC<DashboardTableHeaderProps> = ({
     {
       id: 'price',
       numeric: true,
-      disablePadding: false,
+      disablePadding: true,
       label: t('stock.lastPrice'),
     },
-    { id: 'per7d', numeric: true, disablePadding: false, label: t('stock.7d') },
+    { id: 'per7d', numeric: true, disablePadding: true, label: t('stock.7d') },
     {
       id: 'per365d',
       numeric: true,
-      disablePadding: false,
+      disablePadding: true,
       label: t('stock.365d'),
     },
     {
       id: 'marketCapitalization',
       numeric: true,
-      disablePadding: false,
+      disablePadding: true,
       label: t('stock.marketCap'),
     },
     {
       id: 'analystTargetPrice',
       numeric: true,
-      disablePadding: false,
+      disablePadding: true,
       label: t('stock.analystsTarget'),
     },
     {
@@ -105,6 +113,7 @@ const DashboardTableHeader: React.FC<DashboardTableHeaderProps> = ({
             align="center"
             classes={{ root: classes.customTableHead }}
             sortDirection={orderByKey === hc.id ? order : false}
+            padding={hc.disablePadding ? 'none' : 'default'}
           >
             {/* A button based label which is inside TableCell used to sort a column. A sort request will be handled on click. */}
             <TableSortLabel

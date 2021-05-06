@@ -24,6 +24,12 @@ type DetailsStockChartProps = {
   setPerformanceAll: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+/**
+ * Wrapper component for the stock chart
+ *
+ * @param stockPerformance performance of a single stock in format that is readable for apex chart
+ * @param setPerformanceAll function to request performance data from the beginning of company
+ */
 const DetailsStockChart: React.FC<DetailsStockChartProps> = ({
   stockPerformance,
   setPerformanceAll,

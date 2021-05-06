@@ -20,6 +20,7 @@ import { useTranslation } from 'react-i18next';
 import { Stock, StockDetails } from '../../../analyser/APIClient';
 import SectionDivider from '../../shared/SectionDivider';
 import DetailsOverviewCompany from './DetailsOverviewCompany';
+import CompanyLogo from '../CompanyLogo';
 
 // stylesheet for the Summary section
 const useStyles = makeStyles((theme: Theme) =>
@@ -65,6 +66,13 @@ type DetailsOverviewProps = {
   stockDetails: StockDetails;
 };
 
+/**
+ * This component displays an overview of each company using material-ui accordion component and a grid
+ *
+ * @param stockOverview Stock overview object which is used to display data
+ * @param stockDetails Stock details object which is used to display data
+ * @returns
+ */
 const DetailsOverview: React.FC<DetailsOverviewProps> = ({
   stockOverview,
   stockDetails,
@@ -75,70 +83,59 @@ const DetailsOverview: React.FC<DetailsOverviewProps> = ({
   return (
     <>
       <SectionDivider section={t('analyser.details.summaryHeader')} />
-      <Grid container spacing={1}>
-        <Grid
-          container
-          alignItems="flex-start"
-          justify="space-evenly"
-          direction="row"
-          spacing={5}
-        >
-          {/* picture and ccompany overview */}
-          <Grid item sm={3} justify="center">
-            <Paper className={classes.paper} variant="outlined">
-              <img
-                className={classes.image}
-                alt="Company Symbol"
-                src={stockOverview.picture.toString()}
-              />
-            </Paper>
-          </Grid>
 
-          <Grid item sm={9}>
-            <List>
-              <ListItem>
-                <Accordion className={classes.card} variant="outlined">
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2a-content"
-                    id="panel2a-header"
-                  >
-                    <ListItemIcon>
-                      <BusinessIcon className={classes.icon} />{' '}
-                    </ListItemIcon>
-                    <Typography className={classes.header}>
-                      {stockOverview.name}
-                    </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography className={classes.intro}>
-                      {stockDetails.intro}
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
-              </ListItem>
-              <ListItem>
-                <Accordion className={classes.card} variant="outlined">
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2a-content"
-                    id="panel2a-header"
-                  >
-                    <ListItemIcon>
-                      <MenuBookIcon className={classes.icon} />{' '}
-                    </ListItemIcon>
-                    <Typography className={classes.header}>
-                      Company Details
-                    </Typography>
-                  </AccordionSummary>
+      <Grid container alignItems="flex-start" direction="row" spacing={5}>
+        {/* picture and company overview */}
+        <Grid item sm={3}>
+          <Paper className={classes.paper} variant="outlined">
+            <CompanyLogo stockOverview={stockOverview} style={classes.image} />
+          </Paper>
+        </Grid>
 
-                  <AccordionDetails>
-                    <DetailsOverviewCompany stockDetails={stockDetails} />
-                  </AccordionDetails>
-                </Accordion>
-              </ListItem>
-            </List>
-          </Grid>
+        <Grid item sm={9}>
+          <List>
+            <ListItem>
+              <Accordion className={classes.card} variant="outlined">
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel2a-content"
+                  id="panel2a-header"
+                >
+                  <ListItemIcon>
+                    <BusinessIcon className={classes.icon} />{' '}
+                  </ListItemIcon>
+                  <Typography className={classes.header}>
+                    {stockOverview.name}
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography className={classes.intro}>
+                    {stockDetails.intro}
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+            </ListItem>
+            <ListItem>
+              <Accordion className={classes.card} variant="outlined">
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel2a-content"
+                  id="panel2a-header"
+                >
+                  <ListItemIcon>
+                    <MenuBookIcon className={classes.icon} />{' '}
+                  </ListItemIcon>
+                  <Typography className={classes.header}>
+                    Company Details
+                  </Typography>
+                </AccordionSummary>
+
+                <AccordionDetails>
+                  <DetailsOverviewCompany stockDetails={stockDetails} />
+                </AccordionDetails>
+              </Accordion>
+            </ListItem>
+          </List>
         </Grid>
       </Grid>
     </>

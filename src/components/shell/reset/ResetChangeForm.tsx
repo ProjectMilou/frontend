@@ -17,7 +17,7 @@ import {
 import UserService from '../../../services/UserService';
 import InitialPasswordRequirements from '../register/initialRequirement';
 
-interface ResetChangeFormProps {
+export interface ResetChangeFormProps {
   id: string;
   token: string;
   onSuccess: () => void;

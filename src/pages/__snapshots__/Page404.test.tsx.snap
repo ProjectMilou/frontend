@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`404 Page should render 404-page 1`] = `
+<div>
+  <div
+    class="MuiContainer-root MuiContainer-maxWidthMd"
+  >
+    <div
+      class="MuiBox-root MuiBox-root-2"
+    >
+      <h1
+        class="MuiTypography-root MuiTypography-h1 MuiTypography-colorPrimary MuiTypography-alignCenter"
+      >
+        404
+      </h1>
+      <h6
+        class="MuiTypography-root MuiTypography-h6 MuiTypography-alignCenter"
+      >
+        error.invalidPage
+      </h6>
+      <div
+        class="MuiBox-root MuiBox-root-3"
+        style="display: flex; justify-content: center;"
+      >
+        <a
+          aria-current="page"
+          aria-disabled="false"
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-1 MuiButton-containedPrimary"
+          href="/"
+          role="button"
+          tabindex="0"
+        >
+          <span
+            class="MuiButton-label"
+          >
+            error.action.home
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;

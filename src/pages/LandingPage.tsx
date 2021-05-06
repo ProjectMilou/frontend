@@ -20,10 +20,10 @@ import LoyaltyIcon from '@material-ui/icons/Loyalty';
 import analyse from '../assets/images/analyse.png';
 import lernen from '../assets/images/lernen.png';
 import portfolio from '../assets/images/Portfolio.png';
-import LogoCard from './components/LogoCard';
-import Card from './components/Card';
-import InfoCard from './components/InfoCard';
-import GridRowContainer from './components/GridRowContainer';
+import LogoCard from '../components/shell/landingPage/LogoCard';
+import Card from '../components/shell/landingPage/Card';
+import GridRowContainer from '../components/shell/landingPage/GridRowContainer';
+import InfoCard from '../components/shell/landingPage/InfoCard';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

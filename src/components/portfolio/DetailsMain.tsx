@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core';
+import { makeStyles, createStyles, darken } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import DetailsMainSummary from './DetailsMainSummary';
 import DetailsMainPositions from './DetailsMainPositions';
@@ -7,17 +7,16 @@ import DetailsMainRisk from './DetailsMainRisk';
 import DetailsMainKeyFigures from './DetailsMainKeyFigures';
 import DetailsMainDividens from './DetailsMainDividends';
 import DetailsMainAnalyst from './DetailsMainAnalyst';
-import { NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
+import { Stock, NonEmptyPortfolioDetails } from '../../portfolio/APIClient';
 import DetailsMainAnalytics from './DetailsMainAnalytics';
 import DetailMainBacktesting from './DetailsMainBacktesting';
+import LimitedString from './LimitedString';
 
-const useStyles = makeStyles(({ palette }: Theme) =>
+const useStyles = makeStyles(({ palette }) =>
   createStyles({
     mainWrapper: {
-      // TODO use theme margin
       margin: '0 auto',
       padding: '0 4rem',
-      // TODO: use theme max-width
       maxWidth: '80rem',
     },
     sectionWrapper: {
@@ -33,7 +32,6 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     sectionTitle: {
       margin: 0,
       color: palette.primary.contrastText,
-      // TODO use theme fontsize and weight
       fontSize: '2.25rem',
       fontWeight: 400,
       whiteSpace: 'nowrap',
@@ -41,12 +39,25 @@ const useStyles = makeStyles(({ palette }: Theme) =>
     lineWrapper: {
       display: 'flex',
       width: '100%',
-      borderColor: palette.primary.contrastText,
     },
     line: {
       width: '100%',
       alignSelf: 'center',
       paddingLeft: '2%',
+      color: darken(palette.primary.contrastText, 0.5),
+    },
+    missingDataMessageWrapper: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      margin: '2rem 1rem',
+      fontSize: '1rem',
+      color: palette.primary.contrastText,
+    },
+    stockSymbols: {
+      marginTop: '0.5rem',
+      fontWeight: 600,
+      'word-wrap': 'anywhere',
     },
   })
 );
@@ -73,6 +84,27 @@ const Section: React.FC<SectionProps> = ({ title, children }) => {
   );
 };
 
+type MissingDataMessageProps = {
+  stocks: Stock[];
+};
+
+const MissingDataMessage: React.FC<MissingDataMessageProps> = ({ stocks }) => {
+  const classes = useStyles();
+  const { t } = useTranslation();
+
+  return (
+    <div className={classes.missingDataMessageWrapper}>
+      <span>{t('portfolio.details.missingDataMessage')}</span>
+      <div className={classes.stockSymbols}>
+        <LimitedString
+          value={stocks.map((s) => s.symbol).join(', ')}
+          length={300}
+        />
+      </div>
+    </div>
+  );
+};
+
 type DetailsMainProps = {
   portfolio: NonEmptyPortfolioDetails;
   id: string;
@@ -81,10 +113,24 @@ type DetailsMainProps = {
 const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, id }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const stocksWithMissingInfo = portfolio.positions
+    .map((position) => position.stock)
+    .filter((stock) => stock.missingData);
+  /**
+   * This is the portfolio without the stocks that are missing data. This will be supplied anywhere except summary and positions section.
+   * Thus stocks with missing data will not be taken into consideration e.g. in the analytics or dividends section.
+   */
+  const portfolioWithoutMissingData = {
+    ...portfolio,
+    positions: portfolio.positions.filter((pos) => !pos.stock.missingData),
+  };
 
   return (
     <div className={classes.mainWrapper}>
       <Section title={t('portfolio.details.summaryHeader')}>
+        {stocksWithMissingInfo.length > 0 && (
+          <MissingDataMessage stocks={stocksWithMissingInfo} />
+        )}
         <DetailsMainSummary portfolio={portfolio} id={id} />
       </Section>
       <Section title={t('portfolio.details.positionsTitle')}>
@@ -101,15 +147,16 @@ const DetailsMain: React.FC<DetailsMainProps> = ({ portfolio, id }) => {
         <DetailsMainKeyFigures figures={portfolio.keyFigures} />
       </Section>
       <Section title={t('portfolio.details.dividends')}>
-        <DetailsMainDividens portfolio={portfolio} />
+        <DetailsMainDividens portfolio={portfolioWithoutMissingData} />
       </Section>
       <Section title={t('portfolio.details.analyst')}>
-        <DetailsMainAnalyst positions={portfolio.positions} />
+        <DetailsMainAnalyst positions={portfolioWithoutMissingData.positions} />
       </Section>
       <Section title={t('portfolio.details.analytics')}>
-        <DetailsMainAnalytics portfolio={portfolio} />
+        <DetailsMainAnalytics portfolio={portfolioWithoutMissingData} />
       </Section>
       <Section title={t('portfolio.details.backtesting')}>
+        {/* TODO handle stocks with missing */}
         <DetailMainBacktesting id={id} />
       </Section>
     </div>

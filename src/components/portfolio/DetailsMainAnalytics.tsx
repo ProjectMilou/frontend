@@ -11,6 +11,7 @@ import LargeVolatilityLineEntry from '../shared/LargeVolatilityLineEntry';
 import VolatilityLineEntry from './VolatilityLineEntry';
 import InfoButton from '../shared/InfoButton';
 import { collectStocks, CollectedStocks } from '../../portfolio/Helper';
+import NoInfoAvailable from './NoInfoAvailable';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -31,6 +32,12 @@ type DetailsMainAnalyticsProps = {
   portfolio: NonEmptyPortfolioDetails;
 };
 
+/**
+ * Component containing all the information about the portfolios analytics section
+ * It includes among others {@link DetailsAnalyticsHeatmap}, {@link DetailsAnalyticsDebtEquityBar} and {@link VolatilityGraph}
+ *
+ * @param portfolio - The filtered portfolio (stocks with the missing info flag are NOT included in the positions)
+ */
 const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
   portfolio,
 }) => {
@@ -42,6 +49,14 @@ const DetailsMainAnalytics: React.FC<DetailsMainAnalyticsProps> = ({
     portfolio.positions,
     true
   );
+
+  /*
+   * the portfolio passed as props holds only those positions with no data missing
+   * if there are no positions with valid data it makes no sense to display this section
+   * once there is at least one stock with valid data is makes sense again to display the section
+   * the correlation heatmap has a check of its own to only display as soon as two stocks are available
+   */
+  if (portfolio.positions.length === 0) return <NoInfoAvailable />;
 
   return (
     <>

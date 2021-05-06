@@ -5,16 +5,20 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
-import { TableCell } from '@material-ui/core';
+import { TableCell, Tooltip, Button } from '@material-ui/core';
 import { Position, PositionQty } from '../../portfolio/APIClient';
 import EditDialog from './EditDialog';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
 import DuplicateDialog from './DuplicateDialog';
 import * as API from '../../portfolio/APIClient';
+import EditDialogAddStock from './EditDialogAddStock';
 
-const useStyles = makeStyles((theme: Theme) =>
+type StyleProps = {
+  virtual?: boolean;
+};
+
+const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
   createStyles({
     subContainer: {
       height: '50%',
@@ -23,13 +27,22 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     button: {
       margin: '0 1rem',
-      left: '3rem',
       padding: '0.25rem 1rem',
       backgroundColor: theme.palette.lightBlue.main,
       '&:hover': {
         backgroundColor: lighten(theme.palette.lightBlue.main, 0.35),
       },
       whiteSpace: 'nowrap',
+    },
+    buttonWrapper: {
+      position: 'relative',
+      left: '3rem',
+      cursor: (props) => (props.virtual ? 'url' : 'not-allowed'),
+    },
+    tooltip: {
+      maxWidth: 400,
+      fontSize: '0.9rem',
+      whiteSpace: 'pre-line',
     },
   })
 );
@@ -49,23 +62,30 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({
   id,
   name,
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({ virtual });
   const { t } = useTranslation();
   const [openDuplicate, setOpenDuplicate] = React.useState<boolean>(false);
   const [openEdit, setOpenEdit] = React.useState(false);
 
   return (
     <div className={classes.subContainer}>
-      <Button
-        variant="contained"
-        className={classes.button}
-        onClick={() => setOpenEdit(true)}
-        disabled={!positions?.length || !virtual}
+      <Tooltip
+        title={
+          virtual ? '' : t('portfolio.details.cannotEditPortfolio').toString()
+        }
+        classes={{ tooltip: classes.tooltip }}
       >
-        {virtual
-          ? t('portfolio.details.editPortfolio')
-          : t('portfolio.details.cannotEditPortfolio')}
-      </Button>
+        <div className={classes.buttonWrapper}>
+          <Button
+            variant="contained"
+            className={classes.button}
+            onClick={() => setOpenEdit(true)}
+            disabled={!virtual}
+          >
+            {t('portfolio.details.editPortfolio')}
+          </Button>
+        </div>
+      </Tooltip>
       {positions && (
         <EditDialog
           open={openEdit}
@@ -84,7 +104,7 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({
               ...acc,
               [p.stock.symbol]: {
                 displayName: p.stock.name,
-                value: p.qty,
+                initialValue: p.qty,
                 additionalTableCells: (
                   <TableCell>
                     <StyledNumberFormat value={p.stock.price} suffix="€" />
@@ -98,26 +118,24 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({
           action={(v) =>
             edit(Object.entries(v).map(([symbol, qty]) => ({ symbol, qty })))
           }
+          AddEntry={EditDialogAddStock}
         />
       )}
-      <Button
-        variant="contained"
-        className={classes.button}
-        onClick={() => setOpenDuplicate(true)}
-      >
-        {t('portfolio.dialog.duplicate.title')}
-      </Button>
-      {/* adapted from Dashboard.tsx */}
+      <div className={classes.buttonWrapper}>
+        <Button
+          variant="contained"
+          className={classes.button}
+          onClick={() => setOpenDuplicate(true)}
+        >
+          {t('portfolio.dialog.duplicate.title')}
+        </Button>
+      </div>
       <DuplicateDialog
         initialName={name}
         open={openDuplicate}
         handleClose={() => setOpenDuplicate(false)}
         duplicate={async (newName) => {
-          if (id) {
-            // TODO update list of portfolios in dashboard?
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const newId = await API.duplicate(id, newName);
-          }
+          await API.duplicate(id, newName);
         }}
       />
     </div>

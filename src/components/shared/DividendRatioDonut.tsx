@@ -1,6 +1,11 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  createStyles,
+  Theme,
+  useTheme,
+} from '@material-ui/core/styles';
 
 const useStyles = makeStyles(({ palette, typography }: Theme) =>
   createStyles({
@@ -28,61 +33,50 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
   })
 );
 
+// RatioDonut props type declaration
 type RatioDonutProps = {
-  // decimal between 0 and 1
   ratio: number;
 };
 
+/**
+ * @param ratio - Ratio will be shown on the donut chart
+ * @return Dividend payout ratio donut with the number in the middle
+ */
 const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
   const classes = useStyles();
-  // const theme = useTheme();
+  const theme = useTheme();
+  const [series, setSeries] = React.useState<number[]>([]);
+  React.useEffect(() => {
+    if (!Number.isNaN(ratio)) {
+      setSeries([ratio, 1 - ratio]);
+    } else {
+      setSeries([]);
+    }
+  }, [ratio]);
 
-  const series = [ratio, 1 - ratio];
   const options = {
-    states: {
-      normal: {
-        filter: {
-          type: 'none',
-          value: 0,
-        },
-      },
-      hover: {
-        filter: {
-          type: 'none',
-          value: 0,
-        },
-      },
-      active: {
-        allowMultipleDataPointsSelection: false,
-        filter: {
-          type: 'none',
-          value: 0,
-        },
-      },
-    },
-    tooltip: {
-      enabled: true,
-    },
     fill: {
       colors: ['#00e396', '#008ffb'],
     },
-    chart: {
-      redrawOnWindowResize: false,
-      redrawOnParentResize: false,
-    },
     stroke: {
       show: false,
-    },
-    plotOptions: {
-      pie: {
-        expandOnClick: false,
-      },
     },
     dataLabels: {
       enabled: false,
     },
     legend: {
       show: false,
+    },
+    noData: {
+      text: 'Dividend is not paid.',
+      align: 'left',
+      verticalAlign: 'top',
+      style: {
+        color: theme.palette.primary.dark,
+        fontFamily: theme.typography.fontFamily,
+        fontSize: '1.15rem',
+        fontWeight: 600,
+      },
     },
   };
 
@@ -97,7 +91,9 @@ const RatioDonut: React.FC<RatioDonutProps> = ({ ratio }) => {
           width="100%"
         />
         <div className={classes.textWrapper}>
-          <p style={{ margin: 0 }}>{`${ratio * 100}%`}</p>
+          {!Number.isNaN(ratio) && (
+            <p style={{ margin: 0 }}>{`${(ratio * 100).toFixed(0)}%`}</p>
+          )}
         </div>
       </div>
     </div>

@@ -1,14 +1,15 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@material-ui/core';
 import ReactApexChart from 'react-apexcharts';
 import * as API from '../../../analyser/APIClient';
-import InfoButton from '../../shared/InfoButton';
+import { moneyFormat, checkNaN } from '../../../analyser/Helper';
 import SubsectionDivider from '../../shared/SubsectionDivider';
+import InfoBlock from './InfoBlock';
 
-// props type declaration
-export type DetailsProps = {
+// Leverage props type declaration
+export type LeverageProps = {
   stockOverview: API.Stock;
   companyReports: API.CompanyReports;
   interestCoverages: API.InterestCoverageList;
@@ -36,31 +37,6 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       padding: '2rem',
       float: 'left',
     },
-    infoWrapper: {
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-    infoBody: {
-      display: 'flex',
-      alignSelf: 'center',
-      width: '100%',
-      justifyContent: 'center',
-      color: palette.primary.main,
-      fontWeight: typography.fontWeightRegular,
-      fontSize: '1.15rem',
-    },
-    infoTitle: {
-      color: palette.primary.main,
-      fontWeight: typography.fontWeightBold,
-      fontSize: '1.25rem',
-      margin: 0,
-      whiteSpace: 'nowrap',
-    },
-    infoTitleP: {
-      margin: '0.5rem 0.5rem',
-    },
     chartContainer: {
       display: 'flex',
       justifyContent: 'space-between',
@@ -75,35 +51,51 @@ const useStyles = makeStyles(({ palette, typography }: Theme) =>
       fontWeight: typography.fontWeightBold,
       fontSize: '0.8rem',
     },
+    boxTitles: {
+      margin: 0,
+      color: palette.primary.main,
+      fontSize: '1.5rem',
+      fontWeight: 400,
+      whiteSpace: 'nowrap',
+    },
   })
 );
 
-// type declarations
-type InfoBlockProps = {
-  title: string;
-  body: ReactElement;
-  info: string;
-};
+function getDebtSeries(companyReports: API.CompanyReports): string[] {
+  const debtSeries: string[] = [];
+  for (let index = 0; index < 5; index += 1) {
+    const num = moneyFormat(companyReports.annualReports[index].currentDebt);
+    if (num === 'NaN') {
+      debtSeries.push('0.0');
+    } else {
+      debtSeries.push(num);
+    }
+  }
+  return debtSeries;
+}
 
-// returns the details page header
-const InfoBlock: React.FC<InfoBlockProps> = ({ title, body, info }) => {
-  const classes = useStyles();
+function getEquitySeries(companyReports: API.CompanyReports): string[] {
+  const equitySeries: string[] = [];
+  for (let index = 0; index < 5; index += 1) {
+    const num = moneyFormat(
+      companyReports.annualReports[index].retainedEarnings
+    );
+    if (num === 'NaN') {
+      equitySeries.push('0.0');
+    } else {
+      equitySeries.push(num);
+    }
+  }
+  return equitySeries;
+}
 
-  return (
-    <div className={classes.infoWrapper}>
-      <div className={classes.infoTitle}>
-        <p className={classes.infoTitleP}>
-          {title}
-          <>&nbsp;</>
-          <InfoButton infotext={info} />
-        </p>
-      </div>
-      <div className={classes.infoBody}>{body}</div>
-    </div>
-  );
-};
-
-const Leverage: React.FC<DetailsProps> = ({
+/**
+ * @param stockOverview - Stock overview object which is used to display data
+ * @param companyReports - Company reports object
+ * @param interestCoverages - Interest Coverages values
+ * @return Leverage Section on detail page which includes Debt and Equity line chart and text values.
+ */
+const Leverage: React.FC<LeverageProps> = ({
   stockOverview,
   companyReports,
   interestCoverages,
@@ -144,14 +136,32 @@ const Leverage: React.FC<DetailsProps> = ({
           colors: 'grey',
         },
       },
+      title: {
+        text: t('analyser.details.Leverage.DebtLevelYAxis'),
+        rotate: -90,
+        offsetX: 0,
+        offsetY: 0,
+        style: {
+          color: 'grey',
+          fontSize: '12px',
+          fontFamily: 'Helvetica, Arial, sans-serif',
+          fontWeight: 600,
+          cssClass: 'apexcharts-yaxis-title',
+        },
+      },
     },
     tooltip: {
       x: {
         format: 'dd MMM yyyy',
       },
+      y: {
+        formatter: (seriesName: string) => `€${seriesName}M`,
+        title: {
+          formatter: (seriesName: string) => `${seriesName}:`,
+        },
+      },
     },
     fill: {
-      type: 'gradient',
       gradient: {
         shadeIntensity: 1,
         opacityFrom: 0.7,
@@ -164,38 +174,9 @@ const Leverage: React.FC<DetailsProps> = ({
     },
   };
 
-  const debtSeries: number[] = [];
-  for (let index = 0; index < 5; index += 1) {
-    const num =
-      Math.round(companyReports.annualReports[index].currentDebt * 100) / 100;
-    if (Number.isNaN(num)) {
-      debtSeries.push(0);
-    } else {
-      debtSeries.push(num);
-    }
-  }
-
-  let countNegativeEquity = 0;
-  const equitySeries: number[] = [];
-  for (let index = 0; index < 5; index += 1) {
-    const num =
-      Math.round(companyReports.annualReports[index].retainedEarnings * 100) /
-      100;
-    if (Number.isNaN(num)) {
-      equitySeries.push(0);
-    } else {
-      if (num < 0) {
-        countNegativeEquity += 1;
-      }
-      equitySeries.push(num);
-    }
-  }
-
-  if (countNegativeEquity === 5) {
-    for (let index = 0; index < 5; index += 1) {
-      equitySeries[index] = -equitySeries[index];
-    }
-  }
+  const deptLevel =
+    companyReports.annualReports[0].currentDebt /
+    companyReports.annualReports[0].totalAssets;
 
   return (
     <div>
@@ -208,38 +189,37 @@ const Leverage: React.FC<DetailsProps> = ({
           <ReactApexChart
             options={options}
             series={[
-              { name: 'Debt', data: debtSeries },
-              { name: 'Equity', data: equitySeries },
+              { name: 'Debt', data: getDebtSeries(companyReports) },
+              { name: 'Equity', data: getEquitySeries(companyReports) },
             ]}
             height={300}
             width="100%"
           />
         </div>
         <div className={classes.infoContainer}>
-          <InfoBlock
-            title={t('analyser.details.Leverage.DebtLevel')}
-            body={
-              <p style={{ margin: 0 }}>
-                {' '}
-                {companyReports.annualReports[0].currentDebt != null &&
-                companyReports.annualReports[0].totalAssets != null
-                  ? Math.round(
-                      (companyReports.annualReports[0].currentDebt /
-                        companyReports.annualReports[0].totalAssets) *
-                        1000
-                    ) / 1000
-                  : (stockOverview.symbol,
-                    t('analyser.details.Leverage.ErrorMessage'))}{' '}
-              </p>
-            }
-            info={t('analyser.details.Leverage.DebtLevel.infoButton')}
-          />
+          <div className={classes.boxTitles}>
+            <InfoBlock
+              title={t('analyser.details.Leverage.DebtLevel')}
+              body={
+                <p style={{ margin: 0 }}>
+                  {' '}
+                  {companyReports.annualReports[0].currentDebt != null &&
+                  companyReports.annualReports[0].totalAssets != null
+                    ? checkNaN(deptLevel)
+                    : (stockOverview.symbol,
+                      t('analyser.details.Leverage.ErrorMessage'))}{' '}
+                </p>
+              }
+              info={t('analyser.details.Leverage.DebtLevel.infoButton')}
+            />
+          </div>
+
           <InfoBlock
             title={t('analyser.details.Leverage.InterestCoverage')}
             body={
               <p style={{ margin: 0 }}>
                 {' '}
-                {interestCoverages.success != null
+                {interestCoverages.success[0].interestCoverage != null
                   ? interestCoverages.success[0].interestCoverage.toFixed(2)
                   : interestCoverages.error}{' '}
               </p>
