@@ -55,7 +55,7 @@ const SearchBar: React.FC = () => {
     } catch (err) {
       setStocks(undefined);
       // eslint-disable-next-line no-console
-      console.error('error when requesting list of stocks!', err);
+      console.error('error when requesting list of stocks!');
     }
   };
 
