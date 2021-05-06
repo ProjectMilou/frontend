@@ -28,7 +28,7 @@ type VolatilityLineEntryProps = {
  * On hover it shows the names of the stocks at a given point on the volatility graph.
  *
  * @param volatilityValue - The volatility which determines how far right the indicator is shifted on the graph
- * @param tooltipText - The string to be desplayed on hover
+ * @param tooltipText - The string to be displayed on hover
  * @param color - The color of the line.
  */
 

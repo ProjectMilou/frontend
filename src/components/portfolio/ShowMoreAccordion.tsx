@@ -54,6 +54,11 @@ type ShowMoreAccordionProps = {
   positions: Position[];
 };
 
+/**
+ *  Creates a show more bar for the positions on the portfolio details page.
+ *
+ *  @param positions - The positions that are displayed inside the show more component.
+ * */
 const ShowMoreAccordion: React.FC<ShowMoreAccordionProps> = ({ positions }) => {
   const classes = useStyles();
   const { t } = useTranslation();
