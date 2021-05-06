@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BankSearch should match snapshot 1`] = `
+<div>
+  <div
+    class="MuiContainer-root MuiContainer-maxWidthLg"
+  >
+    <div
+      class="MuiBox-root MuiBox-root-4"
+    >
+      <div
+        aria-label="text"
+        class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth Mui-focused Mui-focused"
+      >
+        <input
+          class="MuiInputBase-input MuiInput-input"
+          placeholder="shell.bank.search.enter"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

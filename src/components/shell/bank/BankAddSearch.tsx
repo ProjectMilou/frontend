@@ -40,6 +40,7 @@ const BankAddSearch: React.FC<BankAddSearchProps> = (props) => {
         autoFocus
         fullWidth
         placeholder={t('shell.bank.search.enter')}
+        aria-label="text"
         onChange={(e) => handleSearch(e.target.value)}
       />
 
@@ -50,6 +51,7 @@ const BankAddSearch: React.FC<BankAddSearchProps> = (props) => {
               button
               disableGutters
               onClick={() => handleAdding(bank.id)}
+              key={`${bank.name}`}
             >
               <ListItemText
                 primary={bank.name}
