@@ -32,6 +32,9 @@ const useStyles = makeStyles(({ palette }) => ({
   },
   card: {
     cursor: 'pointer',
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
   },
   blankCard: {
     height: '13rem',
@@ -61,6 +64,7 @@ const useStyles = makeStyles(({ palette }) => ({
   cardContent: {
     display: 'flex',
     flexDirection: 'column',
+    height: '100%',
   },
   cardActions: {
     justifyContent: 'center',
@@ -69,8 +73,11 @@ const useStyles = makeStyles(({ palette }) => ({
     fontSize: '1.5rem',
   },
   value: {
-    marginTop: '1rem',
+    marginTop: 'auto',
     alignSelf: 'center',
+  },
+  virtualText: {
+    marginBottom: '1rem',
   },
 }));
 
@@ -99,7 +106,10 @@ const CardComponent: React.FC<CardComponentProps> = ({
         <Typography className={classes.portName}>
           <LimitedString value={portfolio.name} />
         </Typography>
-        <Typography color={portfolio.virtual ? 'textSecondary' : 'secondary'}>
+        <Typography
+          className={classes.virtualText}
+          color={portfolio.virtual ? 'textSecondary' : 'secondary'}
+        >
           {portfolio.virtual ? t('portfolio.virtual') : t('portfolio.real')}
         </Typography>
         <div className={classes.value}>
