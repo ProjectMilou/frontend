@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import DetailsMainSummary from './DetailsMainSummary';
 import { MockDetails } from '../../portfolio/APIMocks';
 
-describe('DetailsMainPositions', () => {
+describe('DetailsMainSummary', () => {
   const renderComponent = () =>
     render(<DetailsMainSummary portfolio={MockDetails} id="" />);
 

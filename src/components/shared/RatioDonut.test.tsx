@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import * as React from 'react';
 import RatioDonut from './RatioDonut';
 
-describe('AddToPortfolioButton', () => {
+describe('RatioDonut', () => {
   const renderComponent = () =>
     render(<RatioDonut ratio={50} textColor="white" />);
 
