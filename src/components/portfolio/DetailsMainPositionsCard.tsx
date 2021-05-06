@@ -70,6 +70,16 @@ type DetailsMainPositionsCardProps = {
   p: Position;
 };
 
+/**
+ * A singular position card that displays name, how much is being held in euro,
+ * how many of this stock is in the portfolio, the price of the stock
+ * along with the 7 day, 1 year and total return values.
+ * The bottom of the card features a 'view more' button that takes you to
+ * the respective analyzer page.
+ *
+ * @param p - The position (stock) to be displayed in card form
+ */
+
 const DetailsMainPositionsCard: React.FC<DetailsMainPositionsCardProps> = ({
   p,
 }) => {

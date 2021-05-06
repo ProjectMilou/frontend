@@ -21,6 +21,14 @@ type DetailsMainPositionsProps = {
   positions: Position[];
 };
 
+/**
+ * This section renders all positions in a portfolio as cards.
+ * It starts with 8 visible cards the rest are hidden behind a view more
+ * at the bottom of the component.
+ *
+ * @param positions - The positions within a portfolio
+ */
+
 const DetailsMainPositions: React.FC<DetailsMainPositionsProps> = ({
   positions,
 }) => {

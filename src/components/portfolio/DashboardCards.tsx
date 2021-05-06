@@ -32,6 +32,9 @@ const useStyles = makeStyles(({ palette }) => ({
   },
   card: {
     cursor: 'pointer',
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
   },
   blankCard: {
     height: '13rem',
@@ -61,6 +64,7 @@ const useStyles = makeStyles(({ palette }) => ({
   cardContent: {
     display: 'flex',
     flexDirection: 'column',
+    height: '100%',
   },
   cardActions: {
     justifyContent: 'center',
@@ -69,8 +73,11 @@ const useStyles = makeStyles(({ palette }) => ({
     fontSize: '1.5rem',
   },
   value: {
-    marginTop: '1rem',
+    marginTop: 'auto',
     alignSelf: 'center',
+  },
+  virtualText: {
+    marginBottom: '1rem',
   },
 }));
 
@@ -99,7 +106,10 @@ const CardComponent: React.FC<CardComponentProps> = ({
         <Typography className={classes.portName}>
           <LimitedString value={portfolio.name} />
         </Typography>
-        <Typography color={portfolio.virtual ? 'textSecondary' : 'secondary'}>
+        <Typography
+          className={classes.virtualText}
+          color={portfolio.virtual ? 'textSecondary' : 'secondary'}
+        >
           {portfolio.virtual ? t('portfolio.virtual') : t('portfolio.real')}
         </Typography>
         <div className={classes.value}>
@@ -130,6 +140,20 @@ export type DashboardCardsProps = {
   deletePortfolio: (id: string) => void;
   createPortfolio: () => void;
 };
+
+/**
+ * This component represents all portfolios in a card view.
+ * Each card has the portfolios name, the total value, whether it is virtual
+ * and an action bar to rename, duplicate, or delete.
+ * In addition to the portfolio cards there are two button cards:
+ * import and create portfolio.
+ *
+ * @param portfolios - The portfolios of a user to be displayed in card form
+ * @param renamePortfolio - A function to rename a portfolio
+ * @param duplicatePortfolio - A function to duplicate a portfolio
+ * @param deletePortfolio - A function to delete a portfolio
+ * @param createPortfolio - A function to create a portfolio
+ */
 
 const DashboardCards: React.FC<DashboardCardsProps> = ({
   portfolios,
