@@ -22,15 +22,20 @@ const EditDialogAddStock: React.FC<AddEntryProps> = ({ ids, add }) => {
   // The Autocomplete component does not re-render on select (probably a Material-UI bug).
   // This key is changed on select and forces the component to re-render, so the input is cleared on select.
   const [key, setKey] = React.useState<number>(0);
+  const isMounted = React.useRef<boolean>(true);
 
   const fetchOptions = async (searchTerm: string) => {
     setLoading(true);
     try {
       setOptions(await stockSearch(searchTerm));
     } catch {
-      setOptions([]);
+      if (isMounted.current) {
+        setOptions([]);
+      }
     } finally {
-      setLoading(false);
+      if (isMounted.current) {
+        setLoading(false);
+      }
     }
   };
 
@@ -40,6 +45,13 @@ const EditDialogAddStock: React.FC<AddEntryProps> = ({ ids, add }) => {
       fetchOptions('');
     }
   }, [options]);
+
+  React.useEffect(
+    () => () => {
+      isMounted.current = false;
+    },
+    []
+  );
 
   const { t } = useTranslation();
 
