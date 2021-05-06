@@ -15,7 +15,7 @@ const ProfileCard: React.FC<{
     <Avatar
       src={img}
       variant="circle"
-      style={{ width: '300px', height: '300px' }}
+      style={{ width: '230px', height: '230px' }}
     />
     <Typography variant="h3" align="center">
       {name}

@@ -19,7 +19,7 @@ import julien from '../assets/images/julien.png';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     boxClass: {
-      paddingInline: theme.spacing(13),
+      paddingInline: theme.spacing(10),
       maxWidth: theme.spacing(175),
       margin: 'auto',
     },
@@ -87,6 +87,8 @@ const AboutUs: React.FC<RouteComponentProps> = () => {
               title="CO-FOUNDER"
               content="Ich bin Social Entrepreneur. "
               img={linda}
+              email="mailto:Linda.karger@manageandmore.de"
+              linkedinLink="https://www.linkedin.com/linda-karger"
             />
           </Grid>
           <Grid item>
@@ -95,6 +97,8 @@ const AboutUs: React.FC<RouteComponentProps> = () => {
               title="CO-FOUNDER"
               content="Ich bin Networker."
               img={chris}
+              email="mailto:Christoph.hanus@manageandmore.de"
+              linkedinLink="https://www.linkedin.com/christoph-hanus"
             />
           </Grid>
           <Grid item>
@@ -103,6 +107,8 @@ const AboutUs: React.FC<RouteComponentProps> = () => {
               title="CO-FOUNDER"
               content="Ich bin Stratege."
               img={julien}
+              email="mailto:Julien.Schmidt@manageandmore.de"
+              linkedinLink="https://www.linkedin.com/schmidt-julien"
             />
           </Grid>
         </Grid>
