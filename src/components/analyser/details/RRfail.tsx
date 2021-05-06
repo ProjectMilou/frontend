@@ -49,10 +49,10 @@ const RRfail: React.FC<RRpassProps> = ({ category, text }) => {
         <HighlightOffIcon className={classes.icon} />
       </ListItemIcon>
       <ListItemText>
-        <Typography>
+        <>
           <Typography className={classes.category}>{t(category)}:</Typography>
           <Typography className={classes.text}>{t(text)}</Typography>
-        </Typography>
+        </>
       </ListItemText>
     </ListItem>
   );
