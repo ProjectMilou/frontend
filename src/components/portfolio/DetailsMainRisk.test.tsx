@@ -5,7 +5,7 @@ import DetailsMainRisk from './DetailsMainRisk';
 import { MockDetails } from '../../portfolio/APIMocks';
 import { theme } from '../App';
 
-test('Risk section renders correctly', async () => {
+describe('DetailsMainRisk', () => {
   const renderComponent = () =>
     render(
       <ThemeProvider theme={theme}>
@@ -17,37 +17,44 @@ test('Risk section renders correctly', async () => {
       </ThemeProvider>
     );
 
-  const { container } = renderComponent();
+  test('Ratios render correctly', async () => {
+    const { container } = renderComponent();
 
-  // check for sharpe ratio title
-  screen.getByText('portfolio.details.sharpe');
-  // check for treynor ratio title
-  screen.getByText('portfolio.details.treynor');
+    // check for sharpe ratio title
+    screen.getByText('portfolio.details.sharpe');
+    // check for treynor ratio title
+    screen.getByText('portfolio.details.treynor');
 
-  // check for both info buttons (sharpe and treynor)
-  expect(
-    container.querySelectorAll('[class *= makeStyles-infoIcon]')
-  ).toHaveLength(2);
+    // check for both info buttons (sharpe and treynor)
+    expect(
+      container.querySelectorAll('[class *= makeStyles-infoIcon]')
+    ).toHaveLength(2);
+  });
 
-  // check for countries title
-  screen.getAllByText('portfolio.details.countries');
-  // check for segments title
-  screen.getAllByText('portfolio.details.segments');
-  // check for currencies title
-  screen.getAllByText('portfolio.details.currencies');
+  test('Graphs and warnings render correctly', async () => {
+    const { container } = renderComponent();
 
-  // check for all three graphs
-  expect(
-    container.querySelectorAll('[class *= makeStyles-graphWrapper]')
-  ).toHaveLength(3);
+    // check for countries title
+    screen.getAllByText('portfolio.details.countries');
+    // check for segments title
+    screen.getAllByText('portfolio.details.segments');
+    // check for currencies title
+    screen.getAllByText('portfolio.details.currencies');
 
-  // check that the legends combined have no more than 12 visible entries
-  expect(
-    container.querySelectorAll('[class *= makeStyles-legendItem]').length <= 12
-  ).toBeTruthy();
+    // check for all three graphs
+    expect(
+      container.querySelectorAll('[class *= makeStyles-graphWrapper]')
+    ).toHaveLength(3);
 
-  // check for all three warning segments
-  expect(
-    container.querySelectorAll('[class *= makeStyles-riskCompWrapper]')
-  ).toHaveLength(3);
+    // check that the legends combined have no more than 12 visible entries
+    expect(
+      container.querySelectorAll('[class *= makeStyles-legendItem]').length <=
+        12
+    ).toBeTruthy();
+
+    // check for all three warning segments
+    expect(
+      container.querySelectorAll('[class *= makeStyles-riskCompWrapper]')
+    ).toHaveLength(3);
+  });
 });
