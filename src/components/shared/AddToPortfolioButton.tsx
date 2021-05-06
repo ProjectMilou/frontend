@@ -243,7 +243,7 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonProps> = ({
               [p.id]: {
                 displayName: p.name,
                 disabled: !p.virtual,
-                value: p.qty,
+                initialValue: p.qty,
               },
             }),
             {}
@@ -255,6 +255,7 @@ const AddToPortfolioButton: React.FC<AddToPortfolioButtonProps> = ({
               Object.entries(v).map(([id, qty]) => ({ id, qty }))
             );
           }}
+          noRemove
         />
       )}
     </div>

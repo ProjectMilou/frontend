@@ -36,7 +36,7 @@ const useStyles = makeStyles(() => ({
     margin: 10,
   },
   divider: {
-    margin: `${30}px 0`,
+    margin: '30px 0',
   },
   cardAction: {
     display: 'block',
