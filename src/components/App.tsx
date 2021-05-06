@@ -11,7 +11,6 @@ import Imprint from '../pages/Imprint';
 import AboutUs from '../pages/AboutUs';
 import Privacy from '../pages/Privacy';
 import Page404 from '../pages/Page404';
-import Confirm from '../pages/Confirm';
 import ResetChange from '../pages/ResetChange';
 import { ContextProvider } from '../state/context';
 
@@ -125,7 +124,6 @@ const App: React.FC = () => (
               <AboutUs path="/aboutus" />
               <Privacy path="/privacy" />
               <Profile path="/profile" />
-              <Confirm path="/confirm/:id/:token" />
               <ResetChange path="/reset/:id/:token" />
               <Page404 default />
             </ScrollToTop>

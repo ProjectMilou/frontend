@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import * as React from 'react';
 import Profile from './Profile';
 
@@ -32,8 +32,10 @@ describe('Profile', () => {
     );
     fireEvent.click(deleteButton);
 
-    expect(screen.getByText(/Ok/i)).toBeInTheDocument();
-    expect(screen.getByText(/Cancel/i)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText(/Ok/i)).toBeInTheDocument();
+      expect(screen.getByText(/Cancel/i)).toBeInTheDocument();
+    });
   });
 
   test('Update button is present and textfields are enabled', async () => {

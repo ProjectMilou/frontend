@@ -9,6 +9,7 @@ exports[`BankSearch should match snapshot 1`] = `
       class="MuiBox-root MuiBox-root-4"
     >
       <div
+        aria-label="text"
         class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth Mui-focused Mui-focused"
       >
         <input

@@ -1,6 +1,11 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import BankAdd from './BankAdd';
+import mockResponse from './BankAddMock';
+
+beforeEach(() => {
+  fetchMock.resetMocks();
+});
 
 describe('BankSearch', () => {
   test('Search field exists', () => {
@@ -13,6 +18,21 @@ describe('BankSearch', () => {
     expect(container).toMatchSnapshot();
   });
 
-  // We cannot reliably test if search results are shown
-  // since this is API dependent.
+  test('should display fetch response', async () => {
+    const { getByRole } = render(<BankAdd />);
+    const input = getByRole('textbox') as HTMLInputElement;
+
+    expect(input).toBeInTheDocument();
+    fetchMock.mockResponseOnce(JSON.stringify(mockResponse));
+    fireEvent.change(input, { target: { value: 'a' } });
+
+    expect(window.fetch).toHaveBeenCalledWith(
+      'https://api.milou.io/user/bank/search/a',
+      expect.objectContaining({ method: 'GET' })
+    );
+    expect(window.fetch).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(screen.getByText(/GAD Test/i)).toBeInTheDocument();
+    });
+  });
 });
