@@ -5,7 +5,7 @@ import VolatilityLineEntry from './VolatilityLineEntry';
 import { theme } from '../App';
 
 describe('VolatilityLineEntry', () => {
-  const container = render(
+  const { container, getByText } = render(
     <ThemeProvider theme={theme}>
       <VolatilityLineEntry
         volatilityValue={1.0}

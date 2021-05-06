@@ -5,13 +5,15 @@ import VolatilityGraph from './VolatilityGraph';
 import { theme } from '../App';
 
 describe('VolatilityGraph', () => {
-  const container = render(
+  render(
     <ThemeProvider theme={theme}>
       <VolatilityGraph color={theme.palette.primary.contrastText} />
     </ThemeProvider>
   );
 
   test('display volatility graph and market average', () => {
-    screen.getByText('portfolio.details.analytics.volatility.marketAvg');
+    expect(
+      screen.getByText('portfolio.details.analytics.volatility.marketAvg')
+    ).toBeInTheDocument();
   });
 });
