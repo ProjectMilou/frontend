@@ -18,6 +18,14 @@ type LimitedStringProps = {
   length?: number;
 };
 
+/**
+ * This component is used to display a string that could possibly get very large.
+ * It uses the {@link limitString helper method}
+ * The full string will get displayed inside a tooltip
+ *
+ * @param value - The value you want to display (gets put inside a span)
+ * @param length - The max length the final string should have, default is 20
+ */
 const LimitedString: React.FC<LimitedStringProps> = ({ value, length }) => {
   const maxLength = length || 20;
   const classes = useStyles();

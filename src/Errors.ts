@@ -11,7 +11,8 @@ export type ErrorCode =
   | 'QTY_INVALID'
   | 'RANGE_INVALID'
   | 'REAL_PORTFOLIO_MODIFICATION'
-  | 'NO_BACKTESTING_DATA';
+  | 'NO_BACKTESTING_DATA'
+  | 'INVALID_CORRELATION';
 
 /**
  * An application error.
