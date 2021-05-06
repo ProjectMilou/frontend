@@ -37,11 +37,13 @@ describe('Header', () => {
     const loginButton = screen.getByText(/Login/i);
     fireEvent.click(loginButton);
     waitFor(() => {
-      expect(screen.getByText(/shell.message.forgotPassword/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/shell.message.forgotPassword/i)
+      ).toBeInTheDocument();
       expect(screen.getByText(/shell.password/i)).toBeInTheDocument();
       // waitFor() is needed as the state of the component is changed
       // and it must be re-rendered.
       // Work-around "Promise must be handled (testing-library/await-async-utils)":
-    }).then(() => {})
+    }).then(() => {});
   });
 });

@@ -42,7 +42,7 @@ function ScrollToTop({ children, path }: ScrollToTopProps): JSX.Element {
 
   const { pathname } = useLocation();
   useEffect(() => {
-    if(window.scrollTo) window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (window.scrollTo) window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [pathname]);
   return <>{children}</>;
 }

@@ -10,7 +10,7 @@ describe('BankSearch', () => {
 
   test('should match snapshot', () => {
     const { container } = render(<BankAdd />);
-    expect( container ).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   // We cannot reliably test if search results are shown
