@@ -173,8 +173,8 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
 
       <Box bgcolor="#0c1a3a" color="white" px={20} pt={4} pb={18}>
         <Grid container direction="column" spacing={2}>
-          <Grid item spacing={2}>
-            <Typography variant="h3">Did you know...</Typography>
+          <Grid item container spacing={2}>
+            <Typography variant="h3" style={{ padding: "8px" }}>Did you know...</Typography>
           </Grid>
           <Grid item container direction="row" spacing={2} alignItems="center">
             <Grid item>
@@ -202,7 +202,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
               </Typography>
             </Grid>
           </Grid>
-          <Grid item alignItems="center">
+          <Grid container alignItems="center">
             <Typography
               variant="h3"
               align="center"
