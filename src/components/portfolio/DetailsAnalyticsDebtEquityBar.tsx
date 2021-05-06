@@ -10,6 +10,12 @@ type DetailsAnalyticsDebtEquityBarProps = {
   height: number;
 };
 
+/**
+ * Bar chart that displays the debt equity of the individual stocks and the portfolio average
+ *
+ * @param portfolio - Holds the positions and average
+ * @param height - The height in px for the diagram to fill
+ */
 const DetailsAnalyticsDebtEquityBar: React.FC<DetailsAnalyticsDebtEquityBarProps> = ({
   portfolio,
   height,
