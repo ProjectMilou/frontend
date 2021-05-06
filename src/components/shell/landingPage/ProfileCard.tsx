@@ -14,7 +14,7 @@ const ProfileCard: React.FC<{
   <Box p={6} justify-content="center">
     <Avatar
       src={img}
-      variant="circle"
+      variant="circular"
       style={{ width: '340px', height: '340px' }}
     />
     <Typography variant="h3" align="center">
