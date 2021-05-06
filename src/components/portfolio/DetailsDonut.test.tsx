@@ -5,7 +5,7 @@ import DetailsDonut from './DetailsDonut';
 import { MockDetails } from '../../portfolio/APIMocks';
 import { theme } from '../App';
 
-test('Details donut renders correctly', async () => {
+describe('DetailsDonut', () => {
   const sortedPos = MockDetails.positions.sort(
     (a, b) => b.qty * b.stock.price - a.qty * a.stock.price
   );
@@ -20,26 +20,32 @@ test('Details donut renders correctly', async () => {
       </ThemeProvider>
     );
 
-  const { container } = renderComponent();
+  test('Legend renders correctly', async () => {
+    const { container } = renderComponent();
 
-  // check for correct legend
-  expect(
-    container.querySelector('[class *= makeStyles-legend]')
-  ).toBeInTheDocument();
+    // check for legend
+    expect(
+      container.querySelector('[class *= makeStyles-legend]')
+    ).toBeInTheDocument();
 
-  // check for correct legend length
-  expect(
-    container.querySelectorAll('[class *= makeStyles-legendItem]').length < 5
-  ).toBeTruthy();
+    // check for correct legend length
+    expect(
+      container.querySelectorAll('[class *= makeStyles-legendItem]').length < 5
+    ).toBeTruthy();
 
-  // check for 'other'
-  if (
-    container.querySelectorAll('[class *= makeStyles-legendItem]').length >= 5
-  ) {
-    screen.getByText('portfolio.details.other');
-  }
-  // check for graph
-  expect(
-    container.querySelector('[class *= makeStyles-graphWrapper]')
-  ).toBeInTheDocument();
+    // check for 'other' if there are more than 4 stocks
+    if (
+      container.querySelectorAll('[class *= makeStyles-legendItem]').length >= 5
+    ) {
+      screen.getByText('portfolio.details.other');
+    }
+  });
+
+  test('Graph is rendered', async () => {
+    const { container } = renderComponent();
+    // check for graph
+    expect(
+      container.querySelector('[class *= makeStyles-graphWrapper]')
+    ).toBeInTheDocument();
+  });
 });

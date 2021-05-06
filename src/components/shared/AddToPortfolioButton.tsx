@@ -129,8 +129,12 @@ function reducer(state: State, action: Actions): State {
       throw new Error();
   }
 }
-
-// returns the add to portfolio button and all subcomponents including the dialog window
+/**
+ * A fixed (bottom right) button that opens a dialog where a singular stock
+ * can be added or subtracted to/from multiple portfolios.
+ *
+ * @param symbol - The symbol of the current stock
+ */
 const AddToPortfolioButton: React.FC<AddToPortfolioButtonProps> = ({
   symbol,
 }) => {

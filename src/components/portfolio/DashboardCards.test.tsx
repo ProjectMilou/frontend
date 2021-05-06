@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import DashboardCards, { DashboardCardsProps } from './DashboardCards';
 import { MockOverview, MockOverviewTwo } from '../../portfolio/APIMocks';
 
-describe('DashboardTable', () => {
+describe('DashboardCards', () => {
   const defaultProps: DashboardCardsProps = {
     portfolios: [MockOverview, MockOverviewTwo],
     renamePortfolio: jest.fn(),

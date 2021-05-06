@@ -5,7 +5,7 @@ import DetailsMainDividends from './DetailsMainDividends';
 import { MockDetails } from '../../portfolio/APIMocks';
 import { theme } from '../App';
 
-test('Dividens section renders correctly', async () => {
+describe('DetailsMainDividends', () => {
   const renderComponent = () =>
     render(
       <ThemeProvider theme={theme}>
@@ -13,19 +13,25 @@ test('Dividens section renders correctly', async () => {
       </ThemeProvider>
     );
 
-  const { container } = renderComponent();
+  test('Dividens side info renders', async () => {
+    renderComponent();
 
-  // check for div yield title
-  screen.getByText('portfolio.details.divYield');
+    // check for div yield title
+    screen.getByText('portfolio.details.divYield');
 
-  // check for div payout title
-  screen.getByText('portfolio.details.divPayout');
+    // check for div payout title
+    screen.getByText('portfolio.details.divPayout');
 
-  // check for next date title
-  screen.getByText('portfolio.details.nextDate');
+    // check for next date title
+    screen.getByText('portfolio.details.nextDate');
+  });
 
-  // check for both graphs
-  expect(
-    container.querySelectorAll('[class *= makeStyles-chartContainer]')
-  ).toHaveLength(2);
+  test('Both graphs render', async () => {
+    const { container } = renderComponent();
+
+    // check for both graphs
+    expect(
+      container.querySelectorAll('[class *= makeStyles-chartContainer]')
+    ).toHaveLength(2);
+  });
 });
