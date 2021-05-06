@@ -49,10 +49,10 @@ const RRpass: React.FC<RRpassProps> = ({ category, text }) => {
         <CheckCircleOutline className={classes.icon} />
       </ListItemIcon>
       <ListItemText>
-        <Typography>
+        <>
           <Typography className={classes.category}>{t(category)}:</Typography>
           <Typography className={classes.text}>{t(text)}</Typography>
-        </Typography>
+        </>
       </ListItemText>
     </ListItem>
   );
