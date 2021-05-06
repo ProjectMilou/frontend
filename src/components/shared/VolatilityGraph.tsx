@@ -55,7 +55,7 @@ type VolatilityGraphProps = {
  * in relation to the market average of 1
  *
  * @param color - The color of the icons, text and market average indicator
- * @param children - These should be the indicators along the volatility line (VolatilityLineEntry or LargeVolatilityLineEntry)
+ * @param children - These should be the indicators along the volatility line {@link VolatilityLineEntry} or {@link LargeVolatilityLineEntry})
  */
 
 const VolatilityGraph: React.FC<VolatilityGraphProps> = ({
