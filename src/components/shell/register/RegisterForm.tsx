@@ -135,7 +135,7 @@ const RegisterForm: React.FC<RegisterFormProps> = (props) => {
             i18nKey="shell.disclaimer"
             t={t}
             components={[
-              <div
+              <span
                 className={privacyLink}
                 role="link"
                 aria-label="Privacy"

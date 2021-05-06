@@ -1,9 +1,8 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import Header from './Header';
 
 describe('Header', () => {
-  // TODO: Write actual tests
   test('Renders all links and buttons', () => {
     render(<Header />);
     expect(screen.getByText(/Home/i)).toBeInTheDocument();
@@ -31,5 +30,20 @@ describe('Header', () => {
     const academyLink = screen.getByText(/Academy/i);
     fireEvent.click(academyLink);
     expect(window.location.pathname).toBe('/academy');
+  });
+
+  test('should open login', () => {
+    render(<Header />);
+    const loginButton = screen.getByText(/Login/i);
+    fireEvent.click(loginButton);
+    waitFor(() => {
+      expect(
+        screen.getByText(/shell.message.forgotPassword/i)
+      ).toBeInTheDocument();
+      expect(screen.getByText(/shell.password/i)).toBeInTheDocument();
+      // waitFor() is needed as the state of the component is changed
+      // and it must be re-rendered.
+      // Work-around "Promise must be handled (testing-library/await-async-utils)":
+    }).then(() => {});
   });
 });

@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BankAddDialog should match snapshot 1`] = `
+<div>
+  <div
+    class="MuiBox-root MuiBox-root-2"
+  >
+    <h5
+      class="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom MuiTypography-alignCenter"
+    >
+      shell.bank.add.dialog.headline
+    </h5>
+    <p
+      class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter"
+    >
+      shell.bank.add.dialog.subheadline
+    </p>
+    <img
+      alt="shell.bank.add.dialog.subheadline"
+      class="makeStyles-instruction-1"
+      src="instructions.png"
+    />
+    <a
+      aria-disabled="false"
+      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-fullWidth"
+      href="https://www.example.com"
+      tabindex="0"
+      target="_blank"
+    >
+      <span
+        class="MuiButton-label"
+      >
+        shell.bank.add.dialog.toWebform
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </a>
+  </div>
+</div>
+`;
