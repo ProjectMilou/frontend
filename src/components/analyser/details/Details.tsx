@@ -16,6 +16,7 @@ import Analysts from './Analysts';
 import AddToPortfolioButton from '../../shared/AddToPortfolioButton';
 import DetailsOverviewInfoBox from './DetailsOverviewInfoBox';
 import DetailsStockChart from './DetailsStockChart';
+import DetailsHeaderEmpty from './DetailsHeaderEmpty';
 
 // props type declaration
 interface DetailsProps extends RouteComponentProps {
@@ -180,7 +181,8 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
         </Container>
       )}
       <>
-        <DetailsHeader back={back} stock={stockOverview} />
+        {!stockOverview && <DetailsHeaderEmpty />}
+
         {currentlyFetching && <LinearProgress color="secondary" />}
         {stockOverview &&
           stockDetails &&
@@ -192,42 +194,45 @@ const Details: React.FC<DetailsProps> = ({ back }) => {
           keyFigures &&
           newsList &&
           cashFlowList && (
-            <Container className={classes.mainContent}>
-              <DetailsOverview
-                stockOverview={stockOverview}
-                stockDetails={stockDetails}
-              />
-              <DetailsStockChart
-                stockPerformance={stockPerformance}
-                setPerformanceAll={setPerformanceAll}
-              />
-              <DetailsOverviewInfoBox
-                stockOverview={stockOverview}
-                stockDetails={stockDetails}
-              />
-              <NewsComponent newsList={newsList} />
-              <SectionDivider section="analyser.details.KeyFiguresHeader" />
-              <KeyFigures keyFigures={keyFigures} />
-              <Dividends
-                series={stockDividend}
-                cashFlowList={cashFlowList}
-                dividendPayoutRatio={divQuota}
-                dividendYield={stockOverview.div}
-                nextPayout={divNextPayout}
-              />
-              <BalanceSheetInfo companyReports={companyReports} />
-              <Analysts
-                recommendations={analystRecommendations}
-                overview={stockOverview}
-              />
-              <Risks
-                stockOverview={stockOverview}
-                stockDetails={stockDetails}
-                companyReports={companyReports}
-                interestCoverages={interestCoverages}
-              />
-              <AddToPortfolioButton symbol={symbol} />
-            </Container>
+            <>
+              <DetailsHeader back={back} stock={stockOverview} />
+              <Container className={classes.mainContent}>
+                <DetailsOverview
+                  stockOverview={stockOverview}
+                  stockDetails={stockDetails}
+                />
+                <DetailsStockChart
+                  stockPerformance={stockPerformance}
+                  setPerformanceAll={setPerformanceAll}
+                />
+                <DetailsOverviewInfoBox
+                  stockOverview={stockOverview}
+                  stockDetails={stockDetails}
+                />
+                <NewsComponent newsList={newsList} />
+                <SectionDivider section="analyser.details.KeyFiguresHeader" />
+                <KeyFigures keyFigures={keyFigures} />
+                <Dividends
+                  series={stockDividend}
+                  cashFlowList={cashFlowList}
+                  dividendPayoutRatio={divQuota}
+                  dividendYield={stockOverview.div}
+                  nextPayout={divNextPayout}
+                />
+                <BalanceSheetInfo companyReports={companyReports} />
+                <Analysts
+                  recommendations={analystRecommendations}
+                  overview={stockOverview}
+                />
+                <Risks
+                  stockOverview={stockOverview}
+                  stockDetails={stockDetails}
+                  companyReports={companyReports}
+                  interestCoverages={interestCoverages}
+                />
+                <AddToPortfolioButton symbol={symbol} />
+              </Container>
+            </>
           )}
       </>
     </>

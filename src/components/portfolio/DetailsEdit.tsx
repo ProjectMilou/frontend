@@ -12,6 +12,7 @@ import EditDialog from './EditDialog';
 import StyledNumberFormat from '../shared/StyledNumberFormat';
 import DuplicateDialog from './DuplicateDialog';
 import * as API from '../../portfolio/APIClient';
+import EditDialogAddStock from './EditDialogAddStock';
 
 type StyleProps = {
   virtual?: boolean;
@@ -79,7 +80,7 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({
             variant="contained"
             className={classes.button}
             onClick={() => setOpenEdit(true)}
-            disabled={!positions?.length || !virtual}
+            disabled={!virtual}
           >
             {t('portfolio.details.editPortfolio')}
           </Button>
@@ -103,7 +104,7 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({
               ...acc,
               [p.stock.symbol]: {
                 displayName: p.stock.name,
-                value: p.qty,
+                initialValue: p.qty,
                 additionalTableCells: (
                   <TableCell>
                     <StyledNumberFormat value={p.stock.price} suffix="€" />
@@ -117,6 +118,7 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({
           action={(v) =>
             edit(Object.entries(v).map(([symbol, qty]) => ({ symbol, qty })))
           }
+          AddEntry={EditDialogAddStock}
         />
       )}
       <div className={classes.buttonWrapper}>
@@ -128,17 +130,12 @@ const DetailsEdit: React.FC<DetailsEditProps> = ({
           {t('portfolio.dialog.duplicate.title')}
         </Button>
       </div>
-      {/* adapted from Dashboard.tsx */}
       <DuplicateDialog
         initialName={name}
         open={openDuplicate}
         handleClose={() => setOpenDuplicate(false)}
         duplicate={async (newName) => {
-          if (id) {
-            // TODO update list of portfolios in dashboard?
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const newId = await API.duplicate(id, newName);
-          }
+          await API.duplicate(id, newName);
         }}
       />
     </div>
