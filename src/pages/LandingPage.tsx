@@ -27,11 +27,6 @@ import InfoCard from '../components/shell/landingPage/InfoCard';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    container: {
-      margin: '0px',
-      padding: '0px',
-      display: 'inline',
-    },
     mediaSmall: {
       maxWidth: theme.spacing(56.25),
       maxHeight: theme.spacing(31.25),
@@ -125,7 +120,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
   const theme = useTheme();
   const classes = useStyles(theme);
   return (
-    <Container maxWidth="lg" className={classes.container}>
+    <>
       <Card />
       <Grid container direction="column" alignContent="center" justify="center">
         <Grid item spacing={4}>
@@ -190,73 +185,87 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
       </Box>
 
       <Box bgcolor="#0c1a3a" color="white" px={20} pt={4} pb={18}>
-        <Grid container direction="column" spacing={2}>
-          <Grid item container spacing={2}>
-            <Typography variant="h3" style={{ padding: '8px' }}>
-              Did you know...
-            </Typography>
-          </Grid>
-          <Grid item container direction="row" spacing={2} alignItems="center">
-            <Grid item>
-              <MoneyIcon className={classes.smallIcon} />
-            </Grid>
-            <Grid item xs>
-              <Typography variant="h6">
-                ..to be a successful investor, initially, you{' '}
-                <span className={classes.span}>need no assets</span> . You can
-                start investing with as little as 25 euros a month.
+        <Container maxWidth="lg">
+          <Grid container direction="column" spacing={2}>
+            <Grid item container spacing={2}>
+              <Typography variant="h3" style={{ padding: '8px' }}>
+                Did you know...
               </Typography>
             </Grid>
-          </Grid>
-          <Grid item container direction="row" spacing={2} alignItems="center">
-            <Grid item>
-              <LoyaltyIcon className={classes.smallIcon} />
-            </Grid>
-            <Grid item xs>
-              <Typography variant="h6">
-                ..we only work with{' '}
-                <span className={classes.span}>commission-free products</span>,
-                stocks and ETFs. This ensures that we pursue the{' '}
-                <span className={classes.span}>same interests </span>
-                as you, namely to make you a successful investor.
-              </Typography>
-            </Grid>
-          </Grid>
-          <Grid container alignItems="center">
-            <Typography
-              variant="h3"
-              align="center"
-              style={{ fontWeight: 'bold', marginTop: '64px' }}
+            <Grid
+              item
+              container
+              direction="row"
+              spacing={2}
+              alignItems="center"
             >
-              Milou accompanies you on all your financial adventures.
-            </Typography>
-          </Grid>
-          <Grid item container direction="column">
-            <Typography
-              variant="h6"
-              align="center"
-              style={{ marginTop: '16px', marginBottom: '32px' }}
+              <Grid item>
+                <MoneyIcon className={classes.smallIcon} />
+              </Grid>
+              <Grid item xs>
+                <Typography variant="h6">
+                  ..to be a successful investor, initially, you{' '}
+                  <span className={classes.span}>need no assets</span> . You can
+                  start investing with as little as 25 euros a month.
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid
+              item
+              container
+              direction="row"
+              spacing={2}
+              alignItems="center"
             >
-              We help you to make well-founded investment decisions yourself.
-            </Typography>
-            <div style={{ margin: 'auto' }}>
-              <Button
-                href="/analyser"
-                style={{
-                  backgroundColor: '#FFC43B',
-                  color: 'white',
-                }}
+              <Grid item>
+                <LoyaltyIcon className={classes.smallIcon} />
+              </Grid>
+              <Grid item xs>
+                <Typography variant="h6">
+                  ..we only work with{' '}
+                  <span className={classes.span}>commission-free products</span>
+                  , stocks and ETFs. This ensures that we pursue the{' '}
+                  <span className={classes.span}>same interests </span>
+                  as you, namely to make you a successful investor.
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid container alignItems="center">
+              <Typography
+                variant="h3"
+                align="center"
+                style={{ fontWeight: 'bold', marginTop: '64px' }}
               >
-                Start for free
-              </Button>
-            </div>
+                Milou accompanies you on all your financial adventures.
+              </Typography>
+            </Grid>
+            <Grid item container direction="column">
+              <Typography
+                variant="h6"
+                align="center"
+                style={{ marginTop: '16px', marginBottom: '32px' }}
+              >
+                We help you to make well-founded investment decisions yourself.
+              </Typography>
+              <div style={{ margin: 'auto' }}>
+                <Button
+                  href="/analyser"
+                  style={{
+                    backgroundColor: '#FFC43B',
+                    color: 'white',
+                  }}
+                >
+                  Start for free
+                </Button>
+              </div>
+            </Grid>
           </Grid>
-        </Grid>
+        </Container>
       </Box>
 
       <InfoCard />
       <LogoCard />
-    </Container>
+    </>
   );
 };
 
