@@ -2,6 +2,7 @@ import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 
 import {
+  Container,
   Button,
   Box,
   Grid,
@@ -10,6 +11,7 @@ import {
   makeStyles,
   Theme,
   createStyles,
+  useTheme,
 } from '@material-ui/core';
 
 import MoneyIcon from '@material-ui/icons/Money';
@@ -25,52 +27,61 @@ import InfoCard from '../components/shell/landingPage/InfoCard';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    container: {
+      margin: '0px',
+      padding: '0px',
+      display: 'inline',
+    },
     mediaSmall: {
-      maxWidth: '450px',
-      maxHeight: '250px',
+      maxWidth: theme.spacing(56.25),
+      maxHeight: theme.spacing(31.25),
       display: 'auto',
       objectFit: 'scale-down',
-      padding: '20px',
+      padding: theme.spacing(2.5),
     },
     mediaLarge: {
-      width: '500px',
-      height: '732px',
-      padding: '50px',
+      width: theme.spacing(62.5),
+      height: theme.spacing(91.5),
+      padding: theme.spacing(6.25),
       objectFit: 'scale-down',
     },
     icon: {
-      width: '20px',
-      height: '20px',
+      width: theme.spacing(2.5),
+      height: theme.spacing(2.5),
     },
     divider: {
       light: false,
       variant: 'middle',
-      marginLeft: '250px',
-      marginRight: '250px',
+      marginLeft: theme.spacing(31.25),
+      marginRight: theme.spacing(31.25),
+      marginTop: theme.spacing(6.25),
+      marginBottom: theme.spacing(6.25),
       height: '1px',
       background: theme.palette.secondary.contrastText,
     },
     box1: {
-      paddingInline: '50px',
-      paddingTop: '50px',
-      paddingBottom: '50px',
+      paddingInline: theme.spacing(6.25),
+      paddingTop: theme.spacing(6.25),
+      paddingBottom: theme.spacing(6.25),
     },
     typographyMain: {
       color: theme.palette.primary.dark,
-      fontSize: '24px',
-      marginLeft: '120px',
-      marginRight: '120px',
+      fontSize: theme.spacing(3),
+      maxWidth: theme.spacing(162.5),
+      textAlign: 'center',
+      marginLeft: theme.spacing(15),
+      marginRight: theme.spacing(15),
     },
     boxMain: {
-      paddingInline: '50px',
-      marginBlock: '100px',
+      paddingInline: theme.spacing(6.25),
+      marginBlock: theme.spacing(12.5),
       backgroundColor: theme.palette.primary.contrastText,
     },
     gridItem: {
-      paddingInline: '0px',
+      paddingInline: theme.spacing(0),
     },
     smallIcon: {
-      fontSize: '54px',
+      fontSize: theme.spacing(6.75),
       color: theme.palette.secondary.light,
     },
     span: {
@@ -87,50 +98,57 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     box: {
       backgroundColor: theme.palette.primary.main,
-      padding: '80px',
-      marginBottom: '60px',
+      padding: theme.spacing(10),
+      marginBottom: theme.spacing(7.5),
       display: 'flex',
       justifyContent: 'center',
     },
     typography: {
       color: '#50aaff',
       fontWeight: 'bold',
-      padding: '20px',
+      padding: theme.spacing(2.5),
     },
     button: {
       backgroundColor: theme.palette.secondary.light,
-      borderRadius: '10px',
+      borderRadius: theme.spacing(1.25),
       color: theme.palette.primary.contrastText,
       textTransform: 'none',
     },
     title: {
       fontWeight: 'bold',
-      padding: '16px',
+      padding: theme.spacing(2),
     },
   })
 );
 
 const LandingPage: React.FC<RouteComponentProps> = () => {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
   return (
-    <Box>
+    <Container maxWidth="lg" className={classes.container}>
       <Card />
-      <Divider className={classes.divider} />
-      <Box className={classes.box1}>
-        <Typography
-          variant="body1"
-          align="center"
-          className={classes.typographyMain}
-        >
-          Apps like Trade Republic and other direct brokers make investing
-          easier and easier. The stock market is now accessible to everyone.
-          Even so, many individuals do not have access to tools to make informed
-          and informed investment decisions. Current solutions are often
-          confusing and tailored to professional investors. This is exactly
-          where we attack.
-        </Typography>
-      </Box>
-      <Divider className={classes.divider} />
+      <Grid container direction="column" alignContent="center" justify="center">
+        <Grid item spacing={4}>
+          <Divider className={classes.divider} />
+        </Grid>
+        <Grid item>
+          <Typography
+            variant="body1"
+            align="center"
+            className={classes.typographyMain}
+          >
+            Apps like Trade Republic and other direct brokers make investing
+            easier and easier. The stock market is now accessible to everyone.
+            Even so, many individuals do not have access to tools to make
+            informed and informed investment decisions. Current solutions are
+            often confusing and tailored to professional investors. This is
+            exactly where we attack.
+          </Typography>
+        </Grid>
+        <Grid item spacing={4}>
+          <Divider className={classes.divider} />
+        </Grid>
+      </Grid>
       <Box className={classes.boxMain}>
         <Grid
           container
@@ -238,7 +256,7 @@ const LandingPage: React.FC<RouteComponentProps> = () => {
 
       <InfoCard />
       <LogoCard />
-    </Box>
+    </Container>
   );
 };
 

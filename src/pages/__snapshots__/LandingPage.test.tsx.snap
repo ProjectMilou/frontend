@@ -3,7 +3,7 @@
 exports[`LandingPage should render landingPage 1`] = `
 <div>
   <div
-    class="MuiBox-root MuiBox-root-18"
+    class="MuiContainer-root makeStyles-container-1 MuiContainer-maxWidthLg"
   >
     <div
       class="MuiBox-root MuiBox-root-22 makeStyles-box-19"
@@ -50,150 +50,174 @@ exports[`LandingPage should render landingPage 1`] = `
         </div>
       </div>
     </div>
-    <hr
-      class="MuiDivider-root makeStyles-divider-4"
-    />
     <div
-      class="MuiBox-root MuiBox-root-23 makeStyles-box1-5"
+      class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column MuiGrid-align-content-xs-center MuiGrid-justify-xs-center"
     >
-      <p
-        class="MuiTypography-root makeStyles-typographyMain-6 MuiTypography-body1 MuiTypography-alignCenter"
+      <div
+        class="MuiGrid-root MuiGrid-item"
       >
-        Apps like Trade Republic and other direct brokers make investing easier and easier. The stock market is now accessible to everyone. Even so, many individuals do not have access to tools to make informed and informed investment decisions. Current solutions are often confusing and tailored to professional investors. This is exactly where we attack.
-      </p>
+        <hr
+          class="MuiDivider-root makeStyles-divider-5"
+        />
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-item"
+      >
+        <p
+          class="MuiTypography-root makeStyles-typographyMain-7 MuiTypography-body1 MuiTypography-alignCenter"
+        >
+          Apps like Trade Republic and other direct brokers make investing easier and easier. The stock market is now accessible to everyone. Even so, many individuals do not have access to tools to make informed and informed investment decisions. Current solutions are often confusing and tailored to professional investors. This is exactly where we attack.
+        </p>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-item"
+      >
+        <hr
+          class="MuiDivider-root makeStyles-divider-5"
+        />
+      </div>
     </div>
-    <hr
-      class="MuiDivider-root makeStyles-divider-4"
-    />
     <div
-      class="MuiBox-root MuiBox-root-24 makeStyles-boxMain-7"
+      class="MuiBox-root MuiBox-root-23 makeStyles-boxMain-8"
     >
       <div
         class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-10 MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
         justify-content="center"
       >
         <div
-          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-10 MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
-          justify-content="space-between"
+          class="MuiBox-root MuiBox-root-24"
         >
           <div
-            class="MuiGrid-root MuiGrid-item"
-            style="width: 500px; height: 360px;"
-          >
-            <img
-              class="MuiCardMedia-root makeStyles-mediaSmall-1 MuiCardMedia-media MuiCardMedia-img"
-              src="lernen.png"
-            />
-          </div>
-          <div
-            class="MuiGrid-root MuiGrid-item"
-            style="width: 500px; height: 360px;"
+            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-10 MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+            justify-content="space-between"
           >
             <div
-              class="MuiGrid-root makeStyles-gridItem-8 MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center MuiGrid-grid-xs-true"
-              style="width: 500px;"
+              class="MuiGrid-root MuiGrid-item"
+              style="width: 500px; height: 360px;"
+            >
+              <img
+                class="MuiCardMedia-root makeStyles-mediaSmall-2 MuiCardMedia-media MuiCardMedia-img"
+                src="lernen.png"
+              />
+            </div>
+            <div
+              class="MuiGrid-root MuiGrid-item"
+              style="width: 500px; height: 360px;"
             >
               <div
-                class="makeStyles-warning-12 makeStyles-title-17"
+                class="MuiGrid-root makeStyles-gridItem-9 MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center MuiGrid-grid-xs-true"
+                style="width: 500px;"
               >
-                <h4
-                  class="MuiTypography-root makeStyles-warning-12 makeStyles-title-17 MuiTypography-h4"
+                <div
+                  class="makeStyles-warning-13 makeStyles-title-18"
                 >
-                  LEARN
-                </h4>
-              </div>
-              <div
-                style="max-width: 550px;"
-              >
-                <p
-                  class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter"
+                  <h4
+                    class="MuiTypography-root makeStyles-warning-13 makeStyles-title-18 MuiTypography-h4"
+                  >
+                    LEARN
+                  </h4>
+                </div>
+                <div
+                  style="max-width: 550px;"
                 >
-                  No prior knowledge is necessary for us. Whether you are a professional or a beginner, we will accompany you throughout the entire investment lifecycle and help you to be a successful investor. With our free academy, you can easily build up your knowledge of finances and deepen it.
-                </p>
+                  <p
+                    class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter"
+                  >
+                    No prior knowledge is necessary for us. Whether you are a professional or a beginner, we will accompany you throughout the entire investment lifecycle and help you to be a successful investor. With our free academy, you can easily build up your knowledge of finances and deepen it.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div
-          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-10 MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
-          justify-content="space-between"
+          class="MuiBox-root MuiBox-root-25"
         >
           <div
-            class="MuiGrid-root MuiGrid-item"
-            style="width: 500px; height: 360px;"
+            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-10 MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+            justify-content="space-between"
           >
             <div
-              class="MuiGrid-root makeStyles-gridItem-8 MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center MuiGrid-grid-xs-true"
-              style="width: 500px;"
+              class="MuiGrid-root MuiGrid-item"
+              style="width: 500px; height: 360px;"
             >
               <div
-                class="makeStyles-error-13 makeStyles-title-17"
+                class="MuiGrid-root makeStyles-gridItem-9 MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center MuiGrid-grid-xs-true"
+                style="width: 500px;"
               >
-                <h4
-                  class="MuiTypography-root makeStyles-error-13 makeStyles-title-17 MuiTypography-h4"
+                <div
+                  class="makeStyles-error-14 makeStyles-title-18"
                 >
-                  ANALYSIS
-                </h4>
-              </div>
-              <div
-                style="max-width: 550px;"
-              >
-                <p
-                  class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter"
+                  <h4
+                    class="MuiTypography-root makeStyles-error-14 makeStyles-title-18 MuiTypography-h4"
+                  >
+                    ANALYSIS
+                  </h4>
+                </div>
+                <div
+                  style="max-width: 550px;"
                 >
-                  Do you feel ready for your first investment or are you interested in the development of different stocks? Perfect! Our analysis tool helps you to conduct investment research. Regardless of whether you want to invest in stocks or ETFs: Here you will find the most important things clearly and understandably!
-                </p>
+                  <p
+                    class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter"
+                  >
+                    Do you feel ready for your first investment or are you interested in the development of different stocks? Perfect! Our analysis tool helps you to conduct investment research. Regardless of whether you want to invest in stocks or ETFs: Here you will find the most important things clearly and understandably!
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-          <div
-            class="MuiGrid-root MuiGrid-item"
-            style="width: 500px; height: 360px;"
-          >
-            <img
-              class="MuiCardMedia-root makeStyles-mediaSmall-1 MuiCardMedia-media MuiCardMedia-img"
-              src="analyse.png"
-            />
+            <div
+              class="MuiGrid-root MuiGrid-item"
+              style="width: 500px; height: 360px;"
+            >
+              <img
+                class="MuiCardMedia-root makeStyles-mediaSmall-2 MuiCardMedia-media MuiCardMedia-img"
+                src="analyse.png"
+              />
+            </div>
           </div>
         </div>
         <div
-          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-10 MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
-          justify-content="space-between"
+          class="MuiBox-root MuiBox-root-26"
         >
           <div
-            class="MuiGrid-root MuiGrid-item"
-            style="width: 500px; height: 360px;"
-          >
-            <img
-              class="MuiCardMedia-root makeStyles-mediaSmall-1 MuiCardMedia-media MuiCardMedia-img"
-              src="Portfolio.png"
-            />
-          </div>
-          <div
-            class="MuiGrid-root MuiGrid-item"
-            style="width: 500px; height: 360px;"
+            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-10 MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+            justify-content="space-between"
           >
             <div
-              class="MuiGrid-root makeStyles-gridItem-8 MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center MuiGrid-grid-xs-true"
-              style="width: 500px;"
+              class="MuiGrid-root MuiGrid-item"
+              style="width: 500px; height: 360px;"
+            >
+              <img
+                class="MuiCardMedia-root makeStyles-mediaSmall-2 MuiCardMedia-media MuiCardMedia-img"
+                src="Portfolio.png"
+              />
+            </div>
+            <div
+              class="MuiGrid-root MuiGrid-item"
+              style="width: 500px; height: 360px;"
             >
               <div
-                class="makeStyles-success-11 makeStyles-title-17"
+                class="MuiGrid-root makeStyles-gridItem-9 MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center MuiGrid-grid-xs-true"
+                style="width: 500px;"
               >
-                <h4
-                  class="MuiTypography-root makeStyles-success-11 makeStyles-title-17 MuiTypography-h4"
+                <div
+                  class="makeStyles-success-12 makeStyles-title-18"
                 >
-                  PORTFOLIO
-                </h4>
-              </div>
-              <div
-                style="max-width: 550px;"
-              >
-                <p
-                  class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter"
+                  <h4
+                    class="MuiTypography-root makeStyles-success-12 makeStyles-title-18 MuiTypography-h4"
+                  >
+                    PORTFOLIO
+                  </h4>
+                </div>
+                <div
+                  style="max-width: 550px;"
                 >
-                  It is also important to us that you build your portfolio with a good risk-return ratio. Our tool helps you to achieve optimal diversification in order to reduce your risk. In doing so, we are guided by the current scientific standards of portfolio theory.
-                </p>
+                  <p
+                    class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter"
+                  >
+                    It is also important to us that you build your portfolio with a good risk-return ratio. Our tool helps you to achieve optimal diversification in order to reduce your risk. In doing so, we are guided by the current scientific standards of portfolio theory.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -201,7 +225,7 @@ exports[`LandingPage should render landingPage 1`] = `
       </div>
     </div>
     <div
-      class="MuiBox-root MuiBox-root-25"
+      class="MuiBox-root MuiBox-root-27"
     >
       <div
         class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-direction-xs-column"
@@ -224,7 +248,7 @@ exports[`LandingPage should render landingPage 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root makeStyles-smallIcon-9"
+              class="MuiSvgIcon-root makeStyles-smallIcon-10"
               focusable="false"
               viewBox="0 0 24 24"
             >
@@ -245,7 +269,7 @@ exports[`LandingPage should render landingPage 1`] = `
               ..to be a successful investor, initially, you
                
               <span
-                class="makeStyles-span-10"
+                class="makeStyles-span-11"
               >
                 need no assets
               </span>
@@ -261,7 +285,7 @@ exports[`LandingPage should render landingPage 1`] = `
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root makeStyles-smallIcon-9"
+              class="MuiSvgIcon-root makeStyles-smallIcon-10"
               focusable="false"
               viewBox="0 0 24 24"
             >
@@ -279,14 +303,14 @@ exports[`LandingPage should render landingPage 1`] = `
               ..we only work with
                
               <span
-                class="makeStyles-span-10"
+                class="makeStyles-span-11"
               >
                 commission-free products
               </span>
               , stocks and ETFs. This ensures that we pursue the
                
               <span
-                class="makeStyles-span-10"
+                class="makeStyles-span-11"
               >
                 same interests 
               </span>
@@ -337,7 +361,7 @@ exports[`LandingPage should render landingPage 1`] = `
       </div>
     </div>
     <div
-      class="MuiBox-root MuiBox-root-34 makeStyles-boxMain-28"
+      class="MuiBox-root MuiBox-root-36 makeStyles-boxMain-30"
     >
       <div
         class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4 MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
@@ -347,7 +371,7 @@ exports[`LandingPage should render landingPage 1`] = `
           class="MuiGrid-root MuiGrid-item"
         >
           <img
-            class="MuiCardMedia-root makeStyles-mediaLarge-26 MuiCardMedia-media MuiCardMedia-img"
+            class="MuiCardMedia-root makeStyles-mediaLarge-28 MuiCardMedia-media MuiCardMedia-img"
             src="media2.png"
           />
         </div>
@@ -365,7 +389,7 @@ exports[`LandingPage should render landingPage 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="MuiSvgIcon-root makeStyles-success-31 makeStyles-largeIcon-29"
+                class="MuiSvgIcon-root makeStyles-success-33 makeStyles-largeIcon-31"
                 focusable="false"
                 viewBox="0 0 24 24"
               >
@@ -399,7 +423,7 @@ exports[`LandingPage should render landingPage 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="MuiSvgIcon-root makeStyles-warning-32 makeStyles-largeIcon-29"
+                class="MuiSvgIcon-root makeStyles-warning-34 makeStyles-largeIcon-31"
                 focusable="false"
                 viewBox="0 0 24 24"
               >
@@ -432,7 +456,7 @@ exports[`LandingPage should render landingPage 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="MuiSvgIcon-root makeStyles-span-30 makeStyles-largeIcon-29"
+                class="MuiSvgIcon-root makeStyles-span-32 makeStyles-largeIcon-31"
                 focusable="false"
                 viewBox="0 0 24 24"
               >
@@ -465,7 +489,7 @@ exports[`LandingPage should render landingPage 1`] = `
             >
               <svg
                 aria-hidden="true"
-                class="MuiSvgIcon-root makeStyles-error-33 makeStyles-largeIcon-29"
+                class="MuiSvgIcon-root makeStyles-error-35 makeStyles-largeIcon-31"
                 focusable="false"
                 viewBox="0 0 24 24"
               >
@@ -493,7 +517,7 @@ exports[`LandingPage should render landingPage 1`] = `
       </div>
     </div>
     <div
-      class="MuiBox-root MuiBox-root-36"
+      class="MuiBox-root MuiBox-root-38"
     >
       <div
         class="MuiGrid-root MuiGrid-container"
@@ -514,7 +538,7 @@ exports[`LandingPage should render landingPage 1`] = `
         </div>
       </div>
       <div
-        class="MuiBox-root MuiBox-root-37"
+        class="MuiBox-root MuiBox-root-39"
       >
         <div
           class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
@@ -531,7 +555,7 @@ exports[`LandingPage should render landingPage 1`] = `
                 class="MuiGridListTile-tile"
               >
                 <img
-                  class="MuiCardMedia-root makeStyles-logo-35 MuiCardMedia-media MuiCardMedia-img"
+                  class="MuiCardMedia-root makeStyles-logo-37 MuiCardMedia-media MuiCardMedia-img"
                   src="180.png"
                 />
               </div>
@@ -544,7 +568,7 @@ exports[`LandingPage should render landingPage 1`] = `
                 class="MuiGridListTile-tile"
               >
                 <img
-                  class="MuiCardMedia-root makeStyles-logo-35 MuiCardMedia-media MuiCardMedia-img"
+                  class="MuiCardMedia-root makeStyles-logo-37 MuiCardMedia-media MuiCardMedia-img"
                   src="getThumb.gif"
                 />
               </div>
@@ -557,7 +581,7 @@ exports[`LandingPage should render landingPage 1`] = `
                 class="MuiGridListTile-tile"
               >
                 <img
-                  class="MuiCardMedia-root makeStyles-logo-35 MuiCardMedia-media MuiCardMedia-img"
+                  class="MuiCardMedia-root makeStyles-logo-37 MuiCardMedia-media MuiCardMedia-img"
                   src="tumlogo.png"
                 />
               </div>
@@ -570,7 +594,7 @@ exports[`LandingPage should render landingPage 1`] = `
                 class="MuiGridListTile-tile"
               >
                 <img
-                  class="MuiCardMedia-root makeStyles-logo-35 MuiCardMedia-media MuiCardMedia-img"
+                  class="MuiCardMedia-root makeStyles-logo-37 MuiCardMedia-media MuiCardMedia-img"
                   src="manage.png"
                 />
               </div>
@@ -583,7 +607,7 @@ exports[`LandingPage should render landingPage 1`] = `
                 class="MuiGridListTile-tile"
               >
                 <img
-                  class="MuiCardMedia-root makeStyles-logo-35 MuiCardMedia-media MuiCardMedia-img"
+                  class="MuiCardMedia-root makeStyles-logo-37 MuiCardMedia-media MuiCardMedia-img"
                   src="tech-talents.png"
                 />
               </div>
@@ -596,7 +620,7 @@ exports[`LandingPage should render landingPage 1`] = `
                 class="MuiGridListTile-tile"
               >
                 <img
-                  class="MuiCardMedia-root makeStyles-logo-35 MuiCardMedia-media MuiCardMedia-img"
+                  class="MuiCardMedia-root makeStyles-logo-37 MuiCardMedia-media MuiCardMedia-img"
                   src="start.png"
                 />
               </div>
