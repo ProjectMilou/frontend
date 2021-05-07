@@ -3,49 +3,61 @@
 exports[`AboutUs should render aboutus-page 1`] = `
 <div>
   <div
-    class="MuiBox-root MuiBox-root-1"
+    class="MuiBox-root MuiBox-root-2"
   >
     <div
-      class="MuiBox-root MuiBox-root-2"
-    >
-      <h3
-        class="MuiTypography-root MuiTypography-h3 MuiTypography-alignCenter"
-        style="margin-top: 16px; margin-bottom: 8px;"
-      >
-        Our Team
-      </h3>
-      <p
-        class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter"
-      >
-        Apps like Trade Republic and other direct brokers make investing easier and easier. The stock market is now accessible to everyone. Even so, many individuals do not have access to tools to make informed and informed investment decisions. Current solutions are often confusing and tailored to professional investors. This is exactly where we attack.
-      </p>
-    </div>
-    <div
       class="MuiBox-root MuiBox-root-3"
-      style="padding: 80px; display: flex; justify-content: center;"
     >
-      <p
-        class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter"
+      <div
+        class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column MuiGrid-align-items-xs-center"
       >
-        Apps like Trade Republic and other direct brokers make investing easier and easier. The stock market is now accessible to everyone. Even so, many individuals do not have access to tools to make informed and informed investment decisions. Current solutions are often confusing and tailored to professional investors. This is exactly where we attack.
-      </p>
+        <div
+          class="MuiGrid-root MuiGrid-item"
+        >
+          <h3
+            class="MuiTypography-root MuiTypography-h3 MuiTypography-alignCenter"
+            style="margin-top: 16px; margin-bottom: 16px;"
+          >
+            Our Team
+          </h3>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item"
+        >
+          <p
+            class="MuiTypography-root makeStyles-boxClass-1 MuiTypography-body1 MuiTypography-alignCenter"
+          >
+            Apps like Trade Republic and other direct brokers make investing easier and easier. The stock market is now accessible to everyone. Even so, many individuals do not have access to tools to make informed and informed investment decisions. Current solutions are often confusing and tailored to professional investors. This is exactly where we attack.
+          </p>
+        </div>
+      </div>
     </div>
     <div
       class="MuiBox-root MuiBox-root-4"
+      style="display: flex; justify-content: center;"
+    >
+      <p
+        class="MuiTypography-root makeStyles-boxClass-1 MuiTypography-body1 MuiTypography-alignCenter"
+      >
+        Apps like Trade Republic and other direct brokers make investing easier and easier. The stock market is now accessible to everyone. Even so, many individuals do not have access to tools to make informed and informed investment decisions. Current solutions are often confusing and tailored to professional investors. This is exactly where we attack.
+      </p>
+    </div>
+    <div
+      class="MuiBox-root MuiBox-root-5 makeStyles-boxClass-1"
     >
       <div
-        class="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-space-evenly"
+        class="MuiGrid-root MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-xs-space-evenly"
       >
         <div
           class="MuiGrid-root MuiGrid-item"
         >
           <div
-            class="MuiBox-root MuiBox-root-5"
+            class="MuiBox-root MuiBox-root-6"
             justify-content="center"
           >
             <div
-              class="MuiAvatar-root MuiAvatar-circular"
-              style="width: 340px; height: 340px;"
+              class="MuiAvatar-root MuiAvatar-circle"
+              style="width: 230px; height: 230px;"
             >
               <img
                 class="MuiAvatar-img"
@@ -141,12 +153,12 @@ exports[`AboutUs should render aboutus-page 1`] = `
           class="MuiGrid-root MuiGrid-item"
         >
           <div
-            class="MuiBox-root MuiBox-root-6"
+            class="MuiBox-root MuiBox-root-7"
             justify-content="center"
           >
             <div
-              class="MuiAvatar-root MuiAvatar-circular"
-              style="width: 340px; height: 340px;"
+              class="MuiAvatar-root MuiAvatar-circle"
+              style="width: 230px; height: 230px;"
             >
               <img
                 class="MuiAvatar-img"
@@ -242,12 +254,12 @@ exports[`AboutUs should render aboutus-page 1`] = `
           class="MuiGrid-root MuiGrid-item"
         >
           <div
-            class="MuiBox-root MuiBox-root-7"
+            class="MuiBox-root MuiBox-root-8"
             justify-content="center"
           >
             <div
-              class="MuiAvatar-root MuiAvatar-circular"
-              style="width: 340px; height: 340px;"
+              class="MuiAvatar-root MuiAvatar-circle"
+              style="width: 230px; height: 230px;"
             >
               <img
                 class="MuiAvatar-img"
@@ -342,7 +354,7 @@ exports[`AboutUs should render aboutus-page 1`] = `
       </div>
     </div>
     <div
-      class="MuiBox-root MuiBox-root-9"
+      class="MuiBox-root MuiBox-root-10"
     >
       <div
         class="MuiGrid-root MuiGrid-container"
@@ -363,7 +375,7 @@ exports[`AboutUs should render aboutus-page 1`] = `
         </div>
       </div>
       <div
-        class="MuiBox-root MuiBox-root-10"
+        class="MuiBox-root MuiBox-root-11"
       >
         <div
           class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
@@ -380,7 +392,7 @@ exports[`AboutUs should render aboutus-page 1`] = `
                 class="MuiGridListTile-tile"
               >
                 <img
-                  class="MuiCardMedia-root makeStyles-logo-8 MuiCardMedia-media MuiCardMedia-img"
+                  class="MuiCardMedia-root makeStyles-logo-9 MuiCardMedia-media MuiCardMedia-img"
                   src="180.png"
                 />
               </div>
@@ -393,7 +405,7 @@ exports[`AboutUs should render aboutus-page 1`] = `
                 class="MuiGridListTile-tile"
               >
                 <img
-                  class="MuiCardMedia-root makeStyles-logo-8 MuiCardMedia-media MuiCardMedia-img"
+                  class="MuiCardMedia-root makeStyles-logo-9 MuiCardMedia-media MuiCardMedia-img"
                   src="getThumb.gif"
                 />
               </div>
@@ -406,7 +418,7 @@ exports[`AboutUs should render aboutus-page 1`] = `
                 class="MuiGridListTile-tile"
               >
                 <img
-                  class="MuiCardMedia-root makeStyles-logo-8 MuiCardMedia-media MuiCardMedia-img"
+                  class="MuiCardMedia-root makeStyles-logo-9 MuiCardMedia-media MuiCardMedia-img"
                   src="tumlogo.png"
                 />
               </div>
@@ -419,7 +431,7 @@ exports[`AboutUs should render aboutus-page 1`] = `
                 class="MuiGridListTile-tile"
               >
                 <img
-                  class="MuiCardMedia-root makeStyles-logo-8 MuiCardMedia-media MuiCardMedia-img"
+                  class="MuiCardMedia-root makeStyles-logo-9 MuiCardMedia-media MuiCardMedia-img"
                   src="manage.png"
                 />
               </div>
@@ -432,7 +444,7 @@ exports[`AboutUs should render aboutus-page 1`] = `
                 class="MuiGridListTile-tile"
               >
                 <img
-                  class="MuiCardMedia-root makeStyles-logo-8 MuiCardMedia-media MuiCardMedia-img"
+                  class="MuiCardMedia-root makeStyles-logo-9 MuiCardMedia-media MuiCardMedia-img"
                   src="tech-talents.png"
                 />
               </div>
@@ -445,7 +457,7 @@ exports[`AboutUs should render aboutus-page 1`] = `
                 class="MuiGridListTile-tile"
               >
                 <img
-                  class="MuiCardMedia-root makeStyles-logo-8 MuiCardMedia-media MuiCardMedia-img"
+                  class="MuiCardMedia-root makeStyles-logo-9 MuiCardMedia-media MuiCardMedia-img"
                   src="start.png"
                 />
               </div>
