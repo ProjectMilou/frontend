@@ -7,30 +7,53 @@ import { MockPositions } from '../../portfolio/APIMocks';
 import { portfolioDashboard } from '../../portfolio/Router';
 import { theme } from '../App';
 
-const testName = 'My awesome portfolio';
+describe('DetailsHeader', () => {
+  const testName = 'My awesome portfolio';
 
-test('Details header renders correctly', async () => {
-  render(
-    <ThemeProvider theme={theme}>
-      <DetailsHeader
-        name={testName}
-        positions={MockPositions}
-        editPositions={jest.fn()}
-        id="TestId"
-        virtual
-      />
-    </ThemeProvider>
-  );
+  const renderComponent = () =>
+    render(
+      <ThemeProvider theme={theme}>
+        <DetailsHeader
+          name={testName}
+          positions={MockPositions}
+          editPositions={jest.fn()}
+          id="TestId"
+          virtual
+        />
+      </ThemeProvider>
+    );
 
-  screen.getByText(testName);
+  test('Details header renders correctly', async () => {
+    renderComponent();
 
-  // testing back button
-  const backButton = screen.getByRole('button', { name: 'back' });
-  await userEvent.click(backButton);
-  expect(portfolioDashboard).toHaveBeenCalled();
+    screen.getByText(testName);
 
-  // testing edit button
-  expect(
-    screen.getByText('portfolio.details.editPortfolio')
-  ).toBeInTheDocument();
+    // testing back button
+    const backButton = screen.getByRole('button', { name: 'back' });
+    await userEvent.click(backButton);
+    expect(portfolioDashboard).toHaveBeenCalled();
+
+    // testing edit button
+    expect(
+      screen.getByText('portfolio.details.editPortfolio')
+    ).toBeInTheDocument();
+  });
+
+  test('Back button works', async () => {
+    renderComponent();
+
+    // testing back button
+    const backButton = screen.getByRole('button', { name: 'back' });
+    await userEvent.click(backButton);
+    expect(portfolioDashboard).toHaveBeenCalled();
+  });
+
+  test('Edit button works', async () => {
+    renderComponent();
+
+    // testing edit button
+    expect(
+      screen.getByText('portfolio.details.editPortfolio')
+    ).toBeInTheDocument();
+  });
 });
