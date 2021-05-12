@@ -12,9 +12,9 @@ import { RouteComponentProps } from '@reach/router';
 import ProfileCard from '../components/shell/landingPage/ProfileCard';
 import LogoCard from '../components/shell/landingPage/LogoCard';
 
-import linda from '../assets/images/linda.png';
-import chris from '../assets/images/chris.png';
-import julien from '../assets/images/julien.png';
+import leia from '../assets/images/leia.jpeg';
+import yoda from '../assets/images/yoda.jpeg';
+import luke from '../assets/images/luke.jpeg';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -83,32 +83,32 @@ const AboutUs: React.FC<RouteComponentProps> = () => {
         >
           <Grid item>
             <ProfileCard
-              name="Linda"
-              title="CO-FOUNDER"
-              content="Ich bin Social Entrepreneur. "
-              img={linda}
-              email="mailto:Linda.karger@manageandmore.de"
-              linkedinLink="https://www.linkedin.com/linda-karger"
+              name="Luke"
+              title="The good guy"
+              content="No One's Ever Really Gone."
+              img={luke}
+              email=""
+              linkedinLink=""
             />
           </Grid>
           <Grid item>
             <ProfileCard
-              name="Chris"
-              title="CO-FOUNDER"
-              content="Ich bin Networker."
-              img={chris}
-              email="mailto:Christoph.hanus@manageandmore.de"
-              linkedinLink="https://www.linkedin.com/christoph-hanus"
+              name="Leia"
+              title="Princess"
+              content="Pew pew!"
+              img={leia}
+              email=""
+              linkedinLink=""
             />
           </Grid>
           <Grid item>
             <ProfileCard
-              name="Julien"
-              title="CO-FOUNDER"
-              content="Ich bin Stratege."
-              img={julien}
-              email="mailto:Julien.Schmidt@manageandmore.de"
-              linkedinLink="https://www.linkedin.com/schmidt-julien"
+              name="Yoda"
+              title="Jedi"
+              content="Funny, this should be."
+              img={yoda}
+              email=""
+              linkedinLink=""
             />
           </Grid>
         </Grid>

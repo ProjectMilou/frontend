@@ -3,7 +3,7 @@ import { createStyles, makeStyles, useTheme } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import logo from '../../../assets/images/logo1.png';
+import logo from '../../../assets/images/placeholder.png';
 import LoginForm from './LoginForm';
 import WelcomeWindow from './WelcomeWindow';
 

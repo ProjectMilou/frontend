@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles, createStyles, useTheme } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import PropTypes from 'prop-types';
-import logo from '../../../assets/images/logo1.png';
+import logo from '../../../assets/images/placeholder.png';
 import ResetForm from './ResetForm';
 import ResetSuccessWindow from './ResetSuccessWindow';
 

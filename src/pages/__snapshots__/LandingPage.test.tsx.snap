@@ -13,7 +13,7 @@ exports[`LandingPage should render landingPage 1`] = `
       >
         <img
           alt="2020-12-15 Logo hell"
-          src="milou.png"
+          src="placeholder.png"
           title="2020-12-15 Logo hell"
         />
       </div>
@@ -557,7 +557,7 @@ exports[`LandingPage should render landingPage 1`] = `
             >
               <img
                 class="MuiCardMedia-root makeStyles-logo-36 MuiCardMedia-media MuiCardMedia-img"
-                src="180.png"
+                src="placeholder.png"
               />
             </div>
           </li>
@@ -570,7 +570,7 @@ exports[`LandingPage should render landingPage 1`] = `
             >
               <img
                 class="MuiCardMedia-root makeStyles-logo-36 MuiCardMedia-media MuiCardMedia-img"
-                src="getThumb.gif"
+                src="placeholder.png"
               />
             </div>
           </li>
@@ -583,7 +583,7 @@ exports[`LandingPage should render landingPage 1`] = `
             >
               <img
                 class="MuiCardMedia-root makeStyles-logo-36 MuiCardMedia-media MuiCardMedia-img"
-                src="tumlogo.png"
+                src="placeholder.png"
               />
             </div>
           </li>
@@ -596,7 +596,7 @@ exports[`LandingPage should render landingPage 1`] = `
             >
               <img
                 class="MuiCardMedia-root makeStyles-logo-36 MuiCardMedia-media MuiCardMedia-img"
-                src="manage.png"
+                src="placeholder.png"
               />
             </div>
           </li>
@@ -609,7 +609,7 @@ exports[`LandingPage should render landingPage 1`] = `
             >
               <img
                 class="MuiCardMedia-root makeStyles-logo-36 MuiCardMedia-media MuiCardMedia-img"
-                src="tech-talents.png"
+                src="placeholder.png"
               />
             </div>
           </li>
@@ -622,7 +622,7 @@ exports[`LandingPage should render landingPage 1`] = `
             >
               <img
                 class="MuiCardMedia-root makeStyles-logo-36 MuiCardMedia-media MuiCardMedia-img"
-                src="start.png"
+                src="placeholder.png"
               />
             </div>
           </li>

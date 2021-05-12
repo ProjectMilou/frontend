@@ -9,7 +9,7 @@ import {
   makeStyles,
 } from '@material-ui/core';
 
-import milou from '../../../assets/images/milou.png';
+import img from '../../../assets/images/placeholder.png';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,7 +41,7 @@ const Card: React.FC = () => {
       <Grid container direction="column" alignItems="center" wrap="nowrap">
         <Grid item>
           <img
-            src={milou}
+            src={img}
             title="2020-12-15 Logo hell"
             alt="2020-12-15 Logo hell"
           />
