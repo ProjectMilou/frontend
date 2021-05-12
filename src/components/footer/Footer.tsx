@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import { Link } from '@reach/router';
 import { useTranslation } from 'react-i18next';
-import logo from '../../assets/images/logo2.png';
+import img from '../../assets/images/placeholder.png';
 import Ellipse from './Ellipse';
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -66,7 +66,7 @@ const Footer: React.FC = () => {
         </Grid>
         <Grid container xs={4} justify="center" item>
           <Grid item>
-            <img src={logo} alt="milou-logo" className={classes.logo} />
+            <img src={img} alt="milou-logo" className={classes.logo} />
           </Grid>
         </Grid>
 

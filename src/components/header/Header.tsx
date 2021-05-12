@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { Link } from '@reach/router';
 import { useTranslation } from 'react-i18next';
-import logo from '../../assets/images/logo1.png';
+import logo from '../../assets/images/placeholder.png';
 import NavLink from './NavLink';
 import Login from '../shell/login/Login';
 import UserService from '../../services/UserService';

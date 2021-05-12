@@ -8,92 +8,15 @@ exports[`Imprint should render imprint page 1`] = `
     <div
       class="MuiBox-root MuiBox-root-1"
     >
-      <h2
-        class="MuiTypography-root MuiTypography-h2"
+      <h3
+        class="MuiTypography-root MuiTypography-h3 MuiTypography-gutterBottom"
       >
         Imprint
-      </h2>
-      <div
-        class="MuiBox-root MuiBox-root-2"
-      >
-        <div
-          class="MuiBox-root MuiBox-root-3"
-        >
-          <h4
-            class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom"
-          >
-            In Accordance with Section 5 TMG
-          </h4>
-          <p
-            class="MuiTypography-root MuiTypography-body1"
-          >
-            Christoph Hanus
-            <br />
-            Max-Bill-Straße 67
-            <br />
-            80807 München
-          </p>
-        </div>
-        <div
-          class="MuiBox-root MuiBox-root-4"
-        >
-          <h4
-            class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom"
-          >
-            Contact
-          </h4>
-          <p
-            class="MuiTypography-root MuiTypography-body1"
-          >
-            <a
-              href="mailto:info@milou.io"
-            >
-              info@milou.io
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div
-      class="MuiBox-root MuiBox-root-5"
-    >
-      <h3
-        class="MuiTypography-root MuiTypography-h3 MuiTypography-gutterBottom"
-      >
-        Accountability for Content
       </h3>
       <p
         class="MuiTypography-root MuiTypography-body1"
       >
-        The contents of our pages have been created with the utmost care. However, we cannot guarantee the content's accuracy, completeness or topicality. According to statutory provisions, we are furthermore responsible for our own content on these web pages. In this matter, please note that we are not obliged to monitor the transmitted or saved information of third parties, or investigate circumstances pointing to illegal activity. Our obligations to remove or block the use of information under generally applicable laws remain unaffected by this as per §§ 8 to 10 of the Telemedia Act (TMG).
-      </p>
-    </div>
-    <div
-      class="MuiBox-root MuiBox-root-6"
-    >
-      <h3
-        class="MuiTypography-root MuiTypography-h3 MuiTypography-gutterBottom"
-      >
-        Accountability for Links
-      </h3>
-      <p
-        class="MuiTypography-root MuiTypography-body1"
-      >
-        Responsibility for the content of external links (to web pages of third parties) lies solely with the operators of the linked pages. No violations were evident to us at the time of linking. Should any legal infringement become known to us, we will remove the respective link immediately.
-      </p>
-    </div>
-    <div
-      class="MuiBox-root MuiBox-root-7"
-    >
-      <h3
-        class="MuiTypography-root MuiTypography-h3 MuiTypography-gutterBottom"
-      >
-        Copyright
-      </h3>
-      <p
-        class="MuiTypography-root MuiTypography-body1"
-      >
-        Our web pages and their contents are subject to German copyright law. Unless expressly permitted by law, every form of utilizing, reproducing or processing works subject to copyright protection on our web pages requires the prior consent of the respective owner of the rights. Individual reproductions of a work are only allowed for private use. The materials from these pages are copyrighted and any unauthorized use may violate copyright laws.
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
       </p>
     </div>
   </div>

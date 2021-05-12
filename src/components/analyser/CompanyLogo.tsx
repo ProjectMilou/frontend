@@ -1,6 +1,6 @@
 import React from 'react';
 import { Stock } from '../../analyser/APIClient';
-import logo from '../../assets/images/logo1.png';
+import logo from '../../assets/images/placeholder.png';
 
 type LogoProps = {
   stockOverview: Stock;
